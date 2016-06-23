@@ -25,13 +25,27 @@ export default class AlbumManager extends React.Component {
                     thumbnail: '../../assets/images/icons/new-album.svg'
                 }
             ],
-            open: true
+            open: true,
+            width: window.innerWidth * 0.3
         };
+    }
+
+    updateDimensions = () => {
+        this.setState({width: window.innerWidth * 0.3});
+    }
+    componentWillMount() {
+        this.updateDimensions();
+    }
+    componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
     }
 
     render() {
         const albums = this.state.albums;
-        if(this.state.open) {
+        if(this.props.managerOpen) {
             return this.openedManager();
         }
 
@@ -48,8 +62,8 @@ export default class AlbumManager extends React.Component {
         return (
             <section style={style} className="album-manager">
                 <AlbumToggler
-                    open={this.state.open}
-                    toggle={this.toggle}
+                    managerOpen={this.props.managerOpen}
+                    toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums albums={albums} onEdit={this.editAlbum}/>
             </section>
@@ -58,16 +72,18 @@ export default class AlbumManager extends React.Component {
 
     closedManager = () => {
         const albums = this.state.albums;
+        var albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
+
         var style = {
             height: window.innerHeight - 60,
-            right: -1 * document.getElementsByClassName('album-manager')[0].clientWidth + 40
+            right: -1 * albumManagerWidth + 40
         };
 
         return (
             <section style={style} className="album-manager">
                 <AlbumToggler
-                    open={this.state.open}
-                    toggle={this.toggle}
+                    managerOpen={this.props.managerOpen}
+                    toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums albums={albums} onEdit={this.editAlbum}/>
             </section>
@@ -82,6 +98,12 @@ export default class AlbumManager extends React.Component {
                 thumbnail: '../../assets/images/icons/new-album.svg'
             }])
         });
+
+        if(!this.state.open) {
+            this.setState({
+                open: true
+            });
+        }
     };
 
     editAlbum = (id, name) => {
@@ -99,11 +121,5 @@ export default class AlbumManager extends React.Component {
         });
 
         this.setState({albums});
-    };
-
-    toggle = () => {
-        this.setState({
-            open: !this.state.open
-        });
     };
 }

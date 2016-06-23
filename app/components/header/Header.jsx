@@ -30,15 +30,19 @@ export default class Header extends React.Component {
         	    	</div>
         	    	<SearchBar
                         searchOpen={this.state.searchOpen}
-                        openSearch={this.toggle}/>
+                        toggleSearch={this.toggleSearch}/>
         	    </div>
         	</header>
         );
     }
 
-    toggle = () => {
+    toggleSearch = () => {
         this.setState({
             searchOpen: !this.state.searchOpen
         });
+
+        if(!this.state.searchOpen) {
+            document.getElementById("search").value = "";
+        }
     };
 }

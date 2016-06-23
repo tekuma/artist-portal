@@ -8,7 +8,8 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            navOpen: false
+            navOpen: false, // Used to track whether Hidden Navigation is open
+            managerOpen: true   // Used to track whether Album Manager is open
         };
     }
 
@@ -16,19 +17,27 @@ export default class App extends React.Component {
         return (
             <div className="app">
                 <HiddenNav
-                    navOpen={this.state.navOpen}/>
+                    navOpen={this.state.navOpen} />
                 <HamburgerIcon
-                    openNav={this.toggle}
-                    navOpen={this.state.navOpen}/>
+                    toggleNav={this.toggleNav}
+                    navOpen={this.state.navOpen} />
                 <MainLayout
-                    navOpen={this.state.navOpen}/>
+                    navOpen={this.state.navOpen}
+                    toggleManager={this.toggleManager}
+                    managerOpen={this.state.managerOpen} />
             </div>
         );
     }
 
-    toggle = () => {
+    toggleNav = () => {
         this.setState({
             navOpen: !this.state.navOpen
+        });
+    };
+
+    toggleManager = () => {
+        this.setState({
+            managerOpen: !this.state.managerOpen
         });
     };
 }

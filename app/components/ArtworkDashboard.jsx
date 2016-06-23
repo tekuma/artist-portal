@@ -31,8 +31,16 @@ export default class ArtworkDashboard extends React.Component {
     render() {
         const artworks = this.artworks;
 
+        var styleManagerClosed = {
+            width: window.innerWidth - 40
+        };
+
+        var styleSmallScreen = {
+            width: window.innerWidth - 250
+        };
+
         return (
-            <main>{artworks.map(artwork => {
+            <main style={this.props.managerOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >{artworks.map(artwork => {
                     return (
                         <Artwork key={artwork.id} artwork={artwork} />
                     );
