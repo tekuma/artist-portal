@@ -2,6 +2,13 @@ import React from 'react';
 import SearchBar from './SearchBar.jsx';
 
 export default class Header extends React.Component {
+    constructor(props) {
+        super();
+
+        this.state = {
+            searchOpen: false
+        };
+    }
     render() {
         return (
             <header className="blue">
@@ -10,7 +17,7 @@ export default class Header extends React.Component {
                         <img id="tekuma-logo-image" src='assets/images/tekuma-white.svg' />
             		</a>
             	</div>
-            	<div className="header-icons">
+            	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
         	    	<div className="header-icon" title="Upload Artworks">
         	    		<a href="/">
                             <img src='assets/images/icons/plus-pink.svg' />
@@ -21,9 +28,17 @@ export default class Header extends React.Component {
                             <img src='assets/images/icons/organize.svg' />
         	    		</a>
         	    	</div>
-        	    	<SearchBar />
+        	    	<SearchBar
+                        searchOpen={this.state.searchOpen}
+                        openSearch={this.toggle}/>
         	    </div>
         	</header>
         );
     }
+
+    toggle = () => {
+        this.setState({
+            searchOpen: !this.state.searchOpen
+        });
+    };
 }

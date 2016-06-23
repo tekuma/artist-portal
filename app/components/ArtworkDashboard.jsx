@@ -1,9 +1,9 @@
 import React from 'react';
 import uuid from 'node-uuid';
-import Album from './artwork/Artwork.jsx';
+import Artwork from './artwork/Artwork.jsx';
 
 export default class ArtworkDashboard extends React.Component {
-    constructor() {
+    constructor(props) {
         super(props);
 
         this.artworks = [
@@ -32,11 +32,12 @@ export default class ArtworkDashboard extends React.Component {
         const artworks = this.artworks;
 
         return (
-            <main>{artworks.map(artwork =>
-                <Artwork key={artwork.id} artwork={artwork} />
-                )}
+            <main>{artworks.map(artwork => {
+                    return (
+                        <Artwork key={artwork.id} artwork={artwork} />
+                    );
+                })}
             </main>
-
         );
     }
 }

@@ -30,6 +30,7 @@ export default class AlbumManager extends React.Component {
     }
 
     render() {
+        const albums = this.state.albums;
         if(this.state.open) {
             return this.openedManager();
         }
@@ -104,6 +105,5 @@ export default class AlbumManager extends React.Component {
         this.setState({
             open: !this.state.open
         });
-        console.log(this.state.open);
     };
 }
