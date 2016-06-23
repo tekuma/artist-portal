@@ -16,7 +16,7 @@ export default ({albums, onEdit}) => {
                     </div>
                 </div>
                 <div className="album-writing">
-                    <h3 className="album-name">Uploads</h3>
+                    <h3 className="uploads-name">Uploads</h3>
                     <img className="album-more" src='assets/images/icons/download.svg' />
                 </div>
             </li>
