@@ -1,0 +1,53 @@
+{
+  "name": "art-onboarder",
+  "version": "1.0.0",
+  "description": "A Reactfire web application implementing an Art Onboarding application for use by Tekuma.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tekuma/art-onboarding.git"
+  },
+  "keywords": [
+    "tekuma",
+    "art",
+    "upload",
+    "artwork",
+    "artist",
+    "space"
+  ],
+  "author": "Stephen White, Afika Nyati, Kun Qian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tekuma/art-onboarding/issues"
+  },
+  "homepage": "https://github.com/tekuma/art-onboarding#readme",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.9.0",
+    "npm-install-webpack-plugin": "^4.0.3",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.14.0"
+  },
+  "dependencies": {
+    "assets": "^2.1.0",
+    "babel-preset-survivejs-kanban": "^0.3.3",
+    "node-uuid": "^1.4.7",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1"
+  }
+}
