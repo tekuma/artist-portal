@@ -9,7 +9,8 @@ export default class App extends React.Component {
 
         this.state = {
             navOpen: false, // Used to track whether Hidden Navigation is open
-            managerOpen: true   // Used to track whether Album Manager is open
+            managerOpen: true,   // Used to track whether Album Manager is open
+            currentAlbum: 'uploads' // Used to track the current album open
         };
     }
 
@@ -24,7 +25,9 @@ export default class App extends React.Component {
                 <MainLayout
                     navOpen={this.state.navOpen}
                     toggleManager={this.toggleManager}
-                    managerOpen={this.state.managerOpen} />
+                    managerOpen={this.state.managerOpen}
+                    currentAlbum={this.state.currentAlbum}
+                    changeAlbum={this.changeAlbum} />
             </div>
         );
     }
@@ -40,4 +43,12 @@ export default class App extends React.Component {
             managerOpen: !this.state.managerOpen
         });
     };
+
+    changeAlbum = (newAlbum) => {
+        var album = newAlbum.toLowerCase();
+
+        this.setState({
+            currentAlbum: album
+        });
+    }
 }

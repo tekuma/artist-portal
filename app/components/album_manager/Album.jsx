@@ -20,7 +20,7 @@ export default class Album extends React.Component {
 
     renderEdit = () => {
         return (
-            <li className="album">
+            <li className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <img className="avatar-container" src={this.props.album.thumbnail} />
                 </div>
@@ -43,7 +43,7 @@ export default class Album extends React.Component {
 
     renderAlbum = () => {
         return (
-            <li className="album">
+            <li onClick={this.props.changeAlbum} className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <img className="avatar-container" src={this.props.album.thumbnail} />
                 </div>

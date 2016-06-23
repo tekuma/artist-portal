@@ -12,26 +12,25 @@ export default class AlbumManager extends React.Component {
                 {
                     id: uuid.v4(),
                     name: 'Sunsets',
-                    thumbnail: '../../assets/images/sunset.jpg'
+                    thumbnail: '../../assets/images/sunset-1.jpg'
                 },
                 {
                     id: uuid.v4(),
                     name: 'Elephants',
-                    thumbnail: '../../assets/images/elephant.jpg'
+                    thumbnail: '../../assets/images/elephant-1.jpg'
                 },
                 {
                     id: uuid.v4(),
-                    name: 'Untitled',
+                    name: 'Untitled 1',
                     thumbnail: '../../assets/images/icons/new-album.svg'
                 }
             ],
-            open: true,
-            width: window.innerWidth * 0.3
+            open: true
         };
     }
 
     updateDimensions = () => {
-        this.setState({width: window.innerWidth * 0.3});
+        this.setState({});
     }
     componentWillMount() {
         this.updateDimensions();
@@ -65,7 +64,11 @@ export default class AlbumManager extends React.Component {
                     managerOpen={this.props.managerOpen}
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
-                <Albums albums={albums} onEdit={this.editAlbum}/>
+                <Albums
+                    albums={albums}
+                    onEdit={this.editAlbum}
+                    currentAlbum={this.props.currentAlbum}
+                    changeAlbum={this.props.changeAlbum} />
             </section>
         );
     };
@@ -85,16 +88,23 @@ export default class AlbumManager extends React.Component {
                     managerOpen={this.props.managerOpen}
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
-                <Albums albums={albums} onEdit={this.editAlbum}/>
+                <Albums
+                    albums={albums}
+                    onEdit={this.editAlbum}
+                    currentAlbum={this.props.currentAlbum}
+                    changeAlbum={this.props.changeAlbum} />
             </section>
         );
     }
 
     addAlbum = () => {
+
+        var newAlbumName = this.getUniqueNewAlbumName();
+
         this.setState({
             albums: this.state.albums.concat([{
                 id: uuid.v4(),
-                name: 'Untitled',
+                name: newAlbumName,
                 thumbnail: '../../assets/images/icons/new-album.svg'
             }])
         });
@@ -122,4 +132,23 @@ export default class AlbumManager extends React.Component {
 
         this.setState({albums});
     };
+
+    getUniqueNewAlbumName = () => {
+        var numUntitledAlbums = 0;
+
+        for(var i = 0; i < this.state.albums.length; i++) {
+            var albumName = this.state.albums[i].name;
+
+            var isUntitledAlbum = albumName.search("Untitled");  // Returns position of beginning of term, otherwise -1
+
+            if(isUntitledAlbum != -1) {
+                numUntitledAlbums += 1;
+            }
+        }
+
+        numUntitledAlbums += 1; // Used to increment
+        var nextAlbumName = "Untitled " + numUntitledAlbums.toString();
+
+        return nextAlbumName;
+    }
 }
