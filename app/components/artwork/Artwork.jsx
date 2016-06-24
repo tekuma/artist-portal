@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({artwork}) => {
+export default ({artwork, onDelete}) => {
     return (
         <article className="artwork">
             <div className="artwork-image">
@@ -9,7 +9,10 @@ export default ({artwork}) => {
             <div className="artwork-info">
                 <h3 className="artwork-name">{artwork.title}</h3>
                 <h4 className="artwork-date">{artwork.year}</h4>
-                <img className="artwork-more" src='assets/images/icons/more-black.svg' />
+                <img
+                    className="artwork-more"
+                    onClick={onDelete}
+                    src='assets/images/icons/more-black.svg' />
             </div>
         </article>
     );

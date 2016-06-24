@@ -49,13 +49,19 @@ export default class Album extends React.Component {
                 </div>
                 <div className="album-writing">
                     <h3 onClick={this.edit} className="album-name">{this.props.album.name}</h3>
-                    <img className="album-more" src='assets/images/icons/more-white.svg' />
+                    <img
+                        className="album-more"
+                        onClick={this.props.onDelete}
+                        src='assets/images/icons/more-white.svg' />
                 </div>
             </li>
         );
     };
 
-    edit = () => {
+    edit = (e) => {
+        // Avoid bubbling to click that opens up album view
+        e.stopPropagation();
+
         // Enter edit mode.
         this.setState({
             editing: true

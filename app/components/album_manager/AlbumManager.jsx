@@ -2,31 +2,17 @@ import React from 'react';
 import uuid from 'node-uuid';
 import AlbumToggler from './AlbumToggler.jsx';
 import Albums from './Albums.jsx';
+import AlbumActions from '../../actions/AlbumActions';
+import AlbumStore from '../../stores/AlbumStore';
 
 export default class AlbumManager extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            albums: [
-                {
-                    id: uuid.v4(),
-                    name: 'Sunsets',
-                    thumbnail: '../../assets/images/sunset-1.jpg'
-                },
-                {
-                    id: uuid.v4(),
-                    name: 'Elephants',
-                    thumbnail: '../../assets/images/elephant-1.jpg'
-                },
-                {
-                    id: uuid.v4(),
-                    name: 'Untitled 1',
-                    thumbnail: '../../assets/images/icons/new-album.svg'
-                }
-            ],
-            open: true
-        };
+            open: true,
+            albums: AlbumStore.getState().albums
+        }
     }
 
     updateDimensions = () => {
@@ -37,10 +23,19 @@ export default class AlbumManager extends React.Component {
     }
     componentDidMount() {
         window.addEventListener("resize", this.updateDimensions);
+        AlbumStore.listen(this.storeChanged);
     }
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
+        AlbumStore.unlisten(this.storeChanged);
     }
+
+    storeChanged = (state) => {
+        // Without a property initializer 'this' wouldn't
+        // point at the right context because it defaults to
+        // 'undefined' in strict mode.
+        this.setState(state);
+    };
 
     render() {
         const albums = this.state.albums;
@@ -67,6 +62,7 @@ export default class AlbumManager extends React.Component {
                 <Albums
                     albums={albums}
                     onEdit={this.editAlbum}
+                    onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum} />
             </section>
@@ -91,6 +87,7 @@ export default class AlbumManager extends React.Component {
                 <Albums
                     albums={albums}
                     onEdit={this.editAlbum}
+                    onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum} />
             </section>
@@ -101,12 +98,9 @@ export default class AlbumManager extends React.Component {
 
         var newAlbumName = this.getUniqueNewAlbumName();
 
-        this.setState({
-            albums: this.state.albums.concat([{
-                id: uuid.v4(),
-                name: newAlbumName,
-                thumbnail: '../../assets/images/icons/new-album.svg'
-            }])
+        AlbumActions.create({
+            name: newAlbumName,
+            thumbnail: '../../assets/images/icons/new-album.svg'
         });
 
         if(!this.state.open) {
@@ -122,15 +116,14 @@ export default class AlbumManager extends React.Component {
             return;
         }
 
-        const albums = this.state.albums.map(album => {
-            if(album.id === id && name) {
-                album.name = name;
-            }
+        AlbumActions.update({id, name});
+    };
 
-            return album;
-        });
+    deleteAlbum = (id, e) => {
+        // Avoid bubbling to edit
+        e.stopPropagation();
 
-        this.setState({albums});
+        AlbumActions.delete(id);
     };
 
     getUniqueNewAlbumName = () => {
