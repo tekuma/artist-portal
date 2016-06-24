@@ -120,18 +120,19 @@ class ArtworkStore {
             return artwork;
         });
 
-        artworkAlbums = this.artworkAlbums[album];
+        var artworkAlbums = this.artworkAlbums;
         artworkAlbums[album] = artworks;
 
         this.setState({artworkAlbums});
     }
 
-    delete(album, id) {
-        console.log(album);
-        const artworks = this.artworkAlbums[album].filter(artwork => artwork.id !== id);
-        artworkAlbums = this.artworkAlbums[album];
-        artworkAlbums[album] = artworks;
+    delete(args) {
+        // for some reason the two arguments 'album' (album of artwork) and 'id' (id of artwork)
+        // come in an array, so I have to use args[i] to fetch them
+        const artworks = this.artworkAlbums[args[0]].filter(artwork => artwork.id !== args[1]);
 
+        var artworkAlbums = this.artworkAlbums;
+        artworkAlbums[args[0]] = artworks;
         this.setState({artworkAlbums});
     }
 }

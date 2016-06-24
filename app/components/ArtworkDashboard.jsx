@@ -8,7 +8,9 @@ export default class ArtworkDashboard extends React.Component {
     constructor(props) {
         super(props);
 
-        this.album = ArtworkStore.getState().artworkAlbums[this.props.currentAlbum];
+        this.state = {
+            album: ArtworkStore.getState().artworkAlbums[this.props.currentAlbum]
+        }
     }
 
     componentDidMount() {
@@ -20,15 +22,19 @@ export default class ArtworkDashboard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.album = ArtworkStore.getState().artworkAlbums[nextProps.currentAlbum];
+        this.state.album = ArtworkStore.getState().artworkAlbums[nextProps.currentAlbum];
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into album
     }
 
-    storeChanged = (state) => {
+    storeChanged = (store) => {
         // Without a property initializer `this` wouldn't
         // point at the right context because it defaults to
         // `undefined` in strict mode.
-        this.setState(state);
+        this.setState({
+            album: store.artworkAlbums[this.props.currentAlbum]
+        });
+
+        console.log('entered storeChanged', store.artworkAlbums[this.props.currentAlbum]);
     };
 
     render() {
@@ -40,7 +46,7 @@ export default class ArtworkDashboard extends React.Component {
     }
 
     renderArtworks = () => {
-        const album = this.album
+        const album = this.state.album
 
         var styleManagerClosed = {
             width: window.innerWidth - 40
