@@ -1,4 +1,5 @@
 import React from 'react';
+import ArtworkStore from '../../stores/ArtworkStore';
 
 export default class Album extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class Album extends React.Component {
         return (
             <li className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <img className="avatar-container" src={this.props.album.thumbnail} />
+                    <img className="avatar-container" src={(this.props.album.name.search("Untitled") == -1) ? ArtworkStore.getState().artworkAlbums[this.props.album.name.toLowerCase()][0].image : "../../assets/images/icons/new-album.svg"} />
                 </div>
                 <div className="album-writing">
                     <input type="text"
@@ -45,7 +46,7 @@ export default class Album extends React.Component {
         return (
             <li onClick={this.props.changeAlbum} className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <img className="avatar-container" src={this.props.album.thumbnail} />
+                    <img className="avatar-container" src={(this.props.album.name.search("Untitled") == -1) ? ArtworkStore.getState().artworkAlbums[this.props.album.name.toLowerCase()][0].image : "../../assets/images/icons/new-album.svg"} />
                 </div>
                 <div className="album-writing">
                     <h3 onClick={this.edit} className="album-name">{this.props.album.name}</h3>

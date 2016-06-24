@@ -8,18 +8,15 @@ class AlbumStore {
         this.albums = [
             {
                 id: uuid.v4(),
-                name: 'Sunsets',
-                thumbnail: '../../assets/images/sunset-1.jpg'
+                name: 'Sunsets'
             },
             {
                 id: uuid.v4(),
-                name: 'Elephants',
-                thumbnail: '../../assets/images/elephant-1.jpg'
+                name: 'Elephants'
             },
             {
                 id: uuid.v4(),
-                name: 'Untitled 1',
-                thumbnail: '../../assets/images/icons/new-album.svg'
+                name: 'Untitled 1'
             }
         ];
     }

@@ -99,8 +99,7 @@ export default class AlbumManager extends React.Component {
         var newAlbumName = this.getUniqueNewAlbumName();
 
         AlbumActions.create({
-            name: newAlbumName,
-            thumbnail: '../../assets/images/icons/new-album.svg'
+            name: newAlbumName
         });
 
         if(!this.state.open) {
