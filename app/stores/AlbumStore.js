@@ -14,10 +14,6 @@ class AlbumStore {
             {
                 id: uuid.v4(),
                 name: 'Elephants'
-            },
-            {
-                id: uuid.v4(),
-                name: 'Untitled 1'
             }
         ];
     }
@@ -57,11 +53,11 @@ class AlbumStore {
         });
     }
 
-    move({sourceId, targetId}) {
+    move({source, target}) {
         var albums = this.albums;
-        const sourceAlbum = albums.filter(album => album.id == sourceId)[0];
-        const sourceAlbumIndex = albums.findIndex(album => album.id === sourceId);
-        const targetAlbumIndex = albums.findIndex(album => album.id === targetId);
+        const sourceAlbum = albums.filter(album => album.id == source.id)[0];
+        const sourceAlbumIndex = albums.findIndex(album => album.id === source.id);
+        const targetAlbumIndex = albums.findIndex(album => album.id === target.id);
 
         var modifiedAlbums = update(albums, {
             $splice: [[sourceAlbumIndex, 1],[targetAlbumIndex, 0, sourceAlbum]]

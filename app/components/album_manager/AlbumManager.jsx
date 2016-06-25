@@ -5,7 +5,6 @@ import Albums from './Albums.jsx';
 import AlbumActions from '../../actions/AlbumActions';
 import AlbumStore from '../../stores/AlbumStore';
 import ArtworkActions from '../../actions/ArtworkActions';
-import ArtworkStore from '../../stores/ArtworkStore';
 
 export default class AlbumManager extends React.Component {
     constructor(props) {
@@ -16,18 +15,16 @@ export default class AlbumManager extends React.Component {
         }
     }
 
-    updateDimensions = () => {
-        this.setState({});
+    rerender = () => {
+        this.forceUpdate();
     }
-    componentWillMount() {
-        this.updateDimensions();
-    }
+
     componentDidMount() {
-        window.addEventListener("resize", this.updateDimensions);
+        window.addEventListener("resize", this.rerender);
         AlbumStore.listen(this.storeChanged);
     }
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.rerender);
         AlbumStore.unlisten(this.storeChanged);
     }
 
@@ -111,8 +108,8 @@ export default class AlbumManager extends React.Component {
     };
 
     editAlbum = (id,oldAlbumName, name) => {
-        // Don't modify if trying set an empty value
-        if(!name.trim()) {
+        // Don't modify if trying set an empty value or album name is already in use
+        if(!name.trim() || AlbumStore.getState().albums.filter(artwork => artwork.name == name).length > 0) {
             return;
         }
 

@@ -24,7 +24,7 @@ export default class Albums extends React.Component {
                 <li onClick={this.props.changeAlbum.bind(null, 'uploads')} className={(this.props.currentAlbum === 'uploads') ? "uploads-album uploads selected" : "uploads-album uploads"}>
                     <div className="album-avatar">
                         <div className="empty-container">
-                            <img src='assets/images/icons/upload-black.svg' />
+                            <img src='assets/images/icons/upload.svg' />
                         </div>
                     </div>
                     <div className="album-writing">

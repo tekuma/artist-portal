@@ -91,6 +91,8 @@ class ArtworkStore {
         this.setState({artworks});
     }
 
+    // This function is called when an album name is changed.
+    // It updates all artworks' associated album to reflect new name
     updateAlbumField(args) {
         // For some reason the arguments are sent in a JSON object
         // To access the two arguments, we have to use use indexing
@@ -99,6 +101,22 @@ class ArtworkStore {
 
         this.artworks.map(artwork => {
             if(artwork.album === args[0].toLowerCase()) {
+                artwork.album = args[1].toLowerCase();      // This is mutating the artwork JSON. Think of Immutable way.
+            }
+            return artwork;
+        });
+    }
+
+    // This function is called when an artwork is dragged to a new album
+    // It moves the artwork to the new album
+    changeAlbumField(args) {
+        // For some reason the arguments are sent in a JSON object
+        // To access the two arguments, we have to use use indexing
+        // Argument 1 = Source ID
+        // Argument 2 = Target Name (New Album Name)
+
+        this.artworks.map(artwork => {
+            if(artwork.id === args[0]) {
                 artwork.album = args[1].toLowerCase();      // This is mutating the artwork JSON. Think of Immutable way.
             }
             return artwork;

@@ -2,22 +2,29 @@ import React from 'react';
 import ArtworkStore from '../../stores/ArtworkStore';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
+import ArtworkActions from '../../actions/ArtworkActions';
 
 const albumSource = {
     beginDrag(props) {
         return {
-            id: props.album.id
+            id: props.album.id,
+            type: "album"
         };
     }
 };
 
 const albumTarget = {
     hover(targetProps, monitor) {
-        const targetId = targetProps.album.id;
-        const sourceProps = monitor.getItem();
-        const sourceId = sourceProps.id;
-        if(sourceId !== targetId) {
-            targetProps.onMove({sourceId, targetId});
+        const target = targetProps.album;
+        const source = monitor.getItem();
+        if(source.id !== target.id) {
+            if(source.type == "album") {
+                // Move order of albums
+                targetProps.onMove({source, target});
+            } else {
+                // Move artwork to new album
+                ArtworkActions.changeAlbumField(source.id, target.name);
+            }
         }
     }
 };
@@ -28,7 +35,7 @@ const albumTarget = {
     isDragging: monitor.isDragging() // map isDragging() state to isDragging prop
 }))
 // Makes Album a Drop Target
-@DropTarget(ItemTypes.ALBUM, albumTarget, (connect) => ({
+@DropTarget([ItemTypes.ALBUM, ItemTypes.ARTWORK], albumTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
 export default class Album extends React.Component {
@@ -50,10 +57,23 @@ export default class Album extends React.Component {
     }
 
     renderEdit = () => {
+        var thumbnail;
+
+        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()) == 'undefined') {
+            thumbnail = "../../assets/images/icons/new-album.svg";
+        } else {
+            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()).image;
+        }
+
+        var style = {
+            backgroundImage: 'url(' + thumbnail + ')'
+        }
+
         return (
             <li className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <img className="avatar-container" src={(this.props.album.name.search("Untitled") == -1) ? ArtworkStore.getState().artworks.find(artwork => artwork.album === this.props.album.name.toLowerCase()).image : "../../assets/images/icons/new-album.svg"} />
+                    <div style={style}
+                        className="avatar-container" />
                 </div>
                 <div className="album-writing">
                     <input type="text"
@@ -76,12 +96,25 @@ export default class Album extends React.Component {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
+        var thumbnail;
+
+        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()) == 'undefined') {
+            thumbnail = "../../assets/images/icons/new-album.svg";
+        } else {
+            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()).image;
+        }
+
+        var style = {
+            backgroundImage: 'url(' + thumbnail + ')'
+        }
+
         return connectDragSource(connectDropTarget(
             <li style={{opacity: isDragging ? 0 : 1}}
                 onClick={this.props.changeAlbum}
                 className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <img className="avatar-container" src={(this.props.album.name.search("Untitled") == -1) ? ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()).image : "../../assets/images/icons/new-album.svg"} />
+                    <div style={style}
+                        className="avatar-container" />
                 </div>
                 <div className="album-writing">
                     <h3 onClick={this.edit} className="album-name">{this.props.album.name}</h3>

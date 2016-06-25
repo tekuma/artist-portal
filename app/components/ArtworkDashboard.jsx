@@ -23,7 +23,7 @@ export default class ArtworkDashboard extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.state.album = ArtworkStore.getState().artworks.filter(artwork => artwork.album == nextProps.currentAlbum);
-        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into album
+        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
     }
 
     storeChanged = (store) => {
@@ -36,7 +36,8 @@ export default class ArtworkDashboard extends React.Component {
     };
 
     render() {
-        if(this.props.currentAlbum.search("untitled") != -1) {
+        if(ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum).length == 0) {
+            // Only render empty album if album is empty
             return this.renderEmptyAlbum();
         } else {
             return this.renderArtworks();
@@ -79,9 +80,11 @@ export default class ArtworkDashboard extends React.Component {
 
         return (
             <main style={this.props.managerOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
-                <div className="empty-album">
-                    <h2>Drag Artworks from Uploads into this Album</h2>
-                </div>
+                <a href="/">
+                    <div className="empty-album">
+                        <h2>Album is Empty</h2>
+                    </div>
+                </a>
             </main>
         );
     }

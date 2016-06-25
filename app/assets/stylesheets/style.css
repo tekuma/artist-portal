@@ -799,11 +799,9 @@ input::-webkit-search-cancel-button {
 	height: 70%;
 	max-height: 50px;
 	max-width: 67px;
-	background: #ffffff;
 }
 .empty-container img {
-	opacity: 0.2;
-	width: 45%;
+	width: 75%;
 }
 
 .avatar-container {
@@ -821,9 +819,13 @@ input::-webkit-search-cancel-button {
 	-moz-justify-content: center;
 	justify-content: center;
 	width: 70%;
+	height: 70%;
 	max-height: 50px;
 	max-width: 67px;
 	background: #ffffff;
+	background-position: center center;
+	background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .toggle-manager {
