@@ -732,7 +732,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album, .uploads-album {
+.album {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -752,7 +752,11 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album.selected, .uploads-album.selected {
+.album:not(.uploads) {
+	cursor: move;
+}
+
+.album.selected {
 	background: #7b7782;
 }
 
@@ -884,7 +888,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album-more:not(.uploads-album-more) {
+.album-more {
 	cursor: context-menu;
 }
 
@@ -976,6 +980,7 @@ main {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+	cursor: move;
 }
 
 .artwork:hover {
@@ -1885,6 +1890,73 @@ textarea.artwork-description {
 	border: 2px solid #e72f80;
 }
 
+/*========================================== */
+
+/* Context Menu */
+
+.react-context-menu {
+	width: 150px;
+	padding: 10px 0;
+	background-color: #ffffff;
+	outline: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
+}
+
+.react-context-menu-item {
+	display: block;
+	height: 40px;
+	cursor: pointer;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.react-context-menu-item:hover {
+	background: #ececec;
+}
+
+.context-icon-container {
+	display: inline-flex;;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	float: left;
+}
+
+.context-icon-container img {
+	width:	20px;
+	opacity: 0.54;
+}
+
+.context-writing {
+	display: inline-block;
+	height: 40px;
+	width: 110px;
+	float: right;
+}
+
+.context-writing h3 {
+	margin: 10px 10px;
+	margin-right: 20px;
+	font-size: 16px;
+	font-weight: 600;
+	color: rgba(0,0,0, 0.87);
+}
+
+.cross {
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+}
 
 /*========================================== */
 

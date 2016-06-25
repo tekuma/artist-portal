@@ -132,20 +132,31 @@ export default class AlbumManager extends React.Component {
     };
 
     getUniqueNewAlbumName = () => {
+        var untitledIntegersUsed = [];
         var numUntitledAlbums = 0;
+        var nextAlbumName = "Untitled ";
 
         for(var i = 0; i < this.state.albums.length; i++) {
             var albumName = this.state.albums[i].name;
+            var isUntitledAlbum = albumName.search("Untitled");  // Returns index of start of term if contained, otherwise -1
 
-            var isUntitledAlbum = albumName.search("Untitled");  // Returns position of beginning of term, otherwise -1
-
-            if(isUntitledAlbum != -1) {
-                numUntitledAlbums += 1;
+            if(isUntitledAlbum != -1) { // True if contains untitled
+                numUntitledAlbums += 1; // Add to count of untitled albums
+                var untitledNumber = albumName.substring(albumName.length -1); // Get Untitled Number
+                untitledIntegersUsed.push(eval(untitledNumber));
             }
         }
 
-        numUntitledAlbums += 1; // Used to increment
-        var nextAlbumName = "Untitled " + numUntitledAlbums.toString();
+        if(untitledIntegersUsed.length == 0) {
+            nextAlbumName += "1";
+        } else {
+            // Determines whether final index has been used
+            // Increments it if it has been used
+            while(untitledIntegersUsed.indexOf(numUntitledAlbums) != -1) {
+                numUntitledAlbums += 1;
+            }
+            nextAlbumName += numUntitledAlbums.toString();
+        }
 
         return nextAlbumName;
     }

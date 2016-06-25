@@ -82,7 +82,7 @@ export default class ArtworkDashboard extends React.Component {
             <main style={this.props.managerOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
                 <a href="/">
                     <div className="empty-album">
-                        <h2>Album is Empty</h2>
+                        <h2>This album is Empty</h2>
                     </div>
                 </a>
             </main>
