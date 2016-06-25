@@ -1,6 +1,7 @@
 import uuid from 'node-uuid';
 import alt from '../libs/alt';
 import AlbumActions from '../actions/AlbumActions';
+import update from 'react-addons-update';
 
 class AlbumStore {
     constructor() {
@@ -54,6 +55,31 @@ class AlbumStore {
         this.setState({
             albums: this.albums.filter(album => album.id !== id)
         });
+    }
+
+    move({sourceId, targetId}) {
+        var albums = this.albums;
+        const sourceAlbum = albums.filter(album => album.id == sourceId)[0];
+        const sourceAlbumIndex = albums.findIndex(album => album.id === sourceId);
+        const targetAlbumIndex = albums.findIndex(album => album.id === targetId);
+
+        var modifiedAlbums = update(albums, {
+            $splice: [[sourceAlbumIndex, 1],[targetAlbumIndex, 0, sourceAlbum]]
+        });
+        // array.splice(start, deleteCount[, item1[, item2[, ...]]])
+        // start:
+        //  -> index at which to start changing the array (with origin 0)
+        // deleteCount:
+        //  -> An integer indicating the number of old array elements to remove
+        //  -> If deleteCount is 0, no elements are removed
+        // item1, item2, ...
+        //  -> The elements to add to the array, beginning at the start index
+        //
+        // In the example above, we are deleting 1 element starting from sourceAlbumIndex,
+        // then we are removing 0 elements starting from targetAlbumIndex
+        // and adding sourceAlbum before targetAlbumIndex
+
+        this.setState({albums: modifiedAlbums });
     }
 }
 

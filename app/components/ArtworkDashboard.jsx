@@ -9,7 +9,7 @@ export default class ArtworkDashboard extends React.Component {
         super(props);
 
         this.state = {
-            album: ArtworkStore.getState().artworkAlbums[this.props.currentAlbum]
+            album: ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum)
         }
     }
 
@@ -22,7 +22,7 @@ export default class ArtworkDashboard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.state.album = ArtworkStore.getState().artworkAlbums[nextProps.currentAlbum];
+        this.state.album = ArtworkStore.getState().artworks.filter(artwork => artwork.album == nextProps.currentAlbum);
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into album
     }
 
@@ -31,10 +31,8 @@ export default class ArtworkDashboard extends React.Component {
         // point at the right context because it defaults to
         // `undefined` in strict mode.
         this.setState({
-            album: store.artworkAlbums[this.props.currentAlbum]
+            album: ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum)
         });
-
-        console.log('entered storeChanged', store.artworkAlbums[this.props.currentAlbum]);
     };
 
     render() {
@@ -62,6 +60,7 @@ export default class ArtworkDashboard extends React.Component {
                         <Artwork
                             key={artwork.id}
                             onDelete={this.deleteAlbum.bind(null, artwork.id)}
+                            onMove={ArtworkActions.move}
                             artwork={artwork} />
                     );
                 })}
@@ -91,6 +90,6 @@ export default class ArtworkDashboard extends React.Component {
         // Avoid bubbling to edit
         e.stopPropagation();
 
-        ArtworkActions.delete(this.props.currentAlbum, id);
+        ArtworkActions.delete(id);
     };
 }

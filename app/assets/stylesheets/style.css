@@ -732,7 +732,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album {
+.album, .uploads-album {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -752,7 +752,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album.selected {
+.album.selected, .uploads-album.selected {
 	background: #7b7782;
 }
 

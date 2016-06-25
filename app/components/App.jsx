@@ -2,7 +2,10 @@ import React from 'react';
 import HiddenNav from './hidden_nav/HiddenNav.jsx';
 import HamburgerIcon from './hamburger_icon/HamburgerIcon.jsx';
 import MainLayout from './MainLayout.jsx';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
+@DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class App extends React.Component {
     constructor(props) {
         super(props);

@@ -4,13 +4,14 @@ import AlbumToggler from './AlbumToggler.jsx';
 import Albums from './Albums.jsx';
 import AlbumActions from '../../actions/AlbumActions';
 import AlbumStore from '../../stores/AlbumStore';
+import ArtworkActions from '../../actions/ArtworkActions';
+import ArtworkStore from '../../stores/ArtworkStore';
 
 export default class AlbumManager extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            open: true,
             albums: AlbumStore.getState().albums
         }
     }
@@ -30,11 +31,13 @@ export default class AlbumManager extends React.Component {
         AlbumStore.unlisten(this.storeChanged);
     }
 
-    storeChanged = (state) => {
+    storeChanged = (store) => {
         // Without a property initializer 'this' wouldn't
         // point at the right context because it defaults to
         // 'undefined' in strict mode.
-        this.setState(state);
+        this.setState({
+            albums: store.albums
+        });
     };
 
     render() {
@@ -102,20 +105,26 @@ export default class AlbumManager extends React.Component {
             name: newAlbumName
         });
 
-        if(!this.state.open) {
-            this.setState({
-                open: true
-            });
+        if(!this.props.managerOpen) {
+            this.props.toggleManager();
         }
     };
 
-    editAlbum = (id, name) => {
+    editAlbum = (id,oldAlbumName, name) => {
         // Don't modify if trying set an empty value
         if(!name.trim()) {
             return;
         }
 
         AlbumActions.update({id, name});
+        ArtworkActions.updateAlbumField(oldAlbumName, name);
+
+        if (this.props.currentAlbum === oldAlbumName) {
+            setTimeout(this.props.changeAlbum.bind(null, name), 10);
+            // We need to update currentAlbum
+            // We need to set a timeout to allow artwork albums to update
+        }
+
     };
 
     deleteAlbum = (id, e) => {

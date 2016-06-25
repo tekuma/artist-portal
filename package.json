@@ -47,6 +47,9 @@
     "babel-preset-survivejs-kanban": "^0.3.3",
     "node-uuid": "^1.4.7",
     "react": "^15.1.0",
+    "react-addons-update": "^15.1.0",
+    "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.1.0",
     "react-router": "^2.4.1"
   }
