@@ -4,22 +4,6 @@ import ArtworkStore from '../../stores/ArtworkStore';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
 import ArtworkActions from '../../actions/ArtworkActions';
-import {ContextMenuLayer} from "react-contextmenu";
-import AlbumContextMenu from '../context_menu/AlbumContextMenu';
-
-//Component on which context-menu must be triggred
-@ContextMenuLayer("album-context-menu")
-export default class AlbumContextButton extends React.Component {
-    render() {
-        return (
-            <div>
-                <img
-                    className="album-more"
-                    src='assets/images/icons/more-white.svg' />
-            </div>
-        );
-    }
-}
 
 const albumSource = {
     beginDrag(props) {
@@ -134,11 +118,20 @@ export default class Album extends React.Component {
                         className="avatar-container" />
                 </div>
                 <div className="album-writing">
-                    <h3 onClick={this.edit} className="album-name">{this.props.album.name}</h3>
-                    <AlbumContextButton />
+                    <h3 onClick={this.edit}
+                        className="album-name"
+                        data-tip="Click to edit album name." >
+                        {this.props.album.name}</h3>
+                    <img
+                        className="album-more"
+                        src='assets/images/icons/delete-white.svg'
+                        data-tip="Delete" />
+                    <img
+                        className="album-more"
+                        src='assets/images/icons/download-white.svg'
+                        onClick={this.props.onDelete}
+                        data-tip="Download" />
                 </div>
-                <AlbumContextMenu
-                    onDelete={this.props.onDelete} />
             </li>
         ));
     };

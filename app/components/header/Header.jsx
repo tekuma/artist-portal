@@ -18,19 +18,19 @@ export default class Header extends React.Component {
             		</a>
             	</div>
             	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
-        	    	<div className="header-icon" title="Upload Artworks">
+        	    	<div className="header-icon" data-tip="Upload artworks">
         	    		<a href="/">
                             <img src='assets/images/icons/plus-pink.svg' />
         	    		</a>
         	    	</div>
-        	    	<div className="header-icon" title="Organize Artworks">
+        	    	<div className="header-icon" data-tip="Organize artworks">
         	    		<a href="/">
                             <img src='assets/images/icons/organize.svg' />
         	    		</a>
         	    	</div>
         	    	<SearchBar
                         searchOpen={this.state.searchOpen}
-                        toggleSearch={this.toggleSearch}/>
+                        toggleSearch={this.toggleSearch} />
         	    </div>
         	</header>
         );

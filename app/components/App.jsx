@@ -42,6 +42,7 @@ export default class App extends React.Component {
     };
 
     toggleManager = () => {
+
         this.setState({
             managerOpen: !this.state.managerOpen
         });

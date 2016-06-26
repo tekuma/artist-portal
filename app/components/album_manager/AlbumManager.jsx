@@ -15,16 +15,10 @@ export default class AlbumManager extends React.Component {
         }
     }
 
-    rerender = () => {
-        this.forceUpdate();
-    }
-
     componentDidMount() {
-        window.addEventListener("resize", this.rerender);
         AlbumStore.listen(this.storeChanged);
     }
     componentWillUnmount() {
-        window.removeEventListener("resize", this.rerender);
         AlbumStore.unlisten(this.storeChanged);
     }
 
@@ -128,12 +122,14 @@ export default class AlbumManager extends React.Component {
         // Avoid bubbling to edit
         e.stopPropagation();
 
+        console.log(id);
+
         AlbumActions.delete(id);
     };
 
     getUniqueNewAlbumName = () => {
         var untitledIntegersUsed = [];
-        var numUntitledAlbums = 0;
+        var untitledAlbumIndex = 1;
         var nextAlbumName = "Untitled ";
 
         for(var i = 0; i < this.state.albums.length; i++) {
@@ -141,9 +137,10 @@ export default class AlbumManager extends React.Component {
             var isUntitledAlbum = albumName.search("Untitled");  // Returns index of start of term if contained, otherwise -1
 
             if(isUntitledAlbum != -1) { // True if contains untitled
-                numUntitledAlbums += 1; // Add to count of untitled albums
-                var untitledNumber = albumName.substring(albumName.length -1); // Get Untitled Number
-                untitledIntegersUsed.push(eval(untitledNumber));
+                var untitledNumber = albumName.substring(albumName.length -1); // Get character at last index
+                if(!isNaN(untitledNumber)) {
+                    untitledIntegersUsed.push(eval(untitledNumber));    // Only add to array if it is a number
+                }
             }
         }
 
@@ -152,10 +149,10 @@ export default class AlbumManager extends React.Component {
         } else {
             // Determines whether final index has been used
             // Increments it if it has been used
-            while(untitledIntegersUsed.indexOf(numUntitledAlbums) != -1) {
-                numUntitledAlbums += 1;
+            while(untitledIntegersUsed.indexOf(untitledAlbumIndex) != -1) {
+                untitledAlbumIndex += 1;
             }
-            nextAlbumName += numUntitledAlbums.toString();
+            nextAlbumName += untitledAlbumIndex.toString();
         }
 
         return nextAlbumName;

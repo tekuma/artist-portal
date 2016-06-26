@@ -59,9 +59,13 @@ const common = {
                 include: PATHS.fonts
             },
             {
-              test: /\.(jpg|png|svg)$/,
-              loader: 'file?name=/assets/images/[name].[ext]',
-              include: PATHS.images
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file?name=/assets/images/[name].[ext]',
+                include: PATHS.images
+            },
+            {
+                test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
+                loader: 'imports?define=>false&this=>window'
             }
         ]
     }

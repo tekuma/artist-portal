@@ -1,22 +1,6 @@
 import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
-import {ContextMenuLayer} from "react-contextmenu";
-import ArtworkContextMenu from '../context_menu/ArtworkContextMenu';
-
-//Component on which context-menu must be triggred
-@ContextMenuLayer("artwork-context-menu")
-export default class ArtworkContextButton extends React.Component {
-    render() {
-        return (
-            <div>
-                <img
-                    className="artwork-more"
-                    src='assets/images/icons/more-black.svg' />
-            </div>
-        );
-    }
-}
 
 const artworkSource = {
     beginDrag(props) {
@@ -62,10 +46,22 @@ export default class Artwork extends React.Component {
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
                     <h4 className="artwork-date">{this.props.artwork.year}</h4>
-                    <ArtworkContextButton />
+                    <img
+                        className="artwork-more"
+                        src='assets/images/icons/delete-black.svg'
+                        onClick={this.props.onDelete}
+                        data-tip="Delete" />
+                    <img
+                        className="artwork-more"
+                        src='assets/images/icons/edit.svg'
+                        onClick={this.props.onDelete}
+                        data-tip="Edit" />
+                    <img
+                        className="artwork-more"
+                        src='assets/images/icons/download-black.svg'
+                        onClick={this.props.onDelete}
+                        data-tip="Download" />
                 </div>
-                <ArtworkContextMenu
-                    onDelete={this.props.onDelete} />
             </article>
         ));
     }

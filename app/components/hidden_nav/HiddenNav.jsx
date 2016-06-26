@@ -19,14 +19,14 @@ export default class HiddenNav extends React.Component {
             {
                 id: uuid.v4(),
                 item: 'Artworks',
-                icon: '../../assets/images/icons/person.svg',
+                icon: '../../assets/images/icons/canvas.svg',
                 href:  'artworks',
                 title: 'Browse Artworks'
             },
             {
                 id: uuid.v4(),
                 item: 'Edit Profile',
-                icon: '../../assets/images/icons/canvas.svg',
+                icon: '../../assets/images/icons/person.svg',
                 href:  'profile',
                 title: 'Edit Your Profile'
             }

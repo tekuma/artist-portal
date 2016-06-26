@@ -44,7 +44,9 @@ export default class Albums extends React.Component {
                     </div>
                     <div className="album-writing">
                         <h3 className="uploads-name">Uploads</h3>
-                        <img className="uploads-album-more" src='assets/images/icons/download-white.svg' />
+                        <img className="uploads-album-more"
+                             src='assets/images/icons/download-white.svg'
+                             data-tip="Download" />
                     </div>
                 </li>
                 {this.props.albums.map(album => {

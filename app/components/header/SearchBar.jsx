@@ -2,7 +2,9 @@ import React from 'react';
 
 export default ({searchOpen, toggleSearch}) => {
     return (
-        <div id="search-bar" className={searchOpen ? "header-icon search-open" : "header-icon"}>
+        <div id="search-bar"
+            className={searchOpen ? "header-icon search-open" : "header-icon"}
+            data-tip="Search for artworks">
             <form>
                 <input className="search-input"
                     placeholder="Search Artworks..."
