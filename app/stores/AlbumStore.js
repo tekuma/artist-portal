@@ -2,20 +2,41 @@ import uuid from 'node-uuid';
 import alt from '../libs/alt';
 import AlbumActions from '../actions/AlbumActions';
 import update from 'react-addons-update';
+import ArtworkStore from './ArtworkStore';
+
 
 class AlbumStore {
     constructor() {
         this.bindActions(AlbumActions);
-        this.albums = [
-            {
-                id: uuid.v4(),
-                name: 'Sunsets'
-            },
-            {
-                id: uuid.v4(),
-                name: 'Elephants'
+        this.albums = this.getAlbums();
+    }
+
+    getAlbums() {
+        var albums = [];
+        var uniqueAlbumNames = [];
+        var artworks = ArtworkStore.getState().artworks;
+
+        // Gets unique album names
+        for(var i =0; i < artworks.length; i++) {
+            if(uniqueAlbumNames.indexOf(artworks[i].album) == -1) {
+                if(artworks[i].album != "Uploads") {
+                    uniqueAlbumNames.push(artworks[i].album);
+                    // We don't want to create a duplicate Uploads album
+                    // It is automatically created by Albums component
+                }
             }
-        ];
+        }
+
+        // Creates JSON with unique ID for each album
+        for (var i =0; i < uniqueAlbumNames.length; i++) {
+            console.log(uniqueAlbumNames[i]);
+            albums.push({
+                id: uuid.v4(),
+                name: uniqueAlbumNames[i]
+            });
+        }
+
+        return albums;
     }
 
     create(album) {

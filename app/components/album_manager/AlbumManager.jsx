@@ -10,7 +10,6 @@ import confirm from '../confirm-dialog/ConfirmFunction';
 export default class AlbumManager extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             albums: AlbumStore.getState().albums
         }

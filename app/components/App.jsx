@@ -49,7 +49,7 @@ export default class App extends React.Component {
     };
 
     changeAlbum = (newAlbum) => {
-        var album = newAlbum.toLowerCase();
+        var album = newAlbum;
 
         this.setState({
             currentAlbum: album

@@ -36,7 +36,7 @@ export default class Albums extends React.Component {
 
         return connectDropTarget(
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
-                <li onClick={this.props.changeAlbum.bind(null, 'uploads')} className={(this.props.currentAlbum === 'uploads') ? "album uploads selected" : "album uploads"}>
+                <li onClick={this.props.changeAlbum.bind(null, 'Uploads')} className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
                     <div className="album-avatar">
                         <div className="empty-container">
                             <img src='assets/images/icons/upload.svg' />

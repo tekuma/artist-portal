@@ -10,63 +10,63 @@ class ArtworkStore {
             {
                 id: uuid.v4(),
                 title: 'The Starry Night',
-                album: 'uploads',
+                album: 'Uploads',
                 year:'1889',
                 image: '../../assets/images/starry-night-1.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Wheat Field with Cypresses',
-                album: 'uploads',
+                album: 'Uploads',
                 year:'1889',
                 image: '../../assets/images/field.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Starry Night Over the Rhone',
-                album: 'uploads',
+                album: 'Uploads',
                 year:'1888',
                 image: '../../assets/images/starry-night-2.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 1',
-                album: 'sunsets',
+                album: 'Sunsets',
                 year:'2015',
                 image: '../../assets/images/sunset-1.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 2',
-                album: 'sunsets',
+                album: 'Sunsets',
                 year:'2016',
                 image: '../../assets/images/sunset-2.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 3',
-                album: 'sunsets',
+                album: 'Sunsets',
                 year:'2005',
                 image: '../../assets/images/sunset-3.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Elephant 1',
-                album: 'elephants',
+                album: 'Elephants',
                 year:'2008',
                 image: '../../assets/images/elephant-1.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Elephant 2',
-                album: 'elephants',
+                album: 'Elephants',
                 year:'2003',
                 image: '../../assets/images/elephant-2.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Elephant 3',
-                album: 'elephants',
+                album: 'Elephants',
                 year:'2000',
                 image: '../../assets/images/elephant-3.jpg'
             }

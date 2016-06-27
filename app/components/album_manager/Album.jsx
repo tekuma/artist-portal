@@ -60,10 +60,10 @@ export default class Album extends React.Component {
     renderEdit = () => {
         var thumbnail;
 
-        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()) == 'undefined') {
+        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == 'undefined') {
             thumbnail = "../../assets/images/icons/new-album.svg";
         } else {
-            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()).image;
+            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name).image;
         }
 
         var style = {
@@ -71,7 +71,7 @@ export default class Album extends React.Component {
         }
 
         return (
-            <li className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
+            <li className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <div style={style}
                         className="avatar-container" />
@@ -107,10 +107,10 @@ export default class Album extends React.Component {
 
         var thumbnail;
 
-        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()) == 'undefined') {
+        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == 'undefined') {
             thumbnail = "../../assets/images/icons/new-album.svg";
         } else {
-            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name.toLowerCase()).image;
+            thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name).image;
         }
 
         var style = {
@@ -120,7 +120,7 @@ export default class Album extends React.Component {
         return connectDragSource(connectDropTarget(
             <li style={{opacity: isDragging ? 0 : 1}}
                 onClick={this.props.changeAlbum}
-                className={(this.props.currentAlbum === this.props.album.name.toLowerCase()) ? "album selected" : "album"}>
+                className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <div style={style}
                         className="avatar-container" />
