@@ -224,7 +224,7 @@ class ArtworkStore {
 
     updateArtwork(updatedArtwork) {
         const artworks = this.artworks.map(artwork => {
-            if(artwork.id === updatedAlbum.id) {
+            if(artwork.id === updatedArtwork.id) {
                 // Object.assign is used to patch the note data here. It
                 // mutates target (first parameter). In order to avoid that,
                 // I use {} as its target and apply data on it.

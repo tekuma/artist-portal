@@ -11,16 +11,16 @@ export default class EditArtworkView extends React.Component {
         super(props);
 
 
-        this.state = {
-            formInfo: this.props.getCurrentEditArtwork
-        }
+        this.state =  {
+            formInfo: {},
+            errors: {}
+        };
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             formInfo: nextProps.getCurrentEditArtwork
         })
-        console.log(nextProps.getCurrentEditArtwork);
     }
 
     render() {
@@ -34,7 +34,7 @@ export default class EditArtworkView extends React.Component {
           <ConfirmButton
                 label={"Cancel"}
                 className="edit-artwork-no"
-                onClick={this.props.toggleEditArtwork}
+                onClick={this.props.toggleEditArtworkView}
               />
         ];
 
@@ -54,6 +54,7 @@ export default class EditArtworkView extends React.Component {
                             value={this.state.formInfo}
                             errors={this.state.errors}
                             onChange={this.updateFormInfo}
+                            onSubmit={this.onSubmit}
                             clearErrors={this.clearErrors} />
                     </Dialog>
                 </MuiThemeProvider>
@@ -63,7 +64,6 @@ export default class EditArtworkView extends React.Component {
 
     updateFormInfo = (formInfo) => {
         this.setState({formInfo});
-        console.log(this.state.formInfo);
     }
 
     onSubmit = (event) => {
@@ -92,7 +92,7 @@ export default class EditArtworkView extends React.Component {
 
         if(Object.keys(this.state.errors).length == 0) {
             ArtworkActions.updateArtwork(this.state.formInfo);
-            this.props.toggleEditArtwork();
+            this.props.toggleEditArtworkView();
         }
     }
 

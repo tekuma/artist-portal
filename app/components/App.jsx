@@ -5,7 +5,8 @@ import MainLayout from './MainLayout.jsx';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import EditArtworkView from './edit-artwork/EditArtworkView.jsx';
-import ArtworkActions from '../actions/ArtworkActions';
+import ArtworkStore from '../stores/ArtworkStore';
+
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -78,13 +79,11 @@ export default class App extends React.Component {
     }
 
     changeCurrentEditArtwork = (id) => {
-        console.log(ArtworkActions.getArtworkInfo(id));
-        var info  = ArtworkActions.getArtworkInfo(id);
+        var info  = ArtworkStore.getState().artworks.filter(artwork => artwork.id === id)[0]
 
         this.setState({
             currentEditArtworkInfo: info
         });
-        console.log(info);
     }
 
     toggleEditArtworkView = () => {
