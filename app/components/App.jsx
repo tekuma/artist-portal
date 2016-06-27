@@ -13,7 +13,7 @@ export default class App extends React.Component {
         this.state = {
             navIsOpen: false,           // Used to track whether Hidden Navigation is open
             managerIsOpen: true,        // Used to track whether Album Manager is open
-            currentAlbum: 'uploads'     // Used to track the current album open
+            currentAlbum: 'Uploads'     // Used to track the current album open
         };
     }
 
