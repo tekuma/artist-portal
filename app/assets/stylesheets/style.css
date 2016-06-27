@@ -475,7 +475,7 @@ header {
 }
 
 .header-icon img {
-	height: 30px;
+	height: 40px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -483,7 +483,7 @@ header {
 }
 
 .header-icon img:hover {
-	height: 32px;
+	height: 42px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1960,6 +1960,97 @@ textarea.artwork-description {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
 	background: rgba(0,0,0,0.9) !important;
 	z-index: 8 !important;
+}
+
+/*========================================== */
+
+/* Confirm Dialog */
+
+.confirm-dialog {
+	border-radius: 5px !important;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
+}
+
+.confirm-message {
+	color: #4e5967 !important;
+	text-align: center !important;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-size: 1.1em !important;
+	font-weight: 600;
+	padding: 30px !important;
+}
+
+.border {
+	border-radius: 5px !important;
+}
+
+.confirm-actions {
+	padding: 0 !important;
+}
+
+.confirm-yes {
+	width: 50%;
+	height: 100%;
+	background: #292e3a;
+	display: inline-flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	border-bottom-left-radius: 2px;
+	cursor: pointer;
+	padding: 15px;
+	border-right: 1px solid #545861;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.confirm-yes h2 {
+	color: #ffffff;
+	margin: 0;
+	font-size: 1em;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+}
+
+.confirm-no {
+	width: 50%;
+	height: 100%;
+	background: #292e3a;
+	display: inline-flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	border-bottom-right-radius: 2px;
+	cursor: pointer;
+	padding: 15px;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+
+}
+
+.confirm-no:hover, .confirm-yes:hover {
+	background: #e83081;
+}
+
+
+.confirm-no h2 {
+	color: #ffffff;
+	margin: 0;
+	font-size: 1em;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
 /*========================================== */

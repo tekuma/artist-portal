@@ -11,9 +11,9 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            navOpen: false, // Used to track whether Hidden Navigation is open
-            managerOpen: true,   // Used to track whether Album Manager is open
-            currentAlbum: 'uploads' // Used to track the current album open
+            navIsOpen: false,           // Used to track whether Hidden Navigation is open
+            managerIsOpen: true,        // Used to track whether Album Manager is open
+            currentAlbum: 'uploads'     // Used to track the current album open
         };
     }
 
@@ -21,14 +21,14 @@ export default class App extends React.Component {
         return (
             <div className="app">
                 <HiddenNav
-                    navOpen={this.state.navOpen} />
+                    navIsOpen={this.state.navIsOpen} />
                 <HamburgerIcon
                     toggleNav={this.toggleNav}
-                    navOpen={this.state.navOpen} />
+                    navOpen={this.state.navIsOpen} />
                 <MainLayout
-                    navOpen={this.state.navOpen}
+                    navOpen={this.state.navIsOpen}
                     toggleManager={this.toggleManager}
-                    managerOpen={this.state.managerOpen}
+                    managerIsOpen={this.state.managerIsOpen}
                     currentAlbum={this.state.currentAlbum}
                     changeAlbum={this.changeAlbum} />
             </div>
@@ -37,14 +37,14 @@ export default class App extends React.Component {
 
     toggleNav = () => {
         this.setState({
-            navOpen: !this.state.navOpen
+            navIsOpen: !this.state.navIsOpen
         });
     };
 
     toggleManager = () => {
 
         this.setState({
-            managerOpen: !this.state.managerOpen
+            managerIsOpen: !this.state.managerIsOpen
         });
     };
 
@@ -53,6 +53,18 @@ export default class App extends React.Component {
 
         this.setState({
             currentAlbum: album
+        });
+    }
+
+    openModal = () => {
+        this.setState({
+            modalIsOpen: true
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            modalIsOpen: false
         });
     }
 }

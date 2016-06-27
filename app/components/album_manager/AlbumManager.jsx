@@ -5,6 +5,7 @@ import Albums from './Albums.jsx';
 import AlbumActions from '../../actions/AlbumActions';
 import AlbumStore from '../../stores/AlbumStore';
 import ArtworkActions from '../../actions/ArtworkActions';
+import confirm from '../confirm-dialog/ConfirmFunction';
 
 export default class AlbumManager extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class AlbumManager extends React.Component {
 
     render() {
         const albums = this.state.albums;
-        if(this.props.managerOpen) {
+        if(this.props.managerIsOpen) {
             return this.openedManager();
         }
 
@@ -50,7 +51,7 @@ export default class AlbumManager extends React.Component {
         return (
             <section style={style} className="album-manager">
                 <AlbumToggler
-                    managerOpen={this.props.managerOpen}
+                    managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums
@@ -75,7 +76,7 @@ export default class AlbumManager extends React.Component {
         return (
             <section style={style} className="album-manager">
                 <AlbumToggler
-                    managerOpen={this.props.managerOpen}
+                    managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums
@@ -96,7 +97,7 @@ export default class AlbumManager extends React.Component {
             name: newAlbumName
         });
 
-        if(!this.props.managerOpen) {
+        if(!this.props.managerIsOpen) {
             this.props.toggleManager();
         }
     };
@@ -122,9 +123,16 @@ export default class AlbumManager extends React.Component {
         // Avoid bubbling to edit
         e.stopPropagation();
 
-        console.log(id);
-
-        AlbumActions.delete(id);
+        confirm('Are you sure you want to delete this album?').then(
+            () => {
+                // Proceed Callback
+                AlbumActions.delete(id);
+            },
+            () => {
+                // Cancel Callback
+                return;
+            }
+        );
     };
 
     getUniqueNewAlbumName = () => {

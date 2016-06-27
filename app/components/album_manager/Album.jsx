@@ -86,8 +86,16 @@ export default class Album extends React.Component {
                         defaultValue={this.props.album.name}
                         onBlur={this.finishEdit}
                         onKeyPress={this.checkEnter}
-                        placeholder="Edit Album" />
-                    <img className="album-more" src='assets/images/icons/more-white.svg' />
+                        placeholder="Enter name" />
+                    <img
+                        className="album-more"
+                        src='assets/images/icons/delete-white.svg'
+                        onClick={this.props.onDelete}
+                        data-tip="Delete" />
+                    <img
+                        className="album-more"
+                        src='assets/images/icons/download-white.svg'
+                        data-tip="Download" />
                 </div>
             </li>
         );
@@ -120,16 +128,16 @@ export default class Album extends React.Component {
                 <div className="album-writing">
                     <h3 onClick={this.edit}
                         className="album-name"
-                        data-tip="Click to edit album name." >
+                        data-tip="Edit album name" >
                         {this.props.album.name}</h3>
                     <img
                         className="album-more"
                         src='assets/images/icons/delete-white.svg'
+                        onClick={this.props.onDelete}
                         data-tip="Delete" />
                     <img
                         className="album-more"
                         src='assets/images/icons/download-white.svg'
-                        onClick={this.props.onDelete}
                         data-tip="Download" />
                 </div>
             </li>

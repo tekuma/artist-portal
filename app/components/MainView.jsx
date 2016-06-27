@@ -27,14 +27,14 @@ export default class MainView extends React.Component {
         return (
             <div className="view">
                 <AlbumManager
-                    managerOpen={this.props.managerOpen}
+                    managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum} />
                 <ArtworkDashboard
                     currentAlbum={this.props.currentAlbum}
-                    managerOpen={this.props.managerOpen} />
-                <div className={this.props.navOpen ? "site-overlay open" : "site-overlay"}></div>
+                    managerIsOpen={this.props.managerIsOpen} />
+                <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>
         );
     }

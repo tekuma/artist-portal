@@ -3,6 +3,7 @@ import uuid from 'node-uuid';
 import Artwork from './artwork/Artwork.jsx';
 import ArtworkActions from '../actions/ArtworkActions';
 import ArtworkStore from '../stores/ArtworkStore';
+import confirm from './confirm-dialog/ConfirmFunction';
 
 export default class ArtworkDashboard extends React.Component {
     constructor(props) {
@@ -57,11 +58,11 @@ export default class ArtworkDashboard extends React.Component {
         };
 
         return (
-            <main style={this.props.managerOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >{album.map(artwork => {
+            <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >{album.map(artwork => {
                     return (
                         <Artwork
                             key={artwork.id}
-                            onDelete={this.deleteAlbum.bind(null, artwork.id)}
+                            onDelete={this.deleteArtwork}
                             onMove={ArtworkActions.move}
                             artwork={artwork} />
                     );
@@ -80,7 +81,7 @@ export default class ArtworkDashboard extends React.Component {
         };
 
         return (
-            <main style={this.props.managerOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
+            <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
                 <a href="/">
                     <div className="empty-album">
                         <h2>This album is empty</h2>
@@ -90,10 +91,23 @@ export default class ArtworkDashboard extends React.Component {
         );
     }
 
-    deleteAlbum = (id, e) => {
+    editArtwork = (title, artist, year, description, colors, tags) => {
+
+    }
+
+    deleteArtwork = (id, e) => {
         // Avoid bubbling to edit
         e.stopPropagation();
 
-        ArtworkActions.delete(id);
-    };
+        confirm('Are you sure you want to delete this artwork?').then(
+            () => {
+                // Proceed Callback
+                ArtworkActions.delete(id);
+            },
+            () => {
+                // Cancel Callback
+                return;
+            }
+        );
+    }
 }

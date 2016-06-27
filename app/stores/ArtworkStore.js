@@ -123,6 +123,10 @@ class ArtworkStore {
         });
     }
 
+    edit() {
+        console.log("Entered edit function within Artwork Store");
+    }
+
     delete(id) {
         this.setState({
             artworks: this.artworks.filter(artwork => artwork.id !== id)

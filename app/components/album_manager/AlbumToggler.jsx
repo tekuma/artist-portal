@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({managerOpen, toggleManager, addAlbum}) => {
+export default ({managerIsOpen, toggleManager, addAlbum}) => {
     var componentStyle = {
         height: window.innerHeight - 60
     };
@@ -13,15 +13,15 @@ export default ({managerOpen, toggleManager, addAlbum}) => {
         <div style={componentStyle} className="manager-opener">
             <div onClick={addAlbum}
                 className="manager-icon add-album"
-                data-tip="Click to add new album" >
+                data-tip="Add new album" >
                 <img src='assets/images/icons/plus-white.svg' />
             </div>
             <div onClick={toggleManager}
                 style={iconStyle}
-                className={managerOpen ? "manager-icon toggle-manager" : "manager-icon toggle-manager closed"}>
+                className={managerIsOpen ? "manager-icon toggle-manager" : "manager-icon toggle-manager closed"}>
                 <img className="toggle"
                     src='assets/images/icons/arrow.svg'
-                    data-tip="Close side drawer" />
+                    data-tip="Toggle side drawer" />
             </div>
         </div>
 

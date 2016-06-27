@@ -41,7 +41,7 @@ export default class Artwork extends React.Component {
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
                 <div className="artwork-image">
-                    <img src={this.props.artwork.image} />
+                    <img src={this.props.artwork.image} lowsrc="assets/images/artwork-substitute.png" />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
@@ -49,17 +49,15 @@ export default class Artwork extends React.Component {
                     <img
                         className="artwork-more"
                         src='assets/images/icons/delete-black.svg'
-                        onClick={this.props.onDelete}
+                        onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
                         data-tip="Delete" />
                     <img
                         className="artwork-more"
                         src='assets/images/icons/edit.svg'
-                        onClick={this.props.onDelete}
                         data-tip="Edit" />
                     <img
                         className="artwork-more"
                         src='assets/images/icons/download-black.svg'
-                        onClick={this.props.onDelete}
                         data-tip="Download" />
                 </div>
             </article>

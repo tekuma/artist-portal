@@ -3,13 +3,13 @@ import Header from './header/Header.jsx';
 import MainView from './MainView.jsx';
 import ReactTooltip from "react-tooltip";
 
-export default ({navOpen, managerOpen, toggleManager, currentAlbum, changeAlbum}) => {
+export default ({navIsOpen, managerIsOpen, toggleManager, currentAlbum, changeAlbum}) => {
     return (
-        <div className={navOpen ? "main-wrapper open" : "main-wrapper"}>
+        <div className={navIsOpen ? "main-wrapper open" : "main-wrapper"}>
             <Header />
             <MainView
-                navOpen={navOpen}
-                managerOpen={managerOpen}
+                navIsOpen={navIsOpen}
+                managerIsOpen={managerIsOpen}
                 toggleManager={toggleManager}
                 currentAlbum={currentAlbum}
                 changeAlbum={changeAlbum} />

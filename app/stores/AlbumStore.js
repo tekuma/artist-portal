@@ -48,6 +48,7 @@ class AlbumStore {
     }
 
     delete(id) {
+        console.log("in artwork store");
         this.setState({
             albums: this.albums.filter(album => album.id !== id)
         });
