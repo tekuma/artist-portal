@@ -107,7 +107,7 @@ export default class Album extends React.Component {
 
         var thumbnail;
 
-        if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == 'undefined') {
+        if (ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == undefined) {
             thumbnail = "../../assets/images/icons/new-album.svg";
         } else {
             thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name).image;

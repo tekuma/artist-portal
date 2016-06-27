@@ -33,6 +33,8 @@ export default class MainView extends React.Component {
                     changeAlbum={this.props.changeAlbum} />
                 <ArtworkDashboard
                     currentAlbum={this.props.currentAlbum}
+                    toggleEditArtworkView={this.props.toggleEditArtworkView}
+                    changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
                     managerIsOpen={this.props.managerIsOpen} />
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>

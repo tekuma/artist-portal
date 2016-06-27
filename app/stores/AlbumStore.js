@@ -29,7 +29,6 @@ class AlbumStore {
 
         // Creates JSON with unique ID for each album
         for (var i =0; i < uniqueAlbumNames.length; i++) {
-            console.log(uniqueAlbumNames[i]);
             albums.push({
                 id: uuid.v4(),
                 name: uniqueAlbumNames[i]
@@ -69,7 +68,6 @@ class AlbumStore {
     }
 
     delete(id) {
-        console.log("in artwork store");
         this.setState({
             albums: this.albums.filter(album => album.id !== id)
         });

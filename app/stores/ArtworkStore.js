@@ -10,67 +10,216 @@ class ArtworkStore {
             {
                 id: uuid.v4(),
                 title: 'The Starry Night',
+                artist: 'Vincent Van Gogh',
                 album: 'Uploads',
-                year:'1889',
+                year: 1889,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/starry-night-1.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Wheat Field with Cypresses',
+                artist: 'Vincent Van Gogh',
                 album: 'Uploads',
-                year:'1889',
+                year: 1889,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/field.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Starry Night Over the Rhone',
+                artist: 'Vincent Van Gogh',
                 album: 'Uploads',
-                year:'1888',
+                year: 1888,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/starry-night-2.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 1',
+                artist: 'Photographer',
                 album: 'Sunsets',
-                year:'2015',
+                year: 2015,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/sunset-1.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 2',
+                artist: 'Photographer',
                 album: 'Sunsets',
-                year:'2016',
+                year: 2003,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/sunset-2.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Sunset 3',
+                artist: 'Photographer',
                 album: 'Sunsets',
-                year:'2005',
+                year: 2005,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/sunset-3.jpg'
             },
             {
                 id: uuid.v4(),
                 title: 'Elephant 1',
+                artist: 'Photographer',
                 album: 'Elephants',
-                year:'2008',
+                year: 2008,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/elephant-1.jpg'
             },
             {
                 id: uuid.v4(),
-                title: 'Elephant 2',
+                title: 'Elephant 1',
+                artist: 'Photographer',
                 album: 'Elephants',
-                year:'2003',
+                year: 2003,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/elephant-2.jpg'
             },
             {
                 id: uuid.v4(),
-                title: 'Elephant 3',
+                title: 'Elephant 1',
+                artist: 'Photographer',
                 album: 'Elephants',
-                year:'2000',
+                year: 2008,
+                description: "Hello World",
+                colors: {
+                    red: true,
+                    yellow: false,
+                    blue: false,
+                    green: false,
+                    orange: false,
+                    purple: false,
+                    brown: false,
+                    black: false,
+                    gray: false,
+                    white: true,
+
+                },
+                tags: "#work",
                 image: '../../assets/images/elephant-3.jpg'
             }
         ];
+    }
+
+    getArtworkInfo(id) {
+        var artwork = this.artworks.filter(artwork => artwork.id === id)[0];
+        return artwork;
     }
 
     updateArtwork(updatedArtwork) {
@@ -100,8 +249,8 @@ class ArtworkStore {
         // Argument 2 = new album name
 
         this.artworks.map(artwork => {
-            if(artwork.album === args[0].toLowerCase()) {
-                artwork.album = args[1].toLowerCase();      // This is mutating the artwork JSON. Think of Immutable way.
+            if(artwork.album === args[0]) {
+                artwork.album = args[1];      // This is mutating the artwork JSON. Think of Immutable way.
             }
             return artwork;
         });
@@ -117,14 +266,10 @@ class ArtworkStore {
 
         this.artworks.map(artwork => {
             if(artwork.id === args[0]) {
-                artwork.album = args[1].toLowerCase();      // This is mutating the artwork JSON. Think of Immutable way.
+                artwork.album = args[1];      // This is mutating the artwork JSON. Think of Immutable way.
             }
             return artwork;
         });
-    }
-
-    edit() {
-        console.log("Entered edit function within Artwork Store");
     }
 
     delete(id) {

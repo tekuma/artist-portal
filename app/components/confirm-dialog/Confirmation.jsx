@@ -40,7 +40,7 @@ export default class Confirmation extends React.Component {
                         open={show}
                         onRequestClose={dismiss}
                         actionsContainerClassName="confirm-actions"
-                        bodyClassName="confirm-message" >
+                        bodyClassName="confirm-body" >
                             {confirmation}
                     </Dialog>
                 </MuiThemeProvider>

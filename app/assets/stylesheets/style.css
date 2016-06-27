@@ -10,7 +10,7 @@ body {
 	color: #4d5967;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	margin: 0;
-	background: #000000;
+	background: #777777;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
 	height: 100vh;
 }
@@ -19,10 +19,13 @@ a, a:visited {
 	text-decoration: none;
 }
 
-textarea:focus, input:focus, button:focus {
+textarea:focus, input:focus, button:focus, button {
     outline: none;
 }
 
+button {
+	border: none;
+}
 /*========================================== */
 
 /* Hidden Navigation Style */
@@ -1364,6 +1367,7 @@ textarea.bio {
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
+	border: none;
 }
 
 .signup-button.left {
@@ -1654,70 +1658,6 @@ textarea.bio {
 
 /* Edit Artwork */
 
-.artwork-dialog {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-	display: -ms-flexbox;  /* TWEENER - IE 10 */
-	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-	display: flex;
-	width: 80vw;
-	min-width: 792px;
-	height: 476.81px;
-	border-radius: 4px;
-	background: #ffffff;
-	flex-direction: row;
-	vertical-align: top;
-	overflow: hidden;
-}
-
-.dialog-artwork {
-	flex: 1 1 50%;
-    -webkit-flex: 1 1 50%;
-	background: #000000;
-	width: 50%;
-	height: 476.81px;
-	display: inline-flex;;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-	float: left;
-}
-
-.dialog-image {
-	width: 100%;
-	max-height: 476.81px;
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-
-}
-
-.dialog-info {
-	flex: 0 0 396px;
-    -webkit-flex: 0 0 396px;
-	float: right;
-	width: 396px;
-	background: #ffffff;
-	padding: 20px;
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-}
-
-.close-dialog {
-	transform: rotate(45deg);
-	width: 35px;
-	float: right;
-	cursor: pointer;
-}
-
-.dialog-heading {
-	text-align: center;
-}
-
 .artwork-form {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
@@ -1725,7 +1665,9 @@ textarea.bio {
 	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
 	display: flex;
 	vertical-align: top;
+	width: 320px;
 	min-width: 357px;
+	margin: 0 auto;
 }
 
 .artwork-form fieldset {
@@ -1759,7 +1701,7 @@ textarea.bio {
 .artwork-form input[type=email],
 .artwork-form input[type=password],
 .artwork-form input[type=number],
-textarea.artwork-description {
+#artwork-description {
     border-radius: 3px;
     appearance: none;
 	-webkit-appearance: none;
@@ -1771,7 +1713,7 @@ textarea.artwork-description {
 	display: inline-block;
 }
 
-textarea.artwork-description {
+#artwork-description {
 	width: 300px;
 }
 
@@ -1786,7 +1728,7 @@ textarea.artwork-description {
     margin: 0;
 }
 
-textarea.artwork-description {
+#artwork-description {
 	background-color: #f4f6f7;
 	border: 1.5px solid #d6d3ce;
 	appearance: none;
@@ -1810,6 +1752,11 @@ textarea.artwork-description {
     text-align: left;
     line-height: 1.5em;
     margin-bottom: 5px;
+}
+
+.artwork-form fieldset ul li label.center {
+	text-align: center !important;
+	width: 100%;
 }
 
 .checkbox {
@@ -1874,14 +1821,33 @@ textarea.artwork-description {
 	border: 1px solid #dddddd;
 }
 
-
-
 .checkbox input {
 	display: none;
 }
 
 .checkbox input:checked + .color-circle {
 	border: 2px solid #e72f80;
+}
+
+.edit-artwork-content {
+	width: 405px !important;
+	max-width: none;
+}
+
+.edit-artwork-title {
+	text-align: center;
+	font-size: 1.6em !important;
+	color: #4d5967 !important;
+	font-weight: 600 !important;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+}
+
+.edit-artwork-body {
+	width: 405px;
+}
+
+.edit-artwork-actions {
+	padding: 0 !important;
 }
 
 /*========================================== */
@@ -1971,7 +1937,7 @@ textarea.artwork-description {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
 }
 
-.confirm-message {
+.confirm-body {
 	color: #4e5967 !important;
 	text-align: center !important;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
@@ -1988,7 +1954,8 @@ textarea.artwork-description {
 	padding: 0 !important;
 }
 
-.confirm-yes {
+.confirm-yes,
+.edit-artwork-yes {
 	width: 50%;
 	height: 100%;
 	background: #292e3a;
@@ -2011,14 +1978,16 @@ textarea.artwork-description {
     -ms-transition: all 0.3s;
 }
 
-.confirm-yes h2 {
+.confirm-yes h2,
+.edit-artwork-yes h2 {
 	color: #ffffff;
 	margin: 0;
-	font-size: 1em;
+	font-size: 1.4em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
-.confirm-no {
+.confirm-no,
+.edit-artwork-no {
 	width: 50%;
 	height: 100%;
 	background: #292e3a;
@@ -2041,15 +2010,19 @@ textarea.artwork-description {
 
 }
 
-.confirm-no:hover, .confirm-yes:hover {
+.confirm-no:hover,
+.confirm-yes:hover,
+.edit-artwork-yes:hover,
+.edit-artwork-no:hover {
 	background: #e83081;
 }
 
 
-.confirm-no h2 {
+.confirm-no h2,
+.edit-artwork-no h2{
 	color: #ffffff;
 	margin: 0;
-	font-size: 1em;
+	font-size: 1.4em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 

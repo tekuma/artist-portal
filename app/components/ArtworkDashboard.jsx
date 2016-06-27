@@ -62,6 +62,7 @@ export default class ArtworkDashboard extends React.Component {
                     return (
                         <Artwork
                             key={artwork.id}
+                            onEdit={this.editArtwork}
                             onDelete={this.deleteArtwork}
                             onMove={ArtworkActions.move}
                             artwork={artwork} />
@@ -91,8 +92,9 @@ export default class ArtworkDashboard extends React.Component {
         );
     }
 
-    editArtwork = (title, artist, year, description, colors, tags) => {
-
+    editArtwork = (id) => {
+        this.props.changeCurrentEditArtwork(id);  // Attach Artwork ID to View
+        this.props.toggleEditArtworkView();    // Open Edit Dialog
     }
 
     deleteArtwork = (id, e) => {

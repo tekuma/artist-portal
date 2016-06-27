@@ -54,6 +54,7 @@ export default class Artwork extends React.Component {
                     <img
                         className="artwork-more"
                         src='assets/images/icons/edit.svg'
+                        onClick={this.props.onEdit.bind(null, this.props.artwork.id)}
                         data-tip="Edit" />
                     <img
                         className="artwork-more"
