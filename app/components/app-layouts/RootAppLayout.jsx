@@ -55,6 +55,7 @@ export default class RootAppLayout extends React.Component {
                     currentAlbum={this.props.currentAlbum}
                     toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
+                    changeAppLayout={this.props.changeAppLayout}
                     managerIsOpen={this.props.managerIsOpen} />
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
                 <ReactTooltip

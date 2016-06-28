@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'node-uuid';
-import Artwork from '../artwork/Artwork';
+import Artwork from '../artwork/Artwork.jsx';
 import ArtworkActions from '../../actions/ArtworkActions';
 import ArtworkStore from '../../stores/ArtworkStore';
 import confirm from '../confirm-dialog/ConfirmFunction';
@@ -47,7 +47,7 @@ export default class ArtworksLayout extends React.Component {
     }
 
     renderArtworks = () => {
-        const album = this.state.album
+        const album = this.state.album;
 
         var styleManagerClosed = {
             width: window.innerWidth - 40
@@ -83,11 +83,11 @@ export default class ArtworksLayout extends React.Component {
 
         return (
             <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
-                <a href="/">
-                    <div className="empty-album">
-                        <h2>This album is empty</h2>
-                    </div>
-                </a>
+                <div
+                    className="empty-album"
+                    onClick={this.props.changeAppLayout.bind({}, 'Upload')}>
+                    <h2>This album is empty</h2>
+                </div>
             </main>
         );
     }

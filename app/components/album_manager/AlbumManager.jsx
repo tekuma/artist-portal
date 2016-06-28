@@ -35,9 +35,9 @@ export default class AlbumManager extends React.Component {
         const albums = this.state.albums;
         if(this.props.managerIsOpen) {
             return this.openedManager();
-        }
-
-        return this.closedManager();
+        } else {
+            return this.closedManager();
+        }        
     }
 
     openedManager = () => {
