@@ -1,9 +1,9 @@
 import React from 'react';
-import SearchBar from './SearchBar.jsx';
+import SearchBar from './SearchBar';
 
 export default class Header extends React.Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             searchOpen: false
@@ -12,25 +12,24 @@ export default class Header extends React.Component {
     render() {
         return (
             <header className="blue">
-            	<div className="tekuma-logo">
-            		<a href="/">
+            	<div
+                    className="tekuma-logo"
+                    onClick={this.props.changeAppLayout.bind({}, "Artworks")}>
                         <img id="tekuma-logo-image" src='assets/images/tekuma-white.svg' />
-            		</a>
             	</div>
             	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
-        	    	<div className="header-icon" data-tip="Upload artworks">
-        	    		<a href="/">
-                            <img src='assets/images/icons/plus-pink.svg' />
-        	    		</a>
+        	    	<div
+                        className="header-icon"
+                        data-tip="Upload artworks"
+                        onClick={this.props.changeAppLayout.bind({}, "Upload")}>
+                        <img src='assets/images/icons/plus-pink.svg' />
         	    	</div>
-        	    	<div className="header-icon" data-tip="Organize artworks">
-        	    		<a href="/">
-                            <img src='assets/images/icons/organize.svg' />
-        	    		</a>
+        	    	<div
+                        className="header-icon"
+                        data-tip="Organize artworks"
+                        onClick={this.props.changeAppLayout.bind({}, "Artworks")}>
+                        <img src='assets/images/icons/organize.svg' />
         	    	</div>
-        	    	<SearchBar
-                        searchOpen={this.state.searchOpen}
-                        toggleSearch={this.toggleSearch} />
         	    </div>
         	</header>
         );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Album from './Album.jsx';
+import Album from './Album';
 import AlbumActions from '../../actions/AlbumActions';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
@@ -17,9 +17,6 @@ const albumTarget = {
   connectDropTarget: connect.dropTarget()
 }))
 export default class Albums extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {connectDropTarget, ...props} = this.props;

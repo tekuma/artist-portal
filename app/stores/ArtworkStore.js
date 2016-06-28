@@ -27,7 +27,11 @@ class ArtworkStore {
                     white: true,
 
                 },
-                tags: "#work",
+                tags: [
+                    {id: uuid.v4(), text: "#Work"},
+                    {id: uuid.v4(), text: "#Is"},
+                    {id: uuid.v4(), text: "#Tiring"},
+                ],
                 image: '../../assets/images/starry-night-1.jpg'
             },
             {

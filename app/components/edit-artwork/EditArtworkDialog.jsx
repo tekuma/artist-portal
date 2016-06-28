@@ -5,8 +5,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import ConfirmButton from '../confirm-dialog/ConfirmButton';
+import uuid from 'node-uuid';
 
-export default class EditArtworkView extends React.Component {
+export default class EditArtworkDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,7 +35,7 @@ export default class EditArtworkView extends React.Component {
           <ConfirmButton
                 label={"Cancel"}
                 className="edit-artwork-no"
-                onClick={this.props.toggleEditArtworkView}
+                onClick={this.props.toggleEditArtworkDialog}
               />
         ];
 
@@ -55,7 +56,10 @@ export default class EditArtworkView extends React.Component {
                             errors={this.state.errors}
                             onChange={this.updateFormInfo}
                             onSubmit={this.onSubmit}
-                            clearErrors={this.clearErrors} />
+                            clearErrors={this.clearErrors}
+                            handleDelete={this.handleDelete}
+                            handleAddition={this.handleAddition}
+                            handleDrag={this.handleDrag} />
                     </Dialog>
                 </MuiThemeProvider>
             </div>
@@ -92,7 +96,7 @@ export default class EditArtworkView extends React.Component {
 
         if(Object.keys(this.state.errors).length == 0) {
             ArtworkActions.updateArtwork(this.state.formInfo);
-            this.props.toggleEditArtworkView();
+            this.props.toggleEditArtworkDialog();
         }
     }
 
@@ -100,5 +104,37 @@ export default class EditArtworkView extends React.Component {
         this.setState({
             errors: {}
         });
+    }
+
+    handleDelete = (i) => {
+        var newFormInfo = this.state.formInfo;
+        var tags = this.state.formInfo.tags;
+        tags.splice(i, 1);
+        newFormInfo.tags = tags;
+        this.setState({formInfo: newFormInfo});
+    }
+
+    handleAddition = (tag) => {
+        var newFormInfo = this.state.formInfo;
+        var tags = this.state.formInfo.tags;
+        tags.push({
+            id: uuid.v4(),
+            text: tag
+        });
+        newFormInfo.tags = tags;
+        this.setState({formInfo: newFormInfo});
+    }
+
+    handleDrag = (tag, currPos, newPos) => {
+        var newFormInfo = this.state.formInfo;
+        var tags = this.state.formInfo.tags;
+
+        // mutate array
+        tags.splice(currPos, 1);
+        tags.splice(newPos, 0, tag);
+
+        // re-render
+        newFormInfo.tags = tags;
+        this.setState({formInfo: newFormInfo});
     }
 }

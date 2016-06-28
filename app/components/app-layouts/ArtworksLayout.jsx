@@ -1,11 +1,11 @@
 import React from 'react';
 import uuid from 'node-uuid';
-import Artwork from './artwork/Artwork.jsx';
-import ArtworkActions from '../actions/ArtworkActions';
-import ArtworkStore from '../stores/ArtworkStore';
-import confirm from './confirm-dialog/ConfirmFunction';
+import Artwork from '../artwork/Artwork';
+import ArtworkActions from '../../actions/ArtworkActions';
+import ArtworkStore from '../../stores/ArtworkStore';
+import confirm from '../confirm-dialog/ConfirmFunction';
 
-export default class ArtworkDashboard extends React.Component {
+export default class ArtworksLayout extends React.Component {
     constructor(props) {
         super(props);
 
@@ -94,7 +94,7 @@ export default class ArtworkDashboard extends React.Component {
 
     editArtwork = (id) => {
         this.props.changeCurrentEditArtwork(id);  // Attach Artwork ID to View
-        this.props.toggleEditArtworkView();    // Open Edit Dialog
+        this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 
     deleteArtwork = (id, e) => {
