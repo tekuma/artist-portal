@@ -3,7 +3,7 @@
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'install',
 1 verbose cli   '--save',
-1 verbose cli   'react-router' ]
+1 verbose cli   'react-dropzone' ]
 2 info using npm@2.15.5
 3 info using node@v4.4.5
 4 verbose install initial load of /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/package.json
@@ -30,7 +30,7 @@
 25 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dnd/package.json
 26 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dnd-html5-backend/package.json
 27 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dom/package.json
-28 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/package.json
+28 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone-component/package.json
 29 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/package.json
 30 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-tap-event-plugin/package.json
 31 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-tooltip/package.json
@@ -45,1934 +45,374 @@
 40 info package.json raw-loader@0.5.1 No license field.
 41 info package.json react-tap-event-plugin@1.0.0 No license field.
 42 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/package.json
-43 verbose install react-router is installed as 2.5.1
-44 silly cache add args [ 'react-router@^2.4.1', null ]
-45 verbose cache add spec react-router@^2.4.1
-46 silly cache add parsed spec Result {
-46 silly cache add   raw: 'react-router@^2.4.1',
-46 silly cache add   scope: null,
-46 silly cache add   name: 'react-router',
-46 silly cache add   rawSpec: '^2.4.1',
-46 silly cache add   spec: '>=2.4.1 <3.0.0',
-46 silly cache add   type: 'range' }
-47 silly addNamed react-router@>=2.4.1 <3.0.0
-48 verbose addNamed ">=2.4.1 <3.0.0" is a valid semver range for react-router
-49 silly addNameRange { name: 'react-router', range: '>=2.4.1 <3.0.0', hasData: false }
-50 silly mapToRegistry name react-router
-51 silly mapToRegistry using default registry
-52 silly mapToRegistry registry https://registry.npmjs.org/
-53 silly mapToRegistry data Result {
-53 silly mapToRegistry   raw: 'react-router',
-53 silly mapToRegistry   scope: null,
-53 silly mapToRegistry   name: 'react-router',
-53 silly mapToRegistry   rawSpec: '',
-53 silly mapToRegistry   spec: 'latest',
-53 silly mapToRegistry   type: 'tag' }
-54 silly mapToRegistry uri https://registry.npmjs.org/react-router
-55 verbose addNameRange registry:https://registry.npmjs.org/react-router not in flight; fetching
-56 verbose request uri https://registry.npmjs.org/react-router
-57 verbose request no auth needed
-58 info attempt registry request try #1 at 8:13:25 PM
-59 verbose request id 27bdc084b456bf73
-60 verbose etag "3FHEJ8AODL02EW5VBD96IWZM0"
-61 http request GET https://registry.npmjs.org/react-router
-62 http 200 https://registry.npmjs.org/react-router
-63 verbose headers { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-63 verbose headers   etag: '"CC3WLBWR07MGZ4BHVIAYDA839"',
-63 verbose headers   'content-type': 'application/json',
-63 verbose headers   'content-encoding': 'gzip',
-63 verbose headers   'cache-control': 'max-age=300',
-63 verbose headers   'content-length': '19304',
-63 verbose headers   'accept-ranges': 'bytes',
-63 verbose headers   date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-63 verbose headers   via: '1.1 varnish',
-63 verbose headers   age: '6',
-63 verbose headers   connection: 'keep-alive',
-63 verbose headers   'x-served-by': 'cache-jfk1030-JFK',
-63 verbose headers   'x-cache': 'HIT',
-63 verbose headers   'x-cache-hits': '1',
-63 verbose headers   'x-timer': 'S1467072805.608297,VS0,VE0',
-63 verbose headers   vary: 'Accept-Encoding' }
-64 silly get cb [ 200,
-64 silly get   { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-64 silly get     etag: '"CC3WLBWR07MGZ4BHVIAYDA839"',
-64 silly get     'content-type': 'application/json',
-64 silly get     'content-encoding': 'gzip',
-64 silly get     'cache-control': 'max-age=300',
-64 silly get     'content-length': '19304',
-64 silly get     'accept-ranges': 'bytes',
-64 silly get     date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-64 silly get     via: '1.1 varnish',
-64 silly get     age: '6',
-64 silly get     connection: 'keep-alive',
-64 silly get     'x-served-by': 'cache-jfk1030-JFK',
-64 silly get     'x-cache': 'HIT',
-64 silly get     'x-cache-hits': '1',
-64 silly get     'x-timer': 'S1467072805.608297,VS0,VE0',
-64 silly get     vary: 'Accept-Encoding' } ]
-65 verbose get saving react-router to /Users/anyati/.npm/registry.npmjs.org/react-router/.cache.json
+43 silly cache add args [ 'react-dropzone', null ]
+44 verbose cache add spec react-dropzone
+45 silly cache add parsed spec Result {
+45 silly cache add   raw: 'react-dropzone',
+45 silly cache add   scope: null,
+45 silly cache add   name: 'react-dropzone',
+45 silly cache add   rawSpec: '',
+45 silly cache add   spec: 'latest',
+45 silly cache add   type: 'tag' }
+46 silly addNamed react-dropzone@latest
+47 verbose addNamed "latest" is being treated as a dist-tag for react-dropzone
+48 info addNameTag [ 'react-dropzone', 'latest' ]
+49 silly mapToRegistry name react-dropzone
+50 silly mapToRegistry using default registry
+51 silly mapToRegistry registry https://registry.npmjs.org/
+52 silly mapToRegistry data Result {
+52 silly mapToRegistry   raw: 'react-dropzone',
+52 silly mapToRegistry   scope: null,
+52 silly mapToRegistry   name: 'react-dropzone',
+52 silly mapToRegistry   rawSpec: '',
+52 silly mapToRegistry   spec: 'latest',
+52 silly mapToRegistry   type: 'tag' }
+53 silly mapToRegistry uri https://registry.npmjs.org/react-dropzone
+54 verbose addNameTag registry:https://registry.npmjs.org/react-dropzone not in flight; fetching
+55 verbose request uri https://registry.npmjs.org/react-dropzone
+56 verbose request no auth needed
+57 info attempt registry request try #1 at 10:10:19 AM
+58 verbose request id b1ab53b03d6c9273
+59 verbose etag "1X1D6VOLLP8Q73HC4DDKP9UWK"
+60 http request GET https://registry.npmjs.org/react-dropzone
+61 http 304 https://registry.npmjs.org/react-dropzone
+62 verbose headers { date: 'Tue, 28 Jun 2016 14:10:20 GMT',
+62 verbose headers   via: '1.1 varnish',
+62 verbose headers   'cache-control': 'max-age=300',
+62 verbose headers   etag: '"1X1D6VOLLP8Q73HC4DDKP9UWK"',
+62 verbose headers   age: '0',
+62 verbose headers   connection: 'keep-alive',
+62 verbose headers   'x-served-by': 'cache-jfk1022-JFK',
+62 verbose headers   'x-cache': 'HIT',
+62 verbose headers   'x-cache-hits': '1',
+62 verbose headers   'x-timer': 'S1467123020.335839,VS0,VE395',
+62 verbose headers   vary: 'Accept-Encoding' }
+63 silly get cb [ 304,
+63 silly get   { date: 'Tue, 28 Jun 2016 14:10:20 GMT',
+63 silly get     via: '1.1 varnish',
+63 silly get     'cache-control': 'max-age=300',
+63 silly get     etag: '"1X1D6VOLLP8Q73HC4DDKP9UWK"',
+63 silly get     age: '0',
+63 silly get     connection: 'keep-alive',
+63 silly get     'x-served-by': 'cache-jfk1022-JFK',
+63 silly get     'x-cache': 'HIT',
+63 silly get     'x-cache-hits': '1',
+63 silly get     'x-timer': 'S1467123020.335839,VS0,VE395',
+63 silly get     vary: 'Accept-Encoding' } ]
+64 verbose etag https://registry.npmjs.org/react-dropzone from cache
+65 verbose get saving react-dropzone to /Users/anyati/.npm/registry.npmjs.org/react-dropzone/.cache.json
 66 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-67 silly addNameRange number 2 { name: 'react-router', range: '>=2.4.1 <3.0.0', hasData: true }
-68 silly addNameRange versions [ 'react-router',
-68 silly addNameRange   [ '0.0.0',
-68 silly addNameRange     '0.0.1',
-68 silly addNameRange     '0.4.0',
-68 silly addNameRange     '0.4.1',
-68 silly addNameRange     '0.4.2',
-68 silly addNameRange     '0.5.0',
-68 silly addNameRange     '0.5.1',
-68 silly addNameRange     '0.5.2',
-68 silly addNameRange     '0.5.3',
-68 silly addNameRange     '0.6.0',
-68 silly addNameRange     '0.6.1',
-68 silly addNameRange     '0.7.0',
-68 silly addNameRange     '0.8.0',
-68 silly addNameRange     '0.9.0',
-68 silly addNameRange     '0.9.1',
-68 silly addNameRange     '0.9.2',
-68 silly addNameRange     '0.9.3',
-68 silly addNameRange     '0.9.4',
-68 silly addNameRange     '0.9.5',
-68 silly addNameRange     '0.10.0',
-68 silly addNameRange     '0.10.1',
-68 silly addNameRange     '0.10.2',
-68 silly addNameRange     '0.11.0',
-68 silly addNameRange     '0.11.1',
-68 silly addNameRange     '0.11.2',
-68 silly addNameRange     '0.11.3',
-68 silly addNameRange     '0.11.4',
-68 silly addNameRange     '0.11.5',
-68 silly addNameRange     '0.11.6',
-68 silly addNameRange     '0.12.0',
-68 silly addNameRange     '0.12.1',
-68 silly addNameRange     '0.12.2',
-68 silly addNameRange     '0.12.3',
-68 silly addNameRange     '0.12.4',
-68 silly addNameRange     '0.13.0',
-68 silly addNameRange     '0.13.1',
-68 silly addNameRange     '0.13.2',
-68 silly addNameRange     '0.13.3',
-68 silly addNameRange     '1.0.0-alpha1',
-68 silly addNameRange     '1.0.0-alpha2',
-68 silly addNameRange     '1.0.0-beta1',
-68 silly addNameRange     '1.0.0-beta2',
-68 silly addNameRange     '1.0.0-beta3',
-68 silly addNameRange     '1.0.0-beta4',
-68 silly addNameRange     '1.0.0-rc1',
-68 silly addNameRange     '0.13.4',
-68 silly addNameRange     '1.0.0-rc2',
-68 silly addNameRange     '1.0.0-rc3',
-68 silly addNameRange     '0.13.5',
-68 silly addNameRange     '1.0.0-rc4',
-68 silly addNameRange     '1.0.0',
-68 silly addNameRange     '1.0.1',
-68 silly addNameRange     '1.0.2',
-68 silly addNameRange     '1.0.3',
-68 silly addNameRange     '2.0.0-rc1',
-68 silly addNameRange     '2.0.0-rc2',
-68 silly addNameRange     '2.0.0-rc3',
-68 silly addNameRange     '2.0.0-rc4',
-68 silly addNameRange     '2.0.0-rc5',
-68 silly addNameRange     '2.0.0-rc6',
-68 silly addNameRange     '2.0.0',
-68 silly addNameRange     '2.0.1',
-68 silly addNameRange     '2.1.0',
-68 silly addNameRange     '2.1.1',
-68 silly addNameRange     '2.2.0',
-68 silly addNameRange     '2.2.1',
-68 silly addNameRange     '2.2.2',
-68 silly addNameRange     '2.2.4',
-68 silly addNameRange     '2.3.0',
-68 silly addNameRange     '2.4.0',
-68 silly addNameRange     '2.4.1',
-68 silly addNameRange     '3.0.0-alpha.1',
-68 silly addNameRange     '2.5.0',
-68 silly addNameRange     '2.5.1' ] ]
-69 silly addNamed react-router@2.5.1
-70 verbose addNamed "2.5.1" is a plain semver version for react-router
-71 silly cache afterAdd react-router@2.5.1
-72 verbose afterAdd /Users/anyati/.npm/react-router/2.5.1/package/package.json not in flight; writing
-73 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-74 verbose afterAdd /Users/anyati/.npm/react-router/2.5.1/package/package.json written
-75 silly install resolved [ { name: 'react-router',
-75 silly install resolved     version: '2.5.1',
-75 silly install resolved     description: 'A complete routing library for React',
-75 silly install resolved     files: [ '*.md', 'docs', 'es6', 'lib', 'umd' ],
-75 silly install resolved     main: 'lib/index',
-75 silly install resolved     'jsnext:main': 'es6/index',
-75 silly install resolved     repository:
-75 silly install resolved      { type: 'git',
-75 silly install resolved        url: 'git+https://github.com/reactjs/react-router.git' },
-75 silly install resolved     homepage: 'https://github.com/reactjs/react-router#readme',
-75 silly install resolved     bugs: { url: 'https://github.com/reactjs/react-router/issues' },
-75 silly install resolved     scripts:
-75 silly install resolved      { build: 'npm run build-cjs && npm run build-es',
-75 silly install resolved        'build-cjs': 'rimraf lib && cross-env BABEL_ENV=cjs babel ./modules -d lib --ignore \'__tests__\'',
-75 silly install resolved        'build-es': 'rimraf es6 && cross-env BABEL_ENV=es babel ./modules -d es6 --ignore \'__tests__\'',
-75 silly install resolved        'build-umd': 'cross-env BABEL_ENV=cjs NODE_ENV=development webpack modules/index.js umd/ReactRouter.js',
-75 silly install resolved        'build-min': 'cross-env BABEL_ENV=cjs NODE_ENV=production webpack -p modules/index.js umd/ReactRouter.min.js',
-75 silly install resolved        lint: 'eslint modules examples',
-75 silly install resolved        start: 'cross-env BABEL_ENV=cjs node examples/server.js',
-75 silly install resolved        test: 'npm run lint && npm run test-node && npm run test-browser',
-75 silly install resolved        'test-browser': 'cross-env BABEL_ENV=cjs karma start',
-75 silly install resolved        'test-node': 'cross-env BABEL_ENV=cjs mocha --compilers js:babel-register tests.node.js' },
-75 silly install resolved     authors: [ 'Ryan Florence', 'Michael Jackson' ],
-75 silly install resolved     license: 'MIT',
-75 silly install resolved     dependencies:
-75 silly install resolved      { history: '^2.0.1',
-75 silly install resolved        'hoist-non-react-statics': '^1.0.5',
-75 silly install resolved        invariant: '^2.2.1',
-75 silly install resolved        warning: '^2.1.0',
-75 silly install resolved        'loose-envify': '^1.2.0' },
-75 silly install resolved     peerDependencies: { react: '^0.14.0 || ^15.0.0' },
-75 silly install resolved     devDependencies:
-75 silly install resolved      { 'babel-cli': '^6.7.5',
-75 silly install resolved        'babel-core': '^6.7.6',
-75 silly install resolved        'babel-eslint': '^5.0.4',
-75 silly install resolved        'babel-loader': '^6.2.4',
-75 silly install resolved        'babel-plugin-add-module-exports': '^0.1.2',
-75 silly install resolved        'babel-plugin-dev-expression': '^0.2.1',
-75 silly install resolved        'babel-preset-es2015': '^6.6.0',
-75 silly install resolved        'babel-preset-es2015-loose': '^7.0.0',
-75 silly install resolved        'babel-preset-es2015-loose-native-modules': '^1.0.0',
-75 silly install resolved        'babel-preset-react': '^6.5.0',
-75 silly install resolved        'babel-preset-stage-1': '^6.5.0',
-75 silly install resolved        'babel-register': '^6.7.2',
-75 silly install resolved        'bundle-loader': '^0.5.4',
-75 silly install resolved        'codecov.io': '^0.1.6',
-75 silly install resolved        coveralls: '^2.11.9',
-75 silly install resolved        'cross-env': '^1.0.7',
-75 silly install resolved        'css-loader': '^0.23.1',
-75 silly install resolved        eslint: '^1.10.3',
-75 silly install resolved        'eslint-config-rackt': '^1.1.1',
-75 silly install resolved        'eslint-plugin-react': '^3.16.1',
-75 silly install resolved        expect: '^1.18.0',
-75 silly install resolved        express: '^4.13.4',
-75 silly install resolved        'express-urlrewrite': '^1.2.0',
-75 silly install resolved        'gzip-size': '^3.0.0',
-75 silly install resolved        'isparta-loader': '^2.0.0',
-75 silly install resolved        karma: '^0.13.22',
-75 silly install resolved        'karma-browserstack-launcher': '^0.1.10',
-75 silly install resolved        'karma-chrome-launcher': '^0.2.3',
-75 silly install resolved        'karma-coverage': '^0.5.5',
-75 silly install resolved        'karma-mocha': '^0.2.2',
-75 silly install resolved        'karma-mocha-reporter': '^2.0.1',
-75 silly install resolved        'karma-sourcemap-loader': '^0.3.7',
-75 silly install resolved        'karma-webpack': '^1.7.0',
-75 silly install resolved        mocha: '^2.4.5',
-75 silly install resolved        'pretty-bytes': '^3.0.1',
-75 silly install resolved        qs: '^6.1.0',
-75 silly install resolved        react: '^15.0.0',
-75 silly install resolved        'react-addons-css-transition-group': '^15.0.0',
-75 silly install resolved        'react-addons-test-utils': '^15.0.0',
-75 silly install resolved        'react-dom': '^15.0.0',
-75 silly install resolved        rimraf: '^2.5.2',
-75 silly install resolved        'style-loader': '^0.13.1',
-75 silly install resolved        webpack: '^1.12.14',
-75 silly install resolved        'webpack-dev-middleware': '^1.6.1' },
-75 silly install resolved     browserify: { transform: [Object] },
-75 silly install resolved     tags: [ 'react', 'router' ],
-75 silly install resolved     keywords:
-75 silly install resolved      [ 'react',
-75 silly install resolved        'react-component',
-75 silly install resolved        'routing',
-75 silly install resolved        'route',
-75 silly install resolved        'routes',
-75 silly install resolved        'router' ],
-75 silly install resolved     gitHead: 'e01264dfaa132c129fc5e6b7a0fd3f7a7d165790',
-75 silly install resolved     _id: 'react-router@2.5.1',
-75 silly install resolved     _shasum: '98de6982f0eaa2ff4b64abe72e9619c56e6e6ac9',
-75 silly install resolved     _from: 'react-router@>=2.4.1 <3.0.0',
-75 silly install resolved     _npmVersion: '3.9.6',
-75 silly install resolved     _nodeVersion: '6.2.1',
-75 silly install resolved     _npmUser: { name: 'taion', email: 'tesrin@gmail.com' },
-75 silly install resolved     dist:
-75 silly install resolved      { shasum: '98de6982f0eaa2ff4b64abe72e9619c56e6e6ac9',
-75 silly install resolved        tarball: 'https://registry.npmjs.org/react-router/-/react-router-2.5.1.tgz' },
-75 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
-75 silly install resolved     _npmOperationalInternal:
-75 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
-75 silly install resolved        tmp: 'tmp/react-router-2.5.1.tgz_1466740769871_0.01134293619543314' },
-75 silly install resolved     directories: {},
-75 silly install resolved     _resolved: 'https://registry.npmjs.org/react-router/-/react-router-2.5.1.tgz',
-75 silly install resolved     readme: 'ERROR: No README data found!' } ]
-76 info install react-router@2.5.1 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-77 info installOne react-router@2.5.1
-78 verbose installOne of react-router to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder not in flight; installing
-79 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-80 verbose lock using /Users/anyati/.npm/_locks/react-router-c575b88eac1ba01e.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-81 silly install write writing react-router 2.5.1 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-82 verbose unbuild node_modules/react-router
-83 info preuninstall react-router@2.5.1
-84 info uninstall react-router@2.5.1
-85 verbose unbuild rmStuff react-router@2.5.1 from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules
-86 info postuninstall react-router@2.5.1
-87 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-88 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-89 silly vacuum-fs purging /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-90 silly vacuum-fs quitting because other entries in /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules
-91 verbose tar unpack /Users/anyati/.npm/react-router/2.5.1/package.tgz
-92 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-93 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router is being purged
-94 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-95 silly gunzTarPerm modes [ '755', '644' ]
-96 silly gunzTarPerm extractEntry package.json
-97 silly gunzTarPerm extractEntry CODE_OF_CONDUCT.md
-98 silly gunzTarPerm extractEntry CONTRIBUTING.md
-99 silly gunzTarPerm extractEntry ISSUE_TEMPLATE.md
-100 silly gunzTarPerm extractEntry LICENSE.md
-101 silly gunzTarPerm extractEntry SPONSORS.md
-102 silly gunzTarPerm extractEntry docs/README.md
-103 silly gunzTarPerm extractEntry docs/API.md
-104 silly gunzTarPerm extractEntry docs/Glossary.md
-105 silly gunzTarPerm extractEntry docs/Introduction.md
-106 silly gunzTarPerm extractEntry docs/Troubleshooting.md
-107 silly gunzTarPerm extractEntry docs/guides/README.md
-108 silly gunzTarPerm extractEntry docs/guides/NavigatingOutsideOfComponents.md
-109 silly gunzTarPerm extractEntry docs/guides/DynamicRouting.md
-110 silly gunzTarPerm extractEntry docs/guides/Histories.md
-111 silly gunzTarPerm extractEntry docs/guides/IndexRoutes.md
-112 silly gunzTarPerm extractEntry docs/guides/MinimizingBundleSize.md
-113 silly gunzTarPerm extractEntry docs/guides/ConfirmingNavigation.md
-114 silly gunzTarPerm extractEntry docs/guides/ComponentLifecycle.md
-115 silly gunzTarPerm extractEntry docs/guides/RouteConfiguration.md
-116 silly gunzTarPerm extractEntry docs/guides/RouteMatching.md
-117 silly gunzTarPerm extractEntry docs/guides/ServerRendering.md
-118 silly gunzTarPerm extractEntry docs/guides/testing.md
-119 silly gunzTarPerm extractEntry lib/AsyncUtils.js
-120 silly gunzTarPerm extractEntry lib/RouterContext.js
-121 silly gunzTarPerm extractEntry lib/RouterUtils.js
-122 silly gunzTarPerm extractEntry lib/RoutingContext.js
-123 silly gunzTarPerm extractEntry lib/TransitionUtils.js
-124 silly gunzTarPerm extractEntry lib/Router.js
-125 silly gunzTarPerm extractEntry lib/browserHistory.js
-126 silly gunzTarPerm extractEntry lib/computeChangedRoutes.js
-127 silly gunzTarPerm extractEntry lib/createMemoryHistory.js
-128 silly gunzTarPerm extractEntry lib/createRouterHistory.js
-129 silly gunzTarPerm extractEntry lib/createTransitionManager.js
-130 silly gunzTarPerm extractEntry lib/RouteUtils.js
-131 silly gunzTarPerm extractEntry lib/deprecateObjectProperties.js
-132 silly gunzTarPerm extractEntry lib/RouteContext.js
-133 silly gunzTarPerm extractEntry lib/getComponents.js
-134 silly gunzTarPerm extractEntry lib/Route.js
-135 silly gunzTarPerm extractEntry lib/getRouteParams.js
-136 silly gunzTarPerm extractEntry lib/Redirect.js
-137 silly gunzTarPerm extractEntry lib/hashHistory.js
-138 silly gunzTarPerm extractEntry lib/PropTypes.js
-139 silly gunzTarPerm extractEntry lib/index.js
-140 silly gunzTarPerm extractEntry lib/PatternUtils.js
-141 silly gunzTarPerm extractEntry lib/isActive.js
-142 silly gunzTarPerm extractEntry lib/Link.js
-143 silly gunzTarPerm extractEntry lib/makeStateWithLocation.js
-144 silly gunzTarPerm extractEntry lib/Lifecycle.js
-145 silly gunzTarPerm extractEntry lib/match.js
-146 silly gunzTarPerm extractEntry lib/InternalPropTypes.js
-147 silly gunzTarPerm extractEntry lib/matchRoutes.js
-148 silly gunzTarPerm extractEntry lib/IndexRoute.js
-149 silly gunzTarPerm extractEntry lib/routerWarning.js
-150 silly gunzTarPerm extractEntry lib/IndexRedirect.js
-151 silly gunzTarPerm extractEntry lib/useRouterHistory.js
-152 silly gunzTarPerm extractEntry lib/IndexLink.js
-153 silly gunzTarPerm extractEntry lib/useRoutes.js
-154 silly gunzTarPerm extractEntry lib/History.js
-155 silly gunzTarPerm extractEntry lib/withRouter.js
-156 silly gunzTarPerm extractEntry lib/applyRouterMiddleware.js
-157 silly gunzTarPerm extractEntry CHANGES.md
-158 silly gunzTarPerm extractEntry umd/ReactRouter.js
-159 silly gunzTarPerm extractEntry umd/ReactRouter.min.js
-160 silly gunzTarPerm extractEntry es6/AsyncUtils.js
-161 silly gunzTarPerm extractEntry es6/RouterContext.js
-162 silly gunzTarPerm extractEntry es6/RouterUtils.js
-163 silly gunzTarPerm extractEntry es6/RoutingContext.js
-164 silly gunzTarPerm extractEntry es6/TransitionUtils.js
-165 silly gunzTarPerm extractEntry es6/Router.js
-166 silly gunzTarPerm extractEntry es6/browserHistory.js
-167 silly gunzTarPerm extractEntry es6/computeChangedRoutes.js
-168 silly gunzTarPerm extractEntry es6/createMemoryHistory.js
-169 silly gunzTarPerm extractEntry es6/createRouterHistory.js
-170 silly gunzTarPerm extractEntry es6/createTransitionManager.js
-171 silly gunzTarPerm extractEntry es6/RouteUtils.js
-172 silly gunzTarPerm extractEntry es6/deprecateObjectProperties.js
-173 silly gunzTarPerm extractEntry es6/RouteContext.js
-174 silly gunzTarPerm extractEntry es6/getComponents.js
-175 silly gunzTarPerm extractEntry es6/Route.js
-176 silly gunzTarPerm extractEntry es6/getRouteParams.js
-177 silly gunzTarPerm extractEntry es6/Redirect.js
-178 silly gunzTarPerm extractEntry es6/hashHistory.js
-179 silly gunzTarPerm extractEntry es6/PropTypes.js
-180 silly gunzTarPerm extractEntry es6/index.js
-181 silly gunzTarPerm extractEntry es6/PatternUtils.js
-182 silly gunzTarPerm extractEntry es6/isActive.js
-183 silly gunzTarPerm extractEntry es6/Link.js
-184 silly gunzTarPerm extractEntry es6/makeStateWithLocation.js
-185 silly gunzTarPerm extractEntry es6/Lifecycle.js
-186 silly gunzTarPerm extractEntry es6/match.js
-187 silly gunzTarPerm extractEntry es6/InternalPropTypes.js
-188 silly gunzTarPerm extractEntry es6/matchRoutes.js
-189 silly gunzTarPerm extractEntry es6/IndexRoute.js
-190 silly gunzTarPerm extractEntry es6/routerWarning.js
-191 silly gunzTarPerm extractEntry es6/IndexRedirect.js
-192 silly gunzTarPerm extractEntry es6/useRouterHistory.js
-193 silly gunzTarPerm extractEntry es6/IndexLink.js
-194 silly gunzTarPerm extractEntry es6/useRoutes.js
-195 silly gunzTarPerm extractEntry es6/History.js
-196 silly gunzTarPerm extractEntry es6/withRouter.js
-197 silly gunzTarPerm extractEntry es6/applyRouterMiddleware.js
-198 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/package.json
-199 info preinstall react-router@2.5.1
-200 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/package.json
-201 silly prepareForInstallMany adding history@^2.0.1 from react-router dependencies
-202 silly prepareForInstallMany adding hoist-non-react-statics@^1.0.5 from react-router dependencies
-203 silly prepareForInstallMany adding invariant@^2.2.1 from react-router dependencies
-204 silly prepareForInstallMany adding warning@^2.1.0 from react-router dependencies
-205 silly prepareForInstallMany adding loose-envify@^1.2.0 from react-router dependencies
-206 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/package.json
-207 silly cache add args [ 'history@^2.0.1', null ]
-208 verbose cache add spec history@^2.0.1
-209 silly cache add args [ 'hoist-non-react-statics@^1.0.5', null ]
-210 verbose cache add spec hoist-non-react-statics@^1.0.5
-211 silly cache add parsed spec Result {
-211 silly cache add   raw: 'history@^2.0.1',
-211 silly cache add   scope: null,
-211 silly cache add   name: 'history',
-211 silly cache add   rawSpec: '^2.0.1',
-211 silly cache add   spec: '>=2.0.1 <3.0.0',
-211 silly cache add   type: 'range' }
-212 silly addNamed history@>=2.0.1 <3.0.0
-213 verbose addNamed ">=2.0.1 <3.0.0" is a valid semver range for history
-214 silly addNameRange { name: 'history', range: '>=2.0.1 <3.0.0', hasData: false }
-215 silly mapToRegistry name history
-216 silly mapToRegistry using default registry
-217 silly mapToRegistry registry https://registry.npmjs.org/
-218 silly mapToRegistry data Result {
-218 silly mapToRegistry   raw: 'history',
-218 silly mapToRegistry   scope: null,
-218 silly mapToRegistry   name: 'history',
-218 silly mapToRegistry   rawSpec: '',
-218 silly mapToRegistry   spec: 'latest',
-218 silly mapToRegistry   type: 'tag' }
-219 silly mapToRegistry uri https://registry.npmjs.org/history
-220 verbose addNameRange registry:https://registry.npmjs.org/history not in flight; fetching
-221 silly cache add parsed spec Result {
-221 silly cache add   raw: 'hoist-non-react-statics@^1.0.5',
-221 silly cache add   scope: null,
-221 silly cache add   name: 'hoist-non-react-statics',
-221 silly cache add   rawSpec: '^1.0.5',
-221 silly cache add   spec: '>=1.0.5 <2.0.0',
-221 silly cache add   type: 'range' }
-222 silly addNamed hoist-non-react-statics@>=1.0.5 <2.0.0
-223 verbose addNamed ">=1.0.5 <2.0.0" is a valid semver range for hoist-non-react-statics
-224 silly addNameRange { name: 'hoist-non-react-statics',
-224 silly addNameRange   range: '>=1.0.5 <2.0.0',
-224 silly addNameRange   hasData: false }
-225 silly mapToRegistry name hoist-non-react-statics
-226 silly mapToRegistry using default registry
-227 silly mapToRegistry registry https://registry.npmjs.org/
-228 silly mapToRegistry data Result {
-228 silly mapToRegistry   raw: 'hoist-non-react-statics',
-228 silly mapToRegistry   scope: null,
-228 silly mapToRegistry   name: 'hoist-non-react-statics',
-228 silly mapToRegistry   rawSpec: '',
-228 silly mapToRegistry   spec: 'latest',
-228 silly mapToRegistry   type: 'tag' }
-229 silly mapToRegistry uri https://registry.npmjs.org/hoist-non-react-statics
-230 verbose addNameRange registry:https://registry.npmjs.org/hoist-non-react-statics not in flight; fetching
-231 silly cache add args [ 'invariant@^2.2.1', null ]
-232 verbose cache add spec invariant@^2.2.1
-233 silly cache add parsed spec Result {
-233 silly cache add   raw: 'invariant@^2.2.1',
-233 silly cache add   scope: null,
-233 silly cache add   name: 'invariant',
-233 silly cache add   rawSpec: '^2.2.1',
-233 silly cache add   spec: '>=2.2.1 <3.0.0',
-233 silly cache add   type: 'range' }
-234 silly addNamed invariant@>=2.2.1 <3.0.0
-235 verbose addNamed ">=2.2.1 <3.0.0" is a valid semver range for invariant
-236 silly addNameRange { name: 'invariant', range: '>=2.2.1 <3.0.0', hasData: false }
-237 silly mapToRegistry name invariant
-238 silly mapToRegistry using default registry
-239 silly mapToRegistry registry https://registry.npmjs.org/
-240 silly mapToRegistry data Result {
-240 silly mapToRegistry   raw: 'invariant',
-240 silly mapToRegistry   scope: null,
-240 silly mapToRegistry   name: 'invariant',
-240 silly mapToRegistry   rawSpec: '',
-240 silly mapToRegistry   spec: 'latest',
-240 silly mapToRegistry   type: 'tag' }
-241 silly mapToRegistry uri https://registry.npmjs.org/invariant
-242 verbose addNameRange registry:https://registry.npmjs.org/invariant not in flight; fetching
-243 silly cache add args [ 'warning@^2.1.0', null ]
-244 verbose cache add spec warning@^2.1.0
-245 silly cache add parsed spec Result {
-245 silly cache add   raw: 'warning@^2.1.0',
-245 silly cache add   scope: null,
-245 silly cache add   name: 'warning',
-245 silly cache add   rawSpec: '^2.1.0',
-245 silly cache add   spec: '>=2.1.0 <3.0.0',
-245 silly cache add   type: 'range' }
-246 silly addNamed warning@>=2.1.0 <3.0.0
-247 verbose addNamed ">=2.1.0 <3.0.0" is a valid semver range for warning
-248 silly addNameRange { name: 'warning', range: '>=2.1.0 <3.0.0', hasData: false }
-249 silly mapToRegistry name warning
-250 silly mapToRegistry using default registry
-251 silly mapToRegistry registry https://registry.npmjs.org/
-252 silly mapToRegistry data Result {
-252 silly mapToRegistry   raw: 'warning',
-252 silly mapToRegistry   scope: null,
-252 silly mapToRegistry   name: 'warning',
-252 silly mapToRegistry   rawSpec: '',
-252 silly mapToRegistry   spec: 'latest',
-252 silly mapToRegistry   type: 'tag' }
-253 silly mapToRegistry uri https://registry.npmjs.org/warning
-254 verbose addNameRange registry:https://registry.npmjs.org/warning not in flight; fetching
-255 silly cache add args [ 'loose-envify@^1.2.0', null ]
-256 verbose cache add spec loose-envify@^1.2.0
-257 silly cache add parsed spec Result {
-257 silly cache add   raw: 'loose-envify@^1.2.0',
-257 silly cache add   scope: null,
-257 silly cache add   name: 'loose-envify',
-257 silly cache add   rawSpec: '^1.2.0',
-257 silly cache add   spec: '>=1.2.0 <2.0.0',
-257 silly cache add   type: 'range' }
-258 silly addNamed loose-envify@>=1.2.0 <2.0.0
-259 verbose addNamed ">=1.2.0 <2.0.0" is a valid semver range for loose-envify
-260 silly addNameRange { name: 'loose-envify', range: '>=1.2.0 <2.0.0', hasData: false }
-261 silly mapToRegistry name loose-envify
-262 silly mapToRegistry using default registry
-263 silly mapToRegistry registry https://registry.npmjs.org/
-264 silly mapToRegistry data Result {
-264 silly mapToRegistry   raw: 'loose-envify',
-264 silly mapToRegistry   scope: null,
-264 silly mapToRegistry   name: 'loose-envify',
-264 silly mapToRegistry   rawSpec: '',
-264 silly mapToRegistry   spec: 'latest',
-264 silly mapToRegistry   type: 'tag' }
-265 silly mapToRegistry uri https://registry.npmjs.org/loose-envify
-266 verbose addNameRange registry:https://registry.npmjs.org/loose-envify not in flight; fetching
-267 verbose request uri https://registry.npmjs.org/hoist-non-react-statics
-268 verbose request no auth needed
-269 info attempt registry request try #1 at 8:13:25 PM
-270 verbose etag "BPJCW7DBQU0L80A2I1IQ5Y5Z6"
-271 http request GET https://registry.npmjs.org/hoist-non-react-statics
-272 verbose request uri https://registry.npmjs.org/invariant
-273 verbose request no auth needed
-274 info attempt registry request try #1 at 8:13:25 PM
-275 verbose etag "BZPR94IIWKJTJFW079QKRI75C"
-276 http request GET https://registry.npmjs.org/invariant
-277 verbose request uri https://registry.npmjs.org/warning
-278 verbose request no auth needed
-279 info attempt registry request try #1 at 8:13:25 PM
-280 verbose etag "E7WJENFEJ0IFCCU7OLWP0Y0GM"
-281 http request GET https://registry.npmjs.org/warning
-282 verbose request uri https://registry.npmjs.org/history
-283 verbose request no auth needed
-284 info attempt registry request try #1 at 8:13:25 PM
-285 verbose etag "62VO68PRVRT1OJGX82O740E1J"
-286 http request GET https://registry.npmjs.org/history
-287 verbose request uri https://registry.npmjs.org/loose-envify
-288 verbose request no auth needed
-289 info attempt registry request try #1 at 8:13:25 PM
-290 verbose etag "7W661SJ3C1XOJ2CLXT5JF6FLN"
-291 http request GET https://registry.npmjs.org/loose-envify
-292 http 304 https://registry.npmjs.org/hoist-non-react-statics
-293 verbose headers { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-293 verbose headers   via: '1.1 varnish',
-293 verbose headers   'cache-control': 'max-age=300',
-293 verbose headers   etag: '"BPJCW7DBQU0L80A2I1IQ5Y5Z6"',
-293 verbose headers   age: '253',
-293 verbose headers   connection: 'keep-alive',
-293 verbose headers   'x-served-by': 'cache-jfk1030-JFK',
-293 verbose headers   'x-cache': 'HIT',
-293 verbose headers   'x-cache-hits': '1',
-293 verbose headers   'x-timer': 'S1467072805.856658,VS0,VE0',
-293 verbose headers   vary: 'Accept-Encoding' }
-294 silly get cb [ 304,
-294 silly get   { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-294 silly get     via: '1.1 varnish',
-294 silly get     'cache-control': 'max-age=300',
-294 silly get     etag: '"BPJCW7DBQU0L80A2I1IQ5Y5Z6"',
-294 silly get     age: '253',
-294 silly get     connection: 'keep-alive',
-294 silly get     'x-served-by': 'cache-jfk1030-JFK',
-294 silly get     'x-cache': 'HIT',
-294 silly get     'x-cache-hits': '1',
-294 silly get     'x-timer': 'S1467072805.856658,VS0,VE0',
-294 silly get     vary: 'Accept-Encoding' } ]
-295 verbose etag https://registry.npmjs.org/hoist-non-react-statics from cache
-296 verbose get saving hoist-non-react-statics to /Users/anyati/.npm/registry.npmjs.org/hoist-non-react-statics/.cache.json
-297 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-298 silly addNameRange number 2 { name: 'hoist-non-react-statics',
-298 silly addNameRange   range: '>=1.0.5 <2.0.0',
-298 silly addNameRange   hasData: true }
-299 silly addNameRange versions [ 'hoist-non-react-statics',
-299 silly addNameRange   [ '1.0.0',
-299 silly addNameRange     '1.0.1',
-299 silly addNameRange     '1.0.2',
-299 silly addNameRange     '1.0.3',
-299 silly addNameRange     '1.0.4',
-299 silly addNameRange     '1.0.5',
-299 silly addNameRange     '1.0.6',
-299 silly addNameRange     '1.1.0',
-299 silly addNameRange     '1.2.0' ] ]
-300 silly addNamed hoist-non-react-statics@1.2.0
-301 verbose addNamed "1.2.0" is a plain semver version for hoist-non-react-statics
-302 silly cache afterAdd hoist-non-react-statics@1.2.0
-303 verbose afterAdd /Users/anyati/.npm/hoist-non-react-statics/1.2.0/package/package.json not in flight; writing
-304 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-305 verbose afterAdd /Users/anyati/.npm/hoist-non-react-statics/1.2.0/package/package.json written
-306 http 304 https://registry.npmjs.org/invariant
-307 verbose headers { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-307 verbose headers   via: '1.1 varnish',
-307 verbose headers   'cache-control': 'max-age=300',
-307 verbose headers   etag: '"BZPR94IIWKJTJFW079QKRI75C"',
-307 verbose headers   age: '95',
-307 verbose headers   connection: 'keep-alive',
-307 verbose headers   'x-served-by': 'cache-jfk1024-JFK',
-307 verbose headers   'x-cache': 'HIT',
-307 verbose headers   'x-cache-hits': '311',
-307 verbose headers   'x-timer': 'S1467072805.874827,VS0,VE0',
-307 verbose headers   vary: 'Accept-Encoding' }
-308 silly get cb [ 304,
-308 silly get   { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-308 silly get     via: '1.1 varnish',
-308 silly get     'cache-control': 'max-age=300',
-308 silly get     etag: '"BZPR94IIWKJTJFW079QKRI75C"',
-308 silly get     age: '95',
-308 silly get     connection: 'keep-alive',
-308 silly get     'x-served-by': 'cache-jfk1024-JFK',
-308 silly get     'x-cache': 'HIT',
-308 silly get     'x-cache-hits': '311',
-308 silly get     'x-timer': 'S1467072805.874827,VS0,VE0',
-308 silly get     vary: 'Accept-Encoding' } ]
-309 verbose etag https://registry.npmjs.org/invariant from cache
-310 verbose get saving invariant to /Users/anyati/.npm/registry.npmjs.org/invariant/.cache.json
-311 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-312 silly addNameRange number 2 { name: 'invariant', range: '>=2.2.1 <3.0.0', hasData: true }
-313 silly addNameRange versions [ 'invariant',
-313 silly addNameRange   [ '1.0.0',
-313 silly addNameRange     '1.0.1',
-313 silly addNameRange     '1.0.2',
-313 silly addNameRange     '2.0.0',
-313 silly addNameRange     '2.1.0',
-313 silly addNameRange     '2.1.1',
-313 silly addNameRange     '2.1.2',
-313 silly addNameRange     '2.1.3',
-313 silly addNameRange     '2.2.0',
-313 silly addNameRange     '2.2.1' ] ]
-314 silly addNamed invariant@2.2.1
-315 verbose addNamed "2.2.1" is a plain semver version for invariant
-316 silly cache afterAdd invariant@2.2.1
-317 verbose afterAdd /Users/anyati/.npm/invariant/2.2.1/package/package.json not in flight; writing
-318 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-319 verbose afterAdd /Users/anyati/.npm/invariant/2.2.1/package/package.json written
-320 http 304 https://registry.npmjs.org/warning
-321 verbose headers { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-321 verbose headers   via: '1.1 varnish',
-321 verbose headers   'cache-control': 'max-age=300',
-321 verbose headers   etag: '"E7WJENFEJ0IFCCU7OLWP0Y0GM"',
-321 verbose headers   age: '50',
-321 verbose headers   connection: 'keep-alive',
-321 verbose headers   'x-served-by': 'cache-jfk1025-JFK',
-321 verbose headers   'x-cache': 'HIT',
-321 verbose headers   'x-cache-hits': '1',
-321 verbose headers   'x-timer': 'S1467072805.884668,VS0,VE0',
-321 verbose headers   vary: 'Accept-Encoding' }
-322 silly get cb [ 304,
-322 silly get   { date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-322 silly get     via: '1.1 varnish',
-322 silly get     'cache-control': 'max-age=300',
-322 silly get     etag: '"E7WJENFEJ0IFCCU7OLWP0Y0GM"',
-322 silly get     age: '50',
-322 silly get     connection: 'keep-alive',
-322 silly get     'x-served-by': 'cache-jfk1025-JFK',
-322 silly get     'x-cache': 'HIT',
-322 silly get     'x-cache-hits': '1',
-322 silly get     'x-timer': 'S1467072805.884668,VS0,VE0',
-322 silly get     vary: 'Accept-Encoding' } ]
-323 verbose etag https://registry.npmjs.org/warning from cache
-324 verbose get saving warning to /Users/anyati/.npm/registry.npmjs.org/warning/.cache.json
-325 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-326 http 200 https://registry.npmjs.org/loose-envify
-327 verbose headers { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-327 verbose headers   etag: '"CU1PQY5YZM23J3V0O9O2CV6B8"',
-327 verbose headers   'content-type': 'application/json',
-327 verbose headers   'content-encoding': 'gzip',
-327 verbose headers   'cache-control': 'max-age=300',
-327 verbose headers   'content-length': '1626',
-327 verbose headers   'accept-ranges': 'bytes',
-327 verbose headers   date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-327 verbose headers   via: '1.1 varnish',
-327 verbose headers   age: '239',
-327 verbose headers   connection: 'keep-alive',
-327 verbose headers   'x-served-by': 'cache-jfk1034-JFK',
-327 verbose headers   'x-cache': 'HIT',
-327 verbose headers   'x-cache-hits': '3',
-327 verbose headers   'x-timer': 'S1467072805.881951,VS0,VE0',
-327 verbose headers   vary: 'Accept-Encoding' }
-328 silly get cb [ 200,
-328 silly get   { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-328 silly get     etag: '"CU1PQY5YZM23J3V0O9O2CV6B8"',
-328 silly get     'content-type': 'application/json',
-328 silly get     'content-encoding': 'gzip',
-328 silly get     'cache-control': 'max-age=300',
-328 silly get     'content-length': '1626',
-328 silly get     'accept-ranges': 'bytes',
-328 silly get     date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-328 silly get     via: '1.1 varnish',
-328 silly get     age: '239',
-328 silly get     connection: 'keep-alive',
-328 silly get     'x-served-by': 'cache-jfk1034-JFK',
-328 silly get     'x-cache': 'HIT',
-328 silly get     'x-cache-hits': '3',
-328 silly get     'x-timer': 'S1467072805.881951,VS0,VE0',
-328 silly get     vary: 'Accept-Encoding' } ]
-329 verbose get saving loose-envify to /Users/anyati/.npm/registry.npmjs.org/loose-envify/.cache.json
-330 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-331 http 200 https://registry.npmjs.org/history
-332 verbose headers { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-332 verbose headers   etag: '"ASVHKZL9C3YUSR1DDTWARCNUZ"',
-332 verbose headers   'content-type': 'application/json',
-332 verbose headers   'content-encoding': 'gzip',
-332 verbose headers   'cache-control': 'max-age=300',
-332 verbose headers   'content-length': '13037',
-332 verbose headers   'accept-ranges': 'bytes',
-332 verbose headers   date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-332 verbose headers   via: '1.1 varnish',
-332 verbose headers   age: '253',
-332 verbose headers   connection: 'keep-alive',
-332 verbose headers   'x-served-by': 'cache-jfk1033-JFK',
-332 verbose headers   'x-cache': 'HIT',
-332 verbose headers   'x-cache-hits': '1',
-332 verbose headers   'x-timer': 'S1467072805.878842,VS0,VE0',
-332 verbose headers   vary: 'Accept-Encoding' }
-333 silly get cb [ 200,
-333 silly get   { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
-333 silly get     etag: '"ASVHKZL9C3YUSR1DDTWARCNUZ"',
-333 silly get     'content-type': 'application/json',
-333 silly get     'content-encoding': 'gzip',
-333 silly get     'cache-control': 'max-age=300',
-333 silly get     'content-length': '13037',
-333 silly get     'accept-ranges': 'bytes',
-333 silly get     date: 'Tue, 28 Jun 2016 00:13:25 GMT',
-333 silly get     via: '1.1 varnish',
-333 silly get     age: '253',
-333 silly get     connection: 'keep-alive',
-333 silly get     'x-served-by': 'cache-jfk1033-JFK',
-333 silly get     'x-cache': 'HIT',
-333 silly get     'x-cache-hits': '1',
-333 silly get     'x-timer': 'S1467072805.878842,VS0,VE0',
-333 silly get     vary: 'Accept-Encoding' } ]
-334 verbose get saving history to /Users/anyati/.npm/registry.npmjs.org/history/.cache.json
-335 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-336 silly addNameRange number 2 { name: 'warning', range: '>=2.1.0 <3.0.0', hasData: true }
-337 silly addNameRange versions [ 'warning',
-337 silly addNameRange   [ '1.0.0', '1.0.1', '1.0.2', '2.0.0', '2.1.0', '3.0.0' ] ]
-338 silly addNamed warning@2.1.0
-339 verbose addNamed "2.1.0" is a plain semver version for warning
-340 silly addNameRange number 2 { name: 'loose-envify', range: '>=1.2.0 <2.0.0', hasData: true }
-341 silly addNameRange versions [ 'loose-envify', [ '1.0.0', '1.1.0', '1.2.0' ] ]
-342 silly addNamed loose-envify@1.2.0
-343 verbose addNamed "1.2.0" is a plain semver version for loose-envify
-344 silly cache afterAdd warning@2.1.0
-345 verbose afterAdd /Users/anyati/.npm/warning/2.1.0/package/package.json not in flight; writing
-346 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-347 silly cache afterAdd loose-envify@1.2.0
-348 verbose afterAdd /Users/anyati/.npm/loose-envify/1.2.0/package/package.json not in flight; writing
-349 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-350 silly addNameRange number 2 { name: 'history', range: '>=2.0.1 <3.0.0', hasData: true }
-351 silly addNameRange versions [ 'history',
-351 silly addNameRange   [ '0.1.0',
-351 silly addNameRange     '1.0.0',
-351 silly addNameRange     '1.1.0',
-351 silly addNameRange     '1.2.0',
-351 silly addNameRange     '1.2.1',
-351 silly addNameRange     '1.2.2',
-351 silly addNameRange     '1.3.0',
-351 silly addNameRange     '1.3.1',
-351 silly addNameRange     '1.3.2',
-351 silly addNameRange     '1.3.3',
-351 silly addNameRange     '1.4.0',
-351 silly addNameRange     '1.4.1',
-351 silly addNameRange     '1.5.0',
-351 silly addNameRange     '1.6.0',
-351 silly addNameRange     '1.7.0',
-351 silly addNameRange     '1.8.0',
-351 silly addNameRange     '1.8.1',
-351 silly addNameRange     '1.8.2',
-351 silly addNameRange     '1.8.3',
-351 silly addNameRange     '1.8.4',
-351 silly addNameRange     '1.8.5',
-351 silly addNameRange     '1.9.0',
-351 silly addNameRange     '1.9.1',
-351 silly addNameRange     '1.10.0',
-351 silly addNameRange     '1.10.1',
-351 silly addNameRange     '1.10.2',
-351 silly addNameRange     '1.11.0',
-351 silly addNameRange     '1.11.1',
-351 silly addNameRange     '1.12.0',
-351 silly addNameRange     '1.12.1',
-351 silly addNameRange     '1.12.2',
-351 silly addNameRange     '1.12.3',
-351 silly addNameRange     '1.12.4',
-351 silly addNameRange     '1.12.5',
-351 silly addNameRange     '1.12.6',
-351 silly addNameRange     '1.13.0',
-351 silly addNameRange     '1.13.1',
-351 silly addNameRange     '1.14.0',
-351 silly addNameRange     '1.15.0',
-351 silly addNameRange     '1.16.0',
-351 silly addNameRange     '1.17.0',
-351 silly addNameRange     '2.0.0-rc1',
-351 silly addNameRange     '2.0.0-rc2',
-351 silly addNameRange     '2.0.0-rc3',
-351 silly addNameRange     '2.0.0',
-351 silly addNameRange     '2.0.1',
-351 silly addNameRange     '3.0.0-0',
-351 silly addNameRange     '2.0.2',
-351 silly addNameRange     '2.1.0',
-351 silly addNameRange     '3.0.0-1',
-351 silly addNameRange     '3.0.0-2',
-351 silly addNameRange     '2.1.1',
-351 silly addNameRange     '2.1.2',
-351 silly addNameRange     '3.0.0' ] ]
-352 silly addNamed history@2.1.2
-353 verbose addNamed "2.1.2" is a plain semver version for history
-354 silly cache afterAdd history@2.1.2
-355 verbose afterAdd /Users/anyati/.npm/history/2.1.2/package/package.json not in flight; writing
-356 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-357 verbose afterAdd /Users/anyati/.npm/warning/2.1.0/package/package.json written
-358 verbose afterAdd /Users/anyati/.npm/loose-envify/1.2.0/package/package.json written
-359 verbose afterAdd /Users/anyati/.npm/history/2.1.2/package/package.json written
-360 silly install resolved [ { name: 'hoist-non-react-statics',
-360 silly install resolved     version: '1.2.0',
-360 silly install resolved     description: 'Copies non-react specific statics from a child component to a parent component',
-360 silly install resolved     main: 'index.js',
-360 silly install resolved     repository:
-360 silly install resolved      { type: 'git',
-360 silly install resolved        url: 'git://github.com/mridgway/hoist-non-react-statics.git' },
-360 silly install resolved     scripts:
-360 silly install resolved      { cover: 'node node_modules/istanbul/lib/cli.js cover --dir artifacts -- ./node_modules/mocha/bin/_mocha tests/unit/ --recursive --compilers js:babel/register --reporter spec',
-360 silly install resolved        lint: 'eslint ./index.js',
-360 silly install resolved        test: 'mocha tests/unit/ --recursive --compilers js:babel/register --reporter spec' },
-360 silly install resolved     author: { name: 'Michael Ridgway', email: 'mridgway@yahoo-inc.com' },
-360 silly install resolved     licenses: [ [Object] ],
-360 silly install resolved     devDependencies:
-360 silly install resolved      { babel: '^5.0.7',
-360 silly install resolved        'babel-eslint': '^3.0.1',
-360 silly install resolved        chai: '^3.0.0',
-360 silly install resolved        coveralls: '^2.11.1',
-360 silly install resolved        eslint: '^0.21.0',
-360 silly install resolved        istanbul: '^0.3.2',
-360 silly install resolved        mocha: '^2.0.1',
-360 silly install resolved        'pre-commit': '^1.0.7',
-360 silly install resolved        react: '^15.0.0' },
-360 silly install resolved     keywords: [ 'react' ],
-360 silly install resolved     gitHead: '437bebb16842657310b6a80ee89fce34864509bd',
-360 silly install resolved     bugs: { url: 'https://github.com/mridgway/hoist-non-react-statics/issues' },
-360 silly install resolved     homepage: 'https://github.com/mridgway/hoist-non-react-statics#readme',
-360 silly install resolved     _id: 'hoist-non-react-statics@1.2.0',
-360 silly install resolved     _shasum: 'aa448cf0986d55cc40773b17174b7dd066cb7cfb',
-360 silly install resolved     _from: 'hoist-non-react-statics@>=1.0.5 <2.0.0',
-360 silly install resolved     _npmVersion: '3.9.3',
-360 silly install resolved     _nodeVersion: '6.2.1',
-360 silly install resolved     _npmUser: { name: 'mridgway', email: 'mcridgway@gmail.com' },
-360 silly install resolved     maintainers: [ [Object] ],
-360 silly install resolved     dist:
-360 silly install resolved      { shasum: 'aa448cf0986d55cc40773b17174b7dd066cb7cfb',
-360 silly install resolved        tarball: 'https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz' },
-360 silly install resolved     _npmOperationalInternal:
-360 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
-360 silly install resolved        tmp: 'tmp/hoist-non-react-statics-1.2.0.tgz_1466185955248_0.8610786439385265' },
-360 silly install resolved     directories: {},
-360 silly install resolved     _resolved: 'https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz',
-360 silly install resolved     readme: 'ERROR: No README data found!' },
-360 silly install resolved   { name: 'invariant',
-360 silly install resolved     version: '2.2.1',
-360 silly install resolved     description: 'invariant',
-360 silly install resolved     keywords: [ 'test' ],
-360 silly install resolved     license: 'BSD-3-Clause',
-360 silly install resolved     author: { name: 'Andres Suarez', email: 'zertosh@gmail.com' },
-360 silly install resolved     files: [ 'invariant.js', 'browser.js' ],
-360 silly install resolved     repository:
-360 silly install resolved      { type: 'git',
-360 silly install resolved        url: 'git+https://github.com/zertosh/invariant.git' },
-360 silly install resolved     scripts: { test: 'NODE_ENV=production tap test/*.js && NODE_ENV=development tap test/*.js' },
-360 silly install resolved     dependencies: { 'loose-envify': '^1.0.0' },
-360 silly install resolved     devDependencies: { browserify: '^11.0.1', tap: '^1.4.0' },
-360 silly install resolved     main: 'invariant.js',
-360 silly install resolved     browser: 'browser.js',
-360 silly install resolved     browserify: { transform: [Object] },
-360 silly install resolved     gitHead: '594d6cbcde933a7bd3ecd76a7c4f19892a95e0de',
-360 silly install resolved     bugs: { url: 'https://github.com/zertosh/invariant/issues' },
-360 silly install resolved     homepage: 'https://github.com/zertosh/invariant#readme',
-360 silly install resolved     _id: 'invariant@2.2.1',
-360 silly install resolved     _shasum: 'b097010547668c7e337028ebe816ebe36c8a8d54',
-360 silly install resolved     _from: 'invariant@>=2.2.1 <3.0.0',
-360 silly install resolved     _npmVersion: '2.14.4',
-360 silly install resolved     _nodeVersion: '4.1.1',
-360 silly install resolved     _npmUser: { name: 'zertosh', email: 'zertosh@gmail.com' },
-360 silly install resolved     dist:
-360 silly install resolved      { shasum: 'b097010547668c7e337028ebe816ebe36c8a8d54',
-360 silly install resolved        tarball: 'https://registry.npmjs.org/invariant/-/invariant-2.2.1.tgz' },
-360 silly install resolved     maintainers: [ [Object], [Object] ],
-360 silly install resolved     _npmOperationalInternal:
-360 silly install resolved      { host: 'packages-13-west.internal.npmjs.com',
-360 silly install resolved        tmp: 'tmp/invariant-2.2.1.tgz_1457504319192_0.7920392917003483' },
-360 silly install resolved     directories: {},
-360 silly install resolved     _resolved: 'https://registry.npmjs.org/invariant/-/invariant-2.2.1.tgz',
-360 silly install resolved     readme: 'ERROR: No README data found!' },
-360 silly install resolved   { name: 'warning',
-360 silly install resolved     version: '2.1.0',
-360 silly install resolved     description: 'A mirror of Facebook\'s Warning',
-360 silly install resolved     main: 'warning.js',
-360 silly install resolved     browser: 'browser.js',
-360 silly install resolved     browserify: { transform: [Object] },
-360 silly install resolved     files: [ 'browser.js', 'warning.js' ],
-360 silly install resolved     scripts: { test: 'NODE_ENV=production tap test/*.js && NODE_ENV=development tap test/*.js' },
-360 silly install resolved     dependencies: { 'loose-envify': '^1.0.0' },
-360 silly install resolved     devDependencies: { browserify: '^11.0.1', tap: '^1.4.0' },
-360 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/r3dm/warning.git' },
-360 silly install resolved     keywords: [ 'warning', 'facebook', 'react', 'invariant' ],
-360 silly install resolved     author:
-360 silly install resolved      { name: 'Berkeley Martinez',
-360 silly install resolved        email: 'berkeley@r3dm.com',
-360 silly install resolved        url: 'http://r3dm.com' },
-360 silly install resolved     license: 'BSD-2-Clause',
-360 silly install resolved     bugs: { url: 'https://github.com/r3dm/warning/issues' },
-360 silly install resolved     homepage: 'https://github.com/r3dm/warning',
-360 silly install resolved     gitHead: 'b7d56e3f6c21c3ee05af617222d16c7d80118443',
-360 silly install resolved     _id: 'warning@2.1.0',
-360 silly install resolved     _shasum: '21220d9c63afc77a8c92111e011af705ce0c6901',
-360 silly install resolved     _from: 'warning@>=2.1.0 <3.0.0',
-360 silly install resolved     _npmVersion: '2.11.1',
-360 silly install resolved     _nodeVersion: '1.6.4',
-360 silly install resolved     _npmUser: { name: 'berkeleytrue', email: 'berkeley@robotie.com' },
-360 silly install resolved     maintainers: [ [Object] ],
-360 silly install resolved     dist:
-360 silly install resolved      { shasum: '21220d9c63afc77a8c92111e011af705ce0c6901',
-360 silly install resolved        tarball: 'https://registry.npmjs.org/warning/-/warning-2.1.0.tgz' },
-360 silly install resolved     directories: {},
-360 silly install resolved     _resolved: 'https://registry.npmjs.org/warning/-/warning-2.1.0.tgz',
-360 silly install resolved     readme: 'ERROR: No README data found!' },
-360 silly install resolved   { name: 'loose-envify',
-360 silly install resolved     version: '1.2.0',
-360 silly install resolved     description: 'Fast (and loose) selective `process.env` replacer using js-tokens instead of an AST',
-360 silly install resolved     keywords:
-360 silly install resolved      [ 'environment',
-360 silly install resolved        'variables',
-360 silly install resolved        'browserify',
-360 silly install resolved        'browserify-transform',
-360 silly install resolved        'transform',
-360 silly install resolved        'source',
-360 silly install resolved        'configuration' ],
-360 silly install resolved     homepage: 'https://github.com/zertosh/loose-envify',
-360 silly install resolved     license: 'MIT',
-360 silly install resolved     author: { name: 'Andres Suarez', email: 'zertosh@gmail.com' },
-360 silly install resolved     bin: { 'loose-envify': 'cli.js' },
-360 silly install resolved     repository:
-360 silly install resolved      { type: 'git',
-360 silly install resolved        url: 'git://github.com/zertosh/loose-envify.git' },
-360 silly install resolved     scripts: { test: 'tap test/*.js' },
-360 silly install resolved     dependencies: { 'js-tokens': '^1.0.1' },
-360 silly install resolved     devDependencies: { browserify: '^11.0.1', envify: '^3.4.0', tap: '^1.4.0' },
-360 silly install resolved     gitHead: '58a4c7641e8c8569df3e7cea72b398a9cb1cf158',
-360 silly install resolved     bugs: { url: 'https://github.com/zertosh/loose-envify/issues' },
-360 silly install resolved     _id: 'loose-envify@1.2.0',
-360 silly install resolved     _shasum: '69a65aad3de542cf4ee0f4fe74e8e33c709ccb0f',
-360 silly install resolved     _from: 'loose-envify@>=1.2.0 <2.0.0',
-360 silly install resolved     _npmVersion: '3.8.6',
-360 silly install resolved     _nodeVersion: '6.1.0',
-360 silly install resolved     _npmUser: { name: 'zertosh', email: 'zertosh@gmail.com' },
-360 silly install resolved     dist:
-360 silly install resolved      { shasum: '69a65aad3de542cf4ee0f4fe74e8e33c709ccb0f',
-360 silly install resolved        tarball: 'https://registry.npmjs.org/loose-envify/-/loose-envify-1.2.0.tgz' },
-360 silly install resolved     maintainers: [ [Object] ],
-360 silly install resolved     _npmOperationalInternal:
-360 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
-360 silly install resolved        tmp: 'tmp/loose-envify-1.2.0.tgz_1463284327398_0.7049096294213086' },
-360 silly install resolved     directories: {},
-360 silly install resolved     _resolved: 'https://registry.npmjs.org/loose-envify/-/loose-envify-1.2.0.tgz',
-360 silly install resolved     readme: 'ERROR: No README data found!' },
-360 silly install resolved   { name: 'history',
-360 silly install resolved     version: '2.1.2',
-360 silly install resolved     description: 'Manage browser history with JavaScript',
-360 silly install resolved     files: [ 'es6', 'lib', 'modules/*.js', 'umd' ],
-360 silly install resolved     main: 'lib/index',
-360 silly install resolved     'jsnext:main': 'es6/index',
-360 silly install resolved     repository:
-360 silly install resolved      { type: 'git',
-360 silly install resolved        url: 'git+https://github.com/mjackson/history.git' },
-360 silly install resolved     scripts:
-360 silly install resolved      { lint: 'eslint modules',
-360 silly install resolved        start: 'webpack-dev-server -d --content-base ./ --history-api-fallback --inline modules/index.js',
-360 silly install resolved        'build-cjs': 'rimraf lib && babel ./modules --stage 0 --loose all --plugins dev-expression -d lib --ignore \'__tests__\'',
-360 silly install resolved        'build-es6': 'rimraf es6 && babel ./modules --stage 0 --loose all --plugins dev-expression -d es6 --blacklist=es6.modules --ignore \'__tests__\'',
-360 silly install resolved        'build-umd': 'NODE_ENV=production webpack modules/index.js umd/History.js',
-360 silly install resolved        'build-min': 'NODE_ENV=production webpack -p modules/index.js umd/History.min.js',
-360 silly install resolved        build: 'node ./scripts/build.js',
-360 silly install resolved        release: 'node ./scripts/release.js',
-360 silly install resolved        prepublish: 'npm run build',
-360 silly install resolved        test: 'npm run lint && karma start' },
-360 silly install resolved     authors: [ 'Michael Jackson' ],
-360 silly install resolved     license: 'MIT',
-360 silly install resolved     dependencies:
-360 silly install resolved      { 'deep-equal': '^1.0.0',
-360 silly install resolved        invariant: '^2.0.0',
-360 silly install resolved        'query-string': '^3.0.0',
-360 silly install resolved        warning: '^2.0.0' },
-360 silly install resolved     devDependencies:
-360 silly install resolved      { assert: '1.3.0',
-360 silly install resolved        babel: '^5.8.35',
-360 silly install resolved        'babel-core': '^5.8.35',
-360 silly install resolved        'babel-eslint': '^4.1.8',
-360 silly install resolved        'babel-loader': '^5.4.0',
-360 silly install resolved        'babel-plugin-dev-expression': '^0.1.0',
-360 silly install resolved        eslint: '^1.10.3',
-360 silly install resolved        'eslint-config-rackt': '^1.1.1',
-360 silly install resolved        'eslint-plugin-react': '^3.16.1',
-360 silly install resolved        expect: '^1.12.0',
-360 silly install resolved        'gzip-size': '^3.0.0',
-360 silly install resolved        karma: '^0.13.3',
-360 silly install resolved        'karma-browserstack-launcher': '^0.1.3',
-360 silly install resolved        'karma-chrome-launcher': '^0.2.0',
-360 silly install resolved        'karma-mocha': '^0.2.0',
-360 silly install resolved        'karma-mocha-reporter': '^1.0.4',
-360 silly install resolved        'karma-sourcemap-loader': '^0.3.5',
-360 silly install resolved        'karma-webpack': '^1.7.0',
-360 silly install resolved        mocha: '^2.0.1',
-360 silly install resolved        'pretty-bytes': '^3.0.1',
-360 silly install resolved        'readline-sync': '^1.4.1',
-360 silly install resolved        rimraf: '^2.4.2',
-360 silly install resolved        webpack: '^1.4.13',
-360 silly install resolved        'webpack-dev-server': '^1.10.1' },
-360 silly install resolved     tags: [ 'history', 'location' ],
-360 silly install resolved     keywords: [ 'history', 'location' ],
-360 silly install resolved     gitHead: '4e4af9dfab4cf94522cce5fcac85ec9c19c89e0c',
-360 silly install resolved     bugs: { url: 'https://github.com/mjackson/history/issues' },
-360 silly install resolved     homepage: 'https://github.com/mjackson/history#readme',
-360 silly install resolved     _id: 'history@2.1.2',
-360 silly install resolved     _shasum: '4aa2de897a0e4867e4539843be6ecdb2986bfdec',
-360 silly install resolved     _from: 'history@>=2.0.1 <3.0.0',
-360 silly install resolved     _npmVersion: '3.8.6',
-360 silly install resolved     _nodeVersion: '6.0.0',
-360 silly install resolved     _npmUser: { name: 'mjackson', email: 'mjijackson@gmail.com' },
-360 silly install resolved     dist:
-360 silly install resolved      { shasum: '4aa2de897a0e4867e4539843be6ecdb2986bfdec',
-360 silly install resolved        tarball: 'https://registry.npmjs.org/history/-/history-2.1.2.tgz' },
-360 silly install resolved     maintainers: [ [Object] ],
-360 silly install resolved     _npmOperationalInternal:
-360 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
-360 silly install resolved        tmp: 'tmp/history-2.1.2.tgz_1464278239354_0.6860733681824058' },
-360 silly install resolved     directories: {},
-360 silly install resolved     _resolved: 'https://registry.npmjs.org/history/-/history-2.1.2.tgz',
-360 silly install resolved     readme: 'ERROR: No README data found!' } ]
-361 info install hoist-non-react-statics@1.2.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-362 info install invariant@2.2.1 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-363 info install warning@2.1.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-364 info install loose-envify@1.2.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-365 info install history@2.1.2 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-366 info installOne hoist-non-react-statics@1.2.0
-367 verbose installOne of hoist-non-react-statics to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router not in flight; installing
-368 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-369 info installOne invariant@2.2.1
-370 verbose installOne of invariant to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router not in flight; installing
-371 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-372 info installOne warning@2.1.0
-373 verbose installOne of warning to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router not in flight; installing
-374 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-375 info installOne loose-envify@1.2.0
-376 verbose installOne of loose-envify to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router not in flight; installing
-377 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-378 info installOne history@2.1.2
-379 verbose installOne of history to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router not in flight; installing
-380 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-381 verbose lock using /Users/anyati/.npm/_locks/hoist-non-react-statics-fbe17300fac9c7fe.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-382 verbose lock using /Users/anyati/.npm/_locks/invariant-0f34aa1636385a06.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-383 silly install write writing hoist-non-react-statics 1.2.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-384 verbose lock using /Users/anyati/.npm/_locks/warning-91ebf8d39b1f58f6.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-385 silly install write writing invariant 2.2.1 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-386 verbose lock using /Users/anyati/.npm/_locks/loose-envify-d2ee96ca7c345ee9.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-387 verbose lock using /Users/anyati/.npm/_locks/history-842520399ea598ab.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-388 silly install write writing warning 2.1.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-389 silly install write writing loose-envify 1.2.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-390 silly install write writing history 2.1.2 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-391 verbose unbuild node_modules/react-router/node_modules/hoist-non-react-statics
-392 verbose unbuild node_modules/react-router/node_modules/invariant
-393 verbose unbuild node_modules/react-router/node_modules/warning
-394 verbose unbuild node_modules/react-router/node_modules/history
-395 verbose unbuild node_modules/react-router/node_modules/loose-envify
-396 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-397 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-398 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-399 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-400 verbose tar unpack /Users/anyati/.npm/hoist-non-react-statics/1.2.0/package.tgz
-401 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-402 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics is being purged
-403 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-404 verbose tar unpack /Users/anyati/.npm/invariant/2.2.1/package.tgz
-405 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-406 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant is being purged
-407 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-408 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-409 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-410 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-411 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-412 silly gunzTarPerm modes [ '755', '644' ]
-413 silly gunzTarPerm modes [ '755', '644' ]
-414 verbose tar unpack /Users/anyati/.npm/warning/2.1.0/package.tgz
-415 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-416 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning is being purged
-417 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-418 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-419 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-420 verbose tar unpack /Users/anyati/.npm/history/2.1.2/package.tgz
-421 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-422 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history is being purged
-423 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-424 silly gunzTarPerm modes [ '755', '644' ]
-425 verbose tar unpack /Users/anyati/.npm/loose-envify/1.2.0/package.tgz
-426 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-427 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify is being purged
-428 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-429 silly gunzTarPerm modes [ '755', '644' ]
-430 silly gunzTarPerm modes [ '755', '644' ]
-431 silly gunzTarPerm extractEntry package.json
-432 silly gunzTarPerm extractEntry package.json
-433 silly gunzTarPerm extractEntry package.json
-434 silly gunzTarPerm extractEntry package.json
-435 silly gunzTarPerm extractEntry package.json
-436 silly gunzTarPerm extractEntry README.md
-437 silly gunzTarPerm extractEntry browser.js
-438 silly gunzTarPerm extractEntry .npmignore
-439 silly gunzTarPerm extractEntry README.md
-440 silly gunzTarPerm extractEntry README.md
-441 silly gunzTarPerm extractEntry browser.js
-442 silly gunzTarPerm extractEntry LICENSE.md
-443 silly gunzTarPerm extractEntry es6/Actions.js
-444 silly gunzTarPerm extractEntry .npmignore
-445 silly gunzTarPerm modified mode [ '.npmignore', 384, 420 ]
-446 silly gunzTarPerm extractEntry README.md
-447 silly gunzTarPerm modified mode [ 'README.md', 384, 420 ]
-448 silly gunzTarPerm extractEntry invariant.js
-449 silly gunzTarPerm extractEntry CHANGELOG.md
-450 silly gunzTarPerm extractEntry index.js
-451 silly gunzTarPerm extractEntry LICENSE.md
-452 silly gunzTarPerm extractEntry .travis.yml
-453 silly gunzTarPerm extractEntry .eslintrc
-454 silly gunzTarPerm extractEntry .idea/.name
-455 silly gunzTarPerm extractEntry .idea/hoist-non-react-statics.iml
-456 silly gunzTarPerm extractEntry .idea/misc.xml
-457 silly gunzTarPerm extractEntry .idea/modules.xml
-458 silly gunzTarPerm extractEntry .idea/vcs.xml
-459 silly gunzTarPerm extractEntry .idea/workspace.xml
-460 silly gunzTarPerm extractEntry .coveralls.yml
-461 silly gunzTarPerm extractEntry warning.js
-462 silly gunzTarPerm extractEntry CHANGELOG.md
-463 silly gunzTarPerm extractEntry es6/createBrowserHistory.js
-464 silly gunzTarPerm extractEntry es6/createDOMHistory.js
-465 silly gunzTarPerm extractEntry index.js
-466 silly gunzTarPerm modified mode [ 'index.js', 384, 420 ]
-467 silly gunzTarPerm extractEntry cli.js
-468 silly gunzTarPerm extractEntry LICENSE.md
-469 silly gunzTarPerm extractEntry es6/createHashHistory.js
-470 silly gunzTarPerm extractEntry es6/createHistory.js
-471 silly gunzTarPerm extractEntry es6/PathUtils.js
-472 silly gunzTarPerm extractEntry es6/createMemoryHistory.js
-473 silly gunzTarPerm extractEntry es6/deprecate.js
-474 silly gunzTarPerm extractEntry es6/enableBeforeUnload.js
-475 silly gunzTarPerm extractEntry es6/enableQueries.js
-476 silly gunzTarPerm extractEntry es6/index.js
-477 silly gunzTarPerm extractEntry es6/ExecutionEnvironment.js
-478 silly gunzTarPerm extractEntry es6/runTransitionHook.js
-479 silly gunzTarPerm extractEntry es6/DOMUtils.js
-480 silly gunzTarPerm extractEntry es6/useBasename.js
-481 silly gunzTarPerm extractEntry es6/DOMStateStorage.js
-482 silly gunzTarPerm extractEntry es6/useBeforeUnload.js
-483 silly gunzTarPerm extractEntry es6/AsyncUtils.js
-484 silly gunzTarPerm extractEntry es6/useQueries.js
-485 silly gunzTarPerm extractEntry es6/createLocation.js
-486 silly gunzTarPerm extractEntry lib/Actions.js
-487 silly gunzTarPerm extractEntry lib/createBrowserHistory.js
-488 silly gunzTarPerm extractEntry lib/createDOMHistory.js
-489 silly gunzTarPerm extractEntry lib/createHashHistory.js
-490 silly gunzTarPerm extractEntry lib/createHistory.js
-491 silly gunzTarPerm extractEntry lib/PathUtils.js
-492 silly gunzTarPerm extractEntry lib/createMemoryHistory.js
-493 silly gunzTarPerm extractEntry lib/deprecate.js
-494 silly gunzTarPerm extractEntry lib/enableBeforeUnload.js
-495 silly gunzTarPerm extractEntry lib/enableQueries.js
-496 silly gunzTarPerm extractEntry lib/index.js
-497 silly gunzTarPerm extractEntry lib/ExecutionEnvironment.js
-498 silly gunzTarPerm extractEntry lib/runTransitionHook.js
-499 silly gunzTarPerm extractEntry lib/DOMUtils.js
-500 silly gunzTarPerm extractEntry lib/useBasename.js
-501 silly gunzTarPerm extractEntry lib/DOMStateStorage.js
-502 silly gunzTarPerm extractEntry lib/useBeforeUnload.js
-503 silly gunzTarPerm extractEntry lib/AsyncUtils.js
-504 silly gunzTarPerm extractEntry lib/useQueries.js
-505 silly gunzTarPerm extractEntry lib/createLocation.js
-506 silly gunzTarPerm extractEntry modules/Actions.js
-507 silly gunzTarPerm extractEntry modules/createBrowserHistory.js
-508 silly gunzTarPerm extractEntry modules/createDOMHistory.js
-509 silly gunzTarPerm extractEntry modules/createHashHistory.js
-510 silly gunzTarPerm extractEntry modules/createHistory.js
-511 silly gunzTarPerm extractEntry modules/PathUtils.js
-512 silly gunzTarPerm extractEntry modules/createMemoryHistory.js
-513 silly gunzTarPerm extractEntry modules/deprecate.js
-514 silly gunzTarPerm extractEntry modules/enableBeforeUnload.js
-515 silly gunzTarPerm extractEntry modules/enableQueries.js
-516 silly gunzTarPerm extractEntry modules/index.js
-517 silly gunzTarPerm extractEntry modules/ExecutionEnvironment.js
-518 silly gunzTarPerm extractEntry modules/runTransitionHook.js
-519 silly gunzTarPerm extractEntry modules/DOMUtils.js
-520 silly gunzTarPerm extractEntry modules/useBasename.js
-521 silly gunzTarPerm extractEntry modules/DOMStateStorage.js
-522 silly gunzTarPerm extractEntry modules/useBeforeUnload.js
-523 silly gunzTarPerm extractEntry modules/AsyncUtils.js
-524 silly gunzTarPerm extractEntry modules/useQueries.js
-525 silly gunzTarPerm extractEntry modules/createLocation.js
-526 silly gunzTarPerm extractEntry umd/history.js
-527 silly gunzTarPerm extractEntry umd/history.min.js
-528 silly gunzTarPerm extractEntry CHANGES.md
-529 silly gunzTarPerm extractEntry custom.js
-530 silly gunzTarPerm modified mode [ 'custom.js', 384, 420 ]
-531 silly gunzTarPerm extractEntry loose-envify.js
-532 silly gunzTarPerm modified mode [ 'loose-envify.js', 384, 420 ]
-533 silly gunzTarPerm extractEntry replace.js
-534 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant/package.json
-535 info preinstall invariant@2.2.1
-536 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant/package.json
-537 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning/package.json
-538 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant/package.json
-539 info preinstall warning@2.1.0
-540 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning/package.json
-541 silly install resolved []
-542 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-543 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-544 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning/package.json
-545 info linkStuff invariant@2.2.1
-546 silly linkStuff invariant@2.2.1 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules as its parent node_modules
-547 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/package.json
-548 silly install resolved []
-549 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-550 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-551 info preinstall loose-envify@1.2.0
-552 info linkStuff warning@2.1.0
-553 silly linkStuff warning@2.1.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules as its parent node_modules
-554 verbose linkBins invariant@2.2.1
-555 verbose linkMans invariant@2.2.1
-556 verbose rebuildBundles invariant@2.2.1
-557 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/package.json
-558 info install invariant@2.2.1
-559 info postinstall invariant@2.2.1
-560 verbose unlock done using /Users/anyati/.npm/_locks/invariant-0f34aa1636385a06.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/invariant
-561 silly prepareForInstallMany adding js-tokens@^1.0.1 from loose-envify dependencies
-562 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/package.json
-563 verbose linkBins warning@2.1.0
-564 verbose linkMans warning@2.1.0
-565 verbose rebuildBundles warning@2.1.0
-566 info install warning@2.1.0
-567 info postinstall warning@2.1.0
-568 verbose unlock done using /Users/anyati/.npm/_locks/warning-91ebf8d39b1f58f6.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/warning
-569 silly cache add args [ 'js-tokens@^1.0.1', null ]
-570 verbose cache add spec js-tokens@^1.0.1
-571 silly cache add parsed spec Result {
-571 silly cache add   raw: 'js-tokens@^1.0.1',
-571 silly cache add   scope: null,
-571 silly cache add   name: 'js-tokens',
-571 silly cache add   rawSpec: '^1.0.1',
-571 silly cache add   spec: '>=1.0.1 <2.0.0',
-571 silly cache add   type: 'range' }
-572 silly addNamed js-tokens@>=1.0.1 <2.0.0
-573 verbose addNamed ">=1.0.1 <2.0.0" is a valid semver range for js-tokens
-574 silly addNameRange { name: 'js-tokens', range: '>=1.0.1 <2.0.0', hasData: false }
-575 silly mapToRegistry name js-tokens
-576 silly mapToRegistry using default registry
-577 silly mapToRegistry registry https://registry.npmjs.org/
-578 silly mapToRegistry data Result {
-578 silly mapToRegistry   raw: 'js-tokens',
-578 silly mapToRegistry   scope: null,
-578 silly mapToRegistry   name: 'js-tokens',
-578 silly mapToRegistry   rawSpec: '',
-578 silly mapToRegistry   spec: 'latest',
-578 silly mapToRegistry   type: 'tag' }
-579 silly mapToRegistry uri https://registry.npmjs.org/js-tokens
-580 verbose addNameRange registry:https://registry.npmjs.org/js-tokens not in flight; fetching
-581 verbose request uri https://registry.npmjs.org/js-tokens
-582 verbose request no auth needed
-583 info attempt registry request try #1 at 8:13:25 PM
-584 verbose etag "5JCPCS4QDWIATJUNMJHTM0LIF"
-585 http request GET https://registry.npmjs.org/js-tokens
-586 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics/package.json
-587 info preinstall hoist-non-react-statics@1.2.0
-588 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics/package.json
-589 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics/package.json
-590 silly install resolved []
-591 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-592 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-593 info linkStuff hoist-non-react-statics@1.2.0
-594 silly linkStuff hoist-non-react-statics@1.2.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules as its parent node_modules
-595 http 304 https://registry.npmjs.org/js-tokens
-596 verbose headers { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-596 verbose headers   via: '1.1 varnish',
-596 verbose headers   'cache-control': 'max-age=300',
-596 verbose headers   etag: '"5JCPCS4QDWIATJUNMJHTM0LIF"',
-596 verbose headers   age: '231',
-596 verbose headers   connection: 'keep-alive',
-596 verbose headers   'x-served-by': 'cache-jfk1030-JFK',
-596 verbose headers   'x-cache': 'HIT',
-596 verbose headers   'x-cache-hits': '7',
-596 verbose headers   'x-timer': 'S1467072806.005062,VS0,VE0',
-596 verbose headers   vary: 'Accept-Encoding' }
-597 silly get cb [ 304,
-597 silly get   { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-597 silly get     via: '1.1 varnish',
-597 silly get     'cache-control': 'max-age=300',
-597 silly get     etag: '"5JCPCS4QDWIATJUNMJHTM0LIF"',
-597 silly get     age: '231',
-597 silly get     connection: 'keep-alive',
-597 silly get     'x-served-by': 'cache-jfk1030-JFK',
-597 silly get     'x-cache': 'HIT',
-597 silly get     'x-cache-hits': '7',
-597 silly get     'x-timer': 'S1467072806.005062,VS0,VE0',
-597 silly get     vary: 'Accept-Encoding' } ]
-598 verbose etag https://registry.npmjs.org/js-tokens from cache
-599 verbose get saving js-tokens to /Users/anyati/.npm/registry.npmjs.org/js-tokens/.cache.json
-600 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-601 verbose linkBins hoist-non-react-statics@1.2.0
-602 verbose linkMans hoist-non-react-statics@1.2.0
-603 verbose rebuildBundles hoist-non-react-statics@1.2.0
-604 info install hoist-non-react-statics@1.2.0
-605 info postinstall hoist-non-react-statics@1.2.0
-606 verbose unlock done using /Users/anyati/.npm/_locks/hoist-non-react-statics-fbe17300fac9c7fe.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/hoist-non-react-statics
-607 silly addNameRange number 2 { name: 'js-tokens', range: '>=1.0.1 <2.0.0', hasData: true }
-608 silly addNameRange versions [ 'js-tokens',
-608 silly addNameRange   [ '0.1.0',
-608 silly addNameRange     '0.2.0',
-608 silly addNameRange     '0.3.0',
-608 silly addNameRange     '0.3.1',
-608 silly addNameRange     '0.4.0',
-608 silly addNameRange     '0.4.1',
-608 silly addNameRange     '1.0.0',
-608 silly addNameRange     '1.0.1',
-608 silly addNameRange     '1.0.2',
-608 silly addNameRange     '1.0.3',
-608 silly addNameRange     '2.0.0' ] ]
-609 silly addNamed js-tokens@1.0.3
-610 verbose addNamed "1.0.3" is a plain semver version for js-tokens
-611 silly cache afterAdd js-tokens@1.0.3
-612 verbose afterAdd /Users/anyati/.npm/js-tokens/1.0.3/package/package.json not in flight; writing
-613 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-614 verbose afterAdd /Users/anyati/.npm/js-tokens/1.0.3/package/package.json written
-615 silly install resolved [ { name: 'js-tokens',
-615 silly install resolved     version: '1.0.3',
-615 silly install resolved     author: { name: 'Simon Lydell' },
-615 silly install resolved     license: 'MIT',
-615 silly install resolved     description: 'A regex that tokenizes JavaScript.',
-615 silly install resolved     keywords: [ 'JavaScript', 'js', 'token', 'tokenize', 'regex' ],
-615 silly install resolved     files: [ 'index.js' ],
-615 silly install resolved     repository:
-615 silly install resolved      { type: 'git',
-615 silly install resolved        url: 'git+https://github.com/lydell/js-tokens.git' },
-615 silly install resolved     scripts:
-615 silly install resolved      { test: 'mocha --ui tdd',
-615 silly install resolved        'esprima-compare': 'node esprima-compare ./index.js everything.js/es5.js',
-615 silly install resolved        build: 'node generate-index.js',
-615 silly install resolved        dev: 'npm run build && npm test' },
-615 silly install resolved     devDependencies:
-615 silly install resolved      { 'coffee-script': '~1.10.0',
-615 silly install resolved        esprima: '^2.3.0',
-615 silly install resolved        'everything.js': '^1.0.3',
-615 silly install resolved        mocha: '^2.2.5' },
-615 silly install resolved     gitHead: '8fef3fe3b80636bc885bbfc9fa0012a4a2956352',
-615 silly install resolved     bugs: { url: 'https://github.com/lydell/js-tokens/issues' },
-615 silly install resolved     homepage: 'https://github.com/lydell/js-tokens#readme',
-615 silly install resolved     _id: 'js-tokens@1.0.3',
-615 silly install resolved     _shasum: '14e56eb68c8f1a92c43d59f5014ec29dc20f2ae1',
-615 silly install resolved     _from: 'js-tokens@>=1.0.1 <2.0.0',
-615 silly install resolved     _npmVersion: '3.7.3',
-615 silly install resolved     _nodeVersion: '5.9.0',
-615 silly install resolved     _npmUser: { name: 'lydell', email: 'simon.lydell@gmail.com' },
-615 silly install resolved     dist:
-615 silly install resolved      { shasum: '14e56eb68c8f1a92c43d59f5014ec29dc20f2ae1',
-615 silly install resolved        tarball: 'https://registry.npmjs.org/js-tokens/-/js-tokens-1.0.3.tgz' },
-615 silly install resolved     maintainers: [ [Object] ],
-615 silly install resolved     _npmOperationalInternal:
-615 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
-615 silly install resolved        tmp: 'tmp/js-tokens-1.0.3.tgz_1459075945273_0.8152586803771555' },
-615 silly install resolved     directories: {},
-615 silly install resolved     _resolved: 'https://registry.npmjs.org/js-tokens/-/js-tokens-1.0.3.tgz',
-615 silly install resolved     readme: 'ERROR: No README data found!' } ]
-616 info install js-tokens@1.0.3 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-617 info installOne js-tokens@1.0.3
-618 verbose installOne of js-tokens to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify not in flight; installing
-619 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-620 verbose lock using /Users/anyati/.npm/_locks/js-tokens-100abf60c6adfdbf.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-621 silly install write writing js-tokens 1.0.3 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-622 verbose unbuild node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-623 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-624 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-625 verbose tar unpack /Users/anyati/.npm/js-tokens/1.0.3/package.tgz
-626 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-627 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens is being purged
-628 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-629 silly gunzTarPerm modes [ '755', '644' ]
-630 silly gunzTarPerm extractEntry package.json
-631 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
-632 silly gunzTarPerm extractEntry LICENSE
-633 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
-634 silly gunzTarPerm extractEntry index.js
-635 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
-636 silly gunzTarPerm extractEntry changelog.md
-637 silly gunzTarPerm modified mode [ 'changelog.md', 436, 420 ]
-638 silly gunzTarPerm extractEntry readme.md
-639 silly gunzTarPerm modified mode [ 'readme.md', 436, 420 ]
-640 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens/package.json
-641 info preinstall js-tokens@1.0.3
-642 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens/package.json
-643 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens/package.json
-644 silly install resolved []
-645 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-646 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-647 info linkStuff js-tokens@1.0.3
-648 silly linkStuff js-tokens@1.0.3 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules as its parent node_modules
-649 verbose linkBins js-tokens@1.0.3
-650 verbose linkMans js-tokens@1.0.3
-651 verbose rebuildBundles js-tokens@1.0.3
-652 info install js-tokens@1.0.3
-653 info postinstall js-tokens@1.0.3
-654 verbose unlock done using /Users/anyati/.npm/_locks/js-tokens-100abf60c6adfdbf.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify/node_modules/js-tokens
-655 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-656 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-657 info linkStuff loose-envify@1.2.0
-658 silly linkStuff loose-envify@1.2.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules as its parent node_modules
-659 verbose linkBins loose-envify@1.2.0
-660 verbose link bins [ { 'loose-envify': 'cli.js' },
-660 verbose link bins   '/Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/.bin',
-660 verbose link bins   false ]
-661 verbose linkMans loose-envify@1.2.0
-662 verbose rebuildBundles loose-envify@1.2.0
-663 verbose rebuildBundles [ 'js-tokens' ]
-664 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/.bin/loose-envify is being purged
-665 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/.bin/loose-envify
-666 info install loose-envify@1.2.0
-667 info postinstall loose-envify@1.2.0
-668 verbose unlock done using /Users/anyati/.npm/_locks/loose-envify-d2ee96ca7c345ee9.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/loose-envify
-669 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/package.json
-670 info preinstall history@2.1.2
-671 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/package.json
-672 silly prepareForInstallMany adding deep-equal@^1.0.0 from history dependencies
-673 silly prepareForInstallMany adding query-string@^3.0.0 from history dependencies
-674 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/package.json
-675 silly cache add args [ 'deep-equal@^1.0.0', null ]
-676 verbose cache add spec deep-equal@^1.0.0
-677 silly cache add args [ 'query-string@^3.0.0', null ]
-678 verbose cache add spec query-string@^3.0.0
-679 silly cache add parsed spec Result {
-679 silly cache add   raw: 'deep-equal@^1.0.0',
-679 silly cache add   scope: null,
-679 silly cache add   name: 'deep-equal',
-679 silly cache add   rawSpec: '^1.0.0',
-679 silly cache add   spec: '>=1.0.0 <2.0.0',
-679 silly cache add   type: 'range' }
-680 silly addNamed deep-equal@>=1.0.0 <2.0.0
-681 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for deep-equal
-682 silly addNameRange { name: 'deep-equal', range: '>=1.0.0 <2.0.0', hasData: false }
-683 silly mapToRegistry name deep-equal
-684 silly mapToRegistry using default registry
-685 silly mapToRegistry registry https://registry.npmjs.org/
-686 silly mapToRegistry data Result {
-686 silly mapToRegistry   raw: 'deep-equal',
-686 silly mapToRegistry   scope: null,
-686 silly mapToRegistry   name: 'deep-equal',
-686 silly mapToRegistry   rawSpec: '',
-686 silly mapToRegistry   spec: 'latest',
-686 silly mapToRegistry   type: 'tag' }
-687 silly mapToRegistry uri https://registry.npmjs.org/deep-equal
-688 verbose addNameRange registry:https://registry.npmjs.org/deep-equal not in flight; fetching
-689 silly cache add parsed spec Result {
-689 silly cache add   raw: 'query-string@^3.0.0',
-689 silly cache add   scope: null,
-689 silly cache add   name: 'query-string',
-689 silly cache add   rawSpec: '^3.0.0',
-689 silly cache add   spec: '>=3.0.0 <4.0.0',
-689 silly cache add   type: 'range' }
-690 silly addNamed query-string@>=3.0.0 <4.0.0
-691 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for query-string
-692 silly addNameRange { name: 'query-string', range: '>=3.0.0 <4.0.0', hasData: false }
-693 silly mapToRegistry name query-string
-694 silly mapToRegistry using default registry
-695 silly mapToRegistry registry https://registry.npmjs.org/
-696 silly mapToRegistry data Result {
-696 silly mapToRegistry   raw: 'query-string',
-696 silly mapToRegistry   scope: null,
-696 silly mapToRegistry   name: 'query-string',
-696 silly mapToRegistry   rawSpec: '',
-696 silly mapToRegistry   spec: 'latest',
-696 silly mapToRegistry   type: 'tag' }
-697 silly mapToRegistry uri https://registry.npmjs.org/query-string
-698 verbose addNameRange registry:https://registry.npmjs.org/query-string not in flight; fetching
-699 verbose request uri https://registry.npmjs.org/deep-equal
-700 verbose request no auth needed
-701 info attempt registry request try #1 at 8:13:26 PM
-702 verbose etag "T28OGFYA789D5XVEHGVODQ5V"
-703 http request GET https://registry.npmjs.org/deep-equal
-704 verbose request uri https://registry.npmjs.org/query-string
-705 verbose request no auth needed
-706 info attempt registry request try #1 at 8:13:26 PM
-707 verbose etag "9265DM6ANIOOLFAWR5QIU3XGE"
-708 http request GET https://registry.npmjs.org/query-string
-709 http 304 https://registry.npmjs.org/deep-equal
-710 verbose headers { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-710 verbose headers   via: '1.1 varnish',
-710 verbose headers   'cache-control': 'max-age=300',
-710 verbose headers   etag: '"T28OGFYA789D5XVEHGVODQ5V"',
-710 verbose headers   age: '161',
-710 verbose headers   connection: 'keep-alive',
-710 verbose headers   'x-served-by': 'cache-jfk1024-JFK',
-710 verbose headers   'x-cache': 'HIT',
-710 verbose headers   'x-cache-hits': '1',
-710 verbose headers   'x-timer': 'S1467072806.082500,VS0,VE0',
-710 verbose headers   vary: 'Accept-Encoding' }
-711 silly get cb [ 304,
-711 silly get   { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-711 silly get     via: '1.1 varnish',
-711 silly get     'cache-control': 'max-age=300',
-711 silly get     etag: '"T28OGFYA789D5XVEHGVODQ5V"',
-711 silly get     age: '161',
-711 silly get     connection: 'keep-alive',
-711 silly get     'x-served-by': 'cache-jfk1024-JFK',
-711 silly get     'x-cache': 'HIT',
-711 silly get     'x-cache-hits': '1',
-711 silly get     'x-timer': 'S1467072806.082500,VS0,VE0',
-711 silly get     vary: 'Accept-Encoding' } ]
-712 verbose etag https://registry.npmjs.org/deep-equal from cache
-713 verbose get saving deep-equal to /Users/anyati/.npm/registry.npmjs.org/deep-equal/.cache.json
-714 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-715 http 304 https://registry.npmjs.org/query-string
-716 verbose headers { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-716 verbose headers   via: '1.1 varnish',
-716 verbose headers   'cache-control': 'max-age=300',
-716 verbose headers   etag: '"9265DM6ANIOOLFAWR5QIU3XGE"',
-716 verbose headers   age: '17',
-716 verbose headers   connection: 'keep-alive',
-716 verbose headers   'x-served-by': 'cache-jfk1033-JFK',
-716 verbose headers   'x-cache': 'HIT',
-716 verbose headers   'x-cache-hits': '1',
-716 verbose headers   'x-timer': 'S1467072806.083878,VS0,VE0',
-716 verbose headers   vary: 'Accept-Encoding' }
-717 silly get cb [ 304,
-717 silly get   { date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-717 silly get     via: '1.1 varnish',
-717 silly get     'cache-control': 'max-age=300',
-717 silly get     etag: '"9265DM6ANIOOLFAWR5QIU3XGE"',
-717 silly get     age: '17',
-717 silly get     connection: 'keep-alive',
-717 silly get     'x-served-by': 'cache-jfk1033-JFK',
-717 silly get     'x-cache': 'HIT',
-717 silly get     'x-cache-hits': '1',
-717 silly get     'x-timer': 'S1467072806.083878,VS0,VE0',
-717 silly get     vary: 'Accept-Encoding' } ]
-718 verbose etag https://registry.npmjs.org/query-string from cache
-719 verbose get saving query-string to /Users/anyati/.npm/registry.npmjs.org/query-string/.cache.json
-720 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-721 silly addNameRange number 2 { name: 'deep-equal', range: '>=1.0.0 <2.0.0', hasData: true }
-722 silly addNameRange versions [ 'deep-equal',
-722 silly addNameRange   [ '0.0.0',
-722 silly addNameRange     '0.1.0',
-722 silly addNameRange     '0.1.1',
-722 silly addNameRange     '0.1.2',
-722 silly addNameRange     '0.2.0',
-722 silly addNameRange     '0.2.1',
-722 silly addNameRange     '0.2.2',
-722 silly addNameRange     '1.0.0',
-722 silly addNameRange     '1.0.1' ] ]
-723 silly addNamed deep-equal@1.0.1
-724 verbose addNamed "1.0.1" is a plain semver version for deep-equal
-725 silly addNameRange number 2 { name: 'query-string', range: '>=3.0.0 <4.0.0', hasData: true }
-726 silly addNameRange versions [ 'query-string',
-726 silly addNameRange   [ '0.1.0',
-726 silly addNameRange     '0.1.1',
-726 silly addNameRange     '0.2.0',
-726 silly addNameRange     '0.3.0',
-726 silly addNameRange     '0.3.1',
-726 silly addNameRange     '0.4.0',
-726 silly addNameRange     '0.4.1',
-726 silly addNameRange     '1.0.0',
-726 silly addNameRange     '1.0.1',
-726 silly addNameRange     '2.0.0',
-726 silly addNameRange     '2.1.0',
-726 silly addNameRange     '2.2.0',
-726 silly addNameRange     '2.3.0',
-726 silly addNameRange     '2.4.0',
-726 silly addNameRange     '2.4.1',
-726 silly addNameRange     '2.4.2',
-726 silly addNameRange     '3.0.0',
-726 silly addNameRange     '3.0.1',
-726 silly addNameRange     '3.0.2',
-726 silly addNameRange     '3.0.3',
-726 silly addNameRange     '4.0.0',
-726 silly addNameRange     '4.0.2',
-726 silly addNameRange     '4.1.0',
-726 silly addNameRange     '4.2.0',
-726 silly addNameRange     '4.2.1',
-726 silly addNameRange     '4.2.2' ] ]
-727 silly addNamed query-string@3.0.3
-728 verbose addNamed "3.0.3" is a plain semver version for query-string
-729 silly cache afterAdd deep-equal@1.0.1
-730 verbose afterAdd /Users/anyati/.npm/deep-equal/1.0.1/package/package.json not in flight; writing
-731 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-732 verbose afterAdd /Users/anyati/.npm/deep-equal/1.0.1/package/package.json written
-733 silly cache afterAdd query-string@3.0.3
-734 verbose afterAdd /Users/anyati/.npm/query-string/3.0.3/package/package.json not in flight; writing
-735 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-736 verbose afterAdd /Users/anyati/.npm/query-string/3.0.3/package/package.json written
-737 silly install resolved [ { name: 'deep-equal',
-737 silly install resolved     version: '1.0.1',
-737 silly install resolved     description: 'node\'s assert.deepEqual algorithm',
-737 silly install resolved     main: 'index.js',
-737 silly install resolved     directories: { lib: '.', example: 'example', test: 'test' },
-737 silly install resolved     scripts: { test: 'tape test/*.js' },
-737 silly install resolved     devDependencies: { tape: '^3.5.0' },
-737 silly install resolved     repository:
-737 silly install resolved      { type: 'git',
-737 silly install resolved        url: 'git+ssh://git@github.com/substack/node-deep-equal.git' },
-737 silly install resolved     keywords: [ 'equality', 'equal', 'compare' ],
-737 silly install resolved     author:
-737 silly install resolved      { name: 'James Halliday',
-737 silly install resolved        email: 'mail@substack.net',
-737 silly install resolved        url: 'http://substack.net' },
-737 silly install resolved     license: 'MIT',
-737 silly install resolved     testling: { files: 'test/*.js', browsers: [Object] },
-737 silly install resolved     gitHead: '59c511f5aeae19e3dd1de054077a789d7302be34',
-737 silly install resolved     bugs: { url: 'https://github.com/substack/node-deep-equal/issues' },
-737 silly install resolved     homepage: 'https://github.com/substack/node-deep-equal#readme',
-737 silly install resolved     _id: 'deep-equal@1.0.1',
-737 silly install resolved     _shasum: 'f5d260292b660e084eff4cdbc9f08ad3247448b5',
-737 silly install resolved     _from: 'deep-equal@>=1.0.0 <2.0.0',
-737 silly install resolved     _npmVersion: '3.2.2',
-737 silly install resolved     _nodeVersion: '2.4.0',
-737 silly install resolved     _npmUser: { name: 'substack', email: 'substack@gmail.com' },
-737 silly install resolved     dist:
-737 silly install resolved      { shasum: 'f5d260292b660e084eff4cdbc9f08ad3247448b5',
-737 silly install resolved        tarball: 'http://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz' },
-737 silly install resolved     maintainers: [ [Object] ],
-737 silly install resolved     _resolved: 'https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz',
-737 silly install resolved     readme: 'ERROR: No README data found!' },
-737 silly install resolved   { name: 'query-string',
-737 silly install resolved     version: '3.0.3',
-737 silly install resolved     description: 'Parse and stringify URL query strings',
-737 silly install resolved     license: 'MIT',
-737 silly install resolved     repository:
-737 silly install resolved      { type: 'git',
-737 silly install resolved        url: 'git+https://github.com/sindresorhus/query-string.git' },
-737 silly install resolved     author:
-737 silly install resolved      { name: 'Sindre Sorhus',
-737 silly install resolved        email: 'sindresorhus@gmail.com',
-737 silly install resolved        url: 'sindresorhus.com' },
-737 silly install resolved     engines: { node: '>=0.10.0' },
-737 silly install resolved     scripts: { test: 'xo && ava' },
-737 silly install resolved     files: [ 'index.js' ],
-737 silly install resolved     keywords:
-737 silly install resolved      [ 'browser',
-737 silly install resolved        'querystring',
-737 silly install resolved        'query',
-737 silly install resolved        'string',
-737 silly install resolved        'qs',
-737 silly install resolved        'param',
-737 silly install resolved        'parameter',
-737 silly install resolved        'url',
-737 silly install resolved        'uri',
-737 silly install resolved        'parse',
-737 silly install resolved        'stringify',
-737 silly install resolved        'encode',
-737 silly install resolved        'decode' ],
-737 silly install resolved     dependencies: { 'strict-uri-encode': '^1.0.0' },
-737 silly install resolved     devDependencies: { ava: '*', xo: '*' },
-737 silly install resolved     gitHead: '71bc3ed002a25def027174da9f3651b6d3c26db4',
-737 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/query-string/issues' },
-737 silly install resolved     homepage: 'https://github.com/sindresorhus/query-string#readme',
-737 silly install resolved     _id: 'query-string@3.0.3',
-737 silly install resolved     _shasum: 'ae2e14b4d05071d4e9b9eb4873c35b0dcd42e638',
-737 silly install resolved     _from: 'query-string@>=3.0.0 <4.0.0',
-737 silly install resolved     _npmVersion: '3.8.2',
-737 silly install resolved     _nodeVersion: '4.3.0',
-737 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
-737 silly install resolved     dist:
-737 silly install resolved      { shasum: 'ae2e14b4d05071d4e9b9eb4873c35b0dcd42e638',
-737 silly install resolved        tarball: 'https://registry.npmjs.org/query-string/-/query-string-3.0.3.tgz' },
-737 silly install resolved     maintainers: [ [Object] ],
-737 silly install resolved     _npmOperationalInternal:
-737 silly install resolved      { host: 'packages-13-west.internal.npmjs.com',
-737 silly install resolved        tmp: 'tmp/query-string-3.0.3.tgz_1458385547492_0.6452929894439876' },
-737 silly install resolved     directories: {},
-737 silly install resolved     _resolved: 'https://registry.npmjs.org/query-string/-/query-string-3.0.3.tgz',
-737 silly install resolved     readme: 'ERROR: No README data found!' } ]
-738 info install deep-equal@1.0.1 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-739 info install query-string@3.0.3 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-740 info installOne deep-equal@1.0.1
-741 verbose installOne of deep-equal to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history not in flight; installing
-742 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-743 info installOne query-string@3.0.3
-744 verbose installOne of query-string to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history not in flight; installing
-745 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-746 verbose lock using /Users/anyati/.npm/_locks/deep-equal-2a74ee2edb7f7430.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-747 verbose lock using /Users/anyati/.npm/_locks/query-string-e22558426ff2b154.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-748 silly install write writing deep-equal 1.0.1 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-749 silly install write writing query-string 3.0.3 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-750 verbose unbuild node_modules/react-router/node_modules/history/node_modules/deep-equal
-751 verbose unbuild node_modules/react-router/node_modules/history/node_modules/query-string
-752 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-753 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-754 verbose tar unpack /Users/anyati/.npm/deep-equal/1.0.1/package.tgz
-755 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-756 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal is being purged
-757 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-758 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-759 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-760 silly gunzTarPerm modes [ '755', '644' ]
-761 verbose tar unpack /Users/anyati/.npm/query-string/3.0.3/package.tgz
-762 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-763 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string is being purged
-764 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-765 silly gunzTarPerm modes [ '755', '644' ]
-766 silly gunzTarPerm extractEntry package.json
-767 silly gunzTarPerm extractEntry package.json
-768 silly gunzTarPerm extractEntry LICENSE
-769 silly gunzTarPerm extractEntry index.js
-770 silly gunzTarPerm extractEntry index.js
-771 silly gunzTarPerm extractEntry license
-772 silly gunzTarPerm extractEntry .travis.yml
-773 silly gunzTarPerm extractEntry example/cmp.js
-774 silly gunzTarPerm extractEntry readme.md
-775 silly gunzTarPerm extractEntry lib/is_arguments.js
-776 silly gunzTarPerm extractEntry lib/keys.js
-777 silly gunzTarPerm extractEntry readme.markdown
-778 silly gunzTarPerm extractEntry test/cmp.js
-779 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/package.json
-780 info preinstall query-string@3.0.3
-781 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/package.json
-782 silly prepareForInstallMany adding strict-uri-encode@^1.0.0 from query-string dependencies
-783 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/package.json
-784 silly cache add args [ 'strict-uri-encode@^1.0.0', null ]
-785 verbose cache add spec strict-uri-encode@^1.0.0
-786 silly cache add parsed spec Result {
-786 silly cache add   raw: 'strict-uri-encode@^1.0.0',
-786 silly cache add   scope: null,
-786 silly cache add   name: 'strict-uri-encode',
-786 silly cache add   rawSpec: '^1.0.0',
-786 silly cache add   spec: '>=1.0.0 <2.0.0',
-786 silly cache add   type: 'range' }
-787 silly addNamed strict-uri-encode@>=1.0.0 <2.0.0
-788 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for strict-uri-encode
-789 silly addNameRange { name: 'strict-uri-encode',
-789 silly addNameRange   range: '>=1.0.0 <2.0.0',
-789 silly addNameRange   hasData: false }
-790 silly mapToRegistry name strict-uri-encode
-791 silly mapToRegistry using default registry
-792 silly mapToRegistry registry https://registry.npmjs.org/
-793 silly mapToRegistry data Result {
-793 silly mapToRegistry   raw: 'strict-uri-encode',
-793 silly mapToRegistry   scope: null,
-793 silly mapToRegistry   name: 'strict-uri-encode',
-793 silly mapToRegistry   rawSpec: '',
-793 silly mapToRegistry   spec: 'latest',
-793 silly mapToRegistry   type: 'tag' }
-794 silly mapToRegistry uri https://registry.npmjs.org/strict-uri-encode
-795 verbose addNameRange registry:https://registry.npmjs.org/strict-uri-encode not in flight; fetching
-796 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal/package.json
-797 verbose request uri https://registry.npmjs.org/strict-uri-encode
-798 verbose request no auth needed
-799 info attempt registry request try #1 at 8:13:26 PM
-800 verbose etag "P3IZBLYGTOWXM3HRT9I3DK5T"
-801 http request GET https://registry.npmjs.org/strict-uri-encode
-802 info preinstall deep-equal@1.0.1
-803 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal/package.json
-804 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal/package.json
-805 silly install resolved []
-806 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-807 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-808 info linkStuff deep-equal@1.0.1
-809 silly linkStuff deep-equal@1.0.1 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules as its parent node_modules
-810 verbose linkBins deep-equal@1.0.1
-811 verbose linkMans deep-equal@1.0.1
-812 verbose rebuildBundles deep-equal@1.0.1
-813 info install deep-equal@1.0.1
-814 info postinstall deep-equal@1.0.1
-815 verbose unlock done using /Users/anyati/.npm/_locks/deep-equal-2a74ee2edb7f7430.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/deep-equal
-816 http 200 https://registry.npmjs.org/strict-uri-encode
-817 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-817 verbose headers   etag: '"C6VMNOWIKOIB7BAA09JAIKXK3"',
-817 verbose headers   'content-type': 'application/json',
-817 verbose headers   'content-encoding': 'gzip',
-817 verbose headers   'cache-control': 'max-age=300',
-817 verbose headers   'content-length': '1400',
-817 verbose headers   'accept-ranges': 'bytes',
-817 verbose headers   date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-817 verbose headers   via: '1.1 varnish',
-817 verbose headers   age: '9',
-817 verbose headers   connection: 'keep-alive',
-817 verbose headers   'x-served-by': 'cache-jfk1034-JFK',
-817 verbose headers   'x-cache': 'HIT',
-817 verbose headers   'x-cache-hits': '1',
-817 verbose headers   'x-timer': 'S1467072806.134367,VS0,VE0',
-817 verbose headers   vary: 'Accept-Encoding' }
-818 silly get cb [ 200,
-818 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-818 silly get     etag: '"C6VMNOWIKOIB7BAA09JAIKXK3"',
-818 silly get     'content-type': 'application/json',
-818 silly get     'content-encoding': 'gzip',
-818 silly get     'cache-control': 'max-age=300',
-818 silly get     'content-length': '1400',
-818 silly get     'accept-ranges': 'bytes',
-818 silly get     date: 'Tue, 28 Jun 2016 00:13:26 GMT',
-818 silly get     via: '1.1 varnish',
-818 silly get     age: '9',
-818 silly get     connection: 'keep-alive',
-818 silly get     'x-served-by': 'cache-jfk1034-JFK',
-818 silly get     'x-cache': 'HIT',
-818 silly get     'x-cache-hits': '1',
-818 silly get     'x-timer': 'S1467072806.134367,VS0,VE0',
-818 silly get     vary: 'Accept-Encoding' } ]
-819 verbose get saving strict-uri-encode to /Users/anyati/.npm/registry.npmjs.org/strict-uri-encode/.cache.json
-820 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-821 silly addNameRange number 2 { name: 'strict-uri-encode',
-821 silly addNameRange   range: '>=1.0.0 <2.0.0',
-821 silly addNameRange   hasData: true }
-822 silly addNameRange versions [ 'strict-uri-encode', [ '1.0.0', '1.0.1', '1.0.2', '1.1.0' ] ]
-823 silly addNamed strict-uri-encode@1.1.0
-824 verbose addNamed "1.1.0" is a plain semver version for strict-uri-encode
-825 silly cache afterAdd strict-uri-encode@1.1.0
-826 verbose afterAdd /Users/anyati/.npm/strict-uri-encode/1.1.0/package/package.json not in flight; writing
-827 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
-828 verbose afterAdd /Users/anyati/.npm/strict-uri-encode/1.1.0/package/package.json written
-829 silly install resolved [ { name: 'strict-uri-encode',
-829 silly install resolved     version: '1.1.0',
-829 silly install resolved     description: 'A stricter URI encode adhering to RFC 3986',
-829 silly install resolved     license: 'MIT',
-829 silly install resolved     repository:
-829 silly install resolved      { type: 'git',
-829 silly install resolved        url: 'git+https://github.com/kevva/strict-uri-encode.git' },
-829 silly install resolved     author:
-829 silly install resolved      { name: 'Kevin Mårtensson',
-829 silly install resolved        email: 'kevinmartensson@gmail.com',
-829 silly install resolved        url: 'github.com/kevva' },
-829 silly install resolved     engines: { node: '>=0.10.0' },
-829 silly install resolved     scripts: { test: 'node test.js' },
-829 silly install resolved     files: [ 'index.js' ],
-829 silly install resolved     keywords: [ 'component', 'encode', 'RFC3986', 'uri' ],
-829 silly install resolved     devDependencies: { ava: '^0.0.4' },
-829 silly install resolved     gitHead: 'ce6681428485d30e29222c722f832df15e3c19ac',
-829 silly install resolved     bugs: { url: 'https://github.com/kevva/strict-uri-encode/issues' },
-829 silly install resolved     homepage: 'https://github.com/kevva/strict-uri-encode#readme',
-829 silly install resolved     _id: 'strict-uri-encode@1.1.0',
-829 silly install resolved     _shasum: '279b225df1d582b1f54e65addd4352e18faa0713',
-829 silly install resolved     _from: 'strict-uri-encode@>=1.0.0 <2.0.0',
-829 silly install resolved     _npmVersion: '3.5.3',
-829 silly install resolved     _nodeVersion: '5.3.0',
-829 silly install resolved     _npmUser: { name: 'kevva', email: 'kevinmartensson@gmail.com' },
-829 silly install resolved     dist:
-829 silly install resolved      { shasum: '279b225df1d582b1f54e65addd4352e18faa0713',
-829 silly install resolved        tarball: 'http://registry.npmjs.org/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz' },
-829 silly install resolved     maintainers: [ [Object] ],
-829 silly install resolved     directories: {},
-829 silly install resolved     _resolved: 'https://registry.npmjs.org/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz',
-829 silly install resolved     readme: 'ERROR: No README data found!' } ]
-830 info install strict-uri-encode@1.1.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-831 info installOne strict-uri-encode@1.1.0
-832 verbose installOne of strict-uri-encode to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string not in flight; installing
-833 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
-834 verbose lock using /Users/anyati/.npm/_locks/strict-uri-encode-af0167bcf7a77302.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-835 silly install write writing strict-uri-encode 1.1.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-836 verbose unbuild node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-837 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-838 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-839 verbose tar unpack /Users/anyati/.npm/strict-uri-encode/1.1.0/package.tgz
-840 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-841 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode is being purged
-842 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-843 silly gunzTarPerm modes [ '755', '644' ]
-844 silly gunzTarPerm extractEntry package.json
-845 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
-846 silly gunzTarPerm extractEntry index.js
-847 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
-848 silly gunzTarPerm extractEntry license
-849 silly gunzTarPerm modified mode [ 'license', 436, 420 ]
-850 silly gunzTarPerm extractEntry readme.md
-851 silly gunzTarPerm modified mode [ 'readme.md', 436, 420 ]
-852 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode/package.json
-853 info preinstall strict-uri-encode@1.1.0
-854 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode/package.json
-855 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode/package.json
-856 silly install resolved []
-857 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-858 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-859 info linkStuff strict-uri-encode@1.1.0
-860 silly linkStuff strict-uri-encode@1.1.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules as its parent node_modules
-861 verbose linkBins strict-uri-encode@1.1.0
-862 verbose linkMans strict-uri-encode@1.1.0
-863 verbose rebuildBundles strict-uri-encode@1.1.0
-864 info install strict-uri-encode@1.1.0
-865 info postinstall strict-uri-encode@1.1.0
-866 verbose unlock done using /Users/anyati/.npm/_locks/strict-uri-encode-af0167bcf7a77302.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string/node_modules/strict-uri-encode
-867 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-868 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-869 info linkStuff query-string@3.0.3
-870 silly linkStuff query-string@3.0.3 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules as its parent node_modules
-871 verbose linkBins query-string@3.0.3
-872 verbose linkMans query-string@3.0.3
-873 verbose rebuildBundles query-string@3.0.3
-874 verbose rebuildBundles [ 'strict-uri-encode' ]
-875 info install query-string@3.0.3
-876 info postinstall query-string@3.0.3
-877 verbose unlock done using /Users/anyati/.npm/_locks/query-string-e22558426ff2b154.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history/node_modules/query-string
-878 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-879 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-880 info linkStuff history@2.1.2
-881 silly linkStuff history@2.1.2 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules as its parent node_modules
-882 verbose linkBins history@2.1.2
-883 verbose linkMans history@2.1.2
-884 verbose rebuildBundles history@2.1.2
-885 verbose rebuildBundles [ 'deep-equal', 'query-string' ]
-886 info install history@2.1.2
-887 info postinstall history@2.1.2
-888 verbose unlock done using /Users/anyati/.npm/_locks/history-842520399ea598ab.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router/node_modules/history
-889 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-890 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-891 info linkStuff react-router@2.5.1
-892 silly linkStuff react-router@2.5.1 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules as its parent node_modules
-893 verbose linkBins react-router@2.5.1
-894 verbose linkMans react-router@2.5.1
-895 verbose rebuildBundles react-router@2.5.1
-896 verbose rebuildBundles [ '.bin',
-896 verbose rebuildBundles   'history',
-896 verbose rebuildBundles   'hoist-non-react-statics',
-896 verbose rebuildBundles   'invariant',
-896 verbose rebuildBundles   'loose-envify',
-896 verbose rebuildBundles   'warning' ]
-897 info install react-router@2.5.1
-898 info postinstall react-router@2.5.1
-899 verbose unlock done using /Users/anyati/.npm/_locks/react-router-c575b88eac1ba01e.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-router
-900 verbose validateInstall loading /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/package.json for validation
-901 verbose stack Error: The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
-901 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
-901 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
-901 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
-901 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-901 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-901 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-901 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-901 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-901 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-901 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-902 verbose cwd /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
-903 error Darwin 15.3.0
-904 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--save" "react-router"
-905 error node v4.4.5
-906 error npm  v2.15.5
-907 error code EPEERINVALID
-908 error peerinvalid The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
-908 error peerinvalid Peer material-ui@0.15.1 wants react-dom@^15.0.0
-908 error peerinvalid Peer react-tooltip@3.0.7 wants react-dom@^0.14.0 || ^15.0.0
-908 error peerinvalid Peer react-confirm@0.1.13 wants react-dom@^0.14.7
-909 verbose exit [ 1, true ]
+67 silly addNameTag next cb for react-dropzone with tag latest
+68 silly addNamed react-dropzone@3.5.1
+69 verbose addNamed "3.5.1" is a plain semver version for react-dropzone
+70 silly cache afterAdd react-dropzone@3.5.1
+71 verbose afterAdd /Users/anyati/.npm/react-dropzone/3.5.1/package/package.json not in flight; writing
+72 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+73 verbose afterAdd /Users/anyati/.npm/react-dropzone/3.5.1/package/package.json written
+74 silly install resolved [ { name: 'react-dropzone',
+74 silly install resolved     version: '3.5.1',
+74 silly install resolved     description: 'Simple HTML5 drag-drop zone with React.js',
+74 silly install resolved     main: 'dist/index.js',
+74 silly install resolved     scripts:
+74 silly install resolved      { build: 'npm run clean && webpack',
+74 silly install resolved        clean: 'rimraf ./dist',
+74 silly install resolved        prerelease: 'npm run eslint && npm run build && npm run test:build',
+74 silly install resolved        release: 'npmpub',
+74 silly install resolved        test: 'npm run eslint && mocha --require ./mocha-environment.js ./src/test.js',
+74 silly install resolved        'test:build': 'NODE_ENV=production npm run build && npm run test',
+74 silly install resolved        eslint: 'eslint ./src ./*.js',
+74 silly install resolved        'eslint:fix': 'npm run eslint -- --fix',
+74 silly install resolved        'eslint-staged': 'eslint-staged',
+74 silly install resolved        deps: 'npm-check -s',
+74 silly install resolved        'deps:update': 'npm-check -u' },
+74 silly install resolved     'pre-commit': [ 'eslint-staged' ],
+74 silly install resolved     keywords: [ 'react-component', 'react', 'drag', 'drop', 'upload' ],
+74 silly install resolved     repository:
+74 silly install resolved      { type: 'git',
+74 silly install resolved        url: 'git+https://github.com/okonet/react-dropzone.git' },
+74 silly install resolved     bugs: { url: 'https://github.com/okonet/react-dropzone/issues' },
+74 silly install resolved     homepage: 'https://github.com/okonet/react-dropzone',
+74 silly install resolved     author: { name: 'Param Aggarwal' },
+74 silly install resolved     contributors: [ [Object], [Object] ],
+74 silly install resolved     license: 'MIT',
+74 silly install resolved     peerDependencies: { react: '^0.14.0 || ^15.0.0' },
+74 silly install resolved     dependencies: { 'attr-accept': '^1.0.3' },
+74 silly install resolved     devDependencies:
+74 silly install resolved      { 'babel-cli': '^6.9.0',
+74 silly install resolved        'babel-core': '^6.9.1',
+74 silly install resolved        'babel-eslint': '^6.0.4',
+74 silly install resolved        'babel-loader': '^6.2.2',
+74 silly install resolved        'babel-plugin-add-module-exports': '^0.2.1',
+74 silly install resolved        'babel-preset-es2015': '^6.9.0',
+74 silly install resolved        'babel-preset-react': '^6.3.13',
+74 silly install resolved        'babel-preset-stage-0': '^6.3.13',
+74 silly install resolved        'babel-register': '^6.9.0',
+74 silly install resolved        chai: '^3.4.1',
+74 silly install resolved        eslint: '^2.11.0',
+74 silly install resolved        'eslint-config-airbnb': '^9.0.1',
+74 silly install resolved        'eslint-plugin-import': '^1.8.1',
+74 silly install resolved        'eslint-plugin-jsx-a11y': '^1.2.2',
+74 silly install resolved        'eslint-plugin-react': '^5.1.1',
+74 silly install resolved        jsdom: '^9.2.1',
+74 silly install resolved        'lint-staged': '^0.2.2',
+74 silly install resolved        mocha: '^2.5.3',
+74 silly install resolved        'npm-check': '^5.2.1',
+74 silly install resolved        npmpub: '^3.1.0',
+74 silly install resolved        'pre-commit': '^1.1.3',
+74 silly install resolved        react: '^15.0.1',
+74 silly install resolved        'react-addons-test-utils': '^15.0.1',
+74 silly install resolved        'react-dom': '^15.0.1',
+74 silly install resolved        'react-testutils-additions': '^15.0.0',
+74 silly install resolved        rimraf: '^2.5.2',
+74 silly install resolved        sinon: '^1.17.4',
+74 silly install resolved        webpack: '^1.13.1' },
+74 silly install resolved     gitHead: 'bed7283aad1bc6b18697048ade163ebae6b6f730',
+74 silly install resolved     _id: 'react-dropzone@3.5.1',
+74 silly install resolved     _shasum: '5184a74208a5f652f6dc19f532c96e9dd631f5d1',
+74 silly install resolved     _from: 'react-dropzone@latest',
+74 silly install resolved     _npmVersion: '3.8.3',
+74 silly install resolved     _nodeVersion: '5.10.1',
+74 silly install resolved     _npmUser: { name: 'okonet', email: 'andrey@okonet.ru' },
+74 silly install resolved     maintainers: [ [Object], [Object] ],
+74 silly install resolved     dist:
+74 silly install resolved      { shasum: '5184a74208a5f652f6dc19f532c96e9dd631f5d1',
+74 silly install resolved        tarball: 'https://registry.npmjs.org/react-dropzone/-/react-dropzone-3.5.1.tgz' },
+74 silly install resolved     _npmOperationalInternal:
+74 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+74 silly install resolved        tmp: 'tmp/react-dropzone-3.5.1.tgz_1465917481912_0.7403831400442868' },
+74 silly install resolved     directories: {},
+74 silly install resolved     _resolved: 'https://registry.npmjs.org/react-dropzone/-/react-dropzone-3.5.1.tgz',
+74 silly install resolved     readme: 'ERROR: No README data found!' } ]
+75 info install react-dropzone@3.5.1 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
+76 info installOne react-dropzone@3.5.1
+77 verbose installOne of react-dropzone to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder not in flight; installing
+78 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+79 verbose lock using /Users/anyati/.npm/_locks/react-dropzone-cf392d9c2cacc669.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+80 silly install write writing react-dropzone 3.5.1 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+81 verbose unbuild node_modules/react-dropzone
+82 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
+83 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+84 verbose tar unpack /Users/anyati/.npm/react-dropzone/3.5.1/package.tgz
+85 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+86 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone is being purged
+87 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+88 silly gunzTarPerm modes [ '755', '644' ]
+89 silly gunzTarPerm extractEntry package.json
+90 silly gunzTarPerm extractEntry README.md
+91 silly gunzTarPerm extractEntry LICENSE
+92 silly gunzTarPerm extractEntry mocha-environment.js
+93 silly gunzTarPerm extractEntry webpack.config.js
+94 silly gunzTarPerm extractEntry .travis.yml
+95 silly gunzTarPerm extractEntry CHANGELOG.md
+96 silly gunzTarPerm extractEntry .editorconfig
+97 silly gunzTarPerm extractEntry .idea/jsLibraryMappings.xml
+98 silly gunzTarPerm extractEntry .idea/.name
+99 silly gunzTarPerm extractEntry .idea/compiler.xml
+100 silly gunzTarPerm extractEntry .idea/copyright/profiles_settings.xml
+101 silly gunzTarPerm extractEntry .idea/encodings.xml
+102 silly gunzTarPerm extractEntry .idea/inspectionProfiles/Project_Default.xml
+103 silly gunzTarPerm extractEntry .idea/inspectionProfiles/profiles_settings.xml
+104 silly gunzTarPerm extractEntry .idea/codeStyleSettings.xml
+105 silly gunzTarPerm extractEntry .idea/libraries/react_dropzone_node_modules.xml
+106 silly gunzTarPerm extractEntry .idea/misc.xml
+107 silly gunzTarPerm extractEntry .idea/modules.xml
+108 silly gunzTarPerm extractEntry .idea/react-dropzone.iml
+109 silly gunzTarPerm extractEntry .idea/vcs.xml
+110 silly gunzTarPerm extractEntry .idea/workspace.xml
+111 silly gunzTarPerm extractEntry dist/index.js
+112 silly gunzTarPerm extractEntry dist/index.js.map
+113 silly gunzTarPerm extractEntry .eslintrc
+114 silly gunzTarPerm extractEntry src/index.js
+115 silly gunzTarPerm extractEntry src/test.js
+116 silly gunzTarPerm extractEntry .babelrc
+117 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/package.json
+118 info preinstall react-dropzone@3.5.1
+119 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/package.json
+120 silly prepareForInstallMany adding attr-accept@^1.0.3 from react-dropzone dependencies
+121 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/package.json
+122 silly cache add args [ 'attr-accept@^1.0.3', null ]
+123 verbose cache add spec attr-accept@^1.0.3
+124 silly cache add parsed spec Result {
+124 silly cache add   raw: 'attr-accept@^1.0.3',
+124 silly cache add   scope: null,
+124 silly cache add   name: 'attr-accept',
+124 silly cache add   rawSpec: '^1.0.3',
+124 silly cache add   spec: '>=1.0.3 <2.0.0',
+124 silly cache add   type: 'range' }
+125 silly addNamed attr-accept@>=1.0.3 <2.0.0
+126 verbose addNamed ">=1.0.3 <2.0.0" is a valid semver range for attr-accept
+127 silly addNameRange { name: 'attr-accept', range: '>=1.0.3 <2.0.0', hasData: false }
+128 silly mapToRegistry name attr-accept
+129 silly mapToRegistry using default registry
+130 silly mapToRegistry registry https://registry.npmjs.org/
+131 silly mapToRegistry data Result {
+131 silly mapToRegistry   raw: 'attr-accept',
+131 silly mapToRegistry   scope: null,
+131 silly mapToRegistry   name: 'attr-accept',
+131 silly mapToRegistry   rawSpec: '',
+131 silly mapToRegistry   spec: 'latest',
+131 silly mapToRegistry   type: 'tag' }
+132 silly mapToRegistry uri https://registry.npmjs.org/attr-accept
+133 verbose addNameRange registry:https://registry.npmjs.org/attr-accept not in flight; fetching
+134 verbose request uri https://registry.npmjs.org/attr-accept
+135 verbose request no auth needed
+136 info attempt registry request try #1 at 10:10:20 AM
+137 verbose etag "BLEWXOZ0GKZXXRKJBN777UUYJ"
+138 http request GET https://registry.npmjs.org/attr-accept
+139 http 304 https://registry.npmjs.org/attr-accept
+140 verbose headers { date: 'Tue, 28 Jun 2016 14:10:20 GMT',
+140 verbose headers   via: '1.1 varnish',
+140 verbose headers   'cache-control': 'max-age=300',
+140 verbose headers   etag: '"BLEWXOZ0GKZXXRKJBN777UUYJ"',
+140 verbose headers   age: '0',
+140 verbose headers   connection: 'keep-alive',
+140 verbose headers   'x-served-by': 'cache-jfk1022-JFK',
+140 verbose headers   'x-cache': 'MISS',
+140 verbose headers   'x-cache-hits': '0',
+140 verbose headers   'x-timer': 'S1467123020.874210,VS0,VE110',
+140 verbose headers   vary: 'Accept-Encoding' }
+141 silly get cb [ 304,
+141 silly get   { date: 'Tue, 28 Jun 2016 14:10:20 GMT',
+141 silly get     via: '1.1 varnish',
+141 silly get     'cache-control': 'max-age=300',
+141 silly get     etag: '"BLEWXOZ0GKZXXRKJBN777UUYJ"',
+141 silly get     age: '0',
+141 silly get     connection: 'keep-alive',
+141 silly get     'x-served-by': 'cache-jfk1022-JFK',
+141 silly get     'x-cache': 'MISS',
+141 silly get     'x-cache-hits': '0',
+141 silly get     'x-timer': 'S1467123020.874210,VS0,VE110',
+141 silly get     vary: 'Accept-Encoding' } ]
+142 verbose etag https://registry.npmjs.org/attr-accept from cache
+143 verbose get saving attr-accept to /Users/anyati/.npm/registry.npmjs.org/attr-accept/.cache.json
+144 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+145 silly addNameRange number 2 { name: 'attr-accept', range: '>=1.0.3 <2.0.0', hasData: true }
+146 silly addNameRange versions [ 'attr-accept', [ '1.0.0', '1.0.1', '1.0.2', '1.0.3' ] ]
+147 silly addNamed attr-accept@1.0.3
+148 verbose addNamed "1.0.3" is a plain semver version for attr-accept
+149 silly cache afterAdd attr-accept@1.0.3
+150 verbose afterAdd /Users/anyati/.npm/attr-accept/1.0.3/package/package.json not in flight; writing
+151 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+152 verbose afterAdd /Users/anyati/.npm/attr-accept/1.0.3/package/package.json written
+153 silly install resolved [ { name: 'attr-accept',
+153 silly install resolved     version: '1.0.3',
+153 silly install resolved     description: 'JavaScript implementation of the "accept" attribute for HTML5 <input type="file">',
+153 silly install resolved     main: 'dist/index.js',
+153 silly install resolved     scripts:
+153 silly install resolved      { build: 'webpack -p',
+153 silly install resolved        prepublish: 'npm run check && npm run build',
+153 silly install resolved        test: 'mocha --compilers js:babel/register --recursive',
+153 silly install resolved        'test:watch': 'npm test -- --watch',
+153 silly install resolved        lint: 'eslint ./src',
+153 silly install resolved        check: 'npm run lint && npm test' },
+153 silly install resolved     repository:
+153 silly install resolved      { type: 'git',
+153 silly install resolved        url: 'git+https://github.com/okonet/attr-accept.git' },
+153 silly install resolved     keywords: [ 'html5', 'input', 'tag', 'attribute', 'attr', 'accpet', 'file' ],
+153 silly install resolved     author: { name: 'Andrey Okonetchnikov @okonetchnikov' },
+153 silly install resolved     license: 'MIT',
+153 silly install resolved     bugs: { url: 'https://github.com/okonet/attr-accept/issues' },
+153 silly install resolved     homepage: 'https://github.com/okonet/attr-accept#readme',
+153 silly install resolved     devDependencies:
+153 silly install resolved      { babel: '^5.8.23',
+153 silly install resolved        'babel-core': '5.8.25',
+153 silly install resolved        'babel-eslint': '^4.1.1',
+153 silly install resolved        'babel-loader': '5.3.2',
+153 silly install resolved        'core-js': '1.2.2',
+153 silly install resolved        eslint: '^1.3.1',
+153 silly install resolved        'eslint-config-airbnb': '0.0.8',
+153 silly install resolved        'eslint-plugin-react': '^3.3.1',
+153 silly install resolved        expect: '^1.9.0',
+153 silly install resolved        mocha: '^2.3.2',
+153 silly install resolved        webpack: '1.12.2' },
+153 silly install resolved     engines: { node: '>=0.10' },
+153 silly install resolved     gitHead: 'd138bc07d1f38c1e85f0a96ae1a8579b182a2289',
+153 silly install resolved     _id: 'attr-accept@1.0.3',
+153 silly install resolved     _shasum: 'c132575a360013e21c4bc964510b87bf78255261',
+153 silly install resolved     _from: 'attr-accept@>=1.0.3 <2.0.0',
+153 silly install resolved     _npmVersion: '2.12.1',
+153 silly install resolved     _nodeVersion: '2.3.4',
+153 silly install resolved     _npmUser: { name: 'okonet', email: 'andrey@okonet.ru' },
+153 silly install resolved     maintainers: [ [Object] ],
+153 silly install resolved     dist:
+153 silly install resolved      { shasum: 'c132575a360013e21c4bc964510b87bf78255261',
+153 silly install resolved        tarball: 'https://registry.npmjs.org/attr-accept/-/attr-accept-1.0.3.tgz' },
+153 silly install resolved     directories: {},
+153 silly install resolved     _resolved: 'https://registry.npmjs.org/attr-accept/-/attr-accept-1.0.3.tgz',
+153 silly install resolved     readme: 'ERROR: No README data found!' } ]
+154 info install attr-accept@1.0.3 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+155 info installOne attr-accept@1.0.3
+156 verbose installOne of attr-accept to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone not in flight; installing
+157 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+158 verbose lock using /Users/anyati/.npm/_locks/attr-accept-a7f4927477ff4f34.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+159 silly install write writing attr-accept 1.0.3 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+160 verbose unbuild node_modules/react-dropzone/node_modules/attr-accept
+161 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
+162 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+163 verbose tar unpack /Users/anyati/.npm/attr-accept/1.0.3/package.tgz
+164 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+165 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept is being purged
+166 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+167 silly gunzTarPerm modes [ '755', '644' ]
+168 silly gunzTarPerm extractEntry package.json
+169 silly gunzTarPerm extractEntry README.md
+170 silly gunzTarPerm extractEntry LICENSE
+171 silly gunzTarPerm extractEntry webpack.config.js
+172 silly gunzTarPerm extractEntry dist/index.js
+173 silly gunzTarPerm extractEntry .travis.yml
+174 silly gunzTarPerm extractEntry .codeclimate.yml
+175 silly gunzTarPerm extractEntry .eslintrc
+176 silly gunzTarPerm extractEntry test/index.js
+177 silly gunzTarPerm extractEntry .editorconfig
+178 silly gunzTarPerm extractEntry src/index.js
+179 silly gunzTarPerm extractEntry .babelrc
+180 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept/package.json
+181 info preinstall attr-accept@1.0.3
+182 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept/package.json
+183 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept/package.json
+184 silly install resolved []
+185 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+186 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+187 info linkStuff attr-accept@1.0.3
+188 silly linkStuff attr-accept@1.0.3 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules as its parent node_modules
+189 verbose linkBins attr-accept@1.0.3
+190 verbose linkMans attr-accept@1.0.3
+191 verbose rebuildBundles attr-accept@1.0.3
+192 info install attr-accept@1.0.3
+193 info postinstall attr-accept@1.0.3
+194 verbose unlock done using /Users/anyati/.npm/_locks/attr-accept-a7f4927477ff4f34.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone/node_modules/attr-accept
+195 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+196 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+197 info linkStuff react-dropzone@3.5.1
+198 silly linkStuff react-dropzone@3.5.1 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules as its parent node_modules
+199 verbose linkBins react-dropzone@3.5.1
+200 verbose linkMans react-dropzone@3.5.1
+201 verbose rebuildBundles react-dropzone@3.5.1
+202 verbose rebuildBundles [ 'attr-accept' ]
+203 info install react-dropzone@3.5.1
+204 info postinstall react-dropzone@3.5.1
+205 verbose unlock done using /Users/anyati/.npm/_locks/react-dropzone-cf392d9c2cacc669.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/node_modules/react-dropzone
+206 verbose validateInstall loading /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder/package.json for validation
+207 verbose stack Error: The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
+207 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+207 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+207 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+207 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+207 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+207 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+207 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+207 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+207 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+207 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+208 verbose cwd /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarder
+209 error Darwin 15.3.0
+210 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--save" "react-dropzone"
+211 error node v4.4.5
+212 error npm  v2.15.5
+213 error code EPEERINVALID
+214 error peerinvalid The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
+214 error peerinvalid Peer material-ui@0.15.1 wants react-dom@^15.0.0
+214 error peerinvalid Peer react-tooltip@3.0.7 wants react-dom@^0.14.0 || ^15.0.0
+214 error peerinvalid Peer react-confirm@0.1.13 wants react-dom@^0.14.7
+214 error peerinvalid Peer react-dropzone-component@1.0.4 wants react-dom@^0.14.0 || >0.14.0 || ^15.0.1
+215 verbose exit [ 1, true ]

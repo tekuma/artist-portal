@@ -2017,6 +2017,211 @@ textarea.bio {
 
 /*========================================== */
 
+/* Upload Page */
+
+.uploading {
+	text-align: center;
+}
+
+.uploading span {
+  -webkit-animation: blink 1.4s infinite both;
+  -moz-animation: blink 1.4s infinite both;
+  -ms-animation: blink 1.4s infinite both;
+  -o-animation: blink 1.4s infinite both;
+  animation: blink 1.4s infinite both;
+}
+
+.uploadng span:nth-child(2) {
+  -webkit-animation-delay: .2s;
+  -moz-animation-delay: .2s;
+  -ms-animation-delay: .2s;
+  -o-animation-delay: .2s;
+  animation-delay: .2s;
+}
+
+.uploading span:nth-child(3) {
+  -webkit-animation-delay: .4s;
+  -moz-animation-delay: .4s;
+  -ms-animation-delay: .4s;
+  -o-animation-delay: .4s;
+  animation-delay: .4s;
+}
+
+.dropzone-image-preview-container {
+	position: relative;
+	border-radius: 5px;
+	width: 200px;
+	border: 1px solid #e83081;
+}
+
+.dropzone-image-preview-container img {
+	width: 100%;
+	border-radius: 5px;
+}
+
+.overlay {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;  /* TWEENER - IE 10 */
+	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+	position: absolute;
+  	z-index: 11;
+  	background: rgba(0, 0, 0, 0.6);
+  	border-radius: 5px;
+  	overflow: hidden;
+  	transition: all 0.5s;
+  	-webkit-transition: all 0.5s;
+  	-moz-transition: all 0.5s;
+  	-ms-transition: all 0.5s;
+}
+
+/* Handles the effect */
+
+.dropzone-image-preview-container .overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.dropzone-image-preview-container:hover .overlay {
+  opacity: 1;
+}
+
+.overlay .file-name {
+	color: #ffffff;
+	opacity: 0.7;
+	display: block;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 5px;
+
+}
+
+.overlay .file-size {
+	color: #e83081;
+	opacity: 0.7;
+	display: block;
+	font-size: 0.9em;
+	text-align: center;
+	margin: 0;
+}
+
+
+
+/*========================================== */
+
+/* Animations */
+
+
+@-webkit-keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+@-moz-keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+@-o-keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+@keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+/*========================================== */
+
 /* Fonts */
 
 @font-face {

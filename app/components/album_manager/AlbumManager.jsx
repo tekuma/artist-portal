@@ -37,7 +37,7 @@ export default class AlbumManager extends React.Component {
             return this.openedManager();
         } else {
             return this.closedManager();
-        }        
+        }
     }
 
     openedManager = () => {
@@ -65,7 +65,11 @@ export default class AlbumManager extends React.Component {
 
     closedManager = () => {
         const albums = this.state.albums;
-        var albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
+        
+        var albumManagerWidth;
+        if(document.getElementsByClassName('album-manager')[0] != undefined) {
+            albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
+        }
 
         var style = {
             height: window.innerHeight - 60,
