@@ -72,7 +72,8 @@ export default class RootAppLayout extends React.Component {
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <Header changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
-                    <UploadLayout />
+                    <UploadLayout
+                        setUploadedFiles={this.props.setUploadedFiles} />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
                 <ReactTooltip

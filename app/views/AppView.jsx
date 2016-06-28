@@ -5,6 +5,7 @@ import RootAppLayout from '../components/app-layouts/RootAppLayout';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
+import UploadDialog from '../components/app-layouts/UploadDialog';
 import ArtworkStore from '../stores/ArtworkStore';
 
 
@@ -18,9 +19,11 @@ export default class AppView extends React.Component {
             managerIsOpen: true,            // Used to track whether Album Manager is open
             currentAlbum: 'Uploads',        // Used to track the current album open
             editArtworkIsOpen: false,       // Used to track whether artwork is being edited
+            uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
             currentEditArtworkInfo: {},     // Used to track the current artwork being edited
             currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {}                    // Used to store User Profile Information
+            userInfo: {},                   // Used to store User Profile Information
+            uploadedFiles: []               // Used to store User Profile Information
         };
     }
 
@@ -43,11 +46,16 @@ export default class AppView extends React.Component {
                     changeAppLayout={this.changeAppLayout}
                     currentAlbum={this.state.currentAlbum}
                     changeAlbum={this.changeAlbum}
-                    userInfo={this.state.userInfo} />
+                    userInfo={this.state.userInfo}
+                    setUploadedFiles={this.setUploadedFiles} />
                 <EditArtworkDialog
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     getCurrentEditArtwork={this.state.currentEditArtworkInfo} />
+                <UploadDialog
+                    closeUploadDialog={this.closeUploadDialog}
+                    uploadedFiles={this.state.uploadedFiles}
+                    uploadDialogIsOpen={this.state.uploadDialogIsOpen} />
             </div>
         );
     }
@@ -71,6 +79,25 @@ export default class AppView extends React.Component {
     toggleEditArtworkDialog = () => {
         this.setState({
             editArtworkIsOpen: !this.state.editArtworkIsOpen
+        });
+    }
+
+    closeUploadDialog = () => {
+        this.setState({
+            uploadDialogIsOpen: !this.state.uploadDialogIsOpen
+        });
+    }
+
+    setUploadedFiles = (files) => {
+        this.setState({
+            uploadedFiles: files,
+            uploadDialogIsOpen: true    // When we set files, we want to open Uplaod Dialog
+        });
+    }
+
+    clearUploadedFiles = () => {
+        this.setState({
+            uploadedFiles: {}
         });
     }
 
