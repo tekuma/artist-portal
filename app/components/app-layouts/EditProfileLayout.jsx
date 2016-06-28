@@ -26,6 +26,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="text"
                                     id="register-fullname"
+                                    defaultValue={this.state.userInfo.name}
                                     name="fullname"
                                     placeholder="Full Name"
                                     required=""
@@ -41,6 +42,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="email"
                                     id="register-email"
+                                    defaultValue={this.state.userInfo.email}
                                     name="email"
                                     placeholder="Email"
                                     required=""
@@ -52,6 +54,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="password"
                                     id="register-password"
+                                    defaultValue=""
                                     name="password"
                                     placeholder="Password"
                                     required=""
@@ -65,6 +68,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="password"
                                     id="register-confirm-password"
+                                    defaultValue=""
                                     name="confirm-password"
                                     placeholder="Confirm Password"
                                     required=""

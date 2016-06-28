@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../header/Header.jsx';
+import LoggedOnHeader from '../headers/LoggedOnHeader';
 import AlbumManager from '../album_manager/AlbumManager';
 import ArtworksLayout from './ArtworksLayout';
 import UploadLayout from './UploadLayout';
@@ -45,7 +45,7 @@ export default class RootAppLayout extends React.Component {
     renderArtworksLayout = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <Header changeAppLayout={this.props.changeAppLayout}/>
+                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout}/>
                 <AlbumManager
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
@@ -70,7 +70,7 @@ export default class RootAppLayout extends React.Component {
     renderUploadLayout = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <Header changeAppLayout={this.props.changeAppLayout} />
+                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
                     <UploadLayout
                         setUploadedFiles={this.props.setUploadedFiles} />

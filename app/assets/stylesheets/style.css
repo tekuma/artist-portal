@@ -394,9 +394,8 @@ header {
 	height: 60px;
 	background: #ffffff;
 	z-index: 6;
-	box-shadow: 0 4px 8px -2px rgba(0,0,0,0.5),
-	0 3px 1px -2px rgba(0,0,0,.2),
-	0 1px 5px 0 rgba(0,0,0,.12);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
+	0 1px 2px rgba(0,0,0,0.24);
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -447,6 +446,10 @@ header {
 	-ms-transition: width 0.5s;
 }
 
+.header-icons.logged-off {
+	width: 180px;
+}
+
 .header-icon {
 	display: inline-flex;
 	width: 60px;
@@ -482,6 +485,14 @@ header {
 
 .home-icon {
 	float: left;
+}
+
+.home-icon img {
+	height: 30px;
+}
+
+.home-icon img:hover {
+	height: 32px;
 }
 
 .header-writing {
@@ -2129,6 +2140,8 @@ textarea.bio {
 .upload-dialog-button {
 	width: 100%;
 	height: 100%;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
 	background: #292e3a;
 	display: inline-flex;
 	-webkit-align-items: center;
@@ -2166,10 +2179,6 @@ textarea.bio {
 
 .upload-dialog-actions {
 	padding: 0 !important;
-}
-
-.upload-dialog-body {
-
 }
 
 .upload-dialog-content {
