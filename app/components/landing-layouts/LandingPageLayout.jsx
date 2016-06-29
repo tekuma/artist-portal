@@ -1,4 +1,5 @@
 import React from 'react';
+import Firebase from 'firebase'
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 import Link from 'react-router';
 

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title>Tekuma</title>
+        <title>Tekuma Artist</title>
+        <!-- Never use anything but UTF-8  -->
 		<meta charset="utf-8">
-		<meta name="description" content="Static View of Tekuma Pages">
-		<meta name="author" content="Afika Nyati, Stephen White">
-		<meta name="keywords" content="Art, Space, Tekuma">
+		<meta name="description" content="Tekuma's Artist Portal">
+		<meta name="author"      content="Afika Nyati, Stephen White">
+		<meta name="keywords" content="Art, Space, Tekuma, Curation">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <link rel="icon" type="image/png" href="assets/images/favicon.png">
     </head>
+
     <body>
+        <!-- Connect React to the Frontend -->
         <div id="root"></div>
         <script src="./app.js"></script>
+
+        <!-- Connect Firebase Backend   -->
         <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
         <script>
             // Initialize Firebase
@@ -24,5 +29,10 @@
             };
             firebase.initializeApp(config);
         </script>
+
+        <!-- Import ReactFire from CDN -->
+        <script src="https://cdn.firebase.com/libs/reactfire/1.0.0/reactfire.min.js"></script>
+
+
     </body>
 </html>
