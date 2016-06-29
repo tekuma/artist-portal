@@ -1,18 +1,18 @@
 import React    from 'react';
-import Firebase from 'firebase'
 import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayout1     from '../components/landing-layouts/SignUpLayout1';
 import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
 import { Router, Route, Link, browserHistory } from 'react-router';
 
+
+
 export default class LandingPageView extends React.Component {
     constructor(props) {
+        //TOP
         super(props);
 
-        this.provider = new firebase.auth.GoogleAuthProvider();
-
         this.state = {
-            step: 1,
+            step       : 1,
             registraton: {
                 name: null,
                 dob: null,
@@ -22,6 +22,7 @@ export default class LandingPageView extends React.Component {
                 location: null,
                 portfolio: null
             }
+
         };
     }
 
@@ -29,16 +30,20 @@ export default class LandingPageView extends React.Component {
         switch(this.state.step) {
             case 1:
                 return <LandingPageLayout
-                        saveValues={this.saveValues}
-                        nextStep={this.nextStep} />
+                        saveValues = {this.saveValues}
+                        nextStep   = {this.nextStep}
+                        googleAuth = {this.googleAuth}
+                        />
             case 2:
                 return <SignUpLayout1
-                        saveValues={this.saveValues}
-                        nextStep={this.nextStep} />
+                        saveValues = {this.saveValues}
+                        nextStep   = {this.nextStep}
+                        />
             case 3:
                 return <SignUpLayout2
-                        saveValues={this.saveValues}
-                        submitRegistration={this.submitRegistration} />
+                        saveValues          = {this.saveValues}
+                        submitRegistration  = {this.submitRegistration}
+                        />
         }
     }
 
@@ -46,25 +51,19 @@ export default class LandingPageView extends React.Component {
 // ---functions ---
 
     googleAuth = () => {
-
-
-        firebase.auth().signInWithPopup(this.provider).then(function(result) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
+        var provider = new firebase.auth.GoogleAuthProvider();
+        var auth = firebase.auth();
+        console.log("-----");
+        auth.signInWithPopup(provider).then(function(result) {
+          // User signed in!
+          console.log("IT FUCKING WORKED");
+          var uid = result.user.uid;
+          console.log(uid);
+          browserHistory.push('/artist');
         }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
+          // An error occurred
+          console.log("error, fuck");
         });
-
     }
 
     saveValues = (data) => {
