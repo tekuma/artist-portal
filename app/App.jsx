@@ -9,22 +9,7 @@ import Firebase from 'firebase';
 import reactMixin     from 'react-mixin'
 import ReactFireMixin from 'reactfire'
 
-//import Firebase
-var config = {
-    apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
-    authDomain:          "artist-tekuma-4a697.firebaseapp.com",
-    databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
-    storageBucket: "artist-tekuma-4a697.appspot.com",
-};
 
-firebase.initializeApp(config);
-
-
-
-
-
-
-const rootRef = new firebase.database().ref()
 
 export default class App extends React.Component {
     constructor(props) {
