@@ -23,10 +23,6 @@ export default class RootAppLayout extends React.Component {
         window.removeEventListener("resize", this.rerender);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.rerender();
-    }
-
     render() {
         switch (this.props.currentAppLayout) {
             case 'Artworks':
@@ -88,7 +84,7 @@ export default class RootAppLayout extends React.Component {
     renderEditProfileLayout = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <Header changeAppLayout={this.props.changeAppLayout} />
+                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
                     <EditProfileLayout userInfo={this.props.userInfo}/>
                 </div>

@@ -1,10 +1,13 @@
 import React from 'react';
+import Dropzone from 'react-dropzone';
 
 export default class EditProfileLayout extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            avatarUploaded: false,
+            avatarPreview: "",
             userInfo: this.props.userInfo
         }
     }
@@ -13,11 +16,11 @@ export default class EditProfileLayout extends React.Component {
         return(
             <form className="profile-form">
                 <section className="profile-pic-container">
-                    <img src="../assets/images/afika.jpg" />
+                    <img src="assets/images/afika.jpg" />
                 </section>
                 <section className="left-info">
                     <div className="edit-heading">
-                        <img src="../assets/images/art-illus.svg" />
+                        <img src="assets/images/art-illus.svg" />
                         <h3 className="artist-edit">ARTIST</h3>
                     </div>
                     <fieldset>

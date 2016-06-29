@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 
-export default class Header extends React.Component {
+export default class LoggedOnHeader extends React.Component {
     constructor(props) {
         super(props);
 

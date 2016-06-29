@@ -1,7 +1,8 @@
 import React from 'react';
 import SearchBar from './SearchBar';
+import { Router, Route, Link } from 'react-router';
 
-export default class Header extends React.Component {
+export default class LoggedOffHeader extends React.Component {
     constructor(props) {
         super(props);
 
@@ -13,24 +14,19 @@ export default class Header extends React.Component {
         return (
             <header>
                 <div className="header-icon home-icon" title="Go to Homepage">
-                    <a href="/">
+                    <a href="http://tekuma.io">
                         <img src='assets/images/icons/home.svg' />
                     </a>
                 </div>
 
             	<div className="tekuma-logo">
+                    <Link to="/">
                         <img id="tekuma-logo-image" src='assets/images/tekuma-black.svg' />
+                    </Link>
             	</div>
             	<div className="header-icons logged-off">
-                    <div className="header-writing" title="Sign Up for Tekuma">
-                        <a href="/">
-                            <h3>Sign Up</h3>
-                        </a>
-                    </div>
                     <div className="header-writing" title="Log In to Tekuma">
-                        <a href="/">
-                            <h3>Log In</h3>
-                        </a>
+                        <h3>Log In</h3>
                     </div>
         	    </div>
         	</header>

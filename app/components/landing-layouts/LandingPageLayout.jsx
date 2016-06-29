@@ -6,7 +6,9 @@ export default class LandingPageLayout extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            errors: []
+        };
     }
 
     render() {
@@ -41,67 +43,58 @@ export default class LandingPageLayout extends React.Component {
                             </div>
                             <div className="top-form">
                                 <ul>
-                                    <li>
+                                    <li id="email-landing">
                                         <input
-                                            type="text"
-                                            id="register-username"
-                                            name="username"
-                                            placeholder="Username"
-                                            required=""
-                                            data-msg-required="Please choose a username."
-                                            data-rule-minlength="4"
-                                            data-msg-minlength="Your username is too short."
-                                            maxlength="50"
-                                            autocapitalize="off"
-                                            autocomplete="off"
-                                            autocorrect="off" />
+                                            type="email"
+                                            id="register-email"
+                                            ref="email"
+                                            placeholder="Email"
+                                            required="true"
+                                            maxlength="100" />
                                     </li>
+
                                     <li>
                                         <input
                                             type="password"
                                             id="register-password"
-                                            name="password"
+                                            ref="password"
                                             placeholder="Password"
-                                            required=""
-                                            data-msg-required="Please choose a password."
-                                            data-rule-minlength="4"
-                                            data-msg-minlength="Your password is too short."
+                                            required="true"
                                             maxlength="100"
                                             autocomplete="off" />
                                     </li>
-                                    <li>
-                                        <input
-                                            type="email"
-                                            id="register-email"
-                                            name="email"
-                                            value=""
-                                            placeholder="Email"
-                                            required=""
-                                            data-msg-required="Please enter your email."
-                                            data-msg-email="The email address you supplied is invalid."
-                                            maxlength="100" />
-                                    </li>
+
                                     <li>
                                         <input
                                             type="password"
                                             id="register-confirm-password"
-                                            name="confirm-password"
+                                            ref="confirmPassword"
                                             placeholder="Confirm Password"
-                                            required=""
-                                            data-msg-required="Please confirm your password."
-                                            data-rule-equalto="#register-password"
-                                            data-msg-equalto="Password doesn't match."
+                                            required="true"
                                             maxlength="100" />
                                     </li>
                                 </ul>
+                                {this.state.errors.map(error => {
+                                        return (
+                                            <div
+                                                className="registration-error">
+                                                <h2>{error}</h2>
+                                            </div>
+                                        );
+                                    })}
                             </div>
                             <div className="bottom-form">
                                 <div className="optin">
                                     <input
-                                        type="checkbox" />
+                                        type="checkbox"
+                                        className="reg-radio"
+                                        ref="acceptTerms" />
                                     <span> I agree to Tekuma's <a src="/">Terms of Service</a>.</span>
                                 </div>
-                                <button className="signup-button" type="submit">
+                                <button
+                                    className="signup-button"
+                                    type="submit"
+                                    onClick={this.saveAndContinue}>
                                     <h3>Sign Up</h3>
                                 </button>
                             </div>
@@ -110,5 +103,56 @@ export default class LandingPageLayout extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    saveAndContinue = (e) => {
+        e.preventDefault();
+
+        // Clear errors from any previous form submission
+        this.state.errors = [];
+        var data = {};
+        var email = this.refs.email.value;
+        var password = this.refs.password.value;
+        var confirmPassword = this.refs.confirmPassword.value;
+        var termsAccepted = this.refs.acceptTerms.checked;
+        console.log(termsAccepted);
+
+        if(email.length == 0) {
+            this.state.errors.push("Please enter an email address.");
+        }
+
+        if(!/.+@.+\..+/.test(email)) {
+            this.state.errors.push("The email address you supplied is invalid.");
+        }
+
+        if(password.length == 0) {
+            this.state.errors.push("Please choose a password.");
+        }
+
+        if(password.length < 5) {
+            this.state.errors.push("Your password is too short.");
+        }
+
+        if(confirmPassword.length == 0) {
+            this.state.errors.push("Please confirm your password.");
+        }
+
+        if(password != confirmPassword) {
+            this.state.errors.push("Passwords do not match.");
+        }
+
+        if(!termsAccepted) {
+            this.state.errors.push("Please accept Tekuma's Terms of Service.");
+        }
+
+        // Rerender the component
+        this.forceUpdate();
+
+        if(this.state.errors.length == 0) {
+            data.email = email;
+            data.password = password;
+            this.props.saveValues(data);
+            this.props.nextStep();
+        }
     }
 }

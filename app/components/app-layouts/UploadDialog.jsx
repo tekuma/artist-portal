@@ -48,7 +48,7 @@ export default class UploadDialog extends React.Component {
                             </h2>
                             <div className="uploaded-artworks-container">
                                 {this.state.files.map(file =>
-                                    <div className="dropzone-image-preview-container">
+                                    <article className="dropzone-image-preview-container">
                                         <img src={file.preview} />
                                         <div className="overlay">
                                             <div>
@@ -56,7 +56,7 @@ export default class UploadDialog extends React.Component {
                                                 <h2 className="file-size">{this.getFileSize(file.size)}</h2>
                                             </div>
                                         </div>
-                                    </div>
+                                    </article>
                                 )}
                             </div>
                             <h2 className="upload-artwork-hint">View your artworks in the Uploads album</h2>

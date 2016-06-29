@@ -1,11 +1,18 @@
 import React from 'react';
+import Dropzone from 'react-dropzone';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 
 export default class SignUpLayout1 extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            avatarUploaded: false,
+            avatarPreview: "",
+            gender: "",
+            avatar: [],
+            errors: []
+        };
     }
 
     render() {
@@ -17,16 +24,41 @@ export default class SignUpLayout1 extends React.Component {
                         <div className="signup-heading-wrapper pink">
                             <h3>SIGN UP</h3>
                         </div>
-                        <div className="signup-heading-wrapper">
+                        <div className="signup-heading-message">
                             <h3>Help us build your artist profile.</h3>
+                            {this.state.errors.map(error => {
+                                    return (
+                                        <div
+                                            className="registration-error">
+                                            <h3>{error}</h3>
+                                        </div>
+                                    );
+                                })}
                         </div>
                         <form className="signup-form page-2">
                             <div className="left-form">
-                                <div className="image-upload-box">
-                                    <img src="../assets/images/icons/person-beige.svg" />
-                                    <h3 className="upload-writing big">Upload your Photo</h3>
-                                    <h3 className="upload-writing small">or Simply Drage Here</h3>
-                                </div>
+                                <Dropzone
+                                    className="image-upload-box"
+                                    accept="image/*"
+                                    onDrop={this.onDrop}>
+                                    <img
+                                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                                        src="../assets/images/icons/person-beige.svg" />
+                                    <h3
+                                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                                        className="upload-writing big">
+                                        Upload your Photo
+                                    </h3>
+                                    <h3
+                                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                                        className="upload-writing small">
+                                        or Simply Drage Here
+                                    </h3>
+                                    <img
+                                        id="uploaded-avatar"
+                                        style={{display: this.state.avatarUploaded  ? "block" : "none" }}
+                                        src={this.state.avatarPreview} />
+                                </Dropzone>
                             </div>
                             <div className="right-form">
                                 <ul>
@@ -34,10 +66,9 @@ export default class SignUpLayout1 extends React.Component {
                                         <input
                                             type="text"
                                             id="register-fullname"
-                                            name="fullname"
+                                            ref="fullname"
                                             placeholder="Full Name"
                                             required=""
-                                            data-msg-required="Please enter your full name."
                                             maxlength="50"
                                             autocapitalize="off"
                                             autocomplete="off"
@@ -47,8 +78,11 @@ export default class SignUpLayout1 extends React.Component {
                                         <label for="register-age">Date of Birth: </label>
                                         <div id="register-dob" class="register-dob">
                                             <div className="controls controls-month">
-                                                <select id="register-dob-month" className="dob" name="dob-month">
-                                                    <option value="" selected="" disabled="">Month</option>
+                                                <select
+                                                    id="register-dob-month"
+                                                    className="dob"
+                                                    ref="dobMonth">
+                                                    <option value="" disabled="">Month</option>
                                                     <option value="01">January</option>
                                                     <option value="02">February</option>
                                                     <option value="03">March</option>
@@ -68,47 +102,39 @@ export default class SignUpLayout1 extends React.Component {
                                                     type="number"
                                                     id="register-dob-day"
                                                     className="dob"
-                                                    name="dob-day"
+                                                    ref="dobDay"
                                                     placeholder="Day"
                                                     pattern="[0-9]*"
                                                     maxlength="2"
                                                     min="1"
-                                                    max="31"
-                                                    data-msg-required="When were you born?"
-                                                    data-msg-number="Please enter a valid day of the month."
-                                                    data-msg-min="Please enter a valid day of the month."
-                                                    data-msg-max="Please enter a valid day of the month." />
+                                                    max="31" />
                                             </div>
                                             <div className="controls controls-year">
                                                 <input
                                                     type="number"
                                                     id="register-dob-year"
                                                     className="dob"
-                                                    name="dob-year"
+                                                    ref="dobYear"
                                                     placeholder="Year"
                                                     pattern="[0-9]*"
-                                                    maxlength="4"
-                                                    min="1900"
-                                                    max="2006"
-                                                    data-msg-required="When were you born?"
-                                                    data-msg-number="Please enter a valid year."
-                                                    data-msg-min="Please enter a valid year."
-                                                    data-msg-max="Sorry, but you don't meet Spotify's age requirements." />
+                                                    maxlength="4" />
                                             </div>
                                         </div>
                                     </li>
                                     <li id="li-gender" className="gender">
-                                        <label className="sr-only">Gender: </label>
-                                          <label for="register-male" class="radio control-inline">
+                                        <label className="sr-only">Gender:</label>
+                                          <label
+                                              for="register-male"
+                                              className="radio control-inline">
                                               <input
                                                   type="radio"
                                                   id="register-male"
-                                                  className="gender"
                                                   name="gender"
+                                                  className="reg-radio"
                                                   value="male"
-                                                  required=""
-                                                  data-msg-required="Please indicate your gender." />
-                                                  Male
+                                                  onChange={this.setGender}
+                                                  required="" />
+                                                   Male
                                         </label>
 
                                           <label
@@ -117,19 +143,24 @@ export default class SignUpLayout1 extends React.Component {
                                               <input
                                                   type="radio"
                                                   id="register-female"
-                                                  className="gender"
                                                   name="gender"
+                                                  className="reg-radio"
                                                   value="female"
-                                                  required=""
-                                                  data-msg-required="Please indicate your gender." />
-                                                  Female
+                                                  onChange={this.setGender}
+                                                  required="" />
+                                                   Female
                                         </label>
                                     </li>
-                                    <button className="signup-button left" type="submit">
+                                    <button
+                                        className="signup-button left"
+                                        type="submit"
+                                        onClick={this.saveAndContinue}>
                                         <h3>Next</h3>
                                     </button>
-                                    <li className="solo-links left">
-                                        <a href=""><h3>Skip</h3></a>
+                                    <li
+                                        className="solo-links left"
+                                        onClick={this.props.nextStep}>
+                                        <h3>Skip</h3>
                                     </li>
                                 </ul>
                             </div>
@@ -138,5 +169,77 @@ export default class SignUpLayout1 extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    saveAndContinue = (e) => {
+        e.preventDefault();
+
+        // Clear errors from any previous form submission
+        this.state.errors = [];
+        var data = {};
+
+        var fullName = this.refs.fullname.value;
+        var day = this.refs.dobDay.value;
+        var month = this.refs.dobMonth.value;
+        var year = this.refs.dobYear.value;
+        var gender = this.state.gender;
+
+
+        console.log(day);
+        console.log(month);
+        console.log(year);
+        console.log(this.state.avatar);
+
+        if(fullName.length == 0) {
+            this.state.errors.push("Please enter your full name.");
+        }
+
+        if(day.length < 2) {
+            this.state.errors.push("Please enter a valid day of the month.");
+        }
+
+        if(month.length == 0) {
+            this.state.errors.push("Please enter a valid month.");
+        }
+
+        if(year.length == 0) {
+            this.state.errors.push("Please enter a valid year.");
+        }
+
+        if(gender.length == 0) {
+            this.state.errors.push("Please indicate your gender.");
+        }
+
+        if(!this.state.avatarUploaded) {
+            this.state.errors.push("Please upload an avatar.");
+        }
+
+        // Rerender the component
+        this.forceUpdate();
+
+        if(this.state.errors.length == 0) {
+
+            data.name = fullName;
+            data.dob = day + "-" + month + "-" + year;
+            data.gender =  gender;
+            data.avatar = this.state.avatar;
+            this.props.saveValues(data);
+            this.props.nextStep();
+        }
+    }
+
+    onDrop = (file) => {
+        this.setState({
+            avatarUploaded: true,
+            avatar: file[0],
+            avatarPreview: file[0].preview
+        });
+    }
+
+    setGender = (e) => {
+        this.setState({
+            gender: e.target.value
+        });
+        console.log(e.target.value);
     }
 }

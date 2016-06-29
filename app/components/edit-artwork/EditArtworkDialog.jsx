@@ -70,8 +70,8 @@ export default class EditArtworkDialog extends React.Component {
         this.setState({formInfo});
     }
 
-    onSubmit = (event) => {
-        event.preventDefault();
+    onSubmit = (e) => {
+        e.preventDefault();
 
         // Test that user inputed a title
         if (!this.state.formInfo.title) {
