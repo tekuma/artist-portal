@@ -29,19 +29,22 @@ export default class LandingPageView extends React.Component {
                 return(
                   <div>
                     <LandingPageLayout
-                      saveValues = {this.props.saveValues}
-                      nextStep   = {this.nextStep}
-                      authenticateWithGoogle = {this.props.authenticateWithGoogle}
+                        authenticateWithGoogle ={this.props.authenticateWithGoogle}
+                        authenticateWithFB     ={this.props.authenticateWithFB}
+                        saveValues             ={this.props.saveValues}
+                        nextStep               ={this.nextStep}
+
                       />
                     <Popover
-                        placement="right"
-                        positionLeft={200}
-                        positionTop={50}
-                        title="Popover right">
-                        And here's some <strong>amazing</strong> content. Its very engaging. right?
+                        title        ="Popover right"
+                        placement    ="right"
+                        positionLeft ={200}
+                        positionTop  ={50}
+                    >
+                    And here's some <strong>amazing</strong> content. Its very engaging. right?
                     </Popover>
                   </div>
-                );
+              );
             case 2:
                 return(
                   <div>
@@ -50,7 +53,7 @@ export default class LandingPageView extends React.Component {
                       nextStep   = {this.nextStep}
                       />
                   </div>
-                );
+              );
             case 3:
                 return(
                   <div>
@@ -59,12 +62,12 @@ export default class LandingPageView extends React.Component {
                       submitRegistration  = {this.props.submitRegistration}
                       />
                   </div>
-                );
+              );
         }
     }
 
 
-////     # M3thods 
+    ////  --------   #Methods ----------------------------
 
 
     /**
@@ -76,5 +79,6 @@ export default class LandingPageView extends React.Component {
             step: this.state.step + 1
         })
     }
+
 
 }

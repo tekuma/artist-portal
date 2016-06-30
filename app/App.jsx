@@ -86,9 +86,10 @@ export default class App extends React.Component {
         return(
             <LandingPageView
                 authenticateWithGoogle={this.authenticateWithGoogle}
-                saveValues={this.saveValues}
-                submitRegistration={this.submitRegistration}
-                user={this.state.user}
+                authenticateWithFB    ={this.authenticateWithFB}
+                submitRegistration    ={this.submitRegistration}
+                saveValues            ={this.saveValues}
+                user                  ={this.state.user}
             />
         )
     }
