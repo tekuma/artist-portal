@@ -1741,6 +1741,7 @@ login-button.left {
 .login-popover {
 	position: absolute;
 	right: 20px !important;
+	left: auto;
 	top: 55px;
 }
 
@@ -1759,8 +1760,9 @@ login-button.left {
 	padding: 20px;
 }
 
-.arrow {
-	left: 200px;
+.popover.bottom>.arrow {
+	left: auto;
+	right: 20px;
 }
 
 /*========================================== */
