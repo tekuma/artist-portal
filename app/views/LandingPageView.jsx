@@ -15,7 +15,8 @@ export default class LandingPageView extends React.Component {
 
         this.state = {
             step       : 1,
-            popoverIsOpen: false
+            popoverIsOpen: false,
+            errors: []
             };
     }
 
@@ -75,6 +76,14 @@ export default class LandingPageView extends React.Component {
                                 maxlength="100"
                                 autocomplete="off" />
                         </li>
+                        {this.state.errors.map(error => {
+                                return (
+                                    <div
+                                        className="registration-error">
+                                        <h2>{error}</h2>
+                                    </div>
+                                );
+                            })}
                         <li
                             className="solo-links left"
                             onClick={this.props.nextStep}>
@@ -127,6 +136,14 @@ export default class LandingPageView extends React.Component {
                               maxlength="100"
                               autocomplete="off" />
                       </li>
+                      {this.state.errors.map(error => {
+                              return (
+                                  <div
+                                      className="registration-error">
+                                      <h2>{error}</h2>
+                                  </div>
+                              );
+                          })}
                       <li
                           className="solo-links left"
                           onClick={this.props.nextStep}>
@@ -179,6 +196,14 @@ export default class LandingPageView extends React.Component {
                               maxlength="100"
                               autocomplete="off" />
                       </li>
+                      {this.state.errors.map(error => {
+                              return (
+                                  <div
+                                      className="registration-error">
+                                      <h2>{error}</h2>
+                                  </div>
+                              );
+                          })}
                       <li
                           className="solo-links left"
                           onClick={this.props.nextStep}>
@@ -215,22 +240,23 @@ export default class LandingPageView extends React.Component {
     onLogin = (e) => {
         e.preventDefault();
 
+        this.state.errors = [];
+
         // Clear errors from any previous form submission
-        this.props.clearErrors();
         var data = {};
         var email = this.refs.email.value;
         var password = this.refs.password.value;
 
         if(email.length == 0) {
-            this.props.addError("Please enter an email address.");
+            this.state.errors.push("Please enter an email address.");
         }
 
         if(!/.+@.+\..+/.test(email)) {
-            this.props.addError("The email address you supplied is invalid.");
+            this.state.errors.push("The email address you supplied is invalid.");
         }
 
         if(password.length == 0) {
-            this.props.addError("Please enter your password.");
+            this.state.errors.push("Please enter your password.");
         }
 
         if(this.props.errors.length == 0) {

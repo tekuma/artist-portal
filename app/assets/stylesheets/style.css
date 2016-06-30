@@ -1117,12 +1117,32 @@ main {
 	flex: 1 1 33%;
     -webkit-flex: 1 1 33%;
 	padding: 10px;
+	margin-right: 20px;
+	height: 330px;
+	background: #f4f6f7;
+	border: 2px dashed #d6d3ce;
+	border-radius: 5px;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	flex-direction: column;
 	cursor: pointer;
+	overflow: hidden;
 }
 
 .profile-pic-container img {
-	width: 100%;
-	border-radius: 5px;
+	width: 100px;
+	margin-bottom: 15px;
 }
 
 .signup-form .top-form,
@@ -1733,9 +1753,10 @@ login-button.left {
 	font-size: 2em;
 }
 
-.registration-error {
+.registration-error, .edit-user-error {
 	color: #bd3200;
 	font-size: 0.5em;
+	text-align: center;
 }
 
 .login-popover {

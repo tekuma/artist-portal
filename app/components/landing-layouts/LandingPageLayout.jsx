@@ -7,7 +7,7 @@ export default class LandingPageLayout extends React.Component {
         super(props);
 
         this.state = {
-            errors: this.props.errors
+            errors: []
         };
     }
 

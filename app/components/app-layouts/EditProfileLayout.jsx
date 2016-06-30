@@ -8,16 +8,38 @@ export default class EditProfileLayout extends React.Component {
         this.state = {
             avatarUploaded: false,
             avatarPreview: "",
-            userInfo: this.props.userInfo
+            errors: [],
+            gender: "",
+            avatar: []
         }
     }
 
     render() {
         return(
+            <div>
             <form className="profile-form">
-                <section className="profile-pic-container">
-                    <img src="assets/images/afika.jpg" />
-                </section>
+                <Dropzone
+                    className="profile-pic-container"
+                    accept="image/*"
+                    onDrop={this.onDrop}>
+                    <img
+                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                        src="../assets/images/icons/person-beige.svg" />
+                    <h3
+                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                        className="upload-writing big">
+                        Upload your Photo
+                    </h3>
+                    <h3
+                        style={{display: this.state.avatarUploaded  ? "none" : "block" }}
+                        className="upload-writing small">
+                        or Simply Drage Here
+                    </h3>
+                    <img
+                        id="uploaded-avatar"
+                        style={{display: this.state.avatarUploaded  ? "block" : "none" }}
+                        src={this.state.avatarPreview} />
+                </Dropzone>
                 <section className="left-info">
                     <div className="edit-heading">
                         <img src="assets/images/art-illus.svg" />
@@ -29,13 +51,10 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="text"
                                     id="register-fullname"
-                                    defaultValue={this.state.userInfo.name}
-                                    name="fullname"
+                                    defaultValue={this.props.userInfo.display_name}
+                                    ref="fullname"
                                     placeholder="Full Name"
                                     required=""
-                                    data-msg-required="Please enter your full name."
-                                    data-rule-minlength="4"
-                                    data-msg-minlength="Your username is too short."
                                     maxlength="50"
                                     autocapitalize="off"
                                     autocomplete="off"
@@ -45,25 +64,19 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="email"
                                     id="register-email"
-                                    defaultValue={this.state.userInfo.email}
-                                    name="email"
+                                    defaultValue={this.props.userInfo.email}
+                                    ref="email"
                                     placeholder="Email"
-                                    required=""
-                                    data-msg-required="Please enter your email."
-                                    data-msg-email="The email address you supplied is invalid."
+                                    required="true"
                                     maxlength="100" />
                             </li>
                             <li>
                                 <input
                                     type="password"
                                     id="register-password"
-                                    defaultValue=""
-                                    name="password"
+                                    ref="password"
                                     placeholder="Password"
-                                    required=""
-                                    data-msg-required="Please choose a password."
-                                    data-rule-minlength="4"
-                                    data-msg-minlength="Your password is too short."
+                                    required="true"
                                     maxlength="100"
                                     autocomplete="off" />
                             </li>
@@ -71,97 +84,91 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="password"
                                     id="register-confirm-password"
-                                    defaultValue=""
-                                    name="confirm-password"
+                                    ref="confirmPassword"
                                     placeholder="Confirm Password"
-                                    required=""
-                                    data-msg-required="Please confirm your password."
-                                    data-rule-equalto="#register-password"
-                                    data-msg-equalto="Password doesn't match."
+                                    required="true"
                                     maxlength="100" />
                             </li>
                             <li id="li-dob" className="controls-dob">
                                 <label for="register-age">Date of Birth:</label>
-                                <div id="register-dob" className="register-dob">
-                                    <div className="controls controls-month">
-                                        <select
-                                            id="register-dob-month"
-                                            defaultValue=""
-                                            className="dob"
-                                            name="dob-month">
-                                            <option value="" disabled="">Month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
+                                    <div id="register-dob" class="register-dob">
+                                        <div className="controls controls-month">
+                                            <select
+                                                id="register-dob-month"
+                                                className="dob"
+                                                value={this.props.userInfo.dob.split("-")[1]}
+                                                ref="dobMonth">
+                                                <option value="" disabled="">Month</option>
+                                                <option value="01">January</option>
+                                                <option value="02">February</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                        </div>
+                                        <div className="controls controls-day">
+                                            <input
+                                                type="number"
+                                                id="register-dob-day"
+                                                defaultValue={this.props.userInfo.dob.split("-")[0]}
+                                                className="dob"
+                                                ref="dobDay"
+                                                placeholder="Day"
+                                                pattern="[0-9]*"
+                                                maxlength="2"
+                                                min="1"
+                                                max="31" />
+                                        </div>
+                                        <div className="controls controls-year">
+                                            <input
+                                                type="number"
+                                                id="register-dob-year"
+                                                defaultValue={this.props.userInfo.dob.split("-")[2]}
+                                                className="dob"
+                                                ref="dobYear"
+                                                placeholder="Year"
+                                                pattern="[0-9]*"
+                                                maxlength="4" />
+                                        </div>
                                     </div>
-                                    <div className="controls controls-day">
-                                        <input
-                                            type="number"
-                                            id="register-dob-day"
-                                            className="dob"
-                                            name="dob-day"
-                                            placeholder="Day"
-                                            pattern="[0-9]*"
-                                            maxlength="2"
-                                            min="1"
-                                            max="31"
-                                            data-msg-required="When were you born?"
-                                            data-msg-number="Please enter a valid day of the month."
-                                            data-msg-min="Please enter a valid day of the month."
-                                            data-msg-max="Please enter a valid day of the month." />
-                                    </div>
-                                    <div className="controls controls-year">
-                                        <input
-                                            type="number"
-                                            id="register-dob-year"
-                                            className="dob"
-                                            name="dob-year"
-                                            placeholder="Year"
-                                            pattern="[0-9]*"
-                                            maxlength="4"
-                                            min="1900"
-                                            max="2006"
-                                            data-msg-required="When were you born?"
-                                            data-msg-number="Please enter a valid year."
-                                            data-msg-min="Please enter a valid year."
-                                            data-msg-max="Sorry, but you don't meet Spotify's age requirements." />
-                                    </div>
-                                </div>
                             </li>
                             <li id="li-gender" className="gender">
                                 <label className="sr-only">Gender:</label>
-                                  <label for="register-male" className="radio control-inline">
-                                    <input
-                                        type="radio"
-                                        id="register-male"
-                                        className="gender"
-                                        name="gender"
-                                        value="male"
-                                        required=""
-                                        data-msg-required="Please indicate your gender." />
-                                        Male
-                                    </label>
+                                  <label
+                                      for="register-male"
+                                      className="radio control-inline">
+                                      <input
+                                          type="radio"
+                                          id="register-male"
+                                          name="gender"
+                                          className="reg-radio"
+                                          value="male"
+                                          checked={this.props.userInfo.gender == "male"}
+                                          onChange={this.setGender}
+                                          required="" />
+                                           Male
+                                </label>
 
-                                <label for="register-female" className="radio control-inline">
-                                    <input
-                                        type="radio"
-                                        id="register-female"
-                                        className="gender"
-                                        name="gender"
-                                        value="female"
-                                        required=""
-                                        data-msg-required="Please indicate your gender." />
-                                        Female
+                                  <label
+                                      for="register-female"
+                                      className="radio control-inline">
+                                      <input
+                                          type="radio"
+                                          id="register-female"
+                                          name="gender"
+                                          className="reg-radio"
+                                          value="female"
+                                          checked={this.props.userInfo.gender == "female"}
+                                          onChange={this.setGender}
+                                          required="" />
+                                           Female
                                 </label>
                             </li>
                         </ul>
@@ -171,32 +178,166 @@ export default class EditProfileLayout extends React.Component {
                     <fieldset>
                         <ul>
                             <li>
-                                <textarea className="bio" placeholder="Bio" />
+                                <textarea
+                                    className="bio"
+                                    placeholder="Bio"
+                                    ref="bio"
+                                    defaultValue={this.props.userInfo.bio}/>
                             </li>
                             <li>
                                 <input
                                     type="text"
                                     id="register-location"
-                                    name="location"
-                                    placeholder="Location" />
+                                    ref="location"
+                                    placeholder="Location"
+                                    defaultValue={this.props.userInfo.location} />
                             </li>
                             <li>
                                 <input
                                     type="text"
                                     id="register-portfolio"
-                                    name="portfolio"
-                                    placeholder="Portfolio/Website" />
+                                    ref="portfolio"
+                                    placeholder="Portfolio/Website"
+                                    defaultValue={this.props.userInfo.portfolio} />
                             </li>
                             <li className="solo-links">
                                 <a href=""><h3>Delete Account</h3></a>
                             </li>
-                            <button className="edit-button" type="submit">
+                            <button
+                                className="edit-button"
+                                type="submit"
+                                onClick={this.saveProfileInfo}>
                                 <h3>Update</h3>
                             </button>
                         </ul>
                     </fieldset>
                 </section>
             </form>
+            {this.state.errors.map(error => {
+                    return (
+                        <div
+                            className="edit-user-error">
+                            <h3>{error}</h3>
+                        </div>
+                    );
+                })}
+            </div>
         );
+    }
+
+    saveProfileInfo = (e) => {
+        e.preventDefault();
+        console.log("entered save profile");
+
+        // Clear errors from any previous form submission
+        this.state.errors = [];
+        var data = {};
+        var fullName = this.refs.fullname.value;
+        var email = this.refs.email.value;
+        var password = this.refs.password.value;
+        var confirmPassword = this.refs.confirmPassword.value;
+
+        var day = this.refs.dobDay.value;
+        var month = this.refs.dobMonth.value;
+        var year = this.refs.dobYear.value;
+
+        var gender = this.state.gender;
+        var bio = this.refs.bio.value;
+        var location = this.refs.location.value;
+        var portfolio = this.refs.portfolio.value;
+
+        if(email.length == 0) {
+            this.state.errors.push("Please enter an email address.");
+        }
+
+        if(!/.+@.+\..+/.test(email)) {
+            this.state.errors.push("The email address you supplied is invalid.");
+        }
+
+        if(password.length == 0) {
+            this.state.errors.push("Please choose a password.");
+        }
+
+        if(password.length < 6) {
+            this.state.errors.push("Your password is too short.");
+        }
+
+        if(confirmPassword.length == 0) {
+            this.state.errors.push("Please confirm your password.");
+        }
+
+        if(password != confirmPassword) {
+            this.state.errors.push("Passwords do not match.");
+        }
+
+        if(fullName.length == 0) {
+            this.state.errors.push("Please enter your full name.");
+        }
+
+        if(day.length < 2) {
+            this.state.errors.push("Please enter a valid day of the month.");
+        }
+
+        if(month.length == 0) {
+            this.state.errors.push("Please enter a valid month.");
+        }
+
+        if(year.length == 0) {
+            this.state.errors.push("Please enter a valid year.");
+        }
+
+        if(gender.length == 0) {
+            this.state.errors.push("Please indicate your gender.");
+        }
+
+        if(!this.state.avatarUploaded) {
+            this.state.errors.push("Please upload an avatar.");
+        }
+
+        if(bio.length == 0) {
+            this.state.errors.push("Please enter a bio.");
+        }
+
+        if(location.length < 2) {
+            this.state.errors.push("Please enter your current city of residence.");
+        }
+
+        if(portfolio.length == 0) {
+            this.state.errors.push("Please specify a portfolio or website URL.");
+        }
+
+
+        // Rerender the component
+        this.forceUpdate();
+
+        if(this.state.errors.length == 0) {
+            data.avatar = this.state.avatar;
+            data.display_name = fullName;
+            data.email = email;
+            data.password = password;
+            data.dob = day + "-" + month + "-" + year;
+            data.gender =  gender;
+            data.bio = bio;
+            data.location = location;
+            data.portfolio = portfolio;
+            this.props.editUserProfile(data);
+        }
+        console.log("edited profile");
+        console.log(this.state.errors);
+    }
+
+    onDrop = (file) => {
+        this.setState({
+            avatarUploaded: true,
+            avatar: file[0],
+            avatarPreview: file[0].preview
+        });
+    }
+
+    setGender = (e) => {
+        this.setState({
+            gender: e.target.value
+        });
+        console.log(e.target.value);
     }
 }

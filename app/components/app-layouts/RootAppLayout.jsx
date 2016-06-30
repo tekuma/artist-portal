@@ -86,7 +86,9 @@ export default class RootAppLayout extends React.Component {
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <LoggedOnHeader changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
-                    <EditProfileLayout userInfo={this.props.userInfo}/>
+                    <EditProfileLayout
+                        userInfo={this.props.userInfo}
+                        editUserProfile={this.props.editUserProfile} />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
                 <ReactTooltip

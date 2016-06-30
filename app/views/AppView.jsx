@@ -1,20 +1,14 @@
-'use strict';
-// Import Libs
-import React          from 'react';
-import Firebase       from 'firebase';
-import Rebase         from 're-base'
-// Import Views and Files
-import HiddenNav         from '../components/hidden_nav/HiddenNav';
-import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
-import RootAppLayout     from '../components/app-layouts/RootAppLayout';
-import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
-import UploadDialog      from '../components/app-layouts/UploadDialog';
-import ArtworkStore      from '../stores/ArtworkStore';
-import HTML5Backend      from 'react-dnd-html5-backend';
+import React from 'react';
+import HiddenNav from '../components/hidden_nav/HiddenNav';
+import HamburgerIcon from '../components/hamburger_icon/HamburgerIcon';
+import RootAppLayout from '../components/app-layouts/RootAppLayout';
 import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
+import UploadDialog from '../components/app-layouts/UploadDialog';
+import ArtworkStore from '../stores/ArtworkStore';
 
-
-var base = Rebase.createClass("https://artist-tekuma-4a697.firebaseio.com");
+import Firebase from 'firebase';
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -30,30 +24,21 @@ export default class AppView extends React.Component {
             uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
             currentEditArtworkInfo: {},     // Used to track the current artwork being edited
             currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {
-                display_name: "_def"
-            },                              // Used to store User Profile Information
+            userInfo: {display_name: "Afika Nyati",
+                        email: "afika.a.nyati@gmail.com",
+                        dob: "26-03-1995",
+                        gender: "male",
+                        bio: "hello me!",
+                        avatar: {},
+                        location: "Boston, MA",
+                        portfolio: "http://afikanyati.com"
+                    },                   // Used to store User Profile Information
             uploadedFiles: []               // Used to store User Profile Information
         };
     }
 
 
-    componentDidMount() {
-        const thisUID  = firebase.auth().currentUser.uid;
-        this.ref = base.syncState('onboarders/' + thisUID,{
-            context: this,
-            state: 'list',
-            asArray: true,
-            then(){
-                this.setState({loading: false})
-            }
-        });
-    }
 
-
-    componentWillMount() {
-        base.removeBinding(this.ref);
-    }
 
 
     render() {
@@ -77,7 +62,8 @@ export default class AppView extends React.Component {
                     currentAlbum={this.state.currentAlbum}
                     changeAlbum={this.changeAlbum}
                     userInfo={this.state.userInfo}
-                    setUploadedFiles={this.setUploadedFiles} />
+                    setUploadedFiles={this.setUploadedFiles}
+                    editUserProfile={this.editUserProfile} />
                 <EditArtworkDialog
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
@@ -93,20 +79,7 @@ export default class AppView extends React.Component {
 
 
 
-// -------------- METHODS -------------- //
-
-
-    /**
-     * [description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
-     */
-    setUserInfo = (data) => {
-        console.log(">>>data: ", data);
-        this.setState({userInfo:data});
-        console.log(this.state.userInfo);
-    }
-
+// -------------- FUNCTIONS -------------- //
 
     toggleNav = () => {
         this.setState({
@@ -172,5 +145,13 @@ export default class AppView extends React.Component {
         this.setState({
             currentEditArtworkInfo: info
         });
+    }
+
+    editUserProfile = (data) => {
+        console.log("entered edit user profile");
+        this.setState({
+            userInfo: data
+        });
+        console.log("User info should be updated");
     }
 }
