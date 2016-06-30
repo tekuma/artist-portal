@@ -7,7 +7,7 @@ export default class LandingPageLayout extends React.Component {
         super(props);
 
         this.state = {
-            errors: []
+            errors: this.props.errors
         };
     }
 
@@ -118,7 +118,6 @@ export default class LandingPageLayout extends React.Component {
         var password = this.refs.password.value;
         var confirmPassword = this.refs.confirmPassword.value;
         var termsAccepted = this.refs.acceptTerms.checked;
-        console.log(termsAccepted);
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");
@@ -132,7 +131,7 @@ export default class LandingPageLayout extends React.Component {
             this.state.errors.push("Please choose a password.");
         }
 
-        if(password.length < 7) {
+        if(password.length < 6) {
             this.state.errors.push("Your password is too short.");
         }
 

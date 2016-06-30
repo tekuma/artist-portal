@@ -1741,7 +1741,7 @@ login-button.left {
 .login-popover {
 	position: absolute;
 	right: 20px !important;
-	top: 50px;
+	top: 55px;
 }
 
 .popover-title {

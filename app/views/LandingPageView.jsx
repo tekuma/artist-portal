@@ -15,8 +15,7 @@ export default class LandingPageView extends React.Component {
 
         this.state = {
             step       : 1,
-            popoverIsOpen: false,
-            errors: []
+            popoverIsOpen: false
             };
     }
 
@@ -32,6 +31,10 @@ export default class LandingPageView extends React.Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+      return true;
+    }
+
 
     ////  --------   #Methods ----------------------------
 
@@ -41,13 +44,15 @@ export default class LandingPageView extends React.Component {
               <LandingPageLayout
                   popoverIsOpen={this.state.popoverIsOpen}
                   togglePopover={this.togglePopover}
+                  errors={this.props.errors}
                   saveValues = {this.props.saveValues}
                   nextStep   = {this.nextStep}
                   authenticateWithGoogle = {this.props.authenticateWithGoogle}
+                  authenticateWithFB    ={this.props.authenticateWithFB}
                 />
                 <Popover
                     className="login-popover"
-                    style={{opacity: this.props.popoverIsOpen ? 1 : 0 }}
+                    style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                     placement="bottom"
                     title="Have an account?">
                     <ul>
@@ -78,7 +83,7 @@ export default class LandingPageView extends React.Component {
                         <button
                             className="login-button left"
                             type="submit"
-                            onClick={this.saveAndContinue}>
+                            onClick={this.onLogin}>
                             <h3>Login</h3>
                         </button>
                     </ul>
@@ -93,12 +98,13 @@ export default class LandingPageView extends React.Component {
             <SignUpLayoutOne
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
+                errors={this.props.errors}
                 saveValues = {this.props.saveValues}
                 nextStep   = {this.nextStep}
               />
               <Popover
                   className="login-popover"
-                  style={{opacity: this.props.popoverIsOpen ? 1 : 0 }}
+                  style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                   placement="bottom"
                   title="Have an account?">
                   <ul>
@@ -129,7 +135,7 @@ export default class LandingPageView extends React.Component {
                       <button
                           className="login-button left"
                           type="submit"
-                          onClick={this.saveAndContinue}>
+                          onClick={this.onLogin}>
                           <h3>Login</h3>
                       </button>
                   </ul>
@@ -144,12 +150,13 @@ export default class LandingPageView extends React.Component {
             <SignUpLayoutTwo
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
+                errors={this.props.errors}
                 saveValues          = {this.props.saveValues}
                 submitRegistration  = {this.props.submitRegistration}
               />
               <Popover
                   className="login-popover"
-                  style={{opacity: this.props.popoverIsOpen ? 1 : 0 }}
+                  style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                   placement="bottom"
                   title="Have an account?">
                   <ul>
@@ -180,7 +187,7 @@ export default class LandingPageView extends React.Component {
                       <button
                           className="login-button left"
                           type="submit"
-                          onClick={this.saveAndContinue}>
+                          onClick={this.onLogin}>
                           <h3>Login</h3>
                       </button>
                   </ul>
@@ -203,36 +210,30 @@ export default class LandingPageView extends React.Component {
         this.setState({
             popoverIsOpen: !this.state.popoverIsOpen
         });
-
-        console.log("toggled popover");
     }
 
     onLogin = (e) => {
         e.preventDefault();
 
         // Clear errors from any previous form submission
-        this.state.errors = [];
+        this.props.clearErrors();
         var data = {};
         var email = this.refs.email.value;
         var password = this.refs.password.value;
 
         if(email.length == 0) {
-            this.state.errors.push("Please enter an email address.");
+            this.props.addError("Please enter an email address.");
         }
 
         if(!/.+@.+\..+/.test(email)) {
-            this.state.errors.push("The email address you supplied is invalid.");
+            this.props.addError("The email address you supplied is invalid.");
         }
 
         if(password.length == 0) {
-            this.state.errors.push("Please enter your password.");
+            this.props.addError("Please enter your password.");
         }
 
-        if(password.length < 7) {
-            this.state.errors.push("Your password is too short.");
-        }
-
-        if(this.state.errors.length == 0) {
+        if(this.props.errors.length == 0) {
             data.email = email;
             data.password = password;
             this.props.login(data);

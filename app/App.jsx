@@ -46,8 +46,8 @@ export default class App extends React.Component {
      * @param  {[type]} nextState [description]
      * @return {[type]}           [description]
      */
-    shouldComponentUpdate(nestProps, nextState) {
-      return nextState.user != null;
+    shouldComponentUpdate(nextProps, nextState) {
+      return true;
     }
 
     render() {
@@ -92,11 +92,13 @@ export default class App extends React.Component {
         console.log("|+>State:", this.state);
         return(
             <LandingPageView
+                authenticateWithFB    ={this.authenticateWithFB}
                 authenticateWithGoogle={this.authenticateWithGoogle}
                 login                 ={this.login}
                 authenticateWithFB    ={this.authenticateWithFB}
                 submitRegistration    ={this.submitRegistration}
                 saveValues            ={this.saveValues}
+                errors                ={this.state.errors}
                 user                  ={this.state.user}
             />
         )
@@ -142,6 +144,8 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerG).catch(function(error) {
             console.log("|>>>> ERROR with Google Auth:");
             console.log(error);
+            var errorMessage = error.message;
+            console.log(errorMessage);
         });
 
         let user = firebase.auth().currentUser
@@ -166,13 +170,16 @@ export default class App extends React.Component {
 
         firebase.auth().signInWithPopup(providerF).catch(function(error) {
             console.log("|>>>> ERROR with FB Auth:");
-            console.log(error);
+            var errorMessage = error.message;
+            console.log(errorMessage);
         });
 
         let user = firebase.auth().currentUser
         if (user != null) {
             console.log("|>> User Obj:", user);
         }
+
+        console.log("facebook user", user);
         this.setUser(user);
     }
 
@@ -184,9 +191,8 @@ export default class App extends React.Component {
         console.log("|>Submitted registration.");
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
             // Handle Errors here.
-            const errorMessage = error.message;
-            const errorCode    = error.code;
-            this.state.errors.push(error);
+            var errorMessage = error.message;
+            console.log(errorMessage);
         });
 
         let user = firebase.auth().currentUser;
@@ -197,18 +203,16 @@ export default class App extends React.Component {
     }
 
     login = (data) => {
-        firebase.auth().loginUserWithEmailAndPassword(data.email, data.password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
             // Handle Errors here.
-            var errorCode = error.code;
             var errorMessage = error.message;
-            this.state.errors.push(error);
+            this.state.errors.push(errorMessage);
         });
 
         var user = firebase.auth().currentUser;
 
         this.setState({user});
     }
-}
 
 }//END App
 // reactMixin(App.prototype, ReactFireMixin)
