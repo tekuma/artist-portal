@@ -28,7 +28,6 @@ const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb
 
 
-
 export default class App extends React.Component {
     //Constructor
     constructor(props) {
@@ -162,10 +161,9 @@ export default class App extends React.Component {
         });
 
         let user = firebase.auth().currentUser
-        if (user !== null) {
+        if (user != null) {
             console.log("|>> User Obj:", user);
         }
-
         this.setUser(user);
     }
 
@@ -174,6 +172,7 @@ export default class App extends React.Component {
      * @return {[type]} [description]
      */
     submitRegistration = () => {
+        console.log("|>Submitted registration.");
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
             // Handle Errors here.
             const errorMessage = error.message;
@@ -182,9 +181,11 @@ export default class App extends React.Component {
         });
 
         let user = firebase.auth().currentUser;
+        if (user != null) {
+            console.log("|>> User Obj:", user);
+        }
         this.setState({user});
     }
-
 
 
 }//END App
