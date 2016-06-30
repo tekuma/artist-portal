@@ -1,7 +1,8 @@
-import React    from 'react';
+'use strict';
 import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayout1     from '../components/landing-layouts/SignUpLayout1';
 import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
+import React             from 'react';
 
 
 
@@ -43,6 +44,10 @@ export default class LandingPageView extends React.Component {
 // ---functions ---
 
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     nextStep = () => {
         this.setState({
             step: this.state.step + 1
