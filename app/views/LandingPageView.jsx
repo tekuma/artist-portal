@@ -2,7 +2,10 @@
 import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayout1     from '../components/landing-layouts/SignUpLayout1';
 import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
+
 import React             from 'react';
+import {Popover}         from 'react-bootstrap';
+
 
 
 
@@ -14,7 +17,8 @@ export default class LandingPageView extends React.Component {
         super(props);
 
         this.state = {
-            step       : 1
+            step       : 1,
+            popoverIsOpen: false
             };
     }
 
@@ -22,26 +26,45 @@ export default class LandingPageView extends React.Component {
     render() {
         switch(this.state.step) {
             case 1:
-                return <LandingPageLayout
-                        saveValues = {this.props.saveValues}
-                        nextStep   = {this.nextStep}
-                        authenticateWithGoogle = {this.props.authenticateWithGoogle}
-                        />
+                return(
+                  <div>
+                    <LandingPageLayout
+                      saveValues = {this.props.saveValues}
+                      nextStep   = {this.nextStep}
+                      authenticateWithGoogle = {this.props.authenticateWithGoogle}
+                      />
+                    <Popover
+                        placement="right"
+                        positionLeft={200}
+                        positionTop={50}
+                        title="Popover right">
+                        And here's some <strong>amazing</strong> content. Its very engaging. right?
+                    </Popover>
+                  </div>
+                );
             case 2:
-                return <SignUpLayout1
-                        saveValues = {this.props.saveValues}
-                        nextStep   = {this.nextStep}
-                        />
+                return(
+                  <div>
+                    <SignUpLayout1
+                      saveValues = {this.props.saveValues}
+                      nextStep   = {this.nextStep}
+                      />
+                  </div>
+                );
             case 3:
-                return <SignUpLayout2
-                        saveValues          = {this.props.saveValues}
-                        submitRegistration  = {this.props.submitRegistration}
-                        />
+                return(
+                  <div>
+                    <SignUpLayout2
+                      saveValues          = {this.props.saveValues}
+                      submitRegistration  = {this.props.submitRegistration}
+                      />
+                  </div>
+                );
         }
     }
 
 
-// ---functions ---
+////     # M3thods 
 
 
     /**
