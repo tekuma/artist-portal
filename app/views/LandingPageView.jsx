@@ -6,6 +6,7 @@ import { Router, Route, Link, browserHistory } from 'react-router';
 
 
 
+
 export default class LandingPageView extends React.Component {
     constructor(props) {
         //TOP
@@ -32,7 +33,7 @@ export default class LandingPageView extends React.Component {
                 return <LandingPageLayout
                         saveValues = {this.saveValues}
                         nextStep   = {this.nextStep}
-                        googleAuth = {this.googleAuth}
+                        googleAuth = {this.props.googleAuth}
                         />
             case 2:
                 return <SignUpLayout1
@@ -50,21 +51,7 @@ export default class LandingPageView extends React.Component {
 
 // ---functions ---
 
-    googleAuth = () => {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        var auth = firebase.auth();
-        console.log("-----");
-        auth.signInWithPopup(provider).then(function(result) {
-          // User signed in!
-          console.log("IT FUCKING WORKED");
-          var uid = result.user.uid;
-          console.log(uid);
-          browserHistory.push('/artist');
-        }).catch(function(error) {
-          // An error occurred
-          console.log("error, fuck");
-        });
-    }
+
 
     saveValues = (data) => {
 

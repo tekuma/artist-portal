@@ -7,10 +7,9 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
 import UploadDialog from '../components/app-layouts/UploadDialog';
 import ArtworkStore from '../stores/ArtworkStore';
+
 import Firebase from 'firebase';
 
-var user = firebase.auth().currentUser;
-console.log(user);
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {

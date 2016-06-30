@@ -10,6 +10,5 @@ ReactDOM.render((
     <App />
 ), document.getElementById('root'));
 
-
 // Redirect with browserHistory
 // browserHistory.push('/some/path');
