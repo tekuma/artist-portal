@@ -1,15 +1,14 @@
 'use strict';
-//import Views
+// Import Libs
+import React          from 'react';
+import Firebase       from 'firebase';
+import Rebase         from 're-base'
+// Import Views
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ForgotPasswordView from './views/ForgotPasswordView';
 import ResetPasswordView  from './views/ResetPasswordView';
 
-// React Imports
-import React          from 'react';
-import firebase       from 'firebase';
-import reactMixin     from 'react-mixin'
-import ReactFireMixin from 'reactfire';
 
 
 //Initialize Firebase  SDK in root JSX (here)
@@ -205,10 +204,7 @@ export default class App extends React.Component {
         });
 
         var user = firebase.auth().currentUser;
-
         this.setState({user});
     }
-}
 
 }//END App
-// reactMixin(App.prototype, ReactFireMixin)

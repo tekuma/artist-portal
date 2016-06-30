@@ -1,14 +1,21 @@
-import React from 'react';
-import HiddenNav from '../components/hidden_nav/HiddenNav';
-import HamburgerIcon from '../components/hamburger_icon/HamburgerIcon';
-import RootAppLayout from '../components/app-layouts/RootAppLayout';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+'use strict';
+// Import Libs
+import React          from 'react';
+import Firebase       from 'firebase';
+import Rebase         from 're-base'
+// Import Views and Files
+import HiddenNav         from '../components/hidden_nav/HiddenNav';
+import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
+import RootAppLayout     from '../components/app-layouts/RootAppLayout';
 import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
-import UploadDialog from '../components/app-layouts/UploadDialog';
-import ArtworkStore from '../stores/ArtworkStore';
+import UploadDialog      from '../components/app-layouts/UploadDialog';
+import ArtworkStore      from '../stores/ArtworkStore';
+import UserInfoActions   from '../actions/UserInfoActions';
+import HTML5Backend      from 'react-dnd-html5-backend';
+import {DragDropContext} from 'react-dnd';
 
-import Firebase from 'firebase';
+
+var base = Rebase.createClass("https://artist-tekuma-4a697.firebaseio.com");
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -24,11 +31,30 @@ export default class AppView extends React.Component {
             uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
             currentEditArtworkInfo: {},     // Used to track the current artwork being edited
             currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {display_name: "Afika Nyati"},                   // Used to store User Profile Information
+            userInfo: {
+                display_name: "_def"
+            },                              // Used to store User Profile Information
             uploadedFiles: []               // Used to store User Profile Information
         };
     }
 
+
+    componentDidMount() {
+        const thisUID  = firebase.auth().currentUser.uid;
+        this.ref = base.syncState('onboarders/' + thisUID,{
+            context: this,
+            state: 'list',
+            asArray: true,
+            then(){
+                this.setState({loading: false})
+            }
+        });
+    }
+
+
+    componentWillMount() {
+        base.removeBinding(this.ref);
+    }
 
 
     render() {
@@ -68,7 +94,20 @@ export default class AppView extends React.Component {
 
 
 
-// -------------- FUNCTIONS -------------- //
+// -------------- METHODS -------------- //
+
+
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    setUserInfo = (data) => {
+        console.log(">>>data: ", data);
+        this.setState({userInfo:data});
+        console.log(this.state.userInfo);
+    }
+
 
     toggleNav = () => {
         this.setState({
