@@ -3,6 +3,16 @@ import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayout1     from '../components/landing-layouts/SignUpLayout1';
 import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import firebase from 'firebase';
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
+    authDomain: "artist-tekuma-4a697.firebaseapp.com",
+    databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
+    storageBucket: "artist-tekuma-4a697.appspot.com",
+};
+firebase.initializeApp(config);
 
 
 /**
@@ -22,9 +32,22 @@ export default class LandingPageView extends React.Component {
                 bio: null,
                 location: null,
                 portfolio: null
+
+            },
+            user: null
             }
 
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+        } else {
+          // No user is signed in.
+        }
+      });
     }
 
     render() {
@@ -75,5 +98,22 @@ export default class LandingPageView extends React.Component {
     submitRegistration = () => {
         console.log(this.state.registration);
         // browserHistory.push('/artist');
+        firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ...
+        });
+
+        var user = firebase.auth().currentUser;
+
+        console.log("User Info:", user);
+        this.setState({user: user});
+
+        if(this.state.user != null) {
+          browserHistory.push('/artist');
+        }
+
     }
 }
