@@ -1,4 +1,5 @@
-import React    from 'react';
+'use strict';
+import React           from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 
 export default class LandingPageLayout extends React.Component {
@@ -23,7 +24,7 @@ export default class LandingPageLayout extends React.Component {
 
                         <form className="signup-form page-1">
                             <div className="social-wrapper">
-                                <div className="social-button facebook">
+                                <div onClick={this.props.authenticateWithFB}     className="social-button facebook">
                                     <div className="social-icon">
                                         <img src="../assets/images/icons/facebook.svg" />
                                     </div>

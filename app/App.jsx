@@ -39,6 +39,12 @@ export default class App extends React.Component {
         };
     } //END constructor
 
+    /**
+     * [shouldComponentUpdate description]
+     * @param  {[type]} nestProps [description]
+     * @param  {[type]} nextState [description]
+     * @return {[type]}           [description]
+     */
     shouldComponentUpdate(nestProps, nextState) {
       return nextState.user != null;
     }
