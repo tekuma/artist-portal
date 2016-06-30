@@ -2,8 +2,7 @@
 // Libs
 import React          from 'react';
 import Firebase       from 'firebase';
-
-// Views and Files
+// Views and Files    NOTE: Do not include '.jsx'
 import HiddenNav         from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
 import RootAppLayout     from '../components/app-layouts/RootAppLayout';
@@ -12,7 +11,7 @@ import UploadDialog      from '../components/app-layouts/UploadDialog';
 import ArtworkStore      from '../stores/ArtworkStore';
 import HTML5Backend      from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
-
+// Globa
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -22,28 +21,36 @@ export default class AppView extends React.Component {
         this.state = {
             navIsOpen: false,               // Used to track whether Hidden Navigation is open
             managerIsOpen: true,            // Used to track whether Album Manager is open
+            //TODO change to ENUM (prop) types
             currentAlbum: 'Uploads',        // Used to track the current album open
             editArtworkIsOpen: false,       // Used to track whether artwork is being edited
             uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
             currentEditArtworkInfo: {},     // Used to track the current artwork being edited
             currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {display_name: "Afika Nyati",
-                        email: "afika.a.nyati@gmail.com",
-                        dob: "26-03-1995",
-                        gender: "male",
-                        bio: "hello me!",
-                        avatar: {},
-                        location: "Boston, MA",
-                        portfolio: "http://afikanyati.com"
+            userInfo: {
+                display_name: "Afika Nyati",
+                email: "afika.a.nyati@gmail.com",
+                dob: "26-03-1995",
+                gender: "male",
+                bio: "hello me!",
+                avatar: {},
+                location: "Boston, MA",
+                portfolio: "http://afikanyati.com"
                     },                   // Used to store User Profile Information
             uploadedFiles: []               // Used to store User Profile Information
         };
     }
 
+    /**
+     * NOTE: WillMount vs DidMount
+     *
+     * [componentWillMount description]
+     * @return {[type]} [description]
+     */
     componentWillMount() {
         const thisUID = firebase.auth().currentUser.uid;
 
-
+        //TODO #RFC change strings to global vars at begining of file.
         firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
             this.setState({userInfo: snapshot.val()})

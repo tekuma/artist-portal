@@ -2,13 +2,11 @@
 // Libs
 import React          from 'react';
 import Firebase       from 'firebase';
-// import Rebase         from 're-base'
 // Views
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ForgotPasswordView from './views/ForgotPasswordView';
 import ResetPasswordView  from './views/ResetPasswordView';
-
 
 
 //Initialize Firebase  SDK in root JSX (here)
@@ -20,7 +18,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//Instanciate Provider Objects for Auth()
+//Instantiate Provider Objects for Auth()
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
 
@@ -47,6 +45,7 @@ export default class App extends React.Component {
      */
     shouldComponentUpdate(nextProps, nextState) {
       return true;
+      // re-renders everytime state is changed.
     }
 
     render() {
@@ -105,20 +104,19 @@ export default class App extends React.Component {
 
     // #Mutator Methods
 
-    /**
-     * *always use mutator methods to change the state* never
+    /** TODO rename to setUID()
+     * NOTE *always use mutator methods to change the state* never
      * change the state directly.
-     * @param  {[type]} user [description]
-     * @return {[type]}      [description]
+     * @param  {[String]} user [the users UID]
      */
     setUser = (user) => {
         this.setState({user});
     }
 
+
     /**
-     * [description -> TODO]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
+     * Mutates state to include registration infromation for new users.
+     * @param  {[Object]} data [Registration information from user gathered info]
      */
     saveValues = (data) => {
         this.setState({
@@ -201,6 +199,11 @@ export default class App extends React.Component {
         this.setState({user});
     }
 
+    /** TODO rename to authenticateWithPassword
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
     login = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
             // Handle Errors here.
