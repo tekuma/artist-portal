@@ -25,7 +25,7 @@ firebase.initializeApp(config);
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
 
-//TODO  Add 'scopes'? to google/fb
+//TODO  Add 'scopes'? to google/fb auth
 
 
 export default class App extends React.Component {

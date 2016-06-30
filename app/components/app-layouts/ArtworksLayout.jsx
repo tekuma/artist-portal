@@ -5,6 +5,10 @@ import ArtworkActions from '../../actions/ArtworkActions';
 import ArtworkStore from '../../stores/ArtworkStore';
 import confirm from '../confirm-dialog/ConfirmFunction';
 
+import firebase from 'firebase';
+
+
+
 export default class ArtworksLayout extends React.Component {
     constructor(props) {
         super(props);
@@ -47,6 +51,17 @@ export default class ArtworksLayout extends React.Component {
     }
 
     renderArtworks = () => {
+        // Import Cloud storage and datebase
+        const bucket   = firebase.storage();
+        const thisUID  = firebase.auth().currentUser.uid
+
+        firebase.database().ref('onboarders/' + thisUID + '/display_name').on('value', function(snapshot) {
+            console.log(snapshot.val(), "FUCK ME IT WORKED");
+        });
+        console.log("!!!!!!!!!!!!!!!!!!");
+        console.log(firebase.auth().currentUser)
+
+        
         const album = this.state.album;
 
         var styleManagerClosed = {
