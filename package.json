@@ -47,17 +47,22 @@
     "alt-utils": "^1.0.0",
     "assets": "^2.1.0",
     "babel-preset-survivejs-kanban": "^0.3.3",
+    "firebase": "^3.1.0",
     "imports-loader": "^0.6.5",
     "material-ui": "^0.15.1",
     "node-uuid": "^1.4.7",
     "react": "^15.1.0",
     "react-addons-update": "^15.1.0",
     "react-bootstrap-confirm": "^1.0.1",
+    "react-confirm": "0.1.13",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.1.0",
+    "react-dropzone": "^3.5.1",
+    "react-mixin": "^2.0.2",
     "react-router": "^2.4.1",
+    "react-tap-event-plugin": "^1.0.0",
     "react-tooltip": "^3.0.7",
-    "react-confirm": "0.1.13"
+    "reactfire": "^1.0.0"
   }
 }

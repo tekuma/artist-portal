@@ -1,6 +1,6 @@
-import React from 'react';
+import React    from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
-import Link from 'react-router';
+import Link     from 'react-router';
 
 export default class LandingPageLayout extends React.Component {
     constructor(props) {
@@ -32,7 +32,7 @@ export default class LandingPageLayout extends React.Component {
                                         <h3>Log In with Facebook</h3>
                                     </div>
                                 </div>
-                                <div className="social-button google">
+                                <div onClick={this.props.googleAuth} className="social-button google">
                                     <div className="social-icon">
                                         <img src="../assets/images/icons/google.svg" />
                                     </div>
@@ -105,6 +105,7 @@ export default class LandingPageLayout extends React.Component {
         );
     }
 
+/// ----- Functions
     saveAndContinue = (e) => {
         e.preventDefault();
 

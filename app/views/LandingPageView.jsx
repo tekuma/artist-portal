@@ -1,7 +1,7 @@
-import React from 'react';
+import React    from 'react';
 import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
-import SignUpLayout1 from '../components/landing-layouts/SignUpLayout1';
-import SignUpLayout2 from '../components/landing-layouts/SignUpLayout2';
+import SignUpLayout1     from '../components/landing-layouts/SignUpLayout1';
+import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import firebase from 'firebase';
 
@@ -14,12 +14,16 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+
+
 export default class LandingPageView extends React.Component {
     constructor(props) {
+        //TOP
         super(props);
 
         this.state = {
-            step: 1,
+            step       : 1,
             registraton: {
                 name: null,
                 dob: null,
@@ -28,8 +32,13 @@ export default class LandingPageView extends React.Component {
                 bio: null,
                 location: null,
                 portfolio: null
+<<<<<<< HEAD
             },
             user: null
+=======
+            }
+
+>>>>>>> 4bdc8ce43f58e22b5125699678b14eebb7f28b3f
         };
     }
 
@@ -47,18 +56,27 @@ export default class LandingPageView extends React.Component {
         switch(this.state.step) {
             case 1:
                 return <LandingPageLayout
-                        saveValues={this.saveValues}
-                        nextStep={this.nextStep} />
+                        saveValues = {this.saveValues}
+                        nextStep   = {this.nextStep}
+                        googleAuth = {this.props.googleAuth}
+                        />
             case 2:
                 return <SignUpLayout1
-                        saveValues={this.saveValues}
-                        nextStep={this.nextStep} />
+                        saveValues = {this.saveValues}
+                        nextStep   = {this.nextStep}
+                        />
             case 3:
                 return <SignUpLayout2
-                        saveValues={this.saveValues}
-                        submitRegistration={this.submitRegistration} />
+                        saveValues          = {this.saveValues}
+                        submitRegistration  = {this.submitRegistration}
+                        />
         }
     }
+
+
+// ---functions ---
+
+
 
     saveValues = (data) => {
 
