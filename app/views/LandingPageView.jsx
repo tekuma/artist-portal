@@ -5,11 +5,11 @@ import SignUpLayout2     from '../components/landing-layouts/SignUpLayout2';
 import { Router, Route, Link, browserHistory } from 'react-router';
 
 
-
-
+/**
+ * TODO
+ */
 export default class LandingPageView extends React.Component {
     constructor(props) {
-        //TOP
         super(props);
 
         this.state = {
@@ -33,7 +33,7 @@ export default class LandingPageView extends React.Component {
                 return <LandingPageLayout
                         saveValues = {this.saveValues}
                         nextStep   = {this.nextStep}
-                        googleAuth = {this.props.googleAuth}
+                        authenticateWithGoogle = {this.props.authenticateWithGoogle}
                         />
             case 2:
                 return <SignUpLayout1
@@ -50,8 +50,6 @@ export default class LandingPageView extends React.Component {
 
 
 // ---functions ---
-
-
 
     saveValues = (data) => {
 
@@ -76,6 +74,6 @@ export default class LandingPageView extends React.Component {
 
     submitRegistration = () => {
         console.log(this.state.registration);
-        browserHistory.push('/artist');
+        // browserHistory.push('/artist');
     }
 }

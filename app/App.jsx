@@ -31,14 +31,14 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid : null
+            user   : null,
+            errors : []
         };
-        // this.googleAuth = this.googleAuth.bind(this);
     } //END constructor
 
     render() {
         console.log("||>> Rendering...");
-        if (this.state.uid !== null) {
+        if (this.state.user !== null) {
           // User is signed in.
           console.log(">> TRUE!");
           return this.artistPortal();
@@ -48,29 +48,36 @@ export default class App extends React.Component {
           return this.login();
         }
     }
-
     //// ----- Functions
+
+    /**
+     * [description]
+     * @param  {[type]} user [description]
+     * @return {[type]}      [description]
+     */
+    setUser = (user) => {
+        this.setState({user});
+    }
 
     /**
      * [description]
      * @return {[type]} [description]
      */
-    googleAuth = () => {
+    authenticateWithGoogle = () => {
         console.log(this);
         console.log("Entered Google Auth Function");
-        var container = null;
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            //logged in Successful
-            console.log(">Authentication Successful");
-            const user = result.user
-
-        }).catch(function(error) {
+        firebase.auth().signInWithPopup(provider).catch(function(error) {
             // An error occurred
             console.log("++++Auth error");
             console.log(error);
         });
-        console.log(user);
+        let user = firebase.auth().currentUser
+        console.log("??????");
+        if (user !== null) {
+            console.log(user.email);
+        }
+        this.setUser(user);
     }
 
 
@@ -93,7 +100,9 @@ export default class App extends React.Component {
         console.log("in login function");
         return(
             <LandingPageView
-                googleAuth={this.googleAuth} />
+                authenticateWithGoogle={this.authenticateWithGoogle}
+
+            />
         )
     }
 

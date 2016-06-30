@@ -32,7 +32,7 @@ export default class LandingPageLayout extends React.Component {
                                         <h3>Log In with Facebook</h3>
                                     </div>
                                 </div>
-                                <div onClick={this.props.googleAuth} className="social-button google">
+                                <div onClick={this.props.authenticateWithGoogle} className="social-button google">
                                     <div className="social-icon">
                                         <img src="../assets/images/icons/google.svg" />
                                     </div>
