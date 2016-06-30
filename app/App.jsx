@@ -58,7 +58,43 @@ export default class App extends React.Component {
     }
 
 
-    ////  #Methods
+    //// ----------- #Methods ---------------------------------
+
+    // #Flow control Methods
+
+    /**
+     * Flow Control Function: If a user is currently logged in after accessing
+     * '/', they are sent here.
+     * @return {[JSX]} [renders into AppView]
+     */
+    artistPortal = () => {
+        console.log("|>Rendering Artist Portal");
+        console.log("|+>State:", this.state);
+        return(
+            <AppView
+              user={this.state.user} />
+        )
+    }
+
+    /**
+     * Flow Control Function: If no user is detected when accessing '/', then
+     * they the UX will render the login page, "LandingPageView".
+     * @return {[type]} [description]
+     */
+    login = () => {
+        console.log("|>Rendering Login Page");
+        console.log("|+>State:", this.state);
+        return(
+            <LandingPageView
+                authenticateWithGoogle={this.authenticateWithGoogle}
+                saveValues={this.saveValues}
+                submitRegistration={this.submitRegistration}
+                user={this.state.user}
+            />
+        )
+    }
+
+    // #Mutator Methods
 
     /**
      * *always use mutator methods to change the state* never
@@ -69,6 +105,19 @@ export default class App extends React.Component {
     setUser = (user) => {
         this.setState({user});
     }
+
+    /**
+     * [description -> TODO]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    saveValues = (data) => {
+        this.setState({
+            registration: Object.assign({}, this.state.registration, data)
+        });
+    }
+
+    // #Authentication Methods
 
     /**
      * This function will launch a pop-up with the Google Provider object,
@@ -120,50 +169,6 @@ export default class App extends React.Component {
         this.setUser(user);
     }
 
-
-    /**
-     * Flow Control Function: If a user is currently logged in after accessing
-     * '/', they are sent here.
-     * @return {[JSX]} [renders into AppView]
-     */
-    artistPortal = () => {
-        console.log("|>Rendering Artist Portal");
-        console.log("|+>State:", this.state);
-        return(
-            <AppView
-              user={this.state.user} />
-        )
-    }
-
-    /**
-     * Flow Control Function: If no user is detected when accessing '/', then
-     * they the UX will render the login page, "LandingPageView".
-     * @return {[type]} [description]
-     */
-    login = () => {
-        console.log("|>Rendering Login Page");
-        console.log("|+>State:", this.state);
-        return(
-            <LandingPageView
-                authenticateWithGoogle={this.authenticateWithGoogle}
-                saveValues={this.saveValues}
-                submitRegistration={this.submitRegistration}
-                user={this.state.user}
-            />
-        )
-    }
-
-    /**
-     * [description -> TODO]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
-     */
-    saveValues = (data) => {
-        this.setState({
-            registration: Object.assign({}, this.state.registration, data)
-        });
-    }
-
     /**
      * [description -> TODO]
      * @return {[type]} [description]
@@ -179,7 +184,8 @@ export default class App extends React.Component {
         let user = firebase.auth().currentUser;
         this.setState({user});
     }
-}
 
 
+
+}//END App
 // reactMixin(App.prototype, ReactFireMixin)
