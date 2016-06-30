@@ -34,6 +34,10 @@ export default class HiddenNav extends React.Component {
         ]
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+      return true;
+    }
+
     render() {
         const navItems = this.navItems;
 
@@ -42,7 +46,9 @@ export default class HiddenNav extends React.Component {
                 <div className="avatar">
 	    			<img src='assets/images/afika.jpg' />
 	    		</div>
-                <UserNameTag className={this.props.navIsOpen ? "open": null}/>
+                <UserNameTag
+                    displayName={this.props.userInfo.display_name}
+                    navIsOpen={this.props.navIsOpen} />
                 <NavItems navItems={navItems} changeAppLayout={this.props.changeAppLayout} />
                 <LogoutButton />
             </nav>

@@ -81,7 +81,7 @@ button {
 
 .navigation > ul {
     list-style-type: none;
-    width: 250px;
+    width: 300px;
     height: 100%;
     position: fixed;
     top: 250px;
@@ -1172,6 +1172,7 @@ main {
 
 .profile-form fieldset ul,
 .signup-form div ul,
+.login-popover div ul,
 .signup-form fieldset ul,
 .login-form fieldset ul {
 	list-style: none;
@@ -1179,9 +1180,14 @@ main {
     padding: 0;
 }
 
+.login-popover div ul {
+	width: 270px;
+}
+
 .profile-form fieldset ul li,
 .profile-form fieldset ul button,
 .signup-form div ul li,
+.login-popover div ul li,
 .signup-form div ul button,
 .signup-form fieldset ul li,
 .signup-form fieldset ul button,
@@ -1192,6 +1198,7 @@ main {
 }
 
 .signup-form div ul li,
+.login-popover div ul li,
 .signup-form fieldset ul li,
 .login-form fieldset ul li {
 	display: inline-block;
@@ -1206,6 +1213,7 @@ main {
 
 .profile-form fieldset ul button,
 .signup-form div button,
+.login-popover div button,
 .signup-form fieldset button,
 .login-form fieldset ul button {
 	border: none;
@@ -1223,6 +1231,8 @@ main {
 .login-form input[type=email],
 .login-form input[type=password],
 .login-form input[type=number],
+.login-popover input[type=email],
+.login-popover input[type=password],
 textarea.bio {
     border-radius: 3px;
     appearance: none;
@@ -1234,9 +1244,15 @@ textarea.bio {
 	height: 2.7em;
 }
 
+.login-popover input[type=email],
+.login-popover input[type=password] {
+	width: 216px;
+}
+
 .profile-form input:not([type='radio']),
 .signup-form input:not([type='radio']),
-.login-form input:not([type='radio']) {
+.login-form input:not([type='radio']),
+.login-popover input {
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
@@ -1362,7 +1378,8 @@ textarea.bio {
 }
 
 .edit-button,
-.signup-button {
+.signup-button,
+.login-button {
 	position: relative;
 	width: 150px;
 	height: 50px;
@@ -1379,7 +1396,12 @@ textarea.bio {
 	border: none;
 }
 
-.signup-button.left {
+.login-button {
+	margin: 15px 10px 0px 10px;
+}
+
+.signup-button.left,
+login-button.left {
 	margin: 15px 0 5px 10px;
 }
 
@@ -1390,7 +1412,8 @@ textarea.bio {
 
 
 .edit-button:hover,
-.signup-button:hover {
+.signup-button:hover,
+.login-button:hover {
 	box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -1399,12 +1422,14 @@ textarea.bio {
 }
 
 .edit-button h3,
-.signup-button h3 {
+.signup-button h3,
+.login-button h3 {
 	line-height: 1em;
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	font-weight: 700;
 	color: #ffffff;
+	margin: 0;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1711,6 +1736,31 @@ textarea.bio {
 .registration-error {
 	color: #bd3200;
 	font-size: 0.5em;
+}
+
+.login-popover {
+	position: absolute;
+	right: 20px !important;
+	top: 50px;
+}
+
+.popover-title {
+	padding: 30px;
+	padding-bottom: 10px;
+	background: #ffffff;
+	border: none;
+	font-size: 1.6em;
+	color: #4d5967;
+	font-weight: 600;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+}
+
+.popover-content {
+	padding: 20px;
+}
+
+.arrow {
+	left: 200px;
 }
 
 /*========================================== */

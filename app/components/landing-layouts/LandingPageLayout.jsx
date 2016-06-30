@@ -13,7 +13,9 @@ export default class LandingPageLayout extends React.Component {
     render() {
         return (
             <div className="main-wrapper">
-                <LoggedOffHeader />
+                <LoggedOffHeader
+                    togglePopover={this.props.togglePopover}
+                     />
                 <div className="layout-centered">
                     <article className="signup-wrapper">
                         <div className="artist-logo-wrapper">

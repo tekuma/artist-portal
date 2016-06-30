@@ -33,11 +33,12 @@ export default class App extends React.Component {
         this.state = {
             user : null,
             errors : [],
-            registration : {}
+            registration : {},
+            login: {}
         };
     } //END constructor
 
-    shouldComponentUpdate(nestProps, nextState) {
+    shouldComponentUpdate(nextProps, nextState) {
       return nextState.user != null;
     }
 
@@ -51,7 +52,7 @@ export default class App extends React.Component {
         } else {
             console.log(">>> in the render else");
             console.log(this.state);
-          return this.login();
+          return this.landingPage();
         }
     }
     //// ----- Functions
@@ -104,11 +105,12 @@ export default class App extends React.Component {
      * [description]
      * @return {[type]} [description]
      */
-    login = () => {
+    landingPage = () => {
         console.log("in login function");
         return(
             <LandingPageView
                 authenticateWithGoogle={this.authenticateWithGoogle}
+                login={this.login}
                 saveValues={this.saveValues}
                 submitRegistration={this.submitRegistration}
                 user={this.state.user}
@@ -126,6 +128,19 @@ export default class App extends React.Component {
     submitRegistration = () => {
 
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            this.state.errors.push(error);
+        });
+
+        var user = firebase.auth().currentUser;
+
+        this.setState({user});
+    }
+
+    login = (data) => {
+        firebase.auth().loginUserWithEmailAndPassword(data.email, data.password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;

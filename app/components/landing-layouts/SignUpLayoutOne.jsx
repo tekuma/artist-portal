@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 
-export default class SignUpLayout1 extends React.Component {
+export default class SignUpLayoutOne extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,7 +18,8 @@ export default class SignUpLayout1 extends React.Component {
     render() {
         return (
             <div className="main-wrapper">
-                <LoggedOffHeader />
+                <LoggedOffHeader
+                    togglePopover={this.props.togglePopover} />
                 <div className="layout-centered">
                     <article className="signup-wrapper">
                         <div className="signup-heading-wrapper pink">

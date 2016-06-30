@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default () => {
+export default ({navIsOpen, displayName}) => {
     return (
-        <div className="nav-username">
+        <div
+            className="nav-username"
+            style={{left : navIsOpen ? 25 : -700}}>
 			<span className="nav-username-writing">
-				AFIKA
+				{displayName}
 			</span>
 		</div>
     );

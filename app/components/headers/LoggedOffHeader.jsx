@@ -24,7 +24,9 @@ export default class LoggedOffHeader extends React.Component {
                         <img id="tekuma-logo-image" src='assets/images/tekuma-black.svg' />
                     </Link>
             	</div>
-            	<div className="header-icons logged-off">
+            	<div
+                    className="header-icons logged-off"
+                    onClick={this.props.togglePopover}>
                     <div className="header-writing" title="Log In to Tekuma">
                         <h3>Log In</h3>
                     </div>

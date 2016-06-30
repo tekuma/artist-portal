@@ -1,7 +1,7 @@
 import React from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 
-export default class SignUpLayout2 extends React.Component {
+export default class SignUpLayoutTwo extends React.Component {
     constructor(props) {
         super(props);
 
@@ -13,7 +13,8 @@ export default class SignUpLayout2 extends React.Component {
     render() {
         return (
             <div className="main-wrapper">
-                <LoggedOffHeader />
+                <LoggedOffHeader
+                    togglePopover={this.props.togglePopover} />
                 <div className="layout-centered">
                     <article className="signup-wrapper">
                         <div className="signup-heading-wrapper pink">

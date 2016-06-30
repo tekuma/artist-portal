@@ -24,7 +24,7 @@ export default class AppView extends React.Component {
             uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
             currentEditArtworkInfo: {},     // Used to track the current artwork being edited
             currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {},                   // Used to store User Profile Information
+            userInfo: {display_name: "Afika Nyati"},                   // Used to store User Profile Information
             uploadedFiles: []               // Used to store User Profile Information
         };
     }
@@ -35,6 +35,7 @@ export default class AppView extends React.Component {
         return (
             <div className="app">
                 <HiddenNav
+                    userInfo={this.state.userInfo}
                     navIsOpen={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout} />
                 <HamburgerIcon
