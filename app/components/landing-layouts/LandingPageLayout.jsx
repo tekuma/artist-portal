@@ -130,7 +130,7 @@ export default class LandingPageLayout extends React.Component {
             this.state.errors.push("Please choose a password.");
         }
 
-        if(password.length < 5) {
+        if(password.length < 7) {
             this.state.errors.push("Your password is too short.");
         }
 

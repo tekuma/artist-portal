@@ -1,0 +1,934 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@2.15.8
+3 info using node@v4.4.7
+4 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/package.json
+5 verbose install where, deps [ '/Users/legatumuser/Tekuma/art-onboarding',
+5 verbose install   [ 'alt',
+5 verbose install     'alt-utils',
+5 verbose install     'assets',
+5 verbose install     'babel-preset-survivejs-kanban',
+5 verbose install     'firebase',
+5 verbose install     'imports-loader',
+5 verbose install     'material-ui',
+5 verbose install     'node-uuid',
+5 verbose install     'react',
+5 verbose install     'react-addons-update',
+5 verbose install     'react-bootstrap-confirm',
+5 verbose install     'react-confirm',
+5 verbose install     'react-dnd',
+5 verbose install     'react-dnd-html5-backend',
+5 verbose install     'react-dom',
+5 verbose install     'react-dropzone',
+5 verbose install     'react-mixin',
+5 verbose install     'react-router',
+5 verbose install     'react-tap-event-plugin',
+5 verbose install     'react-tooltip',
+5 verbose install     'reactfire',
+5 verbose install     'babel-core',
+5 verbose install     'babel-loader',
+5 verbose install     'babel-preset-es2015',
+5 verbose install     'babel-preset-react',
+5 verbose install     'babel-preset-react-hmre',
+5 verbose install     'css-loader',
+5 verbose install     'file-loader',
+5 verbose install     'npm-install-webpack-plugin',
+5 verbose install     'raw-loader',
+5 verbose install     'style-loader',
+5 verbose install     'url-loader',
+5 verbose install     'webpack',
+5 verbose install     'webpack-dev-server',
+5 verbose install     'webpack-merge' ] ]
+6 verbose install where, peers [ '/Users/legatumuser/Tekuma/art-onboarding', [] ]
+7 verbose installManyTop reading for lifecycle /Users/legatumuser/Tekuma/art-onboarding/package.json
+8 info preinstall art-onboarder@1.0.0
+9 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/alt/package.json
+10 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/alt-utils/package.json
+11 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/assets/package.json
+12 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-core/package.json
+13 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-loader/package.json
+14 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-es2015/package.json
+15 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-react/package.json
+16 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-react-hmre/package.json
+17 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-survivejs-kanban/package.json
+18 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/css-loader/package.json
+19 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/file-loader/package.json
+20 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/firebase/package.json
+21 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/imports-loader/package.json
+22 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/material-ui/package.json
+23 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/node-uuid/package.json
+24 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/npm-install-webpack-plugin/package.json
+25 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/raw-loader/package.json
+26 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react/package.json
+27 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-addons-update/package.json
+28 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-bootstrap-confirm/package.json
+29 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-confirm/package.json
+30 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dnd/package.json
+31 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dnd-html5-backend/package.json
+32 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dom/package.json
+33 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dropzone/package.json
+34 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-router/package.json
+35 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-tap-event-plugin/package.json
+36 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-tooltip/package.json
+37 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/style-loader/package.json
+38 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/url-loader/package.json
+39 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack/package.json
+40 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack-dev-server/package.json
+41 verbose installManyTop reading scoped package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack-merge/package.json
+42 info package.json alt-utils@1.0.0 No repository field.
+43 info package.json alt-utils@1.0.0 No README data
+44 info package.json react-router@2.5.1 No README data
+45 info package.json node-uuid@1.4.7 No license field.
+46 info package.json firebase@3.1.0 No license field.
+47 info package.json react-tap-event-plugin@1.0.0 No license field.
+48 info package.json raw-loader@0.5.1 No license field.
+49 info package.json assets@2.1.0 No license field.
+50 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/package.json
+51 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/alt/package.json
+52 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/alt-utils/package.json
+53 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/assets/package.json
+54 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-core/package.json
+55 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-loader/package.json
+56 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-es2015/package.json
+57 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-react/package.json
+58 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-react-hmre/package.json
+59 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/babel-preset-survivejs-kanban/package.json
+60 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/css-loader/package.json
+61 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/file-loader/package.json
+62 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/firebase/package.json
+63 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/imports-loader/package.json
+64 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/material-ui/package.json
+65 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/node-uuid/package.json
+66 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/npm-install-webpack-plugin/package.json
+67 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/raw-loader/package.json
+68 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react/package.json
+69 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-addons-update/package.json
+70 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-bootstrap-confirm/package.json
+71 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-confirm/package.json
+72 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dnd/package.json
+73 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dnd-html5-backend/package.json
+74 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dom/package.json
+75 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-dropzone/package.json
+76 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-router/package.json
+77 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-tap-event-plugin/package.json
+78 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-tooltip/package.json
+79 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/style-loader/package.json
+80 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/url-loader/package.json
+81 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack/package.json
+82 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack-dev-server/package.json
+83 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/webpack-merge/package.json
+84 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/.bin/uuid/package.json
+85 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/.bin/webpack/package.json
+86 verbose targetResolver reading package data from /Users/legatumuser/Tekuma/art-onboarding/node_modules/.bin/webpack-dev-server/package.json
+87 verbose already installed skipping babel-preset-es2015@^6.9.0 /Users/legatumuser/Tekuma/art-onboarding
+88 verbose already installed skipping babel-preset-react@^6.5.0 /Users/legatumuser/Tekuma/art-onboarding
+89 verbose already installed skipping babel-preset-react-hmre@^1.1.1 /Users/legatumuser/Tekuma/art-onboarding
+90 verbose already installed skipping css-loader@^0.23.1 /Users/legatumuser/Tekuma/art-onboarding
+91 verbose already installed skipping file-loader@^0.9.0 /Users/legatumuser/Tekuma/art-onboarding
+92 verbose already installed skipping npm-install-webpack-plugin@^4.0.3 /Users/legatumuser/Tekuma/art-onboarding
+93 verbose already installed skipping raw-loader@^0.5.1 /Users/legatumuser/Tekuma/art-onboarding
+94 verbose already installed skipping style-loader@^0.13.1 /Users/legatumuser/Tekuma/art-onboarding
+95 verbose already installed skipping url-loader@^0.5.7 /Users/legatumuser/Tekuma/art-onboarding
+96 verbose already installed skipping webpack@^1.13.1 /Users/legatumuser/Tekuma/art-onboarding
+97 verbose already installed skipping webpack-dev-server@^1.14.1 /Users/legatumuser/Tekuma/art-onboarding
+98 verbose already installed skipping webpack-merge@^0.14.0 /Users/legatumuser/Tekuma/art-onboarding
+99 verbose already installed skipping alt@^0.18.4 /Users/legatumuser/Tekuma/art-onboarding
+100 verbose already installed skipping alt-utils@^1.0.0 /Users/legatumuser/Tekuma/art-onboarding
+101 verbose already installed skipping assets@^2.1.0 /Users/legatumuser/Tekuma/art-onboarding
+102 verbose already installed skipping babel-preset-survivejs-kanban@^0.3.3 /Users/legatumuser/Tekuma/art-onboarding
+103 verbose already installed skipping firebase@^3.1.0 /Users/legatumuser/Tekuma/art-onboarding
+104 verbose already installed skipping imports-loader@^0.6.5 /Users/legatumuser/Tekuma/art-onboarding
+105 verbose already installed skipping material-ui@^0.15.1 /Users/legatumuser/Tekuma/art-onboarding
+106 verbose already installed skipping node-uuid@^1.4.7 /Users/legatumuser/Tekuma/art-onboarding
+107 verbose already installed skipping react@^15.1.0 /Users/legatumuser/Tekuma/art-onboarding
+108 verbose already installed skipping react-addons-update@^15.1.0 /Users/legatumuser/Tekuma/art-onboarding
+109 verbose already installed skipping react-bootstrap-confirm@^1.0.1 /Users/legatumuser/Tekuma/art-onboarding
+110 verbose already installed skipping react-confirm@0.1.13 /Users/legatumuser/Tekuma/art-onboarding
+111 verbose already installed skipping react-dnd@^2.1.4 /Users/legatumuser/Tekuma/art-onboarding
+112 verbose already installed skipping react-dnd-html5-backend@^2.1.2 /Users/legatumuser/Tekuma/art-onboarding
+113 verbose already installed skipping react-dom@^15.1.0 /Users/legatumuser/Tekuma/art-onboarding
+114 verbose already installed skipping react-dropzone@^3.5.1 /Users/legatumuser/Tekuma/art-onboarding
+115 silly cache add args [ 'react-mixin@^2.0.2', null ]
+116 verbose cache add spec react-mixin@^2.0.2
+117 silly cache add parsed spec Result {
+117 silly cache add   raw: 'react-mixin@^2.0.2',
+117 silly cache add   scope: null,
+117 silly cache add   name: 'react-mixin',
+117 silly cache add   rawSpec: '^2.0.2',
+117 silly cache add   spec: '>=2.0.2 <3.0.0',
+117 silly cache add   type: 'range' }
+118 silly addNamed react-mixin@>=2.0.2 <3.0.0
+119 verbose addNamed ">=2.0.2 <3.0.0" is a valid semver range for react-mixin
+120 silly addNameRange { name: 'react-mixin', range: '>=2.0.2 <3.0.0', hasData: false }
+121 silly mapToRegistry name react-mixin
+122 silly mapToRegistry using default registry
+123 silly mapToRegistry registry https://registry.npmjs.org/
+124 silly mapToRegistry data Result {
+124 silly mapToRegistry   raw: 'react-mixin',
+124 silly mapToRegistry   scope: null,
+124 silly mapToRegistry   name: 'react-mixin',
+124 silly mapToRegistry   rawSpec: '',
+124 silly mapToRegistry   spec: 'latest',
+124 silly mapToRegistry   type: 'tag' }
+125 silly mapToRegistry uri https://registry.npmjs.org/react-mixin
+126 verbose addNameRange registry:https://registry.npmjs.org/react-mixin not in flight; fetching
+127 verbose already installed skipping react-router@^2.4.1 /Users/legatumuser/Tekuma/art-onboarding
+128 verbose already installed skipping react-tap-event-plugin@^1.0.0 /Users/legatumuser/Tekuma/art-onboarding
+129 verbose already installed skipping react-tooltip@^3.0.7 /Users/legatumuser/Tekuma/art-onboarding
+130 silly cache add args [ 'reactfire@^1.0.0', null ]
+131 verbose cache add spec reactfire@^1.0.0
+132 silly cache add parsed spec Result {
+132 silly cache add   raw: 'reactfire@^1.0.0',
+132 silly cache add   scope: null,
+132 silly cache add   name: 'reactfire',
+132 silly cache add   rawSpec: '^1.0.0',
+132 silly cache add   spec: '>=1.0.0 <2.0.0',
+132 silly cache add   type: 'range' }
+133 silly addNamed reactfire@>=1.0.0 <2.0.0
+134 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for reactfire
+135 silly addNameRange { name: 'reactfire', range: '>=1.0.0 <2.0.0', hasData: false }
+136 silly mapToRegistry name reactfire
+137 silly mapToRegistry using default registry
+138 silly mapToRegistry registry https://registry.npmjs.org/
+139 silly mapToRegistry data Result {
+139 silly mapToRegistry   raw: 'reactfire',
+139 silly mapToRegistry   scope: null,
+139 silly mapToRegistry   name: 'reactfire',
+139 silly mapToRegistry   rawSpec: '',
+139 silly mapToRegistry   spec: 'latest',
+139 silly mapToRegistry   type: 'tag' }
+140 silly mapToRegistry uri https://registry.npmjs.org/reactfire
+141 verbose addNameRange registry:https://registry.npmjs.org/reactfire not in flight; fetching
+142 verbose already installed skipping babel-core@^6.10.4 /Users/legatumuser/Tekuma/art-onboarding
+143 verbose already installed skipping babel-loader@^6.2.4 /Users/legatumuser/Tekuma/art-onboarding
+144 verbose request uri https://registry.npmjs.org/react-mixin
+145 verbose request no auth needed
+146 info attempt registry request try #1 at 8:25:24 PM
+147 verbose request id 15b894a75f79a9b1
+148 http request GET https://registry.npmjs.org/react-mixin
+149 verbose request uri https://registry.npmjs.org/reactfire
+150 verbose request no auth needed
+151 info attempt registry request try #1 at 8:25:24 PM
+152 http request GET https://registry.npmjs.org/reactfire
+153 http 200 https://registry.npmjs.org/react-mixin
+154 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+154 verbose headers   etag: '"98GAYVXGQKI1RRITGH1NIXASQ"',
+154 verbose headers   'content-type': 'application/json',
+154 verbose headers   'content-encoding': 'gzip',
+154 verbose headers   'cache-control': 'max-age=300',
+154 verbose headers   'content-length': '6083',
+154 verbose headers   'accept-ranges': 'bytes',
+154 verbose headers   date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+154 verbose headers   via: '1.1 varnish',
+154 verbose headers   age: '147',
+154 verbose headers   connection: 'keep-alive',
+154 verbose headers   'x-served-by': 'cache-iad2130-IAD',
+154 verbose headers   'x-cache': 'HIT',
+154 verbose headers   'x-cache-hits': '1',
+154 verbose headers   'x-timer': 'S1467246324.307209,VS0,VE0',
+154 verbose headers   vary: 'Accept-Encoding' }
+155 silly get cb [ 200,
+155 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+155 silly get     etag: '"98GAYVXGQKI1RRITGH1NIXASQ"',
+155 silly get     'content-type': 'application/json',
+155 silly get     'content-encoding': 'gzip',
+155 silly get     'cache-control': 'max-age=300',
+155 silly get     'content-length': '6083',
+155 silly get     'accept-ranges': 'bytes',
+155 silly get     date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+155 silly get     via: '1.1 varnish',
+155 silly get     age: '147',
+155 silly get     connection: 'keep-alive',
+155 silly get     'x-served-by': 'cache-iad2130-IAD',
+155 silly get     'x-cache': 'HIT',
+155 silly get     'x-cache-hits': '1',
+155 silly get     'x-timer': 'S1467246324.307209,VS0,VE0',
+155 silly get     vary: 'Accept-Encoding' } ]
+156 verbose get saving react-mixin to /Users/legatumuser/.npm/registry.npmjs.org/react-mixin/.cache.json
+157 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+158 silly addNameRange number 2 { name: 'react-mixin', range: '>=2.0.2 <3.0.0', hasData: true }
+159 silly addNameRange versions [ 'react-mixin',
+159 silly addNameRange   [ '1.0.0',
+159 silly addNameRange     '1.0.2',
+159 silly addNameRange     '1.0.3',
+159 silly addNameRange     '1.1.0',
+159 silly addNameRange     '1.2.0',
+159 silly addNameRange     '1.2.1',
+159 silly addNameRange     '1.2.2',
+159 silly addNameRange     '1.2.3',
+159 silly addNameRange     '1.3.0-pre',
+159 silly addNameRange     '1.2.4',
+159 silly addNameRange     '1.3.1',
+159 silly addNameRange     '1.4.0-pre1',
+159 silly addNameRange     '1.4.0',
+159 silly addNameRange     '1.5.0',
+159 silly addNameRange     '1.6.0',
+159 silly addNameRange     '1.7.0',
+159 silly addNameRange     '2.0.0',
+159 silly addNameRange     '2.0.1',
+159 silly addNameRange     '2.0.2',
+159 silly addNameRange     '3.0.0',
+159 silly addNameRange     '3.0.1',
+159 silly addNameRange     '3.0.2',
+159 silly addNameRange     '3.0.3',
+159 silly addNameRange     '3.0.4',
+159 silly addNameRange     '3.0.5' ] ]
+160 silly addNamed react-mixin@2.0.2
+161 verbose addNamed "2.0.2" is a plain semver version for react-mixin
+162 http 200 https://registry.npmjs.org/reactfire
+163 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+163 verbose headers   etag: '"B5L0I5533Z6IM41UD1W6MGY56"',
+163 verbose headers   'content-type': 'application/json',
+163 verbose headers   'content-encoding': 'gzip',
+163 verbose headers   'cache-control': 'max-age=300',
+163 verbose headers   'content-length': '4373',
+163 verbose headers   'accept-ranges': 'bytes',
+163 verbose headers   date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+163 verbose headers   via: '1.1 varnish',
+163 verbose headers   age: '0',
+163 verbose headers   connection: 'keep-alive',
+163 verbose headers   'x-served-by': 'cache-iad2148-IAD',
+163 verbose headers   'x-cache': 'MISS',
+163 verbose headers   'x-cache-hits': '0',
+163 verbose headers   'x-timer': 'S1467246324.306035,VS0,VE34',
+163 verbose headers   vary: 'Accept-Encoding' }
+164 silly get cb [ 200,
+164 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+164 silly get     etag: '"B5L0I5533Z6IM41UD1W6MGY56"',
+164 silly get     'content-type': 'application/json',
+164 silly get     'content-encoding': 'gzip',
+164 silly get     'cache-control': 'max-age=300',
+164 silly get     'content-length': '4373',
+164 silly get     'accept-ranges': 'bytes',
+164 silly get     date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+164 silly get     via: '1.1 varnish',
+164 silly get     age: '0',
+164 silly get     connection: 'keep-alive',
+164 silly get     'x-served-by': 'cache-iad2148-IAD',
+164 silly get     'x-cache': 'MISS',
+164 silly get     'x-cache-hits': '0',
+164 silly get     'x-timer': 'S1467246324.306035,VS0,VE34',
+164 silly get     vary: 'Accept-Encoding' } ]
+165 verbose get saving reactfire to /Users/legatumuser/.npm/registry.npmjs.org/reactfire/.cache.json
+166 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+167 silly mapToRegistry name react-mixin
+168 silly mapToRegistry using default registry
+169 silly mapToRegistry registry https://registry.npmjs.org/
+170 silly mapToRegistry data Result {
+170 silly mapToRegistry   raw: 'react-mixin',
+170 silly mapToRegistry   scope: null,
+170 silly mapToRegistry   name: 'react-mixin',
+170 silly mapToRegistry   rawSpec: '',
+170 silly mapToRegistry   spec: 'latest',
+170 silly mapToRegistry   type: 'tag' }
+171 silly mapToRegistry uri https://registry.npmjs.org/react-mixin
+172 verbose addRemoteTarball https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz not in flight; adding
+173 verbose addRemoteTarball [ 'https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz',
+173 verbose addRemoteTarball   '5133570554fa8954b7b847422dbd5e8c7a0a73d0' ]
+174 info retry fetch attempt 1 at 8:25:24 PM
+175 info attempt registry request try #1 at 8:25:24 PM
+176 http fetch GET https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz
+177 silly addNameRange number 2 { name: 'reactfire', range: '>=1.0.0 <2.0.0', hasData: true }
+178 silly addNameRange versions [ 'reactfire',
+178 silly addNameRange   [ '0.1.4',
+178 silly addNameRange     '0.1.5',
+178 silly addNameRange     '0.1.6',
+178 silly addNameRange     '0.2.0',
+178 silly addNameRange     '0.3.0',
+178 silly addNameRange     '0.4.0',
+178 silly addNameRange     '0.5.0',
+178 silly addNameRange     '0.5.1',
+178 silly addNameRange     '0.6.0',
+178 silly addNameRange     '0.7.0',
+178 silly addNameRange     '1.0.0' ] ]
+179 silly addNamed reactfire@1.0.0
+180 verbose addNamed "1.0.0" is a plain semver version for reactfire
+181 silly mapToRegistry name reactfire
+182 silly mapToRegistry using default registry
+183 silly mapToRegistry registry https://registry.npmjs.org/
+184 silly mapToRegistry data Result {
+184 silly mapToRegistry   raw: 'reactfire',
+184 silly mapToRegistry   scope: null,
+184 silly mapToRegistry   name: 'reactfire',
+184 silly mapToRegistry   rawSpec: '',
+184 silly mapToRegistry   spec: 'latest',
+184 silly mapToRegistry   type: 'tag' }
+185 silly mapToRegistry uri https://registry.npmjs.org/reactfire
+186 verbose addRemoteTarball https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz not in flight; adding
+187 verbose addRemoteTarball [ 'https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz',
+187 verbose addRemoteTarball   'd62a6c0d854bae9fd1eee4f9c4128682fc35ff21' ]
+188 info retry fetch attempt 1 at 8:25:24 PM
+189 info attempt registry request try #1 at 8:25:24 PM
+190 http fetch GET https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz
+191 http fetch 200 https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz
+192 silly fetchAndShaCheck shasum 5133570554fa8954b7b847422dbd5e8c7a0a73d0
+193 verbose addTmpTarball /var/folders/l6/t11t2jls09542q8nqvt8rqrm0000gp/T/npm-1621-35ffa7e4/registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz not in flight; adding
+194 verbose addTmpTarball already have metadata; skipping unpack for react-mixin@2.0.2
+195 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+196 silly cache afterAdd react-mixin@2.0.2
+197 verbose afterAdd /Users/legatumuser/.npm/react-mixin/2.0.2/package/package.json not in flight; writing
+198 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+199 verbose afterAdd /Users/legatumuser/.npm/react-mixin/2.0.2/package/package.json written
+200 http fetch 200 https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz
+201 silly fetchAndShaCheck shasum d62a6c0d854bae9fd1eee4f9c4128682fc35ff21
+202 verbose addTmpTarball /var/folders/l6/t11t2jls09542q8nqvt8rqrm0000gp/T/npm-1621-35ffa7e4/registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz not in flight; adding
+203 verbose addTmpTarball already have metadata; skipping unpack for reactfire@1.0.0
+204 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+205 silly cache afterAdd reactfire@1.0.0
+206 verbose afterAdd /Users/legatumuser/.npm/reactfire/1.0.0/package/package.json not in flight; writing
+207 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+208 verbose afterAdd /Users/legatumuser/.npm/reactfire/1.0.0/package/package.json written
+209 silly install resolved [ { name: 'react-mixin',
+209 silly install resolved     version: '2.0.2',
+209 silly install resolved     description: '![travis](https://travis-ci.org/brigand/react-mixin.svg)',
+209 silly install resolved     main: 'index.js',
+209 silly install resolved     dependencies: { 'object-assign': '^2.0.0', 'smart-mixin': '^1.2.0' },
+209 silly install resolved     devDependencies:
+209 silly install resolved      { '6to5ify': '^4.0.0',
+209 silly install resolved        'expect.js': '^0.3.1',
+209 silly install resolved        mocha: '^2.1.0',
+209 silly install resolved        react: '^0.13.0-beta.1',
+209 silly install resolved        sinon: '^1.12.2' },
+209 silly install resolved     scripts: { test: 'mocha test/*' },
+209 silly install resolved     repository:
+209 silly install resolved      { type: 'git',
+209 silly install resolved        url: 'git+https://github.com/brigand/react-mixin.git' },
+209 silly install resolved     keywords: [ 'react', 'mixin', 'es6', 'class', 'smart-mixin' ],
+209 silly install resolved     author: { name: 'Frankie Bagnardi', email: 'f.bagnardi@gmail.com' },
+209 silly install resolved     license: 'MIT',
+209 silly install resolved     bugs: { url: 'https://github.com/brigand/react-mixin/issues' },
+209 silly install resolved     homepage: 'https://github.com/brigand/react-mixin',
+209 silly install resolved     gitHead: '2969fdbadc69c8b5e6cbf124500de633d5e35aa9',
+209 silly install resolved     _id: 'react-mixin@2.0.2',
+209 silly install resolved     _shasum: '5133570554fa8954b7b847422dbd5e8c7a0a73d0',
+209 silly install resolved     _from: 'react-mixin@>=2.0.2 <3.0.0',
+209 silly install resolved     _npmVersion: '2.13.0',
+209 silly install resolved     _nodeVersion: '0.10.28',
+209 silly install resolved     _npmUser: { name: 'greenjello', email: 'f.bagnardi@gmail.com' },
+209 silly install resolved     maintainers: [ [Object] ],
+209 silly install resolved     dist:
+209 silly install resolved      { shasum: '5133570554fa8954b7b847422dbd5e8c7a0a73d0',
+209 silly install resolved        tarball: 'https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz' },
+209 silly install resolved     directories: {},
+209 silly install resolved     _resolved: 'https://registry.npmjs.org/react-mixin/-/react-mixin-2.0.2.tgz' },
+209 silly install resolved   { name: 'reactfire',
+209 silly install resolved     description: 'Firebase mixin for ReactJS',
+209 silly install resolved     version: '1.0.0',
+209 silly install resolved     author:
+209 silly install resolved      { name: 'Firebase',
+209 silly install resolved        email: 'support@firebase.com',
+209 silly install resolved        url: 'https://www.firebase.com/' },
+209 silly install resolved     homepage: 'https://github.com/firebase/reactfire/',
+209 silly install resolved     repository:
+209 silly install resolved      { type: 'git',
+209 silly install resolved        url: 'https://github.com/firebase/reactfire.git' },
+209 silly install resolved     bugs: { url: 'https://github.com/firebase/reactfire/issues' },
+209 silly install resolved     license: 'MIT',
+209 silly install resolved     keywords: [ 'react', 'mixin', 'firebase', 'realtime', 'react-component' ],
+209 silly install resolved     main: 'dist/reactfire.js',
+209 silly install resolved     files: [ 'dist/**', 'LICENSE', 'README.md', 'package.json' ],
+209 silly install resolved     dependencies: {},
+209 silly install resolved     peerDependencies:
+209 silly install resolved      { react: '0.13.x || 0.14.x || 15.x.x',
+209 silly install resolved        firebase: '2.x.x || 3.x.x' },
+209 silly install resolved     devDependencies:
+209 silly install resolved      { chai: '^3.0.0',
+209 silly install resolved        coveralls: '^2.11.2',
+209 silly install resolved        firebase: '3.x.x',
+209 silly install resolved        gulp: '^3.9.0',
+209 silly install resolved        'gulp-eslint': '^0.15.0',
+209 silly install resolved        'gulp-exit': '0.0.2',
+209 silly install resolved        'gulp-ext-replace': '^0.2.0',
+209 silly install resolved        'gulp-istanbul': '^0.10.0',
+209 silly install resolved        'gulp-mocha': '^2.1.2',
+209 silly install resolved        'gulp-uglify': '^1.2.0',
+209 silly install resolved        jsdom: '3.x.x',
+209 silly install resolved        'react-addons-test-utils': '15.x.x',
+209 silly install resolved        react: '15.x.x',
+209 silly install resolved        'react-dom': '15.x.x',
+209 silly install resolved        'run-sequence': '^1.1.1',
+209 silly install resolved        sinon: '^1.15.4',
+209 silly install resolved        'sinon-chai': '^2.8.0' },
+209 silly install resolved     scripts: { test: 'gulp test', travis: 'gulp' },
+209 silly install resolved     gitHead: '26bd9719835ff564967ad5b4647ac6aff6a3ee1a',
+209 silly install resolved     _id: 'reactfire@1.0.0',
+209 silly install resolved     _shasum: 'd62a6c0d854bae9fd1eee4f9c4128682fc35ff21',
+209 silly install resolved     _from: 'reactfire@>=1.0.0 <2.0.0',
+209 silly install resolved     _npmVersion: '2.7.5',
+209 silly install resolved     _nodeVersion: '0.10.38',
+209 silly install resolved     _npmUser: { name: 'firebase', email: 'operations@firebase.com' },
+209 silly install resolved     maintainers: [ [Object] ],
+209 silly install resolved     dist:
+209 silly install resolved      { shasum: 'd62a6c0d854bae9fd1eee4f9c4128682fc35ff21',
+209 silly install resolved        tarball: 'https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz' },
+209 silly install resolved     _npmOperationalInternal:
+209 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+209 silly install resolved        tmp: 'tmp/reactfire-1.0.0.tgz_1464220615540_0.4378261554520577' },
+209 silly install resolved     directories: {},
+209 silly install resolved     _resolved: 'https://registry.npmjs.org/reactfire/-/reactfire-1.0.0.tgz' } ]
+210 info install react-mixin@2.0.2 into /Users/legatumuser/Tekuma/art-onboarding
+211 info install reactfire@1.0.0 into /Users/legatumuser/Tekuma/art-onboarding
+212 info installOne react-mixin@2.0.2
+213 verbose installOne of react-mixin to /Users/legatumuser/Tekuma/art-onboarding not in flight; installing
+214 verbose correctMkdir /Users/legatumuser/.npm/_locks correctMkdir not in flight; initializing
+215 info installOne reactfire@1.0.0
+216 verbose installOne of reactfire to /Users/legatumuser/Tekuma/art-onboarding not in flight; installing
+217 verbose correctMkdir /Users/legatumuser/.npm/_locks correctMkdir already in flight; waiting
+218 verbose lock using /Users/legatumuser/.npm/_locks/react-mixin-fe7c957358aa0e15.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+219 verbose lock using /Users/legatumuser/.npm/_locks/reactfire-911d4bf4bf74f34c.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+220 silly install write writing react-mixin 2.0.2 to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+221 silly install write writing reactfire 1.0.0 to /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+222 verbose unbuild node_modules/react-mixin
+223 verbose unbuild node_modules/reactfire
+224 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin is being purged from base /Users/legatumuser/Tekuma/art-onboarding
+225 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+226 verbose tar unpack /Users/legatumuser/.npm/react-mixin/2.0.2/package.tgz
+227 verbose tar unpacking to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+228 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin is being purged
+229 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+230 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire is being purged from base /Users/legatumuser/Tekuma/art-onboarding
+231 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+232 silly gunzTarPerm modes [ '755', '644' ]
+233 verbose tar unpack /Users/legatumuser/.npm/reactfire/1.0.0/package.tgz
+234 verbose tar unpacking to /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+235 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire is being purged
+236 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+237 silly gunzTarPerm modes [ '755', '644' ]
+238 silly gunzTarPerm extractEntry package.json
+239 silly gunzTarPerm extractEntry package.json
+240 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+241 silly gunzTarPerm extractEntry .npmignore
+242 silly gunzTarPerm extractEntry README.md
+243 silly gunzTarPerm extractEntry README.md
+244 silly gunzTarPerm modified mode [ 'README.md', 436, 420 ]
+245 silly gunzTarPerm extractEntry LICENSE
+246 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
+247 silly gunzTarPerm extractEntry changelog.txt
+248 silly gunzTarPerm modified mode [ 'changelog.txt', 436, 420 ]
+249 silly gunzTarPerm extractEntry dist/reactfire.js
+250 silly gunzTarPerm modified mode [ 'dist/reactfire.js', 436, 420 ]
+251 silly gunzTarPerm extractEntry LICENSE
+252 silly gunzTarPerm extractEntry index.js
+253 silly gunzTarPerm extractEntry dist/reactfire.min.js
+254 silly gunzTarPerm modified mode [ 'dist/reactfire.min.js', 436, 420 ]
+255 silly gunzTarPerm extractEntry .jsfmtrc
+256 silly gunzTarPerm extractEntry .travis.yml
+257 verbose write writing to /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire/package.json
+258 info preinstall reactfire@1.0.0
+259 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire/package.json
+260 verbose write writing to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/package.json
+261 info preinstall react-mixin@2.0.2
+262 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire/package.json
+263 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/package.json
+264 silly install resolved []
+265 verbose about to build /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+266 info build /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+267 silly prepareForInstallMany adding object-assign@^2.0.0 from react-mixin dependencies
+268 silly prepareForInstallMany adding smart-mixin@^1.2.0 from react-mixin dependencies
+269 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/package.json
+270 info linkStuff reactfire@1.0.0
+271 silly linkStuff reactfire@1.0.0 has /Users/legatumuser/Tekuma/art-onboarding/node_modules as its parent node_modules
+272 verbose linkBins reactfire@1.0.0
+273 verbose linkMans reactfire@1.0.0
+274 verbose rebuildBundles reactfire@1.0.0
+275 silly cache add args [ 'object-assign@^2.0.0', null ]
+276 verbose cache add spec object-assign@^2.0.0
+277 silly cache add args [ 'smart-mixin@^1.2.0', null ]
+278 verbose cache add spec smart-mixin@^1.2.0
+279 silly cache add parsed spec Result {
+279 silly cache add   raw: 'object-assign@^2.0.0',
+279 silly cache add   scope: null,
+279 silly cache add   name: 'object-assign',
+279 silly cache add   rawSpec: '^2.0.0',
+279 silly cache add   spec: '>=2.0.0 <3.0.0',
+279 silly cache add   type: 'range' }
+280 silly addNamed object-assign@>=2.0.0 <3.0.0
+281 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for object-assign
+282 silly addNameRange { name: 'object-assign',
+282 silly addNameRange   range: '>=2.0.0 <3.0.0',
+282 silly addNameRange   hasData: false }
+283 silly mapToRegistry name object-assign
+284 silly mapToRegistry using default registry
+285 silly mapToRegistry registry https://registry.npmjs.org/
+286 silly mapToRegistry data Result {
+286 silly mapToRegistry   raw: 'object-assign',
+286 silly mapToRegistry   scope: null,
+286 silly mapToRegistry   name: 'object-assign',
+286 silly mapToRegistry   rawSpec: '',
+286 silly mapToRegistry   spec: 'latest',
+286 silly mapToRegistry   type: 'tag' }
+287 silly mapToRegistry uri https://registry.npmjs.org/object-assign
+288 verbose addNameRange registry:https://registry.npmjs.org/object-assign not in flight; fetching
+289 silly cache add parsed spec Result {
+289 silly cache add   raw: 'smart-mixin@^1.2.0',
+289 silly cache add   scope: null,
+289 silly cache add   name: 'smart-mixin',
+289 silly cache add   rawSpec: '^1.2.0',
+289 silly cache add   spec: '>=1.2.0 <2.0.0',
+289 silly cache add   type: 'range' }
+290 silly addNamed smart-mixin@>=1.2.0 <2.0.0
+291 verbose addNamed ">=1.2.0 <2.0.0" is a valid semver range for smart-mixin
+292 silly addNameRange { name: 'smart-mixin', range: '>=1.2.0 <2.0.0', hasData: false }
+293 silly mapToRegistry name smart-mixin
+294 silly mapToRegistry using default registry
+295 silly mapToRegistry registry https://registry.npmjs.org/
+296 silly mapToRegistry data Result {
+296 silly mapToRegistry   raw: 'smart-mixin',
+296 silly mapToRegistry   scope: null,
+296 silly mapToRegistry   name: 'smart-mixin',
+296 silly mapToRegistry   rawSpec: '',
+296 silly mapToRegistry   spec: 'latest',
+296 silly mapToRegistry   type: 'tag' }
+297 silly mapToRegistry uri https://registry.npmjs.org/smart-mixin
+298 verbose addNameRange registry:https://registry.npmjs.org/smart-mixin not in flight; fetching
+299 info install reactfire@1.0.0
+300 verbose request uri https://registry.npmjs.org/smart-mixin
+301 verbose request no auth needed
+302 info attempt registry request try #1 at 8:25:24 PM
+303 http request GET https://registry.npmjs.org/smart-mixin
+304 info postinstall reactfire@1.0.0
+305 verbose unlock done using /Users/legatumuser/.npm/_locks/reactfire-911d4bf4bf74f34c.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/reactfire
+306 verbose request uri https://registry.npmjs.org/object-assign
+307 verbose request no auth needed
+308 info attempt registry request try #1 at 8:25:24 PM
+309 verbose etag "9L2U2J0KG72PZNIUOFJKDNGYP"
+310 http request GET https://registry.npmjs.org/object-assign
+311 http 200 https://registry.npmjs.org/smart-mixin
+312 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+312 verbose headers   etag: '"1FQEPMXCC3IEH8389IGYQHN6P"',
+312 verbose headers   'content-type': 'application/json',
+312 verbose headers   'content-encoding': 'gzip',
+312 verbose headers   'cache-control': 'max-age=300',
+312 verbose headers   'content-length': '3313',
+312 verbose headers   'accept-ranges': 'bytes',
+312 verbose headers   date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+312 verbose headers   via: '1.1 varnish',
+312 verbose headers   age: '177',
+312 verbose headers   connection: 'keep-alive',
+312 verbose headers   'x-served-by': 'cache-iad2130-IAD',
+312 verbose headers   'x-cache': 'HIT',
+312 verbose headers   'x-cache-hits': '1',
+312 verbose headers   'x-timer': 'S1467246324.624660,VS0,VE0',
+312 verbose headers   vary: 'Accept-Encoding' }
+313 silly get cb [ 200,
+313 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+313 silly get     etag: '"1FQEPMXCC3IEH8389IGYQHN6P"',
+313 silly get     'content-type': 'application/json',
+313 silly get     'content-encoding': 'gzip',
+313 silly get     'cache-control': 'max-age=300',
+313 silly get     'content-length': '3313',
+313 silly get     'accept-ranges': 'bytes',
+313 silly get     date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+313 silly get     via: '1.1 varnish',
+313 silly get     age: '177',
+313 silly get     connection: 'keep-alive',
+313 silly get     'x-served-by': 'cache-iad2130-IAD',
+313 silly get     'x-cache': 'HIT',
+313 silly get     'x-cache-hits': '1',
+313 silly get     'x-timer': 'S1467246324.624660,VS0,VE0',
+313 silly get     vary: 'Accept-Encoding' } ]
+314 verbose get saving smart-mixin to /Users/legatumuser/.npm/registry.npmjs.org/smart-mixin/.cache.json
+315 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+316 silly addNameRange number 2 { name: 'smart-mixin', range: '>=1.2.0 <2.0.0', hasData: true }
+317 silly addNameRange versions [ 'smart-mixin',
+317 silly addNameRange   [ '1.0.0', '1.0.2', '1.0.3', '1.1.0', '1.2.0', '1.2.1', '2.0.0' ] ]
+318 silly addNamed smart-mixin@1.2.1
+319 verbose addNamed "1.2.1" is a plain semver version for smart-mixin
+320 silly mapToRegistry name smart-mixin
+321 silly mapToRegistry using default registry
+322 silly mapToRegistry registry https://registry.npmjs.org/
+323 silly mapToRegistry data Result {
+323 silly mapToRegistry   raw: 'smart-mixin',
+323 silly mapToRegistry   scope: null,
+323 silly mapToRegistry   name: 'smart-mixin',
+323 silly mapToRegistry   rawSpec: '',
+323 silly mapToRegistry   spec: 'latest',
+323 silly mapToRegistry   type: 'tag' }
+324 silly mapToRegistry uri https://registry.npmjs.org/smart-mixin
+325 verbose addRemoteTarball https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz not in flight; adding
+326 verbose addRemoteTarball [ 'https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz',
+326 verbose addRemoteTarball   '11a2b3e4628dfee16ac9cb51edd301be21be1452' ]
+327 info retry fetch attempt 1 at 8:25:24 PM
+328 info attempt registry request try #1 at 8:25:24 PM
+329 http fetch GET https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz
+330 http 304 https://registry.npmjs.org/object-assign
+331 verbose headers { date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+331 verbose headers   via: '1.1 varnish',
+331 verbose headers   'cache-control': 'max-age=300',
+331 verbose headers   etag: '"9L2U2J0KG72PZNIUOFJKDNGYP"',
+331 verbose headers   age: '94',
+331 verbose headers   connection: 'keep-alive',
+331 verbose headers   'x-served-by': 'cache-iad2148-IAD',
+331 verbose headers   'x-cache': 'HIT',
+331 verbose headers   'x-cache-hits': '5',
+331 verbose headers   'x-timer': 'S1467246324.634930,VS0,VE0',
+331 verbose headers   vary: 'Accept-Encoding' }
+332 silly get cb [ 304,
+332 silly get   { date: 'Thu, 30 Jun 2016 00:25:24 GMT',
+332 silly get     via: '1.1 varnish',
+332 silly get     'cache-control': 'max-age=300',
+332 silly get     etag: '"9L2U2J0KG72PZNIUOFJKDNGYP"',
+332 silly get     age: '94',
+332 silly get     connection: 'keep-alive',
+332 silly get     'x-served-by': 'cache-iad2148-IAD',
+332 silly get     'x-cache': 'HIT',
+332 silly get     'x-cache-hits': '5',
+332 silly get     'x-timer': 'S1467246324.634930,VS0,VE0',
+332 silly get     vary: 'Accept-Encoding' } ]
+333 verbose etag https://registry.npmjs.org/object-assign from cache
+334 verbose get saving object-assign to /Users/legatumuser/.npm/registry.npmjs.org/object-assign/.cache.json
+335 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+336 http fetch 200 https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz
+337 silly addNameRange number 2 { name: 'object-assign', range: '>=2.0.0 <3.0.0', hasData: true }
+338 silly addNameRange versions [ 'object-assign',
+338 silly addNameRange   [ '0.1.0',
+338 silly addNameRange     '0.1.1',
+338 silly addNameRange     '0.1.2',
+338 silly addNameRange     '0.2.0',
+338 silly addNameRange     '0.2.1',
+338 silly addNameRange     '0.2.2',
+338 silly addNameRange     '0.3.0',
+338 silly addNameRange     '0.3.1',
+338 silly addNameRange     '0.4.0',
+338 silly addNameRange     '1.0.0',
+338 silly addNameRange     '2.0.0',
+338 silly addNameRange     '3.0.0',
+338 silly addNameRange     '2.1.1',
+338 silly addNameRange     '4.0.0',
+338 silly addNameRange     '4.0.1',
+338 silly addNameRange     '4.1.0' ] ]
+339 silly addNamed object-assign@2.1.1
+340 verbose addNamed "2.1.1" is a plain semver version for object-assign
+341 silly fetchAndShaCheck shasum 11a2b3e4628dfee16ac9cb51edd301be21be1452
+342 verbose addTmpTarball /var/folders/l6/t11t2jls09542q8nqvt8rqrm0000gp/T/npm-1621-35ffa7e4/registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz not in flight; adding
+343 verbose addTmpTarball already have metadata; skipping unpack for smart-mixin@1.2.1
+344 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+345 silly cache afterAdd smart-mixin@1.2.1
+346 verbose afterAdd /Users/legatumuser/.npm/smart-mixin/1.2.1/package/package.json not in flight; writing
+347 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+348 verbose afterAdd /Users/legatumuser/.npm/smart-mixin/1.2.1/package/package.json written
+349 silly cache afterAdd object-assign@2.1.1
+350 verbose afterAdd /Users/legatumuser/.npm/object-assign/2.1.1/package/package.json not in flight; writing
+351 verbose correctMkdir /Users/legatumuser/.npm correctMkdir not in flight; initializing
+352 verbose afterAdd /Users/legatumuser/.npm/object-assign/2.1.1/package/package.json written
+353 silly install resolved [ { name: 'smart-mixin',
+353 silly install resolved     version: '1.2.1',
+353 silly install resolved     description: '![travis](https://travis-ci.org/brigand/smart-mixin.svg)',
+353 silly install resolved     main: 'index.js',
+353 silly install resolved     scripts: { test: 'mocha test/*' },
+353 silly install resolved     keywords: [ 'class', 'es6', 'mixin', 'behavior' ],
+353 silly install resolved     author: { name: 'Frankie Bagnardi', email: 'f.bagnardi@gmail.com' },
+353 silly install resolved     license: 'MIT',
+353 silly install resolved     devDependencies:
+353 silly install resolved      { '6to5ify': '^4.0.0',
+353 silly install resolved        'expect.js': '^0.3.1',
+353 silly install resolved        mocha: '^2.1.0',
+353 silly install resolved        sinon: '^1.12.2' },
+353 silly install resolved     gitHead: '0c8bb0356246f876adbb65b1ef87fc26aa846409',
+353 silly install resolved     _id: 'smart-mixin@1.2.1',
+353 silly install resolved     _shasum: '11a2b3e4628dfee16ac9cb51edd301be21be1452',
+353 silly install resolved     _from: 'smart-mixin@>=1.2.0 <2.0.0',
+353 silly install resolved     _npmVersion: '2.13.0',
+353 silly install resolved     _nodeVersion: '0.10.28',
+353 silly install resolved     _npmUser: { name: 'greenjello', email: 'f.bagnardi@gmail.com' },
+353 silly install resolved     maintainers: [ [Object] ],
+353 silly install resolved     dist:
+353 silly install resolved      { shasum: '11a2b3e4628dfee16ac9cb51edd301be21be1452',
+353 silly install resolved        tarball: 'https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz' },
+353 silly install resolved     directories: {},
+353 silly install resolved     _resolved: 'https://registry.npmjs.org/smart-mixin/-/smart-mixin-1.2.1.tgz' },
+353 silly install resolved   { name: 'object-assign',
+353 silly install resolved     version: '2.1.1',
+353 silly install resolved     description: 'ES6 Object.assign() ponyfill',
+353 silly install resolved     license: 'MIT',
+353 silly install resolved     repository:
+353 silly install resolved      { type: 'git',
+353 silly install resolved        url: 'git+https://github.com/sindresorhus/object-assign.git' },
+353 silly install resolved     author:
+353 silly install resolved      { name: 'Sindre Sorhus',
+353 silly install resolved        email: 'sindresorhus@gmail.com',
+353 silly install resolved        url: 'http://sindresorhus.com' },
+353 silly install resolved     engines: { node: '>=0.10.0' },
+353 silly install resolved     scripts: { test: 'mocha' },
+353 silly install resolved     files: [ 'index.js' ],
+353 silly install resolved     keywords:
+353 silly install resolved      [ 'object',
+353 silly install resolved        'assign',
+353 silly install resolved        'extend',
+353 silly install resolved        'properties',
+353 silly install resolved        'es6',
+353 silly install resolved        'ecmascript',
+353 silly install resolved        'harmony',
+353 silly install resolved        'ponyfill',
+353 silly install resolved        'prollyfill',
+353 silly install resolved        'polyfill',
+353 silly install resolved        'shim',
+353 silly install resolved        'browser' ],
+353 silly install resolved     devDependencies: { mocha: '*' },
+353 silly install resolved     gitHead: '4cd0365f5a78dd369473ca0bbd31f7b234148c42',
+353 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/object-assign/issues' },
+353 silly install resolved     homepage: 'https://github.com/sindresorhus/object-assign',
+353 silly install resolved     _id: 'object-assign@2.1.1',
+353 silly install resolved     _shasum: '43c36e5d569ff8e4816c4efa8be02d26967c18aa',
+353 silly install resolved     _from: 'object-assign@>=2.0.0 <3.0.0',
+353 silly install resolved     _npmVersion: '2.10.1',
+353 silly install resolved     _nodeVersion: '0.12.4',
+353 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+353 silly install resolved     dist:
+353 silly install resolved      { shasum: '43c36e5d569ff8e4816c4efa8be02d26967c18aa',
+353 silly install resolved        tarball: 'https://registry.npmjs.org/object-assign/-/object-assign-2.1.1.tgz' },
+353 silly install resolved     maintainers: [ [Object] ],
+353 silly install resolved     directories: {},
+353 silly install resolved     _resolved: 'https://registry.npmjs.org/object-assign/-/object-assign-2.1.1.tgz',
+353 silly install resolved     readme: 'ERROR: No README data found!' } ]
+354 info install smart-mixin@1.2.1 into /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+355 info install object-assign@2.1.1 into /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+356 info installOne smart-mixin@1.2.1
+357 verbose installOne of smart-mixin to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin not in flight; installing
+358 verbose correctMkdir /Users/legatumuser/.npm/_locks correctMkdir not in flight; initializing
+359 info installOne object-assign@2.1.1
+360 verbose installOne of object-assign to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin not in flight; installing
+361 verbose correctMkdir /Users/legatumuser/.npm/_locks correctMkdir not in flight; initializing
+362 verbose lock using /Users/legatumuser/.npm/_locks/smart-mixin-1ae5c603a2145b4f.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+363 silly install write writing smart-mixin 1.2.1 to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+364 verbose lock using /Users/legatumuser/.npm/_locks/object-assign-7e585aa47d6d8314.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+365 silly install write writing object-assign 2.1.1 to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+366 verbose unbuild node_modules/react-mixin/node_modules/smart-mixin
+367 verbose unbuild node_modules/react-mixin/node_modules/object-assign
+368 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin is being purged from base /Users/legatumuser/Tekuma/art-onboarding
+369 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+370 verbose tar unpack /Users/legatumuser/.npm/smart-mixin/1.2.1/package.tgz
+371 verbose tar unpacking to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+372 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin is being purged
+373 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+374 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign is being purged from base /Users/legatumuser/Tekuma/art-onboarding
+375 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+376 silly gunzTarPerm modes [ '755', '644' ]
+377 verbose tar unpack /Users/legatumuser/.npm/object-assign/2.1.1/package.tgz
+378 verbose tar unpacking to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+379 silly gentlyRm /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign is being purged
+380 verbose gentlyRm don't care about contents; nuking /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+381 silly gunzTarPerm modes [ '755', '644' ]
+382 silly gunzTarPerm extractEntry package.json
+383 silly gunzTarPerm extractEntry .npmignore
+384 silly gunzTarPerm extractEntry README.md
+385 silly gunzTarPerm extractEntry index.js
+386 silly gunzTarPerm extractEntry .travis.yml
+387 silly gunzTarPerm extractEntry example/readme/bundle.js
+388 silly gunzTarPerm extractEntry example/readme/index.js
+389 silly gunzTarPerm extractEntry example/readme/build.sh
+390 silly gunzTarPerm extractEntry example/readme/index.html
+391 silly gunzTarPerm extractEntry package.json
+392 silly gunzTarPerm extractEntry index.js
+393 silly gunzTarPerm extractEntry license
+394 silly gunzTarPerm extractEntry readme.md
+395 verbose write writing to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign/package.json
+396 info preinstall object-assign@2.1.1
+397 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign/package.json
+398 verbose write writing to /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin/package.json
+399 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign/package.json
+400 info preinstall smart-mixin@1.2.1
+401 silly install resolved []
+402 verbose about to build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+403 info build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+404 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin/package.json
+405 info linkStuff object-assign@2.1.1
+406 silly linkStuff object-assign@2.1.1 has /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules as its parent node_modules
+407 verbose readDependencies loading dependencies from /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin/package.json
+408 verbose linkBins object-assign@2.1.1
+409 verbose linkMans object-assign@2.1.1
+410 verbose rebuildBundles object-assign@2.1.1
+411 info install object-assign@2.1.1
+412 info postinstall object-assign@2.1.1
+413 silly install resolved []
+414 verbose about to build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+415 info build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+416 verbose unlock done using /Users/legatumuser/.npm/_locks/object-assign-7e585aa47d6d8314.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/object-assign
+417 info linkStuff smart-mixin@1.2.1
+418 silly linkStuff smart-mixin@1.2.1 has /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules as its parent node_modules
+419 verbose linkBins smart-mixin@1.2.1
+420 verbose linkMans smart-mixin@1.2.1
+421 verbose rebuildBundles smart-mixin@1.2.1
+422 info install smart-mixin@1.2.1
+423 info postinstall smart-mixin@1.2.1
+424 verbose unlock done using /Users/legatumuser/.npm/_locks/smart-mixin-1ae5c603a2145b4f.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin/node_modules/smart-mixin
+425 verbose about to build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+426 info build /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+427 info linkStuff react-mixin@2.0.2
+428 silly linkStuff react-mixin@2.0.2 has /Users/legatumuser/Tekuma/art-onboarding/node_modules as its parent node_modules
+429 verbose linkBins react-mixin@2.0.2
+430 verbose linkMans react-mixin@2.0.2
+431 verbose rebuildBundles react-mixin@2.0.2
+432 verbose rebuildBundles [ 'object-assign', 'smart-mixin' ]
+433 info install react-mixin@2.0.2
+434 info postinstall react-mixin@2.0.2
+435 verbose unlock done using /Users/legatumuser/.npm/_locks/react-mixin-fe7c957358aa0e15.lock for /Users/legatumuser/Tekuma/art-onboarding/node_modules/react-mixin
+436 info build /Users/legatumuser/Tekuma/art-onboarding
+437 info linkStuff art-onboarder@1.0.0
+438 silly linkStuff art-onboarder@1.0.0 has /Users/legatumuser/Tekuma as its parent node_modules
+439 verbose linkBins art-onboarder@1.0.0
+440 verbose linkMans art-onboarder@1.0.0
+441 verbose rebuildBundles art-onboarder@1.0.0
+442 verbose rebuildBundles [ '.DS_Store',
+442 verbose rebuildBundles   '.bin',
+442 verbose rebuildBundles   'alt',
+442 verbose rebuildBundles   'alt-utils',
+442 verbose rebuildBundles   'assets',
+442 verbose rebuildBundles   'babel-core',
+442 verbose rebuildBundles   'babel-loader',
+442 verbose rebuildBundles   'babel-preset-es2015',
+442 verbose rebuildBundles   'babel-preset-react',
+442 verbose rebuildBundles   'babel-preset-react-hmre',
+442 verbose rebuildBundles   'babel-preset-survivejs-kanban',
+442 verbose rebuildBundles   'css-loader',
+442 verbose rebuildBundles   'file-loader',
+442 verbose rebuildBundles   'firebase',
+442 verbose rebuildBundles   'imports-loader',
+442 verbose rebuildBundles   'material-ui',
+442 verbose rebuildBundles   'node-uuid',
+442 verbose rebuildBundles   'npm-install-webpack-plugin',
+442 verbose rebuildBundles   'raw-loader',
+442 verbose rebuildBundles   'react',
+442 verbose rebuildBundles   'react-addons-update',
+442 verbose rebuildBundles   'react-bootstrap-confirm',
+442 verbose rebuildBundles   'react-confirm',
+442 verbose rebuildBundles   'react-dnd',
+442 verbose rebuildBundles   'react-dnd-html5-backend',
+442 verbose rebuildBundles   'react-dom',
+442 verbose rebuildBundles   'react-dropzone',
+442 verbose rebuildBundles   'react-mixin',
+442 verbose rebuildBundles   'react-router',
+442 verbose rebuildBundles   'react-tap-event-plugin',
+442 verbose rebuildBundles   'react-tooltip',
+442 verbose rebuildBundles   'reactfire',
+442 verbose rebuildBundles   'style-loader',
+442 verbose rebuildBundles   'url-loader',
+442 verbose rebuildBundles   'webpack',
+442 verbose rebuildBundles   'webpack-dev-server',
+442 verbose rebuildBundles   'webpack-merge' ]
+443 info install art-onboarder@1.0.0
+444 info postinstall art-onboarder@1.0.0
+445 info prepublish art-onboarder@1.0.0
+446 verbose validateInstall loading /Users/legatumuser/Tekuma/art-onboarding/package.json for validation
+447 verbose stack Error: The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
+447 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+447 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+447 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+447 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+447 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+447 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+447 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+447 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+447 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+447 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+448 verbose cwd /Users/legatumuser/Tekuma/art-onboarding
+449 error Darwin 14.5.0
+450 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+451 error node v4.4.7
+452 error npm  v2.15.8
+453 error code EPEERINVALID
+454 error peerinvalid The package react-dom@15.1.0 does not satisfy its siblings' peerDependencies requirements!
+454 error peerinvalid Peer material-ui@0.15.1 wants react-dom@^15.0.0
+454 error peerinvalid Peer react-confirm@0.1.13 wants react-dom@^0.14.7
+454 error peerinvalid Peer react-tooltip@3.0.7 wants react-dom@^0.14.0 || ^15.0.0
+455 verbose exit [ 1, true ]
