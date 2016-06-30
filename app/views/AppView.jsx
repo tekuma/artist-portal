@@ -1,14 +1,17 @@
-import React from 'react';
-import HiddenNav from '../components/hidden_nav/HiddenNav';
-import HamburgerIcon from '../components/hamburger_icon/HamburgerIcon';
-import RootAppLayout from '../components/app-layouts/RootAppLayout';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
-import UploadDialog from '../components/app-layouts/UploadDialog';
-import ArtworkStore from '../stores/ArtworkStore';
+'use strict';
+// Libs
+import React          from 'react';
+import Firebase       from 'firebase';
 
-import Firebase from 'firebase';
+// Views and Files
+import HiddenNav         from '../components/hidden_nav/HiddenNav';
+import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
+import RootAppLayout     from '../components/app-layouts/RootAppLayout';
+import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
+import UploadDialog      from '../components/app-layouts/UploadDialog';
+import ArtworkStore      from '../stores/ArtworkStore';
+import HTML5Backend      from 'react-dnd-html5-backend';
+import {DragDropContext} from 'react-dnd';
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -37,9 +40,23 @@ export default class AppView extends React.Component {
         };
     }
 
+    componentWillMount() {
+        const thisUID = firebase.auth().currentUser.uid;
 
 
+        firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
+            this.setState({userInfo: snapshot.val()})
+            console.log("Hello world, this is this", this);
+        }, function(errorStuff){
+            console.log(errorStuff);
+        }, this);
+    }
+
+
+    componentDidMount() {
+        //TODO
+    }
 
     render() {
         return (
@@ -77,9 +94,18 @@ export default class AppView extends React.Component {
     }
 
 
+// -------------- METHODS -------------- //
 
-
-// -------------- FUNCTIONS -------------- //
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    setUserInfo = (snapshot) => {
+        console.log(">>>data: ", snapshot.val());
+        this.setState({userInfo:snapshot.val()});
+        console.log(this.state.userInfo);
+    }
 
     toggleNav = () => {
         this.setState({
