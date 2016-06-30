@@ -15,7 +15,6 @@ export default class LandingPageView extends React.Component {
         this.state = {
             step       : 1
             };
-
     }
 
 
@@ -51,5 +50,3 @@ export default class LandingPageView extends React.Component {
     }
 
 }
-
-

@@ -1,6 +1,5 @@
 import React    from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
-import Link     from 'react-router';
 
 export default class LandingPageLayout extends React.Component {
     constructor(props) {
