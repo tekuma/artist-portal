@@ -1,9 +1,9 @@
-import React    from 'react';
+'use strict';
 import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayoutOne     from '../components/landing-layouts/SignUpLayoutOne';
 import SignUpLayoutTwo     from '../components/landing-layouts/SignUpLayoutTwo';
 import {Popover} from 'react-bootstrap';
-
+import React             from 'react';
 
 
 /**
@@ -33,7 +33,7 @@ export default class LandingPageView extends React.Component {
     }
 
 
-// ---functions ---
+    ////  --------   #Methods ----------------------------
 
     landingPageLayout = () => {
         return(
@@ -189,6 +189,10 @@ export default class LandingPageView extends React.Component {
         );
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     nextStep = () => {
         this.setState({
             step: this.state.step + 1
@@ -234,5 +238,4 @@ export default class LandingPageView extends React.Component {
             this.props.login(data);
         }
     }
-
 }
