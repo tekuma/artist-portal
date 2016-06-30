@@ -1,9 +1,10 @@
 'use strict';
-// Import Libs
+// Libs
 import React          from 'react';
 import Firebase       from 'firebase';
-import Rebase         from 're-base'
-// Import Views and Files
+// import Rebase         from 're-base'
+
+// Views and Files
 import HiddenNav         from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
 import RootAppLayout     from '../components/app-layouts/RootAppLayout';
@@ -13,8 +14,6 @@ import ArtworkStore      from '../stores/ArtworkStore';
 import HTML5Backend      from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 
-
-var base = Rebase.createClass("https://artist-tekuma-4a697.firebaseio.com");
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -38,22 +37,24 @@ export default class AppView extends React.Component {
     }
 
 
-    componentDidMount() {
-        const thisUID  = firebase.auth().currentUser.uid;
-        this.ref = base.syncState('onboarders/' + thisUID,{
-            context: this,
-            state: 'list',
-            asArray: true,
-            then(){
-                this.setState({loading: false})
-            }
-        });
-    }
-
-
     componentWillMount() {
-        base.removeBinding(this.ref);
+        const thisUID = firebase.auth().currentUser.uid;
+
+
+        firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
+
+            this.setState({userInfo: snapshot.val()})
+            console.log("Hello world, this is this", this);
+        }, function(errorStuff){
+            console.log(errorStuff);
+        }, this);
     }
+
+
+    componentDidMount() {
+        //TODO
+    }
+
 
 
     render() {
@@ -96,14 +97,17 @@ export default class AppView extends React.Component {
 // -------------- METHODS -------------- //
 
 
+
+
+
     /**
      * [description]
      * @param  {[type]} data [description]
      * @return {[type]}      [description]
      */
-    setUserInfo = (data) => {
-        console.log(">>>data: ", data);
-        this.setState({userInfo:data});
+    setUserInfo = (snapshot) => {
+        console.log(">>>data: ", snapshot.val());
+        this.setState({userInfo:snapshot.val()});
         console.log(this.state.userInfo);
     }
 
@@ -173,4 +177,5 @@ export default class AppView extends React.Component {
             currentEditArtworkInfo: info
         });
     }
+
 }

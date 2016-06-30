@@ -1,9 +1,9 @@
 'use strict';
-// Import Libs
+// Libs
 import React          from 'react';
 import Firebase       from 'firebase';
-import Rebase         from 're-base'
-// Import Views
+// import Rebase         from 're-base'
+// Views
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ForgotPasswordView from './views/ForgotPasswordView';

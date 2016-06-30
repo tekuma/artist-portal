@@ -3,7 +3,7 @@ import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayoutOne     from '../components/landing-layouts/SignUpLayoutOne';
 import SignUpLayoutTwo     from '../components/landing-layouts/SignUpLayoutTwo';
 import {Popover} from 'react-bootstrap';
-import React             from 'react';
+import React               from 'react';
 
 
 /**
