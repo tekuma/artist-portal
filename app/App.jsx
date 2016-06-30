@@ -31,14 +31,20 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user   : null,
-            errors : []
+            user : null,
+            errors : [],
+            registration : {}
         };
     } //END constructor
 
+    shouldComponentUpdate(nestProps, nextState) {
+      return nextState.user != null;
+    }
+
     render() {
         console.log("||>> Rendering...");
-        if (this.state.user !== null) {
+
+        if (this.state.user !== null && this.state.errors.length == 0) {
           // User is signed in.
           console.log(">> TRUE!");
           return this.artistPortal();
@@ -87,8 +93,10 @@ export default class App extends React.Component {
      */
     artistPortal = () => {
         console.log("in portal function");
+        console.log("State", this.state);
         return(
-            <AppView />
+            <AppView
+              user={this.state.user} />
         )
     }
 
@@ -101,12 +109,33 @@ export default class App extends React.Component {
         return(
             <LandingPageView
                 authenticateWithGoogle={this.authenticateWithGoogle}
-
+                saveValues={this.saveValues}
+                submitRegistration={this.submitRegistration}
+                user={this.state.user}
             />
         )
     }
 
+    saveValues = (data) => {
 
+        this.setState({
+            registration: Object.assign({}, this.state.registration, data)
+        });
+    }
+
+    submitRegistration = () => {
+
+        firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            this.state.errors.push(error);
+        });
+
+        var user = firebase.auth().currentUser;
+
+        this.setState({user});
+    }
 }
 
 

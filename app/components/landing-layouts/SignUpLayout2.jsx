@@ -105,7 +105,8 @@ export default class SignUpLayout2 extends React.Component {
             data.bio = bio;
             data.location = location;
             data.portfolio = portfolio;
-            this.props.submitRegistration(data);
+            this.props.saveValues(data);
+            this.props.submitRegistration();
         }
     }
 }
