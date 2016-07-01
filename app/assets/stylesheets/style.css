@@ -1800,7 +1800,6 @@ login-button.left {
 	display: flex;
 	vertical-align: top;
 	width: 320px;
-	min-width: 357px;
 	margin: 0 auto;
 }
 
@@ -2112,7 +2111,7 @@ login-button.left {
 .edit-artwork-yes h2 {
 	color: #ffffff;
 	margin: 0 auto;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
@@ -2144,7 +2143,7 @@ login-button.left {
 .edit-artwork-no h2{
 	color: #ffffff;
 	margin: 0 auto;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
@@ -2348,111 +2347,30 @@ login-button.left {
 	width: 405px;
 }
 
-
-/*========================================== */
-
-/* Animations */
-
-
-@-webkit-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@-moz-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@-o-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
 /*========================================== */
 
 /* Media Queries */
+@media (max-width: 560px) {
+	.signup-form .top-form,
+	.signup-form .bottom-form,
+	.signup-form .social-wrapper {
+		width: 265px;
+		flex-direction: column;
+	}
+
+	.signup-form .top-form {
+		margin-top: 10px;
+	}
+
+	.social-wrapper .social-button {
+		flex: 1 1 100%;
+		-webkit-flex: 1 1 100%;
+	}
+
+	#email-landing {
+		width: 250px;
+	}
+}
 
 @media (min-width: 390px) and (max-width: 470px) {
   #tekuma-logo-image {
@@ -2463,6 +2381,58 @@ login-button.left {
 	  width: 120px
   }
 }
+
+@media (max-width: 450px) {
+	.artwork-form fieldset ul li {
+		text-align: center;
+	}
+
+	.artwork-form fieldset ul li label:not(.checkbox) {
+		width: 100%;
+		text-align: center;
+	}
+
+	.artwork-form input:not([type='radio']) {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	#artwork-description {
+		width: 250px;
+		height: 50px;
+	}
+
+	.artwork-form fieldset ul {
+		width: 270px;
+	}
+
+	.artwork-form fieldset ul li {
+		width: 250px;
+	}
+
+	.artwork-form {
+		width: 270px;
+	}
+
+	.edit-artwork-content {
+		width: 300px !important;
+	}
+
+	.edit-artwork-title {
+		display: none;
+	}
+
+	.edit-artwork-body {
+		padding: 0 !important;
+		width: 270px;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+
+
+}
+
 
 @media (max-width: 440px) {
   main {
