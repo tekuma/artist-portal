@@ -4,6 +4,7 @@ import SignUpLayoutOne     from '../components/landing-layouts/SignUpLayoutOne';
 import SignUpLayoutTwo     from '../components/landing-layouts/SignUpLayoutTwo';
 import {Popover} from 'react-bootstrap';
 import React               from 'react';
+import uuid from 'node-uuid';
 
 
 /**
@@ -59,6 +60,7 @@ export default class LandingPageView extends React.Component {
                     className="login-popover"
                     style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                     placement="bottom"
+                    id = {uuid.v4()}
                     title="Have an account?">
                     <ul>
                         <li>
@@ -123,6 +125,7 @@ export default class LandingPageView extends React.Component {
                   className="login-popover"
                   style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                   placement="bottom"
+                  id = {uuid.v4()}
                   title="Have an account?">
                   <ul>
                       <li>
@@ -188,6 +191,7 @@ export default class LandingPageView extends React.Component {
                   className="login-popover"
                   style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
                   placement="bottom"
+                  id = {uuid.v4()}
                   title="Have an account?">
                   <ul>
                       <li>

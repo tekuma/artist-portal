@@ -202,6 +202,7 @@ export default class App extends React.Component {
             // Handle Errors here.
             var errorMessage = error.message;
             this.state.errors.push(errorMessage);
+            console.log(error.message);
         });
 
         var user = firebase.auth().currentUser;

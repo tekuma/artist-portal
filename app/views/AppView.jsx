@@ -53,7 +53,7 @@ export default class AppView extends React.Component {
         //TODO #RFC change strings to global vars at begining of file.
         firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
-            this.setState({userInfo: snapshot.val()})
+            // this.setState({userInfo: snapshot.val()})
             console.log("Hello world, this is this", this);
         }, function(errorStuff){
             console.log(errorStuff);

@@ -1007,6 +1007,7 @@ main {
 	height: 70px;
 	background: #ffffff;
 	padding: 12px 15px;
+	text-align: left;
 }
 
 .artwork-name {
@@ -2447,6 +2448,41 @@ login-button.left {
     100% {
       opacity: .2;
     }
+}
+
+/*========================================== */
+
+/* Media Queries */
+
+@media (min-width: 390px) and (max-width: 470px) {
+  #tekuma-logo-image {
+	  width: 120px;
+  }
+
+  .tekuma-logo{
+	  width: 120px
+  }
+}
+
+@media (max-width: 440px) {
+  main {
+	  text-align: center;
+	  padding-top: 90px;
+  }
+
+  .artwork {
+	  width: 90%;
+  }
+}
+
+@media (max-width: 390px) {
+  #tekuma-logo-image {
+	  display: none;
+  }
+
+  .tekuma-logo{
+	  display: none;
+  }
 }
 
 /*========================================== */
