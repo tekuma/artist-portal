@@ -1,7 +1,7 @@
 'use strict';
 // Libs
 import React          from 'react';
-import Firebase       from 'firebase';
+import firebase       from 'firebase';
 // Views and Files    NOTE: Do not include '.jsx'
 import HiddenNav         from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
@@ -54,7 +54,7 @@ export default class AppView extends React.Component {
         firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
             this.setState({userInfo: snapshot.val()})
-            console.log("Hello world, this is this", this);
+            console.log("Hello world, this is the user", this.state.userInfo);
         }, function(errorStuff){
             console.log(errorStuff);
         }, this);
@@ -140,9 +140,26 @@ export default class AppView extends React.Component {
     }
 
     setUploadedFiles = (files) => {
+        //Upload to firebase,
+        //return pointer
+        console.log("USER :::::::::::");
+        // console.log(files);
+        let thisUID = firebase.auth().currentUser.uid;
+        let bucket = firebase.storage().ref("artworks/"+thisUID);
+
+        for (var i = 0; i < files.length; i++) {
+            let thisFile = files[i];
+            //FIXME make unique identifier for files so that if a user
+            //uploads 2 files with same name, we don't shit the bed.
+            let uploadTask = bucket.child(thisFile.name).put(thisFile)
+            if (uploadTask.downloadURL != null) {
+                console.log(">> Upload successful", i);
+            }
+        }
+
         this.setState({
-            uploadedFiles: files,
-            uploadDialogIsOpen: true    // When we set files, we want to open Uplaod Dialog
+            uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
+            uploadedFiles     : files
         });
     }
 
