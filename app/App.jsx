@@ -8,6 +8,7 @@ import LandingPageView    from './views/LandingPageView';
 import ForgotPasswordView from './views/ForgotPasswordView';
 import ResetPasswordView  from './views/ResetPasswordView';
 
+//TODO Remove stores, use Firebase DB
 
 //Initialize Firebase  SDK in root JSX (here)
 var config = {
