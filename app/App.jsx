@@ -90,26 +90,25 @@ export default class App extends React.Component {
         console.log("|+>State:", this.state);
         return(
             <LandingPageView
-                authenticateWithFB    ={this.authenticateWithFB}
-                authenticateWithGoogle={this.authenticateWithGoogle}
-                login                 ={this.login}
-                authenticateWithFB    ={this.authenticateWithFB}
-                submitRegistration    ={this.submitRegistration}
-                saveValues            ={this.saveValues}
-                errors                ={this.state.errors}
-                user                  ={this.state.user}
+                authenticateWithPassword={this.authenticateWithPassword}
+                authenticateWithGoogle  ={this.authenticateWithGoogle}
+                authenticateWithFB      ={this.authenticateWithFB}
+                submitRegistration      ={this.submitRegistration}
+                saveValues              ={this.saveValues}
+                errors                  ={this.state.errors}
+                user                    ={this.state.user}
             />
         )
     }
 
     // #Mutator Methods
 
-    /** TODO rename to setUID()
+    /**
      * NOTE *always use mutator methods to change the state* never
      * change the state directly.
-     * @param  {[String]} user [the users UID]
+     * @param  {[String]} user [the users UID, pointer to DB]
      */
-    setUser = (user) => {
+    setUID = (user) => {
         this.setState({user});
     }
 
@@ -145,12 +144,10 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let user = firebase.auth().currentUser
-        if (user !== null) {
-            console.log("|>> User Obj:", user);
-        }
+        let currentUserUID = firebase.auth().currentUser.uid
+        console.log(currentUserUID);
 
-        this.setUser(user);
+        this.setUID(currentUserUID);
     }
 
     /**
@@ -171,13 +168,10 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let user = firebase.auth().currentUser
-        if (user != null) {
-            console.log("|>> User Obj:", user);
-        }
+        let currentUserUID = firebase.auth().currentUser.uid
+        console.log(currentUserUID);
 
-        console.log("facebook user", user);
-        this.setUser(user);
+        this.setUID(currentUserUID);
     }
 
     /**
@@ -192,11 +186,10 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let user = firebase.auth().currentUser;
-        if (user != null) {
-            console.log("|>> User Obj:", user);
-        }
-        this.setState({user});
+        let currentUserUID = firebase.auth().currentUser.uid
+        console.log(currentUserUID);
+
+        this.setUID(currentUserUID);
     }
 
     /** TODO rename to authenticateWithPassword
@@ -204,7 +197,7 @@ export default class App extends React.Component {
      * @param  {[type]} data [description]
      * @return {[type]}      [description]
      */
-    login = (data) => {
+    authenticateWithPassword = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
             // Handle Errors here.
             var errorMessage = error.message;
@@ -212,7 +205,7 @@ export default class App extends React.Component {
         });
 
         var user = firebase.auth().currentUser;
-        this.setState({user});
+        this.setUID({user});
     }
 
 }//END App

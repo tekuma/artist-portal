@@ -39,6 +39,10 @@ export default class LandingPageView extends React.Component {
 
     ////  --------   #Methods ----------------------------
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     landingPageLayout = () => {
         return(
           <div>
@@ -101,6 +105,10 @@ export default class LandingPageView extends React.Component {
         );
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     signUpLayoutOne = () => {
         return(
           <div>
@@ -161,6 +169,11 @@ export default class LandingPageView extends React.Component {
         );
     }
 
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     signUpLayoutTwo = () => {
         return(
           <div>
@@ -231,12 +244,21 @@ export default class LandingPageView extends React.Component {
         })
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     togglePopover = () => {
         this.setState({
             popoverIsOpen: !this.state.popoverIsOpen
         });
     }
 
+    /**
+     * [TODO]
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
     onLogin = (e) => {
         e.preventDefault();
 
@@ -262,7 +284,7 @@ export default class LandingPageView extends React.Component {
         if(this.props.errors.length == 0) {
             data.email = email;
             data.password = password;
-            this.props.login(data);
+            this.props.authenticateWithPassword(data);
         }
     }
 }
