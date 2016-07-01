@@ -1,7 +1,7 @@
 'use strict';
 // Libs
 import React          from 'react';
-import Firebase       from 'firebase';
+import firebase       from 'firebase';
 // Views and Files    NOTE: Do not include '.jsx'
 import HiddenNav         from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
@@ -53,8 +53,8 @@ export default class AppView extends React.Component {
         //TODO #RFC change strings to global vars at begining of file.
         firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
-            // this.setState({userInfo: snapshot.val()})
-            console.log("Hello world, this is this", this);
+            this.setState({userInfo: snapshot.val()})
+            console.log("Hello world, this is the user", this.state.userInfo);
         }, function(errorStuff){
             console.log(errorStuff);
         }, this);
@@ -114,12 +114,20 @@ export default class AppView extends React.Component {
         console.log(this.state.userInfo);
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     toggleNav = () => {
         this.setState({
             navIsOpen: !this.state.navIsOpen
         });
     };
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     toggleManager = () => {
 
         this.setState({
@@ -127,33 +135,69 @@ export default class AppView extends React.Component {
         });
     };
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     toggleEditArtworkDialog = () => {
         this.setState({
             editArtworkIsOpen: !this.state.editArtworkIsOpen
         });
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     closeUploadDialog = () => {
         this.setState({
             uploadDialogIsOpen: !this.state.uploadDialogIsOpen
         });
-
-
+        this.clearUploadedFiles();
     }
 
+    /**
+     * This function will take in an array of blobs, then for each
+     * blob, upload into the firebase-storage bucket, then create a
+     * artwork object in the database with a pointer to the uploaded
+     * file.
+     * @param  {[Array]} files [Array of Image blobs from the uploader]
+     */
     setUploadedFiles = (files) => {
+        //Upload to firebase,
+        //return pointer
+        console.log("USER :::::::::::");
+        // console.log(files);
+        let thisUID = firebase.auth().currentUser.uid;
+        let bucket  = firebase.storage().ref("artworks/"+thisUID);
+
+        for (var i = 0; i < files.length; i++) {
+            let thisFile = files[i];
+            //FIXME make unique identifier for files so that if a user
+            //uploads 2 files with same name, we don't shit the bed.
+            let uploadTask = bucket.child(thisFile.name).put(thisFile);
+            console.log("*>> Upload successful", uploadTask.snapshot);
+
+
+        }
+
         this.setState({
-            uploadedFiles: files,
-            uploadDialogIsOpen: true    // When we set files, we want to open Uplaod Dialog
+            uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
+            uploadedFiles     : files
         });
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     clearUploadedFiles = () => {
         this.setState({
-            uploadedFiles: {}
+            uploadedFiles: []
         });
     }
 
+    /** [description] */
     changeAppLayout = (view) => {
 
         if(this.state.navIsOpen) {
@@ -168,12 +212,22 @@ export default class AppView extends React.Component {
         }
     }
 
+    /**
+     * [description]
+     * @param  {[type]} album [description]
+     * @return {[type]}       [description]
+     */
     changeAlbum = (album) => {
         this.setState({
             currentAlbum: album
         });
     }
 
+    /**
+     * [description]
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
     changeCurrentEditArtwork = (id) => {
         var info  = ArtworkStore.getState().artworks.filter(artwork => artwork.id === id)[0]
 
@@ -182,6 +236,11 @@ export default class AppView extends React.Component {
         });
     }
 
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
     editUserProfile = (data) => {
         console.log("entered edit user profile");
         this.setState({
