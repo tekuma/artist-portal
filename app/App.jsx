@@ -21,8 +21,7 @@ firebase.initializeApp(config);
 //Instantiate Provider Objects for Auth()
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
-
-//TODO  Add 'scopes'? to google/fb auth
+//   =>TODO  Add 'scopes'? to google/fb auth
 
 
 export default class App extends React.Component {
@@ -30,11 +29,11 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : null,
-            errors : [],
-            registration : {},
-            login: {},
-            thisUID: null
+            user        : null,
+            errors      : [],
+            registration: {},
+            login       : {},
+            thisUID     : null
         };
     } //END constructor
 
@@ -142,14 +141,13 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerG).catch(function(error) {
             console.log("|>>>> ERROR with Google Auth:");
             console.log(error);
-            var errorMessage = error.message;
-            console.log(errorMessage);
         });
 
         let currentUser = firebase.auth().currentUser;
         console.log(currentUser.uid);
         this.addUserToTekuma(currentUser);
         this.setUID(currentUser.uid);
+
     }
 
     /**

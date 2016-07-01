@@ -11,7 +11,7 @@ import UploadDialog      from '../components/app-layouts/UploadDialog';
 import ArtworkStore      from '../stores/ArtworkStore';
 import HTML5Backend      from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
-// Globa
+
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -165,9 +165,8 @@ export default class AppView extends React.Component {
      */
     setUploadedFiles = (files) => {
         //Upload to firebase,
-        //return pointer
+        //TODO get pointers
         console.log("USER :::::::::::");
-        // console.log(files);
         let thisUID = firebase.auth().currentUser.uid;
         let bucket  = firebase.storage().ref("artworks/"+thisUID);
 
@@ -176,16 +175,52 @@ export default class AppView extends React.Component {
             //FIXME make unique identifier for files so that if a user
             //uploads 2 files with same name, we don't shit the bed.
             let uploadTask = bucket.child(thisFile.name).put(thisFile);
-            console.log("*>> Upload successful", uploadTask.snapshot);
+            //just listen for completion
+            uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                null,
+                null,
+                function() {
+                    console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
+                    let artRef = firebase.database().ref('onboarders/'+thisUID).child('artworks');
+                    let artObjRef = artRef.push();
+                    let path   = artObjRef.toString().split('/');
+                    let thisID = path[path.length -1];
 
+                    let artObject = {
+                        id    : thisID,
+                        image : uploadTask.snapshot.downloadURL,
+                        title : "Default Title",
+                        artist: "Default Arist",
+                        album : "Uploads",
+                        year  : 2018,
+                        description: "default desciprtion stuff stuff",
+                        colors: {
+                            red   : false,
+                            yellow: false,
+                            blue  : false,
+                            green : false,
+                            orange: false,
+                            purple: false,
+                            brown : false,
+                            black : false,
+                            gray  : false,
+                            white : false
+                        },
+                        tags  : "art cool tekuma"
+                    };
+                    artObjRef.set(artObject);
+                }
+            );
 
         }
-
         this.setState({
             uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
             uploadedFiles     : files
         });
     }
+
+
 
     /**
      * [description]
