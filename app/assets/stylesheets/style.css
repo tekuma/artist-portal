@@ -1407,7 +1407,6 @@ textarea.bio {
 	background: #ec167c;
 	border-radius: 5px;
 	cursor: pointer;
-	font-size: 0.9em;
 	box-shadow: 0 5px 10px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.23);
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -1448,6 +1447,7 @@ login-button.left {
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	font-weight: 700;
+	font-size: 1.2em;
 	color: #ffffff;
 	margin: 0;
 	transition: all 0.3s;
@@ -1641,6 +1641,7 @@ login-button.left {
 .social-wrapper .social-button .social-writing h3 {
 	color: #ffffff;
 	font-size: 0.9em;
+	margin: 0;
 }
 
 #email-landing {
@@ -1753,9 +1754,9 @@ login-button.left {
 	font-size: 2em;
 }
 
-.registration-error, .edit-user-error {
+.registration-error h2, .edit-user-error h2 {
 	color: #bd3200;
-	font-size: 0.5em;
+	font-size: 1em;
 	text-align: center;
 }
 

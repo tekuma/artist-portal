@@ -248,17 +248,13 @@ export default class EditProfileLayout extends React.Component {
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");
-        }
-
-        if(!/.+@.+\..+/.test(email)) {
+        } else if(!/.+@.+\..+/.test(email)) {
             this.state.errors.push("The email address you supplied is invalid.");
         }
 
         if(password.length == 0) {
             this.state.errors.push("Please choose a password.");
-        }
-
-        if(password.length < 6) {
+        } else if(password.length < 6) {
             this.state.errors.push("Your password is too short.");
         }
 
