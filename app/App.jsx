@@ -223,6 +223,8 @@ export default class App extends React.Component {
             console.log(error.message);
         });
 
+    }
+
     addUserToTekuma = (user) => {
         // check if UID is a child of /onboarders
         // (TODO also check /products, /_private , etc)
