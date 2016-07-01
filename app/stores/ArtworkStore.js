@@ -1,220 +1,33 @@
-import uuid from 'node-uuid';
-import alt from '../libs/alt';
+'use strict';
+import firebase       from 'firebase';
 import ArtworkActions from '../actions/ArtworkActions';
-import update from 'react-addons-update';
+import alt            from '../libs/alt';
+import update         from 'react-addons-update';
+
+var config = {
+    apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
+    authDomain: "artist-tekuma-4a697.firebaseapp.com",
+    databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
+    storageBucket: "artist-tekuma-4a697.appspot.com",
+};
+firebase.initializeApp(config);
+
 
 class ArtworkStore {
-    constructor() {
+    constructor(props) {
+
         this.bindActions(ArtworkActions);
-        this.artworks = [
-            {
-                id: uuid.v4(),
-                title: 'The Starry Night',
-                artist: 'Vincent Van Gogh',
-                album: 'Uploads',
-                year: 1889,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
+        this.artworks = [];
 
-                },
-                tags: "#woke",
-                image: '../../assets/images/starry-night-1.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Wheat Field with Cypresses',
-                artist: 'Vincent Van Gogh',
-                album: 'Uploads',
-                year: 1889,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
 
-                },
-                tags: "#work",
-                image: '../../assets/images/field.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Starry Night Over the Rhone',
-                artist: 'Vincent Van Gogh',
-                album: 'Uploads',
-                year: 1888,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
+        firebase.database().ref('onboarders/' + this.props.thisUID + '/artworks')
+        .on('value', function(snapshot) {
+            this.artworks = snapshot.val();
+        }, function(errorStuff){
+            console.log(errorStuff);
+        }, this);
+        console.log(this.artworks);
 
-                },
-                tags: "#work",
-                image: '../../assets/images/starry-night-2.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Sunset 1',
-                artist: 'Photographer',
-                album: 'Sunsets',
-                year: 2015,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/sunset-1.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Sunset 2',
-                artist: 'Photographer',
-                album: 'Sunsets',
-                year: 2003,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/sunset-2.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Sunset 3',
-                artist: 'Photographer',
-                album: 'Sunsets',
-                year: 2005,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/sunset-3.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Elephant 1',
-                artist: 'Photographer',
-                album: 'Elephants',
-                year: 2008,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/elephant-1.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Elephant 1',
-                artist: 'Photographer',
-                album: 'Elephants',
-                year: 2003,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/elephant-2.jpg'
-            },
-            {
-                id: uuid.v4(),
-                title: 'Elephant 1',
-                artist: 'Photographer',
-                album: 'Elephants',
-                year: 2008,
-                description: "Hello World",
-                colors: {
-                    red: true,
-                    yellow: false,
-                    blue: false,
-                    green: false,
-                    orange: false,
-                    purple: false,
-                    brown: false,
-                    black: false,
-                    gray: false,
-                    white: true,
-
-                },
-                tags: "#work",
-                image: '../../assets/images/elephant-3.jpg'
-            }
-        ];
     }
 
     getArtworkInfo(id) {
