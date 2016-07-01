@@ -137,6 +137,8 @@ export default class AppView extends React.Component {
         this.setState({
             uploadDialogIsOpen: !this.state.uploadDialogIsOpen
         });
+
+
     }
 
     setUploadedFiles = (files) => {

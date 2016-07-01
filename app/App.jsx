@@ -33,7 +33,8 @@ export default class App extends React.Component {
             user : null,
             errors : [],
             registration : {},
-            login: {}
+            login: {},
+            thisUID: null
         };
     } //END constructor
 
@@ -50,7 +51,7 @@ export default class App extends React.Component {
 
     render() {
         console.log("||++>>>Rendering...");
-        if (this.state.user !== null && this.state.errors.length == 0) {
+        if (this.state.thisUID !== null && this.state.errors.length == 0) {
           // User is signed in successfully
           console.log("|>>>User signed in successfully, rendering Artist Portal!");
           return this.artistPortal();
@@ -76,7 +77,8 @@ export default class App extends React.Component {
         console.log("|+>State:", this.state);
         return(
             <AppView
-              user={this.state.user} />
+              thisUID = {this.state.thisUID}
+            />
         )
     }
 
@@ -108,8 +110,8 @@ export default class App extends React.Component {
      * change the state directly.
      * @param  {[String]} user [the users UID, pointer to DB]
      */
-    setUID = (user) => {
-        this.setState({user});
+    setUID = (thisUID) => {
+        this.setState({thisUID});
     }
 
 
@@ -144,10 +146,10 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let currentUserUID = firebase.auth().currentUser.uid
-        console.log(currentUserUID);
-
-        this.setUID(currentUserUID);
+        let currentUser = firebase.auth().currentUser;
+        console.log(currentUser.uid);
+        this.addUserToTekuma(currentUser);
+        this.setUID(currentUser.uid);
     }
 
     /**
@@ -172,6 +174,22 @@ export default class App extends React.Component {
         console.log(currentUserUID);
 
         this.setUID(currentUserUID);
+    }
+
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    authenticateWithPassword = (data) => {
+        firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            this.state.errors.push(errorMessage);
+        });
+
+        var user = firebase.auth().currentUser;
+        this.setUID({user});
     }
 
     /**
@@ -205,8 +223,32 @@ export default class App extends React.Component {
             console.log(error.message);
         });
 
-        var user = firebase.auth().currentUser;
-        this.setUID({user});
-    }
+    addUserToTekuma = (user) => {
+        // check if UID is a child of /onboarders
+        // (TODO also check /products, /_private , etc)
+        // If not, add them. else, do nothing.
 
+        // const thisUID = firebase.auth().currentUser.uid;
+        const thisUID = user.uid;
+        const onboardersNode = firebase.database().ref('onboarders');
+
+        onboardersNode.once('value').then(function(snapshot) {
+                if (!snapshot.child(thisUID).exists()) {
+                    let thisDisplayName = "Awesome Artist";
+                    if (user.displayName !== null){
+                        thisDisplayName = user.displayName;
+                    }
+                    onboardersNode.child(thisUID).set({
+                        //TODO expand to all keys in DB
+                        email        : user.email,
+                        display_name : thisDisplayName,
+                        photo        : user.photoURL
+                    });
+                    console.log(">>User Submitted To Database!");
+                }
+        }, function(errorStuff){
+            if (errorStuff != null){console.log(errorStuff);}
+        }, this);
+
+    }
 }//END App
