@@ -16,6 +16,9 @@ import {DragDropContext} from 'react-dnd';
 import Views from '../constants/Views';
 
 
+const pathToPublicOnboarder = "public/onboarders/";
+
+
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
     constructor(props) {
@@ -45,21 +48,22 @@ export default class AppView extends React.Component {
      * @return {[type]} [description]
      */
     componentWillMount() {
+
+    }
+
+    /**
+     * [componentDidMount description]
+     * @return {[type]} [description]
+     */
+    componentDidMount() {
         const thisUID = firebase.auth().currentUser.uid;
-
-        //TODO #RFC change strings to global vars at begining of file.
-        firebase.database().ref('public/onboarders/' + thisUID).on('value', function(snapshot) {
-
+        console.log(pathToPublicOnboarder, "this path???");
+        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', function(snapshot) {
             this.setState({userInfo: snapshot.val()});
             console.log("Hello world, this is the user", this.state.userInfo);
         }, function(errorStuff){
             console.log(errorStuff);
         }, this);
-    }
-
-
-    componentDidMount() {
-        //TODO
     }
 
     render() {
@@ -207,7 +211,7 @@ export default class AppView extends React.Component {
          */
         function setUploads(uploadTask, thisFile) {
             console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
-            let artRef = firebase.database().ref('public/onboarders/'+thisUID).child('artworks');
+            let artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
             let artObjRef = artRef.push();
             let path      = artObjRef.toString().split('/');
             let thisID    = path[path.length -1];
@@ -351,28 +355,78 @@ export default class AppView extends React.Component {
      * @param  {[JSON object} data [edited user profile information]
      */
     editUserProfile = (data) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let dataHasAvatar = data.hasOwnProperty('avatar');
         console.log("entered edit user profile method");
 
-        let artworks = {}
-        artworks.artworks = this.state.userInfo.artworks;
-        console.log("Artworks: ",artworks);
-        let userInfo = Object.assign({}, data, artworks);
-        console.log("Data: ", userInfo);
+        /**
+         * [updateProfile description]
+         * @param  {Boolean} hasAvatar  [description]
+         * @param  {[type]}  data       [description]
+         * @param  {[type]}  uploadTask [description]
+         * @return {[type]}             [description]
+         */
+        function updateProfile(hasAvatar,data,uploadTask) {
+            if (hasAvatar) {
+                console.log("avatar upload successful");
+                for (let key in data) {
+                    if (key == "avatar") {
+                        this.state.userInfo[key] = uploadTask.snapshot.downloadURL;
+                        console.log("URL HERE", uploadTask.snapshot.downloadURL);
+                    } else {
+                        this.state.userInfo[key] = data[key];
+                    }
+                }
+            } else {
+                for (let key in data) {
+                    this.state.userInfo[key] = data[key];
+                }
+            }
+        };
+
+        if (dataHasAvatar) {
+            let uploadTask = firebase.storage().ref('profile/' + thisUID).put(data.avatar);
+            uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                null,
+                null,
+                updateProfile.bind(this,dataHasAvatar,data,uploadTask)
+            );
+
+        } else {
+            updateProfile.bind(this,dataHasAvatar,data)
+        }
+
+        firebase.database().ref(pathToPublicOnboarder + thisUID)
+        .set(this.state.userInfo).
+        then(function() {console.log("user info set!!");});
 
         this.setState({
-            userInfo: userInfo,
             editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
         });
-        console.log("User info should be updated");
     }
 
-    /**
+    /** TODO Remove this method, depreciated.
      * This method is used by the Delete Account Dialog component
      * to delete a user's information and artworks from the Firebase Database
      */
     deleteAccount = () => {
-        // TODO enter in firebase commands to delete account
-        console.log("Account is deleted.");
-        this.toggleDeleteAccountDialog();
+        const thisUID = firebase.auth().currentUser.uid;
+        firebase.auth().signOut().then(function() {
+            console.log(thisUID, "this id here >>>>");
+            thisPromise = firebase.database().ref(pathToPublicOnboarder + thisUID)
+            .set(null, function(error) {console.log(error.message);})
+            .then(function() {console.log("Account has been Deleted!");});
+          // Sign-out successful.
+        }, function(error) {
+          // An error happened.
+          console.log("Error occured.");
+        });
+
+
+
+
+
+
     }
 }

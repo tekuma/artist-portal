@@ -24,25 +24,25 @@ export default class EditProfileLayout extends React.Component {
                     accept="image/*"
                     onDrop={this.onDrop}>
                     <img
-                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined) && !this.state.avatarUploaded ? "block" : "none" }}
+                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                         src="../assets/images/icons/person-beige.svg" />
                     <h3
-                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined) && !this.state.avatarUploaded ? "block" : "none" }}
+                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                         className="upload-writing big">
                         Upload your Photo
                     </h3>
                     <h3
-                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined) && !this.state.avatarUploaded ? "block" : "none" }}
+                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                         className="upload-writing small">
                         or Simply Drage Here
                     </h3>
                     <img
                         id="uploaded-avatar"
-                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined) && this.state.avatarUploaded ? "block" : "none" }}
+                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && this.state.avatarUploaded ? "block" : "none" }}
                         src={this.state.avatarPreview} />
                     <img
                         id="uploaded-avatar"
-                        style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined)  ? "block" : "none" }}
+                        style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined || this.props.userInfo.avatar !== null)  ? "block" : "none" }}
                         src={this.props.userInfo.avatar} />
 
                 </Dropzone>
@@ -205,10 +205,6 @@ export default class EditProfileLayout extends React.Component {
                                     ref="portfolio"
                                     placeholder="Portfolio/Website"
                                     defaultValue={this.props.userInfo.portfolio} />
-                            </li>
-                            <li className="solo-links"
-                                onClick={this.props.toggleDeleteAccountDialog}>
-                                <h3>Delete Account</h3>
                             </li>
                             <button
                                 className="edit-button"
