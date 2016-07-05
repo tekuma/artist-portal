@@ -199,6 +199,48 @@ export default class AppView extends React.Component {
         let bucket  = firebase.storage().ref("artworks/"+thisUID);
         let uploadPreviews = [];
 
+        function setUploads(that, uploadTask, thisFile) {
+            console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
+            let artRef = firebase.database().ref('onboarders/'+thisUID).child('artworks');
+            let artObjRef = artRef.push();
+            let path   = artObjRef.toString().split('/');
+            let thisID = path[path.length -1];
+
+            let artObject = {
+                id    : thisID,
+                image : uploadTask.snapshot.downloadURL,
+                title : "Default Title",
+                artist: "Default Arist",
+                album : "Uploads",
+                year  : 2018,
+                description: "default desciprtion stuff stuff",
+                colors: {
+                    red   : false,
+                    yellow: false,
+                    blue  : false,
+                    green : false,
+                    orange: false,
+                    purple: false,
+                    brown : false,
+                    black : false,
+                    gray  : false,
+                    white : false
+                },
+                tags  : "art cool tekuma"
+            };
+            artObjRef.set(artObject);
+            thisFile.image = uploadTask.snapshot.downloadURL;
+            uploadPreviews.push(thisFile);
+            console.log("Revised file: ",thisFile);
+            console.log("Upload Previews: ", uploadPreviews);
+            console.log("this is this: ", that.state);
+
+            that.setState({
+                uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
+                uploadPreviews     : uploadPreviews
+            });
+        }
+
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
             //FIXME make unique identifier for files so that if a user
@@ -209,55 +251,10 @@ export default class AppView extends React.Component {
                 firebase.storage.TaskEvent.STATE_CHANGED,
                 null,
                 null,
-                function() {
-                    console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
-                    let artRef = firebase.database().ref('onboarders/'+thisUID).child('artworks');
-                    let artObjRef = artRef.push();
-                    let path   = artObjRef.toString().split('/');
-                    let thisID = path[path.length -1];
-
-                    let artObject = {
-                        id    : thisID,
-                        image : uploadTask.snapshot.downloadURL,
-                        title : "Default Title",
-                        artist: "Default Arist",
-                        album : "Uploads",
-                        year  : 2018,
-                        description: "default desciprtion stuff stuff",
-                        colors: {
-                            red   : false,
-                            yellow: false,
-                            blue  : false,
-                            green : false,
-                            orange: false,
-                            purple: false,
-                            brown : false,
-                            black : false,
-                            gray  : false,
-                            white : false
-                        },
-                        tags  : "art cool tekuma"
-                    };
-                    artObjRef.set(artObject);
-                    thisFile.image = uploadTask.snapshot.downloadURL;
-                    uploadPreviews.push(thisFile);
-                    console.log("Revised file: ",thisFile);
-                    console.log("Upload Previews: ", uploadPreviews);
-                }
+                setUploads.bind(null, this, uploadTask, thisFile)
             );
-
         }
         console.log("All upload previews: ", uploadPreviews);
-
-        function setUploadPreviews(that) {
-            that.setState({
-                uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
-                uploadPreviews     : uploadPreviews
-            });
-        }
-
-        setTimeout(setUploadPreviews.bind(null, this), 1000);
-
     }
 
     setAlbums = (albums) => {

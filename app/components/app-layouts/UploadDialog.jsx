@@ -52,7 +52,7 @@ export default class UploadDialog extends React.Component {
                                     <img src={file.image} />
                                     <div className="overlay">
                                         <div>
-                                            <h2 className="file-name">{file.title}</h2>
+                                            <h2 className="file-name">{file.name}</h2>
                                             <h2 className="file-size">{this.getFileSize(file.size)}</h2>
                                         </div>
                                     </div>
