@@ -42,7 +42,6 @@ export default class AppView extends React.Component {
     }
 
     /**
-     * NOTE: WillMount vs DidMount
      *
      * [componentWillMount description]
      * @return {[type]} [description]
@@ -422,5 +421,19 @@ export default class AppView extends React.Component {
           // An error happened.
           console.log("Error occured.");
         });
+
+        /**
+         * This method is used by the EditArtworkForm  Component to reactively
+         * update an artwork's attributes in Firebase.
+         * @param  {String} id - the ID of the artwork to change.
+         * @param  {Object} data - JSON of {attribute:update} to be written to
+         * the database.
+         */
+        updateArtwork = (id,data) => {
+            let thisArtworkRefrence = firebase.database().ref(pathToPublicOnboarder+thisUID+'artworks/' + id);
+            for (let key in data) {
+                thisArtworkRefrence.child(key).set(data[key]);
+            }
+        }
     }
 }
