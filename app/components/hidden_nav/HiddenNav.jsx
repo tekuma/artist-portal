@@ -47,7 +47,7 @@ export default class HiddenNav extends React.Component {
 	    			<img src={this.props.userInfo != null && this.props.userInfo.hasOwnProperty('avatar') && this.props.userInfo.avatar != "" ? this.props.userInfo.avatar : 'assets/images/default-avatar.png'} />
 	    		</div>
                 <UserNameTag
-                    displayName={this.props.userInfo.display_name}
+                    displayName={(this.props.userInfo == null)? "Default Artist":this.props.userInfo.display_name}
                     navIsOpen={this.props.navIsOpen} />
                 <NavItems
                     navItems={navItems}

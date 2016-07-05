@@ -52,12 +52,10 @@ export default class App extends React.Component {
     render() {
         console.log("||++>>>Rendering...");
         if (this.state.thisUID !== null && this.state.errors.length == 0) {
-          // User is signed in successfully
           console.log("|>>>User signed in successfully, rendering Artist Portal!");
           return this.artistPortal();
         } else {
             console.log("|>>>No user detected. Rendering Log-in page");
-            console.log("|+>State: ", this.state);
           return this.landingPage();
         }
     }
@@ -116,7 +114,6 @@ export default class App extends React.Component {
         this.setState({thisUID});
     }
 
-
     /**
      * Mutates state to include registration infromation for new users.
      * @param  {[Object]} data [Registration information from user gathered info]
@@ -129,6 +126,10 @@ export default class App extends React.Component {
         console.log("Current Registration: ", this.state.registration);
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     clearRegistration = () => {
         this.setState({
             registration: {}
@@ -149,15 +150,23 @@ export default class App extends React.Component {
     authenticateWithGoogle = () => {
         console.log("|>> Authenticating with Google");
 
-        firebase.auth().signInWithPopup(providerG).catch(function(error) {
+        /**
+         * [onAuth description]
+         * @return {[type]} [description]
+         */
+        function onAuth() {
+            let thisCurrentUser = firebase.auth().currentUser;
+            this.addUserToTekuma(thisCurrentUser);
+            this.setUID(thisCurrentUser.uid);
+            console.log(">Google Auth successful");
+        };
+
+        firebase.auth().signInWithPopup(providerG)
+        .then(onAuth.bind(this))
+        .catch(function(error) {
             console.log("|>>>> ERROR with Google Auth:");
             console.log(error);
         });
-
-        let currentUser = firebase.auth().currentUser;
-        console.log(currentUser.uid);
-        this.addUserToTekuma(currentUser);
-        this.setUID(currentUser.uid);
 
     }
 
@@ -171,18 +180,24 @@ export default class App extends React.Component {
      * [https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signInWithPopup ]
      */
     authenticateWithFB = () => {
-        console.log("|>> Authenticating with Facebook");
+        console.log("|>> Authenticating with FB");
+        /**
+         * [onAuth description]
+         * @return {[type]} [description]
+         */
+        function onAuth() {
+            let thisCurrentUser = firebase.auth().currentUser;
+            this.addUserToTekuma(thisCurrentUser);
+            this.setUID(thisCurrentUser.uid);
+            console.log(">FB Auth successful");
+        };
 
-        firebase.auth().signInWithPopup(providerF).catch(function(error) {
+        firebase.auth().signInWithPopup(providerF)
+        .then(onAuth.bind(this))
+        .catch(function(error) {
             console.log("|>>>> ERROR with FB Auth:");
-            var errorMessage = error.message;
-            console.log(errorMessage);
+            console.log(error);
         });
-
-        let currentUser = firebase.auth().currentUser;
-        console.log(currentUser.uid);
-        this.addUserToTekuma(currentUser);
-        this.setUID(currentUser.uid);
     }
 
     /**
@@ -191,20 +206,21 @@ export default class App extends React.Component {
      * @return {[type]}      [description]
      */
     authenticateWithPassword = (data) => {
-        firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
-            // Handle Errors here.
-            var errorMessage = error.message;
+        function onAuth() {
+            let thisCurrentUser = firebase.auth().currentUser;
+            this.addUserToTekuma(thisCurrentUser);
+            this.setUID(thisCurrentUser.uid);
+            console.log(">FB Auth successful");
+        };
+
+        firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+        .then(onAuth.bind(this))
+        .catch(function(error) {
+            let errorMessage = error.message;
             console.log(errorMessage);
         });
-
-        function setUID(that) {
-            let currentUserUID = firebase.auth().currentUser.uid;
-            console.log(currentUserUID);
-            that.setUID(currentUserUID);
-        }
-
-        setTimeout(setUID.bind(null, this), 1000);
     }
+
 
     /**
      * [description -> TODO]
@@ -237,7 +253,6 @@ export default class App extends React.Component {
     }
 
     addUserToTekuma = (user) => {
-        console.log("Entered addUserToTekuma");
         // check if UID is a child of /onboarders
         // (TODO also check /products, /_private , etc)
         // If not, add them. else, do nothing.
@@ -248,7 +263,6 @@ export default class App extends React.Component {
 
         onboardersNode.once('value').then(function(snapshot) {
                 if (!snapshot.child(thisUID).exists()) {
-
                     console.log("User :", user);
                     // Setting Onboarder name
                     let thisDisplayName = "Awesome Artist";
