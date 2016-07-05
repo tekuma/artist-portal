@@ -13,7 +13,7 @@ import ResetPasswordView  from './views/ResetPasswordView';
 //Initialize Firebase  SDK in root JSX (here)
 var config = {
     apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
-    authDomain: "artist-tekuma-4a697.firebaseapp.com",
+    authDomain: "artist-tekuma-4a697.fireb  aseapp.com",
     databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
