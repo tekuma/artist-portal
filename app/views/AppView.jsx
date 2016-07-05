@@ -248,7 +248,6 @@ export default class AppView extends React.Component {
             });
         }
 
-
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
             //FIXME use a For-Of loop , maybe?
