@@ -422,11 +422,5 @@ export default class AppView extends React.Component {
           // An error happened.
           console.log("Error occured.");
         });
-
-
-
-
-
-
     }
 }

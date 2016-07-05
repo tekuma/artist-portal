@@ -2044,6 +2044,7 @@ login-button.left {
 
 .edit-artwork-body {
 	width: 405px;
+	overflow: scroll !important;
 }
 
 .edit-artwork-actions {
@@ -2622,7 +2623,6 @@ login-button.left {
 		width: 270px;
 		margin: 0 auto;
 		margin-bottom: 20px;
-		overflow: scroll !important;
 	}
 
 	#edit-artwork-album {
