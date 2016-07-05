@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
+import uuid from 'node-uuid';
 
 export default class SignUpLayoutOne extends React.Component {
     constructor(props) {
@@ -19,7 +20,8 @@ export default class SignUpLayoutOne extends React.Component {
         return (
             <div className="main-wrapper">
                 <LoggedOffHeader
-                    togglePopover={this.props.togglePopover} />
+                    togglePopover={this.props.togglePopover}
+                    returnToLandingPage={this.props.returnToLandingPage} />
                 <div className="layout-centered">
                     <article className="signup-wrapper">
                         <div className="signup-heading-wrapper pink">
@@ -28,12 +30,13 @@ export default class SignUpLayoutOne extends React.Component {
                         <div className="signup-heading-message">
                             <h3>Help us build your artist profile.</h3>
                             {this.state.errors.map(error => {
-                                    return (
-                                        <div
-                                            className="registration-error">
-                                            <h3>{error}</h3>
-                                        </div>
-                                    );
+                                return (
+                                    <div
+                                        id={uuid.v4()}
+                                        className="registration-error page-2">
+                                        <h2>{error}</h2>
+                                    </div>
+                                );
                                 })}
                         </div>
                         <form className="signup-form page-2">
@@ -70,14 +73,14 @@ export default class SignUpLayoutOne extends React.Component {
                                             ref="fullname"
                                             placeholder="Full Name"
                                             required=""
-                                            maxlength="50"
-                                            autocapitalize="off"
-                                            autocomplete="off"
-                                            autocorrect="off" />
+                                            maxLength="50"
+                                            autoCapitalize="off"
+                                            autoComplete="off"
+                                            autoCorrect="off" />
                                     </li>
                                     <li id="li-dob" className="controls-dob">
                                         <label for="register-age">Date of Birth: </label>
-                                        <div id="register-dob" class="register-dob">
+                                        <div id="register-dob" className="register-dob">
                                             <div className="controls controls-month">
                                                 <select
                                                     id="register-dob-month"
@@ -106,7 +109,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                     ref="dobDay"
                                                     placeholder="Day"
                                                     pattern="[0-9]*"
-                                                    maxlength="2"
+                                                    maxLength="2"
                                                     min="1"
                                                     max="31" />
                                             </div>
@@ -118,15 +121,15 @@ export default class SignUpLayoutOne extends React.Component {
                                                     ref="dobYear"
                                                     placeholder="Year"
                                                     pattern="[0-9]*"
-                                                    maxlength="4" />
+                                                    maxLength="4" />
                                             </div>
                                         </div>
                                     </li>
                                     <li id="li-gender" className="gender">
-                                        <label className="sr-only">Gender:</label>
+                                        <label className="gender-label">Gender:</label>
                                           <label
                                               for="register-male"
-                                              className="radio control-inline">
+                                              className="gender-radio control-inline">
                                               <input
                                                   type="radio"
                                                   id="register-male"
@@ -140,7 +143,7 @@ export default class SignUpLayoutOne extends React.Component {
 
                                           <label
                                               for="register-female"
-                                              className="radio control-inline">
+                                              className="gender-radio control-inline">
                                               <input
                                                   type="radio"
                                                   id="register-female"
@@ -195,7 +198,7 @@ export default class SignUpLayoutOne extends React.Component {
             this.state.errors.push("Please enter your full name.");
         }
 
-        if(day.length < 2) {
+        if(day.length == 0) {
             this.state.errors.push("Please enter a valid day of the month.");
         }
 
@@ -215,18 +218,18 @@ export default class SignUpLayoutOne extends React.Component {
             this.state.errors.push("Please upload an avatar.");
         }
 
-        // Rerender the component
-        this.forceUpdate();
-
         if(this.state.errors.length == 0) {
 
-            data.name = fullName;
+            data.displayName = fullName;
             data.dob = day + "-" + month + "-" + year;
             data.gender =  gender;
             data.avatar = this.state.avatar;
-            this.props.saveValues(data);
+            this.props.saveRegistration(data);
             this.props.nextStep();
         }
+
+        // Rerender the component
+        this.forceUpdate();
     }
 
     onDrop = (file) => {

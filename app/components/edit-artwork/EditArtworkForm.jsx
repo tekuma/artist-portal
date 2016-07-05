@@ -1,8 +1,13 @@
 import React from 'react';
+import uuid from 'node-uuid';
 
 export default class EditArtworkForm extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            albums: this.props.albums
+        }
     }
 
     render() {
@@ -46,6 +51,26 @@ export default class EditArtworkForm extends React.Component {
                                 onChange={(e) => {
                                     onChange(Object.assign({}, oldArtwork, {artist: e.target.value}))
                                 }} />
+                        </li>
+                        <li id="li-album" className="controls-album">
+                            <label for="edit-artwork-album">Album:</label>
+                                <div id="edit-artwork-album" className="edit-artwork-album">
+                                    <div className="controls controls-album">
+                                        <select
+                                            className="edit-artwork-select"
+                                            ref="editAlbum">
+                                            {this.state.albums.map(album => {
+                                                    return (
+                                                        <option
+                                                            id={uuid.v4()}
+                                                            value={album}>
+                                                            {album}
+                                                        </option>
+                                                    );
+                                                })}
+                                        </select>
+                                    </div>
+                                </div>
                         </li>
                         <li>
                             <label for="artwork-year">Year <span className="pink">*</span> :</label>

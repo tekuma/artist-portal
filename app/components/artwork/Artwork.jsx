@@ -1,6 +1,8 @@
 import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
 
 const artworkSource = {
     beginDrag(props) {
@@ -36,6 +38,30 @@ export default class Artwork extends React.Component {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
+            </Tooltip>
+        );
+
+        const downloadTooltip = (
+            <Tooltip
+                id="download-artwork-tooltip"
+                className="tooltip">
+                Download
+            </Tooltip>
+        );
+
+        const deleteTooltip = (
+            <Tooltip
+                id="delete-artwork-tooltip"
+                className="tooltip">
+                Delete
+            </Tooltip>
+        );
+
         return connectDragSource(connectDropTarget(
             <article
                 style={{opacity: isDragging ? 0 : 1}}
@@ -46,20 +72,23 @@ export default class Artwork extends React.Component {
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
                     <h4 className="artwork-date">{this.props.artwork.year}</h4>
-                    <img
-                        className="artwork-more"
-                        src='assets/images/icons/delete-black.svg'
-                        onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
-                        data-tip="Delete" />
-                    <img
-                        className="artwork-more"
-                        src='assets/images/icons/edit.svg'
-                        onClick={this.props.onEdit.bind(null, this.props.artwork.id)}
-                        data-tip="Edit" />
-                    <img
-                        className="artwork-more"
-                        src='assets/images/icons/download-black.svg'
-                        data-tip="Download" />
+                    <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                        <img
+                            className="artwork-more"
+                            src='assets/images/icons/delete-black.svg'
+                            onClick={this.props.onDelete.bind(null, this.props.artwork.id)} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="bottom" overlay={editTooltip}>
+                        <img
+                            className="artwork-more"
+                            src='assets/images/icons/edit.svg'
+                            onClick={this.props.onEdit.bind(null, this.props.artwork.id)} />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                        <img
+                            className="artwork-more"
+                            src='assets/images/icons/download-black.svg' />
+                    </OverlayTrigger>
                 </div>
             </article>
         ));

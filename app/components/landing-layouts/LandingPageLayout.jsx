@@ -52,7 +52,7 @@ export default class LandingPageLayout extends React.Component {
                                             ref="email"
                                             placeholder="Email"
                                             required="true"
-                                            maxlength="100" />
+                                            maxLength="100" />
                                     </li>
 
                                     <li>
@@ -62,8 +62,8 @@ export default class LandingPageLayout extends React.Component {
                                             ref="password"
                                             placeholder="Password"
                                             required="true"
-                                            maxlength="100"
-                                            autocomplete="off" />
+                                            maxLength="100"
+                                            autoComplete="off" />
                                     </li>
 
                                     <li>
@@ -73,7 +73,7 @@ export default class LandingPageLayout extends React.Component {
                                             ref="confirmPassword"
                                             placeholder="Confirm Password"
                                             required="true"
-                                            maxlength="100" />
+                                            maxLength="100" />
                                     </li>
                                 </ul>
                                 {this.state.errors.map(error => {
@@ -143,14 +143,16 @@ export default class LandingPageLayout extends React.Component {
             this.state.errors.push("Please accept Tekuma's Terms of Service.");
         }
 
-        // Rerender the component
-        this.forceUpdate();
+
 
         if(this.state.errors.length == 0) {
             data.email = email;
             data.password = password;
-            this.props.saveValues(data);
+            this.props.saveRegistration(data);
             this.props.nextStep();
         }
+
+        // Rerender the component
+        this.forceUpdate();
     }
 }

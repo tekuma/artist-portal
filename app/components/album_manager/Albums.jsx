@@ -4,6 +4,7 @@ import AlbumActions from '../../actions/AlbumActions';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
 import ArtworkActions from '../../actions/ArtworkActions';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 const albumTarget = {
     hover(targetProps, monitor) {
@@ -31,6 +32,10 @@ export default class Albums extends React.Component {
             width: 210
         };
 
+        const downloadTooltip = (
+            <Tooltip id="uploads-download-tooltip">Download</Tooltip>
+        );
+
         return connectDropTarget(
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
                 <li onClick={this.props.changeAlbum.bind(null, 'Uploads')} className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
@@ -41,9 +46,10 @@ export default class Albums extends React.Component {
                     </div>
                     <div className="album-writing">
                         <h3 className="uploads-name">Uploads</h3>
-                        <img className="uploads-album-more"
-                             src='assets/images/icons/download-white.svg'
-                             data-tip="Download" />
+                        <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                            <img className="uploads-album-more"
+                                 src='assets/images/icons/download-white.svg' />
+                         </OverlayTrigger>
                     </div>
                 </li>
                 {this.props.albums.map(album => {

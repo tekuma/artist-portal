@@ -1,5 +1,6 @@
 import React from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
+import uuid from 'node-uuid';
 
 export default class SignUpLayoutTwo extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ export default class SignUpLayoutTwo extends React.Component {
         return (
             <div className="main-wrapper">
                 <LoggedOffHeader
-                    togglePopover={this.props.togglePopover} />
+                    togglePopover={this.props.togglePopover}
+                    returnToLandingPage={this.props.returnToLandingPage} />
                 <div className="layout-centered">
                     <article className="signup-wrapper">
                         <div className="signup-heading-wrapper pink">
@@ -23,12 +25,13 @@ export default class SignUpLayoutTwo extends React.Component {
                         <div className="signup-heading-message">
                             <h3>We want to know more about you.</h3>
                             {this.state.errors.map(error => {
-                                    return (
-                                        <div
-                                            className="registration-error">
-                                            <h3>{error}</h3>
-                                        </div>
-                                    );
+                                return (
+                                    <div
+                                        id={uuid.v4()}
+                                        className="registration-error page-3">
+                                        <h2>{error}</h2>
+                                    </div>
+                                );
                                 })}
                         </div>
                         <form className="signup-form page-3">
@@ -98,16 +101,19 @@ export default class SignUpLayoutTwo extends React.Component {
             this.state.errors.push("Please specify a portfolio or website URL.");
         }
 
-        // Rerender the component
-        this.forceUpdate();
-
         if(this.state.errors.length == 0) {
 
             data.bio = bio;
+            console.log("This is bio within the saveAndContinue Method: ", data.bio);
             data.location = location;
+            console.log("This is location within the saveAndContinue Method: ", data.location);
             data.portfolio = portfolio;
-            this.props.saveValues(data);
+            console.log("This is portfolio within the saveAndContinue Method: ", data.portfolio);
+            this.props.saveRegistration(data);
             this.props.submitRegistration();
         }
+
+        // Rerender the component
+        this.forceUpdate();
     }
 }

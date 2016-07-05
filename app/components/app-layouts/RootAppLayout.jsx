@@ -3,8 +3,8 @@ import LoggedOnHeader from '../headers/LoggedOnHeader';
 import AlbumManager from '../album_manager/AlbumManager';
 import ArtworksLayout from './ArtworksLayout';
 import UploadLayout from './UploadLayout';
-import EditProfileLayout from './EditProfileLayout';
-import ReactTooltip from "react-tooltip";
+import EditProfileLayout from '../edit-profile/EditProfileLayout';
+import Views from '../../constants/Views';
 
 export default class RootAppLayout extends React.Component {
     constructor(props) {
@@ -25,13 +25,13 @@ export default class RootAppLayout extends React.Component {
 
     render() {
         switch (this.props.currentAppLayout) {
-            case 'Artworks':
+            case Views.ARTWORKS:
                 return this.renderArtworksLayout();
 
-            case 'Upload':
+            case Views.UPLOAD:
                 return this.renderUploadLayout();
 
-            case 'Edit Profile':
+            case Views.EDIT:
                 return this.renderEditProfileLayout();
         }
     }
@@ -46,19 +46,17 @@ export default class RootAppLayout extends React.Component {
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum} />
+                    changeAlbum={this.props.changeAlbum}
+                    setAlbums={this.props.setAlbums}
+                    albums={this.props.albums} />
                 <ArtworksLayout
+                    userInfo={this.props.userInfo}
                     currentAlbum={this.props.currentAlbum}
                     toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
                     changeAppLayout={this.props.changeAppLayout}
                     managerIsOpen={this.props.managerIsOpen} />
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
-                <ReactTooltip
-                    place="bottom"
-                    class="tooltip"
-                    delayShow={700}
-                    eventOff="click" />
             </div>
         );
     }
@@ -72,11 +70,6 @@ export default class RootAppLayout extends React.Component {
                         setUploadedFiles={this.props.setUploadedFiles} />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
-                <ReactTooltip
-                    place="bottom"
-                    class="tooltip"
-                    delayShow={700}
-                    eventOff="click" />
             </div>
         );
     }
@@ -88,14 +81,10 @@ export default class RootAppLayout extends React.Component {
                 <div className="layout-centered">
                     <EditProfileLayout
                         userInfo={this.props.userInfo}
-                        editUserProfile={this.props.editUserProfile} />
+                        editUserProfile={this.props.editUserProfile}
+                        toggleDeleteAccountDialog={this.props.toggleDeleteAccountDialog} />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
-                <ReactTooltip
-                    place="bottom"
-                    class="tooltip"
-                    delayShow={700}
-                    eventOff="click" />
             </div>
         );
     }

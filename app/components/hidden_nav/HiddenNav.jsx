@@ -3,6 +3,7 @@ import uuid from 'node-uuid';
 import UserNameTag from './UserNameTag';
 import NavItems from './NavItems';
 import LogoutButton from './LogoutButton';
+import Views from '../../constants/Views';
 
 export default class HiddenNav extends React.Component {
     constructor(props) {
@@ -13,21 +14,21 @@ export default class HiddenNav extends React.Component {
                 id: uuid.v4(),
                 item: 'Upload',
                 icon: '../../assets/images/icons/upload-blue.svg',
-                href:  'Upload',
+                href:  Views.UPLOAD,
                 title: "Upload Artworks"
             },
             {
                 id: uuid.v4(),
                 item: 'Artworks',
                 icon: '../../assets/images/icons/canvas.svg',
-                href:  'Artworks',
+                href:  Views.ARTWORKS,
                 title: 'Browse Artworks'
             },
             {
                 id: uuid.v4(),
                 item: 'Edit Profile',
                 icon: '../../assets/images/icons/person.svg',
-                href:  'Edit Profile',
+                href:  Views.EDIT,
                 title: 'Edit Your Profile'
             }
 
@@ -44,13 +45,14 @@ export default class HiddenNav extends React.Component {
         return (
             <nav className="navigation">
                 <div className="avatar">
-	    			<img src='assets/images/afika.jpg' />
+	    			<img src={this.props.userInfo != null && this.props.userInfo.hasOwnProperty('avatar') && this.props.userInfo.avatar != "" ? this.props.userInfo.avatar : 'assets/images/default-avatar.png'} />
 	    		</div>
                 <UserNameTag
                     displayName={this.props.userInfo.display_name}
                     navIsOpen={this.props.navIsOpen} />
                 <NavItems navItems={navItems} changeAppLayout={this.props.changeAppLayout} />
-                <LogoutButton />
+                <LogoutButton
+                    signOutUser={this.props.signOutUser} />
             </nav>
         );
     }

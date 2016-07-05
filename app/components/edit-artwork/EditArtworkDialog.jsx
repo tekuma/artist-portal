@@ -20,7 +20,7 @@ export default class EditArtworkDialog extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            formInfo: nextProps.getCurrentEditArtwork
+            formInfo: nextProps.currentEditArtworkInfo
         })
     }
 
@@ -52,6 +52,7 @@ export default class EditArtworkDialog extends React.Component {
                         bodyClassName="edit-artwork-body"
                         contentClassName="edit-artwork-content" >
                         <EditArtworkForm
+                            albums={this.props.albums}
                             value={this.state.formInfo}
                             errors={this.state.errors}
                             onChange={this.updateFormInfo}

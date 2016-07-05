@@ -15,7 +15,7 @@ body {
 	height: 100vh;
 }
 
-a, a:visited {
+a, a:visited, a:hover {
 	text-decoration: none;
 }
 
@@ -145,6 +145,11 @@ button {
 
 .logout-button {
 	position: fixed;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
 	bottom: 0;
 	width: 250px;
 	height: 50px;
@@ -152,18 +157,6 @@ button {
 	z-index: 2;
 	border-top: 1px solid rgba(255,255,255,0.12);
 	background: #1a1e22;
-}
-
-.logout-button a {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	padding: 0;
-	margin: 0;
-	width: 250px;
-	height: 50px;
 	-webkit-align-items: center;
 	-ms-align-items: center;
 	-moz-align-items: center;
@@ -172,9 +165,12 @@ button {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .logout-button h3 {
+	font-size: 1.3em;
+	margin: 0;
 	color: #4d5967;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -357,7 +353,6 @@ button {
     bottom: 100% !important;
     left: 0;
     z-index: 4;
-
 }
 
 .site-overlay {
@@ -863,6 +858,7 @@ input::-webkit-search-cancel-button {
 .album-name, .uploads-name {
 	margin: 12px 0px;
 	font-weight: 700;
+	font-size: 1.2em;
 	color: #ffffff;
 }
 
@@ -1070,6 +1066,15 @@ main {
 	width: 100vw;
 	height: 100vh;
 	padding-top: 60px;
+	padding-bottom: 30px;
+	z-index: 4;
+	overflow: scroll;
+}
+
+.scroll-edit-profile {
+	width: 100vw;
+	padding: 50px 20px 40px 20px;
+	overflow-y: scroll;
 }
 
 .profile-form, .signup-form,
@@ -1284,8 +1289,8 @@ textarea.bio {
     margin: 0;
 }
 
-.profile-form label,
-.signup-form label {
+.profile-form section > fieldset > ul > li > label,
+.signup-form div > ul > li > label {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
     color: #4d5967;
@@ -1317,13 +1322,16 @@ textarea.bio {
 	display: inline-block !important;
 }
 
-.controls-dob .controls {
+.controls-dob .controls,
+.controls-album .edit-artwork-album {
     display: inline-block;
     vertical-align: top;
 }
 
 .reg-radio {
 	margin-right: 10px !important;
+	margin-left: -10px !important;
+
 }
 
 .controls-dob .controls-month {
@@ -1351,7 +1359,8 @@ textarea.bio {
 }
 
 .profile-form select,
-.signup-form select {
+.signup-form select,
+.edit-artwork-select {
     border-radius: 2px;
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
@@ -1363,8 +1372,20 @@ textarea.bio {
     width: 100%;
 }
 
+.edit-artwork-select {
+	height: 34.55px;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-size: 0.8em;
+	font-weight: 500;
+	color: #000000;
+    line-height: normal;
+	text-align: center;
+  	text-align-last: center;
+}
+
 .profile-form select:focus,
-.signup-form select:focus {
+.signup-form select:focus,
+.edit-artwork-select  {
 	outline: none;
 }
 
@@ -1374,14 +1395,21 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.radio {
+.gender-radio {
 	display: inline-block;
+	position: relative;
+	left: -56px;
 	margin: 0;
-    margin-top: 3px;
+    margin-top: 25px;
     margin-right: 10px;
 	white-space: nowrap;
     margin-bottom: 0;
 	padding-left: 10px;
+}
+
+.gender-label {
+	position: relative;
+	top: -25px;
 }
 
 textarea.bio {
@@ -1721,6 +1749,7 @@ login-button.left {
 .artwork-upload-box {
 	width: 70%;
 	height: 70%;
+	padding: 20px;
 }
 
 .image-upload-box img {
@@ -1761,6 +1790,12 @@ login-button.left {
 	text-align: center;
 }
 
+.registration-error.page-2 h2,
+.registration-error.page-3 h2 {
+	font-size: 0.7em;
+}
+
+
 .login-popover {
 	position: absolute;
 	right: 20px !important;
@@ -1788,6 +1823,11 @@ login-button.left {
 	right: 20px;
 }
 
+#edit-artwork-album {
+	display: inline-block;
+	width: 78%;
+}
+
 /*========================================== */
 
 /* Edit Artwork */
@@ -1800,7 +1840,6 @@ login-button.left {
 	display: flex;
 	vertical-align: top;
 	width: 320px;
-	min-width: 357px;
 	margin: 0 auto;
 }
 
@@ -2053,9 +2092,7 @@ login-button.left {
 /* Tooltip */
 
 .tooltip {
-	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
-	background: rgba(0,0,0,0.9) !important;
-	z-index: 8 !important;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
 /*========================================== */
@@ -2085,7 +2122,8 @@ login-button.left {
 }
 
 .confirm-yes,
-.edit-artwork-yes {
+.edit-artwork-yes,
+.delete-account-yes {
 	width: 50%;
 	height: 100%;
 	background: #292e3a;
@@ -2109,15 +2147,17 @@ login-button.left {
 }
 
 .confirm-yes h2,
-.edit-artwork-yes h2 {
+.edit-artwork-yes h2,
+.delete-account-yes h2 {
 	color: #ffffff;
 	margin: 0 auto;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
 .confirm-no,
-.edit-artwork-no {
+.edit-artwork-no,
+.delete-account-no {
 	width: 50%;
 	height: 100%;
 	background: #292e3a;
@@ -2141,10 +2181,12 @@ login-button.left {
 }
 
 .confirm-no h2,
-.edit-artwork-no h2{
+.edit-artwork-no h2,
+.confirm-edit-profile h2,
+.delete-account-no h2 {
 	color: #ffffff;
 	margin: 0 auto;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
@@ -2152,8 +2194,34 @@ login-button.left {
 .confirm-yes:hover,
 .edit-artwork-yes:hover,
 .edit-artwork-no:hover,
-.upload-dialog-button:hover {
+.upload-dialog-button:hover,
+.confirm-edit-profile:hover,
+.delete-account-yes:hover,
+.delete-account-no:hover {
 	background: #e83081;
+}
+
+.confirm-edit-profile {
+	width: 100%;
+	height: 100%;
+	background: #292e3a;
+	display: inline-flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	cursor: pointer;
+	padding: 15px;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 /*========================================== */
@@ -2231,6 +2299,10 @@ login-button.left {
   	-ms-transition: all 0.5s;
 }
 
+.overlay div {
+	width: 100%;
+}
+
 /* Handles Overlay Effect */
 
 .dropzone-image-preview-container .overlay {
@@ -2253,6 +2325,7 @@ login-button.left {
 	margin: 0;
 	margin-bottom: 5px;
 	font-size: 100%;
+	width: 100%;
 
 }
 
@@ -2331,6 +2404,7 @@ login-button.left {
 	border-radius: 5px;
 	box-shadow: inset 0 2px 5px rgba(0,0,0,0.24);
 	padding: 15px;
+	width: 100%;
 	height: 50vh;
 	overflow: scroll;
 	text-align: center;
@@ -2348,111 +2422,102 @@ login-button.left {
 	width: 405px;
 }
 
-
-/*========================================== */
-
-/* Animations */
-
-
-@-webkit-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@-moz-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@-o-keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
-@keyframes blink {
-    /**
-     * At the start of the animation the dot
-     * has an opacity of .2
-     */
-    0% {
-      opacity: .2;
-    }
-    /**
-     * At 20% the dot is fully visible and
-     * then fades out slowly
-     */
-    20% {
-      opacity: 1;
-    }
-    /**
-     * Until it reaches an opacity of .2 and
-     * the animation can start again
-     */
-    100% {
-      opacity: .2;
-    }
-}
-
 /*========================================== */
 
 /* Media Queries */
+
+@media (max-width: 885px) {
+	.edit-heading {
+		display: none;
+	}
+
+	.profile-form {
+		display: block;
+	}
+
+	.profile-pic-container {
+		margin: 10px;
+	}
+
+	.left-info {
+		top: 0;
+	}
+
+	#li-gender {
+		margin-bottom: 0;
+	}
+
+	.gender-radio.female {
+		position: relative;
+		left: 25%;
+	}
+
+	.scroll-edit-profile {
+		height: 100vh;
+	}
+}
+
+@media (max-height: 680px) {
+	.layout-centered {
+		padding-top: 90px;
+	}
+}
+
+@media (max-height: 670px) {
+	.uploaded-artworks-container {
+		height: 40vh;
+	}
+}
+
+@media (max-height: 645px) {
+	.layout-centered {
+		padding-top: 120px;
+	}
+}
+
+@media (max-height: 620px) {
+	.layout-centered {
+		padding-top: 150px;
+	}
+}
+
+@media (max-height: 590px) {
+	.layout-centered {
+		padding-top: 200px;
+	}
+}
+
+@media (max-width: 590px) {
+	.signup-form .top-form,
+	.signup-form .bottom-form,
+	.signup-form .social-wrapper {
+		width: 265px;
+		flex-direction: column;
+	}
+
+	.signup-form .top-form {
+		margin-top: 10px;
+	}
+
+	.social-wrapper .social-button {
+		flex: 1 1 100%;
+		-webkit-flex: 1 1 100%;
+	}
+
+	#email-landing {
+		width: 250px;
+	}
+
+	.artist-logo-wrapper img,
+	.forgot-heading-wrapper img {
+		width: 110px;
+	}
+
+	.artist-logo-wrapper h3 {
+		font-size: 2em;
+		margin: 15px 0 30px 0;
+	}
+}
 
 @media (min-width: 390px) and (max-width: 470px) {
   #tekuma-logo-image {
@@ -2462,6 +2527,75 @@ login-button.left {
   .tekuma-logo{
 	  width: 120px
   }
+}
+
+@media (max-height: 570px) {
+	.uploaded-artworks-container {
+		height: 30vh;
+	}
+}
+
+@media (max-height: 480px) {
+	.uploaded-artworks-container {
+		height: 25vh;
+	}
+}
+
+@media (max-width: 450px) {
+	.artwork-form fieldset ul li {
+		text-align: center;
+	}
+
+	.artwork-form fieldset ul li label:not(.checkbox) {
+		width: 100%;
+		text-align: center;
+	}
+
+	.artwork-form input:not([type='radio']) {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	#artwork-description {
+		width: 250px;
+		height: 50px;
+	}
+
+	.artwork-form fieldset ul {
+		width: 270px;
+	}
+
+	.artwork-form fieldset ul li {
+		width: 250px;
+	}
+
+	.artwork-form {
+		width: 270px;
+	}
+
+	.edit-artwork-content {
+		width: 300px !important;
+	}
+
+
+	.edit-artwork-title {
+		display: none;
+	}
+
+	.edit-artwork-body {
+		padding: 0 !important;
+		width: 270px;
+		margin: 0 auto;
+		margin-bottom: 20px;
+		overflow: scroll !important;
+	}
+
+	#edit-artwork-album {
+		width: 100%;
+	}
+
+
 }
 
 @media (max-width: 440px) {

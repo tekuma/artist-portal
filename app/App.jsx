@@ -8,6 +8,7 @@ import LandingPageView    from './views/LandingPageView';
 import ForgotPasswordView from './views/ForgotPasswordView';
 import ResetPasswordView  from './views/ResetPasswordView';
 
+//TODO Remove stores, use Firebase DB
 
 //Initialize Firebase  SDK in root JSX (here)
 var config = {
@@ -29,7 +30,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user        : null,
+            user        : {},
             errors      : [],
             registration: {},
             login       : {},
@@ -77,6 +78,7 @@ export default class App extends React.Component {
         return(
             <AppView
               thisUID = {this.state.thisUID}
+              signOutUser = {this.signOutUser}
             />
         )
     }
@@ -95,7 +97,8 @@ export default class App extends React.Component {
                 authenticateWithGoogle  ={this.authenticateWithGoogle}
                 authenticateWithFB      ={this.authenticateWithFB}
                 submitRegistration      ={this.submitRegistration}
-                saveValues              ={this.saveValues}
+                saveRegistration        ={this.saveRegistration}
+                clearRegistration        ={this.clearRegistration}
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
             />
@@ -118,9 +121,17 @@ export default class App extends React.Component {
      * Mutates state to include registration infromation for new users.
      * @param  {[Object]} data [Registration information from user gathered info]
      */
-    saveValues = (data) => {
+    saveRegistration = (data) => {
+        console.log("Previous Registration: ", this.state.registration);
         this.setState({
             registration: Object.assign({}, this.state.registration, data)
+        });
+        console.log("Current Registration: ", this.state.registration);
+    }
+
+    clearRegistration = () => {
+        this.setState({
+            registration: {}
         });
     }
 
@@ -168,10 +179,10 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let currentUserUID = firebase.auth().currentUser.uid
-        console.log(currentUserUID);
-
-        this.setUID(currentUserUID);
+        let currentUser = firebase.auth().currentUser;
+        console.log(currentUser.uid);
+        this.addUserToTekuma(currentUser);
+        this.setUID(currentUser.uid);
     }
 
     /**
@@ -183,11 +194,16 @@ export default class App extends React.Component {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
             // Handle Errors here.
             var errorMessage = error.message;
-            this.state.errors.push(errorMessage);
+            console.log(errorMessage);
         });
 
-        var user = firebase.auth().currentUser;
-        this.setUID({user});
+        function setUID(that) {
+            let currentUserUID = firebase.auth().currentUser.uid;
+            console.log(currentUserUID);
+            that.setUID(currentUserUID);
+        }
+
+        setTimeout(setUID.bind(null, this), 1000);
     }
 
     /**
@@ -202,28 +218,26 @@ export default class App extends React.Component {
             console.log(errorMessage);
         });
 
-        let currentUserUID = firebase.auth().currentUser.uid
-        console.log(currentUserUID);
+        function completeRegistration(that) {
+            console.log(that.state);
+            that.authenticateWithPassword({
+                email: that.state.registration.email,
+                password: that.state.registration.password});
+            function saveUser (that) {
+                that.saveRegistration({uid: that.state.thisUID});
+                that.addUserToTekuma(that.state.registration);
+                console.log("Reached end of complete Registration function");
+            }
+            setTimeout(saveUser.bind(null, that), 1000);
+        }
 
-        this.setUID(currentUserUID);
-    }
+        setTimeout(completeRegistration.bind(null, this), 1000);
 
-    /** TODO rename to authenticateWithPassword
-     * [description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
-     */
-    authenticateWithPassword = (data) => {
-        firebase.auth().signInWithEmailAndPassword(data.email, data.password).catch(function(error) {
-            // Handle Errors here.
-            var errorMessage = error.message;
-            this.state.errors.push(errorMessage);
-            console.log(error.message);
-        });
 
     }
 
     addUserToTekuma = (user) => {
+        console.log("Entered addUserToTekuma");
         // check if UID is a child of /onboarders
         // (TODO also check /products, /_private , etc)
         // If not, add them. else, do nothing.
@@ -234,15 +248,68 @@ export default class App extends React.Component {
 
         onboardersNode.once('value').then(function(snapshot) {
                 if (!snapshot.child(thisUID).exists()) {
+
+                    console.log("User :", user);
+                    // Setting Onboarder name
                     let thisDisplayName = "Awesome Artist";
-                    if (user.displayName !== null){
+
+                    if (user.displayName !== undefined && user.displayName !== null) {
                         thisDisplayName = user.displayName;
+                        console.log("display name: ", thisDisplayName);
                     }
+
+                    // Setting onboarder info (if registered)
+                    let dob = "",
+                        avatar = "",
+                        gender = "",
+                        bio = "",
+                        location = "",
+                        portfolio = "";
+
+                    if (user.dob !== undefined) {
+                        dob = user.dob;
+                        console.log("Entered dob in addUserToTekuma");
+                        console.log("dob value: ", dob);
+                    }
+
+                    if (user.gender !== undefined) {
+                        gender = user.gender;
+                        console.log("Entered gender in addUserToTekuma");
+                        console.log("gender value: ", gender);
+                    }
+
+                    if (user.bio !== undefined) {
+                        bio = user.bio;
+                        console.log("Entered bio in addUserToTekuma");
+                        console.log("bio value: ", bio);
+                    }
+
+                    if (user.location !== undefined) {
+                        location = user.location;
+                        console.log("Entered location in addUserToTekuma");
+                        console.log("location value: ", location);
+                    }
+
+                    if (user.portfolio !== undefined) {
+                        portfolio = user.portfolio;
+                        console.log("Entered portfolio in addUserToTekuma");
+                        console.log("portfolio value: ", portfolio);
+                    }
+
+                    if (user.photoURL !== undefined ) {
+                        avatar = user.photoURL;
+                    }
+
                     onboardersNode.child(thisUID).set({
                         //TODO expand to all keys in DB
-                        email        : user.email,
-                        display_name : thisDisplayName,
-                        photo        : user.photoURL
+                        email         : user.email,
+                        display_name  : thisDisplayName,
+                        avatar        : avatar,
+                        dob           : dob,
+                        gender        : gender,
+                        bio           : bio,
+                        location      : location,
+                        portfolio     : portfolio
                     });
                     console.log(">>User Submitted To Database!");
                 }
@@ -251,4 +318,14 @@ export default class App extends React.Component {
         }, this);
 
     }
+
+    signOutUser = () => {
+        firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          console.log("User signed out");
+        }, function(error) {
+          // An error happened.
+          console.log("Error occured.");
+        });
+        }
 }//END App

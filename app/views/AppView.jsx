@@ -7,10 +7,13 @@ import HiddenNav         from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
 import RootAppLayout     from '../components/app-layouts/RootAppLayout';
 import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
+import EditProfileDialog from '../components/edit-profile/EditProfileDialog';
 import UploadDialog      from '../components/app-layouts/UploadDialog';
+import DeleteAccountDialog from '../components/DeleteAccountDialog';
 import ArtworkStore      from '../stores/ArtworkStore';
 import HTML5Backend      from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
+import Views from '../constants/Views';
 
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
@@ -19,25 +22,19 @@ export default class AppView extends React.Component {
         super(props);
 
         this.state = {
-            navIsOpen: false,               // Used to track whether Hidden Navigation is open
-            managerIsOpen: true,            // Used to track whether Album Manager is open
-            //TODO change to ENUM (prop) types
-            currentAlbum: 'Uploads',        // Used to track the current album open
-            editArtworkIsOpen: false,       // Used to track whether artwork is being edited
-            uploadDialogIsOpen: false,      // Used to track whether artwork have been uploaded
-            currentEditArtworkInfo: {},     // Used to track the current artwork being edited
-            currentAppLayout: 'Artworks',   // Used to track the current layout being displayed
-            userInfo: {
-                display_name: "Afika Nyati",
-                email: "afika.a.nyati@gmail.com",
-                dob: "26-03-1995",
-                gender: "male",
-                bio: "hello me!",
-                avatar: {},
-                location: "Boston, MA",
-                portfolio: "http://afikanyati.com"
-                    },                   // Used to store User Profile Information
-            uploadedFiles: []               // Used to store User Profile Information
+            navIsOpen: false,                           // Used to track whether Hidden Navigation is open
+            managerIsOpen: true,                        // Used to track whether Album Manager is open
+            editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
+            deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
+            uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
+            editProfileDialogIsOpen: false,             // Used to track whether Edit Profile is open
+            currentAlbum: 'Uploads',                    // Used to track the current album open
+            currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in RootAppLayout
+            userInfo: {},                               // Used to store User Profile Information
+            currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
+            uploadedFiles: [],                          // Used to store files uploaded momentarily, to be sent to Firebase
+            uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
+            albums: ["Uploads"]                         // Used to store the JSON objects to be used by  Edit Artwork Form
         };
     }
 
@@ -53,7 +50,7 @@ export default class AppView extends React.Component {
         //TODO #RFC change strings to global vars at begining of file.
         firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
 
-            this.setState({userInfo: snapshot.val()})
+            this.setState({userInfo: snapshot.val()});
             console.log("Hello world, this is the user", this.state.userInfo);
         }, function(errorStuff){
             console.log(errorStuff);
@@ -71,11 +68,13 @@ export default class AppView extends React.Component {
                 <HiddenNav
                     userInfo={this.state.userInfo}
                     navIsOpen={this.state.navIsOpen}
-                    changeAppLayout={this.changeAppLayout} />
+                    changeAppLayout={this.changeAppLayout}
+                    signOutUser={this.props.signOutUser} />
                 <HamburgerIcon
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <RootAppLayout
+                    albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.changeCurrentEditArtwork}
@@ -87,15 +86,25 @@ export default class AppView extends React.Component {
                     changeAlbum={this.changeAlbum}
                     userInfo={this.state.userInfo}
                     setUploadedFiles={this.setUploadedFiles}
-                    editUserProfile={this.editUserProfile} />
+                    setAlbums={this.setAlbums}
+                    editUserProfile={this.editUserProfile}
+                    toggleDeleteAccountDialog={this.toggleDeleteAccountDialog} />
                 <EditArtworkDialog
+                    albums={this.state.albums}
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
-                    getCurrentEditArtwork={this.state.currentEditArtworkInfo} />
+                    currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <UploadDialog
                     closeUploadDialog={this.closeUploadDialog}
-                    uploadedFiles={this.state.uploadedFiles}
+                    uploadedPreviews={this.state.uploadPreviews}
                     uploadDialogIsOpen={this.state.uploadDialogIsOpen} />
+                <EditProfileDialog
+                    closeProfileDialog={this.closeProfileDialog}
+                    editProfileDialogIsOpen={this.state.editProfileDialogIsOpen} />
+                <DeleteAccountDialog
+                    toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
+                    deleteAccountIsOpen={this.state.deleteAccountIsOpen}
+                    deleteAccount={this.deleteAccount} />
             </div>
         );
     }
@@ -104,19 +113,10 @@ export default class AppView extends React.Component {
 // -------------- METHODS -------------- //
 
     /**
-     * [description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
-     */
-    setUserInfo = (snapshot) => {
-        console.log(">>>data: ", snapshot.val());
-        this.setState({userInfo:snapshot.val()});
-        console.log(this.state.userInfo);
-    }
-
-    /**
-     * [description]
-     * @return {[type]} [description]
+     * This method is used by the Hamburger Icon component to
+     * toggle the boolean value of this.state.navIsOpen
+     * to change the state of the Hidden Navigation component
+     * from open to closed.
      */
     toggleNav = () => {
         this.setState({
@@ -125,8 +125,10 @@ export default class AppView extends React.Component {
     };
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * This method is used by the Album Manager Toggler element
+     * to toggle the boolean value of this.state.managerIsOpen
+     * to change the state of the the Album Manager component
+     * from open to closed.
      */
     toggleManager = () => {
 
@@ -136,8 +138,10 @@ export default class AppView extends React.Component {
     };
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * This method is used by Artwork components
+     * to toggle the boolean value of this.state.editArtworkIsOpen
+     * to change the state of the the Edit Artwork Dialog component
+     * from open to closed.
      */
     toggleEditArtworkDialog = () => {
         this.setState({
@@ -146,18 +150,42 @@ export default class AppView extends React.Component {
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * This method is used by the Delete Account element on the Edit Profile page component
+     * to toggle the boolean value of this.state.deleteAccountIsOpen
+     * to change the state of the the Delete Account Dialog component
+     * from open to closed.
+     */
+    toggleDeleteAccountDialog = () => {
+        this.setState({
+            deleteAccountIsOpen: !this.state.deleteAccountIsOpen
+        });
+    }
+
+    /**
+     * This method is used by the Upload Layout page component
+     * to change the boolean value of this.state.uploadDialogIsOpen
+     * to false to close the Upload Dialog component
      */
     closeUploadDialog = () => {
         this.setState({
-            uploadDialogIsOpen: !this.state.uploadDialogIsOpen
+            uploadDialogIsOpen: false
         });
         this.clearUploadedFiles();
     }
 
     /**
-     * This function will take in an array of blobs, then for each
+     * This method is used by the Edit Profile Layout page component
+     * to change the boolean value of this.state.editProfileDialogIsOpen
+     * to false to close the Edit Profile Dialog component
+     */
+    closeProfileDialog = () => {
+        this.setState({
+            editProfileDialogIsOpen: !this.state.editProfileDialogIsOpen
+        });
+    }
+
+    /**
+     * This method will take in an array of blobs, then for each
      * blob, upload into the firebase-storage bucket, then create a
      * artwork object in the database with a pointer to the uploaded
      * file.
@@ -169,6 +197,7 @@ export default class AppView extends React.Component {
         console.log("USER :::::::::::");
         let thisUID = firebase.auth().currentUser.uid;
         let bucket  = firebase.storage().ref("artworks/"+thisUID);
+        let uploadPreviews = [];
 
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
@@ -210,21 +239,38 @@ export default class AppView extends React.Component {
                         tags  : "art cool tekuma"
                     };
                     artObjRef.set(artObject);
+                    thisFile.image = uploadTask.snapshot.downloadURL;
+                    uploadPreviews.push(thisFile);
+                    console.log("Revised file: ",thisFile);
+                    console.log("Upload Previews: ", uploadPreviews);
                 }
             );
 
         }
-        this.setState({
-            uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
-            uploadedFiles     : files
-        });
+        console.log("All upload previews: ", uploadPreviews);
+
+        function setUploadPreviews(that) {
+            that.setState({
+                uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
+                uploadPreviews     : uploadPreviews
+            });
+        }
+
+        setTimeout(setUploadPreviews.bind(null, this), 1000);
+
     }
 
-
+    setAlbums = (albums) => {
+        console.log("Albums: ", albums);
+        this.setState({albums});
+    }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * This method is used by the closeUploadDialog method
+     * to empty this.state.uploadedFiles array once the Upload Dialog component
+     * is closed.
+     * Once the Upload Dialog component is closed, we no longer need to have the files
+     * stored in the state variable
      */
     clearUploadedFiles = () => {
         this.setState({
@@ -232,25 +278,34 @@ export default class AppView extends React.Component {
         });
     }
 
-    /** [description] */
+    /**
+     * This method is used by the Hidden Navigation component and LoggedOnHeader component
+     * to switch the the layout currently being displayed in the Root App Layout component
+     * by changing this.state.currentAppLayout.
+     * The value can be: Views.UPLOAD, Views.ARTWORKS, and Views.EDIT
+     * @param  {[A field of the Views object]} view [View to be displayed]
+     */
     changeAppLayout = (view) => {
 
         if(this.state.navIsOpen) {
             this.setState({
                 currentAppLayout: view,
-                navIsOpen: false
+                navIsOpen: false,
+                managerIsOpen: true
             });
         } else {
             this.setState({
-                currentAppLayout: view
+                currentAppLayout: view,
+                managerIsOpen: true
             });
         }
     }
 
     /**
-     * [description]
-     * @param  {[type]} album [description]
-     * @return {[type]}       [description]
+     * This method is used by Album components to change the album artworks
+     * currently being displayed in the Artworks component by changing
+     * to change this.state.currentAlbum
+     * @param  {[String]} album [The album to be displayed]
      */
     changeAlbum = (album) => {
         this.setState({
@@ -259,28 +314,59 @@ export default class AppView extends React.Component {
     }
 
     /**
-     * [description]
-     * @param  {[type]} id [description]
-     * @return {[type]}    [description]
+     * This method is used by the editArtwork method of the ArtworksLayout component
+     * populate this.state.currentEditArtworkInfo with the information of the
+     * artwork being edited.
+     * @param  {[String]} id [the unique id of the artwork being edited]
      */
     changeCurrentEditArtwork = (id) => {
-        var info  = ArtworkStore.getState().artworks.filter(artwork => artwork.id === id)[0]
+        let artworkInfo;
+
+        let artworks = this.state.userInfo.artworks;
+        for (var artworkID in artworks) {
+            if (artworks.hasOwnProperty(artworkID)) {
+                let artwork = artworks[artworkID];
+                if (artwork.id == id) {
+                    artworkInfo = artwork;
+                }
+            }
+        }
 
         this.setState({
-            currentEditArtworkInfo: info
+            currentEditArtworkInfo: artworkInfo
         });
     }
 
     /**
-     * [description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
+     * This method is used by the Edit Profile Layout component
+     * to populate this.state.userInfo with newly edited user profile information
+     * and to open the Edit Profile Dialog component to inform the user of the
+     * chnages
+     * @param  {[JSON object} data [edited user profile information]
      */
     editUserProfile = (data) => {
-        console.log("entered edit user profile");
+        console.log("entered edit user profile method");
+
+        let artworks = {}
+        artworks.artworks = this.state.userInfo.artworks;
+        console.log("Artworks: ",artworks);
+        let userInfo = Object.assign({}, data, artworks);
+        console.log("Data: ", userInfo);
+
         this.setState({
-            userInfo: data
+            userInfo: userInfo,
+            editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
         });
         console.log("User info should be updated");
+    }
+
+    /**
+     * This method is used by the Delete Account Dialog component
+     * to delete a user's information and artworks from the Firebase Database
+     */
+    deleteAccount = () => {
+        // TODO enter in firebase commands to delete account
+        console.log("Account is deleted.");
+        this.toggleDeleteAccountDialog();
     }
 }

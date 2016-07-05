@@ -51,7 +51,7 @@ export default class LandingPageView extends React.Component {
                   popoverIsOpen={this.state.popoverIsOpen}
                   togglePopover={this.togglePopover}
                   errors={this.props.errors}
-                  saveValues = {this.props.saveValues}
+                  saveRegistration = {this.props.saveRegistration}
                   nextStep   = {this.nextStep}
                   authenticateWithGoogle = {this.props.authenticateWithGoogle}
                   authenticateWithFB    ={this.props.authenticateWithFB}
@@ -70,7 +70,7 @@ export default class LandingPageView extends React.Component {
                                 ref="email"
                                 placeholder="Email"
                                 required="true"
-                                maxlength="100" />
+                                maxLength="100" />
                         </li>
                         <li>
                             <input
@@ -79,12 +79,13 @@ export default class LandingPageView extends React.Component {
                                 ref="password"
                                 placeholder="Password"
                                 required="true"
-                                maxlength="100"
-                                autocomplete="off" />
+                                maxLength="100"
+                                autoComplete="off" />
                         </li>
                         {this.state.errors.map(error => {
                                 return (
                                     <div
+                                        id={uuid.v4()}
                                         className="registration-error">
                                         <h2>{error}</h2>
                                     </div>
@@ -118,8 +119,9 @@ export default class LandingPageView extends React.Component {
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
-                saveValues = {this.props.saveValues}
+                saveRegistration = {this.props.saveRegistration}
                 nextStep   = {this.nextStep}
+                returnToLandingPage={this.returnToLandingPage}
               />
               <Popover
                   className="login-popover"
@@ -135,7 +137,7 @@ export default class LandingPageView extends React.Component {
                               ref="email"
                               placeholder="Email"
                               required="true"
-                              maxlength="100" />
+                              maxLength="100" />
                       </li>
                       <li>
                           <input
@@ -144,8 +146,8 @@ export default class LandingPageView extends React.Component {
                               ref="password"
                               placeholder="Password"
                               required="true"
-                              maxlength="100"
-                              autocomplete="off" />
+                              maxLength="100"
+                              autoComplete="off" />
                       </li>
                       {this.state.errors.map(error => {
                               return (
@@ -184,8 +186,9 @@ export default class LandingPageView extends React.Component {
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
-                saveValues          = {this.props.saveValues}
+                saveRegistration          = {this.props.saveRegistration}
                 submitRegistration  = {this.props.submitRegistration}
+                returnToLandingPage={this.returnToLandingPage}
               />
               <Popover
                   className="login-popover"
@@ -201,7 +204,7 @@ export default class LandingPageView extends React.Component {
                               ref="email"
                               placeholder="Email"
                               required="true"
-                              maxlength="100" />
+                              maxLength="100" />
                       </li>
                       <li>
                           <input
@@ -210,8 +213,8 @@ export default class LandingPageView extends React.Component {
                               ref="password"
                               placeholder="Password"
                               required="true"
-                              maxlength="100"
-                              autocomplete="off" />
+                              maxLength="100"
+                              autoComplete="off" />
                       </li>
                       {this.state.errors.map(error => {
                               return (
@@ -290,5 +293,11 @@ export default class LandingPageView extends React.Component {
             data.password = password;
             this.props.authenticateWithPassword(data);
         }
+    }
+
+    returnToLandingPage = () => {
+        this.setState({step: 1});
+        this.props.clearRegistration();
+        console.log("Returned to Landing Page");
     }
 }

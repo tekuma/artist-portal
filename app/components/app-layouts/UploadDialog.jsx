@@ -16,7 +16,7 @@ export default class UploadDialog extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            files: nextProps.uploadedFiles
+            files: nextProps.uploadedPreviews
         })
     }
 
@@ -40,27 +40,26 @@ export default class UploadDialog extends React.Component {
                         open={this.props.uploadDialogIsOpen}
                         titleClassName="upload-dialog-title"
                         actionsContainerClassName="upload-dialog-actions"
-                        bodyClassName="uplaod-dialog-body"
+                        bodyClassName="upload-dialog-body"
                         contentClassName="upload-dialog-content" >
-                        <div>
-                            <h2 className="upload-artwork-count">
-                                Uploaded {this.state.files.length} file{(this.state.files.length == 1) ? "" : "s"}
-                            </h2>
-                            <div className="uploaded-artworks-container">
-                                {this.state.files.map(file =>
-                                    <article className="dropzone-image-preview-container">
-                                        <img src={file.preview} />
-                                        <div className="overlay">
-                                            <div>
-                                                <h2 className="file-name">{file.name}</h2>
-                                                <h2 className="file-size">{this.getFileSize(file.size)}</h2>
-                                            </div>
+
+                        <h2 className="upload-artwork-count">
+                            Uploaded {this.state.files.length} file{(this.state.files.length == 1) ? "" : "s"}
+                        </h2>
+                        <div className="uploaded-artworks-container">
+                            {this.state.files.map(file =>
+                                <article className="dropzone-image-preview-container">
+                                    <img src={file.image} />
+                                    <div className="overlay">
+                                        <div>
+                                            <h2 className="file-name">{file.title}</h2>
+                                            <h2 className="file-size">{this.getFileSize(file.size)}</h2>
                                         </div>
-                                    </article>
-                                )}
-                            </div>
-                            <h2 className="upload-artwork-hint">View your artworks in the Uploads album</h2>
+                                    </div>
+                                </article>
+                            )}
                         </div>
+                        <h2 className="upload-artwork-hint">View your artworks in the Uploads album</h2>
                     </Dialog>
                 </MuiThemeProvider>
             </div>

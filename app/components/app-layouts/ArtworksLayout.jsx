@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'node-uuid';
 import Artwork from '../artwork/Artwork.jsx';
 import ArtworkActions from '../../actions/ArtworkActions';
 import ArtworkStore from '../../stores/ArtworkStore';
@@ -14,35 +13,47 @@ export default class ArtworksLayout extends React.Component {
         super(props);
 
         this.state = {
-            album: ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum)
+            album: []
         }
     }
 
     componentDidMount() {
-        ArtworkStore.listen(this.storeChanged);
-    }
+         function getArtworks(that) {
+            let album = [];
+            let artworks = that.props.userInfo.artworks;
+            for (var artworkID in artworks) {
+                if (artworks.hasOwnProperty(artworkID)) {
+                    let artwork = artworks[artworkID];
+                    if (artwork.album == that.props.currentAlbum) {
+                        album.push(artwork);
+                    }
+                }
+            }
+            // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+            that.setState({album});
+        }
 
-    componentWillUnmount() {
-        ArtworkStore.unlisten(this.storeChanged);
+        setTimeout(getArtworks.bind(null, this), 50);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.state.album = ArtworkStore.getState().artworks.filter(artwork => artwork.album == nextProps.currentAlbum);
+        let album = [];
+        let artworks = nextProps.userInfo.artworks;
+        for (var artworkID in artworks) {
+            if (artworks.hasOwnProperty(artworkID)) {
+                let artwork = artworks[artworkID];
+                if (artwork.album == nextProps.currentAlbum) {
+                    album.push(artwork);
+                }
+            }
+        }
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        this.setState({});
+        this.setState({album});
     }
 
-    storeChanged = (store) => {
-        // Without a property initializer `this` wouldn't
-        // point at the right context because it defaults to
-        // `undefined` in strict mode.
-        this.setState({
-            album: ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum)
-        });
-    };
 
     render() {
-        if(ArtworkStore.getState().artworks.filter(artwork => artwork.album == this.props.currentAlbum).length == 0) {
+        if(this.state.album.length == 0) {
             // Only render empty album if album is empty
             return this.renderEmptyAlbum();
         } else {
