@@ -199,12 +199,18 @@ export default class AppView extends React.Component {
         let bucket  = firebase.storage().ref("artworks/"+thisUID);
         let uploadPreviews = [];
 
-        function setUploads(that, uploadTask, thisFile) {
+        /**
+         * TODO
+         * @param {[type]}  that       [description]
+         * @param {[type]}  uploadTask [description]
+         * @param {Boolean} thisFile   [description]
+         */
+        function setUploads(uploadTask, thisFile) {
             console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
-            let artRef = firebase.database().ref('onboarders/'+thisUID).child('artworks');
+            let artRef    = firebase.database().ref('onboarders/'+thisUID).child('artworks');
             let artObjRef = artRef.push();
-            let path   = artObjRef.toString().split('/');
-            let thisID = path[path.length -1];
+            let path      = artObjRef.toString().split('/');
+            let thisID    = path[path.length -1];
 
             let artObject = {
                 id    : thisID,
@@ -233,25 +239,28 @@ export default class AppView extends React.Component {
             uploadPreviews.push(thisFile);
             console.log("Revised file: ",thisFile);
             console.log("Upload Previews: ", uploadPreviews);
-            console.log("this is this: ", that.state);
+            console.log("this is this: ", this.state);
 
-            that.setState({
+            this.setState({
                 uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
                 uploadPreviews     : uploadPreviews
             });
         }
 
+
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
+            //FIXME use a For-Of loop , maybe?
             //FIXME make unique identifier for files so that if a user
             //uploads 2 files with same name, we don't shit the bed.
             let uploadTask = bucket.child(thisFile.name).put(thisFile);
             //just listen for completion
+            //NOTE: 'on' args::on(event, nextOrObserver, error, complete)
             uploadTask.on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
                 null,
                 null,
-                setUploads.bind(null, this, uploadTask, thisFile)
+                setUploads.bind(this, uploadTask, thisFile)
             );
         }
         console.log("All upload previews: ", uploadPreviews);
