@@ -1159,6 +1159,26 @@ main {
 	text-align: center;
 }
 
+.signup-form .top-form {
+	margin-top: 10px;
+}
+
+.social-terms {
+	display: block;
+	width: 550px;
+	padding: 5px 10px 0px 5px;
+	font-size: 0.8em;
+}
+
+.social-terms a {
+	color: #ec167c;
+	cursor: pointer;
+}
+
+.social-terms a:hover {
+	color: #ea6595;
+}
+
 .left-info {
 	position: relative;
 	top: -60px;
@@ -1568,9 +1588,20 @@ login-button.left {
   	display: flex;
 	margin: 0 auto;
 	border-bottom: 2px solid #d6d3ce;
+	flex-direction: column;
 }
 
-.social-wrapper .social-button {
+.social-buttons {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	margin: 0;
+	width: 530px;
+}
+
+.social-button {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -1585,7 +1616,7 @@ login-button.left {
 	cursor: pointer;
 }
 
-.social-wrapper .social-button.facebook {
+.social-button.facebook {
 	background: #3b5b98;
 	border: 1px solid #324a79;
 	transition: all 0.3s;
@@ -1594,7 +1625,7 @@ login-button.left {
 	-ms-transition: all 0.3s;
 }
 
-.social-wrapper .social-button.facebook:hover {
+.social-button.facebook:hover {
 	background: #2c4472;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -1602,7 +1633,7 @@ login-button.left {
 	-ms-transition: all 0.3s;
 }
 
-.social-wrapper .social-button.google {
+.social-button.google {
 	background: #f17072;
 	border: 1px solid #e14347;
 	transition: all 0.3s;
@@ -1611,7 +1642,7 @@ login-button.left {
 	-ms-transition: all 0.3s;
 }
 
-.social-wrapper .social-button.google:hover {
+.social-button.google:hover {
 	background: #b55456;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -1619,7 +1650,7 @@ login-button.left {
 	-ms-transition: all 0.3s;
 }
 
-.social-wrapper .social-button .social-icon {
+.social-button .social-icon {
 	width: 43px;
 	height: 2.65em;
 	margin: 0;
@@ -1638,19 +1669,19 @@ login-button.left {
 	justify-content: center;
 }
 
-.social-wrapper .social-button .social-icon img {
+.social-button .social-icon img {
 	width: 20px;
 }
 
-.social-wrapper .social-button.facebook .social-icon {
+.social-button.facebook .social-icon {
 	border-right: 1px solid #324a79;
 }
 
-.social-wrapper .social-button.google .social-icon {
+.social-button.google .social-icon {
 	border-right: 1px solid #e14347;
 }
 
-.social-wrapper .social-button .social-writing {
+.social-button .social-writing {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -1667,7 +1698,7 @@ login-button.left {
 	width: 200px;
 }
 
-.social-wrapper .social-button .social-writing h3 {
+.social-button .social-writing h3 {
 	color: #ffffff;
 	font-size: 0.9em;
 	margin: 0;
@@ -2481,13 +2512,11 @@ login-button.left {
 	}
 }
 
-@media (max-height: 590px) {
+@media (max-width: 590px) {
 	.layout-centered {
 		padding-top: 200px;
 	}
-}
 
-@media (max-width: 590px) {
 	.signup-form .top-form,
 	.signup-form .bottom-form,
 	.signup-form .social-wrapper {
@@ -2495,11 +2524,16 @@ login-button.left {
 		flex-direction: column;
 	}
 
-	.signup-form .top-form {
-		margin-top: 10px;
+	.social-buttons {
+		width: 265px;
+		flex-direction: column;
 	}
 
-	.social-wrapper .social-button {
+	.social-terms {
+		width: 265px;
+	}
+
+	.social-button {
 		flex: 1 1 100%;
 		-webkit-flex: 1 1 100%;
 	}

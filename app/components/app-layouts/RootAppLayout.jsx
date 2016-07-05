@@ -48,7 +48,8 @@ export default class RootAppLayout extends React.Component {
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
                     setAlbums={this.props.setAlbums}
-                    albums={this.props.albums} />
+                    albums={this.props.albums}
+                    userInfo={this.props.userInfo} />
                 <ArtworksLayout
                     userInfo={this.props.userInfo}
                     currentAlbum={this.props.currentAlbum}

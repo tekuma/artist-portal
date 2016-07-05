@@ -3,7 +3,7 @@ import Artwork from '../artwork/Artwork.jsx';
 import ArtworkActions from '../../actions/ArtworkActions';
 import ArtworkStore from '../../stores/ArtworkStore';
 import confirm from '../confirm-dialog/ConfirmFunction';
-
+import filesaver from 'file-saver';
 import firebase from 'firebase';
 
 
@@ -82,6 +82,7 @@ export default class ArtworksLayout extends React.Component {
                             key={artwork.id}
                             onEdit={this.editArtwork}
                             onDelete={this.deleteArtwork}
+                            onDownload={this.downloadArtwork}
                             onMove={ArtworkActions.move}
                             artwork={artwork} />
                     );

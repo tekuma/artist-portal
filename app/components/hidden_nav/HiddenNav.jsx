@@ -2,8 +2,8 @@ import React from 'react';
 import uuid from 'node-uuid';
 import UserNameTag from './UserNameTag';
 import NavItems from './NavItems';
-import LogoutButton from './LogoutButton';
 import Views from '../../constants/Views';
+import LogoutButton from './LogoutButton';
 
 export default class HiddenNav extends React.Component {
     constructor(props) {
@@ -41,7 +41,6 @@ export default class HiddenNav extends React.Component {
 
     render() {
         const navItems = this.navItems;
-
         return (
             <nav className="navigation">
                 <div className="avatar">
@@ -50,7 +49,9 @@ export default class HiddenNav extends React.Component {
                 <UserNameTag
                     displayName={this.props.userInfo.display_name}
                     navIsOpen={this.props.navIsOpen} />
-                <NavItems navItems={navItems} changeAppLayout={this.props.changeAppLayout} />
+                <NavItems
+                    navItems={navItems}
+                    changeAppLayout={this.props.changeAppLayout} />
                 <LogoutButton
                     signOutUser={this.props.signOutUser} />
             </nav>

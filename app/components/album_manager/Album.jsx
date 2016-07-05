@@ -59,13 +59,17 @@ export default class Album extends React.Component {
     }
 
     renderEdit = () => {
-        var thumbnail = "../../assets/images/icons/new-album.svg"
+        var thumbnail = "../../assets/images/icons/new-album.svg";
 
-        //if (typeof ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == 'undefined') {
-        //    thumbnail = "../../assets/images/icons/new-album.svg";
-        //} else {
-        //    thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name).image;
-        //}
+        for (var artworkID in this.props.userInfo.artworks) {
+            if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
+                let artwork = this.props.userInfo.artworks[artworkID];
+                if (artwork.album == this.props.album.name) {
+                    thumbnail = artwork.image;
+                    console.log("Here is the thumbnail", thumbnail);
+                }
+            }
+        }
 
         var style = {
             backgroundImage: 'url(' + thumbnail + ')'
@@ -126,11 +130,16 @@ export default class Album extends React.Component {
 
         var thumbnail = "../../assets/images/icons/new-album.svg";
 
-        //if (ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name) == undefined) {
-        //    thumbnail = "../../assets/images/icons/new-album.svg";
-        //} else {
-        //    thumbnail = ArtworkStore.getState().artworks.find(artwork => artwork.album == this.props.album.name).image;
-        //}
+        for (var artworkID in this.props.userInfo.artworks) {
+            if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
+                
+                let artwork = this.props.userInfo.artworks[artworkID];
+                if (artwork.album == this.props.album.name) {
+                    thumbnail = artwork.image;
+                    console.log("Here is the thumbnail", thumbnail);
+                }
+            }
+        }
 
         var style = {
             backgroundImage: 'url(' + thumbnail + ')'

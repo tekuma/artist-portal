@@ -26,22 +26,31 @@ export default class LandingPageLayout extends React.Component {
 
                         <form className="signup-form page-1">
                             <div className="social-wrapper">
-                                <div onClick={this.props.authenticateWithFB}     className="social-button facebook">
-                                    <div className="social-icon">
-                                        <img src="../assets/images/icons/facebook.svg" />
+                                <div className="social-buttons">
+                                    <div
+                                        onClick={this.props.authenticateWithFB}
+                                        className="social-button facebook">
+                                        <div className="social-icon">
+                                            <img src="../assets/images/icons/facebook.svg" />
+                                        </div>
+                                        <div className="social-writing">
+                                            <h3>Log In with Facebook</h3>
+                                        </div>
                                     </div>
-                                    <div className="social-writing">
-                                        <h3>Log In with Facebook</h3>
+                                    <div
+                                        onClick={this.props.authenticateWithGoogle}
+                                        className="social-button google">
+                                        <div className="social-icon">
+                                            <img src="../assets/images/icons/google.svg" />
+                                        </div>
+                                        <div className="social-writing">
+                                            <h3>Log In with Google</h3>
+                                        </div>
                                     </div>
                                 </div>
-                                <div onClick={this.props.authenticateWithGoogle} className="social-button google">
-                                    <div className="social-icon">
-                                        <img src="../assets/images/icons/google.svg" />
-                                    </div>
-                                    <div className="social-writing">
-                                        <h3>Log In with Google</h3>
-                                    </div>
-                                </div>
+                                <p className="social-terms">
+                                    By pressing either of these buttons, you are agreeing to Tekuma's <a src="/">Terms of Service</a>.
+                                </p>
                             </div>
                             <div className="top-form">
                                 <ul>

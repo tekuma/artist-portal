@@ -56,6 +56,7 @@ export default class Albums extends React.Component {
                     return (
                         <Album key={album.id}
                             album={album}
+                            userInfo={this.props.userInfo}
                             onEdit={this.props.onEdit.bind(null, album.id, album.name)}
                             onDelete={this.props.onDelete.bind(null, album.id)}
                             onMove={AlbumActions.move}

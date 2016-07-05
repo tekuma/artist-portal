@@ -15,9 +15,9 @@ export default class AlbumManager extends React.Component {
         // This function is needed to repopulate album manager with
         // empty albums.
         // They would disappear every rerender without it.
-        function getAlbums(that) {
+        function getAlbums() {
 
-            let allAlbumNames = that.props.albums;
+            let allAlbumNames = this.props.albums;
             let allAlbums = [];
 
             for (var i =0; i < allAlbumNames.length; i++) {
@@ -28,20 +28,20 @@ export default class AlbumManager extends React.Component {
             }
 
             allAlbums.splice(0, 1);
-            that.setState({
+            this.setState({
                 albums: allAlbums
             });
         }
 
-        setTimeout(getAlbums.bind(null, this), 10);
+        setTimeout(getAlbums.bind(this), 10);
     }
 
     componentDidMount() {
 
-         function getAlbums(that) {
+         function getAlbums() {
             let albums = [];
             let uniqueAlbumNames = [];
-            let artworks = that.props.userInfo.artworks;
+            let artworks = this.props.userInfo.artworks;
 
             for (var artworkID in artworks) {
                 if (artworks.hasOwnProperty(artworkID)) {
@@ -51,12 +51,15 @@ export default class AlbumManager extends React.Component {
                     if(uniqueAlbumNames.indexOf(artwork.album) == -1) {
                         if(artwork.album != "Uploads") {
                             uniqueAlbumNames.push(artwork.album);
+                            console.log("Hello, you have a unique name");
                             // We don't want to create a duplicate Uploads album
                             // It is automatically created by Albums component
                         }
                     }
                 }
             }
+
+            console.log("Unique Album Names: ", uniqueAlbumNames);
 
             // Creates JSON with unique ID for each album
             for (var i =0; i < uniqueAlbumNames.length; i++) {
@@ -66,13 +69,15 @@ export default class AlbumManager extends React.Component {
                 });
             }
 
+
             // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-            that.setState({albums});
+            this.setState({albums});
+            console.log("Here are the albums:", this.state.albums);
             uniqueAlbumNames.splice(0,0,"Uploads");   // uniqueAlbumNames is sent to App View, so we want to include Uploads
             this.props.setAlbums(uniqueAlbumNames);
         }
 
-        setTimeout(getAlbums.bind(null, this), 50);
+        setTimeout(getAlbums.bind(this), 1000);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -80,7 +85,6 @@ export default class AlbumManager extends React.Component {
     }
 
     render() {
-        const albums = this.state.albums;
         if(this.props.managerIsOpen) {
             return this.openedManager();
         } else {
@@ -89,8 +93,6 @@ export default class AlbumManager extends React.Component {
     }
 
     openedManager = () => {
-        const albums = this.state.albums;
-
         return (
             <section
                 style={{
@@ -103,18 +105,17 @@ export default class AlbumManager extends React.Component {
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums
-                    albums={albums}
+                    albums={this.state.albums}
                     onEdit={this.editAlbum}
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum} />
+                    changeAlbum={this.props.changeAlbum}
+                    userInfo={this.props.userInfo} />
             </section>
         );
     };
 
     closedManager = () => {
-        const albums = this.state.albums;
-
         var albumManagerWidth;
         if(document.getElementsByClassName('album-manager')[0] != undefined) {
             albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
@@ -132,11 +133,12 @@ export default class AlbumManager extends React.Component {
                     toggleManager={this.props.toggleManager}
                     addAlbum={this.addAlbum}/>
                 <Albums
-                    albums={albums}
+                    albums={this.state.albums}
                     onEdit={this.editAlbum}
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum} />
+                    changeAlbum={this.props.changeAlbum}
+                    userInfo={this.props.userInfo} />
             </section>
         );
     }

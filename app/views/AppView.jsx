@@ -48,7 +48,7 @@ export default class AppView extends React.Component {
         const thisUID = firebase.auth().currentUser.uid;
 
         //TODO #RFC change strings to global vars at begining of file.
-        firebase.database().ref('onboarders/' + thisUID).on('value', function(snapshot) {
+        firebase.database().ref('public/onboarders/' + thisUID).on('value', function(snapshot) {
 
             this.setState({userInfo: snapshot.val()});
             console.log("Hello world, this is the user", this.state.userInfo);
@@ -201,7 +201,7 @@ export default class AppView extends React.Component {
 
         function setUploads(that, uploadTask, thisFile) {
             console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
-            let artRef = firebase.database().ref('onboarders/'+thisUID).child('artworks');
+            let artRef = firebase.database().ref('public/onboarders/'+thisUID).child('artworks');
             let artObjRef = artRef.push();
             let path   = artObjRef.toString().split('/');
             let thisID = path[path.length -1];
@@ -209,8 +209,9 @@ export default class AppView extends React.Component {
             let artObject = {
                 id    : thisID,
                 image : uploadTask.snapshot.downloadURL,
+                fileName: thisFile.name,
                 title : "Default Title",
-                artist: "Default Arist",
+                artist: "Default Artist",
                 album : "Uploads",
                 year  : 2018,
                 description: "default desciprtion stuff stuff",

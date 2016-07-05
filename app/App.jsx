@@ -244,7 +244,7 @@ export default class App extends React.Component {
 
         // const thisUID = firebase.auth().currentUser.uid;
         const thisUID = user.uid;
-        const onboardersNode = firebase.database().ref('onboarders');
+        const onboardersNode = firebase.database().ref('public/onboarders');
 
         onboardersNode.once('value').then(function(snapshot) {
                 if (!snapshot.child(thisUID).exists()) {
