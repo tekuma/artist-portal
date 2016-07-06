@@ -81,6 +81,7 @@ export default class AppView extends React.Component {
                 <RootAppLayout
                     albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
+                    deleteArtwork={this.deleteArtwork}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.changeCurrentEditArtwork}
                     toggleManager={this.toggleManager}
@@ -98,6 +99,7 @@ export default class AppView extends React.Component {
                     albums={this.state.albums}
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
+                    updateArtwork={this.updateArtwork}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <UploadDialog
                     closeUploadDialog={this.closeUploadDialog}
@@ -423,23 +425,38 @@ export default class AppView extends React.Component {
           // An error happened.
           console.log("Error occured.");
         });
+    }
 
-
-        /**
-         * This method is used by the EditArtworkForm  Component to reactively
-         * update an artwork's attributes in Firebase.
-         * @param  {String} id - the ID of the artwork to change.
-         * @param  {Object} data - JSON of {attribute:update} to be written to
-         * the database.
-         */
-        updateArtwork = (id,data) => {
-            let thisArtworkRefrence = firebase.database().ref(pathToPublicOnboarder+thisUID+'artworks/' + id);
-            for (let key in data) {
-                thisArtworkRefrence.child(key).set(data[key]);
-            }
+    /**
+     * This method is used by the EditArtworkForm  Component to reactively
+     * update an artwork's attributes in Firebase.
+     * @param  {String} id - the ID of the artwork to change.
+     * @param  {JSON} data - obj of {attribute:update} to be written to
+     * the database.
+     */
+    updateArtwork = (data) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + data.id);
+        console.log("this id:::",data.id);
+        function toggleDiaglog() {
+            this.toggleEditArtworkDialog();
+            console.log("successful set in DB");
         }
+        let thisPromise = thisArtworkReference.set(data);
+        console.log("artwork data set with:", data);
+        thisPromise.then(toggleDiaglog.bind(this));
+    }
 
-
-
+    /**
+     * [description]
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    deleteArtwork = (id) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
+        let thisPromise = thisArtworkReference.set(null);
+        console.log();
+        thisPromise.then(function() {console.log("deletion success");});
     }
 }
