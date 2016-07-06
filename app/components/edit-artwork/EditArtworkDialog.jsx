@@ -14,7 +14,8 @@ export default class EditArtworkDialog extends React.Component {
 
         this.state =  {
             formInfo: {},
-            errors: {}
+            errors: {},
+            errorMessages: []
         };
     }
 
@@ -55,6 +56,7 @@ export default class EditArtworkDialog extends React.Component {
                             albums={this.props.albums}
                             value={this.state.formInfo}
                             errors={this.state.errors}
+                            errorMessages={this.state.errorMessages}
                             onChange={this.updateFormInfo}
                             onSubmit={this.onSubmit}
                             clearErrors={this.clearErrors}
@@ -68,74 +70,68 @@ export default class EditArtworkDialog extends React.Component {
     }
 
     updateFormInfo = (formInfo) => {
+        console.log("Entered updateFormInfo");
         this.setState({formInfo});
+        console.log("Form Info: ", formInfo);
     }
 
     onSubmit = (e) => {
+        console.log("Entered onSubmit");
         e.preventDefault();
 
         // Test that user inputed a title
         if (!this.state.formInfo.title) {
-          this.state.errors.title = ["Please enter a title for the artwork"];
+            let errors = this.state.errors;
+            errors.title = true;
+            this.setState({
+                errors: Object.assign({}, this.state.errors, errors)
+            });
+            this.state.errorMessages.push("Please enter a title for the artwork");
         }
 
         // Test that user inputed an artist
         if (!this.state.formInfo.artist) {
-          this.state.errors.artist = ["Please enter an artist name"];
+            let errors = this.state.errors;
+            errors.artist = true;
+            this.setState({
+                errors: Object.assign({}, this.state.errors, errors)
+            });
+            this.state.errorMessages.push("Please enter an artist name");
         }
 
         // Test that user inputed a year
         if (!this.state.formInfo.year) {
-          this.state.errors.year = ["Please enter the year in which the artwork was completed"];
+            let errors = this.state.errors;
+            errors.year = true;
+            this.setState({
+                errors: Object.assign({}, this.state.errors, errors)
+            });
+            this.state.errorMessages.push("Please enter the year in which the artwork was completed");
         }
 
         // Test that user inputed correct year
         if (!/[0-9]{4}/.test(this.state.formInfo.year)) {
-          this.state.errors.year = ["Please enter a valid year"];
+            let errors = this.state.errors;
+            errors.year = true;
+            this.setState({
+                errors: Object.assign({}, this.state.errors, errors)
+            });
+            this.state.errorMessages.push("Please enter a valid year");
         }
-        this.forceUpdate();
 
-        if(Object.keys(this.state.errors).length == 0) {
-            ArtworkActions.updateArtwork(this.state.formInfo);
+        console.log("Got through errors");
+
+        if(this.state.errorMessages.length == 0) {
+            console.log("Edit Artwork Info: ", this.state.formInfo);
             this.props.toggleEditArtworkDialog();
         }
+        console.log("I have " + this.state.errorMessages.length + " errors: ", this.state.errorMessages);
     }
 
     clearErrors = () => {
         this.setState({
-            errors: {}
+            errors: {},
+            errorMessages: []
         });
-    }
-
-    handleDelete = (i) => {
-        var newFormInfo = this.state.formInfo;
-        var tags = this.state.formInfo.tags;
-        tags.splice(i, 1);
-        newFormInfo.tags = tags;
-        this.setState({formInfo: newFormInfo});
-    }
-
-    handleAddition = (tag) => {
-        var newFormInfo = this.state.formInfo;
-        var tags = this.state.formInfo.tags;
-        tags.push({
-            id: uuid.v4(),
-            text: tag
-        });
-        newFormInfo.tags = tags;
-        this.setState({formInfo: newFormInfo});
-    }
-
-    handleDrag = (tag, currPos, newPos) => {
-        var newFormInfo = this.state.formInfo;
-        var tags = this.state.formInfo.tags;
-
-        // mutate array
-        tags.splice(currPos, 1);
-        tags.splice(newPos, 0, tag);
-
-        // re-render
-        newFormInfo.tags = tags;
-        this.setState({formInfo: newFormInfo});
     }
 }

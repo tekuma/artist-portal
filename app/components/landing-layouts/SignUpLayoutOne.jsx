@@ -69,9 +69,9 @@ export default class SignUpLayoutOne extends React.Component {
                                     <li>
                                         <input
                                             type="text"
-                                            id="register-fullname"
-                                            ref="fullname"
-                                            placeholder="Full Name"
+                                            id="register-displayname"
+                                            ref="displayname"
+                                            placeholder="Display Name"
                                             required=""
                                             maxLength="50"
                                             autoCapitalize="off"
@@ -182,7 +182,7 @@ export default class SignUpLayoutOne extends React.Component {
         this.state.errors = [];
         var data = {};
 
-        var fullName = this.refs.fullname.value;
+        var displayName = this.refs.displayname.value;
         var day = this.refs.dobDay.value;
         var month = this.refs.dobMonth.value;
         var year = this.refs.dobYear.value;
@@ -194,7 +194,7 @@ export default class SignUpLayoutOne extends React.Component {
         console.log(year);
         console.log(this.state.avatar);
 
-        if(fullName.length == 0) {
+        if(displayName.length == 0) {
             this.state.errors.push("Please enter your full name.");
         }
 
@@ -220,7 +220,7 @@ export default class SignUpLayoutOne extends React.Component {
 
         if(this.state.errors.length == 0) {
 
-            data.displayName = fullName;
+            data.displayName = displayName;
             data.dob = day + "-" + month + "-" + year;
             data.gender =  gender;
             data.avatar = this.state.avatar;

@@ -55,10 +55,10 @@ export default class EditProfileLayout extends React.Component {
                             <li>
                                 <input
                                     type="text"
-                                    id="register-fullname"
+                                    id="register-displayname"
                                     defaultValue={this.props.userInfo.display_name}
-                                    ref="fullname"
-                                    placeholder="Full Name"
+                                    ref="displayname"
+                                    placeholder="Display Name"
                                     required=""
                                     maxLength="50"
                                     autoCapitalize="off"
@@ -143,6 +143,16 @@ export default class EditProfileLayout extends React.Component {
                                             maxLength="4" />
                                     </div>
                                 </div>
+                            </li>
+                            <li id="li-legal-age" className="legal-age">
+                                <label className="age-confirm-label">
+                                    <input
+                                        type="checkbox"
+                                        id="legal-age-checkbox"
+                                        ref="legalAge"
+                                        defaultChecked={this.props.userInfo.legal_age}/>
+                                        I confirm that I am 18+
+                                </label>
                             </li>
                             <li id="li-gender" className="gender">
                                 <label className="gender-label">Gender:</label>
@@ -233,24 +243,24 @@ export default class EditProfileLayout extends React.Component {
 
         // Clear errors from any previous form submission
         this.state.errors = [];
-        var data = {};
-        var fullName = this.refs.fullname.value;
-        var email = this.refs.email.value;
-        var password = this.refs.password.value;
-        var confirmPassword = this.refs.confirmPassword.value;
+        let data = {};
+        let displayName = this.refs.displayname.value;
+        let email = this.refs.email.value;
+        let password = this.refs.password.value;
+        let confirmPassword = this.refs.confirmPassword.value;
 
-        var day = this.refs.dobDay.value;
-        var month = this.refs.dobMonth.value;
-        var year = this.refs.dobYear.value;
+        let day = this.refs.dobDay.value;
+        let month = this.refs.dobMonth.value;
+        let year = this.refs.dobYear.value;
 
-        var gender = this.state.gender;
-        var bio = this.refs.bio.value;
-        var location = this.refs.location.value;
-        var portfolio = this.refs.portfolio.value;
+        let gender = this.state.gender;
+        let bio = this.refs.bio.value;
+        let location = this.refs.location.value;
+        let portfolio = this.refs.portfolio.value;
 
 
-        if(fullName.length > 0) {
-            data.display_name = fullName;
+        if(displayName.length > 0) {
+            data.display_name = displayName;
         }
 
         // Only test regex if user has typed in an email

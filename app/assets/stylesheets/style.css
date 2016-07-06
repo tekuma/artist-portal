@@ -1307,6 +1307,10 @@ textarea.bio {
     margin: 0;
 }
 
+.profile-form input:not([type='radio']) {
+	margin-right: 5px;
+}
+
 .profile-form section > fieldset > ul > li > label,
 .signup-form div > ul > li > label {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
@@ -1818,6 +1822,14 @@ login-button.left {
 	color: #bd3200;
 	font-size: 1em;
 	text-align: center;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+}
+
+.edit-artwork-error h3 {
+	color: #bd3200;
+	font-size: 1em;
+	text-align: center;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
 .registration-error.page-2 h2,
@@ -2254,6 +2266,8 @@ login-button.left {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
 }
+
+
 
 /*========================================== */
 

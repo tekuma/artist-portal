@@ -278,7 +278,8 @@ export default class App extends React.Component {
                         gender = "",
                         bio = "",
                         location = "",
-                        portfolio = "";
+                        portfolio = "",
+                        legal_age = false;
 
                     if (user.dob !== undefined) {
                         dob = user.dob;
