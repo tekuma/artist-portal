@@ -105,7 +105,7 @@ export default class ArtworksLayout extends React.Component {
                 <div
                     className="empty-album"
                     onClick={this.props.changeAppLayout.bind({}, 'Upload')}>
-                    <h2>This album is empty. Add artworks by dropping artworks from the Uploads album.</h2>
+                    <h2>Add artworks by dropping artworks from the Uploads album.</h2>
                 </div>
             </main>
         );
