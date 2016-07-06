@@ -38,13 +38,12 @@ export default class EditProfileLayout extends React.Component {
                     </h3>
                     <img
                         id="uploaded-avatar"
-                        style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && this.state.avatarUploaded ? "block" : "none" }}
-                        src={this.state.avatarPreview} />
+                        style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
+                        src={this.props.userInfo.avatar} />
                     <img
                         id="uploaded-avatar"
-                        style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined || this.props.userInfo.avatar !== null)  ? "block" : "none" }}
-                        src={this.props.userInfo.avatar} />
-
+                        style={{display: this.state.avatarUploaded ? "block" : "none" }}
+                        src={this.state.avatarPreview} />
                 </Dropzone>
                 <section className="left-info">
                     <div className="edit-heading">
@@ -155,7 +154,7 @@ export default class EditProfileLayout extends React.Component {
                                           id="register-male"
                                           name="gender"
                                           className="reg-radio"
-                                          value="male"
+                                          defaultValue="male"
                                           defaultChecked={this.props.userInfo.gender == "male"}
                                           onChange={this.setGender}
                                           required="" />
@@ -170,7 +169,7 @@ export default class EditProfileLayout extends React.Component {
                                           id="register-female"
                                           name="gender"
                                           className="reg-radio"
-                                          value="female"
+                                          defaultValue="female"
                                           defaultChecked={this.props.userInfo.gender == "female"}
                                           onChange={this.setGender}
                                           required="" />

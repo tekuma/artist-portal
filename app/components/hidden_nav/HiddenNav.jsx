@@ -41,10 +41,24 @@ export default class HiddenNav extends React.Component {
 
     render() {
         const navItems = this.navItems;
+        let avatar;
+
+        if(this.props.userInfo != null &&
+            this.props.userInfo.hasOwnProperty('avatar') &&
+            this.props.userInfo.avatar != "") {
+                avatar = this.props.userInfo.avatar;
+            } else {
+                avatar = 'assets/images/default-avatar.png';
+            }
+
+        var avatarStyle = {
+            backgroundImage: 'url(' + avatar + ')'
+        }
         return (
             <nav className="navigation">
-                <div className="avatar">
-	    			<img src={this.props.userInfo != null && this.props.userInfo.hasOwnProperty('avatar') && this.props.userInfo.avatar != "" ? this.props.userInfo.avatar : 'assets/images/default-avatar.png'} />
+                <div
+                    className="avatar"
+                    style={avatarStyle}>
 	    		</div>
                 <UserNameTag
                     displayName={(this.props.userInfo == null)? "Default Artist":this.props.userInfo.display_name}

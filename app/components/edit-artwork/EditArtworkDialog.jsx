@@ -1,5 +1,5 @@
 import React from 'react';
-import EditArtworkForm from './EditArtworkForm';
+import EditArtworkLayout from './EditArtworkLayout';
 import ArtworkActions from '../../actions/ArtworkActions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -51,7 +51,7 @@ export default class EditArtworkDialog extends React.Component {
                         actionsContainerClassName="edit-artwork-actions"
                         bodyClassName="edit-artwork-body"
                         contentClassName="edit-artwork-content" >
-                        <EditArtworkForm
+                        <EditArtworkLayout
                             albums={this.props.albums}
                             value={this.state.formInfo}
                             errors={this.state.errors}

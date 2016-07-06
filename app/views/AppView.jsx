@@ -173,7 +173,6 @@ export default class AppView extends React.Component {
         this.setState({
             uploadDialogIsOpen: false
         });
-        this.clearUploadedFiles();
     }
 
     /**
@@ -266,6 +265,7 @@ export default class AppView extends React.Component {
                 setUploads.bind(this, uploadTask, thisFile)
             );
         }
+        this.clearUploadedFiles();
         console.log("All upload previews: ", uploadPreviews);
     }
 

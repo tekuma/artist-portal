@@ -30,13 +30,9 @@ export default class EditArtworkForm extends React.Component {
                                 type="text"
                                 style={this.props.errors.title != undefined ? style : null}
                                 id="artwork-title"
-                                name="title"
+                                ref="title"
                                 placeholder="What is the title of this artwork?"
-                                value={this.props.value.title}
-                                onClick={clearErrors}
-                                onChange={(e) => {
-                                    onChange(Object.assign({}, oldArtwork, {title: e.target.value}))
-                                }} />
+                                defaultValue={this.props.value.title} />
                         </li>
                         <li>
                             <label for="artwork-artist">Artist <span className="pink">*</span> :</label>
@@ -44,13 +40,9 @@ export default class EditArtworkForm extends React.Component {
                                 type="text"
                                 style={this.props.errors.artist != undefined ? style : null}
                                 id="artwork-artist"
-                                name="title"
+                                ref="artist"
                                 placeholder="Who completed this artwork?"
-                                value={this.props.value.artist}
-                                onClick={clearErrors}
-                                onChange={(e) => {
-                                    onChange(Object.assign({}, oldArtwork, {artist: e.target.value}))
-                                }} />
+                                defualtValue={this.props.value.artist} />
                         </li>
                         <li id="li-album" className="controls-album">
                             <label for="edit-artwork-album">Album:</label>
@@ -78,13 +70,9 @@ export default class EditArtworkForm extends React.Component {
                                 type="text"
                                 style={this.props.errors.year != undefined ? style : null}
                                 id="artwork-year"
-                                name="year"
+                                ref="year"
                                 placeholder="Year artwork was completed?"
-                                value={this.props.value.year}
-                                onClick={clearErrors}
-                                onChange={(e) => {
-                                    onChange(Object.assign({}, oldArtwork, {year: e.target.value}))
-                                }} />
+                                defaultValue={this.props.value.year} />
                         </li>
                         <li>
                             <label className="center" for="artwork-description">Description:</label>
@@ -92,11 +80,8 @@ export default class EditArtworkForm extends React.Component {
                                 id="artwork-description"
                                 style={this.props.errors.description != undefined ? style : null}
                                 placeholder="Give this artwork a short description..."
-                                value={this.props.value.description}
-                                onClick={clearErrors}
-                                onChange={(e) => {
-                                    onChange(Object.assign({}, oldArtwork, {description: e.target.value}))
-                                }} />
+                                ref="year"
+                                defaultValue={this.props.value.description} />
                         </li>
                         <li className="color-tags">
                             <label className="color-heading center">Color :</label>
@@ -106,8 +91,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="red"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.red}
+                                        id="colorRed"
+                                        defaultChecked={this.props.value.colors.red}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -131,8 +116,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="yellow"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.yellow}
+                                        ref="colorYellow"
+                                        defaultChecked={this.props.value.colors.yellow}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -156,8 +141,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="blue"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.blue}
+                                        ref="colorBlue"
+                                        defaultChecked={this.props.value.colors.blue}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -181,8 +166,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="green"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.green}
+                                        ref="colorGreen"
+                                        defaultChecked={this.props.value.colors.green}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -206,8 +191,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="orange"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.orange}
+                                        ref="colorOrange"
+                                        defaultChecked={this.props.value.colors.orange}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -231,8 +216,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="purple"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.purple}
+                                        ref="colorPurple"
+                                        defaultChecked={this.props.value.colors.purple}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -256,8 +241,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="brown"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.brown}
+                                        ref="colorBrown"
+                                        defaultChecked={this.props.value.colors.brown}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -281,8 +266,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="black"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.black}
+                                        ref="colorBlack"
+                                        defaultChecked={this.props.value.colors.black}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -306,8 +291,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="gray"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.gray}
+                                        ref="colorGray"
+                                        defaultChecked={this.props.value.colors.gray}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -331,8 +316,8 @@ export default class EditArtworkForm extends React.Component {
                                         type="checkbox"
                                         id="white"
                                         className="color"
-                                        name="color"
-                                        checked={this.props.value.colors.white}
+                                        ref="colorWhite"
+                                        defaultChecked={this.props.value.colors.white}
                                         onClick={clearErrors}
                                         onChange={(e) => {
                                             onChange(
@@ -358,9 +343,9 @@ export default class EditArtworkForm extends React.Component {
                             <input
                                 type="text"
                                 id="artwork-tags"
-                                name="tags"
+                                ref="tags"
                                 placeholder="Enter searchable tag words..."
-                                value={this.props.value.tags}
+                                defaultValue={this.props.value.tags}
                                 onClick={clearErrors}
                                 onChange={(e) => {
                                     onChange(Object.assign({}, oldArtwork, {tags: e.target.value}))
