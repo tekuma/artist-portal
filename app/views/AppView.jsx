@@ -2,22 +2,24 @@
 // Libs
 import React          from 'react';
 import firebase       from 'firebase';
+import HTML5Backend   from 'react-dnd-html5-backend';
+
 // Views and Files    NOTE: Do not include '.jsx'
-import HiddenNav         from '../components/hidden_nav/HiddenNav';
-import HamburgerIcon     from '../components/hamburger_icon/HamburgerIcon';
-import RootAppLayout     from '../components/app-layouts/RootAppLayout';
-import EditArtworkDialog from '../components/edit-artwork/EditArtworkDialog';
-import EditProfileDialog from '../components/edit-profile/EditProfileDialog';
-import UploadDialog      from '../components/app-layouts/UploadDialog';
+import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
-import ArtworkStore      from '../stores/ArtworkStore';
-import HTML5Backend      from 'react-dnd-html5-backend';
-import {DragDropContext} from 'react-dnd';
-import Views from '../constants/Views';
+import HiddenNav           from '../components/hidden_nav/HiddenNav';
+import HamburgerIcon       from '../components/hamburger_icon/HamburgerIcon';
+import RootAppLayout       from '../components/app-layouts/RootAppLayout';
+import EditArtworkDialog   from '../components/edit-artwork/EditArtworkDialog';
+import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
+import UploadDialog        from '../components/app-layouts/UploadDialog';
+import ArtworkStore        from '../stores/ArtworkStore';
+import {DragDropContext}   from 'react-dnd';
 
 
+// #Global Variables
 const pathToPublicOnboarder = "public/onboarders/";
-
+const pathToArtUploads      = "artworks/";
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -47,7 +49,7 @@ export default class AppView extends React.Component {
      * @return {[type]} [description]
      */
     componentWillMount() {
-
+        //TODO
     }
 
     /**
@@ -194,11 +196,9 @@ export default class AppView extends React.Component {
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
-        //Upload to firebase,
-        //TODO get pointers
-        console.log("USER :::::::::::");
+
         let thisUID = firebase.auth().currentUser.uid;
-        let bucket  = firebase.storage().ref("artworks/"+thisUID);
+        let bucket  = firebase.storage().ref(pathToArtUploads+thisUID);
         let uploadPreviews = [];
 
         /**
@@ -210,14 +210,20 @@ export default class AppView extends React.Component {
         function setUploads(uploadTask, thisFile) {
             console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
             let artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+            let prom = artRef.once("value", function(snapshot){
+                let counter = snapshot.getChildrenCount()
+                console.log(counter);
+            }, null, this);
+
             let artObjRef = artRef.push();
             let path      = artObjRef.toString().split('/');
             let thisID    = path[path.length -1];
 
             let artObject = {
+                display_index: 0,
                 id    : thisID,
                 image : uploadTask.snapshot.downloadURL,
-                fileName: thisFile.name,
+                filename: thisFile.name,
                 title : "Default Title",
                 artist: "Default Artist",
                 album : "Uploads",
@@ -250,6 +256,7 @@ export default class AppView extends React.Component {
             });
         }
 
+
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
             //FIXME use a For-Of loop , maybe?
@@ -269,10 +276,17 @@ export default class AppView extends React.Component {
         console.log("All upload previews: ", uploadPreviews);
     }
 
+
+    /**
+     * [description]
+     * @param  {[type]} albums [description]
+     * @return {[type]}        [description]
+     */
     setAlbums = (albums) => {
         console.log("Albums: ", albums);
         this.setState({albums});
     }
+
 
     /**
      * This method is used by the closeUploadDialog method
@@ -295,7 +309,6 @@ export default class AppView extends React.Component {
      * @param  {[A field of the Views object]} view [View to be displayed]
      */
     changeAppLayout = (view) => {
-
         if(this.state.navIsOpen) {
             this.setState({
                 currentAppLayout: view,
@@ -351,12 +364,11 @@ export default class AppView extends React.Component {
      * to populate this.state.userInfo with newly edited user profile information
      * and to open the Edit Profile Dialog component to inform the user of the
      * chnages
-     * @param  {[JSON object} data [edited user profile information]
+     * @param  {[JSON object} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
-        const thisUID = firebase.auth().currentUser.uid;
+        const thisUID     = firebase.auth().currentUser.uid;
         let dataHasAvatar = data.hasOwnProperty('avatar');
-        console.log("entered edit user profile method");
 
         /**
          * [updateProfile description]
@@ -368,19 +380,13 @@ export default class AppView extends React.Component {
         function updateProfile(hasAvatar,data,uploadTask) {
             if (hasAvatar) {
                 console.log("avatar upload successful");
-                for (let key in data) {
-                    if (key == "avatar") {
-                        this.state.userInfo[key] = uploadTask.snapshot.downloadURL;
-                        console.log("URL HERE", uploadTask.snapshot.downloadURL);
-                    } else {
-                        this.state.userInfo[key] = data[key];
-                    }
-                }
-            } else {
-                for (let key in data) {
-                    this.state.userInfo[key] = data[key];
-                }
+                data.avatar = uploadTask.snapshot.downloadURL;
             }
+
+            firebase.database().ref(pathToPublicOnboarder + thisUID)
+            .update(data)
+            .then(function() {console.log("user info set!!",data);});
+
         };
 
         if (dataHasAvatar) {
@@ -395,10 +401,6 @@ export default class AppView extends React.Component {
         } else {
             updateProfile.bind(this,dataHasAvatar,data)
         }
-
-        firebase.database().ref(pathToPublicOnboarder + thisUID)
-        .set(this.state.userInfo).
-        then(function() {console.log("user info set!!");});
 
         this.setState({
             editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
@@ -422,6 +424,7 @@ export default class AppView extends React.Component {
           console.log("Error occured.");
         });
 
+
         /**
          * This method is used by the EditArtworkForm  Component to reactively
          * update an artwork's attributes in Firebase.
@@ -435,5 +438,8 @@ export default class AppView extends React.Component {
                 thisArtworkRefrence.child(key).set(data[key]);
             }
         }
+
+
+
     }
 }
