@@ -58,7 +58,7 @@ export default class LandingPageView extends React.Component {
                 />
                 <Popover
                     className="login-popover"
-                    style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
+                    style={{display: this.state.popoverIsOpen ? "block" : "none" }}
                     placement="bottom"
                     id = {uuid.v4()}
                     title="Have an account?">
@@ -125,7 +125,7 @@ export default class LandingPageView extends React.Component {
               />
               <Popover
                   className="login-popover"
-                  style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
+                  style={{display: this.state.popoverIsOpen ? "block" : "none" }}
                   placement="bottom"
                   id = {uuid.v4()}
                   title="Have an account?">
@@ -192,7 +192,7 @@ export default class LandingPageView extends React.Component {
               />
               <Popover
                   className="login-popover"
-                  style={{opacity: this.state.popoverIsOpen ? 1 : 0 }}
+                  style={{display: this.state.popoverIsOpen ? "block" : "none"}}
                   placement="bottom"
                   id = {uuid.v4()}
                   title="Have an account?">

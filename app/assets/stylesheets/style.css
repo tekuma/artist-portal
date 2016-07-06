@@ -1614,6 +1614,7 @@ login-button.left {
 	flex: 1 1 50%;
 	-webkit-flex: 1 1 50%;
 	cursor: pointer;
+	z-index: 2;
 }
 
 .social-button.facebook {
