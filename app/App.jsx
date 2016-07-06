@@ -252,6 +252,11 @@ export default class App extends React.Component {
 
     }
 
+    /**
+     * Initializes a user in the DB.
+     * @param  {[type]} user [description]
+     * @return {[type]}      [description]
+     */
     addUserToTekuma = (user) => {
         // check if UID is a child of /onboarders
         // (TODO also check /products, /_private , etc)
@@ -316,7 +321,9 @@ export default class App extends React.Component {
                     }
 
                     onboardersNode.child(thisUID).set({
-                        //TODO expand to all keys in DB
+                        albums        : {0: {
+                            name:"Uploads"
+                        }},
                         email         : user.email,
                         display_name  : thisDisplayName,
                         avatar        : avatar,
