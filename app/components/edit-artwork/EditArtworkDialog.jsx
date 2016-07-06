@@ -1,16 +1,18 @@
-import React from 'react';
-import EditArtworkLayout from './EditArtworkLayout';
-import ArtworkActions from '../../actions/ArtworkActions';
+// libs
+import React       from 'react';
+import uuid        from 'node-uuid';
+import Dialog      from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dialog from 'material-ui/Dialog';
-import ConfirmButton from '../confirm-dialog/ConfirmButton';
-import uuid from 'node-uuid';
+import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider';
+// files
+import EditArtworkLayout from './EditArtworkLayout';
+import ArtworkActions    from '../../actions/ArtworkActions';
+import ConfirmButton     from '../confirm-dialog/ConfirmButton';
+
 
 export default class EditArtworkDialog extends React.Component {
     constructor(props) {
         super(props);
-
 
         this.state =  {
             formInfo: {},
@@ -26,7 +28,6 @@ export default class EditArtworkDialog extends React.Component {
     }
 
     render() {
-
         const actions = [
               <ConfirmButton
                 label={"Update"}
@@ -123,7 +124,8 @@ export default class EditArtworkDialog extends React.Component {
 
         if(this.state.errorMessages.length == 0) {
             console.log("Edit Artwork Info: ", this.state.formInfo);
-            this.props.toggleEditArtworkDialog();
+            // this.props.toggleEditArtworkDialog();
+            this.props.updateArtwork(this.state.formInfo);
         }
         console.log("I have " + this.state.errorMessages.length + " errors: ", this.state.errorMessages);
     }

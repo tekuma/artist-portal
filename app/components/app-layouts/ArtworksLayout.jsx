@@ -111,11 +111,21 @@ export default class ArtworksLayout extends React.Component {
         );
     }
 
+    /**
+     * [description]
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
     editArtwork = (id) => {
         this.props.changeCurrentEditArtwork(id);  // Attach Artwork ID to View
         this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 
+    /**
+     * Deletes a given artwork from the firebase DB.
+     * @param  {[string]} id [description]
+     * @param  {[type]} e  [description]
+     */
     deleteArtwork = (id, e) => {
         // Avoid bubbling to edit
         e.stopPropagation();
@@ -123,7 +133,7 @@ export default class ArtworksLayout extends React.Component {
         confirm('Are you sure you want to delete this artwork?').then(
             () => {
                 // Proceed Callback
-                ArtworkActions.delete(id);
+                this.props.deleteArtwork(id);
             },
             () => {
                 // Cancel Callback

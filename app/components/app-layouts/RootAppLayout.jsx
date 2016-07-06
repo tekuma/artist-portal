@@ -51,6 +51,7 @@ export default class RootAppLayout extends React.Component {
                     albums={this.props.albums}
                     userInfo={this.props.userInfo} />
                 <ArtworksLayout
+                    deleteArtwork={this.props.deleteArtwork}
                     userInfo={this.props.userInfo}
                     currentAlbum={this.props.currentAlbum}
                     toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
