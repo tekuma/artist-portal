@@ -175,6 +175,7 @@ export default class AppView extends React.Component {
         this.setState({
             uploadDialogIsOpen: false
         });
+        this.clearUploadedFiles();
     }
 
     /**
@@ -272,7 +273,6 @@ export default class AppView extends React.Component {
                 setUploads.bind(this, uploadTask, thisFile)
             );
         }
-        this.clearUploadedFiles();
         console.log("All upload previews: ", uploadPreviews);
     }
 
@@ -361,50 +361,50 @@ export default class AppView extends React.Component {
 
     /**
      * This method is used by the Edit Profile Layout component
-     * to populate this.state.userInfo with newly edited user profile information
-     * and to open the Edit Profile Dialog component to inform the user of the
-     * chnages
-     * @param  {[JSON object} data [edited user profile information fields]
+     * to change data between the edit user profile UI and profile information
+     * in the Firebase DB. If the Avatar is also changed, the image must be
+     * uploaded first, then the URL set to the avatar attribute, else the
+     * DB is just updated with 'data'
+     * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
+        console.log(">>begin edit profile");
         const thisUID     = firebase.auth().currentUser.uid;
         let dataHasAvatar = data.hasOwnProperty('avatar');
 
-        /**
-         * [updateProfile description]
-         * @param  {Boolean} hasAvatar  [description]
-         * @param  {[type]}  data       [description]
-         * @param  {[type]}  uploadTask [description]
-         * @return {[type]}             [description]
-         */
-        function updateProfile(hasAvatar,data,uploadTask) {
-            if (hasAvatar) {
-                console.log("avatar upload successful");
-                data.avatar = uploadTask.snapshot.downloadURL;
-            }
 
+        function updateText() {
+            console.log(">>user info set!!",this);
+            this.setState({
+                editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+            });
+        }
+
+        function updateAvatar(data,uploadTask) {
+            console.log(">>avatar upload successful");
+            data.avatar = uploadTask.snapshot.downloadURL;
             firebase.database().ref(pathToPublicOnboarder + thisUID)
             .update(data)
-            .then(function() {console.log("user info set!!",data);});
-
+            .then( updateText.bind(this) );
         };
 
         if (dataHasAvatar) {
+            console.log(">>has avatar");
             let uploadTask = firebase.storage().ref('profile/' + thisUID).put(data.avatar);
             uploadTask.on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
                 null,
                 null,
-                updateProfile.bind(this,dataHasAvatar,data,uploadTask)
+                updateAvatar.bind(this,data,uploadTask)
             );
-
         } else {
-            updateProfile.bind(this,dataHasAvatar,data)
+            console.log(">>No Avatar, updating text");
+            let thisRef = firebase.database().ref(pathToPublicOnboarder + thisUID);
+            thisRef.update(data).then( updateText.bind(this) );
         }
 
-        this.setState({
-            editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-        });
+
+
     }
 
     /** TODO Remove this method, depreciated.
