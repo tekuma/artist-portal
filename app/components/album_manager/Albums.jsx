@@ -24,7 +24,6 @@ export default class Albums extends React.Component {
     }
     render() {
         console.log(this.props.uploads);
-        if (this.props.uploads != null && this.props.uploads != undefined) {
             const {connectDropTarget, ...props} = this.props;
 
             var styleResponsive = {
@@ -84,10 +83,5 @@ export default class Albums extends React.Component {
                     })}
                 </ul>
             );
-        } else {
-            return(
-                <p>Albums loading</p>
-            );
-        }
     }
 }
