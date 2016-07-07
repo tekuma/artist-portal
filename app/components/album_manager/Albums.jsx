@@ -1,10 +1,13 @@
+// Libs
 import React from 'react';
-import Album from './Album';
-import AlbumActions from '../../actions/AlbumActions';
-import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes from '../../constants/itemTypes';
-import ArtworkActions from '../../actions/ArtworkActions';
+import {DragSource, DropTarget}  from 'react-dnd';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+// Files
+import Album          from './Album';
+import AlbumActions   from '../../actions/AlbumActions';
+import ItemTypes      from '../../constants/itemTypes';
+import ArtworkActions from '../../actions/ArtworkActions';
+
 
 const albumTarget = {
     hover(targetProps, monitor) {
@@ -46,7 +49,6 @@ export default class Albums extends React.Component {
             let thisName = this.props.albums[index]['name'];
             albumArray.push({id:index, name:thisName});
         }
-
 
         return connectDropTarget(
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">

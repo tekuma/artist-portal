@@ -16,7 +16,6 @@ export default class AlbumManager extends React.Component {
         this.state = {
             albums: {}
         }
-
     }
 
     componentDidMount() {
