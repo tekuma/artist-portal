@@ -43,13 +43,16 @@ export default class Albums extends React.Component {
 
 
             let albumKeys = Object.keys(this.props.albums);
+
             let albumArray = [];
             for (var i = 0; i < albumKeys.length; i++) {
                 let index = albumKeys[i];
                 let thisName = this.props.albums[index]['name'];
                 albumArray.push({id:index, name:thisName});
             }
-
+            console.log("Albums", this.props.albums);
+            console.log("Album Keys", albumKeys);
+            console.log("Album Array", albumArray);
 
             return connectDropTarget(
                 <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">

@@ -15,29 +15,6 @@ export default class AlbumManager extends React.Component {
         this.state = {
             albums: {}
         }
-
-        // This function is needed to repopulate album manager with
-        // empty albums.
-        // They would disappear every rerender without it.
-        function getAlbums() {
-
-            let allAlbumNames = this.props.albums;
-            let allAlbums = [];
-
-            for (let i =0; i < allAlbumNames.length; i++) {
-                allAlbums.push({
-                    id: uuid.v4(),
-                    name: allAlbumNames[i]
-                });
-            }
-
-            allAlbums.splice(0, 1);
-            this.setState({
-                albums: allAlbums
-            });
-        }
-
-        setTimeout(getAlbums.bind(this), 10);
     }
 
     componentDidMount() {
