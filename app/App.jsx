@@ -35,9 +35,11 @@ export default class App extends React.Component {
             errors      : [],
             registration: {},
             login       : {},
-            thisUID     : null
+            thisUID     : null,
+            loggedIn    : null,
+            loaded      : false
         };
-    } //END constructor
+    }
 
     /**
      * [shouldComponentUpdate description]
@@ -50,12 +52,24 @@ export default class App extends React.Component {
       // re-renders everytime state is changed.
     }
 
+    componentWillMount() {
+        firebase.auth().onAuthStateChanged( (user)=>{
+            if (user) {
+                this.setState({loggedIn: true,  loaded:true});
+            } else {
+                this.setState({loggedIn: false, loaded:true});
+            }
+        });
+    }
+
     render() {
         console.log("||++>>>Rendering...");
-        if (this.state.thisUID !== null && this.state.errors.length == 0) {
-          return this.goToArtistPortal();
+        // if (!this.state.loaded) {return }
+
+        if (this.state.loggedIn) {
+            return this.goToArtistPortal();
         } else {
-          return this.goToLandingPage();
+            return this.goToLandingPage();
         }
     }
 
