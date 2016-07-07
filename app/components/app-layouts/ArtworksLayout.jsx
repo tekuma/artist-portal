@@ -1,10 +1,12 @@
-import React from 'react';
-import Artwork from '../artwork/Artwork.jsx';
+//Libs
+import React      from 'react';
+import filesaver  from 'file-saver';
+import firebase   from 'firebase';
+// Files
+import Artwork    from '../artwork/Artwork.jsx';
+import confirm    from '../confirm-dialog/ConfirmFunction';
 import ArtworkActions from '../../actions/ArtworkActions';
-import ArtworkStore from '../../stores/ArtworkStore';
-import confirm from '../confirm-dialog/ConfirmFunction';
-import filesaver from 'file-saver';
-import firebase from 'firebase';
+
 
 
 
@@ -114,11 +116,11 @@ export default class ArtworksLayout extends React.Component {
 
     /**
      * [description]
-     * @param  {[type]} id [description]
-     * @return {[type]}    [description]
+     * @param  {String}  id [description]
+     * @param  {String}  oldAlbumName - name of the album that art was moved from
      */
-    editArtwork = (id) => {
-        this.props.changeCurrentEditArtwork(id);  // Attach Artwork ID to View
+    editArtwork = (id,oldAlbumName) => {
+        this.props.changeCurrentEditArtwork(id,oldAlbumName);  // Attach Artwork ID to View
         this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 

@@ -39,7 +39,8 @@ export default class AppView extends React.Component {
             currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
             uploadedFiles: [],                          // Used to store files uploaded momentarily, to be sent to Firebase
             uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
-            albums: ["Uploads"]                         // Used to store the JSON objects to be used by  Edit Artwork Form
+            albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
+            albums : {}
         };
     }
 
@@ -91,11 +92,12 @@ export default class AppView extends React.Component {
                     changeAlbum={this.changeAlbum}
                     userInfo={this.state.userInfo}
                     setUploadedFiles={this.setUploadedFiles}
-                    setAlbums={this.setAlbums}
+                    setAlbumNames={this.setAlbumNames}
                     editUserProfile={this.editUserProfile}
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog} />
                 <EditArtworkDialog
                     albums={this.state.albums}
+                    albumNames={this.state.albumNames}
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
@@ -289,13 +291,12 @@ export default class AppView extends React.Component {
 
 
     /**
-     * [description]
-     * @param  {[type]} albums [description]
-     * @return {[type]}        [description]
+     * Setter method to populate an array of all album names.
+     * @param  {Array} names - an array of all names
      */
-    setAlbums = (albums) => {
-        console.log("Albums: ", albums);
-        this.setState({albums});
+    setAlbumNames = (names) => {
+        console.log("Names: ", names);
+        this.setState({albumNames : names});
     }
 
 
@@ -350,24 +351,20 @@ export default class AppView extends React.Component {
      * This method is used by the editArtwork method of the ArtworksLayout component
      * populate this.state.currentEditArtworkInfo with the information of the
      * artwork being edited.
-     * @param  {[String]} id [the unique id of the artwork being edited]
+     * @param  {String} id [the unique id of the artwork being edited]
+     * @param  {String} oldAlbumName - the album that the artwork was in
      */
-    changeCurrentEditArtwork = (id) => {
-        let artworkInfo;
-
-        let artworks = this.state.userInfo.artworks;
-        for (var artworkID in artworks) {
-            if (artworks.hasOwnProperty(artworkID)) {
-                let artwork = artworks[artworkID];
-                if (artwork.id == id) {
-                    artworkInfo = artwork;
-                }
-            }
-        }
-
-        this.setState({
-            currentEditArtworkInfo: artworkInfo
-        });
+    changeCurrentEditArtwork = (id,oldAlbumName) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let path = "public/onboarders/" + thisUID + "/artworks/" + id;
+        let artRef = firebase.database().ref(path);
+        artRef.once("value", (snapshot) => {
+            let data = snapshot.val();
+            data["oldAlbumName"] = oldAlbumName;
+            this.setState({
+                currentEditArtworkInfo: data
+            });
+        }, null, this);
     }
 
     /**
@@ -437,23 +434,66 @@ export default class AppView extends React.Component {
     }
 
     /**
-     * This method is used by the EditArtworkForm  Component to reactively
-     * update an artwork's attributes in Firebase.
-     * @param  {String} id - the ID of the artwork to change.
+     * This method is used by the EditArtworkForm Component to:
+     * -Update all attributes of this artwork in the artworks branch
+     * -move associated artwork UID from/to proper artworks arrays in
+     * albums branch.
      * @param  {JSON} data - obj of {attribute:update} to be written to
      * the database.
      */
     updateArtwork = (data) => {
         const thisUID = firebase.auth().currentUser.uid;
         let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + data.id);
-        console.log("this id:::",data.id);
-        function toggleDiaglog() {
+        thisArtworkReference.set(data).then( () => {
             this.toggleEditArtworkDialog();
-            console.log("successful set in DB");
+        });
+        if (data.album != data.oldAlbumName) {
+            this.changeArtworkAlbum(data['id'], data.oldAlbumName, data.album);
         }
-        let thisPromise = thisArtworkReference.set(data);
-        console.log("artwork data set with:", data);
-        thisPromise.then(toggleDiaglog.bind(this));
+
+    }
+
+    /**
+     * [description]
+     * @param  {} artworkUID - the UID of the artwork
+     * @param  {[type]} oldName [description]
+     * @param  {[type]} newName [description]
+     */
+    changeArtworkAlbum = (artworkUID, oldName, newName) => {
+        const thisUID  = firebase.auth().currentUser.uid;
+        let path = 'public/onboarders/'+thisUID+'/albums';
+        let albumRef   = firebase.database().ref(path);
+        albumRef.transaction( (snapshot) => {
+            let albumsLength = Object.keys(snapshot).length;
+            for (let i = 0; i < albumsLength; i++) {
+                if (snapshot[i]['name'] == oldName) {
+                    // remove the ID, then shift indexes manually
+                    let artworkLength = Object.keys(snapshot[i]['artworks']).length;
+                    let artworksNode = snapshot[i]['artworks'];
+                    let found = false;
+                    for (let j = 0; j < artworkLength; j++) {
+                        if (found) {
+                            let aheadValue = artworksNode[j];
+                            artworksNode[j-1] = aheadValue;
+                        }
+                        if (artworksNode[j] == artworkUID) {
+                            delete artworksNode[j];
+                            found = true;
+                        }
+                    }
+                    delete artworksNode[artworkLength-1];
+                } else if (snapshot[i]['name'] == newName) {
+                    // just add the ID at the end of the 'array'
+                    if (snapshot[i]['artworks'] != null && snapshot[i]['artworks'] != undefined){
+                        let artLength = Object.keys(snapshot[i]['artworks']).length;
+                        snapshot[i]['artworks'][artLength] = artworkUID;
+                    } else {
+                        snapshot[i]['artworks'] = {0: artworkUID};
+                    }
+                }
+            }
+            return snapshot;
+        });
     }
 
     /**

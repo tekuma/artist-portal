@@ -54,7 +54,7 @@ export default class EditArtworkDialog extends React.Component {
                         bodyClassName="edit-artwork-body"
                         contentClassName="edit-artwork-content" >
                         <EditArtworkLayout
-                            albums={this.props.albums}
+                            albumNames={this.props.albumNames}
                             value={this.state.formInfo}
                             errors={this.state.errors}
                             errorMessages={this.state.errorMessages}
