@@ -1,10 +1,13 @@
+// Libs
 import React from 'react';
-import Album from './Album';
-import AlbumActions from '../../actions/AlbumActions';
-import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes from '../../constants/itemTypes';
-import ArtworkActions from '../../actions/ArtworkActions';
+import {DragSource, DropTarget}  from 'react-dnd';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+// Files
+import Album          from './Album';
+import AlbumActions   from '../../actions/AlbumActions';
+import ItemTypes      from '../../constants/itemTypes';
+import ArtworkActions from '../../actions/ArtworkActions';
+
 
 const albumTarget = {
     hover(targetProps, monitor) {
@@ -24,43 +27,38 @@ export default class Albums extends React.Component {
     }
     render() {
         console.log(this.props.uploads);
-            const {connectDropTarget, ...props} = this.props;
+        const {connectDropTarget, ...props} = this.props;
 
-            var styleResponsive = {
-                height: window.innerHeight - 60,
-                width: window.innerWidth * 0.3 - 40
-            };
+        var styleResponsive = {
+            height: window.innerHeight - 60,
+            width: window.innerWidth * 0.3 - 40
+        };
 
-            var styleFixed = {
-                height: window.innerHeight - 60,
-                width: 210
-            };
+        var styleFixed = {
+            height: window.innerHeight - 60,
+            width: 210
+        };
 
-            const downloadTooltip = (
-                <Tooltip id="uploads-download-tooltip">Download</Tooltip>
-            );
+        const downloadTooltip = (
+            <Tooltip id="uploads-download-tooltip">Download</Tooltip>
+        );
 
+        let albumKeys = Object.keys(this.props.albums);
+        let albumArray = [];
+        for (var i = 0; i < albumKeys.length; i++) {
+            let index = albumKeys[i];
+            let thisName = this.props.albums[index]['name'];
+            albumArray.push({id:index, name:thisName});
+        }
 
-            let albumKeys = Object.keys(this.props.albums);
-
-            let albumArray = [];
-            for (var i = 0; i < albumKeys.length; i++) {
-                let index = albumKeys[i];
-                let thisName = this.props.albums[index]['name'];
-                albumArray.push({id:index, name:thisName});
-            }
-            console.log("Albums", this.props.albums);
-            console.log("Album Keys", albumKeys);
-            console.log("Album Array", albumArray);
-
-            return connectDropTarget(
-                <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
-                    <li onClick={this.props.changeAlbum.bind(null, 'Uploads')} className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
-                        <div className="album-avatar">
-                            <div className="empty-container">
-                                <img src='assets/images/icons/upload.svg' />
-                            </div>
+        return connectDropTarget(
+            <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
+                <li onClick={this.props.changeAlbum.bind(null, 'Uploads')} className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
+                    <div className="album-avatar">
+                        <div className="empty-container">
+                            <img src='assets/images/icons/upload.svg' />
                         </div>
+<<<<<<< HEAD
                         <div className="album-writing">
                             <h3 className="uploads-name">Uploads</h3>
                             <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
@@ -83,5 +81,30 @@ export default class Albums extends React.Component {
                     })}
                 </ul>
             );
+=======
+                    </div>
+                    <div className="album-writing">
+                        <h3 className="uploads-name">Uploads</h3>
+                        <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                            <img className="uploads-album-more"
+                                 src='assets/images/icons/download-white.svg' />
+                         </OverlayTrigger>
+                    </div>
+                </li>
+                {albumArray.map(album => {
+                    return (
+                        <Album key={album.id}
+                            album={album}
+                            userInfo={this.props.userInfo}
+                            onEdit={this.props.onEdit.bind(null, album.id)}
+                            onDelete={this.props.onDelete.bind(null, album.id)}
+                            onMove={AlbumActions.move}
+                            currentAlbum={this.props.currentAlbum}
+                            changeAlbum={this.props.changeAlbum.bind(null, album.name)} />
+                    );
+                })}
+            </ul>
+        );
+>>>>>>> 55f9ada11ee492735188675d717c73dac0b74f95
     }
 }
