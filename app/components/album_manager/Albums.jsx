@@ -2,32 +2,23 @@
 import React from 'react';
 import {DragSource, DropTarget}  from 'react-dnd';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import update from 'react-addons-update';
 // Files
+import UploadsAlbum from './UploadsAlbum';
 import Album          from './Album';
 import AlbumActions   from '../../actions/AlbumActions';
 import ItemTypes      from '../../constants/itemTypes';
 import ArtworkActions from '../../actions/ArtworkActions';
 
 
-const albumTarget = {
-    hover(targetProps, monitor) {
-        const source = monitor.getItem();
-        ArtworkActions.changeAlbumField(source.id, "Uploads");
-    }
-};
 
-// Makes Album a Drop Target for Artworks
-@DropTarget(ItemTypes.ARTWORK, albumTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
-}))
+
 export default class Albums extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return true;
     }
     render() {
-        console.log(this.props.uploads);
-        const {connectDropTarget, ...props} = this.props;
 
         var styleResponsive = {
             height: window.innerHeight - 60,
@@ -39,10 +30,6 @@ export default class Albums extends React.Component {
             width: 210
         };
 
-        const downloadTooltip = (
-            <Tooltip id="uploads-download-tooltip">Download</Tooltip>
-        );
-
         let albumKeys = Object.keys(this.props.albums);
         let albumArray = [];
         for (var i = 0; i < albumKeys.length; i++) {
@@ -51,46 +38,12 @@ export default class Albums extends React.Component {
             albumArray.push({id:index, name:thisName});
         }
 
-        return connectDropTarget(
+        return (
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
-                <li onClick={this.props.changeAlbum.bind(null, 'Uploads')} className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
-                    <div className="album-avatar">
-                        <div className="empty-container">
-                            <img src='assets/images/icons/upload.svg' />
-                        </div>
-<<<<<<< HEAD
-                        <div className="album-writing">
-                            <h3 className="uploads-name">Uploads</h3>
-                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                                <img className="uploads-album-more"
-                                     src='assets/images/icons/download-white.svg' />
-                             </OverlayTrigger>
-                        </div>
-                    </li>
-                    {albumArray.map(album => {
-                        return (
-                            <Album key={album.id}
-                                album={album}
-                                userInfo={this.props.userInfo}
-                                onEdit={this.props.onEdit.bind(null, album.id)}
-                                onDelete={this.props.onDelete.bind(null, album.id)}
-                                onMove={AlbumActions.move}
-                                currentAlbum={this.props.currentAlbum}
-                                changeAlbum={this.props.changeAlbum.bind(null, album.name)} />
-                        );
-                    })}
-                </ul>
-            );
-=======
-                    </div>
-                    <div className="album-writing">
-                        <h3 className="uploads-name">Uploads</h3>
-                        <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                            <img className="uploads-album-more"
-                                 src='assets/images/icons/download-white.svg' />
-                         </OverlayTrigger>
-                    </div>
-                </li>
+                <UploadsAlbum
+                    changeAlbum={this.props.changeAlbum.bind(null, "Uploads")}
+                    currentAlbum={this.props.currentAlbum}
+                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
                 {albumArray.map(album => {
                     return (
                         <Album key={album.id}
@@ -98,13 +51,43 @@ export default class Albums extends React.Component {
                             userInfo={this.props.userInfo}
                             onEdit={this.props.onEdit.bind(null, album.id)}
                             onDelete={this.props.onDelete.bind(null, album.id)}
-                            onMove={AlbumActions.move}
+                            onMove={this.move}
                             currentAlbum={this.props.currentAlbum}
-                            changeAlbum={this.props.changeAlbum.bind(null, album.name)} />
+                            changeAlbum={this.props.changeAlbum.bind(null, album.name)}
+                            changeArtworkAlbum={this.props.changeArtworkAlbum} />
                     );
                 })}
             </ul>
         );
->>>>>>> 55f9ada11ee492735188675d717c73dac0b74f95
+    }
+
+    move = (sourceName, targetName) => {
+        console.log("Entered move");
+        const userPath = 'public/onboarders/';
+        const thisUID = firebase.auth().currentUser.uid;
+        let path = userPath + thisUID + "/albums";
+        let albumRef = firebase.database().ref(path);
+        albumRef.transaction( (data) => {
+            let albumsLength = Object.keys(data).length;
+            let sourceData;
+            let sourceIndex;
+            let targetIndex;
+
+            for (let i = 0; i < albumsLength; i++) {
+                if (data[i]['name'] == sourceName) {
+                    sourceData = data[i];
+                    sourceIndex = i;
+                } else if (data[i]['name'] == targetName) {
+                    targetIndex = i;
+                }
+            }
+
+            let modifiedAlbums = update(data, {
+                $splice: [[sourceIndex, 1],[targetIndex, 0, sourceData]]
+            });
+
+            return modifiedAlbums;
+        });
+
     }
 }

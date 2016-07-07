@@ -85,7 +85,7 @@ export default class ArtworksLayout extends React.Component {
                             onEdit={this.editArtwork}
                             onDelete={this.deleteArtwork}
                             onDownload={this.downloadArtwork}
-                            onMove={ArtworkActions.move}
+                            onMove={this.move}
                             artwork={artwork} />
                     );
                 })}
@@ -143,5 +143,38 @@ export default class ArtworksLayout extends React.Component {
                 return;
             }
         );
+    }
+
+    move = (sourceId, targetId) => {
+        console.log("Entered move");
+        const userPath = 'public/onboarders/';
+        const thisUID = firebase.auth().currentUser.uid;
+        let path = userPath + thisUID + "/albums";
+        let albumRef = firebase.database().ref(path);
+        albumRef.transaction( (data) => {
+            let albumsLength = Object.keys(data).length;
+            let sourceData;
+            let albumIndex;
+            let sourceIndex;
+            let targetIndex;
+
+            for (let i = 0; i < albumsLength; i++) {
+                let artworksLength = Object.keys(data[i]['artworks']).length;
+                let found = false;
+                let previousData;
+                for (let j = 0; i < artworksLength; j++) {
+                    if (found) {
+                        let dataToPlace = previousData;
+                        previousData = data[i]['artworks'][j];
+                        data[i]['artworks'][j] = dataToPlace;
+                    } else if (data[i]['artworks'][j] == targetId) {
+                        previousData = data[i]['artworks'][j];
+                        data[i]['artworks'][j] = sourceId;
+                    }
+                }
+            }
+            return data;
+        });
+
     }
 }

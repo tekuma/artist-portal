@@ -8,7 +8,8 @@ const artworkSource = {
     beginDrag(props) {
         return {
             id: props.artwork.id,
-            type: "artwork"
+            album: props.artwork.album,
+            type: ItemTypes.ARTWORK
         };
     }
 };

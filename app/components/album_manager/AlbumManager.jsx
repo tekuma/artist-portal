@@ -88,7 +88,8 @@ export default class AlbumManager extends React.Component {
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
-                    userInfo={this.props.userInfo} />
+                    userInfo={this.props.userInfo}
+                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
             </section>
         );
     };

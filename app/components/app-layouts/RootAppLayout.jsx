@@ -49,7 +49,8 @@ export default class RootAppLayout extends React.Component {
                     changeAlbum={this.props.changeAlbum}
                     setAlbumNames={this.props.setAlbumNames}
                     albums={this.props.albums}
-                    userInfo={this.props.userInfo} />
+                    userInfo={this.props.userInfo}
+                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
                 <ArtworksLayout
                     deleteArtwork={this.props.deleteArtwork}
                     userInfo={this.props.userInfo}

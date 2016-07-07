@@ -9,8 +9,8 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 const albumSource = {
     beginDrag(props) {
         return {
-            id: props.album.id,
-            type: "album"
+            name: props.album.name,
+            type: ItemTypes.ALBUM
         };
     }
 };
@@ -19,13 +19,27 @@ const albumTarget = {
     hover(targetProps, monitor) {
         const target = targetProps.album;
         const source = monitor.getItem();
-        if(source.id !== target.id) {
-            if(source.type == "album") {
+        if(source.name !== target.name) {
+            if(source.type == ItemTypes.ALBUM) {
                 // Move order of albums
-                targetProps.onMove({source, target});
-            } else {
+                targetProps.onMove(source.name, target.name);
+            }
+        }
+    },
+
+    drop(targetProps, monitor) {
+        const target = targetProps.album;
+        const source = monitor.getItem();
+        if(source.name !== target.name) {
+            if(source.type == ItemTypes.ARTWORK) {
                 // Move artwork to new album
-                ArtworkActions.changeAlbumField(source.id, target.name);
+                targetProps.changeArtworkAlbum(source.id, source.album, target.name);
+                const thisUID  = firebase.auth().currentUser.uid;
+                let path = 'public/onboarders/' + thisUID +'/artworks/' + source.id;
+                let thisArtworkReference = firebase.database().ref(path);
+                thisArtworkReference.update({album: target.name}).then( () => {
+                    console.log("Artwork album changed within artwork");
+                });
             }
         }
     }

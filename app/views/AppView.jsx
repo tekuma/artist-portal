@@ -94,7 +94,8 @@ export default class AppView extends React.Component {
                     setUploadedFiles={this.setUploadedFiles}
                     setAlbumNames={this.setAlbumNames}
                     editUserProfile={this.editUserProfile}
-                    toggleDeleteAccountDialog={this.toggleDeleteAccountDialog} />
+                    toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
+                    changeArtworkAlbum={this.changeArtworkAlbum} />
                 <EditArtworkDialog
                     albums={this.state.albums}
                     albumNames={this.state.albumNames}
@@ -466,8 +467,12 @@ export default class AppView extends React.Component {
             for (let i = 0; i < albumsLength; i++) {
                 if (snapshot[i]['name'] == oldName) {
                     // remove the ID, then shift indexes manually
+                    console.log("Old name: ", oldName);
+                    console.log("Snapshot[i][name]: ", snapshot[i]['name']);
                     let artworkLength = Object.keys(snapshot[i]['artworks']).length;
+                    console.log("Artworks Length: ", artworkLength);
                     let artworksNode = snapshot[i]['artworks'];
+                    console.log("Artworks Node: ", snapshot[i]['artworks']);
                     let found = false;
                     for (let j = 0; j < artworkLength; j++) {
                         if (found) {
@@ -485,8 +490,10 @@ export default class AppView extends React.Component {
                     if (snapshot[i]['artworks'] != null && snapshot[i]['artworks'] != undefined){
                         let artLength = Object.keys(snapshot[i]['artworks']).length;
                         snapshot[i]['artworks'][artLength] = artworkUID;
+                        console.log("Artworks already: ", snapshot[i]['artworks']);
                     } else {
                         snapshot[i]['artworks'] = {0: artworkUID};
+                        console.log("No artworks");
                     }
                 }
             }
