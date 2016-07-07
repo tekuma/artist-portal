@@ -210,14 +210,16 @@ export default class AlbumManager extends React.Component {
 
         confirm('Are you sure you want to delete this album?').then(
             () => {
-                // Proceed Callback:
-                // Delete all attributed artworks
-                // change the album key for each artwork object
-                let artLength = Object.keys(this.state.albums[index]['artworks']).length;
-                for (let i = 0; i < artLength; i++) {
-                    let thisArtKey = this.state.albums[index]['artworks'][i];
-                    let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
-                    artworkRef.set(null);
+                // they clicked "yes", so
+                // First, Delete all attributed artworks
+                // check if album is empty, if so bi-pass first step.
+                if (this.state.albums[index]['artworks'] != null && this.state.albums[index]['artworks'] != undefined){
+                    let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+                    for (let i = 0; i < artLength; i++) {
+                        let thisArtKey = this.state.albums[index]['artworks'][i];
+                        let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
+                        artworkRef.set(null);
+                    }
                 }
                 // then Delete this album branch
                 let albumRef = firebase.database().ref(userPath+thisUID+'/albums/'+index);
@@ -225,7 +227,7 @@ export default class AlbumManager extends React.Component {
             },
 
             () => {
-                // Cancel Callback
+                // they clicked 'no'
                 return;
             }
         );
@@ -240,9 +242,12 @@ export default class AlbumManager extends React.Component {
         let untitledAlbumIndex = 1;
         let nextAlbumName = "Untitled ";
 
-        let albumsLength = Object.keys(this.state.albums).length;
-        for (let i = 0; i < albumsLength; i++) {
-            let albumName = this.state.albums[i]['name'];
+        let albumKeys = Object.keys(this.state.albums);
+
+        for (let i = 0; i < albumKeys.length; i++) {
+            let thisKey   = albumKeys[i];
+
+            let albumName = this.state.albums[thisKey]['name'];
             let isUntitledAlbum = albumName.search("Untitled");  // Returns index of start of term if contained, otherwise -1
 
             if(isUntitledAlbum != -1) { // True if contains untitled
