@@ -26,6 +26,7 @@ export default class Albums extends React.Component {
         return true;
     }
     render() {
+        console.log(this.props.uploads);
         const {connectDropTarget, ...props} = this.props;
 
         var styleResponsive = {
@@ -57,6 +58,30 @@ export default class Albums extends React.Component {
                         <div className="empty-container">
                             <img src='assets/images/icons/upload.svg' />
                         </div>
+<<<<<<< HEAD
+                        <div className="album-writing">
+                            <h3 className="uploads-name">Uploads</h3>
+                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                                <img className="uploads-album-more"
+                                     src='assets/images/icons/download-white.svg' />
+                             </OverlayTrigger>
+                        </div>
+                    </li>
+                    {albumArray.map(album => {
+                        return (
+                            <Album key={album.id}
+                                album={album}
+                                userInfo={this.props.userInfo}
+                                onEdit={this.props.onEdit.bind(null, album.id)}
+                                onDelete={this.props.onDelete.bind(null, album.id)}
+                                onMove={AlbumActions.move}
+                                currentAlbum={this.props.currentAlbum}
+                                changeAlbum={this.props.changeAlbum.bind(null, album.name)} />
+                        );
+                    })}
+                </ul>
+            );
+=======
                     </div>
                     <div className="album-writing">
                         <h3 className="uploads-name">Uploads</h3>
@@ -80,5 +105,6 @@ export default class Albums extends React.Component {
                 })}
             </ul>
         );
+>>>>>>> 55f9ada11ee492735188675d717c73dac0b74f95
     }
 }
