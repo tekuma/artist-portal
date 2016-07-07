@@ -6,7 +6,7 @@ export default class EditArtworkForm extends React.Component {
         super(props);
 
         this.state = {
-            albums: this.props.albums
+            albumNames: this.props.albumNames
         }
     }
 
@@ -71,7 +71,7 @@ export default class EditArtworkForm extends React.Component {
                                                 onChange={(e) => {
                                                     onChange(Object.assign({}, oldArtwork, {album: e.target.value}))
                                                 }}>
-                                                {this.state.albums.map(album => {
+                                                {this.state.albumNames.map(album => {
                                                         return (
                                                             <option
                                                                 id={uuid.v4()}

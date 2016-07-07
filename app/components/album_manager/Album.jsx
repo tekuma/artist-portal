@@ -219,13 +219,13 @@ export default class Album extends React.Component {
     finishEdit = (e) => {
         const value = e.target.value;
 
-        if(this.props.onEdit) {
+        // if(this.props.onEdit) {
             this.props.onEdit(value);
 
             // Exit edit mode.
             this.setState({
                 editing: false
             });
-        }
+        // }
     }
 }

@@ -53,11 +53,13 @@ export default class AlbumManager extends React.Component {
             delete albumJSON[0];
 
             let albumKeys = Object.keys(albumJSON);
-            let albumNames = [];
+            let albumNames = ["Uploads"];
             for (var i = 0; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
                 albumNames.push(albumJSON[key]['name']);
             }
+            //send names to AppView
+            this.props.setAlbumNames(albumNames);
 
             this.setState({
                 albums:albumJSON,
@@ -156,7 +158,7 @@ export default class AlbumManager extends React.Component {
         let path = userPath + thisUID + "/albums";
         let albumRef = firebase.database().ref(path);
 
-        albumRef.transaction(function(data) {
+        albumRef.transaction( (data) => {
             let albumLength = Object.keys(data).length;
             data[albumLength] = {name:newAlbumName};
             console.log(albumLength, "albumLength");
@@ -175,26 +177,31 @@ export default class AlbumManager extends React.Component {
     /**
      * [description]
      * @param  {Integer} index - index of the album
-     * @param  {[type]}  name  - name to update album name to.
+     * @param  {[type]}  name  - new name to update album name to.
      */
     editAlbum = (index, name) => {
         const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
-        if(!name.trim() || this.state.albumNames.indexOf(name) != -1) {
+        let isNameThere = this.state.albumNames.indexOf(name) != -1;
+        if(!name.trim() || isNameThere ) {
             return;
         }
 
         // Change the name in the album branch
         let path = userPath + thisUID + "/albums/"+index;
         let thisAlbumRef = firebase.database().ref(path);
-        thisAlbumRef.update({name:name});
+        thisAlbumRef.update({name:name}).then( () => {
+            console.log("name update successful");
+        });
 
         // change the album key for each artwork object
         let artLength = Object.keys(this.state.albums[index]['artworks']).length;
         for (var i = 0; i < artLength; i++) {
             let thisArtKey = this.state.albums[index]['artworks'][i];
             let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
-            artworkRef.update({album:name});
+            artworkRef.update({album:name}).then( () => {
+                return;
+            });
         }
     };
 
@@ -204,13 +211,12 @@ export default class AlbumManager extends React.Component {
      * @param  {[type]} e  - element
      */
     deleteAlbum = (index, e) => {
+        //TODO index can never == 0
         const thisUID = firebase.auth().currentUser.uid;
         // Avoid bubbling to edit
         e.stopPropagation();
-
-        confirm('Are you sure you want to delete this album?').then(
-            () => {
-                // they clicked "yes", so
+        confirm('Are you sure you want to delete this album?').then( () => {
+                // # they clicked "yes", so
                 // First, Delete all attributed artworks
                 // check if album is empty, if so bi-pass first step.
                 if (this.state.albums[index]['artworks'] != null && this.state.albums[index]['artworks'] != undefined){
@@ -221,12 +227,29 @@ export default class AlbumManager extends React.Component {
                         artworkRef.set(null);
                     }
                 }
-                // then Delete this album branch
-                let albumRef = firebase.database().ref(userPath+thisUID+'/albums/'+index);
-                albumRef.set(null);
-            },
-
-            () => {
+                // then Delete this album branch, and manually update indexes.
+                let path = 'public/onboarders/' + thisUID + '/albums' ;
+                let albumRef = firebase.database().ref(path);
+                albumRef.transaction( (data) => {
+                    console.log("inside transaction", data);
+                    let albumLength = Object.keys(data).length;
+                    let found = false;
+                    for (var i = 0; i < albumLength; i++) {
+                        if (found) {
+                            let aheadObject = data[i]
+                            data[i-1] = aheadObject;
+                        }
+                        console.log("stuff", i, index);
+                        if (i === index) {
+                            console.log("MATCH", index, i);
+                            delete data[i];
+                            found = true;
+                        }
+                    }
+                    delete data[albumLength-1];
+                    return data;
+                });
+            }, () => {
                 // they clicked 'no'
                 return;
             }

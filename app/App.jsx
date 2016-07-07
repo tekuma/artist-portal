@@ -96,7 +96,7 @@ export default class App extends React.Component {
                 submitRegistration      ={this.submitRegistration}
                 saveRegistration        ={this.saveRegistration}
                 clearRegistration       ={this.clearRegistration}
-                
+
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
             />
@@ -155,7 +155,6 @@ export default class App extends React.Component {
             this.setUID(thisCurrentUser.uid);
             console.log(">Google Auth successful");
         }).catch(function(error) {
-            console.log("|>>>> ERROR with Google Auth:");
             console.log(error);
         });
     }
@@ -177,7 +176,6 @@ export default class App extends React.Component {
             this.setUID(thisCurrentUser.uid);
             console.log(">FB Auth successful");
         }).catch(function(error) {
-            console.log("|>>>> ERROR with FB Auth:");
             console.log(error);
         });
     }
@@ -195,8 +193,7 @@ export default class App extends React.Component {
             this.setUID(thisCurrentUser.uid);
             console.log(">FB Auth successful");
         }).catch(function(error) {
-            let errorMessage = error.message;
-            console.log(errorMessage);
+            console.error(error);
         });
     }
 
@@ -211,10 +208,7 @@ export default class App extends React.Component {
         .catch(function(error) {
             console.error(error);
         });
-        ////////////////
-        //FIXME translate to arrow functions,
-        //FIXME ask afika why we have timeouts
-        /////////////////////////
+
         function completeRegistration(that) {
             that.authenticateWithPassword({
                 email: that.state.registration.email,
@@ -326,10 +320,8 @@ export default class App extends React.Component {
      */
     signOutUser = () => {
         firebase.auth().signOut().then(function() {
-          // Sign-out successful.
           console.log("User signed out");
         }, function(error) {
-          // An error happened.
           console.log("Error occured.");
         });
         }
