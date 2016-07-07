@@ -1,9 +1,10 @@
-import React from 'react';
-import uuid from 'node-uuid';
+// Libs
+import React  from 'react';
+import uuid   from 'node-uuid';
+// Files
+import Albums       from './Albums.jsx';
+import confirm      from '../confirm-dialog/ConfirmFunction';
 import AlbumToggler from './AlbumToggler.jsx';
-import Albums from './Albums.jsx';
-import confirm from '../confirm-dialog/ConfirmFunction';
-
 
 //Global Variables
 const userPath = 'public/onboarders/';
