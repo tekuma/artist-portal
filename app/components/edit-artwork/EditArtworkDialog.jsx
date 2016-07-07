@@ -78,6 +78,7 @@ export default class EditArtworkDialog extends React.Component {
 
     onSubmit = (e) => {
         console.log("Entered onSubmit");
+        console.log("Artwork form: ", this.state.formInfo);
         e.preventDefault();
 
         // Test that user inputed a title

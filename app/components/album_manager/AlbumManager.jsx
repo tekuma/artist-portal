@@ -277,7 +277,7 @@ export default class AlbumManager extends React.Component {
             }
             nextAlbumName += untitledAlbumIndex.toString();
         }
-
+        console.log(nextAlbumName);
         return nextAlbumName;
     }
 }
