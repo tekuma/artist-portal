@@ -5,10 +5,8 @@ import Firebase       from 'firebase';
 // Views
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
-import ForgotPasswordView from './views/ForgotPasswordView';
 import ResetPasswordView  from './views/ResetPasswordView';
-
-//TODO Remove stores, use Firebase DB
+import ForgotPasswordView from './views/ForgotPasswordView';
 
 //Initialize Firebase  SDK in root JSX (here)
 var config = {
@@ -19,10 +17,13 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//Instantiate Provider Objects for Auth()
+//  # Global Variables
+const userPath = 'public/onboarders/';
+
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
-//   =>TODO  Add 'scopes'? to google/fb auth
+//TODO  Add 'scopes'? to google/fb auth
+
 
 
 export default class App extends React.Component {
@@ -52,25 +53,23 @@ export default class App extends React.Component {
     render() {
         console.log("||++>>>Rendering...");
         if (this.state.thisUID !== null && this.state.errors.length == 0) {
-          console.log("|>>>User signed in successfully, rendering Artist Portal!");
-          return this.artistPortal();
+          return this.goToArtistPortal();
         } else {
-            console.log("|>>>No user detected. Rendering Log-in page");
-          return this.landingPage();
+          return this.goToLandingPage();
         }
     }
 
 
     //// ----------- #Methods ---------------------------------
 
-    // #Flow control Methods
+    // #Render flowcontrol Methods
 
     /**
      * Flow Control Function: If a user is currently logged in after accessing
      * '/', they are sent here.
      * @return {[JSX]} [renders into AppView]
      */
-    artistPortal = () => {
+    goToArtistPortal = () => {
         console.log("|>Rendering Artist Portal");
         console.log("|+>State:", this.state);
         return(
@@ -86,7 +85,7 @@ export default class App extends React.Component {
      * they the UX will render the login page, "LandingPageView".
      * @return {[type]} [description]
      */
-    landingPage = () => {
+    goToLandingPage = () => {
         console.log("|>Rendering Login Page");
         console.log("|+>State:", this.state);
         return(
@@ -96,7 +95,8 @@ export default class App extends React.Component {
                 authenticateWithFB      ={this.authenticateWithFB}
                 submitRegistration      ={this.submitRegistration}
                 saveRegistration        ={this.saveRegistration}
-                clearRegistration        ={this.clearRegistration}
+                clearRegistration       ={this.clearRegistration}
+                
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
             />
@@ -143,31 +143,21 @@ export default class App extends React.Component {
      * and fill the firebase.auth() object with current user information.
      * A .then() can be used follwering the signInWithPopup and before the
      * .catch to grab a Google OAuth Token to access Google APIs. But, it is
-     * not currently needed for the scope of Artist.Tekuma.io
-     * @return {[Promise]} see:
+     * not currently needed for the scope of Artist.Tekuma.io.
+     * NOTE: that '() =>' will lexically bind the 'this' object.
      * [https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signInWithPopup ]
      */
     authenticateWithGoogle = () => {
-        console.log("|>> Authenticating with Google");
-
-        /**
-         * [onAuth description]
-         * @return {[type]} [description]
-         */
-        function onAuth() {
+        firebase.auth().signInWithPopup(providerG)
+        .then( () => {
             let thisCurrentUser = firebase.auth().currentUser;
             this.addUserToTekuma(thisCurrentUser);
             this.setUID(thisCurrentUser.uid);
             console.log(">Google Auth successful");
-        };
-
-        firebase.auth().signInWithPopup(providerG)
-        .then(onAuth.bind(this))
-        .catch(function(error) {
+        }).catch(function(error) {
             console.log("|>>>> ERROR with Google Auth:");
             console.log(error);
         });
-
     }
 
     /**
@@ -180,21 +170,13 @@ export default class App extends React.Component {
      * [https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signInWithPopup ]
      */
     authenticateWithFB = () => {
-        console.log("|>> Authenticating with FB");
-        /**
-         * [onAuth description]
-         * @return {[type]} [description]
-         */
-        function onAuth() {
+        firebase.auth().signInWithPopup(providerF)
+        .then( () => {
             let thisCurrentUser = firebase.auth().currentUser;
             this.addUserToTekuma(thisCurrentUser);
             this.setUID(thisCurrentUser.uid);
             console.log(">FB Auth successful");
-        };
-
-        firebase.auth().signInWithPopup(providerF)
-        .then(onAuth.bind(this))
-        .catch(function(error) {
+        }).catch(function(error) {
             console.log("|>>>> ERROR with FB Auth:");
             console.log(error);
         });
@@ -206,16 +188,13 @@ export default class App extends React.Component {
      * @return {[type]}      [description]
      */
     authenticateWithPassword = (data) => {
-        function onAuth() {
+        firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+        .then( () => {
             let thisCurrentUser = firebase.auth().currentUser;
             this.addUserToTekuma(thisCurrentUser);
             this.setUID(thisCurrentUser.uid);
             console.log(">FB Auth successful");
-        };
-
-        firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        .then(onAuth.bind(this))
-        .catch(function(error) {
+        }).catch(function(error) {
             let errorMessage = error.message;
             console.log(errorMessage);
         });
@@ -228,14 +207,15 @@ export default class App extends React.Component {
      */
     submitRegistration = () => {
         console.log("|>Submitted registration.");
-        firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password).catch(function(error) {
-            // Handle Errors here.
-            var errorMessage = error.message;
-            console.log(errorMessage);
+        firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
+        .catch(function(error) {
+            console.error(error);
         });
-
+        ////////////////
+        //FIXME translate to arrow functions,
+        //FIXME ask afika why we have timeouts
+        /////////////////////////
         function completeRegistration(that) {
-            console.log(that.state);
             that.authenticateWithPassword({
                 email: that.state.registration.email,
                 password: that.state.registration.password});
@@ -246,7 +226,6 @@ export default class App extends React.Component {
             }
             setTimeout(saveUser.bind(null, that), 1000);
         }
-
         setTimeout(completeRegistration.bind(null, this), 1000);
 
 
@@ -264,7 +243,7 @@ export default class App extends React.Component {
 
         // const thisUID = firebase.auth().currentUser.uid;
         const thisUID = user.uid;
-        const onboardersNode = firebase.database().ref('public/onboarders');
+        const onboardersNode = firebase.database().ref(userPath);
 
         onboardersNode.once('value').then(function(snapshot) {
                 if (!snapshot.child(thisUID).exists()) {
@@ -335,12 +314,16 @@ export default class App extends React.Component {
                     });
                     console.log(">>User Submitted To Database!");
                 }
-        }, function(errorStuff){
-            if (errorStuff != null){console.log(errorStuff);}
+        }, function(error){
+            console.error(error);
         }, this);
 
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     signOutUser = () => {
         firebase.auth().signOut().then(function() {
           // Sign-out successful.
