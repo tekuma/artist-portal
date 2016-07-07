@@ -87,7 +87,7 @@ export default class Artwork extends React.Component {
                     <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
                         <a
                             href={this.props.artwork.image}
-                            download={this.props.artwork.fileName} >
+                            download={this.props.artwork.filename} >
                             <img
                                 className="artwork-more"
                                 src='assets/images/icons/download-black.svg' />
