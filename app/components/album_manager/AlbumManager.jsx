@@ -188,10 +188,14 @@ export default class AlbumManager extends React.Component {
      * @param  {[type]} e  - element
      */
     deleteAlbum = (index, e) => {
-        //TODO index can never == 0
+        if (index === 0) {
+            console.log(">>>ERROR: attempting to delete 'Uploads' album");
+            return;
+        }
         const thisUID = firebase.auth().currentUser.uid;
         // Avoid bubbling to edit
         e.stopPropagation();
+
         confirm('Are you sure you want to delete this album?').then( () => {
                 // # they clicked "yes", so
                 // First, Delete all attributed artworks
@@ -201,7 +205,9 @@ export default class AlbumManager extends React.Component {
                     for (let i = 0; i < artLength; i++) {
                         let thisArtKey = this.state.albums[index]['artworks'][i];
                         let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
-                        artworkRef.set(null);
+                        artworkRef.set(null).then( () =>{
+                            console.log(thisArtKey, "deleted successfully");
+                        });
                     }
                 }
                 // then Delete this album branch, and manually update indexes.
@@ -217,12 +223,13 @@ export default class AlbumManager extends React.Component {
                             data[i-1] = aheadObject;
                         }
                         console.log("stuff", i, index);
-                        if (i === index) {
-                            console.log("MATCH", index, i);
+                        if (i == index) {
+                            console.log("DELETED::", i, data[i]);
                             delete data[i];
                             found = true;
                         }
                     }
+                    console.log("DELETED2::", albumLength-1, data[albumLength-1]);
                     delete data[albumLength-1];
                     return data;
                 });

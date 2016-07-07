@@ -120,6 +120,7 @@ export default class AppView extends React.Component {
 
 // -------------- METHODS -------------- //
 
+    //  # Toggle Methods
     /**
      * This method is used by the Hamburger Icon component to
      * toggle the boolean value of this.state.navIsOpen
@@ -192,6 +193,8 @@ export default class AppView extends React.Component {
         });
     }
 
+    //  # Setter Methods
+
     /**
      * This method will take in an array of blobs, then for each
      * blob, upload into the firebase-storage bucket, then create a
@@ -200,7 +203,6 @@ export default class AppView extends React.Component {
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
-
         let thisUID = firebase.auth().currentUser.uid;
         let bucket  = firebase.storage().ref(pathToArtUploads+thisUID);
         let uploadPreviews = [];
@@ -245,10 +247,9 @@ export default class AppView extends React.Component {
             artObjRef.set(artObject);
             thisFile.image = uploadTask.snapshot.downloadURL;
             uploadPreviews.push(thisFile);
-            console.log("Revised file: ",thisFile);
-            console.log("Upload Previews: ", uploadPreviews);
-            console.log("this is this: ", this.state);
-            ////////////
+            // console.log("Revised file: ",thisFile);
+            // console.log("Upload Previews: ", uploadPreviews);
+            // console.log("this is this: ", this.state);
 
             let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
             let thisPromise = uploadAlbumRef.transaction(function(data){
@@ -270,7 +271,6 @@ export default class AppView extends React.Component {
             });
         }
 
-
         for (var i = 0; i < files.length; i++) {
             let thisFile = files[i];
             //FIXME use a For-Of loop , maybe?
@@ -289,7 +289,6 @@ export default class AppView extends React.Component {
         console.log("All upload previews: ", uploadPreviews);
     }
 
-
     /**
      * Setter method to populate an array of all album names.
      * @param  {Array} names - an array of all names
@@ -298,7 +297,6 @@ export default class AppView extends React.Component {
         console.log("Names: ", names);
         this.setState({albumNames : names});
     }
-
 
     /**
      * This method is used by the closeUploadDialog method
