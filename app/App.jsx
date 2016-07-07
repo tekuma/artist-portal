@@ -151,11 +151,11 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerG)
         .then( () => {
             let thisCurrentUser = firebase.auth().currentUser;
-            this.addUserToTekuma(thisCurrentUser);
+            this.addUserToTekuma(thisCurrentUser, "google");
             this.setUID(thisCurrentUser.uid);
             console.log(">Google Auth successful");
-        }).catch(function(error) {
-            console.log(error);
+        }).catch( (error) => {
+            console.error(error);
         });
     }
 
@@ -172,11 +172,11 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerF)
         .then( () => {
             let thisCurrentUser = firebase.auth().currentUser;
-            this.addUserToTekuma(thisCurrentUser);
+            this.addUserToTekuma(thisCurrentUser, "fb");
             this.setUID(thisCurrentUser.uid);
             console.log(">FB Auth successful");
-        }).catch(function(error) {
-            console.log(error);
+        }).catch( (error) => {
+            console.error(error);
         });
     }
 
@@ -188,15 +188,12 @@ export default class App extends React.Component {
     authenticateWithPassword = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
         .then( () => {
-            let thisCurrentUser = firebase.auth().currentUser;
-            this.addUserToTekuma(thisCurrentUser);
-            this.setUID(thisCurrentUser.uid);
-            console.log(">FB Auth successful");
-        }).catch(function(error) {
+            this.setUID(firebase.auth().currentUser.uid);
+            console.log(">Password Auth successful");
+        }).catch( (error) => {
             console.error(error);
         });
     }
-
 
     /**
      * [description -> TODO]
@@ -205,124 +202,139 @@ export default class App extends React.Component {
     submitRegistration = () => {
         console.log("|>Submitted registration.");
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
-        .catch(function(error) {
+        .then( () => {
+            this.saveRegistration({uid: this.state.thisUID});
+            this.addUserToTekuma(this.state.registration, "password");
+            console.log("Reached end of complete Registration function");
+        }).catch( (error) => {
             console.error(error);
         });
-
-        function completeRegistration(that) {
-            that.authenticateWithPassword({
-                email: that.state.registration.email,
-                password: that.state.registration.password});
-            function saveUser (that) {
-                that.saveRegistration({uid: that.state.thisUID});
-                that.addUserToTekuma(that.state.registration);
-                console.log("Reached end of complete Registration function");
-            }
-            setTimeout(saveUser.bind(null, that), 1000);
-        }
-        setTimeout(completeRegistration.bind(null, this), 1000);
-
-
     }
 
     /**
-     * Initializes a user in the DB.
-     * @param  {[type]} user [description]
-     * @return {[type]}      [description]
+     * Initializes a user in the DB:
+     * - Onboarders object in public/onboarders
+     * - private    object in _private/onboarders
+     * - branch of marketed products in public/products
+     * - branch of sales information in _private/products
+     * @param  {firebase.auth.currentUser} user [current user object]
+     * @param  {String} provider - one of("password", "google", "fb")
      */
-    addUserToTekuma = (user) => {
-        // check if UID is a child of /onboarders
-        // (TODO also check /products, /_private , etc)
-        // If not, add them. else, do nothing.
-
-        // const thisUID = firebase.auth().currentUser.uid;
+    addUserToTekuma = (user, provider) => {
         const thisUID = user.uid;
-        const onboardersNode = firebase.database().ref(userPath);
+        let isNewUser = true;
 
-        onboardersNode.once('value').then(function(snapshot) {
-                if (!snapshot.child(thisUID).exists()) {
-                    console.log("User :", user);
-                    // Setting Onboarder name
-                    let thisDisplayName = "Awesome Artist";
+        // Instantiate public/onboarders/thisUID
+        // and check if isNewUser.
+        const usersRef = firebase.database().ref('public/onboarders');
+        usersRef.once('value').then( (snapshot) => {
+            //check if user already exists at node
+            if (!snapshot.child(thisUID).exists()) {
+                isNewUser = true;
 
-                    if (user.displayName !== undefined && user.displayName !== null) {
-                        thisDisplayName = user.displayName;
-                        console.log("display name: ", thisDisplayName);
-                    }
-
-                    // Setting onboarder info (if registered)
-                    let dob = "",
-                        avatar = "",
-                        gender = "",
-                        bio = "",
-                        location = "",
-                        portfolio = "",
-                        legal_age = false;
-
-                    if (user.dob !== undefined) {
-                        dob = user.dob;
-                        console.log("Entered dob in addUserToTekuma");
-                        console.log("dob value: ", dob);
-                    }
-
-                    if (user.gender !== undefined) {
-                        gender = user.gender;
-                        console.log("Entered gender in addUserToTekuma");
-                        console.log("gender value: ", gender);
-                    }
-
-                    if (user.bio !== undefined) {
-                        bio = user.bio;
-                        console.log("Entered bio in addUserToTekuma");
-                        console.log("bio value: ", bio);
-                    }
-
-                    if (user.location !== undefined) {
-                        location = user.location;
-                        console.log("Entered location in addUserToTekuma");
-                        console.log("location value: ", location);
-                    }
-
-                    if (user.portfolio !== undefined) {
-                        portfolio = user.portfolio;
-                        console.log("Entered portfolio in addUserToTekuma");
-                        console.log("portfolio value: ", portfolio);
-                    }
-
-                    if (user.photoURL !== undefined ) {
-                        avatar = user.photoURL;
-                    }
-
-                    onboardersNode.child(thisUID).set({
-                        albums        : {0: {
-                            name:"Uploads"
-                        }},
-                        email         : user.email,
-                        display_name  : thisDisplayName,
-                        avatar        : avatar,
-                        dob           : dob,
-                        gender        : gender,
-                        bio           : bio,
-                        location      : location,
-                        portfolio     : portfolio
-                    });
-                    console.log(">>User Submitted To Database!");
+                console.log("User :", user);
+                // Setting Onboarder name
+                let thisDisplayName = "Awesome Artist";
+                if (user.displayName !== undefined && user.displayName !== null) {
+                    thisDisplayName = user.displayName;
                 }
-        }, function(error){
+
+                // Setting onboarder info (if registered)
+                let dob = "",
+                    avatar = "",
+                    gender = "",
+                    bio = "",
+                    location = "",
+                    portfolio = "",
+                    legal_age = false;
+
+                //TODO: set up iteratively. #dontRepeatYourself
+                if (user.dob !== undefined) {
+                    dob = user.dob;
+                }
+                if (user.gender !== undefined) {
+                    gender = user.gender;
+                }
+                if (user.bio !== undefined) {
+                    bio = user.bio;
+                }
+                if (user.location !== undefined) {
+                    location = user.location;
+                }
+                if (user.portfolio !== undefined) {
+                    portfolio = user.portfolio;
+                }
+                if (user.photoURL !== undefined ) {
+                    avatar = user.photoURL;
+                }
+
+                usersRef.child(thisUID).set({
+                    albums        : { 0: {
+                        name:"Uploads"
+                    }},
+                    auth_provider : provider,
+                    email         : user.email,
+                    display_name  : thisDisplayName,
+                    avatar        : avatar,
+                    dob           : dob,
+                    gender        : gender,
+                    bio           : bio,
+                    location      : location,
+                    portfolio     : portfolio
+                });
+                console.log(">>User Submitted To Database!");
+            } else {
+                isNewUser = true;
+            }
+        }, (error) => {
             console.error(error);
         }, this);
 
+        if (isNewUser) {
+            //Instantiate public/products/thisUID
+            const productsRef = firebase.database().ref('public/products');
+            productsRef.once('value').then( (snapshot) => {
+                //check if user already exists in at node, if not:
+                if (!snapshot.child(thisUID).exists()) {
+                    productsRef.child(thisUID).set({onShopify: false});
+                }
+            }, (error) => {
+                console.error(error);
+            }, this);
+
+            //Instantiate _private/onboarders/thisUID
+            const _userRef = firebase.database().ref('_private/onboarders');
+            _userRef.once('value').then( (snapshot) => {
+                //check if user already exists in at node, if not:
+                if (!snapshot.child(thisUID).exists()) {
+                    _userRef.child(thisUID).set({legal_name: "legal_name"});
+                }
+            }, (error) => {
+                console.error(error);
+            }, this);
+
+            //Instantiate _private/products/thisUID
+            const _productsRef = firebase.database().ref('_private/products');
+            _productsRef.once('value').then( (snapshot) => {
+                //check if user already exists in at node, if not:
+                if (!snapshot.child(thisUID).exists()) {
+                    _productsRef.child(thisUID).set({onShopify: false});
+                }
+            }, (error) => {
+                console.error(error);
+            }, this);
+        }
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Signs the user out from firebase auth
      */
     signOutUser = () => {
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then( () => {
           console.log("User signed out");
-        }, function(error) {
-          console.log("Error occured.");
+        }, (error) => {
+          console.error(error);
         });
-        }
+    }
+
 }//END App
