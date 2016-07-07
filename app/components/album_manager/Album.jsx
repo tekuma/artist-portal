@@ -132,7 +132,7 @@ export default class Album extends React.Component {
 
         for (var artworkID in this.props.userInfo.artworks) {
             if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
-                
+
                 let artwork = this.props.userInfo.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
                     thumbnail = artwork.image;

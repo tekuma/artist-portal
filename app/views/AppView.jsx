@@ -58,10 +58,9 @@ export default class AppView extends React.Component {
      */
     componentDidMount() {
         const thisUID = firebase.auth().currentUser.uid;
-        console.log(pathToPublicOnboarder, "this path???");
         firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', function(snapshot) {
             this.setState({userInfo: snapshot.val()});
-            console.log("Hello world, this is the user", this.state.userInfo);
+            // console.log("Hello world, this is the user", this.state.userInfo);
         }, function(errorStuff){
             console.log(errorStuff);
         }, this);
@@ -213,17 +212,12 @@ export default class AppView extends React.Component {
         function setUploads(uploadTask, thisFile) {
             console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
             let artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
-            let prom = artRef.once("value", function(snapshot){
-                let counter = snapshot.getChildrenCount()
-                console.log(counter);
-            }, null, this);
 
             let artObjRef = artRef.push();
             let path      = artObjRef.toString().split('/');
             let thisID    = path[path.length -1];
 
             let artObject = {
-                display_index: 0,
                 id    : thisID,
                 image : uploadTask.snapshot.downloadURL,
                 filename: thisFile.name,
@@ -252,6 +246,21 @@ export default class AppView extends React.Component {
             console.log("Revised file: ",thisFile);
             console.log("Upload Previews: ", uploadPreviews);
             console.log("this is this: ", this.state);
+            ////////////
+
+            let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
+            let thisPromise = uploadAlbumRef.transaction(function(data){
+                if (data == null) {
+                    data = {0:thisID}
+                } else {
+                    let currentLength   = Object.keys(data).length;
+                    data[currentLength] = thisID;
+                }
+                return data;
+
+            }, function() {
+                console.log("album setting complete");
+            });
 
             this.setState({
                 uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
@@ -448,15 +457,40 @@ export default class AppView extends React.Component {
     }
 
     /**
-     * [description]
-     * @param  {[type]} id [description]
-     * @return {[type]}    [description]
+     * Delete artwork object from /artworks and
+     * delete pointer from albums/##/artworks/
+     * @param  {String} id [UID of artwork to be deleted]
      */
     deleteArtwork = (id) => {
+        //delete from artworks branch
         const thisUID = firebase.auth().currentUser.uid;
         let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
         let thisPromise = thisArtworkReference.set(null);
-        console.log();
         thisPromise.then(function() {console.log("deletion success");});
+        //remove from albums
+        let allAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
+        allAlbumRef.transaction(function(data) {
+            let albumLength = Object.keys(data).length
+            console.log(albumLength, "albumLength");
+            for (var i = 0; i < albumLength; i++) {
+                let artworkLength = Object.keys(data[i]['artworks']).length;
+                console.log(artworkLength, "artworkLength");
+                let found = false;
+                for (var j = 0; j < artworkLength; j++) {
+                    if (found) {
+                        let aheadObject = data[i]['artworks'][j];
+                        data[i]['artworks'][j-1] = aheadObject;
+                    }
+                    if (data[i]['artworks'][j] == id) {
+                        console.log("MATCH", id);
+                        delete data[i]['artworks'][j];
+                        found = true;
+                    }
+                }
+                delete data[i]['artworks'][artworkLength-1];
+                return data;
+            }
+        });
+
     }
 }

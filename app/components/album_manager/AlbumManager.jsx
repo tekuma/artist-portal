@@ -4,12 +4,16 @@ import AlbumToggler from './AlbumToggler.jsx';
 import Albums from './Albums.jsx';
 import confirm from '../confirm-dialog/ConfirmFunction';
 
+
+//Global Variables
+const userPath = 'public/onboarders/';
+
 export default class AlbumManager extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            albums: []
+            albums: {}
         }
 
         // This function is needed to repopulate album manager with
@@ -20,7 +24,7 @@ export default class AlbumManager extends React.Component {
             let allAlbumNames = this.props.albums;
             let allAlbums = [];
 
-            for (var i =0; i < allAlbumNames.length; i++) {
+            for (let i =0; i < allAlbumNames.length; i++) {
                 allAlbums.push({
                     id: uuid.v4(),
                     name: allAlbumNames[i]
@@ -37,47 +41,37 @@ export default class AlbumManager extends React.Component {
     }
 
     componentDidMount() {
+        const thisUID = firebase.auth().currentUser.uid;
 
-         function getAlbums() {
-            let albums = [];
-            let uniqueAlbumNames = [];
-            let artworks = this.props.userInfo.artworks;
+        let path = userPath + thisUID + "/albums";
+        let albumRef = firebase.database().ref(path);
+        console.log("did we get here?");
+        albumRef.on("value", (snapshot) => {
+            let albumJSON = snapshot.val();
 
-            for (var artworkID in artworks) {
-                if (artworks.hasOwnProperty(artworkID)) {
-                    console.log("artwork id", artworkID);
-                    console.log("artwork", artworks[artworkID]);
-                    let artwork = artworks[artworkID];
-                    if(uniqueAlbumNames.indexOf(artwork.album) == -1) {
-                        if(artwork.album != "Uploads") {
-                            uniqueAlbumNames.push(artwork.album);
-                            console.log("Hello, you have a unique name");
-                            // We don't want to create a duplicate Uploads album
-                            // It is automatically created by Albums component
-                        }
-                    }
-                }
+            let uploads = albumJSON[0];
+            delete albumJSON[0];
+
+            let albumKeys = Object.keys(albumJSON);
+            let albumNames = [];
+            for (var i = 0; i < albumKeys.length; i++) {
+                let key = albumKeys[i];
+                albumNames.push(albumJSON[key]['name']);
             }
 
-            console.log("Unique Album Names: ", uniqueAlbumNames);
+            this.setState({
+                albums:albumJSON,
+                uploads:uploads,
+                albumNames:albumNames
+            });
+            console.log(this.state);
 
-            // Creates JSON with unique ID for each album
-            for (var i =0; i < uniqueAlbumNames.length; i++) {
-                albums.push({
-                    id: uuid.v4(),
-                    name: uniqueAlbumNames[i]
-                });
-            }
+        }, null, this);
+
+        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+        console.log("Here are the albums:", this.state);
 
 
-            // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-            this.setState({albums});
-            console.log("Here are the albums:", this.state.albums);
-            uniqueAlbumNames.splice(0,0,"Uploads");   // uniqueAlbumNames is sent to App View, so we want to include Uploads
-            this.props.setAlbums(uniqueAlbumNames);
-        }
-
-        setTimeout(getAlbums.bind(this), 1000);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -92,6 +86,9 @@ export default class AlbumManager extends React.Component {
         }
     }
 
+    /// -------------- METHODS ----------
+
+    //   #flow control
     openedManager = () => {
         return (
             <section
@@ -106,6 +103,7 @@ export default class AlbumManager extends React.Component {
                     addAlbum={this.addAlbum}/>
                 <Albums
                     albums={this.state.albums}
+                    uploads={this.state.uploads}
                     onEdit={this.editAlbum}
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
@@ -116,7 +114,7 @@ export default class AlbumManager extends React.Component {
     };
 
     closedManager = () => {
-        var albumManagerWidth;
+        let albumManagerWidth;
         if(document.getElementsByClassName('album-manager')[0] != undefined) {
             albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
         }
@@ -134,6 +132,7 @@ export default class AlbumManager extends React.Component {
                     addAlbum={this.addAlbum}/>
                 <Albums
                     albums={this.state.albums}
+                    uploads={this.state.uploads}
                     onEdit={this.editAlbum}
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
@@ -143,111 +142,119 @@ export default class AlbumManager extends React.Component {
         );
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     addAlbum = () => {
-
-        var newAlbumName = this.getUniqueNewAlbumName();
+        const thisUID = firebase.auth().currentUser.uid;
+        let newAlbumName = this.getUniqueNewAlbumName();
         let albums = this.state.albums;
-        albums.push({
-            id: uuid.v4(),
-            name: newAlbumName
-        });
 
-        this.setState({albums});
+
+        console.log(this.state.albums, "thisstatealbums");
+        let path = userPath + thisUID + "/albums";
+        let albumRef = firebase.database().ref(path);
+
+        albumRef.transaction(function(data) {
+            let albumLength = Object.keys(data).length;
+            data[albumLength] = {name:newAlbumName};
+            console.log(albumLength, "albumLength");
+            console.log("data:" ,data);
+            return data;
+        }, function(){
+            console.log(">>addAlbum successful");
+        });
 
         if(!this.props.managerIsOpen) {
             this.props.toggleManager();
         }
 
-        // send albums to AppView
-        let uniqueAlbumNames = [];
-
-        for(var i = 0; i < this.state.albums.length; i++) {
-            uniqueAlbumNames.push(this.state.albums[i].name);
-            console.log("Album: ", this.state.albums[i].name);
-        }
-        uniqueAlbumNames.splice(0,0,"Uploads");   // uniqueAlbumNames is sent to App View, so we want to include Uploads
-        this.props.setAlbums(uniqueAlbumNames);
     };
 
-    editAlbum = (id,oldAlbumName, name) => {
+    /**
+     * [description]
+     * @param  {Integer} index - index of the album
+     * @param  {[type]}  name  - name to update album name to.
+     */
+    editAlbum = (index, name) => {
+        const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
-        if(!name.trim() || this.state.albums.filter(album => album.name === name).length > 0) {
+        if(!name.trim() || this.state.albumNames.indexOf(name) != -1) {
             return;
         }
 
-        let album = this.state.albums.filter(album => album.id == id)[0];
-        let index = this.state.albums.indexOf(album);
-        album.name = name;
-        this.state.albums.splice(index, 1, album);
-        // TODO Update any artwork with album name
-        // ArtworkActions.updateAlbumField(oldAlbumName, name);
+        // Change the name in the album branch
+        let path = userPath + thisUID + "/albums/"+index;
+        let thisAlbumRef = firebase.database().ref(path);
+        thisAlbumRef.update({name:name});
 
-        if (this.props.currentAlbum === oldAlbumName) {
-            setTimeout(this.props.changeAlbum.bind(null, name), 10);
-            // We need to update currentAlbum
-            // We need to set a timeout to allow artwork albums to update
+        // change the album key for each artwork object
+        let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+        for (var i = 0; i < artLength; i++) {
+            let thisArtKey = this.state.albums[index]['artworks'][i];
+            let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
+            artworkRef.update({album:name});
         }
-
-        // send albums to AppView
-        let uniqueAlbumNames = [];
-
-        for(var i = 0; i < this.state.albums.length; i++) {
-            uniqueAlbumNames.push(this.state.albums[i].name);
-            console.log("Album: ", this.state.albums[i].name);
-        }
-
-        uniqueAlbumNames.splice(0,0,"Uploads");   // uniqueAlbumNames is sent to App View, so we want to include Uploads
-        this.props.setAlbums(uniqueAlbumNames);
-
     };
 
-    deleteAlbum = (id, e) => {
+    /**
+     * [description]
+     * @param  {[type]} index [index of album to delete]
+     * @param  {[type]} e  - element
+     */
+    deleteAlbum = (index, e) => {
+        const thisUID = firebase.auth().currentUser.uid;
         // Avoid bubbling to edit
         e.stopPropagation();
 
         confirm('Are you sure you want to delete this album?').then(
             () => {
-                // Proceed Callback
-                for(var i=0; i < this.state.albums.length; i++) {
-                    if(this.state.albums[i].id == id) {
-                        let index = this.state.albums.indexOf(this.state.albums[i]);
-                        this.state.albums.splice(index, 1);
+                // they clicked "yes", so
+                // First, Delete all attributed artworks
+                // check if album is empty, if so bi-pass first step.
+                if (this.state.albums[index]['artworks'] != null && this.state.albums[index]['artworks'] != undefined){
+                    let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+                    for (let i = 0; i < artLength; i++) {
+                        let thisArtKey = this.state.albums[index]['artworks'][i];
+                        let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
+                        artworkRef.set(null);
                     }
                 }
-                this.setState({});  // Rerender
-                this.props.setAlbums(this.state.albums);
-
-                // send albums to AppView
-                let uniqueAlbumNames = [];
-
-                for(var i = 0; i < this.state.albums.length; i++) {
-                    uniqueAlbumNames.push(this.state.albums[i].name);
-                    console.log("Album: ", this.state.albums[i].name);
-                }
-
-                uniqueAlbumNames.splice(0,0,"Uploads");   // uniqueAlbumNames is sent to App View, so we want to include Uploads
-                this.props.setAlbums(uniqueAlbumNames);
+                // then Delete this album branch
+                let albumRef = firebase.database().ref(userPath+thisUID+'/albums/'+index);
+                albumRef.set(null);
             },
+
             () => {
-                // Cancel Callback
+                // they clicked 'no'
                 return;
             }
         );
     };
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     getUniqueNewAlbumName = () => {
-        var untitledIntegersUsed = [];
-        var untitledAlbumIndex = 1;
-        var nextAlbumName = "Untitled ";
+        let untitledIntegersUsed = [];
+        let untitledAlbumIndex = 1;
+        let nextAlbumName = "Untitled ";
 
-        for(var i = 0; i < this.state.albums.length; i++) {
-            var albumName = this.state.albums[i].name;
-            var isUntitledAlbum = albumName.search("Untitled");  // Returns index of start of term if contained, otherwise -1
+        let albumKeys = Object.keys(this.state.albums);
+
+        for (let i = 0; i < albumKeys.length; i++) {
+            let thisKey   = albumKeys[i];
+
+            let albumName = this.state.albums[thisKey]['name'];
+            let isUntitledAlbum = albumName.search("Untitled");  // Returns index of start of term if contained, otherwise -1
 
             if(isUntitledAlbum != -1) { // True if contains untitled
-                var untitledNumber = albumName.split(" ")[1] // Get number
+                let untitledNumber = albumName.split(" ")[1] // Get number
                 if(!isNaN(untitledNumber)) {
-                    untitledIntegersUsed.push(eval(untitledNumber));    // Only add to array if it is a number
+                    untitledIntegersUsed.push(eval(untitledNumber));
+                    // Only add to array if it is a number
                 }
             }
         }
