@@ -89,5 +89,7 @@ export default class Albums extends React.Component {
             return modifiedAlbums;
         });
 
+=======
+>>>>>>> ddecce851c989d9bae0e973628d3d25d447760b8
     }
 }
