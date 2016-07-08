@@ -9,7 +9,6 @@ export default class UploadDialog extends React.Component {
     constructor(props) {
         super(props);
 
-
         this.state =  {
             files: []
         };
@@ -52,7 +51,7 @@ export default class UploadDialog extends React.Component {
                                 <article
                                     key={uuid.v4()}
                                     className="dropzone-image-preview-container">
-                                    <img src={file.image} />
+                                    <img src={file.url} />
                                     <div className="overlay">
                                         <div>
                                             <h2 className="file-name">{file.name}</h2>

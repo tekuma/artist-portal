@@ -1,10 +1,9 @@
-'use strict';
 // Libs
-import React          from 'react';
-import firebase       from 'firebase';
-import HTML5Backend   from 'react-dnd-html5-backend';
-
-// Views and Files    NOTE: Do not include '.jsx'
+import React               from 'react';
+import firebase            from 'firebase';
+import HTML5Backend        from 'react-dnd-html5-backend';
+import {DragDropContext}   from 'react-dnd';
+// Files    NOTE: Do not include '.jsx'
 import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
 import HiddenNav           from '../components/hidden_nav/HiddenNav';
@@ -13,12 +12,10 @@ import RootAppLayout       from '../components/app-layouts/RootAppLayout';
 import EditArtworkDialog   from '../components/edit-artwork/EditArtworkDialog';
 import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
 import UploadDialog        from '../components/app-layouts/UploadDialog';
-import {DragDropContext}   from 'react-dnd';
 
 
-// #Global Variables
+// #Global Variables  TODO
 const pathToPublicOnboarder = "public/onboarders/";
-const pathToArtUploads      = "artworks/";
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -43,25 +40,22 @@ export default class AppView extends React.Component {
     }
 
     /**
-     *
      * [componentWillMount description]
-     * @return {[type]} [description]
      */
     componentWillMount() {
-        //TODO
+        //pass
     }
 
     /**
-     * [componentDidMount description]
-     * @return {[type]} [description]
+     * When the compondent did mount, take a snapshot of the 'public/onboarders/{UID}'
+     * node, and set it to this.state.userInfo
      */
     componentDidMount() {
         const thisUID = firebase.auth().currentUser.uid;
-        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', function(snapshot) {
+        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', (snapshot)=>{
             this.setState({userInfo: snapshot.val()});
-            // console.log("Hello world, this is the user", this.state.userInfo);
-        }, function(errorStuff){
-            console.log(errorStuff);
+        }, (error)=>{
+            console.error(error);
         }, this);
     }
 
@@ -120,6 +114,7 @@ export default class AppView extends React.Component {
 // -------------- METHODS -------------- //
 
     //  # Toggle Methods
+
     /**
      * This method is used by the Hamburger Icon component to
      * toggle the boolean value of this.state.navIsOpen
@@ -139,7 +134,6 @@ export default class AppView extends React.Component {
      * from open to closed.
      */
     toggleManager = () => {
-
         this.setState({
             managerIsOpen: !this.state.managerIsOpen
         });
@@ -195,102 +189,166 @@ export default class AppView extends React.Component {
     //  # Setter Methods
 
     /**
-     * This method will take in an array of blobs, then for each
-     * blob, upload into the firebase-storage bucket, then create a
-     * artwork object in the database with a pointer to the uploaded
-     * file.
+     * This method will take in an array of blobs, then for each blob
+     * it will handle uploading, storing, and setting into the database.
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
-
         this.setState({
             uploadDialogIsOpen: true   // When we set files, we want to open Uplaod Dialog
         });
+        const thisUID = firebase.auth().currentUser.uid;
+        const pathToUserStorage = 'portal/' + thisUID;
 
-        let thisUID = firebase.auth().currentUser.uid;
-        let bucket  = firebase.storage().ref(pathToArtUploads+thisUID);
-        let uploadPreviews = [];
 
-        /**
-         * TODO
-         * @param {[type]}  that       [description]
-         * @param {[type]}  uploadTask [description]
-         * @param {Boolean} thisFile   [description]
-         */
-        function setUploads(uploadTask, thisFile) {
-            console.log("*>> Upload successful", uploadTask.snapshot.downloadURL);
-            let artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
 
-            let artObjRef = artRef.push();
-            let path      = artObjRef.toString().split('/');
-            let thisID    = path[path.length -1];
-
-            let artObject = {
-                id    : thisID,
-                image : uploadTask.snapshot.downloadURL,
-                filename: thisFile.name,
-                title : "Untitled Artwork",
-                artist: "",
-                album : "Uploads",
-                year  : new Date().getFullYear(),
-                description: "",
-                colors: {
-                    red   : false,
-                    yellow: false,
-                    blue  : false,
-                    green : false,
-                    orange: false,
-                    purple: false,
-                    brown : false,
-                    black : false,
-                    gray  : false,
-                    white : false
-                },
-                tags  : ""
-            };
-            artObjRef.set(artObject);
-            thisFile.image = uploadTask.snapshot.downloadURL;
-            uploadPreviews.push(thisFile);
-            // console.log("Revised file: ",thisFile);
-            // console.log("Upload Previews: ", uploadPreviews);
-            // console.log("this is this: ", this.state);
-
-            let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
-            let thisPromise = uploadAlbumRef.transaction(function(data){
-                if (data == null) {
-                    data = {0:thisID}
-                } else {
-                    let currentLength   = Object.keys(data).length;
-                    data[currentLength] = thisID;
-                }
-                return data;
-
-            }, function() {
-                console.log("album setting complete");
-            });
-
-            this.setState({
-                uploadPreviews     : uploadPreviews
-            });
-        }
-
+        // For each image that we upload, we need to:
+        // -Store the original copy in 'portal/{UID}/uploads/'
+        // -Make a thumbnail to save in 'portal/{UID}/thumbnails'
+        // - -Create an artwork object in the DB
+        // - -Add the artwork to the 'Uploads' album.
+        console.log(files.length);
         for (var i = 0; i < files.length; i++) {
-            let thisFile = files[i];
-            //FIXME use a For-Of loop , maybe?
-            //FIXME make unique identifier for files so that if a user
-            //uploads 2 files with same name, we don't shit the bed.
-            let uploadTask = bucket.child(thisFile.name).put(thisFile);
-            //just listen for completion
-            //NOTE: 'on' args::on(event, nextOrObserver, error, complete)
-            uploadTask.on(
+            let thisBlob = files[i];
+
+            //#First, Store the original upload, un-changed.
+            //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
+            firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
-                null,
-                null,
-                setUploads.bind(this, uploadTask, thisFile)
+                (snapshot)=>{
+
+                },
+                (error)=>{
+                    console.error(error);
+                },
+                ()=>{
+                    console.log(thisBlob.name, "upload complete!");
+                }
             );
-        }
-        console.log("All upload previews: ", uploadPreviews);
+
+            //#Second, create a thumbnail size copy and insert it into the database
+            this.makeThumbnail(thisBlob,250,250);
+
+        }//END For-loop
     }
+
+    /**
+     * This method creates a canvas, creates an HTML5 Image, then
+     * dumps the blob into the Image and draws it to the canvas, which
+     * is then rendered into a blob object, which is passed on
+     * @param  {[Blob]} originalBlob [description]
+     * @param  {[Int]}  maxHeight    [description]
+     * @param  {[Int]}  maxWidth     [description]
+     */
+    makeThumbnail = (originalBlob, maxHeight, maxWidth) => {
+        let canvas  = document.createElement("canvas");
+        let ctx     = canvas.getContext("2d");
+        let img     = new Image();
+        let blobURL = URL.createObjectURL(originalBlob);
+        img.src     = blobURL;
+
+        img.addEventListener(
+            'load',
+            ()=>{
+                console.log(originalBlob.name);
+                ctx.clearRect(0,0,maxWidth,maxHeight);
+                ctx.drawImage(
+                    img,
+                    0,0,img.width, img.height,
+                    0,0,maxWidth, maxHeight
+                );
+                canvas.toBlob( (blob)=>{
+                    this.uploadThumbnail(blob,originalBlob.name,originalBlob.size);
+                });
+                URL.revokeObjectURL(blobURL); //clear cached image
+            }
+        );
+
+    }
+
+    /**
+     * [description]
+     * @param  {Blob} blob [blob of thumbnail to upload]
+     * @param  {String} name [the name of the file in storage]
+     * @return {[type]}      [description]
+     */
+    uploadThumbnail = (blob,name,originalSize) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        const pathToUserStorage = 'portal/' + thisUID;
+
+        firebase.storage().ref(pathToUserStorage+'/thumbnails/'+name).put(blob).on(
+            firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot)=>{
+                if (snapshot.downloadURL != null){
+                    let uploadInfo = {
+                        url :snapshot.downloadURL,
+                        size:originalSize,
+                        name:name
+                    };
+                    this.setState({
+                        uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
+                    });
+
+                    let artRef    = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+                    // we refrence the artworks node, push to it to generate a child UID,
+                    // then use toString to get the absolute URL, split it, and pop the last item,
+                    // which is the artwork UID.
+                    let artID     = artRef.push().toString().split('/').pop();
+                    let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
+
+                    //after upload, create an artwork object
+                    let artObject = {
+                        id      : artID,
+                        image   : snapshot.downloadURL,
+                        filename: name,
+                        title   : "Untitled Artwork",
+                        artist  : "Self",
+                        album   : "Uploads",
+                        year    : new Date().getFullYear(),
+                        description: "",
+                        colors: {
+                            red   : false,
+                            yellow: false,
+                            blue  : false,
+                            green : false,
+                            orange: false,
+                            purple: false,
+                            brown : false,
+                            black : false,
+                            gray  : false,
+                            white : false
+                        },
+                        tags  : "art"
+                    };
+                    // set the art object to the artworks node
+                    artRef.child(artID).set(artObject);
+                    // TODO handle : uploadPreviews.push(snapshot.downloadURL);
+
+                    //Now, add a pointer to the artwork object to the uploads album
+                    uploadAlbumRef.transaction( (data)=>{
+                        if (data == null) {
+                            data = {0:artID};
+                        } else {
+                            let currentLength   = Object.keys(data).length;
+                            data[currentLength] = artID;
+                        }
+                        return data;
+                    }, (error,bool,snap)=>{
+                        console.log("album setting complete");
+                    });
+                }
+            },
+            (error)=>{
+                console.error(error);
+            },
+            ()=>{
+                console.log(blob.name, "upload complete!",blob);
+            }
+        );
+    }
+
+
+
 
     /**
      * Setter method to populate an array of all album names.
