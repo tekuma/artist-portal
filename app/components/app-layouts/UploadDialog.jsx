@@ -3,6 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import ConfirmButton from '../confirm-dialog/ConfirmButton';
+import uuid from 'node-uuid';
 
 export default class UploadDialog extends React.Component {
     constructor(props) {
@@ -48,7 +49,9 @@ export default class UploadDialog extends React.Component {
                         </h2>
                         <div className="uploaded-artworks-container">
                             {this.state.files.map(file =>
-                                <article className="dropzone-image-preview-container">
+                                <article
+                                    key={uuid.v4()}
+                                    className="dropzone-image-preview-container">
                                     <img src={file.image} />
                                     <div className="overlay">
                                         <div>

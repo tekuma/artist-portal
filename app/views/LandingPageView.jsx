@@ -17,10 +17,15 @@ export default class LandingPageView extends React.Component {
         this.state = {
             step       : 1,
             popoverIsOpen: false,
-            errors: []
+            errors: this.props.errors,
             };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
+    }
 
     render() {
         switch(this.state.step) {
@@ -51,6 +56,7 @@ export default class LandingPageView extends React.Component {
                   popoverIsOpen={this.state.popoverIsOpen}
                   togglePopover={this.togglePopover}
                   errors={this.props.errors}
+                  clearErrors={this.props.clearErrors}
                   saveRegistration = {this.props.saveRegistration}
                   nextStep   = {this.nextStep}
                   authenticateWithGoogle = {this.props.authenticateWithGoogle}
@@ -60,7 +66,7 @@ export default class LandingPageView extends React.Component {
                     className="login-popover"
                     style={{display: this.state.popoverIsOpen ? "block" : "none" }}
                     placement="bottom"
-                    id = {uuid.v4()}
+                    key = {uuid.v4()}
                     title="Have an account?">
                     <ul>
                         <li>
@@ -85,8 +91,8 @@ export default class LandingPageView extends React.Component {
                         {this.state.errors.map(error => {
                                 return (
                                     <div
-                                        id={uuid.v4()}
-                                        className="registration-error">
+                                        key={uuid.v4()}
+                                        className="registration-error login">
                                         <h2>{error}</h2>
                                     </div>
                                 );
@@ -119,6 +125,7 @@ export default class LandingPageView extends React.Component {
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
+                clearErrors={this.props.clearErrors}
                 saveRegistration = {this.props.saveRegistration}
                 nextStep   = {this.nextStep}
                 returnToLandingPage={this.returnToLandingPage}
@@ -127,7 +134,7 @@ export default class LandingPageView extends React.Component {
                   className="login-popover"
                   style={{display: this.state.popoverIsOpen ? "block" : "none" }}
                   placement="bottom"
-                  id = {uuid.v4()}
+                  key = {uuid.v4()}
                   title="Have an account?">
                   <ul>
                       <li>
@@ -152,7 +159,8 @@ export default class LandingPageView extends React.Component {
                       {this.state.errors.map(error => {
                               return (
                                   <div
-                                      className="registration-error">
+                                      key = {uuid.v4()}
+                                      className="registration-error login">
                                       <h2>{error}</h2>
                                   </div>
                               );
@@ -186,6 +194,7 @@ export default class LandingPageView extends React.Component {
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
+                clearErrors={this.props.clearErrors}
                 saveRegistration          = {this.props.saveRegistration}
                 submitRegistration  = {this.props.submitRegistration}
                 returnToLandingPage={this.returnToLandingPage}
@@ -194,7 +203,7 @@ export default class LandingPageView extends React.Component {
                   className="login-popover"
                   style={{display: this.state.popoverIsOpen ? "block" : "none"}}
                   placement="bottom"
-                  id = {uuid.v4()}
+                  key = {uuid.v4()}
                   title="Have an account?">
                   <ul>
                       <li>
@@ -219,7 +228,7 @@ export default class LandingPageView extends React.Component {
                       {this.state.errors.map(error => {
                               return (
                                   <div
-                                      className="registration-error">
+                                      className="registration-error login">
                                       <h2>{error}</h2>
                                   </div>
                               );
@@ -278,9 +287,7 @@ export default class LandingPageView extends React.Component {
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");
-        }
-
-        if(!/.+@.+\..+/.test(email)) {
+        } else if(!/.+@.+\..+/.test(email)) {
             this.state.errors.push("The email address you supplied is invalid.");
         }
 
@@ -293,6 +300,9 @@ export default class LandingPageView extends React.Component {
             data.password = password;
             this.props.authenticateWithPassword(data);
         }
+
+        this.forceUpdate();
+        this.props.clearErrors();
     }
 
     returnToLandingPage = () => {

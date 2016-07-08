@@ -169,7 +169,7 @@ export default class AlbumManager extends React.Component {
         // Change the name in the album branch
         let path = userPath + thisUID + "/albums/"+index;
         let thisAlbumRef = firebase.database().ref(path);
-        thisAlbumRef.update({name:name}).then( () => {
+        thisAlbumRef.update({name: name}).then( () => {
             console.log("name update successful");
         });
 
@@ -182,6 +182,7 @@ export default class AlbumManager extends React.Component {
                 return;
             });
         }
+        this.props.changeAlbum("Uploads");  // If user had edited album open, then no album is highlighted after edit.
     };
 
     /**

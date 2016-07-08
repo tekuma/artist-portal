@@ -6,7 +6,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider';
 // files
 import EditArtworkLayout from './EditArtworkLayout';
-import ArtworkActions    from '../../actions/ArtworkActions';
 import ConfirmButton     from '../confirm-dialog/ConfirmButton';
 
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import ArtworkStore from '../../stores/ArtworkStore';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
-import ArtworkActions from '../../actions/ArtworkActions';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 const albumSource = {
@@ -233,13 +231,13 @@ export default class Album extends React.Component {
     finishEdit = (e) => {
         const value = e.target.value;
 
-        // if(this.props.onEdit) {
-            this.props.onEdit(value);
-
+        if (this.props.onEdit) {
             // Exit edit mode.
             this.setState({
                 editing: false
             });
-        // }
+
+            this.props.onEdit(value);
+        }
     }
 }

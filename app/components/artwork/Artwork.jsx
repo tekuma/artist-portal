@@ -85,15 +85,15 @@ export default class Artwork extends React.Component {
                             src='assets/images/icons/edit.svg'
                             onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)} />
                     </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                        <a
-                            href={this.props.artwork.image}
-                            download={this.props.artwork.filename} >
+                    <a
+                        href={this.props.artwork.image}
+                        download={this.props.artwork.filename} >
+                        <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
                             <img
                                 className="artwork-more"
                                 src='assets/images/icons/download-black.svg' />
-                        </a>
-                    </OverlayTrigger>
+                        </OverlayTrigger>
+                    </a>
                 </div>
             </article>
         ));

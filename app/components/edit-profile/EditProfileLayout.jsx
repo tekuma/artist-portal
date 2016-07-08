@@ -67,8 +67,22 @@ export default class EditProfileLayout extends React.Component {
                             </li>
                             <li>
                                 <input
+                                    type="text"
+                                    id="register-fullname"
+                                    defaultValue={this.props.userInfo.full_name}
+                                    ref="fullname"
+                                    placeholder="Full Name (required)"
+                                    required="true"
+                                    maxLength="50"
+                                    autoCapitalize="off"
+                                    autoComplete="off"
+                                    autoCorrect="off" />
+                            </li>
+                            <li>
+                                <input
                                     type="email"
                                     id="register-email"
+                                    style={{display: this.props.userInfo.auth_provider == 'password' ? 'block' : 'none'}}
                                     defaultValue={this.props.userInfo.email}
                                     ref="email"
                                     placeholder="Email"
@@ -79,6 +93,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="password"
                                     id="register-password"
+                                    style={{display: this.props.userInfo.auth_provider == 'password' ? 'block' : 'none'}}
                                     ref="password"
                                     placeholder="Password"
                                     required="true"
@@ -89,6 +104,7 @@ export default class EditProfileLayout extends React.Component {
                                 <input
                                     type="password"
                                     id="register-confirm-password"
+                                    style={{display: this.props.userInfo.auth_provider == 'password' ? 'block' : 'none'}}
                                     ref="confirmPassword"
                                     placeholder="Confirm Password"
                                     required="true"
@@ -144,13 +160,13 @@ export default class EditProfileLayout extends React.Component {
                                     </div>
                                 </div>
                             </li>
-                            <li id="li-legal-age" className="legal-age">
+                            <li id="li-over-eighteen" className="over-eighteen">
                                 <label className="age-confirm-label">
                                     <input
                                         type="checkbox"
-                                        id="legal-age-checkbox"
-                                        ref="legalAge"
-                                        defaultChecked={this.props.userInfo.legal_age}/>
+                                        id="over-eighteen-checkbox"
+                                        ref="overEighteen"
+                                        defaultChecked={this.props.userInfo.over_eighteen}/>
                                         I confirm that I am 18+
                                 </label>
                             </li>
@@ -229,7 +245,7 @@ export default class EditProfileLayout extends React.Component {
                     return (
                         <div
                             className="edit-user-error">
-                            <h3>{error}</h3>
+                            <h2>{error}</h2>
                         </div>
                     );
                 })}
@@ -245,6 +261,7 @@ export default class EditProfileLayout extends React.Component {
         this.state.errors = [];
         let data = {};
         let displayName = this.refs.displayname.value;
+        let fullName = this.refs.fullname.value;
         let email = this.refs.email.value;
         let password = this.refs.password.value;
         let confirmPassword = this.refs.confirmPassword.value;
@@ -253,14 +270,22 @@ export default class EditProfileLayout extends React.Component {
         let month = this.refs.dobMonth.value;
         let year = this.refs.dobYear.value;
 
+        let overEighteen = this.refs.overEighteen.checked;
         let gender = this.state.gender;
         let bio = this.refs.bio.value;
         let location = this.refs.location.value;
         let portfolio = this.refs.portfolio.value;
 
+        data.over_eighteen = overEighteen;
 
         if(displayName.length > 0) {
             data.display_name = displayName;
+        }
+
+        if(fullName.length == 0) {
+            this.state.errors.push("To make use of Tekuma's services, we require your full name.");
+        } else {
+            data.full_name = fullName;
         }
 
         // Only test regex if user has typed in an email
@@ -326,6 +351,7 @@ export default class EditProfileLayout extends React.Component {
 
         if(this.state.errors.length == 0) {
             this.props.editUserProfile(data);
+            console.log("edited data: ", data);
             console.log("edited profile");
         }
         console.log(this.state.errors);

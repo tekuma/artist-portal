@@ -12,8 +12,20 @@ export default class SignUpLayoutOne extends React.Component {
             avatarPreview: "",
             gender: "",
             avatar: [],
-            errors: []
+            errors: this.props.errors
         };
+    }
+
+    componentWillMount() {
+        this.setState({
+            errors: []
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
     }
 
     render() {
@@ -32,7 +44,7 @@ export default class SignUpLayoutOne extends React.Component {
                             {this.state.errors.map(error => {
                                 return (
                                     <div
-                                        id={uuid.v4()}
+                                        key={uuid.v4()}
                                         className="registration-error page-2">
                                         <h2>{error}</h2>
                                     </div>
@@ -230,6 +242,7 @@ export default class SignUpLayoutOne extends React.Component {
 
         // Rerender the component
         this.forceUpdate();
+        this.props.clearErrors();
     }
 
     onDrop = (file) => {

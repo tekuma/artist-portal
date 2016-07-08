@@ -74,7 +74,7 @@ export default class EditArtworkForm extends React.Component {
                                                 {this.state.albumNames.map(album => {
                                                         return (
                                                             <option
-                                                                id={uuid.v4()}
+                                                                key={uuid.v4()}
                                                                 value={album}>
                                                                 {album}
                                                             </option>

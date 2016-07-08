@@ -6,9 +6,7 @@ import update from 'react-addons-update';
 // Files
 import UploadsAlbum from './UploadsAlbum';
 import Album          from './Album';
-import AlbumActions   from '../../actions/AlbumActions';
 import ItemTypes      from '../../constants/itemTypes';
-import ArtworkActions from '../../actions/ArtworkActions';
 
 
 
@@ -85,6 +83,19 @@ export default class Albums extends React.Component {
             let modifiedAlbums = update(data, {
                 $splice: [[sourceIndex, 1],[targetIndex, 0, sourceData]]
             });
+
+            // array.splice(start, deleteCount[, item1[, item2[, ...]]])
+            // start:
+            //  -> index at which to start changing the array (with origin 0)
+            // deleteCount:
+            //  -> An integer indicating the number of old array elements to remove
+            //  -> If deleteCount is 0, no elements are removed
+            // item1, item2, ...
+            //  -> The elements to add to the array, beginning at the start index
+            //
+            // In the example above, we are deleting 1 element starting from sourceAlbumIndex,
+            // then we are removing 0 elements starting from targetAlbumIndex
+            // and adding sourceAlbum before targetAlbumIndex
 
             return modifiedAlbums;
         });
