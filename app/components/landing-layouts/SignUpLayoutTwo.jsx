@@ -11,18 +11,11 @@ export default class SignUpLayoutTwo extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.setState({
-            errors: []
-        });
-    }
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             errors: nextProps.errors
         });
     }
-
 
     render() {
         return (
@@ -55,7 +48,7 @@ export default class SignUpLayoutTwo extends React.Component {
                                             type="text"
                                             id="register-legalname"
                                             ref="legalname"
-                                            placeholder="Legal Name (required)"
+                                            placeholder="Legal Name"
                                             required="true"
                                             maxLength="50"
                                             autoCapitalize="off"
@@ -116,9 +109,7 @@ export default class SignUpLayoutTwo extends React.Component {
         var portfolio = this.refs.portfolio.value;
 
         if(legalName.length == 0) {
-            this.state.errors.push("To make use of Tekuma's services, we require your full name.");
-        } else {
-            data.legal_name = legalName;
+            this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
         }
 
         if(bio.length == 0) {
@@ -133,20 +124,17 @@ export default class SignUpLayoutTwo extends React.Component {
             this.state.errors.push("Please specify a portfolio or website URL.");
         }
 
-        if(this.state.errors.length == 0) {
-
-            data.bio = bio;
-            console.log("This is bio within the saveAndContinue Method: ", data.bio);
-            data.location = location;
-            console.log("This is location within the saveAndContinue Method: ", data.location);
-            data.portfolio = portfolio;
-            console.log("This is portfolio within the saveAndContinue Method: ", data.portfolio);
-            this.props.saveRegistration(data);
-            this.props.submitRegistration();
-        }
-
         // Rerender the component
         this.forceUpdate();
         this.props.clearErrors();
+
+        if(this.state.errors.length == 0) {
+            data.legal_name = legalName;
+            data.bio = bio;
+            data.location = location;
+            data.portfolio = portfolio;
+            this.props.saveRegistration(data);
+            this.props.submitRegistration();
+        }
     }
 }

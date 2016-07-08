@@ -12,13 +12,6 @@ export default class HiddenNav extends React.Component {
         this.navItems = [
             {
                 id: uuid.v4(),
-                item: 'Upload',
-                icon: '../../assets/images/icons/upload-blue.svg',
-                href:  Views.UPLOAD,
-                title: "Upload Artworks"
-            },
-            {
-                id: uuid.v4(),
                 item: 'Artworks',
                 icon: '../../assets/images/icons/canvas.svg',
                 href:  Views.ARTWORKS,

@@ -326,7 +326,6 @@ export default class App extends React.Component {
             }, (error) => {
                 console.error(error);
             }, this);
-
         }).catch( (error) => {
             console.error(error);
         });
@@ -413,7 +412,7 @@ export default class App extends React.Component {
                 isNewUser = false;
             }
         }, (error) => {
-            console.error(error);
+            console.error("Registration Error: ", error);
         }, this);
 
         if (isNewUser) {

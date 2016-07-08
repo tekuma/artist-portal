@@ -171,36 +171,49 @@ export default class EditProfileLayout extends React.Component {
                                 </label>
                             </li>
                             <li id="li-gender" className="gender">
-                                <label className="gender-label">Gender:</label>
+                                <label className="gender-label">Preferred Gender Pronoun:</label>
+                                    <label
+                                        for="register-she"
+                                        className="gender-radio control-inline">
+                                        <input
+                                            type="radio"
+                                            id="register-she"
+                                            name="gender"
+                                            className="reg-radio"
+                                            defaultValue="she"
+                                            defaultChecked={this.props.userInfo.gender_pronoun == "she"}
+                                            onChange={this.setGender}
+                                            required="" />
+                                        She
+                                  </label>
                                   <label
-                                      for="register-male"
+                                      for="register-he"
                                       className="gender-radio control-inline">
                                       <input
                                           type="radio"
-                                          id="register-male"
+                                          id="register-he"
                                           name="gender"
                                           className="reg-radio"
-                                          defaultValue="male"
-                                          defaultChecked={this.props.userInfo.gender == "male"}
+                                          defaultValue="he"
+                                          defaultChecked={this.props.userInfo.gender_pronoun == "he"}
                                           onChange={this.setGender}
                                           required="" />
-                                           Male
+                                      He
                                 </label>
-
-                                  <label
-                                      for="register-female"
-                                      className="gender-radio female control-inline">
-                                      <input
-                                          type="radio"
-                                          id="register-female"
-                                          name="gender"
-                                          className="reg-radio"
-                                          defaultValue="female"
-                                          defaultChecked={this.props.userInfo.gender == "female"}
-                                          onChange={this.setGender}
-                                          required="" />
-                                           Female
-                                </label>
+                                <label
+                                    for="register-they"
+                                    className="gender-radio control-inline">
+                                    <input
+                                        type="radio"
+                                        id="register-they"
+                                        name="gender"
+                                        className="reg-radio"
+                                        defaultValue="they"
+                                        defaultChecked={this.props.userInfo.gender_pronoun == "they"}
+                                        onChange={this.setGender}
+                                        required="" />
+                                    They
+                              </label>
                             </li>
                         </ul>
                     </fieldset>
@@ -316,22 +329,24 @@ export default class EditProfileLayout extends React.Component {
                         data.password = password;
                     }
 
+        if(day.length > 0 && day.length > 2) {
+            this.state.errors.push("Please enter a valid day of the month.");
+        }
+
+        if(month.length > 0 && month.length > 2) {
+            this.state.errors.push("Please enter a valid month.");
+        }
+
+        if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
+            this.state.errors.push("Please enter a valid year.");
+        }
+
         if((day.length == 1 || day.length == 2) &&
             (month.length == 1 || month.length == 2) &&
             year.length == 4) {
             data.dob = day + "-" + month + "-" + year;
         } else {
-            if((day.length != 1 || day.length != 2)) {
-                this.state.errors.push("Please enter a valid day of the month.");
-            }
 
-            if(month.length != 1 || month.length != 2) {
-                this.state.errors.push("Please enter a valid month.");
-            }
-
-            if(year.length != 4) {
-                this.state.errors.push("Please enter a valid year.");
-            }
         }
 
         if(gender.length > 0) {

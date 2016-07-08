@@ -3,6 +3,10 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 body {
@@ -731,17 +735,15 @@ input::-webkit-search-cancel-button {
 }
 
 .album {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+	position: relative;
+	display: block;
 	padding: inherit;
 	margin: 2%;
 	background: #404251;
 	width: 96%;
+	height: auto;
 	max-width: 384px; /* 400px x 0.96 = 384px */
-	height: 70px;
+	min-height: 70px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.52),
 	0 1px 2px rgba(0,0,0,0.54);
 	transition: all 0.3s;
@@ -764,11 +766,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-avatar {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+  	display: inline-flex;
 	-webkit-align-items: center;
 	-ms-align-items: center;
 	-moz-align-items: center;
@@ -777,10 +775,10 @@ input::-webkit-search-cancel-button {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
-	flex: 1 1 40%;
-    -webkit-flex: 1 1 40%;
 	float: left;
 	height: 100%;
+	width: 35%;
+	position: absolute;
 }
 
 .empty-container {
@@ -820,10 +818,8 @@ input::-webkit-search-cancel-button {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
-	width: 70%;
-	height: 70%;
-	max-height: 50px;
-	max-width: 67px;
+	min-width: 50px;
+	min-height: 50px;
 	background: #ffffff;
 	background-position: center center;
 	background-size: cover;
@@ -847,10 +843,11 @@ input::-webkit-search-cancel-button {
 
 
 .album-writing {
-	flex: 1 1 60%;
-    -webkit-flex: 1 1 60%;
+	position: absolute;
+	left: 35%;
 	display: inline-block;
-	height: 100%;
+	height: auto;
+	width: 65%;
 }
 
 .album-name, .uploads-name {
@@ -878,8 +875,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-more, .uploads-album-more {
-	float: right;
-	margin-right: 15px;
+	margin: 7px;
 	opacity: 0.7;
 	width: 13px;
 	transition: all 0.3s;
@@ -946,11 +942,18 @@ input::-webkit-search-cancel-button {
 	font-size: 0.9em;
 }
 
+.album-download-delete {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	z-index: 3;
+}
+
 /*========================================== */
 
 /* Artwork */
 
-main {
+main, .artworks {
 	position: absolute !important;
 	top: 0;
 	left: 0;
@@ -981,6 +984,7 @@ main {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
 	cursor: move;
+	overflow: hidden;
 }
 
 .artwork:hover {
@@ -1003,9 +1007,10 @@ main {
 }
 
 .artwork-info {
+	position: relative;
 	display: block;
 	width: 100%;
-	height: 70px;
+	min-height: 70px;
 	background: #ffffff;
 	padding: 12px 15px;
 	text-align: left;
@@ -1013,29 +1018,29 @@ main {
 
 .artwork-name {
 	margin: 0;
+	margin-bottom: 20px;
 	opacity: 0.87;
 	color: #000000;
 	font-weight: 700;
 	font-size: 1em;
+	text-align: center;
+	line-height: 1.5em;
 }
 
-.artwork-date {
-	margin: 0;
-	margin-top: 5px;
-	opacity: 0.87;
-	color: #000000;
-	font-weight: 500;
-	font-size: 1em;
+.download-edit-delete {
+	position: absolute;;
+	bottom: 2px;
+	left: 50%;
+	transform: translate(-50%);
+	z-index: 3;
+	width: 99px;
 }
 
 .artwork-more {
-	position: relative;
-	bottom: 14px;
-	float: right;
 	opacity: 0.7;
 	width: 13px;
 	cursor: pointer;
-	margin-left: 20px;
+	margin: 10px;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -1432,7 +1437,6 @@ input[type=number]::-webkit-outer-spin-button {
 .gender-radio {
 	display: inline-block;
 	position: relative;
-	left: -56px;
 	margin: 0;
     margin-top: 25px;
     margin-right: 10px;
@@ -1442,8 +1446,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .gender-label {
-	position: relative;
-	top: -25px;
+	position: absolute;
 }
 
 textarea.bio {
@@ -1547,7 +1550,7 @@ login-button.left {
 }
 
 .optin {
-	margin: 20px 0 25px 0;
+	margin: 15px 0 25px 0;
 }
 
 .optin input {
@@ -1565,6 +1568,20 @@ login-button.left {
 
 .optin span a:hover {
 	color: #ea6595;
+}
+
+.separator {
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid #4d5967;
+   line-height: 0.1em;
+   margin: 10px 0 10px;
+   font-size: 1em;
+}
+
+.separator span {
+    background:#fff;
+    padding:0 10px;
 }
 
 .forgot-heading-wrapper {
@@ -1602,7 +1619,6 @@ login-button.left {
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
 	margin: 0 auto;
-	border-bottom: 2px solid #d6d3ce;
 	flex-direction: column;
 }
 
@@ -1612,7 +1628,7 @@ login-button.left {
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
-	margin: 0;
+	margin: 0 auto;
 	width: 530px;
 }
 
@@ -1794,9 +1810,12 @@ login-button.left {
 }
 
 .artwork-upload-box {
-	width: 70%;
-	height: 70%;
-	padding: 20px;
+	margin-top: 60px;
+	border: none;
+	border-radius: 0px;
+	background: #ffffff;
+	width: 100%;
+	height: 100%;
 }
 
 .image-upload-box img {

@@ -200,14 +200,11 @@ export default class AppView extends React.Component {
         const thisUID = firebase.auth().currentUser.uid;
         const pathToUserStorage = 'portal/' + thisUID;
 
-
-
         // For each image that we upload, we need to:
         // -Store the original copy in 'portal/{UID}/uploads/'
         // -Make a thumbnail to save in 'portal/{UID}/thumbnails'
         // - -Create an artwork object in the DB
         // - -Add the artwork to the 'Uploads' album.
-        console.log(files.length);
         for (var i = 0; i < files.length; i++) {
             let thisBlob = files[i];
 

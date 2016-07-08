@@ -2,7 +2,6 @@ import React from 'react';
 import LoggedOnHeader from '../headers/LoggedOnHeader';
 import AlbumManager from '../album_manager/AlbumManager';
 import ArtworksLayout from './ArtworksLayout';
-import UploadLayout from './UploadLayout';
 import EditProfileLayout from '../edit-profile/EditProfileLayout';
 import Views from '../../constants/Views';
 
@@ -28,9 +27,6 @@ export default class RootAppLayout extends React.Component {
             case Views.ARTWORKS:
                 return this.renderArtworksLayout();
 
-            case Views.UPLOAD:
-                return this.renderUploadLayout();
-
             case Views.EDIT:
                 return this.renderEditProfileLayout();
         }
@@ -41,7 +37,9 @@ export default class RootAppLayout extends React.Component {
     renderArtworksLayout = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout}/>
+                <LoggedOnHeader
+                    setUploadedFiles={this.props.setUploadedFiles}
+                    changeAppLayout={this.props.changeAppLayout}/>
                 <AlbumManager
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
@@ -58,20 +56,8 @@ export default class RootAppLayout extends React.Component {
                     toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
                     changeAppLayout={this.props.changeAppLayout}
-                    managerIsOpen={this.props.managerIsOpen} />
-                <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
-            </div>
-        );
-    }
-
-    renderUploadLayout = () => {
-        return (
-            <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout} />
-                <div className="layout-centered">
-                    <UploadLayout
-                        setUploadedFiles={this.props.setUploadedFiles} />
-                </div>
+                    managerIsOpen={this.props.managerIsOpen}
+                    setUploadedFiles={this.props.setUploadedFiles} />
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>
         );
@@ -80,7 +66,9 @@ export default class RootAppLayout extends React.Component {
     renderEditProfileLayout = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
-                <LoggedOnHeader changeAppLayout={this.props.changeAppLayout} />
+                <LoggedOnHeader
+                    setUploadedFiles={this.props.setUploadedFiles}
+                    changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
                     <EditProfileLayout
                         userInfo={this.props.userInfo}
