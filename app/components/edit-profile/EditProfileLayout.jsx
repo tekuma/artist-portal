@@ -282,10 +282,10 @@ export default class EditProfileLayout extends React.Component {
             data.display_name = displayName;
         }
 
-        if(fullName.length == 0) {
-            this.state.errors.push("To make use of Tekuma's services, we require your full name.");
+        if(legalName.length == 0) {
+            this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
         } else {
-            data.full_name = fullName;
+            data.full_name = legalName;
         }
 
         // Only test regex if user has typed in an email

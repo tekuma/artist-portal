@@ -115,7 +115,7 @@ export default class SignUpLayoutTwo extends React.Component {
         var location = this.refs.location.value;
         var portfolio = this.refs.portfolio.value;
 
-        if(fullName.length == 0) {
+        if(legalName.length == 0) {
             this.state.errors.push("To make use of Tekuma's services, we require your full name.");
         } else {
             data.legal_name = legalName;
