@@ -1950,6 +1950,8 @@ login-button.left {
 
 #artwork-description {
 	width: 300px;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-weight: 500;
 }
 
 .artwork-form input:not([type='radio']) {
@@ -2628,6 +2630,7 @@ login-button.left {
 	#artwork-description {
 		width: 250px;
 		height: 50px;
+
 	}
 
 	.artwork-form fieldset ul {
