@@ -9,7 +9,7 @@ import ConfirmButton from './ConfirmButton';
 export default class Confirmation extends React.Component {
     render() {
         const {
-            okLabel = 'OK',
+            okLabel = 'Yes',
             cancelLabel = 'Cancel',
             confirmation,
             show,

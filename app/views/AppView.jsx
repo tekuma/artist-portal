@@ -229,7 +229,7 @@ export default class AppView extends React.Component {
                 id    : thisID,
                 image : uploadTask.snapshot.downloadURL,
                 filename: thisFile.name,
-                title : "Untitled Artwork",
+                title : thisFile.name,
                 artist: "",
                 album : "Uploads",
                 year  : new Date().getFullYear(),

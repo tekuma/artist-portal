@@ -17,7 +17,7 @@ export default class EditArtworkForm extends React.Component {
         var onSubmit = this.props.onSubmit;
 
         var style = {
-            border: '1px solid #bd3200'
+            border: '1px solid #ec167c'
         };
 
         return (

@@ -247,6 +247,7 @@ export default class App extends React.Component {
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( () => {
             this.saveRegistration({uid: this.state.thisUID});
+            console.log("Registration Info: ", this.state.registration);
             this.addUserToTekuma(this.state.registration, "password");
             console.log("Reached end of complete Registration function");
         }).catch( (error) => {
@@ -332,7 +333,7 @@ export default class App extends React.Component {
                 isNewUser = false;
             }
         }, (error) => {
-            console.error(error);
+            console.error("Registration Error: ", error);
         }, this);
 
         if (isNewUser) {

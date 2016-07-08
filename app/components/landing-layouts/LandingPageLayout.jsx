@@ -12,12 +12,6 @@ export default class LandingPageLayout extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            errors: nextProps.errors
-        });
-    }
-
     render() {
         return (
             <div className="main-wrapper">
@@ -55,10 +49,8 @@ export default class LandingPageLayout extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="social-terms">
-                                    By pressing either of these buttons, you are agreeing to Tekuma's <a src="/">Terms of Use</a>.
-                                </p>
                             </div>
+                            <h2 className="separator"><span>or</span></h2>
                             <div className="top-form">
                                 <ul>
                                     <li id="email-landing">
@@ -104,11 +96,7 @@ export default class LandingPageLayout extends React.Component {
                             </div>
                             <div className="bottom-form">
                                 <div className="optin">
-                                    <input
-                                        type="checkbox"
-                                        className="reg-radio"
-                                        ref="acceptTerms" />
-                                    <span> I agree to Tekuma's <a src="/">Terms of Use</a>.</span>
+                                    <span> Creating an account means you&#8217;re okay with Tekuma&#8217;s <a href="">Terms of Use</a>.</span>
                                 </div>
                                 <button
                                     className="signup-button"
@@ -130,11 +118,11 @@ export default class LandingPageLayout extends React.Component {
 
         // Clear errors from any previous form submission
         this.state.errors = [];
+
         var data = {};
         var email = this.refs.email.value;
         var password = this.refs.password.value;
         var confirmPassword = this.refs.confirmPassword.value;
-        var termsAccepted = this.refs.acceptTerms.checked;
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");
@@ -156,9 +144,9 @@ export default class LandingPageLayout extends React.Component {
             this.state.errors.push("Passwords do not match.");
         }
 
-        if(!termsAccepted) {
-            this.state.errors.push("Please accept Tekuma's Terms of Use.");
-        }
+        // Rerender the component
+        this.forceUpdate();
+        this.props.clearErrors();
 
         if(this.state.errors.length == 0) {
             data.email = email;
@@ -167,8 +155,6 @@ export default class LandingPageLayout extends React.Component {
             this.props.nextStep();
         }
 
-        // Rerender the component
-        this.forceUpdate();
-        this.props.clearErrors();
+
     }
 }

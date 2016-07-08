@@ -2,6 +2,7 @@
 import React      from 'react';
 import filesaver  from 'file-saver';
 import firebase   from 'firebase';
+import Dropzone from 'react-dropzone';
 // Files
 import Artwork    from '../artwork/Artwork.jsx';
 import confirm    from '../confirm-dialog/ConfirmFunction';
@@ -55,8 +56,11 @@ export default class ArtworksLayout extends React.Component {
 
     render() {
         if(this.state.album.length == 0) {
-            // Only render empty album if album is empty
-            return this.renderEmptyAlbum();
+            if (this.props.currentAlbum == "Uploads") {
+                return this.renderEmptyUploads();
+            } else {
+                return this.renderEmptyAlbum();
+            }
         } else {
             return this.renderArtworks();
         }
@@ -69,15 +73,30 @@ export default class ArtworksLayout extends React.Component {
         const album = this.state.album;
 
         var styleManagerClosed = {
-            width: window.innerWidth - 40
+            width: window.innerWidth - 40,
+            height: window.innerHeight - 60,
+            marginTop: 60
         };
 
         var styleSmallScreen = {
-            width: window.innerWidth - 250
+            width: window.innerWidth - 250,
+            height: window.innerHeight - 60,
+            marginTop: 60
+        };
+
+        var styleLargeScreen = {
+            width: window.innerWidth * 0.7,
+            height: window.innerHeight - 60,
+            marginTop: 60
         };
 
         return (
-            <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >{album.map(artwork => {
+            <Dropzone
+                accept="image/*"
+                disableClick
+                onDrop={this.onDrop}
+                ref="dropzone"
+                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? styleLargeScreen : styleSmallScreen : styleManagerClosed}>{album.map(artwork => {
                     return (
                         <Artwork
                             key={artwork.id}
@@ -88,7 +107,7 @@ export default class ArtworksLayout extends React.Component {
                             artwork={artwork} />
                     );
                 })}
-            </main>
+            </Dropzone>
         );
     };
 
@@ -110,6 +129,34 @@ export default class ArtworksLayout extends React.Component {
                     <h3>or drag Uploaded Artworks from Uploads</h3>
                 </div>
             </main>
+        );
+    }
+
+    renderEmptyUploads = () => {
+        var styleManagerClosed = {
+            width: window.innerWidth - 40,
+            height: window.innerHeight - 60
+        };
+
+        var styleSmallScreen = {
+            width: window.innerWidth - 250,
+            height: window.innerHeight - 60
+        };
+
+        var styleLargeScreen = {
+            width: window.innerWidth * 0.7,
+            height: window.innerHeight - 60
+        };
+
+        return (
+            <Dropzone
+                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? styleLargeScreen : styleSmallScreen : styleManagerClosed}
+                className="artwork-upload-box"
+                accept="image/*"
+                onDrop={this.onDrop}>
+                <h3 className="upload-writing big">Drop Files Here</h3>
+                <h3 className="upload-writing small">or Click to Upload</h3>
+            </Dropzone>
         );
     }
 
@@ -174,6 +221,10 @@ export default class ArtworksLayout extends React.Component {
             }
             return data;
         });
+    }
 
+    onDrop = (files) => {
+        this.props.setUploadedFiles(files);
+        console.log('Set uploaded files: ', files);
     }
 }

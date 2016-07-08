@@ -72,28 +72,29 @@ export default class Artwork extends React.Component {
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
-                    <h4 className="artwork-date">{this.props.artwork.year}</h4>
-                    <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
-                        <img
-                            className="artwork-more"
-                            src='assets/images/icons/delete-black.svg'
-                            onClick={this.props.onDelete.bind(null, this.props.artwork.id)} />
-                    </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={editTooltip}>
-                        <img
-                            className="artwork-more"
-                            src='assets/images/icons/edit.svg'
-                            onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)} />
-                    </OverlayTrigger>
-                    <a
-                        href={this.props.artwork.image}
-                        download={this.props.artwork.filename} >
-                        <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                    <div className="download-edit-delete">
+                        <a
+                            href={this.props.artwork.image}
+                            download={this.props.artwork.filename} >
+                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                                <img
+                                    className="artwork-more"
+                                    src='assets/images/icons/download-black.svg' />
+                            </OverlayTrigger>
+                        </a>
+                        <OverlayTrigger placement="bottom" overlay={editTooltip}>
                             <img
                                 className="artwork-more"
-                                src='assets/images/icons/download-black.svg' />
+                                src='assets/images/icons/edit.svg'
+                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)} />
                         </OverlayTrigger>
-                    </a>
+                        <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                            <img
+                                className="artwork-more"
+                                src='assets/images/icons/delete-black.svg'
+                                onClick={this.props.onDelete.bind(null, this.props.artwork.id)} />
+                        </OverlayTrigger>
+                    </div>
                 </div>
             </article>
         ));

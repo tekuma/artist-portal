@@ -16,12 +16,6 @@ export default class SignUpLayoutOne extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.setState({
-            errors: []
-        });
-    }
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             errors: nextProps.errors
@@ -138,34 +132,46 @@ export default class SignUpLayoutOne extends React.Component {
                                         </div>
                                     </li>
                                     <li id="li-gender" className="gender">
-                                        <label className="gender-label">Gender:</label>
+                                        <label className="gender-label">Preferred Gender Pronoun:</label>
                                           <label
-                                              for="register-male"
+                                              for="register-she"
                                               className="gender-radio control-inline">
                                               <input
                                                   type="radio"
-                                                  id="register-male"
+                                                  id="register-she"
                                                   name="gender"
                                                   className="reg-radio"
-                                                  value="male"
+                                                  value="she"
                                                   onChange={this.setGender}
                                                   required="" />
-                                                   Male
+                                              She
                                         </label>
-
-                                          <label
-                                              for="register-female"
-                                              className="gender-radio control-inline">
-                                              <input
-                                                  type="radio"
-                                                  id="register-female"
-                                                  name="gender"
-                                                  className="reg-radio"
-                                                  value="female"
-                                                  onChange={this.setGender}
-                                                  required="" />
-                                                   Female
-                                        </label>
+                                        <label
+                                            for="register-he"
+                                            className="gender-radio control-inline">
+                                            <input
+                                                type="radio"
+                                                id="register-he"
+                                                name="gender"
+                                                className="reg-radio"
+                                                value="he"
+                                                onChange={this.setGender}
+                                                required="" />
+                                            He
+                                      </label>
+                                        <label
+                                            for="register-they"
+                                            className="gender-radio control-inline">
+                                            <input
+                                                type="radio"
+                                                id="register-they"
+                                                name="gender"
+                                                className="reg-radio"
+                                                value="they"
+                                                onChange={this.setGender}
+                                                required="" />
+                                            They
+                                      </label>
                                     </li>
                                     <button
                                         className="signup-button left"
@@ -192,33 +198,27 @@ export default class SignUpLayoutOne extends React.Component {
 
         // Clear errors from any previous form submission
         this.state.errors = [];
-        var data = {};
 
+        var data = {};
         var displayName = this.refs.displayname.value;
         var day = this.refs.dobDay.value;
         var month = this.refs.dobMonth.value;
         var year = this.refs.dobYear.value;
         var gender = this.state.gender;
 
-
-        console.log(day);
-        console.log(month);
-        console.log(year);
-        console.log(this.state.avatar);
-
         if(displayName.length == 0) {
             this.state.errors.push("Please enter a display name.");
         }
 
-        if(day.length != 1 || day.length != 2) {
+        if(day.length == 0 || day.length > 2) {
             this.state.errors.push("Please enter a valid day of the month.");
         }
 
-        if(month.length != 1 || month.length != 2) {
+        if(month.length == 0 || month.length > 2) {
             this.state.errors.push("Please enter a valid month.");
         }
 
-        if(year.length != 4) {
+        if(year.length != 4 || eval(year) > new Date().getFullYear()) {
             this.state.errors.push("Please enter a valid year.");
         }
 
@@ -230,19 +230,19 @@ export default class SignUpLayoutOne extends React.Component {
             this.state.errors.push("Please upload an avatar.");
         }
 
+        // Rerender the component
+        this.forceUpdate();
+        this.props.clearErrors();
+
         if(this.state.errors.length == 0) {
 
             data.displayName = displayName;
             data.dob = day + "-" + month + "-" + year;
-            data.gender =  gender;
+            data.gender_pronoun =  gender;
             data.avatar = this.state.avatar;
             this.props.saveRegistration(data);
             this.props.nextStep();
         }
-
-        // Rerender the component
-        this.forceUpdate();
-        this.props.clearErrors();
     }
 
     onDrop = (file) => {
