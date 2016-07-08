@@ -1,5 +1,8 @@
 'use strict';
 // Libs
+
+import './assets/stylesheets/spinkit.css';
+import './assets/stylesheets/folding-cube.css';
 import React          from 'react';
 import Firebase       from 'firebase';
 // Views
@@ -64,12 +67,23 @@ export default class App extends React.Component {
 
     render() {
         console.log("||++>>>Rendering...");
-        // if (!this.state.loaded) {return }
-
-        if (this.state.loggedIn) {
-            return this.goToArtistPortal();
+        if (!this.state.loaded) {
+            return (
+                <div className="layout-centered">
+                    <div className="sk-folding-cube">
+                      <div className="sk-cube1 sk-cube"></div>
+                      <div className="sk-cube2 sk-cube"></div>
+                      <div className="sk-cube4 sk-cube"></div>
+                      <div className="sk-cube3 sk-cube"></div>
+                    </div>
+                </div>
+            );
         } else {
-            return this.goToLandingPage();
+            if (this.state.loggedIn) {
+                return this.goToArtistPortal();
+            } else {
+                return this.goToLandingPage();
+            }
         }
     }
 
@@ -110,7 +124,7 @@ export default class App extends React.Component {
                 submitRegistration      ={this.submitRegistration}
                 saveRegistration        ={this.saveRegistration}
                 clearRegistration       ={this.clearRegistration}
-
+                clearErrors             ={this.clearErrors}
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
             />
@@ -150,6 +164,12 @@ export default class App extends React.Component {
         });
     }
 
+    clearErrors = () => {
+        this.setState({
+            errors: []
+        });
+    }
+
     // #Authentication Methods
 
     /**
@@ -170,6 +190,9 @@ export default class App extends React.Component {
             console.log(">Google Auth successful");
         }).catch( (error) => {
             console.error(error);
+            this.setState({
+                errors: this.state.errors.concat(error.message)
+            });
         });
     }
 
@@ -191,6 +214,9 @@ export default class App extends React.Component {
             console.log(">FB Auth successful");
         }).catch( (error) => {
             console.error(error);
+            this.setState({
+                errors: this.state.errors.concat(error.message)
+            });
         });
     }
 
@@ -206,6 +232,9 @@ export default class App extends React.Component {
             console.log(">Password Auth successful");
         }).catch( (error) => {
             console.error(error);
+            this.setState({
+                errors: this.state.errors.concat(error.message)
+            });
         });
     }
 
@@ -248,7 +277,7 @@ export default class App extends React.Component {
 
                 console.log("User :", user);
                 // Setting Onboarder name
-                let thisDisplayName = "Awesome Artist";
+                let thisDisplayName = "Untitled Artist";
                 if (user.displayName !== undefined && user.displayName !== null) {
                     thisDisplayName = user.displayName;
                 }
@@ -286,19 +315,21 @@ export default class App extends React.Component {
                     albums        : { 0: {
                         name:"Uploads"
                     }},
-                    auth_provider : provider,
-                    email         : user.email,
-                    display_name  : thisDisplayName,
-                    avatar        : avatar,
-                    dob           : dob,
-                    gender        : gender,
-                    bio           : bio,
-                    location      : location,
-                    portfolio     : portfolio
+                    auth_provider   : provider,
+                    email           : user.email,
+                    display_name    : thisDisplayName,
+                    full_name        : "",
+                    avatar          : avatar,
+                    dob             : dob,
+                    gender          : gender,
+                    bio             : bio,
+                    location        : location,
+                    portfolio       : portfolio,
+                    over_eighteen   : false
                 });
                 console.log(">>User Submitted To Database!");
             } else {
-                isNewUser = true;
+                isNewUser = false;
             }
         }, (error) => {
             console.error(error);

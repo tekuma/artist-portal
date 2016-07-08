@@ -23,28 +23,33 @@ export default class ResetPasswordView extends React.Component {
                                 <ul>
                                     <li>
                                         <input
+                                            type="text"
+                                            id="reset-code"
+                                            ref="code"
+                                            placeholder="Reset Code"
+                                            required=""
+                                            autoCapitalize="off"
+                                            autoComplete="off"
+                                            autoCorrect="off" />
+                                    </li>
+                                    <li>
+                                        <input
                                             type="password"
                                             id="register-password"
-                                            name="password"
+                                            ref="password"
                                             placeholder="Password"
-                                            required=""
-                                            data-msg-required="Please choose a password."
-                                            data-rule-minlength="4"
-                                            data-msg-minlength="Your password is too short."
-                                            maxlength="100"
-                                            autocomplete="off" />
+                                            required="true"
+                                            maxLength="100"
+                                            autoComplete="off" />
                                     </li>
                                     <li>
                                         <input
                                             type="password"
                                             id="register-confirm-password"
-                                            name="confirm-password"
+                                            ref="confirmPassword"
                                             placeholder="Confirm Password"
-                                            required=""
-                                            data-msg-required="Please confirm your password."
-                                            data-rule-equalto="#register-password"
-                                            data-msg-equalto="Password doesn't match."
-                                            maxlength="100" />
+                                            required="true"
+                                            maxLength="100" />
                                     </li>
                                     <button className="signup-button center" type="submit">
                                         <h3>Update</h3>

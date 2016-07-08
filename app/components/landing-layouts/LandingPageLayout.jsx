@@ -1,14 +1,21 @@
 'use strict';
 import React           from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
+import uuid from 'node-uuid';
 
 export default class LandingPageLayout extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            errors: []
+            errors: this.props.errors
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
     }
 
     render() {
@@ -88,6 +95,7 @@ export default class LandingPageLayout extends React.Component {
                                 {this.state.errors.map(error => {
                                         return (
                                             <div
+                                                key = {uuid.v4()}
                                                 className="registration-error">
                                                 <h2>{error}</h2>
                                             </div>
@@ -152,8 +160,6 @@ export default class LandingPageLayout extends React.Component {
             this.state.errors.push("Please accept Tekuma's Terms of Service.");
         }
 
-
-
         if(this.state.errors.length == 0) {
             data.email = email;
             data.password = password;
@@ -163,5 +169,6 @@ export default class LandingPageLayout extends React.Component {
 
         // Rerender the component
         this.forceUpdate();
+        this.props.clearErrors();
     }
 }

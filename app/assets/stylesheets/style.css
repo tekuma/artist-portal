@@ -10,7 +10,7 @@ body {
 	color: #4d5967;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	margin: 0;
-	background: #777777;
+	background: #ffffff;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
 	height: 100vh;
 }
@@ -861,6 +861,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-name {
+	width: auto;
 	cursor: pointer;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -931,12 +932,18 @@ input::-webkit-search-cancel-button {
 	cursor: pointer;
 }
 
-.empty-album h2 {
+.empty-album h2,
+.empty-album h3 {
 	font-size: 1.2em;
 	font-weight: 600;
 	line-height: 1.5em;
 	text-align: center;
 	color: #d6d3ce;
+	margin-top: 0;
+}
+
+.empty-album h3 {
+	font-size: 0.9em;
 }
 
 /*========================================== */
@@ -1225,7 +1232,7 @@ main {
 }
 
 .login-popover div ul {
-	width: 270px;
+	width: 232px;
 }
 
 .profile-form fieldset ul li,
@@ -1248,6 +1255,10 @@ main {
 	display: inline-block;
 	width: 250px;
 	margin: 5px 10px;
+}
+
+.login-popover div ul li {
+	width: 212px;
 }
 
 .signup-form fieldset ul li,
@@ -1290,7 +1301,7 @@ textarea.bio {
 
 .login-popover input[type=email],
 .login-popover input[type=password] {
-	width: 216px;
+	width: 212px;
 }
 
 .profile-form input:not([type='radio']),
@@ -1316,7 +1327,7 @@ textarea.bio {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
     color: #4d5967;
-    display: inline-block;;
+    display: inline-block;
     font-size: .9375em;
     text-align: left;
     line-height: 1.5em;
@@ -1328,14 +1339,14 @@ textarea.bio {
 .artist-form label.error {
 	position: relative;
 	top: 10px;
-    color: #bd3200;
+    color: #ec167c;
     font-size: 0.7em;
 }
 
 .profile-form input.error,
 .signup-form input.error,
 .artist-form input.error {
-	border: 1px solid #bd3200;
+	border: 1px solid #ec167c;
 }
 
 #gender-error.error {
@@ -1386,8 +1397,9 @@ textarea.bio {
     border-radius: 2px;
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
-    color: #88898c;
+    color: #000000;
     font-size: .9375em;
+	font-weight: 500;
     height: 2.7em;
     margin: 0;
     padding: .6em .6em;
@@ -1445,7 +1457,8 @@ textarea.bio {
 	height: 150px;
 	color: #000000;
 	resize: none;
-	font-size: .9375em;;
+	font-size: .9375em;
+	font-weight: 500;
 }
 
 .edit-button,
@@ -1725,9 +1738,9 @@ login-button.left {
 	margin-bottom: 50px;
 }
 
-.signup-heading-wrapper div h3,
-.forgot-heading-wrapper div h3 {
-	font-size: 1em;
+.signup-heading-wrapper h3,
+.forgot-heading-wrapper h3 {
+	font-weight: 600;
 }
 
 .signup-heading-wrapper.pink,
@@ -1819,14 +1832,21 @@ login-button.left {
 }
 
 .registration-error h2, .edit-user-error h2 {
-	color: #bd3200;
+	color: #ec167c;
 	font-size: 1em;
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
+.registration-error.login h2 {
+	width: 212px;
+	margin: 10px 10px;
+	text-align: left;
+}
+
+
 .edit-artwork-error h3 {
-	color: #bd3200;
+	color: #ec167c;
 	font-size: 1em;
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
@@ -1888,7 +1908,7 @@ login-button.left {
 .artwork-form fieldset {
 	border: 0;
 	padding: 0;
-	margin: 0 auto;;
+	margin: 0 auto;
 }
 
 .artwork-form fieldset ul {
@@ -1962,7 +1982,7 @@ login-button.left {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
     color: #4d5967;
-    display: inline-block;;
+    display: inline-block;
     font-size: .9375em;
     text-align: left;
     line-height: 1.5em;
@@ -2089,7 +2109,7 @@ login-button.left {
 }
 
 .context-icon-container {
-	display: inline-flex;;
+	display: inline-flex;
 	-webkit-align-items: center;
 	-ms-align-items: center;
 	-moz-align-items: center;

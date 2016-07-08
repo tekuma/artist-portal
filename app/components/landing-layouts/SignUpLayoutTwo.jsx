@@ -7,9 +7,22 @@ export default class SignUpLayoutTwo extends React.Component {
         super(props);
 
         this.state = {
-            errors: []
+            errors: this.props.errors
         };
     }
+
+    componentWillMount() {
+        this.setState({
+            errors: []
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
+    }
+
 
     render() {
         return (
@@ -27,7 +40,7 @@ export default class SignUpLayoutTwo extends React.Component {
                             {this.state.errors.map(error => {
                                 return (
                                     <div
-                                        id={uuid.v4()}
+                                        key={uuid.v4()}
                                         className="registration-error page-3">
                                         <h2>{error}</h2>
                                     </div>
@@ -37,6 +50,18 @@ export default class SignUpLayoutTwo extends React.Component {
                         <form className="signup-form page-3">
                             <fieldset>
                                 <ul>
+                                    <li>
+                                        <input
+                                            type="text"
+                                            id="register-fullname"
+                                            ref="fullname"
+                                            placeholder="Full Name (required)"
+                                            required="true"
+                                            maxLength="50"
+                                            autoCapitalize="off"
+                                            autoComplete="off"
+                                            autoCorrect="off" />
+                                    </li>
                                     <li>
                                         <textarea
                                             className="bio"
@@ -85,9 +110,16 @@ export default class SignUpLayoutTwo extends React.Component {
         this.state.errors = [];
         var data = {};
 
+        var fullName = this.refs.fullname.value;
         var bio = this.refs.bio.value;
         var location = this.refs.location.value;
         var portfolio = this.refs.portfolio.value;
+
+        if(fullName.length == 0) {
+            this.state.errors.push("To make use of Tekuma's services, we require your full name.");
+        } else {
+            data.full_name = fullName;
+        }
 
         if(bio.length == 0) {
             this.state.errors.push("Please enter a bio.");
@@ -115,5 +147,6 @@ export default class SignUpLayoutTwo extends React.Component {
 
         // Rerender the component
         this.forceUpdate();
+        this.props.clearErrors();
     }
 }

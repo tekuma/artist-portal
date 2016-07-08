@@ -5,7 +5,6 @@ import firebase   from 'firebase';
 // Files
 import Artwork    from '../artwork/Artwork.jsx';
 import confirm    from '../confirm-dialog/ConfirmFunction';
-import ArtworkActions from '../../actions/ArtworkActions';
 
 
 
@@ -108,7 +107,7 @@ export default class ArtworksLayout extends React.Component {
                     className="empty-album"
                     onClick={this.props.changeAppLayout.bind({}, 'Upload')}>
                     <h2>Click to Upload Artworks</h2>
-                    <h2>or Drag Uploaded Artworks from Uploads</h2>
+                    <h3>or drag Uploaded Artworks from Uploads</h3>
                 </div>
             </main>
         );

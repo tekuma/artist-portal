@@ -13,7 +13,6 @@ import RootAppLayout       from '../components/app-layouts/RootAppLayout';
 import EditArtworkDialog   from '../components/edit-artwork/EditArtworkDialog';
 import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
 import UploadDialog        from '../components/app-layouts/UploadDialog';
-import ArtworkStore        from '../stores/ArtworkStore';
 import {DragDropContext}   from 'react-dnd';
 
 
@@ -37,7 +36,6 @@ export default class AppView extends React.Component {
             currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in RootAppLayout
             userInfo: {},                               // Used to store User Profile Information
             currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
-            uploadedFiles: [],                          // Used to store files uploaded momentarily, to be sent to Firebase
             uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
             albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
             albums : {}
@@ -204,6 +202,11 @@ export default class AppView extends React.Component {
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
+
+        this.setState({
+            uploadDialogIsOpen: true   // When we set files, we want to open Uplaod Dialog
+        });
+
         let thisUID = firebase.auth().currentUser.uid;
         let bucket  = firebase.storage().ref(pathToArtUploads+thisUID);
         let uploadPreviews = [];
@@ -226,11 +229,11 @@ export default class AppView extends React.Component {
                 id    : thisID,
                 image : uploadTask.snapshot.downloadURL,
                 filename: thisFile.name,
-                title : "Default Title",
-                artist: "Default Artist",
+                title : "Untitled Artwork",
+                artist: "",
                 album : "Uploads",
-                year  : 2018,
-                description: "default desciprtion stuff stuff",
+                year  : new Date().getFullYear(),
+                description: "",
                 colors: {
                     red   : false,
                     yellow: false,
@@ -243,7 +246,7 @@ export default class AppView extends React.Component {
                     gray  : false,
                     white : false
                 },
-                tags  : "art cool tekuma"
+                tags  : ""
             };
             artObjRef.set(artObject);
             thisFile.image = uploadTask.snapshot.downloadURL;
@@ -267,7 +270,6 @@ export default class AppView extends React.Component {
             });
 
             this.setState({
-                uploadDialogIsOpen: true,    // When we set files, we want to open Uplaod Dialog
                 uploadPreviews     : uploadPreviews
             });
         }
@@ -308,7 +310,7 @@ export default class AppView extends React.Component {
      */
     clearUploadedFiles = () => {
         this.setState({
-            uploadedFiles: []
+            uploadPreviews: []
         });
     }
 
