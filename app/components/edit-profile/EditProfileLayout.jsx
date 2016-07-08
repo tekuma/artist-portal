@@ -321,7 +321,7 @@ export default class EditProfileLayout extends React.Component {
             year.length == 4) {
             data.dob = day + "-" + month + "-" + year;
         } else {
-            if((day.length != 1 || day.length != 2) {
+            if((day.length != 1 || day.length != 2)) {
                 this.state.errors.push("Please enter a valid day of the month.");
             }
 
