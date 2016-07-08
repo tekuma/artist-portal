@@ -35,8 +35,10 @@ const albumTarget = {
                 const thisUID  = firebase.auth().currentUser.uid;
                 let path = 'public/onboarders/' + thisUID +'/artworks/' + source.id;
                 let thisArtworkReference = firebase.database().ref(path);
-                thisArtworkReference.update({album: target.name}).then( () => {
-                    console.log("Artwork album changed within artwork");
+                thisArtworkReference.transaction((data) => {
+                    data['album'] = target.name;
+                    console.log("Artwork Data: ", data);
+                    return data;
                 });
             }
         }
