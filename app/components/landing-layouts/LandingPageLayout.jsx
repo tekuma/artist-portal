@@ -56,7 +56,7 @@ export default class LandingPageLayout extends React.Component {
                                     </div>
                                 </div>
                                 <p className="social-terms">
-                                    By pressing either of these buttons, you are agreeing to Tekuma's <a src="/">Terms of Service</a>.
+                                    By pressing either of these buttons, you are agreeing to Tekuma's <a src="/">Terms of Use</a>.
                                 </p>
                             </div>
                             <div className="top-form">
@@ -108,7 +108,7 @@ export default class LandingPageLayout extends React.Component {
                                         type="checkbox"
                                         className="reg-radio"
                                         ref="acceptTerms" />
-                                    <span> I agree to Tekuma's <a src="/">Terms of Service</a>.</span>
+                                    <span> I agree to Tekuma's <a src="/">Terms of Use</a>.</span>
                                 </div>
                                 <button
                                     className="signup-button"
@@ -145,7 +145,7 @@ export default class LandingPageLayout extends React.Component {
         if(password.length == 0) {
             this.state.errors.push("Please choose a password.");
         } else if (password.length < 6) {
-            this.state.errors.push("Your password is too short.");
+            this.state.errors.push("Your password must be at least 6 characters long.");
         }
 
         if(confirmPassword.length == 0) {
@@ -157,7 +157,7 @@ export default class LandingPageLayout extends React.Component {
         }
 
         if(!termsAccepted) {
-            this.state.errors.push("Please accept Tekuma's Terms of Service.");
+            this.state.errors.push("Please accept Tekuma's Terms of Use.");
         }
 
         if(this.state.errors.length == 0) {

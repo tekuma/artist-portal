@@ -68,10 +68,10 @@ export default class EditProfileLayout extends React.Component {
                             <li>
                                 <input
                                     type="text"
-                                    id="register-fullname"
-                                    defaultValue={this.props.userInfo.full_name}
-                                    ref="fullname"
-                                    placeholder="Full Name (required)"
+                                    id="register-legalname"
+                                    defaultValue={this.props.userInfo.legal_name}
+                                    ref="legalname"
+                                    placeholder="Legal Name (required)"
                                     required="true"
                                     maxLength="50"
                                     autoCapitalize="off"
@@ -261,7 +261,7 @@ export default class EditProfileLayout extends React.Component {
         this.state.errors = [];
         let data = {};
         let displayName = this.refs.displayname.value;
-        let fullName = this.refs.fullname.value;
+        let legalName = this.refs.legalname.value;
         let email = this.refs.email.value;
         let password = this.refs.password.value;
         let confirmPassword = this.refs.confirmPassword.value;
@@ -297,7 +297,7 @@ export default class EditProfileLayout extends React.Component {
 
         // Only test password length if typed in
         if(password.length > 0 && password.length < 6) {
-            this.state.errors.push("Your password is too short.");
+            this.state.errors.push("Your password must be at least 6 characters long.");
         }
 
         // Only test confirm password length if password typed in
@@ -316,12 +316,22 @@ export default class EditProfileLayout extends React.Component {
                         data.password = password;
                     }
 
-        if(day.length > 0 &&
-            month.length > 0 &&
-            year.length > 0) {
+        if((day.length == 1 || day.length == 2) &&
+            (month.length == 1 || month.length == 2) &&
+            year.length == 4) {
             data.dob = day + "-" + month + "-" + year;
         } else {
-            data.dob = "";
+            if((day.length != 1 || day.length != 2) {
+                this.state.errors.push("Please enter a valid day of the month.");
+            }
+
+            if(month.length != 1 || month.length != 2) {
+                this.state.errors.push("Please enter a valid month.");
+            }
+
+            if(year.length != 4) {
+                this.state.errors.push("Please enter a valid year.");
+            }
         }
 
         if(gender.length > 0) {

@@ -53,9 +53,9 @@ export default class SignUpLayoutTwo extends React.Component {
                                     <li>
                                         <input
                                             type="text"
-                                            id="register-fullname"
-                                            ref="fullname"
-                                            placeholder="Full Name (required)"
+                                            id="register-legalname"
+                                            ref="legalname"
+                                            placeholder="Legal Name (required)"
                                             required="true"
                                             maxLength="50"
                                             autoCapitalize="off"
@@ -110,7 +110,7 @@ export default class SignUpLayoutTwo extends React.Component {
         this.state.errors = [];
         var data = {};
 
-        var fullName = this.refs.fullname.value;
+        var legalName = this.refs.legalname.value;
         var bio = this.refs.bio.value;
         var location = this.refs.location.value;
         var portfolio = this.refs.portfolio.value;
@@ -118,7 +118,7 @@ export default class SignUpLayoutTwo extends React.Component {
         if(fullName.length == 0) {
             this.state.errors.push("To make use of Tekuma's services, we require your full name.");
         } else {
-            data.full_name = fullName;
+            data.legal_name = legalName;
         }
 
         if(bio.length == 0) {

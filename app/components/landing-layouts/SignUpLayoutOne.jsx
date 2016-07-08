@@ -207,18 +207,18 @@ export default class SignUpLayoutOne extends React.Component {
         console.log(this.state.avatar);
 
         if(displayName.length == 0) {
-            this.state.errors.push("Please enter your full name.");
+            this.state.errors.push("Please enter a display name.");
         }
 
-        if(day.length == 0) {
+        if(day.length != 1 || day.length != 2) {
             this.state.errors.push("Please enter a valid day of the month.");
         }
 
-        if(month.length == 0) {
+        if(month.length != 1 || month.length != 2) {
             this.state.errors.push("Please enter a valid month.");
         }
 
-        if(year.length == 0) {
+        if(year.length != 4) {
             this.state.errors.push("Please enter a valid year.");
         }
 
