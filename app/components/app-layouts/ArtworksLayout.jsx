@@ -73,30 +73,21 @@ export default class ArtworksLayout extends React.Component {
         const album = this.state.album;
 
         var styleManagerClosed = {
-            width: window.innerWidth - 40,
-            height: window.innerHeight - 60,
-            marginTop: 60
+            width: window.innerWidth - 40
         };
 
         var styleSmallScreen = {
-            width: window.innerWidth - 250,
-            height: window.innerHeight - 60,
-            marginTop: 60
-        };
-
-        var styleLargeScreen = {
-            width: window.innerWidth * 0.7,
-            height: window.innerHeight - 60,
-            marginTop: 60
+            width: window.innerWidth - 250
         };
 
         return (
             <Dropzone
+                className="artworks"
                 accept="image/*"
                 disableClick
                 onDrop={this.onDrop}
                 ref="dropzone"
-                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? styleLargeScreen : styleSmallScreen : styleManagerClosed}>{album.map(artwork => {
+                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}>{album.map(artwork => {
                     return (
                         <Artwork
                             key={artwork.id}

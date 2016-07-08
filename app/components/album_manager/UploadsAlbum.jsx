@@ -28,7 +28,19 @@ export default class Albums extends React.Component {
 
     render() {
         const downloadTooltip = (
-            <Tooltip id="uploads-download-tooltip">Download</Tooltip>
+            <Tooltip
+                id="download-tooltip-regular"
+                className="tooltip">
+                Download
+            </Tooltip>
+        );
+
+        const deleteTooltip = (
+            <Tooltip
+                id="delete-tooltip-regular"
+                className="tooltip">
+                Delete
+            </Tooltip>
         );
 
         let connectDropTarget = this.props.connectDropTarget;
@@ -42,10 +54,18 @@ export default class Albums extends React.Component {
                 </div>
                 <div className="album-writing">
                     <h3 className="uploads-name">Uploads</h3>
+                </div>
+                <div className="album-download-delete">
                     <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                        <img className="uploads-album-more"
-                             src='assets/images/icons/download-white.svg' />
-                     </OverlayTrigger>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/download-white.svg' />
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/delete-white.svg' />
+                    </OverlayTrigger>
                 </div>
             </li>
         );

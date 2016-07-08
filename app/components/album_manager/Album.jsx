@@ -121,16 +121,18 @@ export default class Album extends React.Component {
                         onBlur={this.finishEdit}
                         onKeyPress={this.checkEnter}
                         placeholder="Enter name" />
+                </div>
+                <div className="album-download-delete">
+                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/download-white.svg' />
+                    </OverlayTrigger>
                     <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
                         <img
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
                             onClick={this.props.onDelete} />
-                    </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                        <img
-                            className="album-more"
-                            src='assets/images/icons/download-white.svg' />
                     </OverlayTrigger>
                 </div>
             </li>
@@ -196,16 +198,18 @@ export default class Album extends React.Component {
                             className="album-name" >
                             {this.props.album.name}</h3>
                     </OverlayTrigger>
+                </div>
+                <div className="album-download-delete">
+                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/download-white.svg' />
+                    </OverlayTrigger>
                     <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
                         <img
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
                             onClick={this.props.onDelete} />
-                    </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                        <img
-                            className="album-more"
-                            src='assets/images/icons/download-white.svg' />
                     </OverlayTrigger>
                 </div>
             </li>

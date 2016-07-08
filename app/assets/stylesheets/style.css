@@ -735,17 +735,15 @@ input::-webkit-search-cancel-button {
 }
 
 .album {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+	position: relative;
+	display: block;
 	padding: inherit;
 	margin: 2%;
 	background: #404251;
 	width: 96%;
+	height: auto;
 	max-width: 384px; /* 400px x 0.96 = 384px */
-	height: 70px;
+	min-height: 70px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.52),
 	0 1px 2px rgba(0,0,0,0.54);
 	transition: all 0.3s;
@@ -768,11 +766,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-avatar {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+  	display: inline-flex;
 	-webkit-align-items: center;
 	-ms-align-items: center;
 	-moz-align-items: center;
@@ -781,10 +775,10 @@ input::-webkit-search-cancel-button {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
-	flex: 1 1 40%;
-    -webkit-flex: 1 1 40%;
 	float: left;
 	height: 100%;
+	width: 35%;
+	position: absolute;
 }
 
 .empty-container {
@@ -824,10 +818,8 @@ input::-webkit-search-cancel-button {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
-	width: 70%;
-	height: 70%;
-	max-height: 50px;
-	max-width: 67px;
+	min-width: 50px;
+	min-height: 50px;
 	background: #ffffff;
 	background-position: center center;
 	background-size: cover;
@@ -851,10 +843,11 @@ input::-webkit-search-cancel-button {
 
 
 .album-writing {
-	flex: 1 1 60%;
-    -webkit-flex: 1 1 60%;
+	position: absolute;
+	left: 35%;
 	display: inline-block;
-	height: 100%;
+	height: auto;
+	width: 65%;
 }
 
 .album-name, .uploads-name {
@@ -882,8 +875,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-more, .uploads-album-more {
-	float: right;
-	margin-right: 15px;
+	margin: 7px;
 	opacity: 0.7;
 	width: 13px;
 	transition: all 0.3s;
@@ -950,11 +942,18 @@ input::-webkit-search-cancel-button {
 	font-size: 0.9em;
 }
 
+.album-download-delete {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	z-index: 3;
+}
+
 /*========================================== */
 
 /* Artwork */
 
-main {
+main, .artworks {
 	position: absolute !important;
 	top: 0;
 	left: 0;
