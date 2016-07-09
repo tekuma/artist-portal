@@ -16,6 +16,8 @@ import UploadDialog        from '../components/app-layouts/UploadDialog';
 
 // #Global Variables  TODO
 const pathToPublicOnboarder = "public/onboarders/";
+const maxThumbnailWidth     = 275;
+const thumbNailPadding      = 4;
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -186,7 +188,7 @@ export default class AppView extends React.Component {
         });
     }
 
-    //  # Setter Methods
+    //  # Uploading Methods
 
     /**
      * This method will take in an array of blobs, then for each blob
@@ -207,6 +209,19 @@ export default class AppView extends React.Component {
         // - -Add the artwork to the 'Uploads' album.
         for (var i = 0; i < files.length; i++) {
             let thisBlob = files[i];
+            let url      = thisBlob.preview;
+            let testImg  = new Image;
+            testImg.src  = url;
+            testImg.addEventListener(
+                /// FIXME something hangs here....
+                /// FIXME we should display a loader
+                'load',
+                ()=>{
+                    let ratio = testImg.width / testImg.height;
+                    let maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
+                    this.makeThumbnail(thisBlob,maxThumbnailWidth,maxThumbnailHeight);
+                }
+            );
 
             //#First, Store the original upload, un-changed.
             //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
@@ -223,9 +238,6 @@ export default class AppView extends React.Component {
                 }
             );
 
-            //#Second, create a thumbnail size copy and insert it into the database
-            this.makeThumbnail(thisBlob,250,250);
-
         }//END For-loop
     }
 
@@ -237,23 +249,26 @@ export default class AppView extends React.Component {
      * @param  {[Int]}  maxHeight    [description]
      * @param  {[Int]}  maxWidth     [description]
      */
-    makeThumbnail = (originalBlob, maxHeight, maxWidth) => {
-        let canvas  = document.createElement("canvas");
-        let ctx     = canvas.getContext("2d");
-        let img     = new Image();
-        let blobURL = URL.createObjectURL(originalBlob);
-        img.src     = blobURL;
-
+    makeThumbnail = (originalBlob, maxWidth, maxHeight) => {
+        const canvas  = document.createElement("canvas");
+        canvas.height = maxHeight + thumbNailPadding*2;
+        canvas.width  = maxWidth  + thumbNailPadding*2;
+        const ctx     = canvas.getContext("2d");
+        const img     = new Image();
+        let blobURL   = URL.createObjectURL(originalBlob);
+        img.src       = blobURL;
         img.addEventListener(
             'load',
             ()=>{
                 console.log(originalBlob.name);
-                ctx.clearRect(0,0,maxWidth,maxHeight);
+                // ctx.clearRect(0,0,maxWidth,maxHeight);
+                // params: img, x0,y0,scaled width, scaled height
                 ctx.drawImage(
                     img,
-                    0,0,img.width, img.height,
-                    0,0,maxWidth, maxHeight
-                );
+                    thumbNailPadding,
+                    thumbNailPadding,
+                    maxWidth,
+                    maxHeight);
                 canvas.toBlob( (blob)=>{
                     this.uploadThumbnail(blob,originalBlob.name,originalBlob.size);
                 });
@@ -344,8 +359,7 @@ export default class AppView extends React.Component {
         );
     }
 
-
-
+    // #Setter Methods
 
     /**
      * Setter method to populate an array of all album names.
@@ -471,7 +485,7 @@ export default class AppView extends React.Component {
 
     }
 
-    /** TODO Remove this method, depreciated.
+    /** TODO re-do this function to 'clean up' the database when deleting a user
      * This method is used by the Delete Account Dialog component
      * to delete a user's information and artworks from the Firebase Database
      */

@@ -1,6 +1,6 @@
-import React from 'react';
+import React    from 'react';
 import ReactDOM from "react-dom";
-import {DragSource, DropTarget} from 'react-dnd';
+import {DragSource, DropTarget}  from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
@@ -151,7 +151,6 @@ export default class Album extends React.Component {
                 let artwork = this.props.userInfo.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
                     thumbnail = artwork.image;
-                    console.log("Here is the thumbnail", thumbnail);
                 }
             }
         }
