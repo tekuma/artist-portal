@@ -217,26 +217,27 @@ export default class AppView extends React.Component {
                 /// FIXME we should display a loader
                 'load',
                 ()=>{
+                    //Store the original upload, un-changed.
+                    //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
+                    firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
+                        firebase.storage.TaskEvent.STATE_CHANGED,
+                        (snapshot)=>{
+                        },
+                        (error)=>{
+                            console.error(error);
+                        },
+                        ()=>{
+                            console.log(thisBlob.name, "upload complete!");
+                        }
+                    );
+
+                    // make a thumbnail size copy and upload it as well.
                     let ratio = testImg.width / testImg.height;
                     let maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
                     this.makeThumbnail(thisBlob,maxThumbnailWidth,maxThumbnailHeight);
                 }
             );
 
-            //#First, Store the original upload, un-changed.
-            //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
-            firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
-                firebase.storage.TaskEvent.STATE_CHANGED,
-                (snapshot)=>{
-
-                },
-                (error)=>{
-                    console.error(error);
-                },
-                ()=>{
-                    console.log(thisBlob.name, "upload complete!");
-                }
-            );
 
         }//END For-loop
     }
