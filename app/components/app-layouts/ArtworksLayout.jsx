@@ -114,10 +114,8 @@ export default class ArtworksLayout extends React.Component {
         return (
             <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
                 <div
-                    className="empty-album"
-                    onClick={this.props.changeAppLayout.bind({}, 'Upload')}>
-                    <h2>Click to Upload Artworks</h2>
-                    <h3>or drag Uploaded Artworks from Uploads</h3>
+                    className="empty-album">
+                    <h2>Fill album by Dragging Artworks from Uploads</h2>
                 </div>
             </main>
         );
