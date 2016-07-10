@@ -132,7 +132,8 @@ export default class Album extends React.Component {
                         <img
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
-                            onClick={this.props.onDelete} />
+                            onClick={this.props.onDelete}
+                            onTouchTap={this.props.onDelete} />
                     </OverlayTrigger>
                 </div>
             </li>
@@ -186,6 +187,7 @@ export default class Album extends React.Component {
         return connectDragSource(connectDropTarget(
             <li style={{opacity: isDragging ? 0 : 1}}
                 onClick={this.props.changeAlbum}
+                onTouchTAp={this.props.changeAlbum}
                 className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <div style={style}
@@ -193,7 +195,9 @@ export default class Album extends React.Component {
                 </div>
                 <div className="album-writing">
                     <OverlayTrigger placement="bottom" overlay={editTooltip}>
-                        <h3 onClick={this.edit}
+                        <h3
+                            onClick={this.edit}
+                            onTouchTap={this.edit}
                             className="album-name" >
                             {this.props.album.name}</h3>
                     </OverlayTrigger>
@@ -208,7 +212,8 @@ export default class Album extends React.Component {
                         <img
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
-                            onClick={this.props.onDelete} />
+                            onClick={this.props.onDelete}
+                            onTouchTap={this.props.onDelete} />
                     </OverlayTrigger>
                 </div>
             </li>

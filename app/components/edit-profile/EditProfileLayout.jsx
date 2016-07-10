@@ -34,7 +34,7 @@ export default class EditProfileLayout extends React.Component {
                     <h3
                         style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                         className="upload-writing small">
-                        or Simply Drage Here
+                        or Simply Drag Here
                     </h3>
                     <img
                         id="uploaded-avatar"

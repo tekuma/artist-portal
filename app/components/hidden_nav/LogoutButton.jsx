@@ -5,7 +5,8 @@ export default ({signOutUser}) => {
         <div
             className="logout-button"
              title="End Session"
-             onClick={signOutUser}>
+             onClick={signOutUser}
+             onTouchTap={signOutUser}>
 			<a href="/">
 				<h3>Logout</h3>
 			</a>

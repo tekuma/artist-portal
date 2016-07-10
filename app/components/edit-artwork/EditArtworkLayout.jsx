@@ -16,7 +16,7 @@ export default class EditArtworkForm extends React.Component {
         var clearErrors = this.props.clearErrors;
         var onSubmit = this.props.onSubmit;
 
-        var style = {
+        var errorStyle = {
             border: '1px solid #ec167c'
         };
 
@@ -37,7 +37,7 @@ export default class EditArtworkForm extends React.Component {
                                 <label for="artwork-title">Title <span className="pink">*</span> :</label>
                                 <input
                                     type="text"
-                                    style={this.props.errors.title != undefined ? style : null}
+                                    style={this.props.errors.title != undefined ? errorStyle : null}
                                     id="artwork-title"
                                     name="title"
                                     placeholder="What is the title of this artwork?"
@@ -51,7 +51,7 @@ export default class EditArtworkForm extends React.Component {
                                 <label for="artwork-artist">Artist <span className="pink">*</span> :</label>
                                 <input
                                     type="text"
-                                    style={this.props.errors.artist != undefined ? style : null}
+                                    style={this.props.errors.artist != undefined ? errorStyle : null}
                                     id="artwork-artist"
                                     name="title"
                                     placeholder="Who completed this artwork?"
@@ -88,7 +88,7 @@ export default class EditArtworkForm extends React.Component {
                                 <label for="artwork-year">Year <span className="pink">*</span> :</label>
                                 <input
                                     type="text"
-                                    style={this.props.errors.year != undefined ? style : null}
+                                    style={this.props.errors.year != undefined ? errorStyle : null}
                                     id="artwork-year"
                                     name="year"
                                     placeholder="Year artwork was completed?"
@@ -102,7 +102,7 @@ export default class EditArtworkForm extends React.Component {
                                 <label className="center" for="artwork-description">Description:</label>
                                 <textarea
                                     id="artwork-description"
-                                    style={this.props.errors.description != undefined ? style : null}
+                                    style={this.props.errors.description != undefined ? errorStyle : null}
                                     placeholder="Give this artwork a short description..."
                                     value={this.props.value.description}
                                     onClick={clearErrors}
