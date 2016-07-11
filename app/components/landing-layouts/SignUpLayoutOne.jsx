@@ -293,7 +293,7 @@ export default class SignUpLayoutOne extends React.Component {
 
         if(this.state.errors.length == 0) {
 
-            data.displayName = displayName;
+            data.display_name = displayName;
             data.dob = day + "-" + month + "-" + year;
             data.gender_pronoun =  gender;
             data.avatar = this.state.avatar;

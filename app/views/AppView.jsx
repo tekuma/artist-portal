@@ -301,11 +301,12 @@ export default class AppView extends React.Component {
                         uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
                     });
 
-                    let artRef    = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+                    let artRef        = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
                     // we refrence the artworks node, push to it to generate a child UID,
                     // then use toString to get the absolute URL, split it, and pop the last item,
                     // which is the artwork UID.
-                    let artID     = artRef.push().toString().split('/').pop();
+                    // let artID     = artRef.push().toString().split('/').pop();
+                    let artID          = artRef.push().key;
                     let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
 
                     let title = name.split(".")[0];

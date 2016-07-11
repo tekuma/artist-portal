@@ -1,7 +1,6 @@
-'use strict';
 // Libs
-import React          from 'react';
-import Firebase       from 'firebase';
+import React              from 'react';
+import Firebase           from 'firebase';
 // Views
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
@@ -140,20 +139,19 @@ export default class App extends React.Component {
      * -display_name
      * -dob
      * -gender
-     * -avatar
+     * -avatar (blob)
      * -bio
      * -location
      * -legal_name
      * -portfolio
      *
+     * First, upload the avatar blob to be a URL, then set all info to state.
      * @param  {[Object]} data [Registration information from user gathered info]
      */
     saveRegistration = (data) => {
-        console.log("Previous Registration: ", this.state.registration);
         this.setState({
             registration: Object.assign({}, this.state.registration, data)
         });
-        console.log("Current Registration: ", this.state.registration);
     }
 
     /**
@@ -251,17 +249,20 @@ export default class App extends React.Component {
      * - private    object in '_private/onboarders/{UID}'
      * - branch of marketed products in 'public/products/{UID}'
      * - branch of sales information in '_private/products/{UID}'
+     * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
         console.log("|>Submitted registration.");
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
-        .then( (thisUser) => {
+        .then( (thisUser) => { //thisUser is passed in asynchronously from FB
             const thisUID = thisUser.uid;
+            console.log(thisUser, "THIS USER!!");
 
             // Instantiate public/onboarders/thisUID
             const usersRef = firebase.database().ref('public/onboarders');
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
+                console.log(this.state.registration.avatar, "AVATAR");
                 if (!snapshot.child(thisUID).exists()) {
                     // Setting onboarder info (if registered)
                     let dob = "",
@@ -272,22 +273,39 @@ export default class App extends React.Component {
                         portfolio = "",
                         legal_age = false;
 
-                    usersRef.child(thisUID).set({
-                        albums        : { 0: {
-                            name:"Uploads"
-                        }},
-                        auth_provider   : "password",
-                        email           : this.state.registration.email,
-                        display_name    : this.state.registration.display_name,
-                        legal_name      : this.state.registration.legal_name,
-                        avatar          : this.state.registration.avatar,
-                        dob             : this.state.registration.dob,
-                        gender          : this.state.registration.gender,
-                        bio             : this.state.registration.bio,
-                        location        : this.state.registration.location,
-                        portfolio       : this.state.registration.portfolio,
-                        over_eighteen   : false
-                    });
+
+                    //
+                    firebase.storage().ref('portal/'+thisUID+'/avatars').put(this.state.registration.avatar).on(
+                        firebase.storage.TaskEvent.STATE_CHANGED,
+                        (snapshot)=>{
+                            if (snapshot.downloadURL != null) {
+                                usersRef.child(thisUID).set({
+                                    albums        : { 0: {
+                                        name:"Uploads"
+                                    }},
+                                    auth_provider   : "password",
+                                    email           : this.state.registration.email,
+                                    display_name    : this.state.registration.display_name,
+                                    legal_name      : this.state.registration.legal_name,
+                                    avatar          : snapshot.downloadURL,
+                                    dob             : this.state.registration.dob,
+                                    gender_pronoun  : this.state.registration.gender_pronoun,
+                                    bio             : this.state.registration.bio,
+                                    location        : this.state.registration.location,
+                                    portfolio       : this.state.registration.portfolio,
+                                    over_eighteen   : false
+                                });
+                            }
+                        },
+                        (error)=>{
+                            console.error(error);
+                        },
+                        ()=>{
+                            console.log("success in avatar upload");
+                        }
+                    );
+
+
                     console.log(">>User Submitted To Database!");
                 }
             }, (error) => {
@@ -365,28 +383,12 @@ export default class App extends React.Component {
                 // Setting onboarder info (if registered)
                 let dob = "",
                     avatar = "",
-                    gender = "",
+                    gender_pronoun = "",
                     bio = "",
                     location = "",
                     portfolio = "",
                     legal_age = false;
 
-                //TODO: set up iteratively. #dontRepeatYourself
-                if (user.dob !== undefined) {
-                    dob = user.dob;
-                }
-                if (user.gender !== undefined) {
-                    gender = user.gender;
-                }
-                if (user.bio !== undefined) {
-                    bio = user.bio;
-                }
-                if (user.location !== undefined) {
-                    location = user.location;
-                }
-                if (user.portfolio !== undefined) {
-                    portfolio = user.portfolio;
-                }
                 if (user.photoURL !== undefined ) {
                     avatar = user.photoURL;
                 }
@@ -401,7 +403,7 @@ export default class App extends React.Component {
                     legal_name        : "",
                     avatar          : avatar,
                     dob             : dob,
-                    gender          : gender,
+                    gender_pronoun  : gender_pronoun,
                     bio             : bio,
                     location        : location,
                     portfolio       : portfolio,
