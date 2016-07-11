@@ -34,6 +34,10 @@ export default class EditProfileLayout extends React.Component {
             border: '1px solid #ec167c'
         };
 
+        let hideStyle = {
+            display: 'none'
+        };
+
         return(
             <div className ="scroll-edit-profile">
                 <form className="profile-form">
@@ -101,7 +105,7 @@ export default class EditProfileLayout extends React.Component {
                                     <input
                                         type="email"
                                         id="register-email"
-                                        style={this.state.errorType.email ? errorStylePasswordAuth : passwordAuth}
+                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
                                         defaultValue={this.props.userInfo.email}
                                         ref="email"
                                         placeholder="Email"
@@ -112,7 +116,7 @@ export default class EditProfileLayout extends React.Component {
                                     <input
                                         type="password"
                                         id="register-password"
-                                        style={this.state.errorType.email ? errorStylePasswordAuth : passwordAuth}
+                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
                                         ref="password"
                                         placeholder="Password"
                                         required="true"
@@ -123,7 +127,7 @@ export default class EditProfileLayout extends React.Component {
                                     <input
                                         type="password"
                                         id="register-confirm-password"
-                                        style={this.state.errorType.email ? errorStylePasswordAuth : passwordAuth}
+                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
                                         ref="confirmPassword"
                                         placeholder="Confirm Password"
                                         required="true"
