@@ -457,39 +457,64 @@ export default class AppView extends React.Component {
      * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
-        console.log(">>begin edit profile");
-        const thisUID     = firebase.auth().currentUser.uid;
-        let dataHasAvatar = data.hasOwnProperty('avatar');
 
+        const thisUser    = firebase.auth().currentUser;
+        const thisUID     = thisUser.uid;
 
-        function updateText() {
-            console.log(">>user info set!!",this);
-            this.setState({
-                editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-            });
+        // Update their password if the password fields arent blank
+        if (data.password != null && data.password != undefined) {
+            thisUser.updatePassword(data.password).then(
+                () => {
+                    console.log("successful reset password");
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
         }
 
-        function updateAvatar(data,uploadTask) {
-            console.log(">>avatar upload successful");
-            data.avatar = uploadTask.snapshot.downloadURL;
-            firebase.database().ref(pathToPublicOnboarder + thisUID)
-            .update(data)
-            .then( updateText.bind(this) );
-        };
+        // If email is different than before, change it
+        if (data.email != thisUser.email) {
+            console.log(">>> Updating Email Address");
+            currentUser.updateEmail(data.email).then(
+                ()=>{
+                    console.log("change email request sent to email");
+                },
+                (error)=>{
+                    console.error(error);
+                }
+            );
+        }
 
-        if (dataHasAvatar) {
-            console.log(">>has avatar");
-            let uploadTask = firebase.storage().ref('profile/' + thisUID).put(data.avatar);
-            uploadTask.on(
+        // Update all info fields (dob, name, bio, avatar, etc)
+        if (data.hasOwnProperty('avatar')) {
+            firebase.storage().ref('profile/' + thisUID).put(data.avatar).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
-                null,
-                null,
-                updateAvatar.bind(this,data,uploadTask)
+                (snapshot)=>{
+                    if (snapshot.downloadURL != null) {
+                        data.avatar = snapshot.downloadURL;
+                        firebase.database().ref(pathToPublicOnboarder + thisUID)
+                        .update(data)
+                        .then( ()=>{
+                            this.setState({
+                                editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                            });
+                        });
+                    }
+                },
+                ()=>{},
+                ()=>{
+                    console.log(">> Changed Avatar successfully");
+                }
             );
         } else {
-            console.log(">>No Avatar, updating text");
+            // updating everything but avatar
             let thisRef = firebase.database().ref(pathToPublicOnboarder + thisUID);
-            thisRef.update(data).then( updateText.bind(this) );
+            thisRef.update(data).then(()=>{
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
         }
 
 

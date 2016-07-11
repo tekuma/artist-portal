@@ -1,10 +1,12 @@
-import React from 'react';
-import Dropzone from 'react-dropzone';
-import LoggedOffHeader from '../headers/LoggedOffHeader';
-import uuid from 'node-uuid';
-import Snackbar from 'material-ui/Snackbar';
+// Libs
+import React            from 'react';
+import Dropzone         from 'react-dropzone';
+import uuid             from 'node-uuid';
+import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// Files
+import LoggedOffHeader  from '../headers/LoggedOffHeader';
 
 export default class SignUpLayoutOne extends React.Component {
     constructor(props) {

@@ -36,7 +36,8 @@ export default class App extends React.Component {
             registration: {},
             login       : {},
             loggedIn    : null,
-            loaded      : false
+            loaded      : false,
+            forgotPassword: false
         };
     }
 
