@@ -21,12 +21,16 @@ export default ({managerIsOpen, toggleManager, addAlbum}) => {
     return (
         <div style={componentStyle} className="manager-opener">
             <OverlayTrigger placement="bottom" overlay={addAlbumTooltip}>
-                <div onClick={addAlbum}
+                <div
+                    onClick={addAlbum}
+                    onTouchTap={addAlbum}
                     className="manager-icon add-album" >
                     <img src='assets/images/icons/plus-white.svg' />
                 </div>
             </OverlayTrigger>
-            <div onClick={toggleManager}
+            <div
+                onClick={toggleManager}
+                onTouchTap={toggleManager}
                 style={iconStyle}
                 className={managerIsOpen ? "manager-icon toggle-manager" : "manager-icon toggle-manager closed"}>
                 <img className="toggle"

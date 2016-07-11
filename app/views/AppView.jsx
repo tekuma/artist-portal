@@ -309,6 +309,15 @@ export default class AppView extends React.Component {
                     let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
 
                     let title = name.split(".")[0];
+                    let artist = "Self";
+
+                    if (
+                        this.state.userInfo != null &&
+                        this.state.userInfo != undefined &&
+                        this.state.userInfo.display_name != "Untitled Artist")
+                        {
+                            artist = this.state.userInfo.display_name;
+                        }
 
                     //after upload, create an artwork object
                     let artObject = {
@@ -316,7 +325,7 @@ export default class AppView extends React.Component {
                         image   : snapshot.downloadURL,
                         filename: name,
                         title   : title,
-                        artist  : "Self",
+                        artist  : artist,
                         album   : "Uploads",
                         year    : new Date().getFullYear(),
                         description: "",

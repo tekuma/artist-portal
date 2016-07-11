@@ -2,8 +2,10 @@
 import React       from 'react';
 import uuid        from 'node-uuid';
 import Dialog      from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider';
+
 // files
 import EditArtworkLayout from './EditArtworkLayout';
 import ConfirmButton     from '../confirm-dialog/ConfirmButton';
@@ -15,8 +17,9 @@ export default class EditArtworkDialog extends React.Component {
 
         this.state =  {
             formInfo: {},
-            errors: {},
-            errorMessages: []
+            errorType: {},
+            errors: [],
+            currentError: ""
         };
     }
 
@@ -55,8 +58,8 @@ export default class EditArtworkDialog extends React.Component {
                         <EditArtworkLayout
                             albumNames={this.props.albumNames}
                             value={this.state.formInfo}
-                            errors={this.state.errors}
-                            errorMessages={this.state.errorMessages}
+                            errorType={this.state.errorType}
+                            currentError={this.state.currentError}
                             onChange={this.updateFormInfo}
                             onSubmit={this.onSubmit}
                             clearErrors={this.clearErrors}
@@ -64,6 +67,13 @@ export default class EditArtworkDialog extends React.Component {
                             handleAddition={this.handleAddition}
                             handleDrag={this.handleDrag} />
                     </Dialog>
+                </MuiThemeProvider>
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <Snackbar
+                        className="registration-error"
+                        open={Object.keys(this.state.errorType).length > 0}
+                        message={this.state.currentError}
+                        autoHideDuration={4000} />
                 </MuiThemeProvider>
             </div>
         );
@@ -79,61 +89,69 @@ export default class EditArtworkDialog extends React.Component {
         console.log("Entered onSubmit");
         console.log("Artwork form: ", this.state.formInfo);
         e.preventDefault();
-
+        
         // Test that user inputed a title
         if (!this.state.formInfo.title) {
-            let errors = this.state.errors;
-            errors.title = true;
+            let errorType = this.state.errorType;
+            errorType.title = true;
             this.setState({
-                errors: Object.assign({}, this.state.errors, errors)
+                errorType: errorType
             });
-            this.state.errorMessages.push("Please enter a title for the artwork");
+            this.state.errors.push("Please enter a title for the artwork");
         }
 
         // Test that user inputed an artist
         if (!this.state.formInfo.artist) {
-            let errors = this.state.errors;
-            errors.artist = true;
+            let errorType = this.state.errorType;
+            errorType.artist = true;
             this.setState({
-                errors: Object.assign({}, this.state.errors, errors)
+                errorType: errorType
             });
-            this.state.errorMessages.push("Please enter an artist name");
+            this.state.errors.push("Please enter an artist name");
         }
 
         // Test that user inputed a year
         if (!this.state.formInfo.year) {
-            let errors = this.state.errors;
-            errors.year = true;
+            let errorType = this.state.errorType;
+            errorType.year = true;
             this.setState({
-                errors: Object.assign({}, this.state.errors, errors)
+                errorType: errorType
             });
-            this.state.errorMessages.push("Please enter the year in which the artwork was completed");
+            this.state.errors.push("Please enter the year in which the artwork was completed");
         }
 
         // Test that user inputed correct year
         if (!/[0-9]{4}/.test(this.state.formInfo.year)) {
-            let errors = this.state.errors;
-            errors.year = true;
+            let errorType = this.state.errorType;
+            errorType.year = true;
             this.setState({
-                errors: Object.assign({}, this.state.errors, errors)
+                errorType: errorType
             });
-            this.state.errorMessages.push("Please enter a valid year");
+            this.state.errors.push("Please enter a valid year");
         }
 
         console.log("Got through errors");
 
-        if(this.state.errorMessages.length == 0) {
+        if(this.state.errors.length == 0) {
             console.log("Edit Artwork Info: ", this.state.formInfo);
             // this.props.toggleEditArtworkDialog();
             this.props.updateArtwork(this.state.formInfo);
         }
-        console.log("I have " + this.state.errorMessages.length + " errors: ", this.state.errorMessages);
+        console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);
+
+        for(let i = 0; i < this.state.errors.length; i++) {
+            setTimeout(() => {
+                this.setState({
+                    currentError: this.state.errors[i]
+                });
+            }, 3000 * i);
+        }
     }
 
     clearErrors = () => {
         this.setState({
-            errors: {},
-            errorMessages: []
+            errorType: {},
+            errors: []
         });
     }
 }

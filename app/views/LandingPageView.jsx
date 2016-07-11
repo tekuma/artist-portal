@@ -92,7 +92,7 @@ export default class LandingPageView extends React.Component {
                                 return (
                                     <div
                                         key={uuid.v4()}
-                                        className="registration-error login">
+                                        className="login-error">
                                         <h2>{error}</h2>
                                     </div>
                                 );
@@ -160,7 +160,7 @@ export default class LandingPageView extends React.Component {
                               return (
                                   <div
                                       key = {uuid.v4()}
-                                      className="registration-error login">
+                                      className="login-error">
                                       <h2>{error}</h2>
                                   </div>
                               );
@@ -228,7 +228,7 @@ export default class LandingPageView extends React.Component {
                       {this.state.errors.map(error => {
                               return (
                                   <div
-                                      className="registration-error login">
+                                      className="login-error">
                                       <h2>{error}</h2>
                                   </div>
                               );

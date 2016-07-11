@@ -918,10 +918,9 @@ input::-webkit-search-cancel-button {
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%%, -50%);
 	padding: 30px;
-	border: 2px dashed #d6d3ce;
-	background: #f4f6f7;
-	border-radius: 3px;
 	cursor: pointer;
+	font-size: 1.2em;
+	padding-top: 60px;
 }
 
 .empty-album h2,
@@ -1850,17 +1849,32 @@ login-button.left {
 	font-size: 1.5em;
 }
 
-.registration-error h2, .edit-user-error h2 {
+.registration-error {
+	text-align: center !important;
+}
+
+.registration-error span {
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-size: 1em;
+	font-weight: 500;
+	color: #ec167c;
+}
+
+.edit-user-error h2 {
 	color: #ec167c;
 	font-size: 1em;
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
-.registration-error.login h2 {
+.login-error h2 {
 	width: 212px;
 	margin: 10px 10px;
 	text-align: left;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-size: 1em;
+	font-weight: 500;
+	color: #ec167c;
 }
 
 
