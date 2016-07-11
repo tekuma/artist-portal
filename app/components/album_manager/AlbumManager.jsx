@@ -20,10 +20,8 @@ export default class AlbumManager extends React.Component {
 
     componentDidMount() {
         const thisUID = firebase.auth().currentUser.uid;
-
         let path = userPath + thisUID + "/albums";
         let albumRef = firebase.database().ref(path);
-        console.log("did we get here?");
         albumRef.on("value", (snapshot) => {
             let albumJSON = snapshot.val();
 
@@ -49,9 +47,6 @@ export default class AlbumManager extends React.Component {
         }, null, this);
 
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        console.log("Here are the albums:", this.state);
-
-
     }
 
     shouldComponentUpdate(nextProps, nextState) {
