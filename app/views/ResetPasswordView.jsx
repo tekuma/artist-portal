@@ -26,7 +26,7 @@ export default class ResetPasswordView extends React.Component {
                                             type="text"
                                             id="reset-code"
                                             ref="code"
-                                            placeholder="Reset Code"
+                                            placeholder="Enter Code"
                                             required=""
                                             autoCapitalize="off"
                                             autoComplete="off"

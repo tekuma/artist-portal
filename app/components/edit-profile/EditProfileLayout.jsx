@@ -337,7 +337,7 @@ export default class EditProfileLayout extends React.Component {
             this.state.errors.push("The email address you supplied is invalid.");
 
             let errorType = this.state.errorType;
-            errorType.eail = true;
+            errorType.email = true;
             this.setState({
                 errorType: errorType
             });
