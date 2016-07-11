@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone';
 // Files
 import Artwork    from '../artwork/Artwork.jsx';
 import confirm    from '../confirm-dialog/ConfirmFunction';
+import Views from '../../constants/Views';
 
 
 
@@ -214,6 +215,7 @@ export default class ArtworksLayout extends React.Component {
 
     onDrop = (files) => {
         this.props.setUploadedFiles(files);
+        this.props.changeAppLayout(Views.ARTWORKS);
         console.log('Set uploaded files: ', files);
     }
 }

@@ -61,13 +61,13 @@ export default class SignUpLayoutOne extends React.Component {
                                             src="../assets/images/icons/person-beige.svg" />
                                         <h3
                                             style={{display: this.state.avatarUploaded  ? "none" : "block" }}
-                                            className="upload-writing big">
-                                            Upload your Photo
+                                            className="upload-writing medium">
+                                            Click to Upload your Photo
                                         </h3>
                                         <h3
                                             style={{display: this.state.avatarUploaded  ? "none" : "block" }}
                                             className="upload-writing small">
-                                            or Simply Drage Here
+                                            or Simply it Drag Here
                                         </h3>
                                         <img
                                             id="uploaded-avatar"

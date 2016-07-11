@@ -51,12 +51,12 @@ export default class EditProfileLayout extends React.Component {
                         <h3
                             style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                             className="upload-writing big">
-                            Upload your Photo
+                            Click to Upload your Photo
                         </h3>
                         <h3
                             style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                             className="upload-writing small">
-                            or Simply Drag Here
+                            or Simply Drag it Here
                         </h3>
                         <img
                             id="uploaded-avatar"
@@ -329,7 +329,7 @@ export default class EditProfileLayout extends React.Component {
                 errorType: errorType
             });
         } else {
-            data.full_name = legalName;
+            data.legal_name = legalName;
         }
 
         // Only test regex if user has typed in an email
@@ -424,7 +424,7 @@ export default class EditProfileLayout extends React.Component {
         }
 
         if(gender.length > 0) {
-            data.gender =  gender;
+            data.gender_pronoun =  gender;
         }
 
         if(bio.length > 0) {

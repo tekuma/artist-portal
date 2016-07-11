@@ -229,6 +229,7 @@ export default class AlbumManager extends React.Component {
                     }
                     console.log("DELETED2::", albumLength-1, data[albumLength-1]);
                     delete data[albumLength-1];
+                    this.props.changeAlbum("Uploads");
                     return data;
                 });
             }, () => {

@@ -849,7 +849,7 @@ input::-webkit-search-cancel-button {
 .album-name, .uploads-name {
 	margin: 12px 0px;
 	font-weight: 700;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	color: #ffffff;
 }
 
@@ -1837,6 +1837,10 @@ login-button.left {
 	margin: 5px;
 }
 
+.upload-writing.medium {
+	font-size: 1.1em;
+}
+
 .upload-writing.small {
 	font-size: 0.85em;
 }
@@ -1857,7 +1861,7 @@ login-button.left {
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	font-size: 1em;
 	font-weight: 500;
-	color: #ec167c;
+	color: #ea6595;
 }
 
 .edit-user-error h2 {

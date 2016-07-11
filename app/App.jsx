@@ -400,7 +400,7 @@ export default class App extends React.Component {
                     auth_provider   : provider,
                     email           : user.email,
                     display_name    : thisDisplayName,
-                    legal_name        : "",
+                    legal_name      : "",
                     avatar          : avatar,
                     dob             : dob,
                     gender_pronoun  : gender_pronoun,
