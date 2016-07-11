@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
+import Views from '../../constants/Views';
 
 export default class LoggedOnHeader extends React.Component {
     constructor(props) {
@@ -33,8 +34,8 @@ export default class LoggedOnHeader extends React.Component {
                 <header className="blue">
                 	<div
                         className="tekuma-logo"
-                        onClick={this.props.changeAppLayout.bind({}, "Artworks")}
-                        onTouchTap={this.props.changeAppLayout.bind({}, "Artworks")}>
+                        onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                        onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}>
                             <img id="tekuma-logo-image" src='assets/images/tekuma-white.svg' />
                 	</div>
                 	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
@@ -49,8 +50,8 @@ export default class LoggedOnHeader extends React.Component {
                         <OverlayTrigger placement="bottom" overlay={organizeTooltip}>
                 	    	<div
                                 className="header-icon"
-                                onClick={this.props.changeAppLayout.bind({}, "Artworks")}
-                                onTouchTap={this.props.changeAppLayout.bind({}, "Artworks")}>
+                                onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                                onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}>
                                 <img src='assets/images/icons/organize.svg' />
                 	    	</div>
                         </OverlayTrigger>
@@ -83,7 +84,7 @@ export default class LoggedOnHeader extends React.Component {
 
     onDrop = (files) => {
         this.props.setUploadedFiles(files);
-        this.props.changeAppLayout("Artworks");
+        this.props.changeAppLayout(Views.ARTWORKS);
         console.log('Set uploaded files: ', files);
     }
 }
