@@ -211,7 +211,56 @@ export default class AppView extends React.Component {
         console.log("Color Pallete is : ", colors);
     }
 
-    //FIXME terminate generated urls with  URL.revokeObjectURL()
+    uploadArtToTekuma = (blob) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        const pathToUserStorage = 'portal/' + thisUID;
+
+        //Create a canvas
+        const canvas  = document.createElement("canvas");
+        canvas.height = maxThumbnailHeight + thumbNailPadding*2;
+        canvas.width  = maxThumbnailWidth  + thumbNailPadding*2;
+        const ctx     = canvas.getContext("2d");
+        let localURL  = URL.createObjectURL(blob);
+
+        const fullSizeImage  = new Image;
+        fullSizeImage.src    = localURL;
+        fullSizeImage.addEventListener('load', ()=>{
+            //*Store the original upload, un-changed.
+            //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
+            firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                (snapshot)=>{
+
+                },
+                (error)=>{
+                    console.error(error);
+                },
+                ()=>{
+                    console.log(thisBlob.name, "Origin file upload complete!");
+                }
+            );
+
+            //*make a thumbnail size copy and upload it as well.
+            let ratio = fullSizeImage.width / fullSizeImage.height;
+            const maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
+            // params: img, x0,y0,scaled width, scaled height
+            ctx.drawImage(
+                img,
+                thumbNailPadding,
+                thumbNailPadding,
+                maxWidth,
+                maxHeight);
+
+            //*convert canvas to a blob, and upload it.
+            canvas.toBlob( (thumbBlob)=>{
+                this.uploadThumbnail(thumbBlob,blob.name,blob.size);
+            });
+            URL.revokeObjectURL(localURL);
+            // this.extractColors(fullSizeImage, swatchCount);
+        });
+    }
+
+
     /**
      * This method will take in an array of blobs, then for each blob
      * it will handle uploading, storing, and setting into the database.
@@ -221,82 +270,12 @@ export default class AppView extends React.Component {
         this.setState({
             uploadDialogIsOpen: true   // When we set files, we want to open Uplaod Dialog
         });
-        const thisUID = firebase.auth().currentUser.uid;
-        const pathToUserStorage = 'portal/' + thisUID;
 
-        // For each image that we upload, we need to:
-        // -Store the original copy in 'portal/{UID}/uploads/'
-        // -Make a thumbnail to save in 'portal/{UID}/thumbnails'
-        // - -Create an artwork object in the DB
-        // - -Add the artwork to the 'Uploads' album.
         for (var i = 0; i < files.length; i++) {
-            let thisBlob = files[i];
-            let url      = URL.createObjectURL(thisBlob);
-            let fullSizeImage  = new Image;
-            fullSizeImage.src  = url;
-            fullSizeImage.addEventListener(
-                'load',
-                ()=>{
-                    //*Store the original upload, un-changed.
-                    //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
-                    firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
-                        firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{
-                            console.log("bytes": snapshot.bytesTransferred);
-                        },
-                        (error)=>{
-                            console.error(error);
-                        },
-                        ()=>{
-                            console.log(thisBlob.name, "Origin file upload complete!");
-                        }
-                    );
-
-                    //*make a thumbnail size copy and upload it as well.
-                    let ratio = fullSizeImage.width / fullSizeImage.height;
-                    let maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
-                    this.makeThumbnail(thisBlob,maxThumbnailWidth,maxThumbnailHeight);
-                    this.extractColors(fullSizeImage, swatchCount);
-                }
-            );
-        }//END For-loop
+            this.uploadArtToTekuma(files[i]);
+        }
     }
 
-    /**
-     * This method creates a canvas, creates an HTML5 Image, then
-     * dumps the blob into the Image and draws it to the canvas, which
-     * is then rendered into a blob object, which is passed on
-     * @param  {[Blob]} originalBlob [description]
-     * @param  {[Int]}  maxHeight    [description]
-     * @param  {[Int]}  maxWidth     [description]
-     */
-    makeThumbnail = (originalBlob, maxWidth, maxHeight) => {
-        const canvas  = document.createElement("canvas");
-        canvas.height = maxHeight + thumbNailPadding*2;
-        canvas.width  = maxWidth  + thumbNailPadding*2;
-        const ctx     = canvas.getContext("2d");
-        const img     = new Image();
-        img.src       = originalBlob.preview;
-        img.addEventListener(
-            'load',
-            ()=>{
-                // ctx.clearRect(0,0,maxWidth,maxHeight);
-                // params: img, x0,y0,scaled width, scaled height
-                ctx.drawImage(
-                    img,
-                    thumbNailPadding,
-                    thumbNailPadding,
-                    maxWidth,
-                    maxHeight);
-                canvas.toBlob( (blob)=>{
-                    this.uploadThumbnail(blob,originalBlob.name,originalBlob.size);
-
-                });
-                URL.revokeObjectURL(blobURL); //clear cached image
-            }
-        );
-
-    }
 
     /**
      * [description]
