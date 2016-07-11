@@ -52,7 +52,7 @@
     "imports-loader": "^0.6.5",
     "material-ui": "^0.15.1",
     "node-uuid": "^1.4.7",
-    "re-base": "^1.5.1",
+    "palette": "0.0.1",
     "react": "^15.1.0",
     "react-addons-update": "^15.1.0",
     "react-bootstrap-confirm": "^1.0.1",

@@ -3,6 +3,9 @@ import React               from 'react';
 import firebase            from 'firebase';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
+import palette             from 'palette';
+
+
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
@@ -250,6 +253,7 @@ export default class AppView extends React.Component {
      * @param  {[Int]}  maxWidth     [description]
      */
     makeThumbnail = (originalBlob, maxWidth, maxHeight) => {
+
         const canvas  = document.createElement("canvas");
         canvas.height = maxHeight + thumbNailPadding*2;
         canvas.width  = maxWidth  + thumbNailPadding*2;

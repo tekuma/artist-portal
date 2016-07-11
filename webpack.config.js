@@ -23,6 +23,11 @@ const common = {
     entry: {
         app: PATHS.app
     },
+
+    node: {
+        fs: "empty"
+    },
+    
     // Add resolve.extensions.
     // '' is needed to allow imports without an extension.
     // Note the .'s before extensions as it will fail to match without!!!
