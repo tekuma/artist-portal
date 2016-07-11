@@ -21,6 +21,7 @@ import UploadDialog        from '../components/app-layouts/UploadDialog';
 const pathToPublicOnboarder = "public/onboarders/";
 const maxThumbnailWidth     = 275;
 const thumbNailPadding      = 4;
+const swatchCount           = 5;
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -40,7 +41,8 @@ export default class AppView extends React.Component {
             currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
             uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
             albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
-            albums : {}
+            albums : {},
+            isUploading: false
         };
     }
 
@@ -194,6 +196,23 @@ export default class AppView extends React.Component {
     //  # Uploading Methods
 
     /**
+     * [description]
+     * @param  {[type]} img         [description]
+     * @param  {[type]} swatchCount [description]
+     * @return {[type]}             [description]
+     */
+    extractColors = (img, swatchCount) => {
+        const canvas  = document.createElement("canvas");
+        canvas.height = img.height;
+        canvas.width  = img.width;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        let colors = palette(canvas, swatchCount)
+        console.log("Color Pallete is : ", colors);
+    }
+
+    //FIXME terminate generated urls with  URL.revokeObjectURL()
+    /**
      * This method will take in an array of blobs, then for each blob
      * it will handle uploading, storing, and setting into the database.
      * @param  {[Array]} files [Array of Image blobs from the uploader]
@@ -212,13 +231,10 @@ export default class AppView extends React.Component {
         // - -Add the artwork to the 'Uploads' album.
         for (var i = 0; i < files.length; i++) {
             let thisBlob = files[i];
-            let url      = thisBlob.preview;
-            let testImg  = new Image;
-            testImg.src  = url;
-            testImg.addEventListener(
-                /// FIXME it is costly to upload the full-size image and draw
-                /// FIXME it to a canvas just to read the dimensions.
-                ///
+            let url      = URL.createObjectURL(thisBlob);
+            let fullSizeImage  = new Image;
+            fullSizeImage.src  = url;
+            fullSizeImage.addEventListener(
                 'load',
                 ()=>{
                     //*Store the original upload, un-changed.
@@ -226,19 +242,21 @@ export default class AppView extends React.Component {
                     firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
                         firebase.storage.TaskEvent.STATE_CHANGED,
                         (snapshot)=>{
+                            console.log("bytes": snapshot.bytesTransferred);
                         },
                         (error)=>{
                             console.error(error);
                         },
                         ()=>{
-                            console.log(thisBlob.name, "upload complete!");
+                            console.log(thisBlob.name, "Origin file upload complete!");
                         }
                     );
 
                     //*make a thumbnail size copy and upload it as well.
-                    let ratio = testImg.width / testImg.height;
+                    let ratio = fullSizeImage.width / fullSizeImage.height;
                     let maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
                     this.makeThumbnail(thisBlob,maxThumbnailWidth,maxThumbnailHeight);
+                    this.extractColors(fullSizeImage, swatchCount);
                 }
             );
         }//END For-loop
@@ -253,18 +271,15 @@ export default class AppView extends React.Component {
      * @param  {[Int]}  maxWidth     [description]
      */
     makeThumbnail = (originalBlob, maxWidth, maxHeight) => {
-
         const canvas  = document.createElement("canvas");
         canvas.height = maxHeight + thumbNailPadding*2;
         canvas.width  = maxWidth  + thumbNailPadding*2;
         const ctx     = canvas.getContext("2d");
         const img     = new Image();
-        let blobURL   = URL.createObjectURL(originalBlob);
-        img.src       = blobURL;
+        img.src       = originalBlob.preview;
         img.addEventListener(
             'load',
             ()=>{
-                console.log(originalBlob.name);
                 // ctx.clearRect(0,0,maxWidth,maxHeight);
                 // params: img, x0,y0,scaled width, scaled height
                 ctx.drawImage(
@@ -275,6 +290,7 @@ export default class AppView extends React.Component {
                     maxHeight);
                 canvas.toBlob( (blob)=>{
                     this.uploadThumbnail(blob,originalBlob.name,originalBlob.size);
+
                 });
                 URL.revokeObjectURL(blobURL); //clear cached image
             }
