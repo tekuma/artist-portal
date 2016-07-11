@@ -47,6 +47,7 @@ export default class AlbumManager extends React.Component {
         }, null, this);
 
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+        console.log("Here are the albums:", this.state);
     }
 
     shouldComponentUpdate(nextProps, nextState) {

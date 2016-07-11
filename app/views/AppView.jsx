@@ -461,6 +461,7 @@ export default class AppView extends React.Component {
      * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
+
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
 
