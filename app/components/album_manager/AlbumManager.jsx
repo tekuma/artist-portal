@@ -25,10 +25,10 @@ export default class AlbumManager extends React.Component {
         albumRef.on("value", (snapshot) => {
             let albumJSON = snapshot.val();
 
-            let uploads = albumJSON[0];
-            delete albumJSON[0];
-
+            let uploads   = albumJSON[0];
             let albumKeys = Object.keys(albumJSON);
+            delete albumJSON[0];
+            
             let albumNames = ["Uploads"];
             for (var i = 0; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
