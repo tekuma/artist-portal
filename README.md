@@ -1,10 +1,12 @@
+![TEKUMA](https://artist.tekuma.io/logos/logo.png)
+
 Tekuma Artist Portal
 =====================
 ### **NOTE** this code contains *proprietary* encryption keys!
 ### Do Not Distribute.
 
 [logo]:https://artist.tekuma.io/logos/logo.png
-![TEKUMA](https://artist.tekuma.io/logos/logo.png)
+
 
 #### Development
 
