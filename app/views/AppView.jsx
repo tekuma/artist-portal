@@ -506,10 +506,11 @@ export default class AppView extends React.Component {
      * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
-
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
-
+        const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
+        const avatarRef   = firebase.storage().ref(avatarPath);
+        const userPath    = `public/onboarders/${thisUID}`;
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
             thisUser.updatePassword(data.password).then(
@@ -537,37 +538,35 @@ export default class AppView extends React.Component {
 
         // Update all info fields (dob, name, bio, avatar, etc)
         if (data.hasOwnProperty('avatar')) {
-            firebase.storage().ref('profile/' + thisUID).put(data.avatar).on(
+
+            avatarRef.put(data.avatar).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
-                (snapshot)=>{
-                    if (snapshot.downloadURL != null) {
+                (snapshot)=>{  },
+                ()=>{},
+                ()=>{
+                    console.log(">> New Avatar Uploaded successfully");
+                    avatarRef.getDownloadURL( (avatarURL)=>{
                         data.avatar = snapshot.downloadURL;
-                        firebase.database().ref(pathToPublicOnboarder + thisUID)
-                        .update(data)
+                        firebase.database().ref(userPath).update(data)
                         .then( ()=>{
+                            //FIXME use a toggle method?
                             this.setState({
                                 editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                             });
                         });
-                    }
-                },
-                ()=>{},
-                ()=>{
-                    console.log(">> Changed Avatar successfully");
+                    });
                 }
             );
         } else {
             // updating everything but avatar
-            let thisRef = firebase.database().ref(pathToPublicOnboarder + thisUID);
-            thisRef.update(data).then(()=>{
+            firebase.database().ref(userPath).update(data)
+            .then(()=>{
+                //FIXME use a toggle method?
                 this.setState({
                     editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                 });
             });
         }
-
-
-
     }
 
     /** TODO re-do this function to 'clean up' the database when deleting a user
