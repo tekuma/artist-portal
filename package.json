@@ -68,7 +68,6 @@
     "react-mixin": "^2.0.2",
     "react-router": "^2.4.1",
     "react-tap-event-plugin": "^1.0.0",
-    "react-tooltip": "^3.0.7",
     "reactfire": "^1.0.0"
   }
 }
