@@ -513,7 +513,6 @@ export default class AppView extends React.Component {
         const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
         const avatarRef   = firebase.storage().ref(avatarPath);
         const userPath    = `public/onboarders/${thisUID}`;
-        /
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
             thisUser.updatePassword(data.password).then(

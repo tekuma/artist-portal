@@ -2,11 +2,11 @@
 import React      from 'react';
 import filesaver  from 'file-saver';
 import firebase   from 'firebase';
-import Dropzone from 'react-dropzone';
+import Dropzone   from 'react-dropzone';
 // Files
 import Artwork    from '../artwork/Artwork.jsx';
 import confirm    from '../confirm-dialog/ConfirmFunction';
-import Views from '../../constants/Views';
+import Views      from '../../constants/Views';
 
 
 
@@ -41,14 +41,18 @@ export default class ArtworksLayout extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         let album = [];
-        let artworks = nextProps.userInfo.artworks;
-        for (var artworkID in artworks) {
-            if (artworks.hasOwnProperty(artworkID)) {
-                let artwork = artworks[artworkID];
-                if (artwork.album == nextProps.currentAlbum) {
-                    album.push(artwork);
+        if (nextProps.userInfo != null) {
+            let artworks = nextProps.userInfo.artworks;
+            for (var artworkID in artworks) {
+                if (artworks.hasOwnProperty(artworkID)) {
+                    let artwork = artworks[artworkID];
+                    if (artwork.album == nextProps.currentAlbum) {
+                        album.push(artwork);
+                    }
                 }
             }
+        } else {
+            console.log("userInfo is undefined in ArtworksLayout.jsx");
         }
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
         this.setState({album});

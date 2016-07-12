@@ -133,9 +133,11 @@ export default class App extends React.Component {
                 submitRegistration      ={this.submitRegistration}
                 saveRegistration        ={this.saveRegistration}
                 clearRegistration       ={this.clearRegistration}
+                toggleForgotPassword    ={this.toggleForgotPassword}
                 clearErrors             ={this.clearErrors}
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
+
             />
         )
     }
@@ -148,8 +150,7 @@ export default class App extends React.Component {
     goToForgotPassword = () => {
         return(
             <ForgotPasswordView
-                errors ={this.state.errors}
-
+                errors                  ={this.state.errors}
             />
         )
     }
@@ -157,6 +158,14 @@ export default class App extends React.Component {
 
     // #Mutator Methods
     // NOTE: Always use methods to setState, never directly mutate state.
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    toggleForgotPassword = () => {
+        this.setState({forgotPass:!this.state.forgotPass});
+    }
 
     /**
      * Mutates state to include registration infromation for new users.
@@ -279,59 +288,107 @@ export default class App extends React.Component {
      * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
-        console.log("|>Submitted registration.");
+        const thisUID    = thisUser.uid;
+        const usersRef   = firebase.database().ref('public/onboarders');
+
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
-            const thisUID = thisUser.uid;
-            console.log(thisUser, "THIS USER!!");
 
-            //>>>> Instantiate public/onboarders/thisUID
-            const usersRef = firebase.database().ref('public/onboarders');
+            // First, Send email verified email
+            thisUser.sendEmailVerification().then(()=>{
+                console.log("Verification Email sent to", thisUser.email);
+                //TODO display in a snackbar message
+            });
+
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
                 if (!snapshot.child(thisUID).exists()) {
-                    // Setting onboarder info (if registered)
-                    let dob = "",
-                        avatar = "",
-                        gender = "",
-                        bio = "",
-                        location = "",
-                        portfolio = "",
-                        legal_age = false;
-                    //TODO put ref?
-                    const avatarRef = firebase.storage().ref('portal/'+thisUID+'/avatars');
-                    avatarRef.put(this.state.registration.avatar).on(
-                        firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{ //On-state changed
-                        },
-                        (error)=>{ // on-catch
-                            console.error(error);
-                        },
-                        ()=>{ //on-complete
-                            console.log("success in avatar upload");
-                            avatarRef.getDownloadURL().then( (avatarURL)=>{
-                                //Define an Onboarder object, and populate:
-                                usersRef.child(thisUID).set({
-                                    albums        : { 0: {
-                                        name:"Uploads"
-                                    }},
-                                    auth_provider   : "password",
-                                    email           : this.state.registration.email,
-                                    display_name    : this.state.registration.display_name,
-                                    avatar          : avatarURL,
-                                    dob             : this.state.registration.dob,
-                                    gender_pronoun  : this.state.registration.gender_pronoun,
-                                    bio             : this.state.registration.bio,
-                                    location        : this.state.registration.location,
-                                    portfolio       : this.state.registration.portfolio,
-                                    over_eighteen   : false
+                    //Set defaults
+                    let dob          = "",
+                        gender       = "",
+                        bio          = "",
+                        location     = "",
+                        portfolio    = "",
+                        display_name = "",
+                        legal_age    = false,
+                        avatar       = "";
+
+                    //Check for info Submitted, if so override defaults
+                    if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
+                       dob = this.state.registration.dob;
+                    }
+                    if (this.state.registration.gender != undefined && this.state.registration.gender != null) {
+                       gender = this.state.registration.gender_pronoun;
+                    }
+                    if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
+                       bio = this.state.registration.bio;
+                    }
+                    if (this.state.registration.location != undefined && this.state.registration.location != null) {
+                       location = this.state.registration.location;
+                    }
+                    if (this.state.registration.portfolio != undefined && this.state.registration.portfolio != null) {
+                       portfolio = this.state.registration.portfolio;
+                    }
+                    if (this.state.registration.display_name != undefined && this.state.registration.display_name != null) {
+                       display_name = this.state.registration.display_name;
+                    }
+                    if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
+                       portfolio = this.state.registration.portfolio;
+                    }
+
+                    // Now, check if user uploaded an avatar
+                    if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
+                        //If the user chose to upload an avatar
+                        const avatarPath = `portal/${thisUID}/avatars/${this.state.registration.avatar.name}`;
+                        const avatarRef  = firebase.storage().ref(avatarPath);
+                        avatarRef.put(this.state.registration.avatar).on(
+                            firebase.storage.TaskEvent.STATE_CHANGED,
+                            (snapshot)=>{ //On-state changed
+                            },
+                            (error)=>{ // on-catch
+                                console.error(error);
+                            },
+                            ()=>{ //on-complete
+                                console.log("success in avatar upload");
+                                avatarRef.getDownloadURL().then( (avatarURL)=>{
+                                    //Define an Onboarder object, and populate:
+                                    usersRef.child(thisUID).set({
+                                        albums        : { 0: {
+                                            name:"Uploads"
+                                        }},
+                                        auth_provider   : "password",
+                                        email           : this.state.registration.email,
+                                        display_name    : display_name,
+                                        avatar          : avatarURL,
+                                        dob             : dob,
+                                        gender_pronoun  : gender_pronoun,
+                                        bio             : bio,
+                                        location        : location,
+                                        portfolio       : portfolio,
+                                        over_eighteen   : legal_age
+                                    });
                                 });
-                            });
-                        }
-                    );
+                            }
+                        );
 
-
-                    console.log(">>User Submitted To Database!");
+                    } else { // no avatar
+                        usersRef.child(thisUID).set({
+                            albums        : { 0: {
+                                name:"Uploads"
+                            }},
+                            auth_provider   : "password",
+                            email           : this.state.registration.email,
+                            display_name    : display_name,
+                            avatar          : "",
+                            dob             : dob,
+                            gender_pronoun  : gender_pronoun,
+                            bio             : bio,
+                            location        : location,
+                            portfolio       : portfolio,
+                            over_eighteen   : legal_age
+                        });
+                    }
+                console.log(">>User Submitted To Onboarders!");
                 }
             }, (error) => {
                 console.error(error);
