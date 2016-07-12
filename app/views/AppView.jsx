@@ -244,8 +244,9 @@ export default class AppView extends React.Component {
         return colors;
     }
 
-    /**
-     * Heads up: This is an Asynchronous mess.
+    /** FIXME handle color processing in background
+     * Heads up: This is a nested-synchronous mess.
+     *
      * This method takes in a blob object that a user has uploaded, then
      * -uploads the original file to gs:"portal/{user uid}/uploads"
      * - sets DB entry /public/onboarders/artworks/{uid}/fullsize_url
@@ -254,7 +255,7 @@ export default class AppView extends React.Component {
      * -sets DB entry /public/onboarders/artworks/{uid}/thumbnail_url
      * -sends image to this.extractColors(url)
      *. Asynchronously, we need to wait for:
-     *  full url, thumb url, colors
+     *  full url, thumb url, colors.
      * @param  {Blob} blob - an uploaded blob
      */
     uploadArtToTekuma = (blob) => {
@@ -349,6 +350,7 @@ export default class AppView extends React.Component {
                                             {
                                             artist = this.state.userInfo.display_name;
                                         }
+
                                         let artObject = {
                                             id          : artworkUID,
                                             thumbnail   : thumbURL,
@@ -357,6 +359,7 @@ export default class AppView extends React.Component {
                                             artist      : artist,
                                             album       : "Uploads",
                                             upload_date : new Date().toISOString(),
+                                            year        : 2012,
                                             description : "",
                                             tags        : "art",
                                             size        : fileSize,
@@ -395,8 +398,6 @@ export default class AppView extends React.Component {
                 });//END fullsize oncomplete and toBlob
             });//END Onload image
     }//END METHOD
-
-
 
 
     /**
