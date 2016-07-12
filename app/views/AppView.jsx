@@ -4,8 +4,6 @@ import firebase            from 'firebase';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
-
-
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
@@ -17,11 +15,14 @@ import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
 import UploadDialog        from '../components/app-layouts/UploadDialog';
 
 
-// #Global Variables  TODO
+// #Global Variables
 const pathToPublicOnboarder = "public/onboarders/";
-const maxThumbnailWidth     = 275; //NOTE: height set proportional to this value
-const thumbNailPadding      = 4;
-const swatchCount           = 5;
+const maxThumbnailWidth     = 550; // ->height set proportional to this value
+const thumbNailPadding      = 4;   // ->count(pixels to pad each side of thumbnail with)
+const colorCount            = 64;  // ->amount of possible color swatches to start with when
+                                   // determining dominant vibrant and muted colors (64 default)
+const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
+                                   //  1 means no downscaling, 5 is default.
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -195,18 +196,20 @@ export default class AppView extends React.Component {
 
     //  # Uploading Methods
 
-    /**TODO
-     * TODO
-     * @param  {[type]} url [description]
-     * @return {[type]}     [description]
+    /**
+     * This method takes in an image as a URL, and
+     * @param  {String} url - an image to process
+     * @return {Object}  an object with keys:
+     *                   v,m,lv,lm,dv,dm; which represent:
+     * Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
+     * @see [ https://github.com/akfish/node-vibrant ]
      */
     extractColors = (url) => {
         console.log("about to palette");
-        // let colors = {color:"#FF00FF"}; //TODO
-        // A pallete has : Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
         let colors;
-        getPalette.from(url).quality(1).getPalette( (error,palette)=>{
-            console.log("Palette", palette.Vibrant.getHex() , palette.Vibrant.getRgb(), palette.Vibrant.getPopulation());
+        getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
+        .getPalette( (error,palette)=>{
+            console.log("building Palette color Object...");
             colors = {
                 v:{
                     hex:palette.Vibrant.getHex(),
@@ -339,7 +342,7 @@ export default class AppView extends React.Component {
                                         //Get the color palette
                                         console.log("---Begin Color swatching");
                                         const colorObject    = this.extractColors(localURL);
-                                        console.log("FUCK::", colorObject);
+                                        console.log("Color Digest:", colorObject);
                                         console.log("---End Color swatching");
 
                                         //Build the artwork object
@@ -406,11 +409,12 @@ export default class AppView extends React.Component {
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
+        //FIXME use a toggle method?
         this.setState({
             uploadDialogIsOpen: true   // When we set files, we want to open Uplaod Dialog
         });
 
-        for (var i = 0; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             this.uploadArtToTekuma(files[i]);
         }
     }
@@ -612,21 +616,17 @@ export default class AppView extends React.Component {
      */
     changeArtworkAlbum = (artworkUID, oldName, newName) => {
         const thisUID  = firebase.auth().currentUser.uid;
-        let path = 'public/onboarders/'+thisUID+'/albums';
-        let albumRef   = firebase.database().ref(path);
-        albumRef.transaction( (snapshot) => {
-            let albumsLength = Object.keys(snapshot).length;
-            for (let i = 0; i < albumsLength; i++) {
-                if (snapshot[i]['name'] == oldName) {
+        let albumsPath = 'public/onboarders/'+thisUID+'/albums';
+        let albumsRef   = firebase.database().ref(albumsPath);
+        albumsRef.transaction( (node) => {
+            let albumsCount = Object.keys(node).length;
+            for (let i = 0; i < albumsCount; i++) {
+                if (node[i]['name'] == oldName) {
                     // remove the ID, then shift indexes manually
-                    console.log("Old name: ", oldName);
-                    console.log("Snapshot[i][name]: ", snapshot[i]['name']);
-                    let artworkLength = Object.keys(snapshot[i]['artworks']).length;
-                    console.log("Artworks Length: ", artworkLength);
-                    let artworksNode = snapshot[i]['artworks'];
-                    console.log("Artworks Node: ", snapshot[i]['artworks']);
+                    let artworksCount = Object.keys(node[i]['artworks']).length;
+                    let artworksNode = node[i]['artworks'];
                     let found = false;
-                    for (let j = 0; j < artworkLength; j++) {
+                    for (let j = 0; j < artworksCount; j++) {
                         if (found) {
                             let aheadValue = artworksNode[j];
                             artworksNode[j-1] = aheadValue;
@@ -636,20 +636,20 @@ export default class AppView extends React.Component {
                             found = true;
                         }
                     }
-                    delete artworksNode[artworkLength-1];
-                } else if (snapshot[i]['name'] == newName) {
+                    delete artworksNode[artworksCount-1];
+                } else if (node[i]['name'] == newName) {
                     // just add the ID at the end of the 'array'
-                    if (snapshot[i]['artworks'] != null && snapshot[i]['artworks'] != undefined){
-                        let artLength = Object.keys(snapshot[i]['artworks']).length;
-                        snapshot[i]['artworks'][artLength] = artworkUID;
-                        console.log("Artworks already: ", snapshot[i]['artworks']);
+                    if (node[i]['artworks'] != null && node[i]['artworks'] != undefined){
+                        let artLength = Object.keys(node[i]['artworks']).length;
+                        node[i]['artworks'][artLength] = artworkUID;
+                        console.log("Artworks already: ", node[i]['artworks']);
                     } else {
-                        snapshot[i]['artworks'] = {0: artworkUID};
+                        node[i]['artworks'] = {0: artworkUID};
                         console.log("No artworks");
                     }
                 }
             }
-            return snapshot;
+            return node;
         });
     }
 
@@ -659,33 +659,34 @@ export default class AppView extends React.Component {
      * @param  {String} id [UID of artwork to be deleted]
      */
     deleteArtwork = (id) => {
-        //delete from artworks branch
+        // Delete from public/onboarders/{uid}/artworks branch
         const thisUID = firebase.auth().currentUser.uid;
-        let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
-        let thisPromise = thisArtworkReference.set(null);
-        thisPromise.then(function() {console.log("deletion success");});
-        //remove from albums
-        let allAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
-        allAlbumRef.transaction(function(data) {
-            let albumLength = Object.keys(data).length
-            console.log(albumLength, "albumLength");
-            for (var i = 0; i < albumLength; i++) {
-                let artworkLength = Object.keys(data[i]['artworks']).length;
-                console.log(artworkLength, "artworkLength");
+        const thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
+        thisArtworkReference.set(null).then(()=>{
+            console.log("Deletion successful");
+        });
+
+        // Remove the artwork pointer from the album via transaction, then
+        // shift indexes bc firebase uses de-abstracted arrays
+        let albumsRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
+        albumsRef.transaction( (node)=>{
+            let albumCount = Object.keys(node).length;
+            for (let i = 0; i < albumCount; i++) {
+                let artworksCount = Object.keys(node[i]['artworks']).length;
                 let found = false;
-                for (var j = 0; j < artworkLength; j++) {
+                for (let j = 0; j < artworksCount; j++) {
                     if (found) {
-                        let aheadObject = data[i]['artworks'][j];
-                        data[i]['artworks'][j-1] = aheadObject;
+                        let aheadObject = node[i]['artworks'][j];
+                        node[i]['artworks'][j-1] = aheadObject;
                     }
-                    if (data[i]['artworks'][j] == id) {
+                    if (node[i]['artworks'][j] == id) {
                         console.log("MATCH", id);
-                        delete data[i]['artworks'][j];
+                        delete node[i]['artworks'][j];
                         found = true;
                     }
                 }
-                delete data[i]['artworks'][artworkLength-1];
-                return data;
+                delete node[i]['artworks'][artworksCount-1];
+                return node;
             }
         });
 
