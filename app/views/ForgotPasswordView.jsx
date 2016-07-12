@@ -28,8 +28,7 @@ export default class ForgotPasswordView extends React.Component {
                                     <li id="email-landing">
                                         <input
                                             type="email"
-                                            id="register-email"
-                                            style={this.state.errorType.email ? errorStyle : null}
+                                            id="email"
                                             ref="email"
                                             placeholder="Email"
                                             required="true"
@@ -38,7 +37,7 @@ export default class ForgotPasswordView extends React.Component {
                                     <button
                                         class="signup-button"
                                         type="submit"
-                                        onClick={this.saveAndContinue}>
+                                        onClick={this.sendResetEmail}>
                                         <h3>Reset</h3>
                                     </button>
                                 </ul>
@@ -48,9 +47,8 @@ export default class ForgotPasswordView extends React.Component {
                                     <li id="email-landing">
                                         <input
                                             type="text"
-                                            id="register-displayname"
-                                            ref="displayname"
-                                            style={this.state.errorType.name ? errorStyle : null}
+                                            id="reset-code"
+                                            ref="code"
                                             placeholder="Reset Code"
                                             required=""
                                             maxLength="50"
@@ -61,9 +59,8 @@ export default class ForgotPasswordView extends React.Component {
                                     <li>
                                         <input
                                             type="password"
-                                            id="register-password"
+                                            id="password"
                                             ref="password"
-                                            style={this.state.errorType.password ? errorStyle : null}
                                             placeholder="Password"
                                             required="true"
                                             maxLength="100"
@@ -73,9 +70,8 @@ export default class ForgotPasswordView extends React.Component {
                                     <li>
                                         <input
                                             type="password"
-                                            id="register-confirm-password"
+                                            id="confirm-password"
                                             ref="confirmPassword"
-                                            style={this.state.errorType.confirmPassword ? errorStyle : null}
                                             placeholder="Confirm Password"
                                             required="true"
                                             maxLength="100" />
@@ -84,7 +80,7 @@ export default class ForgotPasswordView extends React.Component {
                                 <button
                                     class="signup-button"
                                     type="submit"
-                                    onClick={this.saveAndContinue}>
+                                    onClick={this.confirmPasswordReset}>
                                     <h3>Update</h3>
                                 </button>
                             </div>
@@ -103,7 +99,9 @@ export default class ForgotPasswordView extends React.Component {
      * @param  {String} emailAddress - email address to send reset email to
      * @throws auth/invalid-email or  auth/user-not-found error
      */
-    sendResetEmail = (emailAddress) =>{
+    sendResetEmail = () =>{
+        let emailAddress = this.refs.email.value;
+
         firebase.auth().sendPasswordResetEmail(emailAddress).then( ()=>{
             console.log("Password reset Email Sent to:", emailAddress);
             //TODO: Display this message in a snackbar popup in UX
@@ -124,7 +122,13 @@ export default class ForgotPasswordView extends React.Component {
      * @throws auth/expired-action-code , auth/invalid-action-code
      *         auth/user-disabled, auth/user-not-found, auth/weak-password
      */
-    confirmPasswordReset = (code, newPassword) => {
+    confirmPasswordReset = () => {
+
+        let code = this.refs.code.value;
+        let newPassword = this.refs.password.value;
+
+
+
         firebase.auth().verifyPasswordResetCode(code).then((userEmail)=>{
             firebase.auth().confirmPasswordReset(code, newPassword).then(()=>{
                 console.log("Resetting Password");
