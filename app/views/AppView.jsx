@@ -392,7 +392,7 @@ export default class AppView extends React.Component {
                     });//END fullsize upload thenable
                 });//END fullsize oncomplete and toBlob
             });//END Onload image
-        }//END METHOD
+    }//END METHOD
 
 
 
