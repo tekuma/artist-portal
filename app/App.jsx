@@ -284,11 +284,10 @@ export default class App extends React.Component {
             const thisUID = thisUser.uid;
             console.log(thisUser, "THIS USER!!");
 
-            // Instantiate public/onboarders/thisUID
+            //>>>> Instantiate public/onboarders/thisUID
             const usersRef = firebase.database().ref('public/onboarders');
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
-                console.log(this.state.registration.avatar, "AVATAR");
                 if (!snapshot.child(thisUID).exists()) {
                     // Setting onboarder info (if registered)
                     let dob = "",
@@ -298,13 +297,19 @@ export default class App extends React.Component {
                         location = "",
                         portfolio = "",
                         legal_age = false;
-
-
                     //
-                    firebase.storage().ref('portal/'+thisUID+'/avatars').put(this.state.registration.avatar).on(
+                    const avatarRef = firebase.storage().ref('portal/'+thisUID+'/avatars');
+                    avatarRef.put(this.state.registration.avatar).on(
                         firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{
-                            if (snapshot.downloadURL != null) {
+                        (snapshot)=>{ //On-state changed
+                        },
+                        (error)=>{ // on-catch
+                            console.error(error);
+                        },
+                        ()=>{ //on-complete
+                            console.log("success in avatar upload");
+                            avatarRef.getDownloadURL().then( (avatarURL)=>{
+                                //Define an Onboarder object, and populate:
                                 usersRef.child(thisUID).set({
                                     albums        : { 0: {
                                         name:"Uploads"
@@ -312,8 +317,7 @@ export default class App extends React.Component {
                                     auth_provider   : "password",
                                     email           : this.state.registration.email,
                                     display_name    : this.state.registration.display_name,
-                                    legal_name      : this.state.registration.legal_name,
-                                    avatar          : snapshot.downloadURL,
+                                    avatar          : avatarURL,
                                     dob             : this.state.registration.dob,
                                     gender_pronoun  : this.state.registration.gender_pronoun,
                                     bio             : this.state.registration.bio,
@@ -321,13 +325,7 @@ export default class App extends React.Component {
                                     portfolio       : this.state.registration.portfolio,
                                     over_eighteen   : false
                                 });
-                            }
-                        },
-                        (error)=>{
-                            console.error(error);
-                        },
-                        ()=>{
-                            console.log("success in avatar upload");
+                            });
                         }
                     );
 
@@ -338,7 +336,7 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate public/products/thisUID
+            //>>>> Instantiate public/products/thisUID
             const productsRef = firebase.database().ref('public/products');
             productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -349,18 +347,22 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/onboarders/thisUID
+            //>>>> Instantiate _private/onboarders/thisUID
             const _userRef = firebase.database().ref('_private/onboarders');
             _userRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
                 if (!snapshot.child(thisUID).exists()) {
-                    _userRef.child(thisUID).set({legal_name: this.state.registration.legal_name});
+                    // Define a private Onboarders Object, and populate
+                    // TODO what other information goes in private?
+                    _userRef.child(thisUID).set({
+                        legal_name: this.state.registration.legal_name
+                    });
                 }
             }, (error) => {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/products/thisUID
+            //>>>> Instantiate _private/products/thisUID
             const _productsRef = firebase.database().ref('_private/products');
             _productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -391,7 +393,7 @@ export default class App extends React.Component {
         const thisUID = user.uid;
         let isNewUser = true;
 
-        // Instantiate public/onboarders/thisUID
+        //>>>> Instantiate public/onboarders/thisUID
         // and check if isNewUser.
         const usersRef = firebase.database().ref('public/onboarders');
         usersRef.once('value').then( (snapshot) => {
@@ -399,7 +401,6 @@ export default class App extends React.Component {
             if (!snapshot.child(thisUID).exists()) {
                 isNewUser = true;
 
-                console.log("User :", user);
                 // Setting Onboarder name
                 let thisDisplayName = "Untitled Artist";
                 if (user.displayName !== undefined && user.displayName !== null) {
@@ -444,7 +445,7 @@ export default class App extends React.Component {
         }, this);
 
         if (isNewUser) {
-            //Instantiate public/products/thisUID
+            //>>>> Instantiate public/products/thisUID
             const productsRef = firebase.database().ref('public/products');
             productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -455,7 +456,7 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/onboarders/thisUID
+            //>>>> Instantiate _private/onboarders/thisUID
             const _userRef = firebase.database().ref('_private/onboarders');
             _userRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -466,7 +467,7 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/products/thisUID
+            //>>>> Instantiate _private/products/thisUID
             const _productsRef = firebase.database().ref('_private/products');
             _productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
