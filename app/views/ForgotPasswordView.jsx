@@ -18,12 +18,12 @@ export default class ForgotPasswordView extends React.Component {
             <div className="main-wrapper">
                 <LoggedOffHeader />
                 <div className="layout-centered">
-                    <article class="signup-wrapper">
-                        <div class="forgot-heading-wrapper pink">
+                    <article className="signup-wrapper">
+                        <div className="forgot-heading-wrapper pink">
                             <h3>FORGOT PASSWORD</h3>
                         </div>
-                        <form class="signup-form">
-                            <div class="top-form">
+                        <form className="signup-form">
+                            <div className="top-form">
                                 <ul>
                                     <li id="email-landing">
                                         <input
@@ -35,14 +35,14 @@ export default class ForgotPasswordView extends React.Component {
                                             maxLength="100" />
                                     </li>
                                     <button
-                                        class="signup-button"
+                                        className="signup-button"
                                         type="submit"
                                         onClick={this.sendResetEmail}>
                                         <h3>Reset</h3>
                                     </button>
                                 </ul>
                             </div>
-                            <div class="bottom-form">
+                            <div className="bottom-form">
                                 <ul>
                                     <li id="email-landing">
                                         <input
@@ -78,7 +78,7 @@ export default class ForgotPasswordView extends React.Component {
                                     </li>
                                 </ul>
                                 <button
-                                    class="signup-button"
+                                    className="signup-button"
                                     type="submit"
                                     onClick={this.confirmPasswordReset}>
                                     <h3>Update</h3>

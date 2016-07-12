@@ -524,8 +524,6 @@ export default class EditProfileLayout extends React.Component {
                 data.legal_name = legalName;
             }
 
-
-
             // Only test regex if user has typed in an email and has password
             if(email.length > 0 && !/.+@.+\..+/.test(email)) {
                 this.state.errors.push("The email address you supplied is invalid.");
