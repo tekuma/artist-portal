@@ -545,8 +545,8 @@ export default class AppView extends React.Component {
                 ()=>{},
                 ()=>{
                     console.log(">> New Avatar Uploaded successfully");
-                    avatarRef.getDownloadURL( (avatarURL)=>{
-                        data.avatar = snapshot.downloadURL;
+                    avatarRef.getDownloadURL().then( (avatarURL)=>{
+                        data.avatar = avatarURL;
                         firebase.database().ref(userPath).update(data)
                         .then( ()=>{
                             //FIXME use a toggle method?

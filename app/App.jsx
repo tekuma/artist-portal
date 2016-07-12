@@ -297,7 +297,7 @@ export default class App extends React.Component {
                         location = "",
                         portfolio = "",
                         legal_age = false;
-                    //
+                    //TODO put ref?
                     const avatarRef = firebase.storage().ref('portal/'+thisUID+'/avatars');
                     avatarRef.put(this.state.registration.avatar).on(
                         firebase.storage.TaskEvent.STATE_CHANGED,
