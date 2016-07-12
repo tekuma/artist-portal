@@ -68,13 +68,13 @@ export default class Artwork extends React.Component {
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
                 <div className="artwork-image">
-                    <img src={this.props.artwork.image} lowsrc="assets/images/artwork-substitute.png" />
+                    <img src={this.props.artwork.thumbnail} lowsrc="assets/images/artwork-substitute.png" />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
                     <div className="download-edit-delete">
                         <a
-                            href={this.props.artwork.image}
+                            href={this.props.artwork.fullsize_url}
                             download={this.props.artwork.filename} >
                             <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
                                 <img
