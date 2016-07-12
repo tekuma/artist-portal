@@ -4,6 +4,7 @@ Tekuma Artist Portal
 ### Do Not Distribute.
 
 [logo]:https://artist.tekuma.io/logos/logo.png
+![TEKUMA](https://artist.tekuma.io/logos/logo.png)
 
 #### Development
 
