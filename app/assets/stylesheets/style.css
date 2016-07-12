@@ -387,8 +387,8 @@ header {
 	height: 60px;
 	background: #ffffff;
 	z-index: 6;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
-	0 1px 2px rgba(0,0,0,0.24);
+	/* box-shadow: 0 1px 3px rgba(0,0,0,0.12),
+	0 1px 2px rgba(0,0,0,0.24); */
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -1090,7 +1090,7 @@ main, .artworks {
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
 	vertical-align: top;
-
+	border-radius: 0px;
 }
 
 .signup-wrapper, .login-wrapper {
@@ -1289,7 +1289,9 @@ main, .artworks {
 .login-popover input[type=email],
 .login-popover input[type=password],
 textarea.bio {
-    border-radius: 3px;
+    border-radius: 0px;
+		border: 2px solid black !important;
+		background: none !important;
     appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -1308,8 +1310,8 @@ textarea.bio {
 .signup-form input:not([type='radio']),
 .login-form input:not([type='radio']),
 .login-popover input {
-    background-color: #f4f6f7;
-    border: 1.5px solid #d6d3ce;
+    background-color: none;
+    border: 2px solid black;
     color: #000000;
 	font-weight: 500;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
@@ -1464,12 +1466,12 @@ textarea.bio {
 .login-button {
 	position: relative;
 	width: 150px;
-	height: 50px;
+	height: 40px;
 	margin: 0 auto;
-	background: #ec167c;
-	border-radius: 5px;
+	background: black;
+	border-radius: 0px;
 	cursor: pointer;
-	box-shadow: 0 5px 10px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.23);
+	box-shadow: 0px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1509,7 +1511,7 @@ login-button.left {
 	text-align: center;
 	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	font-weight: 700;
-	font-size: 1.2em;
+	font-size: 1em;
 	color: #ffffff;
 	margin: 0;
 	transition: all 0.3s;
@@ -1602,7 +1604,7 @@ login-button.left {
 
 .artist-logo-wrapper img,
 .forgot-heading-wrapper img {
-	width: 250px;
+	width: 220px;
 }
 
 .artist-logo-wrapper h3 {
@@ -1637,6 +1639,7 @@ login-button.left {
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
+	border-radius: 0px !important;
 	width: 250px;
 	height: 2.7em;
 	margin: 5px 10px;
@@ -1648,8 +1651,8 @@ login-button.left {
 }
 
 .social-button.facebook {
-	background: #3b5b98;
-	border: 1px solid #324a79;
+	background: #000;
+	border: 1px solid #000;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1665,8 +1668,8 @@ login-button.left {
 }
 
 .social-button.google {
-	background: #f17072;
-	border: 1px solid #e14347;
+	background: #000;
+	border: 1px solid #000;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1705,11 +1708,11 @@ login-button.left {
 }
 
 .social-button.facebook .social-icon {
-	border-right: 1px solid #324a79;
+	border-right: 1px solid #000;
 }
 
 .social-button.google .social-icon {
-	border-right: 1px solid #e14347;
+	border-right: 1px solid #000;
 }
 
 .social-button .social-writing {
@@ -2599,6 +2602,7 @@ login-button.left {
 	.signup-form .social-wrapper {
 		width: 265px;
 		flex-direction: column;
+		border-radius: 0px;
 	}
 
 	.social-buttons {
