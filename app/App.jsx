@@ -88,7 +88,7 @@ export default class App extends React.Component {
         } else {
             if (this.state.loggedIn) {
                 return this.goToArtistPortal();
-            } else if (this.this.state.forgotPass) {
+            } else if (this.state.forgotPass) {
                 return this.goToForgotPassword();
             } else {
                 return this.goToLandingPage();
@@ -145,7 +145,12 @@ export default class App extends React.Component {
      * @return {JSX} [forgot password views]
      */
     goToForgotPassword = () => {
-        //TODO
+        return(
+            <ForgotPasswordView
+                errors ={this.state.errors}
+
+            />
+        )
     }
 
 
@@ -250,8 +255,8 @@ export default class App extends React.Component {
      */
     authenticateWithPassword = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        .then( () => {
-            console.log(">Password Auth successful");
+        .then( (thisUser) => {
+            console.log(">Password Auth successful for:", thisUser.displayName);
         }).catch( (error) => {
             console.error(error);
             this.setState({

@@ -1,7 +1,7 @@
 {
-  "name": "art-onboarder",
-  "version": "1.0.0",
-  "description": "A Reactfire web application implementing an Art Onboarding application for use by Tekuma.",
+  "name": "Artist.tekuma.io",
+  "version": "0.0.5",
+  "description": "A art/image onboarding portal, based on Firebase/ReactJS web framework, written in ES6.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,9 +18,12 @@
     "upload",
     "artwork",
     "artist",
-    "space"
+    "space",
+    "onboarding",
+    "uploader",
+    "MIT"
   ],
-  "author": "Stephen White, Afika Nyati, Kun Qian",
+  "author": "Stephen White, Afika Nyati",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tekuma/art-onboarding/issues"
@@ -47,6 +50,7 @@
     "alt-utils": "^1.0.0",
     "assets": "^2.1.0",
     "babel-preset-survivejs-kanban": "^0.3.3",
+    "dotenv": "^2.0.0",
     "file-saver": "^1.3.2",
     "firebase": "^3.1.0",
     "imports-loader": "^0.6.5",

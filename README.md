@@ -2,8 +2,7 @@
 
 Tekuma Artist Portal
 =====================
-### **NOTE** this code contains *proprietary* encryption keys!
-### Do Not Distribute.
+### **NOTE** This app is still in *close* BETA 
 
 [logo]:https://artist.tekuma.io/logos/logo.png
 
