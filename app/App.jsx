@@ -250,8 +250,8 @@ export default class App extends React.Component {
      */
     authenticateWithPassword = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        .then( () => {
-            console.log(">Password Auth successful");
+        .then( (thisUser) => {
+            console.log(">Password Auth successful for:", thisUser.displayName);
         }).catch( (error) => {
             console.error(error);
             this.setState({
