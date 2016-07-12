@@ -1,3 +1,10 @@
+/*
+ *  Root of Artist.tekuma.io: Web framework build on
+ *  Firebase+ReactJS, written in JS ES6 compiled with babelJS,
+ *  Bundled with webpack and NPM.
+ *  written for Tekuma Inc, summer 2016 by:
+ *  Stephen White and Afika Nyati
+ */
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
@@ -37,12 +44,12 @@ export default class App extends React.Component {
             login       : {},
             loggedIn    : null,
             loaded      : false,
-            forgotPassword: false
+            forgotPass  : false
         };
     }
 
     /**
-     * Force a re-render on every state change
+     * Force a re-render on every state change at root JSX
      * @param  {} nestProps [description]
      * @param  {} nextState [description]
      * @return {Boolean} if the component should re-render
@@ -52,7 +59,7 @@ export default class App extends React.Component {
     }
 
     /**
-     * [componentWillMount description]
+     * What Happens as the component mounts
      */
     componentWillMount() {
         firebase.auth().onAuthStateChanged( (user)=>{
@@ -66,6 +73,7 @@ export default class App extends React.Component {
 
     render() {
         console.log("||++>>>Rendering root app...");
+        // Show loading animation if not loaded
         if (!this.state.loaded) {
             return (
                 <div className="layout-centered">
@@ -80,6 +88,8 @@ export default class App extends React.Component {
         } else {
             if (this.state.loggedIn) {
                 return this.goToArtistPortal();
+            } else if (this.this.state.forgotPass) {
+                return this.goToForgotPassword();
             } else {
                 return this.goToLandingPage();
             }
@@ -128,6 +138,16 @@ export default class App extends React.Component {
             />
         )
     }
+
+    /**
+     * Flow control Function: if a user selects the "forgot password" button,
+     * flow them into the forgot password interface.
+     * @return {JSX} [forgot password views]
+     */
+    goToForgotPassword = () => {
+        //TODO
+    }
+
 
     // #Mutator Methods
     // NOTE: Always use methods to setState, never directly mutate state.

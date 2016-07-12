@@ -356,12 +356,12 @@ export default class AppView extends React.Component {
                                             title       : title,
                                             artist      : artist,
                                             album       : "Uploads",
-                                            year        : new Date().getFullYear(),
+                                            upload_date : new Date().toISOString(),
                                             description : "",
                                             tags        : "art",
                                             size        : fileSize,
-                                            fullSize_url: fullSizeURL,
-                                            aspectRatio : aspectRatio,
+                                            fullsize_url: fullSizeURL,
+                                            aspect_ratio: aspectRatio,
                                             colors      : colorObject
                                         };
 
@@ -383,6 +383,8 @@ export default class AppView extends React.Component {
                                             return node; //finish transaction
                                         }, (error,bool,snap)=>{
                                                 console.log(">>>Img set into album");
+                                                //At the end of the async flow, revoke the local url
+                                                //to free up cache space.
                                                 URL.revokeObjectURL(localURL);
                                                 //END  OF ASYNC FLOW
                                         });
