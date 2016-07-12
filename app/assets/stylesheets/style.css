@@ -2527,65 +2527,36 @@ login-button.left {
 
 /* Media Queries */
 
-@media (max-width: 885px) {
-	.edit-heading {
-		display: none;
-	}
-
-	.profile-form {
-		display: block;
-	}
-
-	.profile-pic-container {
-		margin: 10px;
-	}
-
-	.left-info {
-		top: 0;
-	}
-
-	#li-gender {
-		margin-bottom: 0;
-	}
-
-	.gender-radio.female {
-		position: relative;
-		left: 25%;
-	}
-
-	.scroll-edit-profile {
-		height: 100vh;
-	}
-}
-
-@media (max-height: 680px) {
-	.layout-centered {
-		padding-top: 90px;
-	}
-}
-
 @media (max-height: 670px) {
 	.uploaded-artworks-container {
 		height: 40vh;
 	}
 }
 
-@media (max-height: 645px) {
-	.layout-centered {
-		padding-top: 120px;
-	}
-}
+@media (max-width: 650px) {
+	.accordion label {
+  	  flex-direction: column;
+  	  height: auto !important;
+    }
 
-@media (max-height: 620px) {
-	.layout-centered {
-		padding-top: 150px;
-	}
+    .accordion-item-heading {
+  	  text-align: center;
+  	  width: auto !important;
+    }
+
+    .accordion-item-preview {
+  	  margin: 5px 0 0 0 !important;
+  	  text-align: center;
+  	  width: auto !important;
+    }
+
+    .edit-profile-save-button {
+  	  bottom: 30px !important;
+  	  right: 30px !important;
+    }
 }
 
 @media (max-width: 590px) {
-	.layout-centered {
-		padding-top: 200px;
-	}
 
 	.signup-form .top-form,
 	.signup-form .bottom-form,
@@ -3153,6 +3124,7 @@ font-weight: 100;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+	z-index: 7;
 }
 
 .edit-profile-save-button:hover {

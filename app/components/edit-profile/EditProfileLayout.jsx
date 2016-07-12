@@ -223,20 +223,20 @@ export default class EditProfileLayout extends React.Component {
                     <article className="private-edit">
                         <ul className="accordion">
                             <li>
-                                <input id="ac-1" type="checkbox" />
-                                <label htmlFor="ac-1">
+                                <input id="ac-6" type="checkbox" />
+                                <label htmlFor="ac-6">
                                     <h2 className="accordion-item-heading">Legal Name</h2>
                                     <h3 className="accordion-item-preview">{this.props.userInfo.legal_name}</h3>
                                 </label>
                                 <div id="legal-name-content" className="ac-content">
-                                    <input
+                                        <input
                                         type="text"
                                         id="edit-legalname"
                                         defaultValue={this.props.userInfo.legal_name}
                                         ref="legalname"
                                         style={this.state.errorType.legalName ? errorStyle : null}
-                                        placeholder="Legal Name (required)"
-                                        required="true"
+                                        placeholder="Legal Name"
+                                        required=""
                                         maxLength="50"
                                         autoCapitalize="off"
                                         autoComplete="off"
@@ -244,8 +244,8 @@ export default class EditProfileLayout extends React.Component {
                                 </div>
                             </li>
                             <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
-                                <input id="ac-4" type="checkbox" />
-                                <label htmlFor="ac-4">
+                                <input id="ac-7" type="checkbox" />
+                                <label htmlFor="ac-7">
                                     <h2 className="accordion-item-heading">Email</h2>
                                     <h3 className="accordion-item-preview">this.props.userInfo.email</h3>
                                 </label>
@@ -255,6 +255,7 @@ export default class EditProfileLayout extends React.Component {
                                         id="edit-email"
                                         defaultValue={this.props.userInfo.email}
                                         ref="email"
+                                        style={this.state.errorType.email ? errorStyle : null}
                                         placeholder="Email"
                                         required="true"
                                         maxLength="100" />
@@ -269,8 +270,8 @@ export default class EditProfileLayout extends React.Component {
                                 </div>
                             </li>
                             <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
-                                <input id="ac-5" type="checkbox" />
-                                <label htmlFor="ac-5">
+                                <input id="ac-8" type="checkbox" />
+                                <label htmlFor="ac-8">
                                     <h2 className="accordion-item-heading">Password</h2>
                                     <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
                                 </label>
@@ -279,6 +280,7 @@ export default class EditProfileLayout extends React.Component {
                                         type="password"
                                         id="edit-password"
                                         ref="currentPassword"
+                                        style={this.state.errorType.currentPassword ? errorStyle : null}
                                         placeholder="Current Password"
                                         required="true"
                                         maxLength="100"
@@ -287,6 +289,7 @@ export default class EditProfileLayout extends React.Component {
                                         type="password"
                                         id="edit-password"
                                         ref="password"
+                                        style={this.state.errorType.password ? errorStyle : null}
                                         placeholder="New Password"
                                         required="true"
                                         maxLength="100"
@@ -295,14 +298,15 @@ export default class EditProfileLayout extends React.Component {
                                         type="password"
                                         id="edit-confirm-password"
                                         ref="confirmPassword"
+                                        style={this.state.errorType.confirmPassword ? errorStyle : null}
                                         placeholder="Confirm Password"
                                         required="true"
                                         maxLength="100" />
                                 </div>
                             </li>
                             <li>
-                                <input id="ac-2" type="checkbox" />
-                                <label htmlFor="ac-2">
+                                <input id="ac-9" type="checkbox" />
+                                <label htmlFor="ac-9">
                                     <h2 className="accordion-item-heading">Age</h2>
                                     <div className="accordion-item-avatar-wrapper">
                                         <h3 className="accordion-item-preview">{this.props.userInfo.dob}</h3>
@@ -371,8 +375,8 @@ export default class EditProfileLayout extends React.Component {
                                 </div>
                             </li>
                             <li>
-                                <input id="ac-3" type="checkbox" />
-                                <label htmlFor="ac-3">
+                                <input id="ac-10" type="checkbox" />
+                                <label htmlFor="ac-10">
                                     <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
                                     <h3 className="accordion-item-preview">He</h3>
                                 </label>
@@ -446,7 +450,10 @@ export default class EditProfileLayout extends React.Component {
 
     changeEditLayout = (layout) => {
         this.setState({
-            currentEditLayout: layout
+            currentEditLayout: layout,
+            errors: [],
+            errorType: {},
+            currentError: ""
         });
     }
 
@@ -457,149 +464,185 @@ export default class EditProfileLayout extends React.Component {
         // Clear errors from any previous form submission
         this.state.errors = [];
         let data = {};
-        let displayName = this.refs.displayname.value;
-        let legalName = this.refs.legalname.value;
-        let email = this.refs.email.value;
-        let password = this.refs.password.value;
-        let confirmPassword = this.refs.confirmPassword.value;
 
-        let day = this.refs.dobDay.value;
-        let month = this.refs.dobMonth.value;
-        let year = this.refs.dobYear.value;
+        if (this.state.currentEditLayout == "public") {
+            // Public
+            let displayName = this.refs.displayname.value;
+            let bio = this.refs.bio.value;
+            let location = this.refs.location.value;
+            let portfolio = this.refs.portfolio.value;
 
-        let overEighteen = this.refs.overEighteen.checked;
-        let gender = this.state.gender;
-        let bio = this.refs.bio.value;
-        let location = this.refs.location.value;
-        let portfolio = this.refs.portfolio.value;
+            // Public Validations
+            if(displayName.length > 0) {
+                data.display_name = displayName;
+            }
 
-        data.over_eighteen = overEighteen;
+            if(this.state.avatarUploaded) {
+                data.avatar = this.state.avatar;
+            }
 
-        if(displayName.length > 0) {
-            data.display_name = displayName;
-        }
+            if(bio.length > 0) {
+                data.bio = bio;
+            }
 
-        if(legalName.length == 0) {
-            this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
+            if(location.length > 0) {
+                data.location = location;
+            }
 
-            let errorType = this.state.errorType;
-            errorType.legalName = true;
-            this.setState({
-                errorType: errorType
-            });
+            if(portfolio.length > 0) {
+                data.portfolio = portfolio;
+            }
         } else {
-            data.legal_name = legalName;
-        }
+            // Private
+            let legalName = this.refs.legalname.value;
 
-        // Only test regex if user has typed in an email
-        if(email.length > 0 && !/.+@.+\..+/.test(email)) {
-            this.state.errors.push("The email address you supplied is invalid.");
+            let email = this.refs.email.value;
+            let emailPassword = this.refs.emailPassword.value;
 
-            let errorType = this.state.errorType;
-            errorType.email = true;
-            this.setState({
-                errorType: errorType
-            });
-        } else if(email.length > 0) {
-            data.email = email;
-        }
+            let currentPassword = this.refs.currentPassword.value;
+            let password = this.refs.password.value;
+            let confirmPassword = this.refs.confirmPassword.value;
 
-        // Only test password length if typed in
-        if(password.length > 0 && password.length < 6) {
-            this.state.errors.push("Your password must be at least 6 characters long.");
+            let day = this.refs.dobDay.value;
+            let month = this.refs.dobMonth.value;
+            let year = this.refs.dobYear.value;
 
-            let errorType = this.state.errorType;
-            errorType.password = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            let overEighteen = this.refs.overEighteen.checked;
+            data.over_eighteen = overEighteen;
+            let gender = this.state.gender;
 
-        // Only test confirm password length if password typed in
-        if(password.length > 0 && confirmPassword.length == 0) {
-            this.state.errors.push("Please confirm your password.");
+            // Private Validations
+            if(legalName.length == 0) {
+                this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
 
-            let errorType = this.state.errorType;
-            errorType.confirmPassword = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+                let errorType = this.state.errorType;
+                errorType.legalName = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else {
+                data.legal_name = legalName;
+            }
 
-        // Only test passwords equal if typed in
-        if(password.length > 0
-            && confirmPassword.length > 0
-            && password != confirmPassword) {
-            this.state.errors.push("Passwords do not match.");
 
-            let errorType = this.state.errorType;
-            errorType.password = true;
-            errorType.confirmPassword = true;
-            this.setState({
-                errorType: errorType
-            });
-        } else if (password.length >= 6
-                    && confirmPassword.length >= 6
-                    && password == confirmPassword) {
-                        data.password = password;
-                    }
 
-        if(day.length > 0 && day.length > 2) {
-            this.state.errors.push("Please enter a valid day of the month.");
+            // Only test regex if user has typed in an email and has password
+            if(email.length > 0 && !/.+@.+\..+/.test(email)) {
+                this.state.errors.push("The email address you supplied is invalid.");
 
-            let errorType = this.state.errorType;
-            errorType.day = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+                let errorType = this.state.errorType;
+                errorType.email = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (email != this.props.userInfo.email && emailPassword.length == 0) {
+                this.state.errors.push("To change your email, you must enter your current password.");
 
-        if(month.length > 0 && month.length > 2) {
-            this.state.errors.push("Please enter a valid month.");
+                let errorType = this.state.errorType;
+                errorType.emailPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (email.length > 0 && emailPassword.length > 0) {
+                data.email = email;
+                data.email_password = emailPassword;
+            }
 
-            let errorType = this.state.errorType;
-            errorType.month = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            // Only test password length if typed in
+            if(password.length > 0 && password.length < 6) {
+                this.state.errors.push("Your password must be at least 6 characters long.");
 
-        if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
-            this.state.errors.push("Please enter a valid year.");
+                let errorType = this.state.errorType;
+                errorType.password = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-            let errorType = this.state.errorType;
-            errorType.year = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            // Only test confirm password length if password typed in
+            if(password.length > 0 && confirmPassword.length == 0) {
+                this.state.errors.push("Please confirm your password.");
 
-        if((day.length == 1 || day.length == 2) &&
-            (month.length == 1 || month.length == 2) &&
-            year.length == 4) {
-            data.dob = day + "-" + month + "-" + year;
-        } else {
+                let errorType = this.state.errorType;
+                errorType.confirmPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-        }
+            // Only test passwords equal if typed in
+            if(
+                currentPassword.length > 0
+                && password.length > 0
+                && confirmPassword.length > 0
+                && password != confirmPassword) {
+                this.state.errors.push("Passwords do not match.");
 
-        if(gender.length > 0) {
-            data.gender_pronoun =  gender;
-        }
+                let errorType = this.state.errorType;
+                errorType.password = true;
+                errorType.confirmPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (password.length >= 6
+            && confirmPassword.length >= 6
+            && currentPassword.length == 0) {
+                    this.state.errors.push("To change your password, you must enter your current password.");
 
-        if(bio.length > 0) {
-            data.bio = bio;
-        }
+                    let errorType = this.state.errorType;
+                    errorType.currentPassword = true;
+                    this.setState({
+                        errorType: errorType
+                    });
+            } else if (currentPassword.length >= 6
+                        && password.length >= 6
+                        && confirmPassword.length >= 6
+                        && password == confirmPassword) {
+                            data.current_password = currentPassword;
+                            data.password = password;
+                        }
 
-        if(location.length > 0) {
-            data.location = location;
-        }
+            if(day.length > 0 && day.length > 2) {
+                this.state.errors.push("Please enter a valid day of the month.");
 
-        if(portfolio.length > 0) {
-            data.portfolio = portfolio;
-        }
+                let errorType = this.state.errorType;
+                errorType.day = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-        if(this.state.avatarUploaded) {
-            data.avatar = this.state.avatar;
+            if(month.length > 0 && month.length > 2) {
+                this.state.errors.push("Please enter a valid month.");
+
+                let errorType = this.state.errorType;
+                errorType.month = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
+
+            if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
+                this.state.errors.push("Please enter a valid year.");
+
+                let errorType = this.state.errorType;
+                errorType.year = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
+
+            if((day.length == 1 || day.length == 2) &&
+                (month.length == 1 || month.length == 2) &&
+                year.length == 4) {
+                data.dob = day + "-" + month + "-" + year;
+            } else {
+
+            }
+
+            if(gender.length > 0) {
+                data.gender_pronoun =  gender;
+            }
         }
 
         // Rerender the component to show errors
