@@ -202,9 +202,44 @@ export default class AppView extends React.Component {
      */
     extractColors = (url) => {
         console.log("about to palette");
-        let colors = {color:"#FF00FF"}; //TODO
-        getPalette.from(url).getPalette( (error,palette)=>{
-            console.log("Palette",palette);
+        // let colors = {color:"#FF00FF"}; //TODO
+        // A pallete has : Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
+        let colors;
+        getPalette.from(url).quality(1).getPalette( (error,palette)=>{
+            console.log("Palette", palette.Vibrant.getHex() , palette.Vibrant.getRgb(), palette.Vibrant.getPopulation());
+            colors = {
+                v:{
+                    hex:palette.Vibrant.getHex(),
+                    rgb:palette.Vibrant.getRgb(),
+                    cnt:palette.Vibrant.getPopulation()
+                },
+                m:{
+                    hex:palette.Muted.getHex(),
+                    rgb:palette.Muted.getRgb(),
+                    cnt:palette.Muted.getPopulation()
+                },
+                dv:{
+                    hex:palette.DarkVibrant.getHex(),
+                    rgb:palette.DarkVibrant.getRgb(),
+                    cnt:palette.DarkVibrant.getPopulation()
+                },
+                dm:{
+                    hex:palette.DarkMuted.getHex(),
+                    rgb:palette.DarkMuted.getRgb(),
+                    cnt:palette.DarkMuted.getPopulation()
+                },
+                lv:{
+                    hex:palette.LightVibrant.getHex(),
+                    rgb:palette.LightVibrant.getRgb(),
+                    cnt:palette.LightVibrant.getPopulation()
+                },
+                lm:{
+                    hex:palette.LightMuted.getHex(),
+                    rgb:palette.LightMuted.getRgb(),
+                    cnt:palette.LightMuted.getPopulation()
+                }
+
+            };
         });
         return colors;
     }
@@ -230,119 +265,137 @@ export default class AppView extends React.Component {
         const pathToUserStorage = 'portal/' + thisUID;
         const fullSizeImage     = new Image;
         fullSizeImage.src       = localURL;
-        const colorObject       = this.extractColors(localURL);
+
 
         // Load the blob as an <Image>
         fullSizeImage.addEventListener('load', ()=>{
             //*Store the original upload, un-changed.
-            firebase.storage().ref(pathToUserStorage+'/uploads/'+fileName).put(blob).on(
+            const fullRef = firebase.storage().ref(pathToUserStorage+'/uploads/'+fileName);
+            fullRef.put(blob).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
                 (snapshot)=>{ //on-event change
                     let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
                     console.log(percent + "% done w/ original");
-                    // Then....
-                    if (snapshot.downloadURL != null) {
-                        const fullSize_url = snapshot.downloadURL;
-                        const aspectRatio  = fullSizeImage.width / fullSizeImage.height;
-                        const maxThumbnailHeight = Math.ceil(maxThumbnailWidth / aspectRatio);
-
-                        const canvas  = document.createElement("canvas");
-                        canvas.height = maxThumbnailHeight + thumbNailPadding*2;
-                        canvas.width  = maxThumbnailWidth  + thumbNailPadding*2;
-                        const ctx     = canvas.getContext("2d");
-                        console.log(">>Canvas drawn");
-                        // params: img, x0,y0,scaled width, scaled height
-                        ctx.drawImage(
-                            fullSizeImage,
-                            thumbNailPadding,
-                            thumbNailPadding,
-                            maxThumbnailWidth,
-                            maxThumbnailHeight);
-                        canvas.toBlob( (thumbBlob)=>{
-                            console.log(">>blobbed");
-                            firebase.storage().ref(pathToUserStorage+'/thumbnails/'+fileName).put(thumbBlob).on(
-                                firebase.storage.TaskEvent.STATE_CHANGED,
-                                (thumbSnap)=>{
-                                    let percent2 = Math.ceil(thumbSnap.bytesTransferred / thumbSnap.totalBytes * 100);
-                                    console.log(percent2 + "% done");
-                                    if (thumbSnap.downloadURL != null){
-                                        let uploadInfo = {
-                                            url :thumbSnap.downloadURL,
-                                            size:fileSize,
-                                            name:fileName
-                                        };
-                                        this.setState({
-                                            uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
-                                        });
-
-                                        let artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
-                                        let artID  = artRef.push().key;
-                                        let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
-
-                                        let title = fileName.split(".")[0];
-                                        let artist = "Self";
-                                        if (
-                                            this.state.userInfo != null &&
-                                            this.state.userInfo != undefined &&
-                                            this.state.userInfo.display_name != "Untitled Artist")
-                                            {
-                                                artist = this.state.userInfo.display_name;
-                                            }
-
-                                        //after uploads and we have all the async info
-                                        // thumbnail, fullSize_url, colorObject
-                                        let artObject = {
-                                            id        : artID,
-                                            thumbnail : thumbSnap.downloadURL,
-                                            filename  : fileName,
-                                            title     : title,
-                                            artist    : artist,
-                                            album     : "Uploads",
-                                            year      : new Date().getFullYear(),
-                                            description: "",
-                                            tags      : "art",
-                                            size      : fileSize,
-                                            fullSize_url: fullSize_url,
-                                            aspectRatio: aspectRatio,
-                                            colors     : colorObject
-                                        };
-                                        // set the art object to the artworks node
-                                        artRef.child(artID).set(artObject);
-
-                                        //Now, add a pointer to the artwork object to the uploads album
-                                        uploadAlbumRef.transaction( (data)=>{
-                                            if (data == null) {
-                                                data = {0:artID};
-                                            } else {
-                                                let currentLength   = Object.keys(data).length;
-                                                data[currentLength] = artID;
-                                            }
-                                            return data; //finish transaction
-                                        }, (error,bool,snap)=>{
-                                            console.log(">>Image set into album");
-                                        });
-                                    }
-                                },
-                                (error)=>{
-                                    console.error(error);
-                                },
-                                ()=>{ // on-complete thumbnail upload
-                                    console.log(">>Thumbnail Uploaded.");
-                                    URL.revokeObjectURL(localURL); //FIXME where do i put this?
-                                }
-                            );
-                        });
-                    }
                 },
                 (error)=>{
                     console.error(error);
                 },
                 ()=>{ //on-complete fullsize upload
                     console.log(">>Full size upload complete");
-                }
-            );
-        });
-    }
+                    fullRef.getDownloadURL().then( (fullSizeURL)=>{
+                        console.log(">>URL:",fullSizeURL);
+                        //Variables
+                        const aspectRatio  = fullSizeImage.width / fullSizeImage.height;
+                        const maxThumbnailHeight = Math.ceil(maxThumbnailWidth / aspectRatio);
+
+                        //Make a Canvas
+                        const canvas  = document.createElement("canvas");
+                        canvas.height = maxThumbnailHeight + thumbNailPadding*2;
+                        canvas.width  = maxThumbnailWidth  + thumbNailPadding*2;
+                        const ctx     = canvas.getContext("2d");
+                        console.log(">>Canvas drawn");
+
+                        //Draw the Image to canvas, args: img,x0,y0,scaled w, scaled h
+                        ctx.drawImage(
+                            fullSizeImage,
+                            thumbNailPadding,
+                            thumbNailPadding,
+                            maxThumbnailWidth,
+                            maxThumbnailHeight
+                        );
+
+                        //Revert Canvas into file Blob for upload
+                        canvas.toBlob( (thumbBlob)=>{
+                            console.log(">>blobbed");
+                            const thumbRef = firebase.storage().ref(pathToUserStorage+'/thumbnails/'+fileName);
+                            thumbRef.put(thumbBlob).on(
+                                firebase.storage.TaskEvent.STATE_CHANGED,
+                                (thumbSnap)=>{
+                                    let percent2 = Math.ceil(thumbSnap.bytesTransferred / thumbSnap.totalBytes * 100);
+                                    console.log(percent2 + "% done w/ thumb");
+                                },
+                                (error)=>{
+                                    console.error(error);
+                                },
+                                ()=>{ // on-complete thumbnail upload
+                                    console.log(">>Thumbnail upload complete");
+                                    thumbRef.getDownloadURL().then( (thumbURL)=>{
+                                        console.log(">>T_URL:",thumbURL);
+
+                                        let uploadInfo = {
+                                            url :thumbURL,
+                                            size:fileSize,
+                                            name:fileName
+                                        };
+                                        this.setState({
+                                            uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
+                                        });
+                                        //Now, we have all needed async-data. Set it to the DB.
+                                        const artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+                                        const artworkUID     = artRef.push().key;
+                                        const uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
+
+                                        //Get the color palette
+                                        console.log("---Begin Color swatching");
+                                        const colorObject    = this.extractColors(localURL);
+                                        console.log("FUCK::", colorObject);
+                                        console.log("---End Color swatching");
+
+                                        //Build the artwork object
+                                        let title = fileName.split(".")[0];
+                                        let artist = "Self";
+                                        if (this.state.userInfo != null && this.state.userInfo != undefined &&
+                                            this.state.userInfo.display_name != "Untitled Artist")
+                                            {
+                                            artist = this.state.userInfo.display_name;
+                                        }
+                                        let artObject = {
+                                            id          : artworkUID,
+                                            thumbnail   : thumbURL,
+                                            filename    : fileName,
+                                            title       : title,
+                                            artist      : artist,
+                                            album       : "Uploads",
+                                            year        : new Date().getFullYear(),
+                                            description : "",
+                                            tags        : "art",
+                                            size        : fileSize,
+                                            fullSize_url: fullSizeURL,
+                                            aspectRatio : aspectRatio,
+                                            colors      : colorObject
+                                        };
+
+                                        // set the art object to the artworks node
+                                        artRef.child(artworkUID).set(artObject).then(()=>{
+                                            console.log(">>>>Artwork info set into DB");
+                                        }).catch((error)=>{
+                                            console.error(error);
+                                        });
+
+                                        //Now, add a pointer to the artwork object to the uploads album
+                                        uploadAlbumRef.transaction( (node)=>{
+                                            if (node == null) {
+                                                node = {0:artworkUID};
+                                            } else {
+                                                let currentLength   = Object.keys(node).length;
+                                                node[currentLength] = artworkUID;
+                                            }
+                                            return node; //finish transaction
+                                        }, (error,bool,snap)=>{
+                                                console.log(">>>Img set into album");
+                                                URL.revokeObjectURL(localURL);
+                                                //END  OF ASYNC FLOW
+                                        });
+                                    });//END upload promise and thenable
+                            });//END on-complete thumb  and on
+                        });//END toblob
+                    });//END fullsize upload thenable
+                });//END fullsize oncomplete and toBlob
+            });//END Onload image
+        }//END METHOD
+
+
+
 
     /**
      * This method will take in an array of blobs, then for each blob
