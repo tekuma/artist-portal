@@ -506,11 +506,14 @@ export default class AppView extends React.Component {
      * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
+        //TODO implement setting const paths in the begining of each method
+        //TODO to make the code more #RFC
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
         const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
         const avatarRef   = firebase.storage().ref(avatarPath);
         const userPath    = `public/onboarders/${thisUID}`;
+        /
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
             thisUser.updatePassword(data.password).then(
