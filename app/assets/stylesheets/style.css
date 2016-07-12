@@ -1077,7 +1077,6 @@ main, .artworks {
 }
 
 .scroll-edit-profile {
-	width: 100vw;
 	padding: 50px 20px 40px 20px;
 	overflow-y: scroll;
 }
@@ -1596,8 +1595,7 @@ login-button.left {
 	align-items: center;
 }
 
-.artist-logo-wrapper img,
-.forgot-heading-wrapper img {
+.artist-logo-wrapper img {
 	width: 200px;
 }
 
@@ -1744,8 +1742,7 @@ login-button.left {
 	text-align: center;
 }
 
-.signup-heading-message,
-.forgot-heading-message {
+.signup-heading-message{
 	margin-bottom: 50px;
 }
 
@@ -2615,8 +2612,7 @@ login-button.left {
 		width: 250px;
 	}
 
-	.artist-logo-wrapper img,
-	.forgot-heading-wrapper img {
+	.artist-logo-wrapper img {
 		width: 110px;
 	}
 
@@ -2836,4 +2832,467 @@ font-weight: 200;
 font-family: "Raleway Italic";
 src: url(../fonts/raleway/Raleway-ThinItalic.ttf);
 font-weight: 100;
+}
+
+/*=======================================*/
+.accordion {
+    width: 70vw;
+	max-width: 800px;
+    list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background: #ffffff;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
+	0 1px 2px rgba(0,0,0,0.24);
+}
+
+.accordion + li {
+	overflow: hidden;
+}
+
+.accordion label {
+    padding: 15px 25px;
+	margin: 0;
+    position: relative;
+    display: block;
+    height: 50px;
+    z-index: 2;
+    cursor: pointer;
+    background: #ffffff;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+}
+
+.accordion li:nth-last-child(1) label {
+	border-bottom: none;
+}
+
+.accordion input + label {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion input:checked + label {
+    background: #4d5967;
+	color: #ffffff;
+}
+
+.accordion input:checked + label .accordion-item-heading {
+	color: #ffffff;
+}
+
+.accordion input:checked + label .accordion-item-preview {
+
+	color: rgba(255,255,255,0.7);
+}
+
+.accordion > li > input {
+    display: none;
+}
+
+.accordion .ac-content {
+	position: relative;
+	top: -30px;
+	height: 0;
+	opacity: 0;
+	margin-top: 0px;
+	background: #ffffff;
+	padding: 0 50px;
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion input:checked ~ .ac-content {
+	top: 0px;
+	opacity: 1;
+	padding: 50px;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.accordion input:checked ~ #display-name-content,
+.accordion input:checked ~ #location-content,
+.accordion input:checked ~ #portfolio-content,
+.accordion input:checked ~ #legal-name-content.
+.accordion input:checked ~ #email-content {
+	height: 180px;
+}
+
+.accordion input:checked ~ #email-content {
+	height: 200px;
+	padding: 40px;
+	flex-direction: column;
+}
+
+.accordion input ~ #email-content > input {
+	margin: 8px;
+	display: block;
+}
+
+.accordion input:checked ~ #bio-content {
+	height: 250px;
+}
+
+.accordion input:checked ~ #avatar-content {
+	height: 300px;
+}
+
+.accordion input:checked ~ #password-content {
+	height: 250px;
+	padding: 40px;
+	flex-direction: column;
+}
+
+.accordion input ~ #password-content > input {
+	margin: 8px;
+	display: block;
+}
+
+.accordion input:checked ~ #age-content {
+	height: 220px;
+	flex-direction: column;
+}
+
+#age-content label {
+	width: auto;
+	height: auto;
+	padding: 5px;
+}
+
+.edit-profile-avatar-wrapper {
+	padding: 10px;
+	height: 200px;
+	width: 200px;
+	background: #f4f6f7;
+	border: 2px dashed #d6d3ce;
+	border-radius: 5px;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	flex-direction: column;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.edit-profile-avatar-wrapper img {
+	width: 50px;
+	margin-bottom: 20px;
+}
+
+.edit-profile-avatar-wrapper img {
+	font-size: 1em;
+}
+
+.accordion-item-heading {
+	width: 50%;
+	height: 20px;
+	color: rgba(0,0,0,0.87);
+	font-size: 1em;
+	font-weight: 500;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	line-height: normal;
+}
+
+.accordion-item-preview {
+	width: 50%;
+	font-size: 0.8em;
+	font-weight: 400;
+	color: rgba(0,0,0,0.54);
+	margin: 0;
+}
+
+.accordion-item-avatar {
+	background-position: center center;
+	background-size: cover;
+    background-repeat: no-repeat;
+	width: 35px;
+	height: 35px;
+	border-radius: 2px;
+	margin: 0;
+}
+
+.accordion-item-avatar-wrapper {
+	width: 50%;
+}
+
+.edit-profile-heading {
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	height: 50px;
+	width: 100%;
+	background: #393449;
+	box-shadow: 0 3px 3px -2px rgba(0,0,0,0.5),
+	0 3px 1px -2px rgba(0,0,0,.2),
+	0 1px 5px 0 rgba(0,0,0,.12);
+	cursor: pointer;
+	z-index: 5;
+}
+
+.edit-profile-heading div {
+	width: 50%;
+	text-align: center;
+	height: 50px;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.edit-profile-public.selected,
+.edit-profile-private.selected {
+	border-bottom: 3px solid #e72f80;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.edit-profile-heading h2 {
+	margin: 12.5px 0;
+	font-size: 1.3em;
+	color: #ffffff;
+	font-weight: 500;
+}
+
+.edit-profile-save-button {
+	position: absolute;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	bottom: 50px;
+	right: 50px;
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background: #e72f80;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	cursor: pointer;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.edit-profile-save-button:hover {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.16),0 4px 12px 0 rgba(0,0,0,0.24);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.edit-profile-save-button img {
+	width: 22px;
+}
+
+/*=====*/
+
+.accordion input[type=text],
+.accordion input[type=email],
+.accordion input[type=password],
+.accordion input[type=number],
+.accordion textarea.bio {
+    border-radius: 3px;
+    appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+    padding: 0.75em .75em;
+    width: 100%;
+	height: 2.7em;
+}
+
+.accordion input:not([type='radio']) {
+    background-color: #f4f6f7;
+    border: 1.5px solid #d6d3ce;
+    color: #000000;
+	font-weight: 500;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-size: .9375em;
+    line-height: normal;
+    margin: 0;
+}
+
+.accordion input[type=radio] {
+	margin-right: 8px;
+}
+
+.accordion input[type=number] {
+	margin-left: 8px;
+}
+
+.accordion #accordion-dob-month {
+	width: 120px;
+}
+
+.accordion #accordion-dob-day {
+	width: 60px;
+}
+
+.accordion #accordion-dob-year {
+	width: 100px;
+}
+
+.accordion select:focus {
+	outline: none;
+}
+
+label.age-confirm-label {
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+
+#over-eighteen-checkbox {
+	margin-right: 10px;
+}
+.accordion > li > div > label {
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-weight: 600;
+    color: #4d5967;
+    display: inline-block;
+    font-size: .9375em;
+    text-align: left;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+	border: none;
+}
+
+.accordion label.error {
+	position: relative;
+	top: 10px;
+    color: #ec167c;
+    font-size: 0.7em;
+}
+
+.accordion input.error {
+	border: 1px solid #ec167c;
+}
+
+#accordion-dob {
+    text-align: justify;
+    line-height: 0;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	width: 100%;
+}
+
+.accordion select {
+    border-radius: 2px;
+    background-color: #f4f6f7;
+    border: 1.5px solid #d6d3ce;
+    color: #000000;
+    font-size: .9375em;
+	font-weight: 500;
+    height: 2.7em;
+    margin: 0;
+    padding: .6em .6em;
+    width: 100%;
+}
+
+.accordion textarea.bio {
+	background-color: #f4f6f7;
+	border: 1.5px solid #d6d3ce;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	padding: 0.75em .75em;
+	height: 150px;
+	color: #000000;
+	resize: none;
+	font-size: .9375em;
+	font-weight: 500;
+	font-family: "Raleway" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
