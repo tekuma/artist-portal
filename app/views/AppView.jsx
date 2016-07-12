@@ -510,9 +510,8 @@ export default class AppView extends React.Component {
         //TODO to make the code more #RFC
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
-        const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
-        const avatarRef   = firebase.storage().ref(avatarPath);
         const userPath    = `public/onboarders/${thisUID}`;
+
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
             thisUser.updatePassword(data.password).then(
@@ -540,6 +539,8 @@ export default class AppView extends React.Component {
 
         // Update all info fields (dob, name, bio, avatar, etc)
         if (data.hasOwnProperty('avatar')) {
+            const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
+            const avatarRef   = firebase.storage().ref(avatarPath);
 
             avatarRef.put(data.avatar).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
