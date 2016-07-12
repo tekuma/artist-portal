@@ -288,7 +288,6 @@ export default class App extends React.Component {
             const usersRef = firebase.database().ref('public/onboarders');
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
-                console.log(this.state.registration.avatar, "AVATAR");
                 if (!snapshot.child(thisUID).exists()) {
                     // Setting onboarder info (if registered)
                     let dob = "",
@@ -298,13 +297,19 @@ export default class App extends React.Component {
                         location = "",
                         portfolio = "",
                         legal_age = false;
-
-
                     //
-                    firebase.storage().ref('portal/'+thisUID+'/avatars').put(this.state.registration.avatar).on(
+                    const avatarRef = firebase.storage().ref('portal/'+thisUID+'/avatars');
+                    avatarRef.put(this.state.registration.avatar).on(
                         firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{
-                            if (snapshot.downloadURL != null) {
+                        (snapshot)=>{ //On-state changed
+                        },
+                        (error)=>{ // on-catch
+                            console.error(error);
+                        },
+                        ()=>{ //on-complete
+                            console.log("success in avatar upload");
+                            avatarRef.getDownloadURL().then( (avatarURL)=>{
+                                //Define an Onboarder object, and populate: 
                                 usersRef.child(thisUID).set({
                                     albums        : { 0: {
                                         name:"Uploads"
@@ -313,7 +318,7 @@ export default class App extends React.Component {
                                     email           : this.state.registration.email,
                                     display_name    : this.state.registration.display_name,
                                     legal_name      : this.state.registration.legal_name,
-                                    avatar          : snapshot.downloadURL,
+                                    avatar          : avatarURL,
                                     dob             : this.state.registration.dob,
                                     gender_pronoun  : this.state.registration.gender_pronoun,
                                     bio             : this.state.registration.bio,
@@ -321,13 +326,7 @@ export default class App extends React.Component {
                                     portfolio       : this.state.registration.portfolio,
                                     over_eighteen   : false
                                 });
-                            }
-                        },
-                        (error)=>{
-                            console.error(error);
-                        },
-                        ()=>{
-                            console.log("success in avatar upload");
+                            });
                         }
                     );
 
