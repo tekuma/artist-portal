@@ -22,7 +22,7 @@ export default class EditProfileLayout extends React.Component {
     }
 
     render() {
-        if(this.state.currentEditLayout == "public") {
+        if(this.state.currentEditLayout === "public") {
             return this.publicInfo();
         } else {
             return this.privateInfo();
