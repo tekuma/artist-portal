@@ -13,6 +13,7 @@ import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ResetPasswordView  from './views/ResetPasswordView';
 import ForgotPasswordView from './views/ForgotPasswordView';
+
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
