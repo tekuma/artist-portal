@@ -1596,9 +1596,13 @@ login-button.left {
 	align-items: center;
 }
 
+.artist-logo-wrapper {
+	width:50%;
+}
+
 .artist-logo-wrapper img,
 .forgot-heading-wrapper img {
-	width: 200px;
+	width: 250px;
 }
 
 .artist-logo-wrapper h3 {

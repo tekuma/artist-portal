@@ -1,4 +1,5 @@
 import './assets/stylesheets/style.css';
+import './assets/stylesheets/animation.css';
 import React    from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';

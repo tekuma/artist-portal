@@ -1,0 +1,56 @@
+/* --------------------------
+  Base
+--------------------------- */
+
+svg {
+	margin: auto;
+  display: block;
+}
+
+/* --------------------------
+  Keyframes
+--------------------------- */
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+}
+
+/* --------------------------
+  SVG Styles
+--------------------------- */
+
+#tekuma-logo {
+  padding-bottom: 20px;
+}
+
+.badge * {
+  transform-origin: 50% 50%;
+}
+
+.outer,
+.logoanimation,
+.inline {
+  animation: grow 3s ease-out backwards;
+}
+
+.logoanimation {
+  animation-delay: .1s;
+  transform-origin: 50% 50%;
+}
+
+.inline {
+  animation-delay: .15s;
+}
+
+.logowrap {
+  width: 50%;
+  margin: auto;
+}
