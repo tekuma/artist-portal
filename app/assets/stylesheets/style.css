@@ -1612,7 +1612,7 @@ login-button.left {
 	align-items: center;
 }
 
-<<<<<<< HEAD
+
 .artist-logo-wrapper {
 	width:50%;
 }
@@ -1620,10 +1620,9 @@ login-button.left {
 .artist-logo-wrapper img,
 .forgot-heading-wrapper img {
 	width: 220px;
-=======
+}
 .artist-logo-wrapper img {
 	width: 200px;
->>>>>>> master
 }
 
 .artist-logo-wrapper h3 {
