@@ -61,10 +61,9 @@ export default class Albums extends React.Component {
 
     move = (sourceName, targetName) => {
         console.log("Entered move");
-        const userPath = 'public/onboarders/';
         const thisUID = firebase.auth().currentUser.uid;
-        let path = userPath + thisUID + "/albums";
-        let albumRef = firebase.database().ref(path);
+        const albumPath = `public/onboarders/${thisUID}/albums`;
+        const albumRef = firebase.database().ref(albumPath);
         albumRef.transaction( (data) => {
             let albumsLength = Object.keys(data).length;
             let sourceData;
