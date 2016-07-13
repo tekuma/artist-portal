@@ -16,10 +16,10 @@ svg {
     transform: scale(0);
   }
   30% {
-    transform: scale(1.1);
+    transform: scale(1.0);
   }
   60% {
-    transform: scale(0.9);
+    transform: scale(0.8);
   }
 }
 
@@ -42,9 +42,17 @@ svg {
 }
 
 .logoanimation {
-  animation-delay: .1s;
+  fill: #fff;
+  animation-delay: .5s;
   transform-origin: 50% 50%;
+  -webkit-transition: all 1s; /* Safari */
+  transition: all 1s;
 }
+
+.logoanimation:hover {
+  stroke: #ec167c;
+}
+
 
 .inline {
   animation-delay: .15s;

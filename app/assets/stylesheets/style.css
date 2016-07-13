@@ -19,8 +19,17 @@ a, a:visited, a:hover {
 	text-decoration: none;
 }
 
+textarea, input {
+	-webkit-transition: border .5s ease-in-out;
+  transition: border .5s ease-in-out;
+}
+
+textarea:focus, input:focus {
+	border-color: #ec167c !important;
+}
+
 textarea:focus, input:focus, button:focus, button {
-    outline: none;
+    outline: #ec008b;
 }
 
 button {
@@ -1290,7 +1299,7 @@ main, .artworks {
 .login-popover input[type=password],
 textarea.bio {
     border-radius: 0px;
-		border: 2px solid black !important;
+		border: 2px solid black;
 		background: none !important;
     appearance: none;
 	-webkit-appearance: none;
@@ -1472,10 +1481,6 @@ textarea.bio {
 	border-radius: 0px;
 	cursor: pointer;
 	box-shadow: 0px;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
 	border: none;
 }
 
@@ -1497,11 +1502,21 @@ login-button.left {
 .edit-button:hover,
 .signup-button:hover,
 .login-button:hover {
-	box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+/*	box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22); */
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
+
+	background: #e73827;
+	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
+	background: -webkit-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome, Safari4+ */
+	background: -o-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome10+,Safari5.1+ */
+	background: -ms-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Opera 11.10+ */
+	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%); /* IE 10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e73827', endColorstr='#ec167e', GradientType=0 ); /* W3C */
+	/* IE6-9 */
 }
 
 .edit-button h3,
