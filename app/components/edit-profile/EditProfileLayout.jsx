@@ -16,11 +16,178 @@ export default class EditProfileLayout extends React.Component {
             errors: [],
             currentError: "",
             gender: "",
-            avatar: []
+            avatar: [],
+            currentEditLayout: "public"
         }
     }
 
     render() {
+        if(this.state.currentEditLayout === "public") {
+            return this.publicInfo();
+        } else {
+            return this.privateInfo();
+        }
+    }
+
+    // VIEWS ===============
+
+    publicInfo = () => {
+        let avatar;
+
+        if(this.props.userInfo != null &&
+            this.props.userInfo != undefined &&
+            this.props.userInfo.hasOwnProperty('avatar') &&
+            this.props.userInfo.avatar != "") {
+                avatar = this.props.userInfo.avatar;
+            } else {
+                avatar = 'assets/images/default-avatar.png';
+            }
+
+        var avatarStyle = {
+            backgroundImage: 'url(' + avatar + ')'
+        }
+
+        return(
+            <div>
+                <div className="edit-profile-heading">
+                    <div
+                        className={this.state.currentEditLayout == "public" ? "edit-profile-public selected" : "edit-profile-public"}
+                        onClick={this.changeEditLayout.bind({}, "public")}>
+                        <h2>Public</h2>
+                    </div>
+                    <div
+                        className={this.state.currentEditLayout == "private" ? "edit-profile-private selected" : "edit-profile-private"}
+                        onClick={this.changeEditLayout.bind({}, "private")}>
+                        <h2>Private</h2>
+                    </div>
+                </div>
+                <div className ="scroll-edit-profile">
+                    <article className="public-edit">
+                        <ul className="accordion">
+                            <li>
+                                <input id="ac-1" type="checkbox" />
+                                <label htmlFor="ac-1">
+                                    <h2 className="accordion-item-heading">Display Name</h2>
+                                    <h3 className="accordion-item-preview">{this.props.userInfo.display_name}</h3>
+                                </label>
+                                <div id="display-name-content" className="ac-content">
+                                    <input
+                                    type="text"
+                                    id="edit-displayname"
+                                    defaultValue={this.props.userInfo.display_name}
+                                    ref="displayname"
+                                    placeholder="Display Name"
+                                    required=""
+                                    maxLength="50"
+                                    autoCapitalize="off"
+                                    autoComplete="off"
+                                    autoCorrect="off" />
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-2" type="checkbox" />
+                                <label htmlFor="ac-2">
+                                    <h2 className="accordion-item-heading">Avatar</h2>
+                                    <div className="accordion-item-avatar-wrapper">
+                                        <div
+                                        className="accordion-item-avatar"
+                                        style={avatarStyle}></div>
+                                    </div>
+                                </label>
+                                <div id="avatar-content" className="ac-content">
+                                    <Dropzone
+                                        className="edit-profile-avatar-wrapper"
+                                        accept="image/*"
+                                        onDrop={this.onDrop}>
+                                        <img
+                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                            src="../assets/images/icons/person-beige.svg" />
+                                        <h3
+                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                            className="upload-writing big">
+                                            Click to Upload your Photo
+                                        </h3>
+                                        <h3
+                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                            className="upload-writing small">
+                                            or Simply Drag it Here
+                                        </h3>
+                                        <img
+                                            id="uploaded-avatar"
+                                            style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
+                                            src={this.props.userInfo.avatar} />
+                                        <img
+                                            id="uploaded-avatar"
+                                            style={{display: this.state.avatarUploaded ? "block" : "none" }}
+                                            src={this.state.avatarPreview} />
+                                    </Dropzone>
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-3" type="checkbox" />
+                                <label htmlFor="ac-3">
+                                    <h2 className="accordion-item-heading">Bio</h2>
+                                    <h3 className="accordion-item-preview">{this.props.userInfo.bio.substring(0, 44) + "..."}</h3>
+                                </label>
+                                <div id="bio-content" className="ac-content">
+                                    <textarea
+                                        className="bio"
+                                        placeholder="Bio"
+                                        ref="bio"
+                                        defaultValue={this.props.userInfo.bio}></textarea>
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-4" type="checkbox" />
+                                <label htmlFor="ac-4">
+                                    <h2 className="accordion-item-heading">Location</h2>
+                                    <h3 className="accordion-item-preview">Boston, MA</h3>
+                                </label>
+                                <div id="location-content" className="ac-content">
+                                    <input
+                                    type="text"
+                                    id="edit-location"
+                                    ref="location"
+                                    placeholder="Location"
+                                    defaultValue={this.props.userInfo.location} />
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-5" type="checkbox" />
+                                <label htmlFor="ac-5">
+                                    <h2 className="accordion-item-heading">Portfolio</h2>
+                                    <h3 className="accordion-item-preview">http://afikanyati.com</h3>
+                                </label>
+                                <div id="portfolio-content" className="ac-content">
+                                    <input
+                                    type="text"
+                                    id="edit-portfolio"
+                                    ref="portfolio"
+                                    placeholder="Portfolio/Website"
+                                    defaultValue={this.props.userInfo.portfolio} />
+                                </div>
+                            </li>
+                        </ul>
+                    </article>
+                    <button
+                        className="edit-profile-save-button"
+                        type="submit"
+                        onClick={this.saveProfileInfo}>
+                        <img src="assets/images/icons/save.svg" />
+                    </button>
+                </div>
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <Snackbar
+                        className="registration-error"
+                        open={this.state.errors.length > 0}
+                        message={this.state.currentError}
+                        autoHideDuration={4000} />
+                </MuiThemeProvider>
+            </div>
+        );
+    }
+
+    privateInfo = () => {
         let passwordAuth = {
             display: 'block'
         };
@@ -39,106 +206,118 @@ export default class EditProfileLayout extends React.Component {
         };
 
         return(
-            <div className ="scroll-edit-profile">
-                <form className="profile-form">
-                    <Dropzone
-                        className="profile-pic-container"
-                        accept="image/*"
-                        onDrop={this.onDrop}>
-                        <img
-                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                            src="../assets/images/icons/person-beige.svg" />
-                        <h3
-                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                            className="upload-writing big">
-                            Click to Upload your Photo
-                        </h3>
-                        <h3
-                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                            className="upload-writing small">
-                            or Simply Drag it Here
-                        </h3>
-                        <img
-                            id="uploaded-avatar"
-                            style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
-                            src={this.props.userInfo.avatar} />
-                        <img
-                            id="uploaded-avatar"
-                            style={{display: this.state.avatarUploaded ? "block" : "none" }}
-                            src={this.state.avatarPreview} />
-                    </Dropzone>
-                    <section className="left-info">
-                        <div className="edit-heading">
-                            <img src="assets/images/art-illus.svg" />
-                            <h3 className="artist-edit">ARTIST</h3>
-                        </div>
-                        <fieldset>
-                            <ul>
-                                <li>
-                                    <input
+            <div>
+                <div className="edit-profile-heading">
+                    <div
+                        className={this.state.currentEditLayout == "public" ? "edit-profile-public selected" : "edit-profile-public"}
+                        onClick={this.changeEditLayout.bind({}, "public")}>
+                        <h2>Public</h2>
+                    </div>
+                    <div
+                        className={this.state.currentEditLayout == "private" ? "edit-profile-private selected" : "edit-profile-private"}
+                        onClick={this.changeEditLayout.bind({}, "private")}>
+                        <h2>Private</h2>
+                    </div>
+                </div>
+                <div className ="scroll-edit-profile">
+                    <article className="private-edit">
+                        <ul className="accordion">
+                            <li>
+                                <input id="ac-6" type="checkbox" />
+                                <label htmlFor="ac-6">
+                                    <h2 className="accordion-item-heading">Legal Name</h2>
+                                    <h3 className="accordion-item-preview">{this.props.userInfo.legal_name}</h3>
+                                </label>
+                                <div id="legal-name-content" className="ac-content">
+                                        <input
                                         type="text"
-                                        id="register-displayname"
-                                        defaultValue={this.props.userInfo.display_name}
-                                        ref="displayname"
-                                        placeholder="Display Name"
+                                        id="edit-legalname"
+                                        defaultValue={this.props.userInfo.legal_name}
+                                        ref="legalname"
+                                        style={this.state.errorType.legalName ? errorStyle : null}
+                                        placeholder="Legal Name"
                                         required=""
                                         maxLength="50"
                                         autoCapitalize="off"
                                         autoComplete="off"
                                         autoCorrect="off" />
-                                </li>
-                                <li>
-                                    <input
-                                        type="text"
-                                        id="register-legalname"
-                                        defaultValue={this.props.userInfo.legal_name}
-                                        ref="legalname"
-                                        style={this.state.errorType.legalName ? errorStyle : null}
-                                        placeholder="Legal Name (required)"
-                                        required="true"
-                                        maxLength="50"
-                                        autoCapitalize="off"
-                                        autoComplete="off"
-                                        autoCorrect="off" />
-                                </li>
-                                <li>
+                                </div>
+                            </li>
+                            <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                                <input id="ac-7" type="checkbox" />
+                                <label htmlFor="ac-7">
+                                    <h2 className="accordion-item-heading">Email</h2>
+                                    <h3 className="accordion-item-preview">this.props.userInfo.email</h3>
+                                </label>
+                                <div id="email-content" className="ac-content">
                                     <input
                                         type="email"
-                                        id="register-email"
-                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
+                                        id="edit-email"
                                         defaultValue={this.props.userInfo.email}
                                         ref="email"
+                                        style={this.state.errorType.email ? errorStyle : null}
                                         placeholder="Email"
                                         required="true"
                                         maxLength="100" />
-                                </li>
-                                <li>
+                                        <input
+                                            type="password"
+                                            id="edit-password"
+                                            ref="emailPassword"
+                                            placeholder="Current Password"
+                                            required="true"
+                                            maxLength="100"
+                                            autoComplete="off" />
+                                </div>
+                            </li>
+                            <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                                <input id="ac-8" type="checkbox" />
+                                <label htmlFor="ac-8">
+                                    <h2 className="accordion-item-heading">Password</h2>
+                                    <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
+                                </label>
+                                <div id="password-content" className="ac-content">
                                     <input
                                         type="password"
-                                        id="register-password"
-                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
-                                        ref="password"
-                                        placeholder="Password"
+                                        id="edit-password"
+                                        ref="currentPassword"
+                                        style={this.state.errorType.currentPassword ? errorStyle : null}
+                                        placeholder="Current Password"
                                         required="true"
                                         maxLength="100"
                                         autoComplete="off" />
-                                </li>
-                                <li>
                                     <input
                                         type="password"
-                                        id="register-confirm-password"
-                                        style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}
+                                        id="edit-password"
+                                        ref="password"
+                                        style={this.state.errorType.password ? errorStyle : null}
+                                        placeholder="New Password"
+                                        required="true"
+                                        maxLength="100"
+                                        autoComplete="off" />
+                                    <input
+                                        type="password"
+                                        id="edit-confirm-password"
                                         ref="confirmPassword"
+                                        style={this.state.errorType.confirmPassword ? errorStyle : null}
                                         placeholder="Confirm Password"
                                         required="true"
                                         maxLength="100" />
-                                </li>
-                                <li id="li-dob" className="controls-dob">
-                                    <label for="register-age">Date of Birth: </label>
-                                    <div id="register-dob" className="register-dob">
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-9" type="checkbox" />
+                                <label htmlFor="ac-9">
+                                    <h2 className="accordion-item-heading">Age</h2>
+                                    <div className="accordion-item-avatar-wrapper">
+                                        <h3 className="accordion-item-preview">{this.props.userInfo.dob}</h3>
+                                    </div>
+                                </label>
+                                <div id="age-content" className="ac-content">
+                                    <label for="edit-age">Date of Birth: </label>
+                                    <div id="accordion-dob" className="accordion-dob">
                                         <div className="controls controls-month">
                                             <select
-                                                id="register-dob-month"
+                                                id="accordion-dob-month"
                                                 className="dob"
                                                 defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[1] : null}
                                                 ref="dobMonth"
@@ -161,7 +340,7 @@ export default class EditProfileLayout extends React.Component {
                                         <div className="controls controls-day">
                                             <input
                                                 type="number"
-                                                id="register-dob-day"
+                                                id="accordion-dob-day"
                                                 defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[0] : null}
                                                 className="dob"
                                                 ref="dobDay"
@@ -175,7 +354,7 @@ export default class EditProfileLayout extends React.Component {
                                         <div className="controls controls-year">
                                             <input
                                                 type="number"
-                                                id="register-dob-year"
+                                                id="accordion-dob-year"
                                                 defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[2] : null}
                                                 className="dob"
                                                 ref="dobYear"
@@ -185,8 +364,6 @@ export default class EditProfileLayout extends React.Component {
                                                 maxLength="4" />
                                         </div>
                                     </div>
-                                </li>
-                                <li id="li-over-eighteen" className="over-eighteen">
                                     <label className="age-confirm-label">
                                         <input
                                             type="checkbox"
@@ -195,43 +372,49 @@ export default class EditProfileLayout extends React.Component {
                                             defaultChecked={this.props.userInfo.over_eighteen} />
                                             I confirm that I am 18+
                                     </label>
-                                </li>
-                                <li id="li-gender" className="gender">
-                                    <label className="gender-label">Preferred Gender Pronoun:</label>
-                                        <label
-                                            for="register-she"
-                                            className="gender-radio control-inline">
-                                            <input
-                                                type="radio"
-                                                id="register-she"
-                                                name="gender"
-                                                className="reg-radio"
-                                                defaultValue="she"
-                                                defaultChecked={this.props.userInfo.gender_pronoun == "she"}
-                                                onChange={this.setGender}
-                                                required="" />
-                                            She
-                                      </label>
-                                      <label
-                                          for="register-he"
-                                          className="gender-radio control-inline">
-                                          <input
-                                              type="radio"
-                                              id="register-he"
-                                              name="gender"
-                                              className="reg-radio"
-                                              defaultValue="he"
-                                              defaultChecked={this.props.userInfo.gender_pronoun == "he"}
-                                              onChange={this.setGender}
-                                              required="" />
-                                          He
-                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <input id="ac-10" type="checkbox" />
+                                <label htmlFor="ac-10">
+                                    <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
+                                    <h3 className="accordion-item-preview">He</h3>
+                                </label>
+                                <div id="pronoun-content" className="ac-content">
                                     <label
-                                        for="register-they"
+                                        for="edit-she"
                                         className="gender-radio control-inline">
                                         <input
                                             type="radio"
-                                            id="register-they"
+                                            id="edit-she"
+                                            name="gender"
+                                            className="reg-radio"
+                                            defaultValue="she"
+                                            defaultChecked={this.props.userInfo.gender_pronoun == "she"}
+                                            onChange={this.setGender}
+                                            required="" />
+                                        She
+                                  </label>
+                                  <label
+                                      for="edit-he"
+                                      className="gender-radio control-inline">
+                                      <input
+                                          type="radio"
+                                          id="edit-he"
+                                          name="gender"
+                                          className="reg-radio"
+                                          defaultValue="he"
+                                          defaultChecked={this.props.userInfo.gender_pronoun == "he"}
+                                          onChange={this.setGender}
+                                          required="" />
+                                      He
+                                </label>
+                                <label
+                                    for="edit-they"
+                                    className="gender-radio control-inline">
+                                        <input
+                                            type="radio"
+                                            id="edit-they"
                                             name="gender"
                                             className="reg-radio"
                                             defaultValue="they"
@@ -239,47 +422,18 @@ export default class EditProfileLayout extends React.Component {
                                             onChange={this.setGender}
                                             required="" />
                                         They
-                                  </label>
-                                </li>
-                            </ul>
-                        </fieldset>
-                    </section>
-                    <section className="right-info">
-                        <fieldset>
-                            <ul>
-                                <li>
-                                    <textarea
-                                        className="bio"
-                                        placeholder="Bio"
-                                        ref="bio"
-                                        defaultValue={this.props.userInfo.bio} />
-                                </li>
-                                <li>
-                                    <input
-                                        type="text"
-                                        id="register-location"
-                                        ref="location"
-                                        placeholder="Location"
-                                        defaultValue={this.props.userInfo.location} />
-                                </li>
-                                <li>
-                                    <input
-                                        type="text"
-                                        id="register-portfolio"
-                                        ref="portfolio"
-                                        placeholder="Portfolio/Website"
-                                        defaultValue={this.props.userInfo.portfolio} />
-                                </li>
-                                <button
-                                    className="edit-button"
-                                    type="submit"
-                                    onClick={this.saveProfileInfo}>
-                                    <h3>Update</h3>
-                                </button>
-                            </ul>
-                        </fieldset>
-                    </section>
-                </form>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </article>
+                    <button
+                        className="edit-profile-save-button"
+                        type="submit"
+                        onClick={this.saveProfileInfo}>
+                        <img src="assets/images/icons/save.svg" />
+                    </button>
+                </div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
                         className="registration-error"
@@ -291,6 +445,18 @@ export default class EditProfileLayout extends React.Component {
         );
     }
 
+
+    // METHODS ======================
+
+    changeEditLayout = (layout) => {
+        this.setState({
+            currentEditLayout: layout,
+            errors: [],
+            errorType: {},
+            currentError: ""
+        });
+    }
+
     saveProfileInfo = (e) => {
         e.preventDefault();
         console.log("entered save profile");
@@ -298,149 +464,185 @@ export default class EditProfileLayout extends React.Component {
         // Clear errors from any previous form submission
         this.state.errors = [];
         let data = {};
-        let displayName = this.refs.displayname.value;
-        let legalName = this.refs.legalname.value;
-        let email = this.refs.email.value;
-        let password = this.refs.password.value;
-        let confirmPassword = this.refs.confirmPassword.value;
 
-        let day = this.refs.dobDay.value;
-        let month = this.refs.dobMonth.value;
-        let year = this.refs.dobYear.value;
+        if (this.state.currentEditLayout == "public") {
+            // Public
+            let displayName = this.refs.displayname.value;
+            let bio = this.refs.bio.value;
+            let location = this.refs.location.value;
+            let portfolio = this.refs.portfolio.value;
 
-        let overEighteen = this.refs.overEighteen.checked;
-        let gender = this.state.gender;
-        let bio = this.refs.bio.value;
-        let location = this.refs.location.value;
-        let portfolio = this.refs.portfolio.value;
+            // Public Validations
+            if(displayName.length > 0) {
+                data.display_name = displayName;
+            }
 
-        data.over_eighteen = overEighteen;
+            if(this.state.avatarUploaded) {
+                data.avatar = this.state.avatar;
+            }
 
-        if(displayName.length > 0) {
-            data.display_name = displayName;
-        }
+            if(bio.length > 0) {
+                data.bio = bio;
+            }
 
-        if(legalName.length == 0) {
-            this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
+            if(location.length > 0) {
+                data.location = location;
+            }
 
-            let errorType = this.state.errorType;
-            errorType.legalName = true;
-            this.setState({
-                errorType: errorType
-            });
+            if(portfolio.length > 0) {
+                data.portfolio = portfolio;
+            }
         } else {
-            data.legal_name = legalName;
-        }
+            // Private
+            let legalName = this.refs.legalname.value;
 
-        // Only test regex if user has typed in an email
-        if(email.length > 0 && !/.+@.+\..+/.test(email)) {
-            this.state.errors.push("The email address you supplied is invalid.");
+            let email = this.refs.email.value;
+            let emailPassword = this.refs.emailPassword.value;
 
-            let errorType = this.state.errorType;
-            errorType.email = true;
-            this.setState({
-                errorType: errorType
-            });
-        } else if(email.length > 0) {
-            data.email = email;
-        }
+            let currentPassword = this.refs.currentPassword.value;
+            let password = this.refs.password.value;
+            let confirmPassword = this.refs.confirmPassword.value;
 
-        // Only test password length if typed in
-        if(password.length > 0 && password.length < 6) {
-            this.state.errors.push("Your password must be at least 6 characters long.");
+            let day = this.refs.dobDay.value;
+            let month = this.refs.dobMonth.value;
+            let year = this.refs.dobYear.value;
 
-            let errorType = this.state.errorType;
-            errorType.password = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            let overEighteen = this.refs.overEighteen.checked;
+            data.over_eighteen = overEighteen;
+            let gender = this.state.gender;
 
-        // Only test confirm password length if password typed in
-        if(password.length > 0 && confirmPassword.length == 0) {
-            this.state.errors.push("Please confirm your password.");
+            // Private Validations
+            if(legalName.length == 0) {
+                this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
 
-            let errorType = this.state.errorType;
-            errorType.confirmPassword = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+                let errorType = this.state.errorType;
+                errorType.legalName = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else {
+                data.legal_name = legalName;
+            }
 
-        // Only test passwords equal if typed in
-        if(password.length > 0
-            && confirmPassword.length > 0
-            && password != confirmPassword) {
-            this.state.errors.push("Passwords do not match.");
 
-            let errorType = this.state.errorType;
-            errorType.password = true;
-            errorType.confirmPassword = true;
-            this.setState({
-                errorType: errorType
-            });
-        } else if (password.length >= 6
-                    && confirmPassword.length >= 6
-                    && password == confirmPassword) {
-                        data.password = password;
-                    }
 
-        if(day.length > 0 && day.length > 2) {
-            this.state.errors.push("Please enter a valid day of the month.");
+            // Only test regex if user has typed in an email and has password
+            if(email.length > 0 && !/.+@.+\..+/.test(email)) {
+                this.state.errors.push("The email address you supplied is invalid.");
 
-            let errorType = this.state.errorType;
-            errorType.day = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+                let errorType = this.state.errorType;
+                errorType.email = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (email != this.props.userInfo.email && emailPassword.length == 0) {
+                this.state.errors.push("To change your email, you must enter your current password.");
 
-        if(month.length > 0 && month.length > 2) {
-            this.state.errors.push("Please enter a valid month.");
+                let errorType = this.state.errorType;
+                errorType.emailPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (email.length > 0 && emailPassword.length > 0) {
+                data.email = email;
+                data.email_password = emailPassword;
+            }
 
-            let errorType = this.state.errorType;
-            errorType.month = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            // Only test password length if typed in
+            if(password.length > 0 && password.length < 6) {
+                this.state.errors.push("Your password must be at least 6 characters long.");
 
-        if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
-            this.state.errors.push("Please enter a valid year.");
+                let errorType = this.state.errorType;
+                errorType.password = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-            let errorType = this.state.errorType;
-            errorType.year = true;
-            this.setState({
-                errorType: errorType
-            });
-        }
+            // Only test confirm password length if password typed in
+            if(password.length > 0 && confirmPassword.length == 0) {
+                this.state.errors.push("Please confirm your password.");
 
-        if((day.length == 1 || day.length == 2) &&
-            (month.length == 1 || month.length == 2) &&
-            year.length == 4) {
-            data.dob = day + "-" + month + "-" + year;
-        } else {
+                let errorType = this.state.errorType;
+                errorType.confirmPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-        }
+            // Only test passwords equal if typed in
+            if(
+                currentPassword.length > 0
+                && password.length > 0
+                && confirmPassword.length > 0
+                && password != confirmPassword) {
+                this.state.errors.push("Passwords do not match.");
 
-        if(gender.length > 0) {
-            data.gender_pronoun =  gender;
-        }
+                let errorType = this.state.errorType;
+                errorType.password = true;
+                errorType.confirmPassword = true;
+                this.setState({
+                    errorType: errorType
+                });
+            } else if (password.length >= 6
+            && confirmPassword.length >= 6
+            && currentPassword.length == 0) {
+                    this.state.errors.push("To change your password, you must enter your current password.");
 
-        if(bio.length > 0) {
-            data.bio = bio;
-        }
+                    let errorType = this.state.errorType;
+                    errorType.currentPassword = true;
+                    this.setState({
+                        errorType: errorType
+                    });
+            } else if (currentPassword.length >= 6
+                        && password.length >= 6
+                        && confirmPassword.length >= 6
+                        && password == confirmPassword) {
+                            data.current_password = currentPassword;
+                            data.password = password;
+                        }
 
-        if(location.length > 0) {
-            data.location = location;
-        }
+            if(day.length > 0 && day.length > 2) {
+                this.state.errors.push("Please enter a valid day of the month.");
 
-        if(portfolio.length > 0) {
-            data.portfolio = portfolio;
-        }
+                let errorType = this.state.errorType;
+                errorType.day = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
 
-        if(this.state.avatarUploaded) {
-            data.avatar = this.state.avatar;
+            if(month.length > 0 && month.length > 2) {
+                this.state.errors.push("Please enter a valid month.");
+
+                let errorType = this.state.errorType;
+                errorType.month = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
+
+            if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
+                this.state.errors.push("Please enter a valid year.");
+
+                let errorType = this.state.errorType;
+                errorType.year = true;
+                this.setState({
+                    errorType: errorType
+                });
+            }
+
+            if((day.length == 1 || day.length == 2) &&
+                (month.length == 1 || month.length == 2) &&
+                year.length == 4) {
+                data.dob = day + "-" + month + "-" + year;
+            } else {
+
+            }
+
+            if(gender.length > 0) {
+                data.gender_pronoun =  gender;
+            }
         }
 
         // Rerender the component to show errors

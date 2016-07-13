@@ -8,8 +8,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Files
 import LoggedOffHeader  from '../headers/LoggedOffHeader';
 
-
-
 export default class SignUpLayoutOne extends React.Component {
     constructor(props) {
         super(props);

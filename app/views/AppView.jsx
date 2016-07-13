@@ -3,6 +3,7 @@ import React               from 'react';
 import firebase            from 'firebase';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
+import getPalette          from 'node-vibrant';
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
@@ -14,10 +15,14 @@ import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
 import UploadDialog        from '../components/app-layouts/UploadDialog';
 
 
-// #Global Variables  TODO
+// #Global Variables
 const pathToPublicOnboarder = "public/onboarders/";
-const maxThumbnailWidth     = 275;
-const thumbNailPadding      = 4;
+const maxThumbnailWidth     = 550; // ->height set proportional to this value
+const thumbNailPadding      = 4;   // ->count(pixels to pad each side of thumbnail with)
+const colorCount            = 64;  // ->amount of possible color swatches to start with when
+                                   // determining dominant vibrant and muted colors (64 default)
+const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
+                                   //  1 means no downscaling, 5 is default.
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
@@ -37,7 +42,8 @@ export default class AppView extends React.Component {
             currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
             uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
             albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
-            albums : {}
+            albums : {},
+            isUploading: false
         };
     }
 
@@ -191,183 +197,226 @@ export default class AppView extends React.Component {
     //  # Uploading Methods
 
     /**
+     * This method takes in an image as a URL, and
+     * @param  {String} url - an image to process
+     * @return {Object}  an object with keys:
+     *                   v,m,lv,lm,dv,dm; which represent:
+     * Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
+     * @see [ https://github.com/akfish/node-vibrant ]
+     */
+    extractColors = (url) => {
+        console.log("about to palette");
+        let colors;
+        getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
+        .getPalette( (error,palette)=>{
+            console.log("building Palette color Object...");
+            colors = {
+                v:{
+                    hex:palette.Vibrant.getHex(),
+                    rgb:palette.Vibrant.getRgb(),
+                    cnt:palette.Vibrant.getPopulation()
+                },
+                m:{
+                    hex:palette.Muted.getHex(),
+                    rgb:palette.Muted.getRgb(),
+                    cnt:palette.Muted.getPopulation()
+                },
+                dv:{
+                    hex:palette.DarkVibrant.getHex(),
+                    rgb:palette.DarkVibrant.getRgb(),
+                    cnt:palette.DarkVibrant.getPopulation()
+                },
+                dm:{
+                    hex:palette.DarkMuted.getHex(),
+                    rgb:palette.DarkMuted.getRgb(),
+                    cnt:palette.DarkMuted.getPopulation()
+                },
+                lv:{
+                    hex:palette.LightVibrant.getHex(),
+                    rgb:palette.LightVibrant.getRgb(),
+                    cnt:palette.LightVibrant.getPopulation()
+                },
+                lm:{
+                    hex:palette.LightMuted.getHex(),
+                    rgb:palette.LightMuted.getRgb(),
+                    cnt:palette.LightMuted.getPopulation()
+                }
+
+            };
+        });
+        return colors;
+    }
+
+    /** FIXME handle color processing in background
+     * Heads up: This is a nested-synchronous mess.
+     *
+     * This method takes in a blob object that a user has uploaded, then
+     * -uploads the original file to gs:"portal/{user uid}/uploads"
+     * - sets DB entry /public/onboarders/artworks/{uid}/fullsize_url
+     * -makes a thumbnail size copy of the image,
+     * -uploads the thumbnail to "portal/{user uid}/thumbnails"
+     * -sets DB entry /public/onboarders/artworks/{uid}/thumbnail_url
+     * -sends image to this.extractColors(url)
+     *. Asynchronously, we need to wait for:
+     *  full url, thumb url, colors.
+     * @param  {Blob} blob - an uploaded blob
+     */
+    uploadArtToTekuma = (blob) => {
+        const fileName  = blob.name;
+        const fileSize  = blob.size;
+        const thisUID   = firebase.auth().currentUser.uid;
+        const localURL  = URL.createObjectURL(blob);
+        const pathToUserStorage = 'portal/' + thisUID;
+        const fullSizeImage     = new Image;
+        fullSizeImage.src       = localURL;
+
+
+        // Load the blob as an <Image>
+        fullSizeImage.addEventListener('load', ()=>{
+            //*Store the original upload, un-changed.
+            const fullRef = firebase.storage().ref(pathToUserStorage+'/uploads/'+fileName);
+            fullRef.put(blob).on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                (snapshot)=>{ //on-event change
+                    let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+                    console.log(percent + "% done w/ original");
+                },
+                (error)=>{
+                    console.error(error);
+                },
+                ()=>{ //on-complete fullsize upload
+                    console.log(">>Full size upload complete");
+                    fullRef.getDownloadURL().then( (fullSizeURL)=>{
+                        console.log(">>URL:",fullSizeURL);
+                        //Variables
+                        const aspectRatio  = fullSizeImage.width / fullSizeImage.height;
+                        const maxThumbnailHeight = Math.ceil(maxThumbnailWidth / aspectRatio);
+
+                        //Make a Canvas
+                        const canvas  = document.createElement("canvas");
+                        canvas.height = maxThumbnailHeight + thumbNailPadding*2;
+                        canvas.width  = maxThumbnailWidth  + thumbNailPadding*2;
+                        const ctx     = canvas.getContext("2d");
+                        console.log(">>Canvas drawn");
+
+                        //Draw the Image to canvas, args: img,x0,y0,scaled w, scaled h
+                        ctx.drawImage(
+                            fullSizeImage,
+                            thumbNailPadding,
+                            thumbNailPadding,
+                            maxThumbnailWidth,
+                            maxThumbnailHeight
+                        );
+
+                        //Revert Canvas into file Blob for upload
+                        canvas.toBlob( (thumbBlob)=>{
+                            console.log(">>blobbed");
+                            const thumbRef = firebase.storage().ref(pathToUserStorage+'/thumbnails/'+fileName);
+                            thumbRef.put(thumbBlob).on(
+                                firebase.storage.TaskEvent.STATE_CHANGED,
+                                (thumbSnap)=>{
+                                    let percent2 = Math.ceil(thumbSnap.bytesTransferred / thumbSnap.totalBytes * 100);
+                                    console.log(percent2 + "% done w/ thumb");
+                                },
+                                (error)=>{
+                                    console.error(error);
+                                },
+                                ()=>{ // on-complete thumbnail upload
+                                    console.log(">>Thumbnail upload complete");
+                                    thumbRef.getDownloadURL().then( (thumbURL)=>{
+                                        console.log(">>T_URL:",thumbURL);
+
+                                        let uploadInfo = {
+                                            url :thumbURL,
+                                            size:fileSize,
+                                            name:fileName
+                                        };
+                                        this.setState({
+                                            uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
+                                        });
+                                        //Now, we have all needed async-data. Set it to the DB.
+                                        const artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+                                        const artworkUID     = artRef.push().key;
+                                        const uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
+
+                                        //Get the color palette
+                                        console.log("---Begin Color swatching");
+                                        const colorObject    = this.extractColors(localURL);
+                                        console.log("Color Digest:", colorObject);
+                                        console.log("---End Color swatching");
+
+                                        //Build the artwork object
+                                        let title = fileName.split(".")[0];
+                                        let artist = "Self";
+                                        if (this.state.userInfo != null && this.state.userInfo != undefined &&
+                                            this.state.userInfo.display_name != "Untitled Artist")
+                                            {
+                                            artist = this.state.userInfo.display_name;
+                                        }
+
+                                        let artObject = {
+                                            id          : artworkUID,
+                                            thumbnail   : thumbURL,
+                                            filename    : fileName,
+                                            title       : title,
+                                            artist      : artist,
+                                            album       : "Uploads",
+                                            upload_date : new Date().toISOString(),
+                                            year        : 2012,
+                                            description : "",
+                                            tags        : "art",
+                                            size        : fileSize,
+                                            fullsize_url: fullSizeURL,
+                                            aspect_ratio: aspectRatio,
+                                            colors      : colorObject
+                                        };
+
+                                        // set the art object to the artworks node
+                                        artRef.child(artworkUID).set(artObject).then(()=>{
+                                            console.log(">>>>Artwork info set into DB");
+                                        }).catch((error)=>{
+                                            console.error(error);
+                                        });
+
+                                        //Now, add a pointer to the artwork object to the uploads album
+                                        uploadAlbumRef.transaction( (node)=>{
+                                            if (node == null) {
+                                                node = {0:artworkUID};
+                                            } else {
+                                                let currentLength   = Object.keys(node).length;
+                                                node[currentLength] = artworkUID;
+                                            }
+                                            return node; //finish transaction
+                                        }, (error,bool,snap)=>{
+                                                console.log(">>>Img set into album");
+                                                //At the end of the async flow, revoke the local url
+                                                //to free up cache space.
+                                                URL.revokeObjectURL(localURL);
+                                                //END  OF ASYNC FLOW
+                                        });
+                                    });//END upload promise and thenable
+                            });//END on-complete thumb  and on
+                        });//END toblob
+                    });//END fullsize upload thenable
+                });//END fullsize oncomplete and toBlob
+            });//END Onload image
+    }//END METHOD
+
+
+    /**
      * This method will take in an array of blobs, then for each blob
      * it will handle uploading, storing, and setting into the database.
      * @param  {[Array]} files [Array of Image blobs from the uploader]
      */
     setUploadedFiles = (files) => {
+        //FIXME use a toggle method?
         this.setState({
             uploadDialogIsOpen: true   // When we set files, we want to open Uplaod Dialog
         });
-        const thisUID = firebase.auth().currentUser.uid;
-        const pathToUserStorage = 'portal/' + thisUID;
 
-        // For each image that we upload, we need to:
-        // -Store the original copy in 'portal/{UID}/uploads/'
-        // -Make a thumbnail to save in 'portal/{UID}/thumbnails'
-        // - -Create an artwork object in the DB
-        // - -Add the artwork to the 'Uploads' album.
-        for (var i = 0; i < files.length; i++) {
-            let thisBlob = files[i];
-            let url      = thisBlob.preview;
-            let testImg  = new Image;
-            testImg.src  = url;
-            testImg.addEventListener(
-                /// FIXME it is costly to upload the full-size image and draw
-                /// FIXME it to a canvas just to read the dimensions.
-                ///
-                'load',
-                ()=>{
-                    //*Store the original upload, un-changed.
-                    //NOTE: 'task.on' args::on(event, next(snapshot), error(error), complete)
-                    firebase.storage().ref(pathToUserStorage+'/uploads/'+thisBlob.name).put(thisBlob).on(
-                        firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{
-                        },
-                        (error)=>{
-                            console.error(error);
-                        },
-                        ()=>{
-                            console.log(thisBlob.name, "upload complete!");
-                        }
-                    );
-
-                    //*make a thumbnail size copy and upload it as well.
-                    let ratio = testImg.width / testImg.height;
-                    let maxThumbnailHeight = Math.ceil(maxThumbnailWidth / ratio);
-                    this.makeThumbnail(thisBlob,maxThumbnailWidth,maxThumbnailHeight);
-                }
-            );
-        }//END For-loop
-    }
-
-    /**
-     * This method creates a canvas, creates an HTML5 Image, then
-     * dumps the blob into the Image and draws it to the canvas, which
-     * is then rendered into a blob object, which is passed on
-     * @param  {[Blob]} originalBlob [description]
-     * @param  {[Int]}  maxHeight    [description]
-     * @param  {[Int]}  maxWidth     [description]
-     */
-    makeThumbnail = (originalBlob, maxWidth, maxHeight) => {
-        const canvas  = document.createElement("canvas");
-        canvas.height = maxHeight + thumbNailPadding*2;
-        canvas.width  = maxWidth  + thumbNailPadding*2;
-        const ctx     = canvas.getContext("2d");
-        const img     = new Image();
-        let blobURL   = URL.createObjectURL(originalBlob);
-        img.src       = blobURL;
-        img.addEventListener(
-            'load',
-            ()=>{
-                console.log(originalBlob.name);
-                // ctx.clearRect(0,0,maxWidth,maxHeight);
-                // params: img, x0,y0,scaled width, scaled height
-                ctx.drawImage(
-                    img,
-                    thumbNailPadding,
-                    thumbNailPadding,
-                    maxWidth,
-                    maxHeight);
-                canvas.toBlob( (blob)=>{
-                    this.uploadThumbnail(blob,originalBlob.name,originalBlob.size);
-                });
-                URL.revokeObjectURL(blobURL); //clear cached image
-            }
-        );
-
-    }
-
-    /**
-     * [description]
-     * @param  {Blob} blob [blob of thumbnail to upload]
-     * @param  {String} name [the name of the file in storage]
-     * @return {[type]}      [description]
-     */
-    uploadThumbnail = (blob,name,originalSize) => {
-        const thisUID = firebase.auth().currentUser.uid;
-        const pathToUserStorage = 'portal/' + thisUID;
-
-        firebase.storage().ref(pathToUserStorage+'/thumbnails/'+name).put(blob).on(
-            firebase.storage.TaskEvent.STATE_CHANGED,
-            (snapshot)=>{
-                if (snapshot.downloadURL != null){
-                    let uploadInfo = {
-                        url :snapshot.downloadURL,
-                        size:originalSize,
-                        name:name
-                    };
-                    this.setState({
-                        uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
-                    });
-
-                    let artRef        = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
-                    // we refrence the artworks node, push to it to generate a child UID,
-                    // then use toString to get the absolute URL, split it, and pop the last item,
-                    // which is the artwork UID.
-                    // let artID     = artRef.push().toString().split('/').pop();
-                    let artID          = artRef.push().key;
-                    let uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
-
-                    let title = name.split(".")[0];
-                    let artist = "Self";
-
-                    if (
-                        this.state.userInfo != null &&
-                        this.state.userInfo != undefined &&
-                        this.state.userInfo.display_name != "Untitled Artist")
-                        {
-                            artist = this.state.userInfo.display_name;
-                        }
-
-                    //after upload, create an artwork object
-                    let artObject = {
-                        id      : artID,
-                        image   : snapshot.downloadURL,
-                        filename: name,
-                        title   : title,
-                        artist  : artist,
-                        album   : "Uploads",
-                        year    : new Date().getFullYear(),
-                        description: "",
-                        colors: {
-                            red   : false,
-                            yellow: false,
-                            blue  : false,
-                            green : false,
-                            orange: false,
-                            purple: false,
-                            brown : false,
-                            black : false,
-                            gray  : false,
-                            white : false
-                        },
-                        tags  : "art"
-                    };
-                    // set the art object to the artworks node
-                    artRef.child(artID).set(artObject);
-
-                    //Now, add a pointer to the artwork object to the uploads album
-                    uploadAlbumRef.transaction( (data)=>{
-                        if (data == null) {
-                            data = {0:artID};
-                        } else {
-                            let currentLength   = Object.keys(data).length;
-                            data[currentLength] = artID;
-                        }
-                        return data;
-                    }, (error,bool,snap)=>{
-                        console.log("album setting complete");
-                    });
-                }
-            },
-            (error)=>{
-                console.error(error);
-            },
-            ()=>{
-                console.log(blob.name, "upload complete!",blob);
-            }
-        );
+        for (let i = 0; i < files.length; i++) {
+            this.uploadArtToTekuma(files[i]);
+        }
     }
 
     // #Setter Methods
@@ -457,8 +506,11 @@ export default class AppView extends React.Component {
      * @param  {[JSON} data [edited user profile information fields]
      */
     editUserProfile = (data) => {
+        //TODO implement setting const paths in the begining of each method
+        //TODO to make the code more #RFC
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
+        const userPath    = `public/onboarders/${thisUID}`;
 
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
@@ -473,9 +525,9 @@ export default class AppView extends React.Component {
         }
 
         // If email is different than before, change it
-        if (data.email != thisUser.email) {
+        if (data.email != thisUser.email && data.email != null && data.email != undefined) {
             console.log(">>> Updating Email Address");
-            currentUser.updateEmail(data.email).then(
+            thisUser.updateEmail(data.email).then(
                 ()=>{
                     console.log("change email request sent to email");
                 },
@@ -487,37 +539,37 @@ export default class AppView extends React.Component {
 
         // Update all info fields (dob, name, bio, avatar, etc)
         if (data.hasOwnProperty('avatar')) {
-            firebase.storage().ref('profile/' + thisUID).put(data.avatar).on(
+            const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
+            const avatarRef   = firebase.storage().ref(avatarPath);
+
+            avatarRef.put(data.avatar).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
-                (snapshot)=>{
-                    if (snapshot.downloadURL != null) {
-                        data.avatar = snapshot.downloadURL;
-                        firebase.database().ref(pathToPublicOnboarder + thisUID)
-                        .update(data)
+                (snapshot)=>{  },
+                ()=>{},
+                ()=>{
+                    console.log(">> New Avatar Uploaded successfully");
+                    avatarRef.getDownloadURL().then( (avatarURL)=>{
+                        data.avatar = avatarURL;
+                        firebase.database().ref(userPath).update(data)
                         .then( ()=>{
+                            //FIXME use a toggle method?
                             this.setState({
                                 editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                             });
                         });
-                    }
-                },
-                ()=>{},
-                ()=>{
-                    console.log(">> Changed Avatar successfully");
+                    });
                 }
             );
         } else {
             // updating everything but avatar
-            let thisRef = firebase.database().ref(pathToPublicOnboarder + thisUID);
-            thisRef.update(data).then(()=>{
+            firebase.database().ref(userPath).update(data)
+            .then(()=>{
+                //FIXME use a toggle method?
                 this.setState({
                     editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                 });
             });
         }
-
-
-
     }
 
     /** TODO re-do this function to 'clean up' the database when deleting a user
@@ -566,21 +618,17 @@ export default class AppView extends React.Component {
      */
     changeArtworkAlbum = (artworkUID, oldName, newName) => {
         const thisUID  = firebase.auth().currentUser.uid;
-        let path = 'public/onboarders/'+thisUID+'/albums';
-        let albumRef   = firebase.database().ref(path);
-        albumRef.transaction( (snapshot) => {
-            let albumsLength = Object.keys(snapshot).length;
-            for (let i = 0; i < albumsLength; i++) {
-                if (snapshot[i]['name'] == oldName) {
+        let albumsPath = 'public/onboarders/'+thisUID+'/albums';
+        let albumsRef   = firebase.database().ref(albumsPath);
+        albumsRef.transaction( (node) => {
+            let albumsCount = Object.keys(node).length;
+            for (let i = 0; i < albumsCount; i++) {
+                if (node[i]['name'] == oldName) {
                     // remove the ID, then shift indexes manually
-                    console.log("Old name: ", oldName);
-                    console.log("Snapshot[i][name]: ", snapshot[i]['name']);
-                    let artworkLength = Object.keys(snapshot[i]['artworks']).length;
-                    console.log("Artworks Length: ", artworkLength);
-                    let artworksNode = snapshot[i]['artworks'];
-                    console.log("Artworks Node: ", snapshot[i]['artworks']);
+                    let artworksCount = Object.keys(node[i]['artworks']).length;
+                    let artworksNode = node[i]['artworks'];
                     let found = false;
-                    for (let j = 0; j < artworkLength; j++) {
+                    for (let j = 0; j < artworksCount; j++) {
                         if (found) {
                             let aheadValue = artworksNode[j];
                             artworksNode[j-1] = aheadValue;
@@ -590,20 +638,20 @@ export default class AppView extends React.Component {
                             found = true;
                         }
                     }
-                    delete artworksNode[artworkLength-1];
-                } else if (snapshot[i]['name'] == newName) {
+                    delete artworksNode[artworksCount-1];
+                } else if (node[i]['name'] == newName) {
                     // just add the ID at the end of the 'array'
-                    if (snapshot[i]['artworks'] != null && snapshot[i]['artworks'] != undefined){
-                        let artLength = Object.keys(snapshot[i]['artworks']).length;
-                        snapshot[i]['artworks'][artLength] = artworkUID;
-                        console.log("Artworks already: ", snapshot[i]['artworks']);
+                    if (node[i]['artworks'] != null && node[i]['artworks'] != undefined){
+                        let artLength = Object.keys(node[i]['artworks']).length;
+                        node[i]['artworks'][artLength] = artworkUID;
+                        console.log("Artworks already: ", node[i]['artworks']);
                     } else {
-                        snapshot[i]['artworks'] = {0: artworkUID};
+                        node[i]['artworks'] = {0: artworkUID};
                         console.log("No artworks");
                     }
                 }
             }
-            return snapshot;
+            return node;
         });
     }
 
@@ -613,33 +661,34 @@ export default class AppView extends React.Component {
      * @param  {String} id [UID of artwork to be deleted]
      */
     deleteArtwork = (id) => {
-        //delete from artworks branch
+        // Delete from public/onboarders/{uid}/artworks branch
         const thisUID = firebase.auth().currentUser.uid;
-        let thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
-        let thisPromise = thisArtworkReference.set(null);
-        thisPromise.then(function() {console.log("deletion success");});
-        //remove from albums
-        let allAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
-        allAlbumRef.transaction(function(data) {
-            let albumLength = Object.keys(data).length
-            console.log(albumLength, "albumLength");
-            for (var i = 0; i < albumLength; i++) {
-                let artworkLength = Object.keys(data[i]['artworks']).length;
-                console.log(artworkLength, "artworkLength");
+        const thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
+        thisArtworkReference.set(null).then(()=>{
+            console.log("Deletion successful");
+        });
+
+        // Remove the artwork pointer from the album via transaction, then
+        // shift indexes bc firebase uses de-abstracted arrays
+        let albumsRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
+        albumsRef.transaction( (node)=>{
+            let albumCount = Object.keys(node).length;
+            for (let i = 0; i < albumCount; i++) {
+                let artworksCount = Object.keys(node[i]['artworks']).length;
                 let found = false;
-                for (var j = 0; j < artworkLength; j++) {
+                for (let j = 0; j < artworksCount; j++) {
                     if (found) {
-                        let aheadObject = data[i]['artworks'][j];
-                        data[i]['artworks'][j-1] = aheadObject;
+                        let aheadObject = node[i]['artworks'][j];
+                        node[i]['artworks'][j-1] = aheadObject;
                     }
-                    if (data[i]['artworks'][j] == id) {
+                    if (node[i]['artworks'][j] == id) {
                         console.log("MATCH", id);
-                        delete data[i]['artworks'][j];
+                        delete node[i]['artworks'][j];
                         found = true;
                     }
                 }
-                delete data[i]['artworks'][artworkLength-1];
-                return data;
+                delete node[i]['artworks'][artworksCount-1];
+                return node;
             }
         });
 

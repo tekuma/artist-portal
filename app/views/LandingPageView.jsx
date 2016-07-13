@@ -1,5 +1,4 @@
-'use strict';
-import LandingPageLayout from '../components/landing-layouts/LandingPageLayout';
+import LandingPageLayout   from '../components/landing-layouts/LandingPageLayout';
 import SignUpLayoutOne     from '../components/landing-layouts/SignUpLayoutOne';
 import SignUpLayoutTwo     from '../components/landing-layouts/SignUpLayoutTwo';
 import {Popover} from 'react-bootstrap';
@@ -99,7 +98,7 @@ export default class LandingPageView extends React.Component {
                             })}
                         <li
                             className="solo-links left"
-                            onClick={this.props.nextStep}>
+                            onClick={this.props.toggleForgotPassword}>
                             <h3>Forgot your Password?</h3>
                         </li>
                         <button
@@ -167,7 +166,7 @@ export default class LandingPageView extends React.Component {
                           })}
                       <li
                           className="solo-links left"
-                          onClick={this.props.nextStep}>
+                          onClick={this.props.toggleForgotPassword}>
                           <h3>Forgot your Password?</h3>
                       </li>
                       <button
@@ -235,7 +234,7 @@ export default class LandingPageView extends React.Component {
                           })}
                       <li
                           className="solo-links left"
-                          onClick={this.props.nextStep}>
+                          onClick={this.props.toggleForgotPassword}>
                           <h3>Forgot your Password?</h3>
                       </li>
                       <button

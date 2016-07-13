@@ -25,10 +25,10 @@ export default class AlbumManager extends React.Component {
         albumRef.on("value", (snapshot) => {
             let albumJSON = snapshot.val();
 
-            let uploads = albumJSON[0];
+            let uploads   = albumJSON[0];
+            let albumKeys = Object.keys(albumJSON);
             delete albumJSON[0];
 
-            let albumKeys = Object.keys(albumJSON);
             let albumNames = ["Uploads"];
             for (var i = 0; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
@@ -47,6 +47,7 @@ export default class AlbumManager extends React.Component {
         }, null, this);
 
         // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+        console.log("Here are the albums:", this.state);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -138,7 +139,7 @@ export default class AlbumManager extends React.Component {
             console.log(albumLength, "albumLength");
             console.log("data:" ,data);
             return data;
-        }, function(){
+        }, ()=>{
             console.log(">>addAlbum successful");
         });
 

@@ -1,3 +1,10 @@
+/*
+ *  Root of Artist.tekuma.io: Web framework build on
+ *  Firebase+ReactJS, written in JS ES6 compiled with babelJS,
+ *  Bundled with webpack and NPM.
+ *  written for Tekuma Inc, summer 2016 by:
+ *  Stephen White and Afika Nyati
+ */
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
@@ -6,6 +13,7 @@ import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ResetPasswordView  from './views/ResetPasswordView';
 import ForgotPasswordView from './views/ForgotPasswordView';
+
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
@@ -37,12 +45,12 @@ export default class App extends React.Component {
             login       : {},
             loggedIn    : null,
             loaded      : false,
-            forgotPassword: false
+            forgotPass  : false
         };
     }
 
     /**
-     * Force a re-render on every state change
+     * Force a re-render on every state change at root JSX
      * @param  {} nestProps [description]
      * @param  {} nextState [description]
      * @return {Boolean} if the component should re-render
@@ -52,7 +60,7 @@ export default class App extends React.Component {
     }
 
     /**
-     * [componentWillMount description]
+     * What Happens as the component mounts
      */
     componentWillMount() {
         firebase.auth().onAuthStateChanged( (user)=>{
@@ -66,6 +74,7 @@ export default class App extends React.Component {
 
     render() {
         console.log("||++>>>Rendering root app...");
+        // Show loading animation if not loaded
         if (!this.state.loaded) {
             return (
                 <div className="layout-centered">
@@ -80,6 +89,8 @@ export default class App extends React.Component {
         } else {
             if (this.state.loggedIn) {
                 return this.goToArtistPortal();
+            } else if (this.state.forgotPass) {
+                return this.goToForgotPassword();
             } else {
                 return this.goToLandingPage();
             }
@@ -122,15 +133,39 @@ export default class App extends React.Component {
                 submitRegistration      ={this.submitRegistration}
                 saveRegistration        ={this.saveRegistration}
                 clearRegistration       ={this.clearRegistration}
+                toggleForgotPassword    ={this.toggleForgotPassword}
                 clearErrors             ={this.clearErrors}
                 errors                  ={this.state.errors}
                 user                    ={this.state.user}
+
             />
         )
     }
 
+    /**
+     * Flow control Function: if a user selects the "forgot password" button,
+     * flow them into the forgot password interface.
+     * @return {JSX} [forgot password views]
+     */
+    goToForgotPassword = () => {
+        return(
+            <ForgotPasswordView
+                errors                  ={this.state.errors}
+            />
+        )
+    }
+
+
     // #Mutator Methods
     // NOTE: Always use methods to setState, never directly mutate state.
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    toggleForgotPassword = () => {
+        this.setState({forgotPass:!this.state.forgotPass});
+    }
 
     /**
      * Mutates state to include registration infromation for new users.
@@ -174,6 +209,7 @@ export default class App extends React.Component {
     }
 
     // #Authentication Methods
+    // TODO Add createdAt 
 
     /**
      * This function will launch a pop-up with the Google Provider object,
@@ -230,8 +266,8 @@ export default class App extends React.Component {
      */
     authenticateWithPassword = (data) => {
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        .then( () => {
-            console.log(">Password Auth successful");
+        .then( (thisUser) => {
+            console.log(">Password Auth successful for:", thisUser.displayName);
         }).catch( (error) => {
             console.error(error);
             this.setState({
@@ -253,67 +289,113 @@ export default class App extends React.Component {
      * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
-        console.log("|>Submitted registration.");
+        const thisUID    = thisUser.uid;
+        const usersRef   = firebase.database().ref('public/onboarders');
+
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
-            const thisUID = thisUser.uid;
-            console.log(thisUser, "THIS USER!!");
 
-            // Instantiate public/onboarders/thisUID
-            const usersRef = firebase.database().ref('public/onboarders');
+            // First, Send email verified email
+            thisUser.sendEmailVerification().then(()=>{
+                console.log("Verification Email sent to", thisUser.email);
+                //TODO display in a snackbar message
+            });
+
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
-                console.log(this.state.registration.avatar, "AVATAR");
                 if (!snapshot.child(thisUID).exists()) {
-                    // Setting onboarder info (if registered)
-                    let dob = "",
-                        avatar = "",
-                        gender = "",
-                        bio = "",
-                        location = "",
-                        portfolio = "",
-                        legal_age = false;
+                    //Set defaults
+                    let dob          = "",
+                        gender       = "",
+                        bio          = "",
+                        location     = "",
+                        portfolio    = "",
+                        display_name = "",
+                        legal_age    = false,
+                        avatar       = "";
 
+                    //Check for info Submitted, if so override defaults
+                    if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
+                       dob = this.state.registration.dob;
+                    }
+                    if (this.state.registration.gender != undefined && this.state.registration.gender != null) {
+                       gender = this.state.registration.gender_pronoun;
+                    }
+                    if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
+                       bio = this.state.registration.bio;
+                    }
+                    if (this.state.registration.location != undefined && this.state.registration.location != null) {
+                       location = this.state.registration.location;
+                    }
+                    if (this.state.registration.portfolio != undefined && this.state.registration.portfolio != null) {
+                       portfolio = this.state.registration.portfolio;
+                    }
+                    if (this.state.registration.display_name != undefined && this.state.registration.display_name != null) {
+                       display_name = this.state.registration.display_name;
+                    }
+                    if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
+                       portfolio = this.state.registration.portfolio;
+                    }
 
-                    //
-                    firebase.storage().ref('portal/'+thisUID+'/avatars').put(this.state.registration.avatar).on(
-                        firebase.storage.TaskEvent.STATE_CHANGED,
-                        (snapshot)=>{
-                            if (snapshot.downloadURL != null) {
-                                usersRef.child(thisUID).set({
-                                    albums        : { 0: {
-                                        name:"Uploads"
-                                    }},
-                                    auth_provider   : "password",
-                                    email           : this.state.registration.email,
-                                    display_name    : this.state.registration.display_name,
-                                    legal_name      : this.state.registration.legal_name,
-                                    avatar          : snapshot.downloadURL,
-                                    dob             : this.state.registration.dob,
-                                    gender_pronoun  : this.state.registration.gender_pronoun,
-                                    bio             : this.state.registration.bio,
-                                    location        : this.state.registration.location,
-                                    portfolio       : this.state.registration.portfolio,
-                                    over_eighteen   : false
+                    // Now, check if user uploaded an avatar
+                    if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
+                        //If the user chose to upload an avatar
+                        const avatarPath = `portal/${thisUID}/avatars/${this.state.registration.avatar.name}`;
+                        const avatarRef  = firebase.storage().ref(avatarPath);
+                        avatarRef.put(this.state.registration.avatar).on(
+                            firebase.storage.TaskEvent.STATE_CHANGED,
+                            (snapshot)=>{ //On-state changed
+                            },
+                            (error)=>{ // on-catch
+                                console.error(error);
+                            },
+                            ()=>{ //on-complete
+                                console.log("success in avatar upload");
+                                avatarRef.getDownloadURL().then( (avatarURL)=>{
+                                    //Define an Onboarder object, and populate:
+                                    usersRef.child(thisUID).set({
+                                        albums        : { 0: {
+                                            name:"Uploads"
+                                        }},
+                                        auth_provider   : "password",
+                                        email           : this.state.registration.email,
+                                        display_name    : display_name,
+                                        avatar          : avatarURL,
+                                        dob             : dob,
+                                        gender_pronoun  : gender_pronoun,
+                                        bio             : bio,
+                                        location        : location,
+                                        portfolio       : portfolio,
+                                        over_eighteen   : legal_age
+                                    });
                                 });
                             }
-                        },
-                        (error)=>{
-                            console.error(error);
-                        },
-                        ()=>{
-                            console.log("success in avatar upload");
-                        }
-                    );
+                        );
 
-
-                    console.log(">>User Submitted To Database!");
+                    } else { // no avatar
+                        usersRef.child(thisUID).set({
+                            albums        : { 0: {
+                                name:"Uploads"
+                            }},
+                            auth_provider   : "password",
+                            email           : this.state.registration.email,
+                            display_name    : display_name,
+                            avatar          : "",
+                            dob             : dob,
+                            gender_pronoun  : gender_pronoun,
+                            bio             : bio,
+                            location        : location,
+                            portfolio       : portfolio,
+                            over_eighteen   : legal_age
+                        });
+                    }
+                console.log(">>User Submitted To Onboarders!");
                 }
             }, (error) => {
                 console.error(error);
             }, this);
 
-            //Instantiate public/products/thisUID
+            //>>>> Instantiate public/products/thisUID
             const productsRef = firebase.database().ref('public/products');
             productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -324,18 +406,22 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/onboarders/thisUID
+            //>>>> Instantiate _private/onboarders/thisUID
             const _userRef = firebase.database().ref('_private/onboarders');
             _userRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
                 if (!snapshot.child(thisUID).exists()) {
-                    _userRef.child(thisUID).set({legal_name: this.state.registration.legal_name});
+                    // Define a private Onboarders Object, and populate
+                    // TODO what other information goes in private?
+                    _userRef.child(thisUID).set({
+                        legal_name: this.state.registration.legal_name
+                    });
                 }
             }, (error) => {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/products/thisUID
+            //>>>> Instantiate _private/products/thisUID
             const _productsRef = firebase.database().ref('_private/products');
             _productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -366,7 +452,7 @@ export default class App extends React.Component {
         const thisUID = user.uid;
         let isNewUser = true;
 
-        // Instantiate public/onboarders/thisUID
+        //>>>> Instantiate public/onboarders/thisUID
         // and check if isNewUser.
         const usersRef = firebase.database().ref('public/onboarders');
         usersRef.once('value').then( (snapshot) => {
@@ -374,7 +460,6 @@ export default class App extends React.Component {
             if (!snapshot.child(thisUID).exists()) {
                 isNewUser = true;
 
-                console.log("User :", user);
                 // Setting Onboarder name
                 let thisDisplayName = "Untitled Artist";
                 if (user.displayName !== undefined && user.displayName !== null) {
@@ -419,7 +504,7 @@ export default class App extends React.Component {
         }, this);
 
         if (isNewUser) {
-            //Instantiate public/products/thisUID
+            //>>>> Instantiate public/products/thisUID
             const productsRef = firebase.database().ref('public/products');
             productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -430,7 +515,7 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/onboarders/thisUID
+            //>>>> Instantiate _private/onboarders/thisUID
             const _userRef = firebase.database().ref('_private/onboarders');
             _userRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
@@ -441,7 +526,7 @@ export default class App extends React.Component {
                 console.error(error);
             }, this);
 
-            //Instantiate _private/products/thisUID
+            //>>>> Instantiate _private/products/thisUID
             const _productsRef = firebase.database().ref('_private/products');
             _productsRef.once('value').then( (snapshot) => {
                 //check if user already exists in at node, if not:
