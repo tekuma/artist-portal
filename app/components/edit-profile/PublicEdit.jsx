@@ -61,7 +61,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.display_name ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"display_name")}>
                             <h2 className="accordion-item-heading">Display Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.display_name}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.display_name != "" ? this.props.userInfo.display_name : "Unset"}</h3>
                         </div>
                         <div
                             id="display-name-content"
@@ -123,7 +123,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.bio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"bio")}>
                             <h2 className="accordion-item-heading">Bio</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.bio.substring(0, 44) + "..."}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.bio != "" ? this.props.userInfo.bio.substring(0, 44) + "..." : "Unset"}</h3>
                         </div>
                         <div
                             id="bio-content"
@@ -138,7 +138,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"location")}>
                             <h2 className="accordion-item-heading">Location</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.location}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.location != "" ? this.props.userInfo.location : "Unset"}</h3>
                         </div>
                         <div
                             id="location-content"
@@ -151,10 +151,10 @@ export default class PublicEdit extends React.Component {
                             defaultValue={this.props.userInfo.location} />
                         </div>
                         <div
-                            className={this.state.accordion.email ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            className={this.state.accordion.portfolio ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.portfolio}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.portfolio != "" ? this.props.userInfo.portfolio : "Unset"}</h3>
                         </div>
                         <div
                             id="portfolio-content"
@@ -238,15 +238,7 @@ export default class PublicEdit extends React.Component {
             this.props.editUserProfile(data);
             console.log("edited data: ", data);
             console.log("edited profile");
-            this.setState({
-                accordion: {
-                    display_name: false,
-                    avatar: false,
-                    bio: false,
-                    location: false,
-                    portfolio: false
-                }
-            });
+
         }
         console.log(this.state.errors);
 
