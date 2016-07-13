@@ -1,4 +1,4 @@
-import React from 'react';
+import React            from 'react';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -12,12 +12,15 @@ export default class PublicEdit extends React.Component {
             avatarUploaded: false,
             avatarPreview: "",
             avatar: [],
+            gender: "",
             accordion: {
                 display_name: false,
                 avatar: false,
                 bio: false,
                 location: false,
-                portfolio: false
+                portfolio: false,
+                age: false,
+                pronoun: false
             },
             errorType: {},
             errors: [],
@@ -151,7 +154,7 @@ export default class PublicEdit extends React.Component {
                             defaultValue={this.props.userInfo.location} />
                         </div>
                         <div
-                            className={this.state.accordion.portfolio ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
                             <h3 className="accordion-item-preview">{this.props.userInfo.portfolio != "" ? this.props.userInfo.portfolio : "Unset"}</h3>
@@ -165,6 +168,127 @@ export default class PublicEdit extends React.Component {
                             ref="portfolio"
                             placeholder="Portfolio/Website"
                             defaultValue={this.props.userInfo.portfolio} />
+                        </div>
+                        <div
+                            className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"age")}>
+                            <h2 className="accordion-item-heading">Age</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.dob != "" ? this.props.userInfo.dob : "Unset"}</h3>
+                        </div>
+                        <div
+                            id="age-content"
+                            className={this.state.accordion.age ? "accordion-content open" : "accordion-content"}>
+                            <label for="edit-age">Date of Birth: </label>
+                            <div id="accordion-dob" className="accordion-dob">
+                                <div className="controls controls-month">
+                                    <select
+                                        id="accordion-dob-month"
+                                        className="dob"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[1] : null}
+                                        ref="dobMonth"
+                                        style={this.state.errorType.month? errorStyle : null}>
+                                        <option value="" disabled="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div className="controls controls-day">
+                                    <input
+                                        type="number"
+                                        id="accordion-dob-day"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[0] : null}
+                                        className="dob"
+                                        ref="dobDay"
+                                        style={this.state.errorType.day ? errorStyle : null}
+                                        placeholder="Day"
+                                        pattern="[0-9]*"
+                                        maxLength="2"
+                                        min="1"
+                                        max="31" />
+                                </div>
+                                <div className="controls controls-year">
+                                    <input
+                                        type="number"
+                                        id="accordion-dob-year"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[2] : null}
+                                        className="dob"
+                                        ref="dobYear"
+                                        style={this.state.errorType.year ? errorStyle : null}
+                                        placeholder="Year"
+                                        pattern="[0-9]*"
+                                        maxLength="4" />
+                                </div>
+                            </div>
+                            <label className="age-confirm-label">
+                                <input
+                                    type="checkbox"
+                                    id="over-eighteen-checkbox"
+                                    ref="overEighteen"
+                                    defaultChecked={this.props.userInfo.over_eighteen} />
+                                    I confirm that I am 18+
+                            </label>
+                        </div>
+                        <div
+                            className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            onClick={this.toggleAccordion.bind({},"pronoun")}>
+                            <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.gender_pronoun != "" ? this.props.userInfo.gender_pronoun : "Unset"}</h3>
+                        </div>
+                        <div
+                            id="pronoun-content"
+                            className={this.state.accordion.pronoun ? "accordion-content open" : "accordion-content"}>
+                            <label
+                                for="edit-she"
+                                className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-she"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="She"
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "She"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                She
+                          </label>
+                          <label
+                              for="edit-he"
+                              className="gender-radio control-inline">
+                              <input
+                                  type="radio"
+                                  id="edit-he"
+                                  name="gender"
+                                  className="reg-radio"
+                                  defaultValue="He"
+                                  defaultChecked={this.props.userInfo.gender_pronoun == "He"}
+                                  onChange={this.setGender}
+                                  required="" />
+                              He
+                        </label>
+                        <label
+                            for="edit-they"
+                            className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-they"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="They"
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "They"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                They
+                            </label>
                         </div>
                     </article>
                     <button
@@ -194,6 +318,13 @@ export default class PublicEdit extends React.Component {
         });
     }
 
+    setGender = (e) => {
+        this.setState({
+            gender: e.target.value
+        });
+        console.log(e.target.value);
+    }
+
     saveProfileInfo = (e) => {
         e.preventDefault();
         console.log("entered save profile");
@@ -207,6 +338,14 @@ export default class PublicEdit extends React.Component {
         let bio = this.refs.bio.value;
         let location = this.refs.location.value;
         let portfolio = this.refs.portfolio.value;
+
+        let day = this.refs.dobDay.value;
+        let month = this.refs.dobMonth.value;
+        let year = this.refs.dobYear.value;
+        let overEighteen = this.refs.overEighteen.checked;
+        data.over_eighteen = overEighteen;
+
+        let gender = this.state.gender;
 
         // Public Validations
         if(displayName.length > 0) {
@@ -229,6 +368,48 @@ export default class PublicEdit extends React.Component {
             data.portfolio = portfolio;
         }
 
+        if(day.length > 0 && day.length > 2) {
+            this.state.errors.push("Please enter a valid day of the month.");
+
+            let errorType = this.state.errorType;
+            errorType.day = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if(month.length > 0 && month.length > 2) {
+            this.state.errors.push("Please enter a valid month.");
+
+            let errorType = this.state.errorType;
+            errorType.month = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
+            this.state.errors.push("Please enter a valid year.");
+
+            let errorType = this.state.errorType;
+            errorType.year = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if((day.length == 1 || day.length == 2) &&
+            (month.length == 1 || month.length == 2) &&
+            year.length == 4) {
+            data.dob = day + "-" + month + "-" + year;
+        } else {
+
+        }
+
+        if(gender.length > 0) {
+            data.gender_pronoun =  gender;
+        }
+
         // Rerender the component to show errors
         this.forceUpdate();
 
@@ -238,6 +419,18 @@ export default class PublicEdit extends React.Component {
             this.props.editPublicUserInfo(data);
             console.log("edited data: ", data);
             console.log("edited profile");
+            
+            this.setState({
+                accordion: {
+                    display_name: false,
+                    avatar: false,
+                    bio: false,
+                    location: false,
+                    portfolio: false,
+                    age: false,
+                    pronoun: false
+                }
+            })
 
         }
         console.log(this.state.errors);
