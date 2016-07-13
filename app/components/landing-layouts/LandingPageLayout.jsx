@@ -1,4 +1,3 @@
-'use strict';
 import React           from 'react';
 import LoggedOffHeader from '../headers/LoggedOffHeader';
 import uuid from 'node-uuid';
