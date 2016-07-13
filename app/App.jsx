@@ -209,7 +209,7 @@ export default class App extends React.Component {
     }
 
     // #Authentication Methods
-    // TODO Add createdAt 
+    // TODO Add createdAt
 
     /**
      * This function will launch a pop-up with the Google Provider object,
@@ -289,12 +289,11 @@ export default class App extends React.Component {
      * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
-        const thisUID    = thisUser.uid;
         const usersRef   = firebase.database().ref('public/onboarders');
 
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
-
+            const thisUID    = thisUser.uid;
             // First, Send email verified email
             thisUser.sendEmailVerification().then(()=>{
                 console.log("Verification Email sent to", thisUser.email);
@@ -304,22 +303,23 @@ export default class App extends React.Component {
             usersRef.once('value').then( (snapshot) => {
                 //check if user already exists at node
                 if (!snapshot.child(thisUID).exists()) {
+                    console.log("working");
                     //Set defaults
-                    let dob          = "",
-                        gender       = "",
-                        bio          = "",
-                        location     = "",
-                        portfolio    = "",
-                        display_name = "",
-                        legal_age    = false,
-                        avatar       = "";
+                    let dob            = "",
+                        gender_pronoun = "",
+                        bio            = "",
+                        location       = "",
+                        portfolio      = "",
+                        display_name   = "",
+                        legal_age      = false,
+                        avatar         = "";
 
                     //Check for info Submitted, if so override defaults
                     if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
                        dob = this.state.registration.dob;
                     }
                     if (this.state.registration.gender != undefined && this.state.registration.gender != null) {
-                       gender = this.state.registration.gender_pronoun;
+                       gender_pronoun = this.state.registration.gender_pronoun;
                     }
                     if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
                        bio = this.state.registration.bio;
@@ -336,6 +336,7 @@ export default class App extends React.Component {
                     if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
                        portfolio = this.state.registration.portfolio;
                     }
+
 
                     // Now, check if user uploaded an avatar
                     if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
@@ -393,6 +394,7 @@ export default class App extends React.Component {
                 }
             }, (error) => {
                 console.error(error);
+                console.log("didnt make user :( ");
             }, this);
 
             //>>>> Instantiate public/products/thisUID
@@ -413,8 +415,12 @@ export default class App extends React.Component {
                 if (!snapshot.child(thisUID).exists()) {
                     // Define a private Onboarders Object, and populate
                     // TODO what other information goes in private?
+                    let legal_name = "no_legal_name_given";
+                    if (this.state.registration.legal_name != undefined && this.state.registration.legal_name != null) {
+                       legal_name = this.state.registration.legal_name;
+                    }
                     _userRef.child(thisUID).set({
-                        legal_name: this.state.registration.legal_name
+                        legal_name: legal_name
                     });
                 }
             }, (error) => {

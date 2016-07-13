@@ -1,6 +1,38 @@
-{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
+{ "rules": {
+    // BEGIN Rules
+    // NOTE: Access is denied by default, a rule MUST be defined for access.
+
+    // Set rules for public branch //global read access?
+    "public":{
+        "onboarders" :{
+            "$thisUID" :{
+                ".write" :"auth.uid === $thisUID",
+                ".read"  :"auth.uid === $thisUID"
+            }
+        },
+        "products" :{
+            "$thisUID" :{
+                ".write" :"auth.uid === $thisUID",
+                ".read"  :"auth.uid === $thisUID"
+            }
+        }
+    },
+
+    // Set rules for Private branch
+    "_private": {
+        "onboarders": {
+            "$thisUID" : {
+                ".write" :"auth.uid === $thisUID",
+                ".read"  :"auth.uid === $thisUID"
+            }
+        },
+        "products" :{
+            "$thisUID" :{
+                ".write" :"auth.uid === $thisUID",
+                ".read"  :"auth.uid === $thisUID"
+            }
+        }
+    }
+
+//END
+}}
