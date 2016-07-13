@@ -525,9 +525,9 @@ export default class AppView extends React.Component {
         }
 
         // If email is different than before, change it
-        if (data.email != thisUser.email) {
+        if (data.email != thisUser.email && data.email != null && data.email != undefined) {
             console.log(">>> Updating Email Address");
-            currentUser.updateEmail(data.email).then(
+            thisUser.updateEmail(data.email).then(
                 ()=>{
                     console.log("change email request sent to email");
                 },
