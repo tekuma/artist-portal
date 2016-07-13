@@ -1,7 +1,7 @@
-import React from 'react';
-import Dropzone from 'react-dropzone';
-import confirm from '../confirm-dialog/ConfirmFunction';
-import Snackbar from 'material-ui/Snackbar';
+import React            from 'react';
+import Dropzone         from 'react-dropzone';
+import confirm          from '../confirm-dialog/ConfirmFunction';
+import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -17,7 +17,19 @@ export default class EditProfileLayout extends React.Component {
             currentError: "",
             gender: "",
             avatar: [],
-            currentEditLayout: "public"
+            currentEditLayout: "public",
+            accordion: {
+                display_name: false,
+                avatar: false,
+                bio: false,
+                location: false,
+                portfolio: false,
+                legal_name: false,
+                email: false,
+                password: false,
+                age: false,
+                pronoun: false
+            }
         }
     }
 
@@ -62,112 +74,115 @@ export default class EditProfileLayout extends React.Component {
                     </div>
                 </div>
                 <div className ="scroll-edit-profile">
-                    <article className="public-edit">
-                        <ul className="accordion">
-                            <li>
-                                <input id="ac-1" type="checkbox" />
-                                <label htmlFor="ac-1">
-                                    <h2 className="accordion-item-heading">Display Name</h2>
-                                    <h3 className="accordion-item-preview">{this.props.userInfo.display_name}</h3>
-                                </label>
-                                <div id="display-name-content" className="ac-content">
-                                    <input
-                                    type="text"
-                                    id="edit-displayname"
-                                    defaultValue={this.props.userInfo.display_name}
-                                    ref="displayname"
-                                    placeholder="Display Name"
-                                    required=""
-                                    maxLength="50"
-                                    autoCapitalize="off"
-                                    autoComplete="off"
-                                    autoCorrect="off" />
-                                </div>
-                            </li>
-                            <li>
-                                <input id="ac-2" type="checkbox" />
-                                <label htmlFor="ac-2">
-                                    <h2 className="accordion-item-heading">Avatar</h2>
-                                    <div className="accordion-item-avatar-wrapper">
-                                        <div
-                                        className="accordion-item-avatar"
-                                        style={avatarStyle}></div>
-                                    </div>
-                                </label>
-                                <div id="avatar-content" className="ac-content">
-                                    <Dropzone
-                                        className="edit-profile-avatar-wrapper"
-                                        accept="image/*"
-                                        onDrop={this.onDrop}>
-                                        <img
-                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                                            src="../assets/images/icons/person-beige.svg" />
-                                        <h3
-                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                                            className="upload-writing big">
-                                            Click to Upload your Photo
-                                        </h3>
-                                        <h3
-                                            style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                                            className="upload-writing small">
-                                            or Simply Drag it Here
-                                        </h3>
-                                        <img
-                                            id="uploaded-avatar"
-                                            style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
-                                            src={this.props.userInfo.avatar} />
-                                        <img
-                                            id="uploaded-avatar"
-                                            style={{display: this.state.avatarUploaded ? "block" : "none" }}
-                                            src={this.state.avatarPreview} />
-                                    </Dropzone>
-                                </div>
-                            </li>
-                            <li>
-                                <input id="ac-3" type="checkbox" />
-                                <label htmlFor="ac-3">
-                                    <h2 className="accordion-item-heading">Bio</h2>
-                                    <h3 className="accordion-item-preview">{this.props.userInfo.bio.substring(0, 44) + "..."}</h3>
-                                </label>
-                                <div id="bio-content" className="ac-content">
-                                    <textarea
-                                        className="bio"
-                                        placeholder="Bio"
-                                        ref="bio"
-                                        defaultValue={this.props.userInfo.bio}></textarea>
-                                </div>
-                            </li>
-                            <li>
-                                <input id="ac-4" type="checkbox" />
-                                <label htmlFor="ac-4">
-                                    <h2 className="accordion-item-heading">Location</h2>
-                                    <h3 className="accordion-item-preview">Boston, MA</h3>
-                                </label>
-                                <div id="location-content" className="ac-content">
-                                    <input
-                                    type="text"
-                                    id="edit-location"
-                                    ref="location"
-                                    placeholder="Location"
-                                    defaultValue={this.props.userInfo.location} />
-                                </div>
-                            </li>
-                            <li>
-                                <input id="ac-5" type="checkbox" />
-                                <label htmlFor="ac-5">
-                                    <h2 className="accordion-item-heading">Portfolio</h2>
-                                    <h3 className="accordion-item-preview">http://afikanyati.com</h3>
-                                </label>
-                                <div id="portfolio-content" className="ac-content">
-                                    <input
-                                    type="text"
-                                    id="edit-portfolio"
-                                    ref="portfolio"
-                                    placeholder="Portfolio/Website"
-                                    defaultValue={this.props.userInfo.portfolio} />
-                                </div>
-                            </li>
-                        </ul>
+                    <article className="edit-accordion">
+                        <div
+                            className={this.state.accordion.display_name ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"display_name")}>
+                            <h2 className="accordion-item-heading">Display Name</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.display_name}</h3>
+                        </div>
+                        <div
+                            id="display-name-content"
+                            className={this.state.accordion.display_name ? "accordion-content open" : "accordion-content"}>
+                            <input
+                            type="text"
+                            id="edit-displayname"
+                            defaultValue={this.props.userInfo.display_name}
+                            ref="displayname"
+                            placeholder="Display Name"
+                            required=""
+                            maxLength="50"
+                            autoCapitalize="off"
+                            autoComplete="off"
+                            autoCorrect="off" />
+                        </div>
+                        <div
+                            className={this.state.accordion.avatar ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"avatar")}>
+                            <h2 className="accordion-item-heading">Avatar</h2>
+                            <div className="accordion-item-avatar-wrapper">
+                                <div
+                                className="accordion-item-avatar"
+                                style={avatarStyle}></div>
+                            </div>
+                        </div>
+                        <div
+                            id="avatar-content"
+                            className={this.state.accordion.avatar ? "accordion-content open" : "accordion-content"}>
+                            <Dropzone
+                                className="edit-profile-avatar-wrapper"
+                                accept="image/*"
+                                onDrop={this.onDrop}>
+                                <img
+                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    src="../assets/images/icons/person-beige.svg" />
+                                <h3
+                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    className="upload-writing big">
+                                    Click to Upload your Photo
+                                </h3>
+                                <h3
+                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    className="upload-writing small">
+                                    or Simply Drag it Here
+                                </h3>
+                                <img
+                                    id="uploaded-avatar"
+                                    style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
+                                    src={this.props.userInfo.avatar} />
+                                <img
+                                    id="uploaded-avatar"
+                                    style={{display: this.state.avatarUploaded ? "block" : "none" }}
+                                    src={this.state.avatarPreview} />
+                            </Dropzone>
+                        </div>
+                        <div
+                            className={this.state.accordion.bio ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"bio")}>
+                            <h2 className="accordion-item-heading">Bio</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.bio.substring(0, 44) + "..."}</h3>
+                        </div>
+                        <div
+                            id="bio-content"
+                            className={this.state.accordion.bio ? "accordion-content open" : "accordion-content"}>
+                            <textarea
+                                className="bio"
+                                placeholder="Bio"
+                                ref="bio"
+                                defaultValue={this.props.userInfo.bio}></textarea>
+                        </div>
+                        <div
+                            className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"location")}>
+                            <h2 className="accordion-item-heading">Location</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.location}</h3>
+                        </div>
+                        <div
+                            id="location-content"
+                            className={this.state.accordion.location ? "accordion-content open" : "accordion-content"}>
+                            <input
+                            type="text"
+                            id="edit-location"
+                            ref="location"
+                            placeholder="Location"
+                            defaultValue={this.props.userInfo.location} />
+                        </div>
+                        <div
+                            className={this.state.accordion.email ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            onClick={this.toggleAccordion.bind({},"portfolio")}>
+                            <h2 className="accordion-item-heading">Portfolio</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.portfolio}</h3>
+                        </div>
+                        <div
+                            id="portfolio-content"
+                            className={this.state.accordion.portfolio ? "accordion-content open" : "accordion-content"}>
+                            <input
+                            type="text"
+                            id="edit-portfolio"
+                            ref="portfolio"
+                            placeholder="Portfolio/Website"
+                            defaultValue={this.props.userInfo.portfolio} />
+                        </div>
                     </article>
                     <button
                         className="edit-profile-save-button"
@@ -220,212 +235,217 @@ export default class EditProfileLayout extends React.Component {
                     </div>
                 </div>
                 <div className ="scroll-edit-profile">
-                    <article className="private-edit">
-                        <ul className="accordion">
-                            <li>
-                                <input id="ac-6" type="checkbox" />
-                                <label htmlFor="ac-6">
-                                    <h2 className="accordion-item-heading">Legal Name</h2>
-                                    <h3 className="accordion-item-preview">{this.props.userInfo.legal_name}</h3>
-                                </label>
-                                <div id="legal-name-content" className="ac-content">
-                                        <input
-                                        type="text"
-                                        id="edit-legalname"
-                                        defaultValue={this.props.userInfo.legal_name}
-                                        ref="legalname"
-                                        style={this.state.errorType.legalName ? errorStyle : null}
-                                        placeholder="Legal Name"
-                                        required=""
-                                        maxLength="50"
-                                        autoCapitalize="off"
-                                        autoComplete="off"
-                                        autoCorrect="off" />
+                    <article className="edit-accordion">
+                        <div
+                            className={this.state.accordion.legal_name ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"legal_name")}>
+                            <h2 className="accordion-item-heading">Legal Name</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.legal_name}</h3>
+                        </div>
+                        <div
+                            id="legal-name-content"
+                            className={this.state.accordion.legal_name ? "accordion-content open" : "accordion-content"}>
+                                <input
+                                type="text"
+                                id="edit-legalname"
+                                defaultValue={this.props.userInfo.legal_name}
+                                ref="legalname"
+                                style={this.state.errorType.legalName ? errorStyle : null}
+                                placeholder="Legal Name"
+                                required=""
+                                maxLength="50"
+                                autoCapitalize="off"
+                                autoComplete="off"
+                                autoCorrect="off" />
+                        </div>
+                        <div
+                            className={this.state.accordion.email ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"email")}
+                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            <h2 className="accordion-item-heading">Email</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.email}</h3>
+                        </div>
+                        <div
+                            id="email-content"
+                            className={this.state.accordion.email ? "accordion-content open" : "accordion-content"}
+                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            <input
+                                type="email"
+                                id="edit-email"
+                                defaultValue={this.props.userInfo.email}
+                                ref="email"
+                                style={this.state.errorType.email ? errorStyle : null}
+                                placeholder="Email"
+                                required="true"
+                                maxLength="100" />
+                                <input
+                                    type="password"
+                                    id="edit-password"
+                                    ref="emailPassword"
+                                    placeholder="Current Password"
+                                    required="true"
+                                    maxLength="100"
+                                    autoComplete="off" />
+                        </div>
+                        <div
+                            className={this.state.accordion.password ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"password")}
+                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            <h2 className="accordion-item-heading">Password</h2>
+                            <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
+                        </div>
+                        <div
+                            id="password-content"
+                            className={this.state.accordion.password ? "accordion-content open" : "accordion-content"}
+                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            <input
+                                type="password"
+                                id="edit-password"
+                                ref="currentPassword"
+                                style={this.state.errorType.currentPassword ? errorStyle : null}
+                                placeholder="Current Password"
+                                required="true"
+                                maxLength="100"
+                                autoComplete="off" />
+                            <input
+                                type="password"
+                                id="edit-password"
+                                ref="password"
+                                style={this.state.errorType.password ? errorStyle : null}
+                                placeholder="New Password"
+                                required="true"
+                                maxLength="100"
+                                autoComplete="off" />
+                            <input
+                                type="password"
+                                id="edit-confirm-password"
+                                ref="confirmPassword"
+                                style={this.state.errorType.confirmPassword ? errorStyle : null}
+                                placeholder="Confirm Password"
+                                required="true"
+                                maxLength="100" />
+                        </div>
+                        <div
+                            className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"age")}>
+                            <h2 className="accordion-item-heading">Age</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.dob}</h3>
+                        </div>
+                        <div
+                            id="age-content"
+                            className={this.state.accordion.age ? "accordion-content open" : "accordion-content"}>
+                            <label for="edit-age">Date of Birth: </label>
+                            <div id="accordion-dob" className="accordion-dob">
+                                <div className="controls controls-month">
+                                    <select
+                                        id="accordion-dob-month"
+                                        className="dob"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[1] : null}
+                                        ref="dobMonth"
+                                        style={this.state.errorType.month? errorStyle : null}>
+                                        <option value="" disabled="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
                                 </div>
-                            </li>
-                            <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
-                                <input id="ac-7" type="checkbox" />
-                                <label htmlFor="ac-7">
-                                    <h2 className="accordion-item-heading">Email</h2>
-                                    <h3 className="accordion-item-preview">this.props.userInfo.email</h3>
-                                </label>
-                                <div id="email-content" className="ac-content">
+                                <div className="controls controls-day">
                                     <input
-                                        type="email"
-                                        id="edit-email"
-                                        defaultValue={this.props.userInfo.email}
-                                        ref="email"
-                                        style={this.state.errorType.email ? errorStyle : null}
-                                        placeholder="Email"
-                                        required="true"
-                                        maxLength="100" />
-                                        <input
-                                            type="password"
-                                            id="edit-password"
-                                            ref="emailPassword"
-                                            placeholder="Current Password"
-                                            required="true"
-                                            maxLength="100"
-                                            autoComplete="off" />
+                                        type="number"
+                                        id="accordion-dob-day"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[0] : null}
+                                        className="dob"
+                                        ref="dobDay"
+                                        style={this.state.errorType.day ? errorStyle : null}
+                                        placeholder="Day"
+                                        pattern="[0-9]*"
+                                        maxLength="2"
+                                        min="1"
+                                        max="31" />
                                 </div>
-                            </li>
-                            <li style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
-                                <input id="ac-8" type="checkbox" />
-                                <label htmlFor="ac-8">
-                                    <h2 className="accordion-item-heading">Password</h2>
-                                    <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
-                                </label>
-                                <div id="password-content" className="ac-content">
+                                <div className="controls controls-year">
                                     <input
-                                        type="password"
-                                        id="edit-password"
-                                        ref="currentPassword"
-                                        style={this.state.errorType.currentPassword ? errorStyle : null}
-                                        placeholder="Current Password"
-                                        required="true"
-                                        maxLength="100"
-                                        autoComplete="off" />
-                                    <input
-                                        type="password"
-                                        id="edit-password"
-                                        ref="password"
-                                        style={this.state.errorType.password ? errorStyle : null}
-                                        placeholder="New Password"
-                                        required="true"
-                                        maxLength="100"
-                                        autoComplete="off" />
-                                    <input
-                                        type="password"
-                                        id="edit-confirm-password"
-                                        ref="confirmPassword"
-                                        style={this.state.errorType.confirmPassword ? errorStyle : null}
-                                        placeholder="Confirm Password"
-                                        required="true"
-                                        maxLength="100" />
+                                        type="number"
+                                        id="accordion-dob-year"
+                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[2] : null}
+                                        className="dob"
+                                        ref="dobYear"
+                                        style={this.state.errorType.year ? errorStyle : null}
+                                        placeholder="Year"
+                                        pattern="[0-9]*"
+                                        maxLength="4" />
                                 </div>
-                            </li>
-                            <li>
-                                <input id="ac-9" type="checkbox" />
-                                <label htmlFor="ac-9">
-                                    <h2 className="accordion-item-heading">Age</h2>
-                                    <div className="accordion-item-avatar-wrapper">
-                                        <h3 className="accordion-item-preview">{this.props.userInfo.dob}</h3>
-                                    </div>
-                                </label>
-                                <div id="age-content" className="ac-content">
-                                    <label for="edit-age">Date of Birth: </label>
-                                    <div id="accordion-dob" className="accordion-dob">
-                                        <div className="controls controls-month">
-                                            <select
-                                                id="accordion-dob-month"
-                                                className="dob"
-                                                defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[1] : null}
-                                                ref="dobMonth"
-                                                style={this.state.errorType.month? errorStyle : null}>
-                                                <option value="" disabled="">Month</option>
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-                                        </div>
-                                        <div className="controls controls-day">
-                                            <input
-                                                type="number"
-                                                id="accordion-dob-day"
-                                                defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[0] : null}
-                                                className="dob"
-                                                ref="dobDay"
-                                                style={this.state.errorType.day ? errorStyle : null}
-                                                placeholder="Day"
-                                                pattern="[0-9]*"
-                                                maxLength="2"
-                                                min="1"
-                                                max="31" />
-                                        </div>
-                                        <div className="controls controls-year">
-                                            <input
-                                                type="number"
-                                                id="accordion-dob-year"
-                                                defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[2] : null}
-                                                className="dob"
-                                                ref="dobYear"
-                                                style={this.state.errorType.year ? errorStyle : null}
-                                                placeholder="Year"
-                                                pattern="[0-9]*"
-                                                maxLength="4" />
-                                        </div>
-                                    </div>
-                                    <label className="age-confirm-label">
-                                        <input
-                                            type="checkbox"
-                                            id="over-eighteen-checkbox"
-                                            ref="overEighteen"
-                                            defaultChecked={this.props.userInfo.over_eighteen} />
-                                            I confirm that I am 18+
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <input id="ac-10" type="checkbox" />
-                                <label htmlFor="ac-10">
-                                    <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
-                                    <h3 className="accordion-item-preview">He</h3>
-                                </label>
-                                <div id="pronoun-content" className="ac-content">
-                                    <label
-                                        for="edit-she"
-                                        className="gender-radio control-inline">
-                                        <input
-                                            type="radio"
-                                            id="edit-she"
-                                            name="gender"
-                                            className="reg-radio"
-                                            defaultValue="she"
-                                            defaultChecked={this.props.userInfo.gender_pronoun == "she"}
-                                            onChange={this.setGender}
-                                            required="" />
-                                        She
-                                  </label>
-                                  <label
-                                      for="edit-he"
-                                      className="gender-radio control-inline">
-                                      <input
-                                          type="radio"
-                                          id="edit-he"
-                                          name="gender"
-                                          className="reg-radio"
-                                          defaultValue="he"
-                                          defaultChecked={this.props.userInfo.gender_pronoun == "he"}
-                                          onChange={this.setGender}
-                                          required="" />
-                                      He
-                                </label>
-                                <label
-                                    for="edit-they"
-                                    className="gender-radio control-inline">
-                                        <input
-                                            type="radio"
-                                            id="edit-they"
-                                            name="gender"
-                                            className="reg-radio"
-                                            defaultValue="they"
-                                            defaultChecked={this.props.userInfo.gender_pronoun == "they"}
-                                            onChange={this.setGender}
-                                            required="" />
-                                        They
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
+                            <label className="age-confirm-label">
+                                <input
+                                    type="checkbox"
+                                    id="over-eighteen-checkbox"
+                                    ref="overEighteen"
+                                    defaultChecked={this.props.userInfo.over_eighteen} />
+                                    I confirm that I am 18+
+                            </label>
+                        </div>
+                        <div
+                            className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            onClick={this.toggleAccordion.bind({},"pronoun")}>
+                            <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.gender_pronoun}</h3>
+                        </div>
+                        <div
+                            id="pronoun-content"
+                            className={this.state.accordion.pronoun ? "accordion-content open" : "accordion-content"}>
+                            <label
+                                for="edit-she"
+                                className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-she"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="she"
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "she"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                She
+                          </label>
+                          <label
+                              for="edit-he"
+                              className="gender-radio control-inline">
+                              <input
+                                  type="radio"
+                                  id="edit-he"
+                                  name="gender"
+                                  className="reg-radio"
+                                  defaultValue="he"
+                                  defaultChecked={this.props.userInfo.gender_pronoun == "he"}
+                                  onChange={this.setGender}
+                                  required="" />
+                              He
+                        </label>
+                        <label
+                            for="edit-they"
+                            className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-they"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="they"
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "they"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                They
+                            </label>
+                        </div>
                     </article>
                     <button
                         className="edit-profile-save-button"
@@ -455,6 +475,18 @@ export default class EditProfileLayout extends React.Component {
             errorType: {},
             currentError: ""
         });
+    }
+
+    toggleAccordion = (item) => {
+        console.log("item: ", item);
+        let accordion = this.state.accordion;
+        accordion[item] = !accordion[item];
+        console.log("Accordion 1: ", accordion);
+
+        this.setState({
+            accordion: accordion
+        });
+        console.log("Accordion 2: ", this.state.accordion);
     }
 
     saveProfileInfo = (e) => {
