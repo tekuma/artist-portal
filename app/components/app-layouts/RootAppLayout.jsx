@@ -72,7 +72,8 @@ export default class RootAppLayout extends React.Component {
                 <div className="layout-centered">
                     <EditProfileLayout
                         userInfo={this.props.userInfo}
-                        editUserProfile={this.props.editUserProfile}
+                        editPublicUserInfo={this.props.editPublicUserInfo}
+                        editPrivateUserInfo={this.props.editPrivateUserInfo}
                         toggleDeleteAccountDialog={this.props.toggleDeleteAccountDialog} />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>

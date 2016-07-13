@@ -277,6 +277,71 @@ export default class App extends React.Component {
     }
 
     /**
+     * This method will read the state.registration
+     * and create an onboarders JSON object from it to be set to
+     * public/onboarders/{uid}.
+     * registration has :
+     * -email,password, display_name, dob, gender_pronoun, avatar,
+     * legal_name, legal_age, bio, location, portfolio.
+     * @return {Object} [object will all non-null'd fields]
+     */
+    createPublicOnboarderObject = () => {
+        // email and password WILL be non-null
+        let dob            = "",
+            gender_pronoun = "",
+            bio            = "",
+            location       = "",
+            portfolio      = "",
+            display_name   = "",
+            legal_age      = false,
+            avatar         = "";
+
+        //Check for info Submitted, if so override defaults
+        if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
+           dob = this.state.registration.dob;
+        }
+        if (this.state.registration.gender_pronoun != undefined && this.state.registration.gender_pronoun != null) {
+           gender_pronoun = this.state.registration.gender_pronoun;
+        }
+        if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
+           bio = this.state.registration.bio;
+        }
+        if (this.state.registration.location != undefined && this.state.registration.location != null) {
+           location = this.state.registration.location;
+        }
+        if (this.state.registration.portfolio != undefined && this.state.registration.portfolio != null) {
+           portfolio = this.state.registration.portfolio;
+        }
+        if (this.state.registration.display_name != undefined && this.state.registration.display_name != null) {
+           display_name = this.state.registration.display_name;
+        }
+        if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
+           legal_age = this.state.registration.legal_age;
+        }
+
+        // now create the object
+        let onboarder = {
+            albums        : { 0: {
+                name:"Uploads"
+            }},
+            auth_provider   : "password",
+            email           : this.state.registration.email,
+            display_name    : display_name,
+            avatar          : "",
+            dob             : dob,
+            gender_pronoun  : gender_pronoun,
+            bio             : bio,
+            location        : location,
+            portfolio       : portfolio,
+            over_eighteen   : legal_age
+        };
+
+        return onboarder;
+
+
+    }
+
+    /**
      * If a new user decides to sign-up with email/password, they will be sent
      * to a text interface to submit registration information, which is saved
      * to this.state.registration (see this.saveRegistration javadoc for fields).
@@ -289,155 +354,85 @@ export default class App extends React.Component {
      * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
-        const usersRef   = firebase.database().ref('public/onboarders');
+        // const usersRef   = firebase.database().ref('public/onboarders');
+
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
             const thisUID    = thisUser.uid;
 
-            // First, Send email verified email
+            //>>>> First, Send email verified email
             thisUser.sendEmailVerification().then(()=>{
                 console.log("Verification Email sent to", thisUser.email);
                 //TODO display in a snackbar message
             });
 
-            usersRef.once('value').then( (snapshot) => {
-                //check if user already exists at node
-                if (!snapshot.child(thisUID).exists()) {
-                    console.log("working");
-                    //Set defaults
-                    let dob            = "",
-                        gender_pronoun = "",
-                        bio            = "",
-                        location       = "",
-                        portfolio      = "",
-                        display_name   = "",
-                        legal_age      = false,
-                        avatar         = "";
 
-                    //Check for info Submitted, if so override defaults
-                    if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
-                       dob = this.state.registration.dob;
-                    }
-                    if (this.state.registration.gender != undefined && this.state.registration.gender != null) {
-                       gender_pronoun = this.state.registration.gender_pronoun;
-                    }
-                    if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
-                       bio = this.state.registration.bio;
-                    }
-                    if (this.state.registration.location != undefined && this.state.registration.location != null) {
-                       location = this.state.registration.location;
-                    }
-                    if (this.state.registration.portfolio != undefined && this.state.registration.portfolio != null) {
-                       portfolio = this.state.registration.portfolio;
-                    }
-                    if (this.state.registration.display_name != undefined && this.state.registration.display_name != null) {
-                       display_name = this.state.registration.display_name;
-                    }
-                    if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
-                       portfolio = this.state.registration.portfolio;
-                    }
-
-
-                    // Now, check if user uploaded an avatar
-                    if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
-                        //If the user chose to upload an avatar
-                        const avatarPath = `portal/${thisUID}/avatars/${this.state.registration.avatar.name}`;
-                        const avatarRef  = firebase.storage().ref(avatarPath);
-                        avatarRef.put(this.state.registration.avatar).on(
-                            firebase.storage.TaskEvent.STATE_CHANGED,
-                            (snapshot)=>{ //On-state changed
-                            },
-                            (error)=>{ // on-catch
-                                console.error(error);
-                            },
-                            ()=>{ //on-complete
-                                console.log("success in avatar upload");
-                                avatarRef.getDownloadURL().then( (avatarURL)=>{
-                                    //Define an Onboarder object, and populate:
-                                    usersRef.child(thisUID).set({
-                                        albums        : { 0: {
-                                            name:"Uploads"
-                                        }},
-                                        auth_provider   : "password",
-                                        email           : this.state.registration.email,
-                                        display_name    : display_name,
-                                        avatar          : avatarURL,
-                                        dob             : dob,
-                                        gender_pronoun  : gender_pronoun,
-                                        bio             : bio,
-                                        location        : location,
-                                        portfolio       : portfolio,
-                                        over_eighteen   : legal_age
-                                    });
-                                });
-                            }
-                        );
-
-                    } else { // no avatar
-                        usersRef.child(thisUID).set({
-                            albums        : { 0: {
-                                name:"Uploads"
-                            }},
-                            auth_provider   : "password",
-                            email           : this.state.registration.email,
-                            display_name    : display_name,
-                            avatar          : "",
-                            dob             : dob,
-                            gender_pronoun  : gender_pronoun,
-                            bio             : bio,
-                            location        : location,
-                            portfolio       : portfolio,
-                            over_eighteen   : legal_age
+            //>>>> Instantiate 'public/onboarders/{uid}'
+            let onboarderPath = `public/onboarders/${thisUID}`;
+            const userRef     = firebase.database().ref(onboarderPath);
+            const onboarder   = this.createPublicOnboarderObject();
+            if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
+                //If the user chose to upload an avatar, we have to asynchronously upload it
+                const avatarPath = `portal/${thisUID}/avatars/${this.state.registration.avatar.name}`;
+                const avatarRef  = firebase.storage().ref(avatarPath);
+                avatarRef.put(this.state.registration.avatar).on(
+                    firebase.storage.TaskEvent.STATE_CHANGED,
+                    (snapshot)=>{ //On-state changed
+                    },
+                    (error)=>{ // on-catch
+                        console.error(error);
+                    },
+                    ()=>{ //on-complete
+                        console.log("success in avatar upload");
+                        avatarRef.getDownloadURL().then( (avatarURL)=>{
+                            //Define an Onboarder object, and populate:
+                            onboarder.avatar = avatarURL;
+                            userRef.set(onboarder).then(()=>{
+                                console.log(">>> User created in DB");
+                            });
                         });
                     }
-                console.log(">>User Submitted To Onboarders!");
-                }
-            }, (error) => {
-                console.error(error);
-                console.log("didnt make user :( ");
-            }, this);
+                );
+
+            }
+            else { // no avatar, no async, no hassle
+                userRef.set(onboarder).then( ()=>{
+                    console.log(">>>>User created in DB");
+                });
+            }
+
 
             //>>>> Instantiate public/products/thisUID
-            const productsRef = firebase.database().ref('public/products');
-            productsRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    productsRef.child(thisUID).set({onShopify: false});
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let  productPath  = `public/products/${thisUID}`
+            firebase.database().ref(productPath).set({
+                onShopify: false
+            }).then( ()=>{
+                console.log("product node created");
+            });
 
             //>>>> Instantiate _private/onboarders/thisUID
-            const _userRef = firebase.database().ref('_private/onboarders');
-            _userRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    // Define a private Onboarders Object, and populate
-                    // TODO what other information goes in private?
-                    let legal_name = "no_legal_name_given";
-                    if (this.state.registration.legal_name != undefined && this.state.registration.legal_name != null) {
-                       legal_name = this.state.registration.legal_name;
-                    }
-                    _userRef.child(thisUID).set({
-                        legal_name: legal_name
-                    });
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let _userPath  = `_private/onboarders/${thisUID}`;
+            let legal_name = "no_legal_name_given";
+            if (this.state.registration.legal_name != undefined && this.state.registration.legal_name != null) {
+               legal_name = this.state.registration.legal_name;
+            }
+            firebase.database().ref(_userPath).set({
+                legal_name: legal_name
+            }).then( ()=>{
+                console.log("private onboarder node created");
+            });
 
             //>>>> Instantiate _private/products/thisUID
             const _productsRef = firebase.database().ref('_private/products');
-            _productsRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    _productsRef.child(thisUID).set({onShopify: false});
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let _productPath = `_private/products/${thisUID}`;
+            firebase.database().ref(_productPath).set({
+                on_shopify: false
+            }).then(()=>{
+                console.log("private product node created");
+            });
+
         }).catch( (error) => {
+            console.log("user not created :(");
             console.error(error);
         });
     }

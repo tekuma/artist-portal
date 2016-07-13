@@ -93,7 +93,8 @@ export default class AppView extends React.Component {
                     userInfo={this.state.userInfo}
                     setUploadedFiles={this.setUploadedFiles}
                     setAlbumNames={this.setAlbumNames}
-                    editUserProfile={this.editUserProfile}
+                    editPublicUserInfo={this.editPublicUserInfo}
+                    editPrivateUserInfo={this.editPrivateUserInfo}
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
                     changeArtworkAlbum={this.changeArtworkAlbum} />
                 <EditArtworkDialog
@@ -497,53 +498,23 @@ export default class AppView extends React.Component {
         }, null, this);
     }
 
+
     /**
-     * This method is used by the Edit Profile Layout component
-     * to change data between the edit user profile UI and profile information
-     * in the Firebase DB. If the Avatar is also changed, the image must be
-     * uploaded first, then the URL set to the avatar attribute, else the
-     * DB is just updated with 'data'
-     * @param  {[JSON} data [edited user profile information fields]
+     * [description]
+     * @param  {Object} data - object that holds one or more of:
+     * - display_name
+     * - bio
+     * - location
+     * - portfolio
+     * - dob
+     * - gender_pronoun
+     * - avatar (blob)
      */
-    editUserProfile = (data) => {
-        //TODO implement setting const paths in the begining of each method
-        //TODO to make the code more #RFC
+    editPublicUserInfo = (data) => {
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
         const userPath    = `public/onboarders/${thisUID}`;
 
-        // Update their password if the password fields arent blank
-        if (data.password != null && data.password != undefined) {
-            let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.current_password);
-            thisUser.reauthenticate(thisCredential).then( ()=>{
-                thisUser.updatePassword(data.password).then(
-                    () => {
-                        console.log("successful reset password");
-                    },
-                    (error) => {
-                        console.error(error);
-                    }
-                );
-            });
-
-        }
-
-        // If email is different than before, change it
-        if (data.email != thisUser.email && data.email != null && data.email != undefined) {
-            console.log(">>> Updating Email Address");
-            let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.email_password);
-            thisUser.reauthenticate(thisCredential).then( ()=>{
-                thisUser.updateEmail(data.email).then(
-                    ()=>{
-                        console.log("change email request sent to email");
-                    },
-                    (error)=>{
-                        console.error(error);
-                });
-            });
-        }
-
-        // Update all info fields (dob, name, bio, avatar, etc)
         if (data.hasOwnProperty('avatar')) {
             const avatarPath  = `portal/${thisUID}/avatars/${data.avatar.name}`;
             const avatarRef   = firebase.storage().ref(avatarPath);
@@ -566,8 +537,8 @@ export default class AppView extends React.Component {
                     });
                 }
             );
-        } else {
-            // updating everything but avatar
+        }
+        else {
             firebase.database().ref(userPath).update(data)
             .then(()=>{
                 //FIXME use a toggle method?
@@ -577,6 +548,62 @@ export default class AppView extends React.Component {
             });
         }
     }
+
+    /**
+     * @param  {Object} data -object that holds one or more of:
+     * - email
+     * - password
+     * - current_password
+     * - legal_name
+     */
+    editPrivateUserInfo = (data) => {
+        const thisUser    = firebase.auth().currentUser;
+        const thisUID     = thisUser.uid;
+        const _userPath   = `_private/onboarders/${thisUID}`;
+
+        if (data.hasOwnProperty('email')) {
+            if (data.email != thisUser.email) {
+                console.log(">>> Updating Email Address");
+                let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.email_password);
+                thisUser.reauthenticate(thisCredential).then( ()=>{
+                    thisUser.updateEmail(data.email).then(
+                        ()=>{
+                            console.log("change email request sent to email");
+                        },
+                        (error)=>{
+                            console.error(error);
+                    });
+                });
+            }
+        }//END EMAIL
+
+        if (data.hasOwnProperty('password') && data.hasOwnProperty('current_password')) {
+            let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.current_password);
+            thisUser.reauthenticate(thisCredential).then( ()=>{
+                thisUser.updatePassword(data.password).then(
+                    () => {
+                        console.log("successful reset password");
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+            });
+        }
+
+        if (data.hasOwnProperty('legal_name')) {
+            firebase.database().ref(_userPath).update({
+                legal_name: legal_name
+            }).then(()=>{
+                //FIXME use a toggle method?
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
+        }
+
+    }
+
 
     /** TODO re-do this function to 'clean up' the database when deleting a user
      * This method is used by the Delete Account Dialog component

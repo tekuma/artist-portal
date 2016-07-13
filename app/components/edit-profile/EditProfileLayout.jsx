@@ -4,7 +4,7 @@ import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PublicEdit       from './PublicEdit.jsx';
-import PrivateEdit       from './PrivateEdit.jsx';
+import PrivateEdit      from './PrivateEdit.jsx';
 
 export default class EditProfileLayout extends React.Component {
     constructor(props) {
@@ -22,7 +22,8 @@ export default class EditProfileLayout extends React.Component {
                     userInfo={this.props.userInfo}
                     currentEditLayout={this.state.currentEditLayout}
                     changeEditLayout={this.changeEditLayout}
-                    editUserProfile={this.props.editUserProfile} />
+                    editPublicUserInfo={this.props.editPublicUserInfo}
+                     />
             );
         } else {
             return (
@@ -31,7 +32,7 @@ export default class EditProfileLayout extends React.Component {
                     currentEditLayout={this.state.currentEditLayout}
                     changeEditLayout={this.changeEditLayout}
                     currentError={this.state.currentError}
-                    editUserProfile={this.props.editUserProfile} />
+                    editPrivateUserInfo={this.props.editPrivateUserInfo} />
             );
         }
     }

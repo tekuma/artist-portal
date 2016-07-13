@@ -466,7 +466,7 @@ export default class PrivateEdit extends React.Component {
         // gather inputs that have been entered
 
         if(this.state.errors.length == 0) {
-            this.props.editUserProfile(data);
+            this.props.editPrivateUserInfo(data);
             console.log("edited data: ", data);
             console.log("edited profile");
             this.setState({
