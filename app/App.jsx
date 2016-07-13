@@ -127,7 +127,8 @@ export default class App extends React.Component {
                 authenticateWithGoogle  ={this.authenticateWithGoogle}
                 authenticateWithFB      ={this.authenticateWithFB}
                 submitRegistration      ={this.submitRegistration}
-                saveRegistration        ={this.saveRegistration}
+                saveRegPublic           ={this.saveRegPublic}
+                saveRegPrivate          ={this.saveRegPrivate}
                 clearRegistration       ={this.clearRegistration}
                 toggleForgotPassword    ={this.toggleForgotPassword}
                 clearErrors             ={this.clearErrors}
@@ -164,25 +165,24 @@ export default class App extends React.Component {
     }
 
     /**
-     * Mutates state to include registration infromation for new users.
-     *  registration includes the following fields as data.{}
-     * -email
-     * -password
-     * -display_name
-     * -dob
-     * -gender
-     * -avatar (blob)
-     * -bio
-     * -location
-     * -legal_name
-     * -portfolio
-     *
-     * First, upload the avatar blob to be a URL, then set all info to state.
-     * @param  {[Object]} data [Registration information from user gathered info]
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
      */
-    saveRegistration = (data) => {
+    saveRegPublic = (data) => {
         this.setState({
             reg: Object.assign({}, this.state.reg, data)
+        });
+    }
+
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    saveRegPrivate = (data) => {
+        this.setState({
+            _reg: Object.assign({}, this.state._reg, data)
         });
     }
 
@@ -191,7 +191,8 @@ export default class App extends React.Component {
      */
     clearRegistration = () => {
         this.setState({
-            reg: {}
+            reg : {},
+            _reg: {}
         });
     }
 
@@ -339,8 +340,8 @@ export default class App extends React.Component {
 
     /**
      * If a new user decides to sign-up with email/password, they will be sent
-     * to a text interface to submit reg information, which is saved
-     * to this.state.reg (see this.saveRegistration javadoc for fields).
+     * to a text interface to submit registration information, which is saved
+     * to this.state.reg (public) and this.state._reg (private).
      * After the user is created, the user will be initialized in Tekuma's
      * database at :
      * - Onboarders object in 'public/onboarders/{UID}'
