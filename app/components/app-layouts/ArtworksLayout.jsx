@@ -58,6 +58,10 @@ export default class ArtworksLayout extends React.Component {
        setTimeout(getArtworks.bind(this), 500);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
     componentWillReceiveProps(nextProps) {
         let thisUID = firebase.auth().currentUser.uid;
         let albumPath = `public/onboarders/${thisUID}/albums`;
