@@ -569,6 +569,14 @@ export default class AppView extends React.Component {
                     thisUser.updateEmail(data.email).then(
                         ()=>{
                             console.log("change email request sent to email");
+                            firebase.database().ref(_userPath).update({
+                                email: data.email
+                            }).then(()=>{
+                                //FIXME use a toggle method?
+                                this.setState({
+                                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                                });
+                            });
                         },
                         (error)=>{
                             console.error(error);
@@ -593,7 +601,7 @@ export default class AppView extends React.Component {
 
         if (data.hasOwnProperty('legal_name')) {
             firebase.database().ref(_userPath).update({
-                legal_name: legal_name
+                legal_name: data.legal_name
             }).then(()=>{
                 //FIXME use a toggle method?
                 this.setState({
