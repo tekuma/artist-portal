@@ -31,31 +31,30 @@ export default class ArtworksLayout extends React.Component {
         let albumPath = `public/onboarders/${thisUID}/albums`;
         let albumRef = firebase.database().ref(albumPath);
 
-        albumRef.on('value', (snapshot) => {
-            let album = [];
-            let albumIndex;
-            let albums = snapshot.val();
-            let albumsLength = Object.keys(albums).length;
+        let album = [];
+        let albumIndex;
+        let albums = this.props.userInfo.albums;
+        let albumsLength = Object.keys(albums).length;
 
-            // Find album that corresponds to current album
-            for (let i = 0; i < albumsLength; i++) {
-                if (this.props.currentAlbum == albums[i]['name']) {
-                    albumIndex = i;
-                    break;
-                }
+        // Find album that corresponds to current album
+        for (let i = 0; i < albumsLength; i++) {
+            if (this.props.currentAlbum == albums[i]['name']) {
+                albumIndex = i;
+                break;
             }
+        }
 
-            let artworks = albums[albumIndex]['artworks'];
-            let artworksLength = Object.keys(artworks).length;
-            // Load relevant artworks to state album
-            for(let i = 0; i < artworksLength; i++) {
-                let artworkUID = artworks[i];
-                let artwork = this.props.userInfo.artworks[artworkUID];
-                album.push(artwork);
-            }
+        let artworks = albums[albumIndex]['artworks'];
+        let artworksLength = Object.keys(artworks).length;
+        // Load relevant artworks to state album
+        for(let i = 0; i < artworksLength; i++) {
+            let artworkUID = artworks[i];
+            let artwork = this.props.userInfo.artworks[artworkUID];
+            album.push(artwork);
+        }
 
-            this.setState({album});
-        });
+        this.setState({album});
+
     }
 
 
