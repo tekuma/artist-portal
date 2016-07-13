@@ -290,10 +290,10 @@ export default class App extends React.Component {
      */
     submitRegistration = () => {
         const usersRef   = firebase.database().ref('public/onboarders');
-
         firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
             const thisUID    = thisUser.uid;
+
             // First, Send email verified email
             thisUser.sendEmailVerification().then(()=>{
                 console.log("Verification Email sent to", thisUser.email);
