@@ -514,27 +514,33 @@ export default class AppView extends React.Component {
 
         // Update their password if the password fields arent blank
         if (data.password != null && data.password != undefined) {
-            thisUser.updatePassword(data.password).then(
-                () => {
-                    console.log("successful reset password");
-                },
-                (error) => {
-                    console.error(error);
-                }
-            );
+            let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.current_password);
+            thisUser.reauthenticate(thisCredential).then( ()=>{
+                thisUser.updatePassword(data.password).then(
+                    () => {
+                        console.log("successful reset password");
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+            });
+
         }
 
         // If email is different than before, change it
         if (data.email != thisUser.email && data.email != null && data.email != undefined) {
             console.log(">>> Updating Email Address");
-            thisUser.updateEmail(data.email).then(
-                ()=>{
-                    console.log("change email request sent to email");
-                },
-                (error)=>{
-                    console.error(error);
-                }
-            );
+            let thisCredential = firebase.auth.EmailAuthProvider.credential(thisUser.email, data.email_password);
+            thisUser.reauthenticate(thisCredential).then( ()=>{
+                thisUser.updateEmail(data.email).then(
+                    ()=>{
+                        console.log("change email request sent to email");
+                    },
+                    (error)=>{
+                        console.error(error);
+                });
+            });
         }
 
         // Update all info fields (dob, name, bio, avatar, etc)

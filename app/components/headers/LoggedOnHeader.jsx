@@ -1,8 +1,11 @@
-import React from 'react';
+// Libs
+import React     from 'react';
 import SearchBar from './SearchBar';
+import Dropzone  from 'react-dropzone';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
-import Dropzone from 'react-dropzone';
+// Files
 import Views from '../../constants/Views';
+
 
 export default class LoggedOnHeader extends React.Component {
     constructor(props) {
