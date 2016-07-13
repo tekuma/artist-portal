@@ -1616,13 +1616,13 @@ login-button.left {
 	width:50%;
 }
 
-.artist-logo-wrapper img,
-.forgot-heading-wrapper img {
-	width: 220px;
-}
 
 .artist-logo-wrapper img {
 	width: 200px;
+}
+
+.forgot-heading-wrapper img {
+	width: 220px;
 }
 
 .artist-logo-wrapper h3 {
