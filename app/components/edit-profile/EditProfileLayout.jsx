@@ -37,7 +37,7 @@ export default class EditProfileLayout extends React.Component {
         }
     }
 
-    // METHODS ======================
+    // ============== METHODS ======================
 
     changeEditLayout = (layout) => {
         this.setState({
