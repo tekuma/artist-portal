@@ -1,6 +1,8 @@
 // Libs
 import React  from 'react';
 import uuid   from 'node-uuid';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
 // Files
 import Albums       from './Albums.jsx';
 import confirm      from '../confirm-dialog/ConfirmFunction';
@@ -19,9 +21,55 @@ export default class AlbumManager extends React.Component {
     }
 
     componentDidMount() {
-        const thisUID = firebase.auth().currentUser.uid;
-        let path = userPath + thisUID + "/albums";
-        let albumRef = firebase.database().ref(path);
+        function getAlbums() {
+            let thisUID = firebase.auth().currentUser.uid;
+            let albumPath = `public/onboarders/${thisUID}/albums`;
+            let albumRef = firebase.database().ref(albumPath);
+
+            albumRef.on("value", (snapshot) => {
+                let albumJSON = snapshot.val();
+                console.log("Here is albumJSON: ", albumJSON);
+
+                let uploads   = albumJSON[0];
+                console.log("Here are Uploads: ", uploads);
+                let albumKeys = Object.keys(albumJSON);
+                console.log("Here are the Album Keys: ", albumKeys);
+                delete albumJSON[0];
+                console.log("Here is albumJSON after deleting Uploads: ", albumJSON);
+                let albumNames = ["Uploads"];
+                for (var i = 0; i < albumKeys.length; i++) {
+                    let key = albumKeys[i];
+                    albumNames.push(albumJSON[key]['name']);
+                }
+                console.log("Here are the album names: ", albumNames);
+                //send names to AppView
+                this.props.setAlbumNames(albumNames);
+
+                this.setState({
+                    albums:albumJSON,
+                    uploads:uploads,
+                    albumNames:albumNames
+                });
+                console.log(this.state);
+
+            }, null, this);
+        }
+
+        setTimeout(getAlbums.bind(this), 500);
+
+        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+        console.log("Here are the albums:", this.state);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let thisUID = firebase.auth().currentUser.uid;
+        let albumPath = `public/onboarders/${thisUID}/albums`;
+        let albumRef = firebase.database().ref(albumPath);
+
         albumRef.on("value", (snapshot) => {
             let albumJSON = snapshot.val();
 
@@ -45,13 +93,6 @@ export default class AlbumManager extends React.Component {
             console.log(this.state);
 
         }, null, this);
-
-        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        console.log("Here are the albums:", this.state);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
     }
 
     render() {
@@ -66,6 +107,14 @@ export default class AlbumManager extends React.Component {
 
     //   #flow control
     openedManager = () => {
+        const addAlbumTooltip = (
+            <Tooltip
+                id="add-album-tooltip"
+                className="tooltip">
+                Create new album
+            </Tooltip>
+        );
+
         return (
             <section
                 style={{
@@ -75,8 +124,7 @@ export default class AlbumManager extends React.Component {
                 className="album-manager">
                 <AlbumToggler
                     managerIsOpen={this.props.managerIsOpen}
-                    toggleManager={this.props.toggleManager}
-                    addAlbum={this.addAlbum}/>
+                    toggleManager={this.props.toggleManager}/>
                 <Albums
                     albums={this.state.albums}
                     uploads={this.state.uploads}
@@ -86,15 +134,32 @@ export default class AlbumManager extends React.Component {
                     changeAlbum={this.props.changeAlbum}
                     userInfo={this.props.userInfo}
                     changeArtworkAlbum={this.props.changeArtworkAlbum} />
+                <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
+                    <div
+                        onClick={this.addAlbum}
+                        onTouchTap={this.addAlbum}
+                        className="add-album" >
+                        <img src='assets/images/icons/plus-white.svg' />
+                    </div>
+                </OverlayTrigger>
             </section>
         );
     };
 
     closedManager = () => {
         let albumManagerWidth;
+
         if(document.getElementsByClassName('album-manager')[0] != undefined) {
             albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
         }
+
+        const addAlbumTooltip = (
+            <Tooltip
+                id="add-album-tooltip"
+                className="tooltip">
+                Create new album
+            </Tooltip>
+        );
 
         return (
             <section
@@ -105,8 +170,7 @@ export default class AlbumManager extends React.Component {
                 className="album-manager">
                 <AlbumToggler
                     managerIsOpen={this.props.managerIsOpen}
-                    toggleManager={this.props.toggleManager}
-                    addAlbum={this.addAlbum}/>
+                    toggleManager={this.props.toggleManager}/>
                 <Albums
                     albums={this.state.albums}
                     uploads={this.state.uploads}
@@ -115,6 +179,14 @@ export default class AlbumManager extends React.Component {
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
                     userInfo={this.props.userInfo} />
+                <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
+                    <div
+                        onClick={this.addAlbum}
+                        onTouchTap={this.addAlbum}
+                        className="add-album" >
+                        <img src='assets/images/icons/plus-white.svg' />
+                    </div>
+                </OverlayTrigger>
             </section>
         );
     }
@@ -130,12 +202,12 @@ export default class AlbumManager extends React.Component {
 
 
         console.log(this.state.albums, "thisstatealbums");
-        let path = userPath + thisUID + "/albums";
-        let albumRef = firebase.database().ref(path);
+        let albumPath = `public/onboarders/${thisUID}/albums`;
+        let albumRef = firebase.database().ref(albumPath);
 
         albumRef.transaction( (data) => {
             let albumLength = Object.keys(data).length;
-            data[albumLength] = {name:newAlbumName};
+            data[albumLength] = {name: newAlbumName};
             console.log(albumLength, "albumLength");
             console.log("data:" ,data);
             return data;

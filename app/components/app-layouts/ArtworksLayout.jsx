@@ -230,8 +230,10 @@ export default class ArtworksLayout extends React.Component {
             let albumIndex;
             let sourceIndex;
             let targetIndex;
+            console.log("Here is Albums: ", data);
             // Find Artworks
             for (let i = 0; i < albumsLength; i++) {
+                    console.log("Current iteration: ", i);
                     let artworksLength = Object.keys(data[i]['artworks']).length;
 
                     for (let j = 0; j < artworksLength; j++) {
