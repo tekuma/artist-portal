@@ -209,7 +209,7 @@ export default class App extends React.Component {
     }
 
     // #Authentication Methods
-    // TODO Add createdAt 
+    // TODO Add createdAt
 
     /**
      * This function will launch a pop-up with the Google Provider object,
