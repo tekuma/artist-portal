@@ -405,7 +405,7 @@ header {
 }
 
 header.blue {
-	background: #292e3a;
+	background: #000;
 	box-shadow: 0 4px 8px -2px rgba(0,0,0,0.5),
 	0 3px 1px -2px rgba(0,0,0,.2),
 	0 1px 5px 0 rgba(0,0,0,.12);
@@ -428,11 +428,12 @@ header.blue {
 }
 
 #tekuma-logo-image {
-	width: 180px;
+	width: 40px;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+	margin-top: -8px;
 }
 
 .header-icons {
@@ -457,7 +458,7 @@ header.blue {
 
 .header-icon {
 	display: inline-flex;
-	width: 60px;
+	width: 50px;
 	height: 60px;
 	padding: 0;
 	margin: 0;
@@ -473,7 +474,7 @@ header.blue {
 }
 
 .header-icon img {
-	height: 40px;
+	height: 30px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -481,7 +482,7 @@ header.blue {
 }
 
 .header-icon img:hover {
-	height: 42px;
+	height: 34px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -681,7 +682,7 @@ input::-webkit-search-cancel-button {
 
 .manager-opener {
 	float: left;
-	background: #393449;
+	background: #2d2d2d;
 	width: 40px;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,.4);
 	z-index: 3;
