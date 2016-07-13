@@ -233,7 +233,7 @@ export default class PrivateEdit extends React.Component {
                                     id="edit-she"
                                     name="gender"
                                     className="reg-radio"
-                                    defaultValue="she"
+                                    defaultValue="She"
                                     defaultChecked={this.props.userInfo.gender_pronoun == "she"}
                                     onChange={this.setGender}
                                     required="" />
@@ -247,7 +247,7 @@ export default class PrivateEdit extends React.Component {
                                   id="edit-he"
                                   name="gender"
                                   className="reg-radio"
-                                  defaultValue="he"
+                                  defaultValue="He"
                                   defaultChecked={this.props.userInfo.gender_pronoun == "he"}
                                   onChange={this.setGender}
                                   required="" />
@@ -261,7 +261,7 @@ export default class PrivateEdit extends React.Component {
                                     id="edit-they"
                                     name="gender"
                                     className="reg-radio"
-                                    defaultValue="they"
+                                    defaultValue="They"
                                     defaultChecked={this.props.userInfo.gender_pronoun == "they"}
                                     onChange={this.setGender}
                                     required="" />
