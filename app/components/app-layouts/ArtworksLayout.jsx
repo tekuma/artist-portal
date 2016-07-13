@@ -3,10 +3,12 @@ import React      from 'react';
 import filesaver  from 'file-saver';
 import firebase   from 'firebase';
 import Dropzone   from 'react-dropzone';
+import update from 'react-addons-update';
 // Files
 import Artwork    from '../artwork/Artwork.jsx';
 import confirm    from '../confirm-dialog/ConfirmFunction';
 import Views      from '../../constants/Views';
+
 
 
 
@@ -21,41 +23,71 @@ export default class ArtworksLayout extends React.Component {
     }
 
     componentDidMount() {
-         function getArtworks(that) {
-            let album = [];
-            let artworks = that.props.userInfo.artworks;
-            for (var artworkID in artworks) {
-                if (artworks.hasOwnProperty(artworkID)) {
-                    let artwork = artworks[artworkID];
-                    if (artwork.album == that.props.currentAlbum) {
-                        album.push(artwork);
+        function getArtworks() {
+            let thisUID = firebase.auth().currentUser.uid;
+            let albumPath = `public/onboarders/${thisUID}/albums`;
+            let albumRef = firebase.database().ref(albumPath);
+
+            albumRef.on('value', (snapshot) => {
+                let album = [];
+                let albumIndex;
+                let albums = snapshot.val();
+                let albumsLength = Object.keys(albums).length;
+
+                // Find album that corresponds to current album
+                for (let i = 0; i < albumsLength; i++) {
+                    if (this.props.currentAlbum == albums[i]['name']) {
+                        albumIndex = i;
+                        break;
                     }
                 }
-            }
-            // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-            that.setState({album});
-        }
 
-        setTimeout(getArtworks.bind(null, this), 50);
+                let artworks = albums[albumIndex]['artworks'];
+                let artworksLength = Object.keys(artworks).length;
+                // Load relevant artworks to state album
+                for(let i = 0; i < artworksLength; i++) {
+                    let artworkUID = artworks[i];
+                    let artwork = this.props.userInfo.artworks[artworkUID];
+                    album.push(artwork);
+                }
+
+                this.setState({album});
+            });
+       }
+
+       setTimeout(getArtworks.bind(this), 500);
     }
 
     componentWillReceiveProps(nextProps) {
-        let album = [];
-        if (nextProps.userInfo != null) {
-            let artworks = nextProps.userInfo.artworks;
-            for (var artworkID in artworks) {
-                if (artworks.hasOwnProperty(artworkID)) {
-                    let artwork = artworks[artworkID];
-                    if (artwork.album == nextProps.currentAlbum) {
-                        album.push(artwork);
-                    }
+        let thisUID = firebase.auth().currentUser.uid;
+        let albumPath = `public/onboarders/${thisUID}/albums`;
+        let albumRef = firebase.database().ref(albumPath);
+
+        albumRef.on('value', (snapshot) => {
+            let album = [];
+            let albumIndex;
+            let albums = snapshot.val();
+            let albumsLength = Object.keys(albums).length;
+
+            // Find album that corresponds to current album
+            for (let i = 0; i < albumsLength; i++) {
+                if (this.props.currentAlbum == albums[i]['name']) {
+                    albumIndex = i;
+                    break;
                 }
             }
-        } else {
-            console.log("userInfo is undefined in ArtworksLayout.jsx");
-        }
-        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        this.setState({album});
+
+            let artworks = albums[albumIndex]['artworks'];
+            let artworksLength = Object.keys(artworks).length;
+            // Load relevant artworks to state album
+            for(let i = 0; i < artworksLength; i++) {
+                let artworkUID = artworks[i];
+                let artwork = this.props.userInfo.artworks[artworkUID];
+                album.push(artwork);
+            }
+
+            this.setState({album});
+        });
     }
 
 
@@ -187,39 +219,50 @@ export default class ArtworksLayout extends React.Component {
 
     move = (sourceId, targetId) => {
         console.log("Entered move");
-        const userPath = 'public/onboarders/';
         const thisUID = firebase.auth().currentUser.uid;
-        let path = userPath + thisUID + "/albums";
-        let albumRef = firebase.database().ref(path);
-        albumRef.transaction( (data) => {
+        const albumPath = `public/onboarders/${thisUID}/albums`;
+        const albumRef = firebase.database().ref(albumPath);
+
+        albumRef.transaction((data) => {
             let albumsLength = Object.keys(data).length;
-            let sourceData;
+            let sourceFound = false;
+            let targetFound = false;
             let albumIndex;
             let sourceIndex;
             let targetIndex;
-
+            // Find Artworks
             for (let i = 0; i < albumsLength; i++) {
-                let artworksLength = Object.keys(data[i]['artworks']).length;
-                let found = false;
-                let previousData;
-                for (let j = 0; i < artworksLength; j++) {
-                    if (found) {
-                        let dataToPlace = previousData;
-                        previousData = data[i]['artworks'][j];
-                        data[i]['artworks'][j] = dataToPlace;
-                    } else if (data[i]['artworks'][j] == targetId) {
-                        previousData = data[i]['artworks'][j];
-                        data[i]['artworks'][j] = sourceId;
+                    let artworksLength = Object.keys(data[i]['artworks']).length;
+
+                    for (let j = 0; j < artworksLength; j++) {
+                        if (data[i]['artworks'][j] === sourceId){
+                            sourceFound = true;
+                            sourceIndex = j;
+                            albumIndex = i;
+                        } else if (data[i]['artworks'][j] === targetId) {
+                            targetFound = true;
+                            targetIndex = j;
+                            albumIndex = i;
+                        }
                     }
-                }
             }
+
+            let albumArtworks = update(data[albumIndex]['artworks'], {
+                $splice: [[sourceIndex, 1],[targetIndex, 0, sourceId]]
+            });
+
+            data[albumIndex]['artworks'] = albumArtworks;
             return data;
         });
     }
 
     onDrop = (files) => {
-        this.props.setUploadedFiles(files);
-        this.props.changeAppLayout(Views.ARTWORKS);
-        console.log('Set uploaded files: ', files);
+        if (files.length == 0) {
+            return;
+        } else {
+            this.props.setUploadedFiles(files);
+            this.props.changeAppLayout(Views.ARTWORKS);
+            console.log('Set uploaded files: ', files);
+        }
     }
 }

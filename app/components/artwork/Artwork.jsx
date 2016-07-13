@@ -15,12 +15,15 @@ const artworkSource = {
 };
 
 const artworkTarget = {
-    hover(targetProps, monitor) {
+    drop(targetProps, monitor) {
         const targetId = targetProps.artwork.id;
+        console.log("Target ID: ", targetId);
         const sourceProps = monitor.getItem();
+        console.log("SourceProps: ", sourceProps);
         const sourceId = sourceProps.id;
-        if(sourceId !== targetId) {
-            targetProps.onMove({sourceId, targetId});
+        if(sourceId != targetId) {
+            console.log("Source ID != Target ID");
+            targetProps.onMove(sourceId, targetId);
         }
     }
 };
