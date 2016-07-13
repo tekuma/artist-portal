@@ -62,7 +62,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.legal ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.legal}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.legal_name != "" ? this.props.userInfo.legal_name : "Unset"}</h3>
                         </div>
                         <div
                             id="legal-name-content"
@@ -85,7 +85,7 @@ export default class PrivateEdit extends React.Component {
                             onClick={this.toggleAccordion.bind({},"email")}
                             style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Email</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.email}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.email != "" ? this.props.userInfo.email : "Unset"}</h3>
                         </div>
                         <div
                             id="email-content"
@@ -151,7 +151,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"age")}>
                             <h2 className="accordion-item-heading">Age</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.dob}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.dob != "" ? this.props.userInfo.dob : "Unset"}</h3>
                         </div>
                         <div
                             id="age-content"
@@ -220,7 +220,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"pronoun")}>
                             <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.gender_pronoun}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userInfo.gender_pronoun != "" ? this.props.userInfo.gender_pronoun : "Unset"}</h3>
                         </div>
                         <div
                             id="pronoun-content"
@@ -234,7 +234,7 @@ export default class PrivateEdit extends React.Component {
                                     name="gender"
                                     className="reg-radio"
                                     defaultValue="She"
-                                    defaultChecked={this.props.userInfo.gender_pronoun == "she"}
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "She"}
                                     onChange={this.setGender}
                                     required="" />
                                 She
@@ -248,7 +248,7 @@ export default class PrivateEdit extends React.Component {
                                   name="gender"
                                   className="reg-radio"
                                   defaultValue="He"
-                                  defaultChecked={this.props.userInfo.gender_pronoun == "he"}
+                                  defaultChecked={this.props.userInfo.gender_pronoun == "He"}
                                   onChange={this.setGender}
                                   required="" />
                               He
@@ -262,7 +262,7 @@ export default class PrivateEdit extends React.Component {
                                     name="gender"
                                     className="reg-radio"
                                     defaultValue="They"
-                                    defaultChecked={this.props.userInfo.gender_pronoun == "they"}
+                                    defaultChecked={this.props.userInfo.gender_pronoun == "They"}
                                     onChange={this.setGender}
                                     required="" />
                                 They
