@@ -1,9 +1,12 @@
-import React from 'react';
-import LoggedOnHeader from '../headers/LoggedOnHeader';
-import AlbumManager from '../album_manager/AlbumManager';
-import ArtworksLayout from './ArtworksLayout';
+// Libs
+import React             from 'react';
+
+//Files
+import LoggedOnHeader    from '../headers/LoggedOnHeader';
+import AlbumManager      from '../album_manager/AlbumManager';
+import ArtworksLayout    from './ArtworksLayout';
 import EditProfileLayout from '../edit-profile/EditProfileLayout';
-import Views from '../../constants/Views';
+import Views             from '../../constants/Views';
 
 export default class RootAppLayout extends React.Component {
     constructor(props) {

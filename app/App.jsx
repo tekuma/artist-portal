@@ -5,15 +5,15 @@
  *  written for Tekuma Inc, summer 2016 by:
  *  Stephen White and Afika Nyati
  */
+
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
-// Views
+// Files
 import AppView            from './views/AppView';
 import LandingPageView    from './views/LandingPageView';
 import ResetPasswordView  from './views/ResetPasswordView';
 import ForgotPasswordView from './views/ForgotPasswordView';
-
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
@@ -39,29 +39,21 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user        : {},
-            errors      : [],
-            registration: {},
-            login       : {},
-            loggedIn    : null,
-            loaded      : false,
-            forgotPass  : false
+            user        : {},   //TODO, what uses this? should use firebaseDB
+            errors      : [],   // error logs, snackbar display?
+            reg         : {},   // public registration info
+            _reg        : {},   // private registration info
+            login       : {},   //
+            loggedIn    : null, //
+            loaded      : false,// dictates if folding-cube is displayed
+            forgotPass  : false // TODO
         };
     }
 
-    /**
-     * Force a re-render on every state change at root JSX
-     * @param  {} nestProps [description]
-     * @param  {} nextState [description]
-     * @return {Boolean} if the component should re-render
-     */
     shouldComponentUpdate(nextProps, nextState) {
       return true;
     }
 
-    /**
-     * What Happens as the component mounts
-     */
     componentWillMount() {
         firebase.auth().onAuthStateChanged( (user)=>{
             if (user) {
@@ -70,6 +62,10 @@ export default class App extends React.Component {
                 this.setState({loggedIn: false, loaded:true});
             }
         });
+    }
+
+    componentDidMount() {
+        //TODO
     }
 
     render() {
