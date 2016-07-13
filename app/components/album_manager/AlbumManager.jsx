@@ -28,7 +28,7 @@ export default class AlbumManager extends React.Component {
             let uploads   = albumJSON[0];
             let albumKeys = Object.keys(albumJSON);
             delete albumJSON[0];
-            
+
             let albumNames = ["Uploads"];
             for (var i = 0; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
@@ -139,7 +139,7 @@ export default class AlbumManager extends React.Component {
             console.log(albumLength, "albumLength");
             console.log("data:" ,data);
             return data;
-        }, function(){
+        }, ()=>{
             console.log(">>addAlbum successful");
         });
 

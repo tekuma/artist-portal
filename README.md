@@ -2,7 +2,7 @@
 
 Tekuma Artist Portal
 =====================
-### **NOTE** This app is still in *close* BETA 
+### **NOTE** This app is still in *closed* BETA 
 
 [logo]:https://artist.tekuma.io/logos/logo.png
 
