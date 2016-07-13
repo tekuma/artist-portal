@@ -153,7 +153,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                       id="register-she"
                                                       name="gender"
                                                       className="reg-radio"
-                                                      value="she"
+                                                      value="She"
                                                       onChange={this.setGender}
                                                       required="" />
                                                   She
@@ -167,7 +167,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                     id="register-he"
                                                     name="gender"
                                                     className="reg-radio"
-                                                    value="he"
+                                                    value="He"
                                                     onChange={this.setGender}
                                                     required="" />
                                                 He
@@ -181,7 +181,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                     id="register-they"
                                                     name="gender"
                                                     className="reg-radio"
-                                                    value="they"
+                                                    value="They"
                                                     onChange={this.setGender}
                                                     required="" />
                                                 They

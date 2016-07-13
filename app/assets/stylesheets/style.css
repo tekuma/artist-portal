@@ -3093,6 +3093,7 @@ font-weight: 100;
 	width: auto;
 	height: auto;
 	padding: 5px;
+	font-weight: 500;
 }
 
 .edit-profile-avatar-wrapper {
@@ -3306,7 +3307,7 @@ label.age-confirm-label {
 }
 
 .accordion-content textarea.bio {
-	background-color: #f4f6f7;
+	background-color: #f4f6f7 !important;
 	border: 1.5px solid #d6d3ce;
 	appearance: none;
 	-webkit-appearance: none;
