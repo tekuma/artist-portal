@@ -56,7 +56,7 @@ export default class LandingPageView extends React.Component {
                   togglePopover={this.togglePopover}
                   errors={this.props.errors}
                   clearErrors={this.props.clearErrors}
-                  saveRegistration = {this.props.saveRegistration}
+                  saveRegPrivate = {this.props.saveRegPrivate}
                   nextStep   = {this.nextStep}
                   authenticateWithGoogle = {this.props.authenticateWithGoogle}
                   authenticateWithFB    ={this.props.authenticateWithFB}
@@ -125,7 +125,7 @@ export default class LandingPageView extends React.Component {
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
                 clearErrors={this.props.clearErrors}
-                saveRegistration = {this.props.saveRegistration}
+                saveRegPublic = {this.props.saveRegPublic}
                 nextStep   = {this.nextStep}
                 returnToLandingPage={this.returnToLandingPage}
               />
@@ -194,7 +194,8 @@ export default class LandingPageView extends React.Component {
                 togglePopover={this.togglePopover}
                 errors={this.props.errors}
                 clearErrors={this.props.clearErrors}
-                saveRegistration          = {this.props.saveRegistration}
+                saveRegPublic = {this.props.saveRegPublic}
+                saveRegPrivate = {this.props.saveRegPrivate}
                 submitRegistration  = {this.props.submitRegistration}
                 returnToLandingPage={this.returnToLandingPage}
               />

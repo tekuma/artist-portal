@@ -222,7 +222,7 @@ export default class SignUpLayoutOne extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var data = {};
+        var publicData = {};
         var displayName = this.refs.displayname.value;
         var day = this.refs.dobDay.value;
         var month = this.refs.dobMonth.value;
@@ -295,11 +295,11 @@ export default class SignUpLayoutOne extends React.Component {
 
         if(this.state.errors.length == 0) {
 
-            data.display_name = displayName;
-            data.dob = day + "-" + month + "-" + year;
-            data.gender_pronoun =  gender;
-            data.avatar = this.state.avatar;
-            this.props.saveRegistration(data);
+            publicData.display_name = displayName;
+            publicData.dob = day + "-" + month + "-" + year;
+            publicData.gender_pronoun =  gender;
+            publicData.avatar = this.state.avatar;
+            this.props.saveRegPublic(publicData);
             this.props.nextStep();
         }
 

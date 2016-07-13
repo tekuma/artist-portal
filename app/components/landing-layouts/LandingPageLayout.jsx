@@ -145,7 +145,7 @@ export default class LandingPageLayout extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var data = {};
+        var privateData = {};
         var email = this.refs.email.value;
         var password = this.refs.password.value;
         var confirmPassword = this.refs.confirmPassword.value;
@@ -213,9 +213,9 @@ export default class LandingPageLayout extends React.Component {
         this.props.clearErrors();
 
         if(this.state.errors.length == 0) {
-            data.email = email;
-            data.password = password;
-            this.props.saveRegistration(data);
+            privateData.email = email;
+            privateData.password = password;
+            this.props.saveRegPrivate(privateData);
             this.props.nextStep();
         }
 

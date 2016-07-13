@@ -127,7 +127,8 @@ export default class App extends React.Component {
                 authenticateWithGoogle  ={this.authenticateWithGoogle}
                 authenticateWithFB      ={this.authenticateWithFB}
                 submitRegistration      ={this.submitRegistration}
-                saveRegistration        ={this.saveRegistration}
+                saveRegPublic           ={this.saveRegPublic}
+                saveRegPrivate          ={this.saveRegPrivate}
                 clearRegistration       ={this.clearRegistration}
                 toggleForgotPassword    ={this.toggleForgotPassword}
                 clearErrors             ={this.clearErrors}
@@ -180,18 +181,25 @@ export default class App extends React.Component {
      * First, upload the avatar blob to be a URL, then set all info to state.
      * @param  {[Object]} data [Registration information from user gathered info]
      */
-    saveRegistration = (data) => {
+    saveRegPublic = (data) => {
         this.setState({
-            registration: Object.assign({}, this.state.registration, data)
+            reg: Object.assign({}, this.state.reg, data)
+        });
+    }
+
+    saveRegPrivate = (data) => {
+        this.setState({
+            _reg: Object.assign({}, this.state._reg, data)
         });
     }
 
     /**
-     * Resets this.state.registration to empty object.
+     * Resets this.state.reg and this.state._reg to empty object.
      */
     clearRegistration = () => {
         this.setState({
-            registration: {}
+            reg: {},
+            _reg: {}
         });
     }
 
@@ -340,7 +348,7 @@ export default class App extends React.Component {
     /**
      * If a new user decides to sign-up with email/password, they will be sent
      * to a text interface to submit registration information, which is saved
-     * to this.state.registration (see this.saveRegistration javadoc for fields).
+     * to this.state.reg (public) and this.state._reg (private).
      * After the user is created, the user will be initialized in Tekuma's
      * database at :
      * - Onboarders object in 'public/onboarders/{UID}'

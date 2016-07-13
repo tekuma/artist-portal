@@ -112,7 +112,8 @@ export default class SignUpLayoutTwo extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var data = {};
+        var publicData = {};
+        var privateData = {};
         var legalName = this.refs.legalname.value;
         var bio = this.refs.bio.value;
         var location = this.refs.location.value;
@@ -163,11 +164,12 @@ export default class SignUpLayoutTwo extends React.Component {
         this.props.clearErrors();
 
         if(this.state.errors.length == 0) {
-            data.legal_name = legalName;
-            data.bio = bio;
-            data.location = location;
-            data.portfolio = portfolio;
-            this.props.saveRegistration(data);
+            privateData.legal_name = legalName;
+            publicData.bio = bio;
+            publicData.location = location;
+            publicData.portfolio = portfolio;
+            this.props.saveRegPublic(publicData);
+            this.props.saveRegPrivate(privateData);
             this.props.submitRegistration();
         }
 
