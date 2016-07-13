@@ -73,7 +73,7 @@ export default class Album extends React.Component {
     }
 
     renderEdit = () => {
-        var thumbnail = "../../assets/images/icons/new-album.svg";
+        let thumbnail = "../../assets/images/icons/new-album.svg";
 
         for (var artworkID in this.props.userInfo.artworks) {
             if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
@@ -84,7 +84,7 @@ export default class Album extends React.Component {
             }
         }
 
-        var style = {
+        let style = {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
