@@ -1612,7 +1612,6 @@ login-button.left {
 	align-items: center;
 }
 
-<<<<<<< HEAD
 .artist-logo-wrapper {
 	width:50%;
 }
@@ -1620,10 +1619,10 @@ login-button.left {
 .artist-logo-wrapper img,
 .forgot-heading-wrapper img {
 	width: 220px;
-=======
+}
+
 .artist-logo-wrapper img {
 	width: 200px;
->>>>>>> master
 }
 
 .artist-logo-wrapper h3 {
@@ -2582,6 +2581,14 @@ login-button.left {
   	  bottom: 30px !important;
   	  right: 30px !important;
     }
+
+	.edit-profile-save-button.private {
+  	  left: 30px !important;
+    }
+
+	.edit-profile-save-button.public {
+  	  right: 30px !important;
+    }
 }
 
 @media (max-width: 590px) {
@@ -3151,7 +3158,6 @@ font-weight: 100;
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	bottom: 50px;
-	right: 50px;
 	width: 50px;
 	height: 50px;
 	border-radius: 25px;
@@ -3163,6 +3169,14 @@ font-weight: 100;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
 	z-index: 7;
+}
+
+.edit-profile-save-button.private {
+	right: 50px;
+}
+
+.edit-profile-save-button.public {
+	left: 50px;
 }
 
 .edit-profile-save-button:hover {
