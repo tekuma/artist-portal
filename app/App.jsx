@@ -41,8 +41,8 @@ export default class App extends React.Component {
         this.state = {
             user        : {},   //TODO, what uses this? should use firebaseDB
             errors      : [],   // error logs, snackbar display?
-            reg         : {},   // public registration info
-            _reg        : {},   // private registration info
+            reg         : {},   // public reg info
+            _reg        : {},   // private reg info
             login       : {},   //
             loggedIn    : null, //
             loaded      : false,// dictates if folding-cube is displayed
@@ -165,21 +165,9 @@ export default class App extends React.Component {
     }
 
     /**
-     * Mutates state to include registration infromation for new users.
-     *  registration includes the following fields as data.{}
-     * -email
-     * -password
-     * -display_name
-     * -dob
-     * -gender
-     * -avatar (blob)
-     * -bio
-     * -location
-     * -legal_name
-     * -portfolio
-     *
-     * First, upload the avatar blob to be a URL, then set all info to state.
-     * @param  {[Object]} data [Registration information from user gathered info]
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
      */
     saveRegPublic = (data) => {
         this.setState({
@@ -187,6 +175,11 @@ export default class App extends React.Component {
         });
     }
 
+    /**
+     * [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
     saveRegPrivate = (data) => {
         this.setState({
             _reg: Object.assign({}, this.state._reg, data)
@@ -194,11 +187,11 @@ export default class App extends React.Component {
     }
 
     /**
-     * Resets this.state.reg and this.state._reg to empty object.
+     * Resets this.state.reg to empty object.
      */
     clearRegistration = () => {
         this.setState({
-            reg: {},
+            reg : {},
             _reg: {}
         });
     }
@@ -281,10 +274,10 @@ export default class App extends React.Component {
     }
 
     /**
-     * This method will read the state.registration
+     * This method will read the state.reg
      * and create an onboarders JSON object from it to be set to
      * public/onboarders/{uid}.
-     * registration has :
+     * reg has :
      * -email,password, display_name, dob, gender_pronoun, avatar,
      * legal_name, legal_age, bio, location, portfolio.
      * @return {Object} [object will all non-null'd fields]
@@ -300,27 +293,28 @@ export default class App extends React.Component {
             legal_age      = false,
             avatar         = "";
 
+            //FIXME do this with a forloop and .hasOwnProperty()
         //Check for info Submitted, if so override defaults
-        if (this.state.registration.dob != undefined && this.state.registration.dob != null) {
-           dob = this.state.registration.dob;
+        if (this.state.reg.dob != undefined && this.state.reg.dob != null) {
+           dob = this.state.reg.dob;
         }
-        if (this.state.registration.gender_pronoun != undefined && this.state.registration.gender_pronoun != null) {
-           gender_pronoun = this.state.registration.gender_pronoun;
+        if (this.state.reg.gender_pronoun != undefined && this.state.reg.gender_pronoun != null) {
+           gender_pronoun = this.state.reg.gender_pronoun;
         }
-        if (this.state.registration.bio != undefined && this.state.registration.bio != null) {
-           bio = this.state.registration.bio;
+        if (this.state.reg.bio != undefined && this.state.reg.bio != null) {
+           bio = this.state.reg.bio;
         }
-        if (this.state.registration.location != undefined && this.state.registration.location != null) {
-           location = this.state.registration.location;
+        if (this.state.reg.location != undefined && this.state.reg.location != null) {
+           location = this.state.reg.location;
         }
-        if (this.state.registration.portfolio != undefined && this.state.registration.portfolio != null) {
-           portfolio = this.state.registration.portfolio;
+        if (this.state.reg.portfolio != undefined && this.state.reg.portfolio != null) {
+           portfolio = this.state.reg.portfolio;
         }
-        if (this.state.registration.display_name != undefined && this.state.registration.display_name != null) {
-           display_name = this.state.registration.display_name;
+        if (this.state.reg.display_name != undefined && this.state.reg.display_name != null) {
+           display_name = this.state.reg.display_name;
         }
-        if (this.state.registration.legal_age != undefined && this.state.registration.legal_age != null) {
-           legal_age = this.state.registration.legal_age;
+        if (this.state.reg.legal_age != undefined && this.state.reg.legal_age != null) {
+           legal_age = this.state.reg.legal_age;
         }
 
         // now create the object
@@ -329,7 +323,6 @@ export default class App extends React.Component {
                 name:"Uploads"
             }},
             auth_provider   : "password",
-            email           : this.state.registration.email,
             display_name    : display_name,
             avatar          : "",
             dob             : dob,
@@ -358,9 +351,7 @@ export default class App extends React.Component {
      * Then, the user's avatar will be uploaded.
      */
     submitRegistration = () => {
-        // const usersRef   = firebase.database().ref('public/onboarders');
-
-        firebase.auth().createUserWithEmailAndPassword(this.state.registration.email, this.state.registration.password)
+        firebase.auth().createUserWithEmailAndPassword(this.state._reg.email, this.state._reg.password)
         .then( (thisUser) => { //thisUser is passed in asynchronously from FB
             const thisUID    = thisUser.uid;
 
@@ -375,11 +366,11 @@ export default class App extends React.Component {
             let onboarderPath = `public/onboarders/${thisUID}`;
             const userRef     = firebase.database().ref(onboarderPath);
             const onboarder   = this.createPublicOnboarderObject();
-            if (this.state.registration.avatar != null && this.state.registration.avatar != undefined){
+            if (this.state.reg.avatar != null && this.state.reg.avatar != undefined){
                 //If the user chose to upload an avatar, we have to asynchronously upload it
-                const avatarPath = `portal/${thisUID}/avatars/${this.state.registration.avatar.name}`;
+                const avatarPath = `portal/${thisUID}/avatars/${this.state.reg.avatar.name}`;
                 const avatarRef  = firebase.storage().ref(avatarPath);
-                avatarRef.put(this.state.registration.avatar).on(
+                avatarRef.put(this.state.reg.avatar).on(
                     firebase.storage.TaskEvent.STATE_CHANGED,
                     (snapshot)=>{ //On-state changed
                     },
@@ -407,21 +398,28 @@ export default class App extends React.Component {
 
 
             //>>>> Instantiate public/products/thisUID
-            let  productPath  = `public/products/${thisUID}`
+            let  productPath  = `public/products/${thisUID}`;
             firebase.database().ref(productPath).set({
-                onShopify: false
+                on_shopify: false
             }).then( ()=>{
                 console.log("product node created");
             });
 
             //>>>> Instantiate _private/onboarders/thisUID
             let _userPath  = `_private/onboarders/${thisUID}`;
+
             let legal_name = "no_legal_name_given";
-            if (this.state.registration.legal_name != undefined && this.state.registration.legal_name != null) {
-               legal_name = this.state.registration.legal_name;
+            if (this.state._reg.legal_name != undefined && this.state._reg.legal_name != null) {
+               legal_name = this.state._reg.legal_name;
+            }
+
+            let email = "";
+            if (this.state._reg.email != undefined && this.state._reg.email != null) {
+               email = this.state._reg.email;
             }
             firebase.database().ref(_userPath).set({
-                legal_name: legal_name
+                legal_name: legal_name,
+                email     : email
             }).then( ()=>{
                 console.log("private onboarder node created");
             });
@@ -489,9 +487,7 @@ export default class App extends React.Component {
                         name:"Uploads"
                     }},
                     auth_provider   : provider,
-                    email           : user.email,
                     display_name    : thisDisplayName,
-                    legal_name      : "",
                     avatar          : avatar,
                     dob             : dob,
                     gender_pronoun  : gender_pronoun,
@@ -499,48 +495,44 @@ export default class App extends React.Component {
                     location        : location,
                     portfolio       : portfolio,
                     over_eighteen   : false
+                }).then( ()=>{
+                    console.log(">>node set in public onboarder");
                 });
-                console.log(">>User Submitted To Database!");
+
             } else {
                 isNewUser = false;
             }
         }, (error) => {
-            console.error("Registration Error: ", error);
+            console.error("reg Error: ", error);
         }, this);
 
         if (isNewUser) {
             //>>>> Instantiate public/products/thisUID
-            const productsRef = firebase.database().ref('public/products');
-            productsRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    productsRef.child(thisUID).set({onShopify: false});
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let  productPath  = `public/products/${thisUID}`;
+            firebase.database().ref(productPath).set({
+                on_shopify: false
+            }).then(()=>{
+                console.log("node set in public products");
+            });
+
 
             //>>>> Instantiate _private/onboarders/thisUID
-            const _userRef = firebase.database().ref('_private/onboarders');
-            _userRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    _userRef.child(thisUID).set({legal_name: "legal_name"});
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let _userPath = `_private/onboarders/${thisUID}`;
+            firebase.database().ref(_userPath).set({
+                legal_name: "",
+                email     : user.email
+            }).then(()=>{
+                console.log("node set in private user");
+            });
 
             //>>>> Instantiate _private/products/thisUID
-            const _productsRef = firebase.database().ref('_private/products');
-            _productsRef.once('value').then( (snapshot) => {
-                //check if user already exists in at node, if not:
-                if (!snapshot.child(thisUID).exists()) {
-                    _productsRef.child(thisUID).set({onShopify: false});
-                }
-            }, (error) => {
-                console.error(error);
-            }, this);
+            let  _productPath  = `_private/products/${thisUID}`;
+            firebase.database().ref(_productPath).set({
+                on_shopify: false
+            }).then(()=>{
+                console.log("node set in private products");
+            });
+
         }
     }
 
