@@ -26,32 +26,37 @@ const paletteDownscaling    = 1 ;  // how much to downscale the image before pro
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
+    state = {
+        navIsOpen: false,                           // Used to track whether Hidden Navigation is open
+        managerIsOpen: true,                        // Used to track whether Album Manager is open
+        editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
+        deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
+        uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
+        editProfileDialogIsOpen: false,             // Used to track whether Edit Profile is open
+        currentAlbum: 'Uploads',                    // Used to track the current album open
+        currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in RootAppLayout
+        userInfo: {},                               // Used to store User Profile Information
+        currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
+        uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
+        albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
+        albums : {},
+        isUploading: false
+    };
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            navIsOpen: false,                           // Used to track whether Hidden Navigation is open
-            managerIsOpen: true,                        // Used to track whether Album Manager is open
-            editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
-            deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
-            uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
-            editProfileDialogIsOpen: false,             // Used to track whether Edit Profile is open
-            currentAlbum: 'Uploads',                    // Used to track the current album open
-            currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in RootAppLayout
-            userInfo: {},                               // Used to store User Profile Information
-            currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
-            uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
-            albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
-            albums : {},
-            isUploading: false
-        };
+        const thisUID = firebase.auth().currentUser.uid;
+        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', (snapshot)=>{
+            this.state.userInfo = snapshot.val();
+        }, (error)=>{
+            console.error(error);
+        }, this);
+
     }
 
-    /**
-     * [componentWillMount description]
-     */
-    componentWillMount() {
-        //pass
+    shouldComponentUpdate(nextProps, nextState) {
+      return true;
     }
 
     /**
@@ -59,12 +64,7 @@ export default class AppView extends React.Component {
      * node, and set it to this.state.userInfo
      */
     componentDidMount() {
-        const thisUID = firebase.auth().currentUser.uid;
-        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', (snapshot)=>{
-            this.setState({userInfo: snapshot.val()});
-        }, (error)=>{
-            console.error(error);
-        }, this);
+
     }
 
     render() {
