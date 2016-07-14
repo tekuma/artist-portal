@@ -19,11 +19,17 @@ export default class RootAppLayout extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener("resize", this.rerender);
+        console.log("++++RootAppLayout");
+        // window.addEventListener("resize", this.rerender);
     }
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.rerender);
+
+    componentWillMount() {
+        console.log("----RootAppLayout");
     }
+
+    // componentWillUnmount() {
+    //     window.removeEventListener("resize", this.rerender);
+    // }
 
     render() {
         switch (this.props.currentAppLayout) {
@@ -44,17 +50,19 @@ export default class RootAppLayout extends React.Component {
                     setUploadedFiles={this.props.setUploadedFiles}
                     changeAppLayout={this.props.changeAppLayout}/>
                 <AlbumManager
+                    user={this.props.user}
+                    _user={this.props._user}
+                    
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
                     setAlbumNames={this.props.setAlbumNames}
                     albums={this.props.albums}
-                    userInfo={this.props.userInfo}
                     changeArtworkAlbum={this.props.changeArtworkAlbum} />
                 <ArtworksLayout
                     deleteArtwork={this.props.deleteArtwork}
-                    userInfo={this.props.userInfo}
+                    user={this.props.user}
                     currentAlbum={this.props.currentAlbum}
                     toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
                     changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
@@ -74,7 +82,7 @@ export default class RootAppLayout extends React.Component {
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
                     <EditProfileLayout
-                        userInfo={this.props.userInfo}
+                        user={this.props.user}
                         editPublicUserInfo={this.props.editPublicUserInfo}
                         editPrivateUserInfo={this.props.editPrivateUserInfo}
                         toggleDeleteAccountDialog={this.props.toggleDeleteAccountDialog} />

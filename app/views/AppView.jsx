@@ -24,7 +24,7 @@ const colorCount            = 64;  // ->amount of possible color swatches to sta
 const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
                                    //  1 means no downscaling, 5 is default.
 
-@DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
+@DragDropContext(HTML5Backend)     // Adds Drag & Drop to App
 export default class AppView extends React.Component {
     state = {
         navIsOpen: false,                           // Used to track whether Hidden Navigation is open
@@ -35,43 +35,62 @@ export default class AppView extends React.Component {
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile is open
         currentAlbum: 'Uploads',                    // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in RootAppLayout
-        userInfo: {},                               // Used to store User Profile Information
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
         albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
         albums : {},
-        isUploading: false
+        isUploading: false,
+        user  : {},
+        _user : {}
     };
 
     constructor(props) {
         super(props);
+    }
 
-        const thisUID = firebase.auth().currentUser.uid;
-        firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', (snapshot)=>{
-            this.state.userInfo = snapshot.val();
+
+    componentWillMount() {
+        console.log("---- AppView");
+
+        const thisUID   = firebase.auth().currentUser.uid;
+        const  userPath = `public/onboarders/${thisUID}`;
+        const _userPath = `_private/onboarders/${thisUID}`;
+
+
+        firebase.database().ref(userPath).on('value', (snapshot)=>{
+            this.setState({
+                user:snapshot.val()
+            });
+        }, (error)=>{
+            console.error(error);
+        }, this);
+
+        firebase.database().ref(_userPath).on('value', (snapshot)=>{
+            this.setState({
+                _user:snapshot.val()
+            });
         }, (error)=>{
             console.error(error);
         }, this);
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return true;
-    }
 
-    /**
-     * When the compondent did mount, take a snapshot of the 'public/onboarders/{UID}'
-     * node, and set it to this.state.userInfo
-     */
     componentDidMount() {
+        console.log("++++++ AppView");
+        console.log("****************");
+
 
     }
+
 
     render() {
         return (
             <div className="app">
                 <HiddenNav
-                    userInfo={this.state.userInfo}
+                    user={this.state.user}
+                    _user={this.state._user}
+
                     navIsOpen={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
                     signOutUser={this.props.signOutUser} />
@@ -79,6 +98,9 @@ export default class AppView extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <RootAppLayout
+                    user={this.state.user}
+                    _user={this.state._user}
+
                     albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
                     deleteArtwork={this.deleteArtwork}
@@ -90,7 +112,6 @@ export default class AppView extends React.Component {
                     changeAppLayout={this.changeAppLayout}
                     currentAlbum={this.state.currentAlbum}
                     changeAlbum={this.changeAlbum}
-                    userInfo={this.state.userInfo}
                     setUploadedFiles={this.setUploadedFiles}
                     setAlbumNames={this.setAlbumNames}
                     editPublicUserInfo={this.editPublicUserInfo}
@@ -349,10 +370,10 @@ export default class AppView extends React.Component {
                                         //Build the artwork object
                                         let title = fileName.split(".")[0];
                                         let artist = "Self";
-                                        if (this.state.userInfo != null && this.state.userInfo != undefined &&
-                                            this.state.userInfo.display_name != "Untitled Artist")
+                                        if (this.state.user != null && this.state.user != undefined &&
+                                            this.state.user.display_name != "Untitled Artist")
                                             {
-                                            artist = this.state.userInfo.display_name;
+                                            artist = this.state.user.display_name;
                                         }
 
                                         let artObject = {
@@ -427,7 +448,6 @@ export default class AppView extends React.Component {
      * @param  {Array} names - an array of all names
      */
     setAlbumNames = (names) => {
-        console.log("Names: ", names);
         this.setState({albumNames : names});
     }
 

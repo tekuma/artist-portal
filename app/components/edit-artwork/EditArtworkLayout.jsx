@@ -27,7 +27,7 @@ export default class EditArtworkForm extends React.Component {
                         <fieldset>
                             <ul>
                                 <li>
-                                    <label for="artwork-title">Title <span className="pink">*</span> :</label>
+                                    <label htmlFor="artwork-title">Title <span className="pink">*</span> :</label>
                                     <input
                                         type="text"
                                         style={this.props.errorType.title != undefined ? errorStyle : null}
@@ -41,7 +41,7 @@ export default class EditArtworkForm extends React.Component {
                                         }} />
                                 </li>
                                 <li>
-                                    <label for="artwork-artist">Artist <span className="pink">*</span> :</label>
+                                    <label htmlFor="artwork-artist">Artist <span className="pink">*</span> :</label>
                                     <input
                                         type="text"
                                         style={this.props.errorType.artist != undefined ? errorStyle : null}
@@ -55,7 +55,7 @@ export default class EditArtworkForm extends React.Component {
                                         }} />
                                 </li>
                                 <li id="li-album" className="controls-album">
-                                    <label for="edit-artwork-album">Album:</label>
+                                    <label htmlFor="edit-artwork-album">Album:</label>
                                         <div id="edit-artwork-album" className="edit-artwork-album">
                                             <div className="controls controls-album">
                                                 <select
@@ -78,7 +78,7 @@ export default class EditArtworkForm extends React.Component {
                                         </div>
                                 </li>
                                 <li>
-                                    <label for="artwork-year">Year <span className="pink">*</span> :</label>
+                                    <label htmlFor="artwork-year">Year <span className="pink">*</span> :</label>
                                     <input
                                         type="text"
                                         style={this.props.errorType.year != undefined ? errorStyle : null}
@@ -92,7 +92,7 @@ export default class EditArtworkForm extends React.Component {
                                         }} />
                                 </li>
                                 <li>
-                                    <label className="center" for="artwork-description">Description:</label>
+                                    <label className="center" htmlFor="artwork-description">Description:</label>
                                     <textarea
                                         id="artwork-description"
                                         style={this.props.errorType.description != undefined ? errorStyle : null}
@@ -106,7 +106,7 @@ export default class EditArtworkForm extends React.Component {
                                 <li className="color-tags">
                                     <label className="color-heading center">Color :</label>
                                     <div className="color-circle-wrapper">
-                                        <label for="red" className="checkbox">
+                                        <label htmlFor="red" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="red"
@@ -131,7 +131,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle red">
                                             </div>
                                         </label>
-                                        <label for="yellow" className="checkbox">
+                                        <label htmlFor="yellow" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="yellow"
@@ -156,7 +156,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle yellow">
                                             </div>
                                         </label>
-                                        <label for="blue" className="checkbox">
+                                        <label htmlFor="blue" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="blue"
@@ -181,7 +181,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle blue">
                                             </div>
                                         </label>
-                                        <label for="green" className="checkbox">
+                                        <label htmlFor="green" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="green"
@@ -206,7 +206,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle green">
                                             </div>
                                         </label>
-                                        <label for="orange" className="checkbox">
+                                        <label htmlFor="orange" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="orange"
@@ -231,7 +231,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle orange">
                                             </div>
                                         </label>
-                                        <label for="purple" className="checkbox">
+                                        <label htmlFor="purple" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="purple"
@@ -256,7 +256,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle purple">
                                             </div>
                                         </label>
-                                        <label for="brown" className="checkbox">
+                                        <label htmlFor="brown" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="brown"
@@ -281,7 +281,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle brown">
                                             </div>
                                         </label>
-                                        <label for="black" className="checkbox">
+                                        <label htmlFor="black" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="black"
@@ -306,7 +306,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle black">
                                             </div>
                                         </label>
-                                        <label for="gray" className="checkbox">
+                                        <label htmlFor="gray" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="gray"
@@ -331,7 +331,7 @@ export default class EditArtworkForm extends React.Component {
                                             <div className="color-circle gray">
                                             </div>
                                         </label>
-                                        <label for="white" className="checkbox">
+                                        <label htmlFor="white" className="checkbox">
                                             <input
                                                 type="checkbox"
                                                 id="white"
@@ -359,7 +359,7 @@ export default class EditArtworkForm extends React.Component {
                                     </div>
                                 </li>
                                 <li>
-                                    <label for="artwork-tags">Tags :</label>
+                                    <label htmlFor="artwork-tags">Tags :</label>
                                     <input
                                         type="text"
                                         id="artwork-tags"

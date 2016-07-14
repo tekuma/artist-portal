@@ -1,86 +1,114 @@
 //Libs
 import React      from 'react';
-import filesaver  from 'file-saver';
 import firebase   from 'firebase';
+import filesaver  from 'file-saver';
 import Dropzone   from 'react-dropzone';
-import update from 'react-addons-update';
+import update     from 'react-addons-update';
+
 // Files
-import Artwork    from '../artwork/Artwork.jsx';
+import Artwork    from '../artwork/Artwork';
 import confirm    from '../confirm-dialog/ConfirmFunction';
 import Views      from '../../constants/Views';
 
 
 
-
-
 export default class ArtworksLayout extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            album: []
-        }
+    state = {
+        album:[] // list of Artwork objects in the current album
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        console.log("----- ArtworksLayout");
     }
 
     componentDidMount() {
-        let thisUID = firebase.auth().currentUser.uid;
-        let albumPath = `public/onboarders/${thisUID}/albums`;
-        let albumRef = firebase.database().ref(albumPath);
+        console.log("+++++ ArtworksLayout");
 
         let album = [];
-        let albumIndex;
-        let albums = this.props.userInfo.albums;
-        let albumsLength = Object.keys(albums).length;
+        const thisAlbumName = this.props.currentAlbum; //passed from AppView
+        const user          = this.props.user;
+        let   albums        = user['albums'];
 
-        // Find album that corresponds to current album
+        let albumIndex;
+        let albumsLength    = Object.keys(albums).length;
+
+        // Look through the albums branch to find which album we are in
+        // we have the album name, we need the index of it.
         for (let i = 0; i < albumsLength; i++) {
-            if (this.props.currentAlbum == albums[i]['name']) {
+            if (thisAlbumName == albums[i]['name']) {
                 albumIndex = i;
                 break;
             }
         }
+        //FIXME if we never match, albumIndex will be undefined
 
         let artworks = albums[albumIndex]['artworks'];
         let artworksLength = Object.keys(artworks).length;
+
         // Load relevant artworks to state album
-        for(let i = 0; i < artworksLength; i++) {
+        for (let i = 0; i < artworksLength; i++) {
             let artworkUID = artworks[i];
-            let artwork = this.props.userInfo.artworks[artworkUID];
+            let artwork    = user['artworks'][artworkUID];
+            console.log("$$THIS is not an artwork", artwork);
             album.push(artwork);
         }
 
-        this.setState({album});
+        this.setState({
+            album: album
+        });
 
     }
 
 
     render() {
-        if(this.state.album.length == 0) {
-            if (this.props.currentAlbum == "Uploads") {
-                return this.renderEmptyUploads();
-            } else {
-                return this.renderEmptyAlbum();
-            }
-        } else {
-            return this.renderArtworks();
-        }
-    }
-
-    renderArtworks = () => {
-        // Import Cloud storage and datebase
-
-
-        const album = this.state.album;
-
-        var styleManagerClosed = {
+        let styleManagerClosed = {
             width: window.innerWidth - 40
         };
 
-        var styleSmallScreen = {
+        let styleSmallScreen = {
+            width: window.innerWidth - 250
+        };
+        console.log("HERE");
+        return (
+            <main  >
+                <div
+                    className="empty-album">
+                    <h2>Fill album by Dragging Artworks from Uploads</h2>
+                </div>
+            </main>
+        );
+
+        // if(this.state.album.length == 0) {
+        //     return this.renderEmptyAlbum();
+        // } else {
+        //     return this.renderArtworks();
+        // }
+        // if(this.state.album.length == 0) {
+        //     if (this.props.currentAlbum == "Uploads") {
+        //         return this.renderEmptyUploads();
+        //     } else {
+        //         return this.renderEmptyAlbum();
+        //     }
+        // } else {
+        //     return this.renderArtworks();
+        // }
+    }
+
+
+    /// ================= METHODS =====================
+
+    renderArtworks = () => {
+        const album = this.state.album;
+
+        let styleManagerClosed = {
+            width: window.innerWidth - 40
+        };
+        let styleSmallScreen = {
             width: window.innerWidth - 250
         };
 
@@ -107,11 +135,11 @@ export default class ArtworksLayout extends React.Component {
     };
 
     renderEmptyAlbum = () => {
-        var styleManagerClosed = {
+        let styleManagerClosed = {
             width: window.innerWidth - 40
         };
 
-        var styleSmallScreen = {
+        let styleSmallScreen = {
             width: window.innerWidth - 250
         };
 
@@ -126,17 +154,18 @@ export default class ArtworksLayout extends React.Component {
     }
 
     renderEmptyUploads = () => {
-        var styleManagerClosed = {
+
+        let styleManagerClosed = {
             width: window.innerWidth - 40,
             height: window.innerHeight - 60
         };
 
-        var styleSmallScreen = {
+        let styleSmallScreen = {
             width: window.innerWidth - 250,
             height: window.innerHeight - 60
         };
 
-        var styleLargeScreen = {
+        let styleLargeScreen = {
             width: window.innerWidth * 0.7,
             height: window.innerHeight - 60
         };
@@ -234,4 +263,5 @@ export default class ArtworksLayout extends React.Component {
             console.log('Set uploaded files: ', files);
         }
     }
+
 }

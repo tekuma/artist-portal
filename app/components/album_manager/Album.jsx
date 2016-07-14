@@ -75,9 +75,9 @@ export default class Album extends React.Component {
     renderEdit = () => {
         let thumbnail = "../../assets/images/icons/new-album.svg";
 
-        for (var artworkID in this.props.userInfo.artworks) {
-            if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
-                let artwork = this.props.userInfo.artworks[artworkID];
+        for (var artworkID in this.props.user.artworks) {
+            if (this.props.user.artworks.hasOwnProperty(artworkID)) {
+                let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
                     thumbnail = artwork.image;
                 }
@@ -132,8 +132,7 @@ export default class Album extends React.Component {
                         <img
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
-                            onClick={this.props.onDelete}
-                            onTouchTap={this.props.onDelete} />
+                            onClick={this.props.onDelete} />
                     </OverlayTrigger>
                 </div>
             </li>
@@ -146,10 +145,10 @@ export default class Album extends React.Component {
 
         var thumbnail = "../../assets/images/icons/new-album.svg";
 
-        for (var artworkID in this.props.userInfo.artworks) {
-            if (this.props.userInfo.artworks.hasOwnProperty(artworkID)) {
+        for (var artworkID in this.props.user.artworks) {
+            if (this.props.user.artworks.hasOwnProperty(artworkID)) {
 
-                let artwork = this.props.userInfo.artworks[artworkID];
+                let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
                     thumbnail = artwork.image;
                 }
@@ -187,7 +186,6 @@ export default class Album extends React.Component {
         return connectDragSource(connectDropTarget(
             <li style={{opacity: isDragging ? 0 : 1}}
                 onClick={this.props.changeAlbum}
-                onTouchTAp={this.props.changeAlbum}
                 className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
                     <div style={style}
@@ -197,7 +195,6 @@ export default class Album extends React.Component {
                     <OverlayTrigger placement="bottom" overlay={editTooltip}>
                         <h3
                             onClick={this.edit}
-                            onTouchTap={this.edit}
                             className="album-name" >
                             {this.props.album.name}</h3>
                     </OverlayTrigger>
@@ -213,7 +210,7 @@ export default class Album extends React.Component {
                             className="album-more"
                             src='assets/images/icons/delete-white.svg'
                             onClick={this.props.onDelete}
-                            onTouchTap={this.props.onDelete} />
+                        />
                     </OverlayTrigger>
                 </div>
             </li>

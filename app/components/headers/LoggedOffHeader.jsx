@@ -21,13 +21,13 @@ export default class LoggedOffHeader extends React.Component {
             	<div
                     className="tekuma-logo"
                     onClick={this.props.returnToLandingPage}
-                    onTouchTap={this.props.returnToLandingPage} >
+                    >
                     <img id="tekuma-logo-image" src='assets/logos/text_black.png' />
             	</div>
             	<div
                     className="header-icons logged-off"
                     onClick={this.props.togglePopover}
-                    onTouchTap={this.props.togglePopover}>
+                    >
                     <div className="header-writing" title="Log In to Tekuma">
                         <h3>Log In</h3>
                     </div>

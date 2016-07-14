@@ -10,11 +10,19 @@ import Views from '../../constants/Views';
 export default class LoggedOnHeader extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             searchOpen: false
         };
     }
+
+    componentWillMount() {
+        console.log("-----LoggedOnHeader");
+    }
+
+    componentDidMount() {
+        console.log("++++++LoggedOnHeader");
+    }
+
     render() {
         const addArtworkTooltip = (
             <Tooltip
@@ -38,7 +46,7 @@ export default class LoggedOnHeader extends React.Component {
                 	<div
                         className="tekuma-logo"
                         onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
-                        onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}>
+                        >
                             <img id="tekuma-logo-image" src='assets/images/tekuma-white.svg' />
                 	</div>
                 	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
@@ -46,7 +54,7 @@ export default class LoggedOnHeader extends React.Component {
                 	    	<div
                                 className="header-icon"
                                 onClick={this.onOpenClick}
-                                onTouchTap={this.onOpenClick}>
+                                >
                                 <img src='assets/images/icons/plus-pink.svg' />
                 	    	</div>
                         </OverlayTrigger>
@@ -54,7 +62,7 @@ export default class LoggedOnHeader extends React.Component {
                 	    	<div
                                 className="header-icon"
                                 onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
-                                onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}>
+                                >
                                 <img src='assets/images/icons/organize.svg' />
                 	    	</div>
                         </OverlayTrigger>

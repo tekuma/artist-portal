@@ -59,7 +59,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.legal ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.legal_name != "" ? this.props.userInfo.legal_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.legal_name != "" ? this.props.user.legal_name : "Unset"}</h3>
                         </div>
                         <div
                             id="legal-name-content"
@@ -67,7 +67,7 @@ export default class PrivateEdit extends React.Component {
                                 <input
                                 type="text"
                                 id="edit-legalname"
-                                defaultValue={this.props.userInfo.legal}
+                                defaultValue={this.props.user.legal}
                                 ref="legalname"
                                 style={this.state.errorType.legalName ? errorStyle : null}
                                 placeholder="Legal Name"
@@ -80,18 +80,18 @@ export default class PrivateEdit extends React.Component {
                         <div
                             className={this.state.accordion.email ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"email")}
-                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Email</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.email != "" ? this.props.userInfo.email : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.email != "" ? this.props.user.email : "Unset"}</h3>
                         </div>
                         <div
                             id="email-content"
                             className={this.state.accordion.email ? "accordion-content open" : "accordion-content"}
-                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <input
                                 type="email"
                                 id="edit-email"
-                                defaultValue={this.props.userInfo.email}
+                                defaultValue={this.props.user.email}
                                 ref="email"
                                 style={this.state.errorType.email ? errorStyle : null}
                                 placeholder="Email"
@@ -109,14 +109,14 @@ export default class PrivateEdit extends React.Component {
                         <div
                             className={this.state.accordion.password ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"password")}
-                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Password</h2>
                             <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
                         </div>
                         <div
                             id="password-content"
                             className={this.state.accordion.password ? "accordion-content open" : "accordion-content"}
-                            style={this.props.userInfo.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <input
                                 type="password"
                                 id="edit-password"
@@ -204,7 +204,7 @@ export default class PrivateEdit extends React.Component {
         }
 
         // Only test regex if user has typed in an email and has password
-        if(email.length > 0 && email != this.props.userInfo.email && !/.+@.+\..+/.test(email)) {
+        if(email.length > 0 && email != this.props.user.email && !/.+@.+\..+/.test(email)) {
             this.state.errors.push("The email address you supplied is invalid.");
 
             let errorType = this.state.errorType;
@@ -212,7 +212,7 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.userInfo.email && emailPassword.length == 0) {
+        } else if (email != this.props.user.email && emailPassword.length == 0) {
             this.state.errors.push("To change your email, you must enter your current password.");
 
             let errorType = this.state.errorType;
@@ -220,7 +220,7 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.userInfo.email && email.length > 0 && emailPassword.length > 0) {
+        } else if (email != this.props.user.email && email.length > 0 && emailPassword.length > 0) {
             data.email = email;
             data.email_password = emailPassword;
         }

@@ -48,7 +48,6 @@ export default class Albums extends React.Component {
         return connectDropTarget(
             <li
                 onClick={this.props.changeAlbum}
-                onTouchTap={this.props.changeAlbum}
                 className={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
                 <div className="album-avatar">
                     <div className="empty-container">

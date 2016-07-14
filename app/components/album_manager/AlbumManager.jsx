@@ -11,54 +11,50 @@ import AlbumToggler from './AlbumToggler.jsx';
 const userPath = 'public/onboarders/';
 
 export default class AlbumManager extends React.Component {
+    state = {
+        albums    :{}, // album objects other than uploads
+        uploads   :{}, // the uploads album object
+        albumNames:[]  // array of strings of album names
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            albums: {}
-        }
+    componentWillMount() {
+        console.log("----AlbumManager");
     }
 
     componentDidMount() {
-        let thisUID   = firebase.auth().currentUser.uid;
-        let albumPath = `public/onboarders/${thisUID}/albums`;
-        let albumRef  = firebase.database().ref(albumPath);
+        console.log("++++ AlbumManager");
+        const user       = this.props.user;
+        const allAlbums  = user['albums'];
 
-        console.log(thisUID, ">> UID");
-        albumRef.on("value", (snapshot) => {
-            const uploads = snapshot.val()[0];
-            const albums  = snapshot.val();
-            delete albums[0];
+        let albums = {}
+        let uploads = allAlbums[0];
 
-            console.log("********",uploads,albums);
+        let albumKeys  = Object.keys(allAlbums);
+        let albumNames = ["Uploads"];
+        //NOTE 'i' starting at 1 to ignore uploads album
+        for (let i = 1; i < albumKeys.length; i++) {
+            let key = albumKeys[i];
+            albumNames.push(allAlbums[key]['name']);
+            albums[key] = allAlbums[key];
+        }
 
-            let albumKeys = Object.keys(albums);
-            console.log("Here are the Album Keys: ", albumKeys);
-            let albumNames = ["Uploads"];
-            for (let i = 0; i < albumKeys.length; i++) {
-                let key = albumKeys[i];
-                albumNames.push(albums[key]['name']);
-            }
+        //Send list of album names up to AppView, to be used by EditArtworkLayout
+        // (to be able to have a list of all albums)
+        this.props.setAlbumNames(albumNames);
 
-            console.log("Here are the album names: ", albumNames);
-            //send names to AppView
-            this.props.setAlbumNames(albumNames);
+        //Set albums to state
+        this.setState({
+            albums    :albums,
+            uploads   :uploads,
+            albumNames:albumNames
+        });
 
-            this.setState({
-                albums :albums,
-                uploads:uploads,
-                albumNames:albumNames
-            });
-            console.log(this.state);
-
-        }, null, this);
-        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        console.log("Here are the albums:", this.state);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-    }
 
     render() {
         if(this.props.managerIsOpen) {
@@ -97,12 +93,11 @@ export default class AlbumManager extends React.Component {
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
-                    userInfo={this.props.userInfo}
+                    user={this.props.user}
                     changeArtworkAlbum={this.props.changeArtworkAlbum} />
                 <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
                     <div
                         onClick={this.addAlbum}
-                        onTouchTap={this.addAlbum}
                         className="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
                     </div>
@@ -143,11 +138,10 @@ export default class AlbumManager extends React.Component {
                     onDelete={this.deleteAlbum}
                     currentAlbum={this.props.currentAlbum}
                     changeAlbum={this.props.changeAlbum}
-                    userInfo={this.props.userInfo} />
+                    user={this.props.user} />
                 <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
                     <div
                         onClick={this.addAlbum}
-                        onTouchTap={this.addAlbum}
                         className="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
                     </div>

@@ -15,11 +15,19 @@ export default class EditProfileLayout extends React.Component {
         }
     }
 
+    componentWillMount() {
+        console.log("-----EditProfileLayout");
+    }
+
+    componentDidMount() {
+        console.log("++++++EditProfileLayout");
+    }
+
     render() {
         if(this.state.currentEditLayout === "public") {
             return (
                 <PublicEdit
-                    userInfo={this.props.userInfo}
+                    user={this.props.user}
                     currentEditLayout={this.state.currentEditLayout}
                     changeEditLayout={this.changeEditLayout}
                     editPublicUserInfo={this.props.editPublicUserInfo}
@@ -28,7 +36,7 @@ export default class EditProfileLayout extends React.Component {
         } else {
             return (
                 <PrivateEdit
-                    userInfo={this.props.userInfo}
+                    user={this.props.user}
                     currentEditLayout={this.state.currentEditLayout}
                     changeEditLayout={this.changeEditLayout}
                     currentError={this.state.currentError}
