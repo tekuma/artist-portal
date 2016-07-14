@@ -16,7 +16,7 @@ export default class ArtworksLayout extends React.Component {
 
     state = {
         album:[] // list of Artwork objects in the current album
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -66,43 +66,28 @@ export default class ArtworksLayout extends React.Component {
 
 
     render() {
-        let styleManagerClosed = {
-            width: window.innerWidth - 40
-        };
 
-        let styleSmallScreen = {
-            width: window.innerWidth - 250
-        };
-        console.log("HERE");
-        return (
-            <main  >
-                <div
-                    className="empty-album">
-                    <h2>Fill album by Dragging Artworks from Uploads</h2>
-                </div>
-            </main>
-        );
-
-        // if(this.state.album.length == 0) {
-        //     return this.renderEmptyAlbum();
-        // } else {
-        //     return this.renderArtworks();
-        // }
-        // if(this.state.album.length == 0) {
-        //     if (this.props.currentAlbum == "Uploads") {
-        //         return this.renderEmptyUploads();
-        //     } else {
-        //         return this.renderEmptyAlbum();
-        //     }
-        // } else {
-        //     return this.renderArtworks();
-        // }
+        if(this.state.album.length == 0) {
+            return this.renderEmptyAlbum();
+        } else {
+            return this.renderArtworks();
+        }
+        if(this.state.album.length == 0) {
+            if (this.props.currentAlbum == "Uploads") {
+                return this.renderEmptyUploads();
+            } else {
+                return this.renderEmptyAlbum();
+            }
+        } else {
+            return this.renderArtworks();
+        }
     }
 
 
     /// ================= METHODS =====================
 
     renderArtworks = () => {
+        console.log("Rendering artowrks");
         const album = this.state.album;
 
         let styleManagerClosed = {

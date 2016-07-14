@@ -79,8 +79,6 @@ export default class AppView extends React.Component {
     componentDidMount() {
         console.log("++++++ AppView");
         console.log("****************");
-
-
     }
 
 

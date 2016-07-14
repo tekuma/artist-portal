@@ -15,22 +15,22 @@ export default class AlbumManager extends React.Component {
         albums    :{}, // album objects other than uploads
         uploads   :{}, // the uploads album object
         albumNames:[]  // array of strings of album names
-    }
+    };
 
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        console.log("----AlbumManager");
+        console.log("-----AlbumManager");
     }
 
     componentDidMount() {
-        console.log("++++ AlbumManager");
+        console.log("+++++AlbumManager");
         const user       = this.props.user;
         const allAlbums  = user['albums'];
 
-        let albums = {}
+        let albums  = {};
         let uploads = allAlbums[0];
 
         let albumKeys  = Object.keys(allAlbums);
