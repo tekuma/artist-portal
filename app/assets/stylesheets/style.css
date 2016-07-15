@@ -1197,12 +1197,8 @@ main, .artworks {
 .signup-form .bottom-form,
 .signup-form .social-wrapper {
 	display: block;
-	width: 550px;
+	width: 530px;
 	text-align: center;
-}
-
-.signup-form .top-form {
-	margin-top: 10px;
 }
 
 .social-terms {
@@ -1266,6 +1262,7 @@ main, .artworks {
 	list-style: none;
     margin: 0;
     padding: 0;
+	width: 530px;
 }
 
 .login-popover div ul {
@@ -1290,8 +1287,8 @@ main, .artworks {
 .signup-form fieldset ul li,
 .login-form fieldset ul li {
 	display: inline-block;
-	width: 250px;
-	margin: 5px 10px;
+	width: 255px;
+	margin: 5px 5px;
 }
 
 .login-popover div ul li {
@@ -1335,7 +1332,7 @@ textarea.bio {
 	-ms-appearance: none;
     padding: 0.75em .75em;
     width: 100%;
-	height: 2.7em;
+	height: 43.2px;
 	color: #000000;
 }
 
@@ -1518,7 +1515,7 @@ textarea.bio {
 .login-button {
 	position: relative;
 	width: 150px;
-	height: 40px;
+	height: 43.2px;
 	margin: 0 auto;
 	background: black;
 	border-radius: 0px;
@@ -1605,7 +1602,8 @@ login-button.left {
 }
 
 .optin {
-	margin: 15px 0 25px 0;
+	margin: 10px 0 20px 0;
+	color: #000000;
 }
 
 .optin input {
@@ -1626,17 +1624,19 @@ login-button.left {
 }
 
 .separator {
-   width: 100%;
+   width: 520px;
    text-align: center;
-   border-bottom: 1px solid #4d5967;
+   border-bottom: 1px solid #000000;
    line-height: 0.1em;
-   margin: 10px 0 10px;
+   margin: 10px 5px 10px;
    font-size: 1em;
 }
 
 .separator span {
     background:#fff;
     padding:0 10px;
+	font-weight: 500;
+	color: #000000;
 }
 
 .forgot-heading-wrapper {
@@ -1691,7 +1691,7 @@ login-button.left {
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
-	margin: 0 auto;
+	margin: 0;
 	width: 530px;
 }
 
@@ -1702,9 +1702,9 @@ login-button.left {
   	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   	display: flex;
 	border-radius: 0px !important;
-	width: 250px;
-	height: 2.7em;
-	margin: 5px 10px;
+	width: 255px;
+	height: 43.2px;
+	margin: 5px 5px;
 	border-radius: 3px;
 	flex: 1 1 50%;
 	-webkit-flex: 1 1 50%;
@@ -1721,7 +1721,15 @@ login-button.left {
 }
 
 .social-button.facebook:hover {
-	background: #3b5998;
+	background: #e73827;
+	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
+	background: -webkit-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome, Safari4+ */
+	background: -o-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome10+,Safari5.1+ */
+	background: -ms-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Opera 11.10+ */
+	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%); /* IE 10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e73827', endColorstr='#ec167e', GradientType=0 ); /* W3C */
+	/* IE6-9 */
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1737,7 +1745,15 @@ login-button.left {
 }
 
 .social-button.google:hover {
-	background: #d62d20;
+	background: #e73827;
+	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
+	background: -webkit-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome, Safari4+ */
+	background: -o-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Chrome10+,Safari5.1+ */
+	background: -ms-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Opera 11.10+ */
+	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%); /* IE 10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e73827', endColorstr='#ec167e', GradientType=0 ); /* W3C */
+	/* IE6-9 */
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;

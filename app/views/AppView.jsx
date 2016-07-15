@@ -26,6 +26,8 @@ const paletteDownscaling    = 1 ;  // how much to downscale the image before pro
 
 @DragDropContext(HTML5Backend)  // Adds Drag & Drop to App
 export default class AppView extends React.Component {
+
+
     constructor(props) {
         super(props);
 
@@ -45,23 +47,19 @@ export default class AppView extends React.Component {
             albums : {},
             isUploading: false
         };
-    }
 
-    /**
-     * [componentWillMount description]
-     */
-    componentWillMount() {
-        //pass
     }
 
     /**
      * When the compondent did mount, take a snapshot of the 'public/onboarders/{UID}'
      * node, and set it to this.state.userInfo
      */
-    componentDidMount() {
+    componentWillMount() {
+        console.log("HELLLLOOO!!!!");
         const thisUID = firebase.auth().currentUser.uid;
         firebase.database().ref(pathToPublicOnboarder + thisUID).on('value', (snapshot)=>{
-            this.setState({userInfo: snapshot.val()});
+            this.state.userInfo = snapshot.val();
+            console.log("Within Firebase Call!!!!!!");
         }, (error)=>{
             console.error(error);
         }, this);

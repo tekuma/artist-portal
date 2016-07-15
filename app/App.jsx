@@ -36,25 +36,27 @@ const providerF = new firebase.auth.FacebookAuthProvider();
 
 
 export default class App extends React.Component {
+    state = {
+        user        : {},   //TODO, what uses this? should use firebaseDB
+        errors      : [],   // error logs, snackbar display?
+        reg         : {},   // public reg info
+        _reg        : {},   // private reg info
+        login       : {},   //
+        loggedIn    : null, //
+        loaded      : false,// dictates if folding-cube is displayed
+        forgotPass  : false // TODO
+    };
+    
     constructor(props) {
         super(props);
-        this.state = {
-            user        : {},   //TODO, what uses this? should use firebaseDB
-            errors      : [],   // error logs, snackbar display?
-            reg         : {},   // public reg info
-            _reg        : {},   // private reg info
-            login       : {},   //
-            loggedIn    : null, //
-            loaded      : false,// dictates if folding-cube is displayed
-            forgotPass  : false // TODO
-        };
+        //pass
     }
 
     shouldComponentUpdate(nextProps, nextState) {
       return true;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         firebase.auth().onAuthStateChanged( (user)=>{
             if (user) {
                 this.setState({loggedIn: true,  loaded:true});
@@ -62,10 +64,6 @@ export default class App extends React.Component {
                 this.setState({loggedIn: false, loaded:true});
             }
         });
-    }
-
-    componentDidMount() {
-        //TODO
     }
 
     render() {

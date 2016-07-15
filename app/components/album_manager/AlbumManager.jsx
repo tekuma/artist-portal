@@ -1,8 +1,7 @@
 // Libs
-import React  from 'react';
-import uuid   from 'node-uuid';
+import React        from 'react';
+import uuid         from 'node-uuid';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
-
 // Files
 import Albums       from './Albums.jsx';
 import confirm      from '../confirm-dialog/ConfirmFunction';
@@ -21,78 +20,44 @@ export default class AlbumManager extends React.Component {
     }
 
     componentDidMount() {
-        function getAlbums() {
-            let thisUID = firebase.auth().currentUser.uid;
-            let albumPath = `public/onboarders/${thisUID}/albums`;
-            let albumRef = firebase.database().ref(albumPath);
-
-            albumRef.on("value", (snapshot) => {
-                let albumJSON = snapshot.val();
-                console.log("Here is albumJSON: ", albumJSON);
-
-                let uploads   = albumJSON[0];
-                console.log("Here are Uploads: ", uploads);
-                let albumKeys = Object.keys(albumJSON);
-                console.log("Here are the Album Keys: ", albumKeys);
-                delete albumJSON[0];
-                console.log("Here is albumJSON after deleting Uploads: ", albumJSON);
-                let albumNames = ["Uploads"];
-                for (var i = 0; i < albumKeys.length; i++) {
-                    let key = albumKeys[i];
-                    albumNames.push(albumJSON[key]['name']);
-                }
-                console.log("Here are the album names: ", albumNames);
-                //send names to AppView
-                this.props.setAlbumNames(albumNames);
-
-                this.setState({
-                    albums:albumJSON,
-                    uploads:uploads,
-                    albumNames:albumNames
-                });
-                console.log(this.state);
-
-            }, null, this);
-        }
-
-        setTimeout(getAlbums.bind(this), 500);
-
-        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
-        console.log("Here are the albums:", this.state);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-    }
-
-    componentWillReceiveProps(nextProps) {
-        let thisUID = firebase.auth().currentUser.uid;
+        let thisUID   = firebase.auth().currentUser.uid;
         let albumPath = `public/onboarders/${thisUID}/albums`;
-        let albumRef = firebase.database().ref(albumPath);
+        let albumRef  = firebase.database().ref(albumPath);
 
+        console.log(thisUID, ">> UID");
         albumRef.on("value", (snapshot) => {
-            let albumJSON = snapshot.val();
+            const uploads = snapshot.val()[0];
+            const albums  = snapshot.val();
+            delete albums[0];
 
-            let uploads   = albumJSON[0];
-            let albumKeys = Object.keys(albumJSON);
-            delete albumJSON[0];
+            console.log("********",uploads,albums);
 
+            let albumKeys = Object.keys(albums);
+            console.log("Here are the Album Keys: ", albumKeys);
             let albumNames = ["Uploads"];
-            for (var i = 0; i < albumKeys.length; i++) {
+            for (let i = 0; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
-                albumNames.push(albumJSON[key]['name']);
+                albumNames.push(albums[key]['name']);
             }
+
+            console.log("Here are the album names: ", albumNames);
             //send names to AppView
             this.props.setAlbumNames(albumNames);
 
             this.setState({
-                albums:albumJSON,
+                albums :albums,
                 uploads:uploads,
                 albumNames:albumNames
             });
             console.log(this.state);
 
         }, null, this);
+        // When the currentAlbum is switched (by clicking on a new album), we load new artworks into view
+        console.log("Here are the albums:", this.state);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
     }
 
     render() {
