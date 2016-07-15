@@ -3,24 +3,24 @@ import React     from 'react';
 import SearchBar from './SearchBar';
 import Dropzone  from 'react-dropzone';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
 // Files
 import Views from '../../constants/Views';
 
-
+/**
+ * TODO
+ */
 export default class PostAuthHeader extends React.Component {
+    state = {
+        searchOpen: false
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            searchOpen: false
-        };
     }
 
     componentWillMount() {
         console.log("-----PostAuthHeader");
-    }
-
-    componentDidMount() {
-        console.log("++++++PostAuthHeader");
     }
 
     render() {
@@ -81,6 +81,20 @@ export default class PostAuthHeader extends React.Component {
         );
     }
 
+    componentDidMount() {
+        console.log("+++++PostAuthHeader");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //Pass
+    }
+
+    // ------------ METHODS -------------
+
+    /**
+     * TODO
+     * @return {[type]} [description]
+     */
     toggleSearch = () => {
         this.setState({
             searchOpen: !this.state.searchOpen
@@ -91,13 +105,24 @@ export default class PostAuthHeader extends React.Component {
         }
     };
 
+    /**
+     * TODO
+     * @param  {[type]} files [description]
+     * @return {[type]}       [description]
+     */
     onOpenClick = (files) => {
         this.refs.dropzone.open();
     }
 
+    /**
+     * TODO
+     * @param  {[type]} files [description]
+     * @return {[type]}       [description]
+     */
     onDrop = (files) => {
         this.props.setUploadedFiles(files);
         this.props.changeAppLayout(Views.ARTWORKS);
         console.log('Set uploaded files: ', files);
     }
+
 }
