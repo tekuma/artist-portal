@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'node-uuid';
-import UserNameTag from './UserNameTag';
+import DisplayNameTag from './DisplayNameTag';
 import NavItems from './NavItems';
 import Views from '../../constants/Views';
 import LogoutButton from './LogoutButton';
@@ -53,7 +53,7 @@ export default class HiddenNav extends React.Component {
                     className="avatar"
                     style={avatarStyle}>
 	    		</div>
-                <UserNameTag
+                <DisplayNameTag
                     displayName={(this.props.user == null)? "Default Artist":this.props.user.display_name}
                     navIsOpen={this.props.navIsOpen} />
                 <NavItems

@@ -46,7 +46,7 @@ export default class AlbumManager extends React.Component {
                 albums[key] = allAlbums[key];
             }
 
-            //Send list of album names up to AppView, to be used by EditArtworkLayout
+            //Send list of album names up to PostAuth, to be used by EditArtworkForm
             // (to be able to have a list of all albums)
             this.props.setAlbumNames(albumNames);
 
@@ -81,7 +81,7 @@ export default class AlbumManager extends React.Component {
                 albums[key] = allAlbums[key];
             }
 
-            //Send list of album names up to AppView, to be used by EditArtworkLayout
+            //Send list of album names up to PostAuth, to be used by EditArtworkForm
             // (to be able to have a list of all albums)
 
             // nextProps.setAlbumNames(albumNames);

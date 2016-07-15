@@ -10,10 +10,10 @@
 import React              from 'react';
 import Firebase           from 'firebase';
 // Files
-import AppView            from './views/AppView';
-import LandingPageView    from './views/LandingPageView';
-import ResetPasswordView  from './views/ResetPasswordView';
-import ForgotPasswordView from './views/ForgotPasswordView';
+import PostAuth            from './views/PostAuth';
+import PreAuth    from './views/PreAuth';
+import ResetPassword  from './views/ResetPassword';
+import ForgotPassword from './views/ForgotPassword';
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
@@ -103,11 +103,11 @@ export default class App extends React.Component {
     /**
      * Flow Control Function: If a user is currently logged in after accessing
      * '/', they are sent here.
-     * @return {[JSX]} [renders into AppView]
+     * @return {[JSX]} [renders into PostAuth]
      */
     goToArtistPortal = () => {
         return(
-            <AppView
+            <PostAuth
               thisUID = {this.state.thisUID}
               signOutUser = {this.signOutUser}
             />
@@ -116,13 +116,13 @@ export default class App extends React.Component {
 
     /**
      * Flow Control Function: If no user is detected when accessing '/', then
-     * they the UX will render the login page, "LandingPageView".
+     * they the UX will render the login page, "PreAuth".
      * @return {[type]} [description]
      */
     goToLandingPage = () => {
         console.log("|>Rendering Login Page");
         return(
-            <LandingPageView
+            <PreAuth
                 authenticateWithPassword={this.authenticateWithPassword}
                 authenticateWithGoogle  ={this.authenticateWithGoogle}
                 authenticateWithFB      ={this.authenticateWithFB}
@@ -144,7 +144,7 @@ export default class App extends React.Component {
      */
     goToForgotPassword = () => {
         return(
-            <ForgotPasswordView
+            <ForgotPassword
                 errors                  ={this.state.errors}
             />
         )
