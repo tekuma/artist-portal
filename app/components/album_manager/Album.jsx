@@ -20,6 +20,7 @@ const albumSource = {
 
 const albumTarget = {
     hover(targetProps, monitor) {
+        console.log("TargetProps: ", targetProps);
         const target = targetProps.album;
         const source = monitor.getItem();
         if(source.name !== target.name) {
@@ -100,7 +101,7 @@ export default class Album extends React.Component {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
-                    thumbnail = artwork.image;
+                    thumbnail = artwork.thumbnail;
                 }
             }
         }
@@ -176,7 +177,7 @@ export default class Album extends React.Component {
 
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
-                    thumbnail = artwork.image;
+                    thumbnail = artwork.thumbnail;
                 }
             }
         }

@@ -132,7 +132,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.bio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"bio")}>
                             <h2 className="accordion-item-heading">Bio</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.bio != "" ? this.props.user.bio.substring(0, 44) + "..." : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.bio != "" ? this.props.user.bio.substring(0, 44).length > this.props.user.bio ?  this.props.user.bio.substring(0, 44) + "..." : this.props.user.bio.substring(0, 44) : "Unset"}</h3>
                         </div>
                         <div
                             id="bio-content"

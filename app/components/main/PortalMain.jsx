@@ -34,20 +34,18 @@ export default class PortalMain extends React.Component {
 
     componentDidMount() {
         console.log("+++++PortalMain");
-        window.addEventListener("resize", this.forceUpdate());
+        window.addEventListener("resize", this.rerender);
     }
-
-    /* TODO FIXME  do we need this?
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.rerender);
-    }
-    */
 
     componentWillReceiveProps(nextProps) {
         //TODO
     }
 
-    // ---------------- METHODS ---------------- //
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.rerender);
+    }
+
+// ============= Flow Control ===============
 
     goToArtworkManager = () => {
         return (
@@ -101,9 +99,15 @@ export default class PortalMain extends React.Component {
             </div>
         );
     }
+
+    // ============= Methods ===============
+
+    rerender = () => {
+        this.setState({});
+    }
 }
 
-//TODO: Comment out what this is|does
+// ============= PropTypes ==============
 
 PortalMain.propTypes = {
     navIsOpen: React.PropTypes.bool.isRequired,

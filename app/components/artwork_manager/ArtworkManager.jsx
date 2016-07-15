@@ -111,7 +111,6 @@ export default class ArtworkManager extends React.Component {
                 for (let i = 0; i < artworksLength; i++) {
                     let artworkUID = artworks[i];
                     let artwork    = user['artworks'][artworkUID];
-                    console.log("$$THIS is not an artwork", artwork);
                     album.push(artwork);
                 }
             }
@@ -256,7 +255,10 @@ export default class ArtworkManager extends React.Component {
             console.log("Here is Albums: ", data);
             // Find Artworks
             for (let i = 0; i < albumsLength; i++) {
-                    console.log("Current iteration: ", i);
+                console.log("Current iteration: ", i);
+                let artworks = data[i]['artworks'];
+
+                if (artworks != null && artworks != undefined) {
                     let artworksLength = Object.keys(data[i]['artworks']).length;
 
                     for (let j = 0; j < artworksLength; j++) {
@@ -270,6 +272,7 @@ export default class ArtworkManager extends React.Component {
                             albumIndex = i;
                         }
                     }
+                }
             }
 
             // array.splice(start, deleteCount[, item1[, item2[, ...]]])
