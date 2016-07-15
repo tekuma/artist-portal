@@ -1,5 +1,7 @@
-import React from 'react';
+// Libs
+import React  from 'react';
 
+//NOTE: This file is not a full component and is left as such for optimization
 export default ({navIsOpen, displayName}) => {
     return (
         <div
