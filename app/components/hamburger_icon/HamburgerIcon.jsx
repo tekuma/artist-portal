@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * TODO
+ * @param  {[type]} {navIsOpen [description]
+ * @param  {[type]} toggleNav} [description]
+ * @return {[type]}            [description]
+ */
 export default ({navIsOpen, toggleNav}) => {
     return (
         <div>
