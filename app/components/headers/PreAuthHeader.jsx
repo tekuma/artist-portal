@@ -1,14 +1,25 @@
-import React from 'react';
+// Libs
+import React     from 'react';
+
+// Files
 import SearchBar from './SearchBar';
 
+/**
+ * TODO
+ */
 export default class PreAuthHeader extends React.Component {
+    state = {
+        searchOpen: false
+    };
+
     constructor(props) {
         super(props);
-
-        this.state = {
-            searchOpen: false
-        };
     }
+
+    componentWillMount() {
+        //pass
+    }
+
     render() {
         return (
             <header>
@@ -36,6 +47,15 @@ export default class PreAuthHeader extends React.Component {
         );
     }
 
+    componentDidMount() {
+        //pass
+    }
+
+    // ----------- METHODS -----------
+
+    /**
+     * TODO
+     */
     toggleSearch = () => {
         this.setState({
             searchOpen: !this.state.searchOpen
@@ -44,5 +64,6 @@ export default class PreAuthHeader extends React.Component {
         if(!this.state.searchOpen) {
             document.getElementById("search").value = "";
         }
-    };
+    }
+
 }
