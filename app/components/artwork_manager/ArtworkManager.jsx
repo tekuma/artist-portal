@@ -6,16 +6,18 @@ import Dropzone   from 'react-dropzone';
 import update     from 'react-addons-update';
 
 // Files
-import Artwork    from '../artwork/Artwork';
+import Artwork    from './Artwork';
 import confirm    from '../confirm-dialog/ConfirmFunction';
 import Views      from '../../constants/Views';
 
 
-
+/**
+ * TODO
+ */
 export default class ArtworkManager extends React.Component {
 
     state = {
-        album:[] // list of Artwork objects in the current album
+        album :[] // list of Artwork objects in the current album
     };
 
     constructor(props) {
@@ -24,83 +26,6 @@ export default class ArtworkManager extends React.Component {
 
     componentWillMount() {
         console.log("----- ArtworkManager");
-    }
-
-    componentDidMount() {
-        console.log("+++++ ArtworkManager");
-        if (this.props.user.albums != undefined) {
-            console.log("====Entered it");
-            let album = [];
-            let   thisAlbumName = this.props.currentAlbum; //passed from PostAuth
-            let   user          = this.props.user;
-            let   albums        = user['albums'];
-
-            let albumIndex;
-            let albumsLength    = Object.keys(albums).length;
-
-            // Look through the albums branch to find which album we are in
-            // we have the album name, we need the index of it.
-            for (let i = 0; i < albumsLength; i++) {
-                if (thisAlbumName == albums[i]['name']) {
-                    albumIndex = i;
-                    break;
-                }
-            }
-            //FIXME if we never match, albumIndex will be undefined
-
-            let artworks = albums[albumIndex]['artworks'];
-            let artworksLength = Object.keys(artworks).length;
-
-            // Load relevant artworks to state album
-            for (let i = 0; i < artworksLength; i++) {
-                let artworkUID = artworks[i];
-                let artwork    = user['artworks'][artworkUID];
-                console.log("$$THIS is not an artwork", artwork);
-                album.push(artwork);
-            }
-
-            this.setState({
-                album: album
-            });
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.user.albums != undefined) {
-            console.log("====Entered it");
-            let album = [];
-            let   thisAlbumName = nextProps.currentAlbum; //passed from PostAuth
-            let   user          = nextProps.user;
-            let   albums        = user['albums'];
-
-            let albumIndex;
-            let albumsLength    = Object.keys(albums).length;
-
-            // Look through the albums branch to find which album we are in
-            // we have the album name, we need the index of it.
-            for (let i = 0; i < albumsLength; i++) {
-                if (thisAlbumName == albums[i]['name']) {
-                    albumIndex = i;
-                    break;
-                }
-            }
-            //FIXME if we never match, albumIndex will be undefined
-
-            let artworks = albums[albumIndex]['artworks'];
-            let artworksLength = Object.keys(artworks).length;
-
-            // Load relevant artworks to state album
-            for (let i = 0; i < artworksLength; i++) {
-                let artworkUID = artworks[i];
-                let artwork    = user['artworks'][artworkUID];
-                console.log("$$THIS is not an artwork", artwork);
-                album.push(artwork);
-            }
-
-            this.setState({
-                album: album
-            });
-        }
     }
 
     render() {
@@ -121,8 +46,83 @@ export default class ArtworkManager extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log("+++++ ArtworkManager");
+        if (this.props.user.albums != undefined) {
 
-    /// ================= METHODS =====================
+            let albumIndex;
+            let album         = [];
+            let thisAlbumName = this.props.currentAlbum; //passed from PostAuth
+            let user          = this.props.user;
+            let albums        = user['albums'];
+            let albumsLength    = Object.keys(albums).length;
+
+            // Look through the albums branch to find which album we are in
+            // we have the album name, we need the index of it.
+            for (let i = 0; i < albumsLength; i++) {
+                if (thisAlbumName == albums[i]['name']) {
+                    albumIndex = i;
+                    break;
+                }
+            }
+            //FIXME if we never match, albumIndex will be undefined
+
+            let artworks       = albums[albumIndex]['artworks'];
+            let artworksLength = Object.keys(artworks).length;
+
+            // Load relevant artworks to state album
+            for (let i = 0; i < artworksLength; i++) {
+                let artworkUID = artworks[i];
+                let artwork    = user['artworks'][artworkUID];
+                console.log("$$THIS is not an artwork", artwork);
+                album.push(artwork);
+            }
+
+            this.setState({
+                album : album
+            });
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.albums != undefined) {
+            console.log("====Entered it");
+            let albumIndex;
+            let album         = [];
+            let thisAlbumName = nextProps.currentAlbum; //passed from PostAuth
+            let user          = nextProps.user;
+            let albums        = user['albums'];
+            let albumsLength    = Object.keys(albums).length;
+
+            // Look through the albums branch to find which album we are in
+            // we have the album name, we need the index of it.
+            for (let i = 0; i < albumsLength; i++) {
+                if (thisAlbumName == albums[i]['name']) {
+                    albumIndex = i;
+                    break;
+                }
+            }
+            //FIXME if we never match, albumIndex will be undefined
+
+            let artworks       = albums[albumIndex]['artworks'];
+            let artworksLength = Object.keys(artworks).length;
+
+            // Load relevant artworks to state album
+            for (let i = 0; i < artworksLength; i++) {
+                let artworkUID = artworks[i];
+                let artwork    = user['artworks'][artworkUID];
+                console.log("$$THIS is not an artwork", artwork);
+                album.push(artwork);
+            }
+
+            this.setState({
+                album: album
+            });
+        }
+    }
+
+
+// ============= Flow Control ===============
 
     renderArtworks = () => {
         console.log("Rendering artowrks");
@@ -137,21 +137,21 @@ export default class ArtworkManager extends React.Component {
 
         return (
             <Dropzone
-                className="artworks"
-                accept="image/*"
                 disableClick
-                onDrop={this.onDrop}
-                ref="dropzone"
-                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}>{album.map(artwork => {
+                className       ="artworks"
+                accept          ="image/*"
+                onDrop          ={this.onDrop}
+                ref             ="dropzone"
+                style           ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}>
+                {album.map(artwork => {
                     return (
                         <Artwork
-                            key={artwork.id}
-                            onEdit={this.editArtwork}
-                            onDelete={this.deleteArtwork}
-                            onDownload={this.downloadArtwork}
-                            onMove={this.move}
-                            artwork={artwork}
-                        />
+                            key         ={artwork.id}
+                            onEdit      ={this.editArtwork}
+                            onDelete    ={this.deleteArtwork}
+                            onDownload  ={this.downloadArtwork}
+                            onMove      ={this.move}
+                            artwork     ={artwork} />
                     );
                 })}
             </Dropzone>
@@ -171,7 +171,9 @@ export default class ArtworkManager extends React.Component {
             <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
                 <div
                     className="empty-album">
-                    <h2>Fill album by Dragging Artworks from Uploads</h2>
+                    <h2>
+                        Fill album by Dragging Artworks from Uploads
+                    </h2>
                 </div>
             </main>
         );
@@ -196,23 +198,25 @@ export default class ArtworkManager extends React.Component {
 
         return (
             <Dropzone
-                style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? styleLargeScreen : styleSmallScreen : styleManagerClosed}
-                className="artwork-upload-box"
-                accept="image/*"
-                onDrop={this.onDrop}>
+                style       ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? styleLargeScreen : styleSmallScreen : styleManagerClosed}
+                className   ="artwork-upload-box"
+                accept      ="image/*"
+                onDrop      ={this.onDrop}>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
             </Dropzone>
         );
     }
 
+// ============= Methods ===============
+
     /**
      * [description]
      * @param  {String}  id [description]
      * @param  {String}  oldAlbumName - name of the album that art was moved from
      */
-    editArtwork = (id,oldAlbumName) => {
-        this.props.changeCurrentEditArtwork(id,oldAlbumName);  // Attach Artwork ID to View
+    editArtwork = (id, oldAlbumName) => {
+        this.props.changeCurrentEditArtwork(id, oldAlbumName);  // Attach Artwork ID to View
         this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 
@@ -244,12 +248,13 @@ export default class ArtworkManager extends React.Component {
         const albumRef = firebase.database().ref(albumPath);
 
         albumRef.transaction((data) => {
-            let albumsLength = Object.keys(data).length;
-            let sourceFound = false;
-            let targetFound = false;
             let albumIndex;
             let sourceIndex;
             let targetIndex;
+            let albumsLength = Object.keys(data).length;
+            let sourceFound = false;
+            let targetFound = false;
+
             console.log("Here is Albums: ", data);
             // Find Artworks
             for (let i = 0; i < albumsLength; i++) {
@@ -268,6 +273,19 @@ export default class ArtworkManager extends React.Component {
                         }
                     }
             }
+
+            // array.splice(start, deleteCount[, item1[, item2[, ...]]])
+            // start:
+            //  -> index at which to start changing the array (with origin 0)
+            // deleteCount:
+            //  -> An integer indicating the number of old array elements to remove
+            //  -> If deleteCount is 0, no elements are removed
+            // item1, item2, ...
+            //  -> The elements to add to the array, beginning at the start index
+            //
+            // In the example above, we are deleting 1 element starting from sourceAlbumIndex,
+            // then we are removing 0 elements starting from targetAlbumIndex
+            // and adding sourceAlbum before targetAlbumIndex
 
             let albumArtworks = update(data[albumIndex]['artworks'], {
                 $splice: [[sourceIndex, 1],[targetIndex, 0, sourceId]]

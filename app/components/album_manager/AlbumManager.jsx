@@ -1,21 +1,22 @@
 // Libs
-import React        from 'react';
-import uuid         from 'node-uuid';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import React                        from 'react';
+import uuid                         from 'node-uuid';
+import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+
 // Files
-import Albums       from './Albums.jsx';
-import confirm      from '../confirm-dialog/ConfirmFunction';
-import AlbumToggler from './AlbumToggler.jsx';
+import Albums                       from './Albums.jsx';
+import confirm                      from '../confirm_dialog/ConfirmFunction';
+import AlbumToggler                 from './AlbumToggler.jsx';
 
-//Global Variables
-const userPath = 'public/onboarders/';
-
+/**
+ * TODO
+ */
 export default class AlbumManager extends React.Component {
     state = {
         albums    :{}, // album objects other than uploads
         uploads   :{}, // the uploads album object
         albumNames:[]  // array of strings of album names
-    };
+    }
 
     constructor(props) {
         super(props);
@@ -23,6 +24,14 @@ export default class AlbumManager extends React.Component {
 
     componentWillMount() {
         console.log("-----AlbumManager");
+    }
+
+    render() {
+        if(this.props.managerIsOpen) {
+            return this.openedManager();
+        } else {
+            return this.closedManager();
+        }
     }
 
     componentDidMount() {
@@ -45,10 +54,6 @@ export default class AlbumManager extends React.Component {
                 albumNames.push(allAlbums[key]['name']);
                 albums[key] = allAlbums[key];
             }
-
-            //Send list of album names up to PostAuth, to be used by EditArtworkForm
-            // (to be able to have a list of all albums)
-            this.props.setAlbumNames(albumNames);
 
             //Set albums to state
             this.setState({
@@ -81,11 +86,6 @@ export default class AlbumManager extends React.Component {
                 albums[key] = allAlbums[key];
             }
 
-            //Send list of album names up to PostAuth, to be used by EditArtworkForm
-            // (to be able to have a list of all albums)
-
-            // nextProps.setAlbumNames(albumNames);
-
             //Set albums to state
             this.setState({
                 albums    :albums,
@@ -95,17 +95,8 @@ export default class AlbumManager extends React.Component {
         }
     }
 
-    render() {
-        if(this.props.managerIsOpen) {
-            return this.openedManager();
-        } else {
-            return this.closedManager();
-        }
-    }
+// ============= Flow Control ===============
 
-    /// -------------- METHODS ----------
-
-    //   #flow control
     openedManager = () => {
         const addAlbumTooltip = (
             <Tooltip
@@ -118,26 +109,28 @@ export default class AlbumManager extends React.Component {
         return (
             <section
                 style={{
-                height: window.innerHeight - 60,
-                right: 0
+                    height: window.innerHeight - 60,
+                    right: 0
                 }}
                 className="album-manager">
                 <AlbumToggler
-                    managerIsOpen={this.props.managerIsOpen}
-                    toggleManager={this.props.toggleManager}/>
+                    managerIsOpen   ={this.props.managerIsOpen}
+                    toggleManager   ={this.props.toggleManager}/>
                 <Albums
-                    albums={this.state.albums}
-                    uploads={this.state.uploads}
-                    onEdit={this.editAlbum}
-                    onDelete={this.deleteAlbum}
-                    currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum}
-                    user={this.props.user}
-                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
-                <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
+                    albums              ={this.state.albums}
+                    uploads             ={this.state.uploads}
+                    onEdit              ={this.editAlbum}
+                    onDelete            ={this.deleteAlbum}
+                    currentAlbum        ={this.props.currentAlbum}
+                    changeAlbum         ={this.props.changeAlbum}
+                    user                ={this.props.user}
+                    changeArtworkAlbum  ={this.props.changeArtworkAlbum} />
+                <OverlayTrigger
+                    placement   ="left"
+                    overlay     ={addAlbumTooltip}>
                     <div
-                        onClick={this.addAlbum}
-                        className="add-album" >
+                        onClick     ={this.addAlbum}
+                        className   ="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
                     </div>
                 </OverlayTrigger>
@@ -168,26 +161,31 @@ export default class AlbumManager extends React.Component {
                 }}
                 className="album-manager">
                 <AlbumToggler
-                    managerIsOpen={this.props.managerIsOpen}
-                    toggleManager={this.props.toggleManager}/>
+                    managerIsOpen   ={this.props.managerIsOpen}
+                    toggleManager   ={this.props.toggleManager}/>
                 <Albums
-                    albums={this.state.albums}
-                    uploads={this.state.uploads}
-                    onEdit={this.editAlbum}
-                    onDelete={this.deleteAlbum}
-                    currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum}
-                    user={this.props.user} />
-                <OverlayTrigger placement="left" overlay={addAlbumTooltip}>
+                    albums          ={this.state.albums}
+                    uploads         ={this.state.uploads}
+                    onEdit          ={this.editAlbum}
+                    onDelete        ={this.deleteAlbum}
+                    onMove          ={this.move}
+                    currentAlbum    ={this.props.currentAlbum}
+                    changeAlbum     ={this.props.changeAlbum}
+                    user            ={this.props.user} />
+                <OverlayTrigger
+                    placement="left"
+                    overlay={addAlbumTooltip}>
                     <div
-                        onClick={this.addAlbum}
-                        className="add-album" >
+                        onClick     ={this.addAlbum}
+                        className   ="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
                     </div>
                 </OverlayTrigger>
             </section>
         );
     }
+
+// ============= Methods ===============
 
     /**
      * [description]
@@ -228,12 +226,12 @@ export default class AlbumManager extends React.Component {
         const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
         let isNameThere = this.state.albumNames.indexOf(name) != -1;
-        if(!name.trim() || isNameThere ) {
+        if(!name.trim() || isNameThere) {
             return;
         }
 
         // Change the name in the album branch
-        let path = userPath + thisUID + "/albums/"+index;
+        let path = `public/onboarders/${thisUID}/albums/${index}`;
         let thisAlbumRef = firebase.database().ref(path);
         thisAlbumRef.update({name: name}).then( () => {
             console.log("name update successful");
@@ -241,9 +239,9 @@ export default class AlbumManager extends React.Component {
 
         // change the album key for each artwork object
         let artLength = Object.keys(this.state.albums[index]['artworks']).length;
-        for (var i = 0; i < artLength; i++) {
+        for (let i = 0; i < artLength; i++) {
             let thisArtKey = this.state.albums[index]['artworks'][i];
-            let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
+            let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
             artworkRef.update({album:name}).then( () => {
                 return;
             });
@@ -273,7 +271,7 @@ export default class AlbumManager extends React.Component {
                     let artLength = Object.keys(this.state.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
                         let thisArtKey = this.state.albums[index]['artworks'][i];
-                        let artworkRef =firebase.database().ref(userPath+thisUID+'/artworks/'+thisArtKey);
+                        let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
                         artworkRef.set(null).then( () =>{
                             console.log(thisArtKey, "deleted successfully");
                         });
@@ -286,7 +284,7 @@ export default class AlbumManager extends React.Component {
                     console.log("inside transaction", data);
                     let albumLength = Object.keys(data).length;
                     let found = false;
-                    for (var i = 0; i < albumLength; i++) {
+                    for (let i = 0; i < albumLength; i++) {
                         if (found) {
                             let aheadObject = data[i]
                             data[i-1] = aheadObject;
@@ -309,6 +307,47 @@ export default class AlbumManager extends React.Component {
             }
         );
     };
+
+    move = (sourceName, targetName) => {
+        console.log("Entered move");
+        const thisUID = firebase.auth().currentUser.uid;
+        const albumPath = `public/onboarders/${thisUID}/albums`;
+        const albumRef = firebase.database().ref(albumPath);
+        albumRef.transaction( (data) => {
+            let albumsLength = Object.keys(data).length;
+            let sourceData;
+            let sourceIndex;
+            let targetIndex;
+
+            for (let i = 0; i < albumsLength; i++) {
+                if (data[i]['name'] == sourceName) {
+                    sourceData = data[i];
+                    sourceIndex = i;
+                } else if (data[i]['name'] == targetName) {
+                    targetIndex = i;
+                }
+            }
+
+            let modifiedAlbums = update(data, {
+                $splice: [[sourceIndex, 1],[targetIndex, 0, sourceData]]
+            });
+
+            // array.splice(start, deleteCount[, item1[, item2[, ...]]])
+            // start:
+            //  -> index at which to start changing the array (with origin 0)
+            // deleteCount:
+            //  -> An integer indicating the number of old array elements to remove
+            //  -> If deleteCount is 0, no elements are removed
+            // item1, item2, ...
+            //  -> The elements to add to the array, beginning at the start index
+            //
+            // In the example above, we are deleting 1 element starting from sourceAlbumIndex,
+            // then we are removing 0 elements starting from targetAlbumIndex
+            // and adding sourceAlbum before targetAlbumIndex
+
+            return modifiedAlbums;
+        });
+    }
 
     /**
      * [description]
