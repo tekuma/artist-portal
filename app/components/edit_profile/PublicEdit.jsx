@@ -8,22 +8,22 @@ import Snackbar         from 'material-ui/Snackbar';
 
 export default class PublicEdit extends React.Component {
     state = {
-        avatarUploaded: false,
-        avatarPreview: "",
-        avatar: [],
-        gender: "",
-        accordion: {
+        avatarUploaded  : false,
+        avatarPreview   : "",
+        avatar          : [],
+        gender          : "",
+        accordion       : {
             display_name: false,
-            avatar: false,
-            bio: false,
-            location: false,
-            portfolio: false,
-            age: false,
-            pronoun: false
+            avatar      : false,
+            bio         : false,
+            location    : false,
+            portfolio   : false,
+            age         : false,
+            pronoun     : false
         },
-        errorType: {},
-        errors: [],
-        currentError: ""
+        errorType       : {},
+        errors          : [],
+        currentError    : ""
     }
 
     constructor(props) {
