@@ -131,8 +131,7 @@ export default class PostAuth extends React.Component {
             this.setState({
                 userPrivate:snapshot.val()
             });
-            console.log("SETSTATE");
-            this.forceUpdate();
+            this.forceUpdate(); //FIXME in theory this line is un-needed. 
         }, (error)=>{
             console.error(error);
         }, this);
