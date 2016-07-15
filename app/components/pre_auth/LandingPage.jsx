@@ -13,9 +13,9 @@ import PreAuthHeader  from '../headers/PreAuthHeader';
  */
 export default class LandingPage extends React.Component {
     state = {
-        errors          : this.props.errors,
-        errorType       : {},
-        currentError    : ""
+        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
+        currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
 
     constructor(props) {

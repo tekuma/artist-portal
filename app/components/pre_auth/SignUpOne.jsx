@@ -7,20 +7,20 @@ import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Files
-import PreAuthHeader  from '../headers/PreAuthHeader';
+import PreAuthHeader    from '../headers/PreAuthHeader';
 
 /**
  * TODO
  */
 export default class SignUpOne extends React.Component {
     state = {
-        avatarUploaded: false,
-        avatarPreview: "",
-        gender: "",
-        avatar: [],
-        errors: this.props.errors,
-        errorType: {},
-        currentError: ""
+        avatarUploaded  : false,                // Used to keep track of whether an avatar has been uploaded
+        avatarPreview   : "",                   // Used store a preview URL of the uploaded avatar
+        gender          : "",                   // Used to store the chosen gender pronoun
+        avatar          : [],                   // Used to store the uploaded avatar blob
+        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
+        currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
 
     constructor(props) {
@@ -224,6 +224,12 @@ export default class SignUpOne extends React.Component {
 
     componentDidMount() {
         console.log('+++++SignUpOne');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
     }
 
 // ============= Methods ===============
