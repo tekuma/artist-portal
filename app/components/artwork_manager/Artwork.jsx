@@ -43,18 +43,12 @@ const artworkTarget = {
   connectDropTarget: connect.dropTarget()
 }))
 export default class Artwork extends React.Component {
-
     constructor(props) {
         super(props);
-        //pass
     }
 
     componentWillMount() {
         console.log("------Artwork");
-    }
-
-    componentDidMount() {
-        console.log("+++++++Artwork");
     }
 
     render() {
@@ -122,5 +116,9 @@ export default class Artwork extends React.Component {
                 </div>
             </article>
         ));
+    }
+
+    componentDidMount() {
+        console.log("+++++++Artwork");
     }
 }
