@@ -4,7 +4,7 @@ import {DragSource, DropTarget}  from 'react-dnd';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import update from 'react-addons-update';
 // Files
-import UploadsAlbum from './UploadsAlbum';
+import UploadsAlbum   from './UploadsAlbum';
 import Album          from './Album';
 import ItemTypes      from '../../constants/itemTypes';
 
@@ -46,7 +46,7 @@ export default class Albums extends React.Component {
                     return (
                         <Album key={album.id}
                             album={album}
-                            userInfo={this.props.userInfo}
+                            user={this.props.user}
                             onEdit={this.props.onEdit.bind(null, album.id)}
                             onDelete={this.props.onDelete.bind(null, album.id)}
                             onMove={this.move}

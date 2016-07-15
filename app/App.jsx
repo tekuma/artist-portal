@@ -37,7 +37,6 @@ const providerF = new firebase.auth.FacebookAuthProvider();
 
 export default class App extends React.Component {
     state = {
-        user        : {},   //TODO, what uses this? should use firebaseDB
         errors      : [],   // error logs, snackbar display?
         reg         : {},   // public reg info
         _reg        : {},   // private reg info
@@ -46,7 +45,7 @@ export default class App extends React.Component {
         loaded      : false,// dictates if folding-cube is displayed
         forgotPass  : false // TODO
     };
-    
+
     constructor(props) {
         super(props);
         //pass
@@ -56,9 +55,14 @@ export default class App extends React.Component {
       return true;
     }
 
+    componentWillMount() {
+        console.log("-----App");
+    }
+
     componentDidMount() {
-        firebase.auth().onAuthStateChanged( (user)=>{
-            if (user) {
+        console.log("++++++App");
+        firebase.auth().onAuthStateChanged( (currentUser)=>{
+            if (currentUser) {
                 this.setState({loggedIn: true,  loaded:true});
             } else {
                 this.setState({loggedIn: false, loaded:true});
@@ -67,7 +71,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        console.log("||++>>>Rendering root app...");
+        // console.log("||++>>>Rendering root app...");
         // Show loading animation if not loaded
         if (!this.state.loaded) {
             return (
@@ -102,8 +106,6 @@ export default class App extends React.Component {
      * @return {[JSX]} [renders into AppView]
      */
     goToArtistPortal = () => {
-        console.log("|>Rendering Artist Portal");
-        console.log("|+>State:", this.state);
         return(
             <AppView
               thisUID = {this.state.thisUID}
@@ -131,8 +133,6 @@ export default class App extends React.Component {
                 toggleForgotPassword    ={this.toggleForgotPassword}
                 clearErrors             ={this.clearErrors}
                 errors                  ={this.state.errors}
-                user                    ={this.state.user}
-
             />
         )
     }
@@ -404,7 +404,7 @@ export default class App extends React.Component {
             });
 
             //>>>> Instantiate _private/onboarders/thisUID
-            let _userPath  = `_private/onboarders/${thisUID}`;
+            let userprivatePath  = `_private/onboarders/${thisUID}`;
 
             let legal_name = "no_legal_name_given";
             if (this.state._reg.legal_name != undefined && this.state._reg.legal_name != null) {
@@ -415,7 +415,7 @@ export default class App extends React.Component {
             if (this.state._reg.email != undefined && this.state._reg.email != null) {
                email = this.state._reg.email;
             }
-            firebase.database().ref(_userPath).set({
+            firebase.database().ref(userprivatePath).set({
                 legal_name: legal_name,
                 email     : email
             }).then( ()=>{
@@ -515,8 +515,8 @@ export default class App extends React.Component {
 
 
             //>>>> Instantiate _private/onboarders/thisUID
-            let _userPath = `_private/onboarders/${thisUID}`;
-            firebase.database().ref(_userPath).set({
+            let userprivatePath = `_private/onboarders/${thisUID}`;
+            firebase.database().ref(userprivatePath).set({
                 legal_name: "",
                 email     : user.email
             }).then(()=>{

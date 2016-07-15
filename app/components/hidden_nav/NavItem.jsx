@@ -5,7 +5,6 @@ export default ({navItem, changeAppLayout}) => {
         <li
             className="nav-item"
             onClick={changeAppLayout.bind(null, navItem.href)}
-            onTouchTap={changeAppLayout.bind(null, navItem.href)}
             title={navItem.title}>
 			<div>
                 <img className="nav-icon" src={navItem.icon} />

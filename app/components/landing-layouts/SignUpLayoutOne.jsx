@@ -93,7 +93,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                 autoCorrect="off" />
                                         </li>
                                         <li id="li-dob" className="controls-dob">
-                                            <label for="register-age">Date of Birth: </label>
+                                            <label htmlFor="register-age">Date of Birth: </label>
                                             <div id="register-dob" className="register-dob">
                                                 <div className="controls controls-month">
                                                     <select
@@ -145,7 +145,7 @@ export default class SignUpLayoutOne extends React.Component {
                                         <li id="li-gender" className="gender">
                                             <label className="gender-label">Preferred Gender Pronoun:</label>
                                               <label
-                                                  for="register-she"
+                                                  htmlFor="register-she"
                                                   className="gender-radio control-inline"
                                                   style={this.state.errorType.gender ? genderErrorStyle : null}>
                                                   <input
@@ -159,7 +159,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                   She
                                             </label>
                                             <label
-                                                for="register-he"
+                                                htmlFor="register-he"
                                                 className="gender-radio control-inline"
                                                 style={this.state.errorType.gender ? genderErrorStyle : null}>
                                                 <input
@@ -173,7 +173,7 @@ export default class SignUpLayoutOne extends React.Component {
                                                 He
                                           </label>
                                             <label
-                                                for="register-they"
+                                                htmlFor="register-they"
                                                 className="gender-radio control-inline"
                                                 style={this.state.errorType.gender ? genderErrorStyle : null}>
                                                 <input

@@ -13,7 +13,6 @@ export default ({managerIsOpen, toggleManager, addAlbum}) => {
         <div style={componentStyle} className="manager-opener">
             <div
                 onClick={toggleManager}
-                onTouchTap={toggleManager}
                 style={iconStyle}
                 className={managerIsOpen ? "manager-icon toggle-manager" : "manager-icon toggle-manager closed"}>
                 <img className="toggle"

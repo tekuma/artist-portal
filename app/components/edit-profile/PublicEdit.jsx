@@ -31,11 +31,11 @@ export default class PublicEdit extends React.Component {
     render() {
         let avatar;
 
-        if(this.props.userInfo != null &&
-            this.props.userInfo != undefined &&
-            this.props.userInfo.hasOwnProperty('avatar') &&
-            this.props.userInfo.avatar != "") {
-                avatar = this.props.userInfo.avatar;
+        if(this.props.user != null &&
+            this.props.user != undefined &&
+            this.props.user.hasOwnProperty('avatar') &&
+            this.props.user.avatar != "") {
+                avatar = this.props.user.avatar;
             } else {
                 avatar = 'assets/images/default-avatar.png';
             }
@@ -64,7 +64,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.display_name ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"display_name")}>
                             <h2 className="accordion-item-heading">Display Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.display_name != "" ? this.props.userInfo.display_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.display_name != "" ? this.props.user.display_name : "Unset"}</h3>
                         </div>
                         <div
                             id="display-name-content"
@@ -72,7 +72,7 @@ export default class PublicEdit extends React.Component {
                             <input
                             type="text"
                             id="edit-displayname"
-                            defaultValue={this.props.userInfo.display_name}
+                            defaultValue={this.props.user.display_name}
                             ref="displayname"
                             placeholder="Display Name"
                             required=""
@@ -100,22 +100,22 @@ export default class PublicEdit extends React.Component {
                                 accept="image/*"
                                 onDrop={this.onDrop}>
                                 <img
-                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                                     src="../assets/images/icons/person-beige.svg" />
                                 <h3
-                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                                     className="upload-writing big">
                                     Click to Upload your Photo
                                 </h3>
                                 <h3
-                                    style={{display: (this.props.userInfo.avatar == "" || this.props.userInfo.avatar == undefined || this.props.userInfo.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
+                                    style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                                     className="upload-writing small">
                                     or Simply Drag it Here
                                 </h3>
                                 <img
                                     id="uploaded-avatar"
-                                    style={{display: (this.props.userInfo.avatar !== "" && this.props.userInfo.avatar !== undefined && this.props.userInfo.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
-                                    src={this.props.userInfo.avatar} />
+                                    style={{display: (this.props.user.avatar !== "" && this.props.user.avatar !== undefined && this.props.user.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
+                                    src={this.props.user.avatar} />
                                 <img
                                     id="uploaded-avatar"
                                     style={{display: this.state.avatarUploaded ? "block" : "none" }}
@@ -126,7 +126,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.bio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"bio")}>
                             <h2 className="accordion-item-heading">Bio</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.bio != "" ? this.props.userInfo.bio.substring(0, 44) + "..." : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.bio != "" ? this.props.user.bio.substring(0, 44) + "..." : "Unset"}</h3>
                         </div>
                         <div
                             id="bio-content"
@@ -135,13 +135,13 @@ export default class PublicEdit extends React.Component {
                                 className="bio"
                                 placeholder="Bio"
                                 ref="bio"
-                                defaultValue={this.props.userInfo.bio}></textarea>
+                                defaultValue={this.props.user.bio}></textarea>
                         </div>
                         <div
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"location")}>
                             <h2 className="accordion-item-heading">Location</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.location != "" ? this.props.userInfo.location : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.location != "" ? this.props.user.location : "Unset"}</h3>
                         </div>
                         <div
                             id="location-content"
@@ -151,13 +151,13 @@ export default class PublicEdit extends React.Component {
                             id="edit-location"
                             ref="location"
                             placeholder="Location"
-                            defaultValue={this.props.userInfo.location} />
+                            defaultValue={this.props.user.location} />
                         </div>
                         <div
                             className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.portfolio != "" ? this.props.userInfo.portfolio : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.portfolio != "" ? this.props.user.portfolio : "Unset"}</h3>
                         </div>
                         <div
                             id="portfolio-content"
@@ -167,24 +167,24 @@ export default class PublicEdit extends React.Component {
                             id="edit-portfolio"
                             ref="portfolio"
                             placeholder="Portfolio/Website"
-                            defaultValue={this.props.userInfo.portfolio} />
+                            defaultValue={this.props.user.portfolio} />
                         </div>
                         <div
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"age")}>
                             <h2 className="accordion-item-heading">Age</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.dob != "" ? this.props.userInfo.dob : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.dob != "" ? this.props.user.dob : "Unset"}</h3>
                         </div>
                         <div
                             id="age-content"
                             className={this.state.accordion.age ? "accordion-content open" : "accordion-content"}>
-                            <label for="edit-age">Date of Birth: </label>
+                            <label htmlFor="edit-age">Date of Birth: </label>
                             <div id="accordion-dob" className="accordion-dob">
                                 <div className="controls controls-month">
                                     <select
                                         id="accordion-dob-month"
                                         className="dob"
-                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[1] : null}
+                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[1] : null}
                                         ref="dobMonth"
                                         style={this.state.errorType.month? errorStyle : null}>
                                         <option value="" disabled="">Month</option>
@@ -206,7 +206,7 @@ export default class PublicEdit extends React.Component {
                                     <input
                                         type="number"
                                         id="accordion-dob-day"
-                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[0] : null}
+                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[0] : null}
                                         className="dob"
                                         ref="dobDay"
                                         style={this.state.errorType.day ? errorStyle : null}
@@ -220,7 +220,7 @@ export default class PublicEdit extends React.Component {
                                     <input
                                         type="number"
                                         id="accordion-dob-year"
-                                        defaultValue={this.props.userInfo.dob != "" ? this.props.userInfo.dob.split("-")[2] : null}
+                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[2] : null}
                                         className="dob"
                                         ref="dobYear"
                                         style={this.state.errorType.year ? errorStyle : null}
@@ -234,7 +234,7 @@ export default class PublicEdit extends React.Component {
                                     type="checkbox"
                                     id="over-eighteen-checkbox"
                                     ref="overEighteen"
-                                    defaultChecked={this.props.userInfo.over_eighteen} />
+                                    defaultChecked={this.props.user.over_eighteen} />
                                     I confirm that I am 18+
                             </label>
                         </div>
@@ -242,13 +242,13 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"pronoun")}>
                             <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
-                            <h3 className="accordion-item-preview">{this.props.userInfo.gender_pronoun != "" ? this.props.userInfo.gender_pronoun : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.gender_pronoun != "" ? this.props.user.gender_pronoun : "Unset"}</h3>
                         </div>
                         <div
                             id="pronoun-content"
                             className={this.state.accordion.pronoun ? "accordion-content open" : "accordion-content"}>
                             <label
-                                for="edit-she"
+                                htmlFor="edit-she"
                                 className="gender-radio control-inline">
                                 <input
                                     type="radio"
@@ -256,13 +256,13 @@ export default class PublicEdit extends React.Component {
                                     name="gender"
                                     className="reg-radio"
                                     defaultValue="She"
-                                    defaultChecked={this.props.userInfo.gender_pronoun == "She"}
+                                    defaultChecked={this.props.user.gender_pronoun == "She"}
                                     onChange={this.setGender}
                                     required="" />
                                 She
                           </label>
                           <label
-                              for="edit-he"
+                              htmlFor="edit-he"
                               className="gender-radio control-inline">
                               <input
                                   type="radio"
@@ -270,13 +270,13 @@ export default class PublicEdit extends React.Component {
                                   name="gender"
                                   className="reg-radio"
                                   defaultValue="He"
-                                  defaultChecked={this.props.userInfo.gender_pronoun == "He"}
+                                  defaultChecked={this.props.user.gender_pronoun == "He"}
                                   onChange={this.setGender}
                                   required="" />
                               He
                         </label>
                         <label
-                            for="edit-they"
+                            htmlFor="edit-they"
                             className="gender-radio control-inline">
                                 <input
                                     type="radio"
@@ -284,7 +284,7 @@ export default class PublicEdit extends React.Component {
                                     name="gender"
                                     className="reg-radio"
                                     defaultValue="They"
-                                    defaultChecked={this.props.userInfo.gender_pronoun == "They"}
+                                    defaultChecked={this.props.user.gender_pronoun == "They"}
                                     onChange={this.setGender}
                                     required="" />
                                 They
@@ -419,7 +419,7 @@ export default class PublicEdit extends React.Component {
             this.props.editPublicUserInfo(data);
             console.log("edited data: ", data);
             console.log("edited profile");
-            
+
             this.setState({
                 accordion: {
                     display_name: false,

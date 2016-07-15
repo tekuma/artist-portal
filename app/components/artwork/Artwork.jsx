@@ -1,9 +1,14 @@
-import React from 'react';
+// Libs
+import React    from 'react';
+import firebase from 'firebase';
 import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes from '../../constants/itemTypes';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
+// Files
+import ItemTypes from '../../constants/itemTypes';
 
+
+//drag drop stuff
 const artworkSource = {
     beginDrag(props) {
         return {
@@ -38,6 +43,20 @@ const artworkTarget = {
   connectDropTarget: connect.dropTarget()
 }))
 export default class Artwork extends React.Component {
+
+    constructor(props) {
+        super(props);
+        //pass
+    }
+
+    componentWillMount() {
+        console.log("------Artwork");
+    }
+
+    componentDidMount() {
+        console.log("+++++++Artwork");
+    }
+
     render() {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
@@ -90,14 +109,14 @@ export default class Artwork extends React.Component {
                                 className="artwork-more"
                                 src='assets/images/icons/edit.svg'
                                 onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
-                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)} />
+                                 />
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
                             <img
                                 className="artwork-more"
                                 src='assets/images/icons/delete-black.svg'
                                 onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
-                                onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)} />
+                                />
                         </OverlayTrigger>
                     </div>
                 </div>
