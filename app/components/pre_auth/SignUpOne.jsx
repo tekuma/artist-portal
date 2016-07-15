@@ -1,10 +1,11 @@
 // Libs
 import React            from 'react';
-import Dropzone         from 'react-dropzone';
 import uuid             from 'node-uuid';
+import Dropzone         from 'react-dropzone';
 import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Files
 import PreAuthHeader  from '../headers/PreAuthHeader';
 
@@ -12,34 +13,37 @@ import PreAuthHeader  from '../headers/PreAuthHeader';
  * TODO
  */
 export default class SignUpOne extends React.Component {
+    state = {
+        avatarUploaded: false,
+        avatarPreview: "",
+        gender: "",
+        avatar: [],
+        errors: this.props.errors,
+        errorType: {},
+        currentError: ""
+    }
+
     constructor(props) {
         super(props);
-        console.log("Error props: ", this.props.errors);
-        this.state = {
-            avatarUploaded: false,
-            avatarPreview: "",
-            gender: "",
-            avatar: [],
-            errors: this.props.errors,
-            errorType: {},
-            currentError: ""
-        };
+    }
+
+    componentWillMount() {
+        console.log('-----SignUpOne');
     }
 
     render() {
-        var errorStyle = {
+        let errorStyle = {
             border: '1px solid #ec167c'
         };
 
-        var avatarErrorStyle = {
+        let avatarErrorStyle = {
             border: '2px dashed #ec167c'
         }
 
-        var genderErrorStyle = {
+        let genderErrorStyle = {
             color: '#ec167c'
         }
 
-        console.log(this.state.errors);
         return (
             <div>
                 <div className="main-wrapper">
@@ -218,6 +222,10 @@ export default class SignUpOne extends React.Component {
         );
     }
 
+    componentDidMount() {
+        console.log('+++++SignUpOne');
+    }
+
     saveAndContinue = (e) => {
         e.preventDefault();
 
@@ -225,12 +233,12 @@ export default class SignUpOne extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var publicData = {};
-        var displayName = this.refs.displayname.value;
-        var day = this.refs.dobDay.value;
-        var month = this.refs.dobMonth.value;
-        var year = this.refs.dobYear.value;
-        var gender = this.state.gender;
+        let publicData = {};
+        let displayName = this.refs.displayname.value;
+        let day = this.refs.dobDay.value;
+        let month = this.refs.dobMonth.value;
+        let year = this.refs.dobYear.value;
+        let gender = this.state.gender;
 
         if(displayName.length == 0) {
             this.state.errors.push("Please enter a display name.");

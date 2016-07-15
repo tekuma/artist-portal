@@ -16,7 +16,7 @@ export default class PreAuth extends React.Component {
         step          : 1,                      // Used to keep track of which component in the pre-auth flow should be shown
         popoverIsOpen : false,                  // Used to keep track of whether the popover is open
         errors        : this.props.errors       // Used to store errors from App.jsx
-        };
+    }
 
     constructor(props) {
         super(props);

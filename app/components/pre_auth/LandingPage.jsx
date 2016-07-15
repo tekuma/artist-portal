@@ -13,10 +13,10 @@ import PreAuthHeader  from '../headers/PreAuthHeader';
  */
 export default class LandingPage extends React.Component {
     state = {
-        errors: this.props.errors,
-        errorType: {},
-        currentError: ""
-    };
+        errors          : this.props.errors,
+        errorType       : {},
+        currentError    : ""
+    }
 
     constructor(props) {
         super(props);

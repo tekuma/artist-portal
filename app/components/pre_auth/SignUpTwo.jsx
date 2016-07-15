@@ -4,6 +4,7 @@ import uuid             from 'node-uuid';
 import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Files
 import PreAuthHeader  from '../headers/PreAuthHeader';
 
