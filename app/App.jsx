@@ -10,10 +10,10 @@
 import React              from 'react';
 import Firebase           from 'firebase';
 // Files
-import PostAuth           from './views/PostAuth';
-import PreAuth            from './views/PreAuth';
-import ResetPassword      from './views/ResetPassword';
-import ForgotPassword     from './views/ForgotPassword';
+import PostAuth           from './components/main/PostAuth';
+import PreAuth            from './components/pre_auth/PreAuth';
+import ResetPassword      from './components/pre_auth/ResetPassword';
+import ForgotPassword     from './components/pre_auth/ForgotPassword';
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
