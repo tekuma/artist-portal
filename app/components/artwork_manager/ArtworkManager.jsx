@@ -43,9 +43,7 @@ export default class ArtworkManager extends React.Component {
     componentDidMount() {
         console.log("+++++ ArtworkManager");
         if (this.props.user.albums != undefined &&
-            this.props.user.albums != null &&
-            this.props.user.albums[0]['artworks'] != null &&
-            this.props.user.albums[0]['artworks'] != undefined) {
+            this.props.user.albums != null) {
 
             let albumIndex;
             let album         = [];
@@ -64,15 +62,18 @@ export default class ArtworkManager extends React.Component {
             }
             //FIXME if we never match, albumIndex will be undefined
 
-            let artworks       = albums[albumIndex]['artworks'];
-            let artworksLength = Object.keys(artworks).length;
+            let artworks = albums[albumIndex]['artworks'];
 
-            // Load relevant artworks to state album
-            for (let i = 0; i < artworksLength; i++) {
-                let artworkUID = artworks[i];
-                let artwork    = user['artworks'][artworkUID];
-                console.log("$$THIS is not an artwork", artwork);
-                album.push(artwork);
+            if (artworks != undefined && artworks != null) {
+                let artworksLength = Object.keys(artworks).length;
+
+                // Load relevant artworks to state album
+                for (let i = 0; i < artworksLength; i++) {
+                    let artworkUID = artworks[i];
+                    let artwork    = user['artworks'][artworkUID];
+                    console.log("$$THIS is not an artwork", artwork);
+                    album.push(artwork);
+                }
             }
 
             this.setState({
@@ -83,9 +84,7 @@ export default class ArtworkManager extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user.albums != undefined &&
-            nextProps.user.albums != null &&
-            nextProps.user.albums[0]['artworks'] != null &&
-            nextProps.user.albums[0]['artworks'] != undefined) {
+            nextProps.user.albums != null) {
             console.log("====Entered it");
             let albumIndex;
             let album         = [];
@@ -104,15 +103,18 @@ export default class ArtworkManager extends React.Component {
             }
             //FIXME if we never match, albumIndex will be undefined
 
-            let artworks       = albums[albumIndex]['artworks'];
-            let artworksLength = Object.keys(artworks).length;
+            let artworks = albums[albumIndex]['artworks'];
 
-            // Load relevant artworks to state album
-            for (let i = 0; i < artworksLength; i++) {
-                let artworkUID = artworks[i];
-                let artwork    = user['artworks'][artworkUID];
-                console.log("$$THIS is not an artwork", artwork);
-                album.push(artwork);
+            if (artworks != undefined && artworks != null) {
+                let artworksLength = Object.keys(artworks).length;
+
+                // Load relevant artworks to state album
+                for (let i = 0; i < artworksLength; i++) {
+                    let artworkUID = artworks[i];
+                    let artwork    = user['artworks'][artworkUID];
+                    console.log("$$THIS is not an artwork", artwork);
+                    album.push(artwork);
+                }
             }
 
             this.setState({
