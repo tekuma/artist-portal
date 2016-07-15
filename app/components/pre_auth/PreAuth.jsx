@@ -7,6 +7,7 @@ import {Popover}     from 'react-bootstrap';
 import LandingPage   from './LandingPage';
 import SignUpOne     from './SignUpOne';
 import SignUpTwo     from './SignUpTwo';
+import PreAuthHeader from '../headers/PreAuthHeader';
 
 /**
  * TODO
@@ -57,15 +58,17 @@ export default class PreAuth extends React.Component {
     landingPage = () => {
         return(
           <div>
+              <PreAuthHeader
+                  togglePopover             ={this.props.togglePopover} />
               <LandingPage
-                  popoverIsOpen={this.state.popoverIsOpen}
-                  togglePopover={this.togglePopover}
-                  errors={this.state.errors}
-                  clearErrors={this.props.clearErrors}
-                  saveRegPrivate = {this.props.saveRegPrivate}
-                  nextStep   = {this.nextStep}
-                  authenticateWithGoogle = {this.props.authenticateWithGoogle}
-                  authenticateWithFB    ={this.props.authenticateWithFB}
+                  popoverIsOpen             ={this.state.popoverIsOpen}
+                  togglePopover             ={this.togglePopover}
+                  errors                    ={this.state.errors}
+                  clearErrors               ={this.props.clearErrors}
+                  saveRegPrivate            = {this.props.saveRegPrivate}
+                  nextStep                  = {this.nextStep}
+                  authenticateWithGoogle    = {this.props.authenticateWithGoogle}
+                  authenticateWithFB        ={this.props.authenticateWithFB}
                 />
                 <Popover
                     className="login-popover"
@@ -126,21 +129,23 @@ export default class PreAuth extends React.Component {
     signUpOne = () => {
         return(
           <div>
-            <SignUpOne
-                popoverIsOpen={this.state.popoverIsOpen}
-                togglePopover={this.togglePopover}
-                errors={this.state.errors}
-                clearErrors={this.props.clearErrors}
-                saveRegPublic = {this.props.saveRegPublic}
-                nextStep   = {this.nextStep}
-                returnToLandingPage={this.returnToLandingPage}
-              />
+              <PreAuthHeader
+                  togglePopover         ={this.props.togglePopover}
+                  returnToLandingPage   ={this.returnToLandingPage} />
+              <SignUpOne
+                  popoverIsOpen         ={this.state.popoverIsOpen}
+                  togglePopover         ={this.togglePopover}
+                  errors                ={this.state.errors}
+                  clearErrors           ={this.props.clearErrors}
+                  saveRegPublic         ={this.props.saveRegPublic}
+                  nextStep              = {this.nextStep}
+                  returnToLandingPage   ={this.returnToLandingPage} />
               <Popover
-                  className="login-popover"
-                  style={{display: this.state.popoverIsOpen ? "block" : "none" }}
-                  placement="bottom"
-                  key = {uuid.v4()}
-                  title="Have an account?">
+                  className ="login-popover"
+                  style     ={{display: this.state.popoverIsOpen ? "block" : "none" }}
+                  placement ="bottom"
+                  key       = {uuid.v4()}
+                  title     ="Have an account?">
                   <ul>
                       <li>
                           <input
@@ -195,22 +200,25 @@ export default class PreAuth extends React.Component {
     signUpTwo = () => {
         return(
           <div>
-            <SignUpTwo
-                popoverIsOpen={this.state.popoverIsOpen}
-                togglePopover={this.togglePopover}
-                errors={this.state.errors}
-                clearErrors={this.props.clearErrors}
-                saveRegPublic = {this.props.saveRegPublic}
-                saveRegPrivate = {this.props.saveRegPrivate}
-                submitRegistration  = {this.props.submitRegistration}
-                returnToLandingPage={this.returnToLandingPage}
-              />
+              <PreAuthHeader
+                  togglePopover         ={this.props.togglePopover}
+                  returnToLandingPage   ={this.returnToLandingPage} />
+              <SignUpTwo
+                  popoverIsOpen         ={this.state.popoverIsOpen}
+                  togglePopover         ={this.togglePopover}
+                  errors                ={this.state.errors}
+                  clearErrors           ={this.props.clearErrors}
+                  saveRegPublic         = {this.props.saveRegPublic}
+                  saveRegPrivate        = {this.props.saveRegPrivate}
+                  submitRegistration    = {this.props.submitRegistration}
+                  returnToLandingPage   ={this.returnToLandingPage}
+                />
               <Popover
-                  className="login-popover"
-                  style={{display: this.state.popoverIsOpen ? "block" : "none"}}
-                  placement="bottom"
-                  key = {uuid.v4()}
-                  title="Have an account?">
+                  className ="login-popover"
+                  style     ={{display: this.state.popoverIsOpen ? "block" : "none"}}
+                  placement ="bottom"
+                  key       = {uuid.v4()}
+                  title     ="Have an account?">
                   <ul>
                       <li>
                           <input
@@ -255,7 +263,7 @@ export default class PreAuth extends React.Component {
           </div>
         );
     }
-    
+
 // ============= Methods ===============
 
     /**
@@ -289,9 +297,9 @@ export default class PreAuth extends React.Component {
         this.state.errors = [];
 
         // Clear errors from any previous form submission
-        var data = {};
-        var email = this.refs.email.value;
-        var password = this.refs.password.value;
+        let data = {};
+        let email = this.refs.email.value;
+        let password = this.refs.password.value;
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");

@@ -6,9 +6,6 @@ import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// Files
-import PreAuthHeader    from '../headers/PreAuthHeader';
-
 /**
  * TODO
  */
@@ -47,9 +44,6 @@ export default class SignUpOne extends React.Component {
         return (
             <div>
                 <div className="main-wrapper">
-                    <PreAuthHeader
-                        togglePopover={this.props.togglePopover}
-                        returnToLandingPage={this.props.returnToLandingPage} />
                     <div className="layout-centered">
                         <article className="signup-wrapper">
                             <div className="signup-heading-wrapper pink">
