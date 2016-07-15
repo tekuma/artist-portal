@@ -1,30 +1,28 @@
 // Libs
 import React            from 'react';
+import firebase         from 'firebase';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog           from 'material-ui/Dialog';
 import uuid             from 'node-uuid';
 // Files
-import ConfirmButton from '../confirm-dialog/ConfirmButton';
+import ConfirmButton    from '../confirm-dialog/ConfirmButton';
 
 
 export default class UploadDialog extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state =  {
-            files: []
-        };
+    state = {
+        files: []
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            files: nextProps.uploadedPreviews
-        })
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        console.log("-----UploadDialog");
     }
 
     render() {
-
         const actions = [
               <ConfirmButton
                 label={"Close"}
@@ -71,14 +69,31 @@ export default class UploadDialog extends React.Component {
         );
     }
 
-    getFileSize = (size) => {
-        var numMod = -1;
-        var evalSize = eval(size);
-        var currentSize = evalSize;
+    componentDidMount() {
+        console.log("+++++UploadDialog");
+    }
 
-        while(currentSize > 0) {
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            files: nextProps.uploadedPreviews
+        })
+    }
+
+    // -------- METHODS ----------
+
+    /**
+     * [description] TODO
+     * @param  {[type]} size [description]
+     * @return {[type]}      [description]
+     */
+    getFileSize = (size) => {
+        let numMod      = -1;
+        let evalSize    = eval(size);
+        let currentSize = evalSize;
+
+        while (currentSize > 0) {
             currentSize = Math.floor(currentSize/1000);
-            numMod += 1;
+            numMod++
         }
 
         switch(numMod) {
@@ -98,4 +113,5 @@ export default class UploadDialog extends React.Component {
                 return evalSize + "bytes";
         }
     }
+
 }

@@ -1,7 +1,15 @@
-import React from 'react';
+// Libs
+import React    from 'react';
 import Dropzone from 'react-dropzone';
+//Files
+
 
 export default class UploadManager extends React.Component {
+    state = {};
+
+    componentWillMount() {
+        console.log("-----UploadManager");
+    }
 
     render() {
         return(
@@ -15,8 +23,18 @@ export default class UploadManager extends React.Component {
         );
     }
 
+    componentDidMount() {
+        console.log("+++++UploadManager");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //pass
+    }
+
+    // ---------- METHODS -------------
+
     onDrop = (files) => {
         this.props.setUploadedFiles(files);
-        console.log('Set uploaded files: ', files);
     }
+
 }
