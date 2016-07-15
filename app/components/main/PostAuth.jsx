@@ -140,7 +140,7 @@ export default class PostAuth extends React.Component {
         this.forceUpdate(); //FIXME TODO  is this needed?
     }
 
-    ccomponentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         //TODO
     }
 

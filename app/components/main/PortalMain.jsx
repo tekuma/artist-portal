@@ -10,45 +10,44 @@ import Views             from '../../constants/Views';
 
 export default class PortalMain extends React.Component {
     state = {
-
     };
 
     constructor(props) {
         super(props);
     }
 
-    // rerender = () => {
-    //     this.setState({});
-    // }
-
-    componentDidMount() {
-        console.log("++++PortalMain");
-        console.log(this.props.user);
-        // window.addEventListener("resize", this.rerender);
-    }
-
     componentWillMount() {
-        console.log("----PortalMain");
-
+        console.log("-----PortalMain");
     }
-
-    // componentWillUnmount() {
-    //     window.removeEventListener("resize", this.rerender);
-    // }
 
     render() {
         switch (this.props.currentAppLayout) {
             case Views.ARTWORKS:
-                return this.renderArtworkManager();
+                return this.goToArtworkManager();
 
             case Views.EDIT:
-                return this.renderEditProfile();
+                return this.goToEditProfile();
         }
     }
 
-    // ---------------- VIEWS ---------------- //
+    componentDidMount() {
+        console.log("+++++PortalMain");
+        window.addEventListener("resize", this.forceUpdate());
+    }
 
-    renderArtworkManager = () => {
+    /* TODO FIXME  do we need this?
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.rerender);
+    }
+    */
+
+    componentWillReceiveProps(nextProps) {
+        //TODO
+    }
+
+    // ---------------- METHODS ---------------- //
+
+    goToArtworkManager = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
@@ -57,7 +56,6 @@ export default class PortalMain extends React.Component {
                 <AlbumManager
                     user={this.props.user}
                     userprivate={this.props.userprivate}
-
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     currentAlbum={this.props.currentAlbum}
@@ -79,7 +77,7 @@ export default class PortalMain extends React.Component {
         );
     }
 
-    renderEditProfile = () => {
+    goToEditProfile = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
@@ -98,6 +96,7 @@ export default class PortalMain extends React.Component {
     }
 }
 
+//TODO: Comment out what the fuck this is|does
 
 PortalMain.propTypes = {
     navIsOpen: React.PropTypes.bool.isRequired,
