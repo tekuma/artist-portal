@@ -5,8 +5,8 @@ import firebase          from 'firebase';
 //Files
 import PostAuthHeader    from '../headers/PostAuthHeader';
 import AlbumManager      from '../album_manager/AlbumManager';
-import ArtworkManager    from './ArtworkManager';
-import EditProfile       from '../edit-profile/EditProfile';
+import ArtworkManager    from '../artwork_manager/ArtworkManager';
+import EditProfile       from '../edit_profile/EditProfile';
 import Views             from '../../constants/Views';
 
 
