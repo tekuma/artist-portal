@@ -1,36 +1,43 @@
 // Libs
-import React from 'react';
-import {DragSource, DropTarget}  from 'react-dnd';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
-import update from 'react-addons-update';
+import React                        from 'react';
+import {DragSource, DropTarget}     from 'react-dnd';
+import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+import update                       from 'react-addons-update';
+
 // Files
 import UploadsAlbum   from './UploadsAlbum';
 import Album          from './Album';
 import ItemTypes      from '../../constants/itemTypes';
 
-
-
-
+/**
+ * TODO
+ */
 export default class Albums extends React.Component {
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
+    constructor(props) {
+        super(props);
     }
+
+    componentWillMount() {
+        console.log("-----Albums");
+    }
+
     render() {
 
-        var styleResponsive = {
-            height: window.innerHeight - 60,
-            width: window.innerWidth * 0.3 - 40
+        let styleResponsive = {
+            height  : window.innerHeight - 60,
+            width   : window.innerWidth * 0.3 - 40
         };
 
-        var styleFixed = {
-            height: window.innerHeight - 60,
-            width: 210
+        let styleFixed = {
+            height  : window.innerHeight - 60,
+            width   : 210
         };
 
+        // Create an array of albums to be used by map function
         let albumKeys = Object.keys(this.props.albums);
         let albumArray = [];
-        for (var i = 0; i < albumKeys.length; i++) {
+
+        for (let i = 0; i < albumKeys.length; i++) {
             let index = albumKeys[i];
             let thisName = this.props.albums[index]['name'];
             albumArray.push({id:index, name:thisName});
@@ -58,6 +65,12 @@ export default class Albums extends React.Component {
             </ul>
         );
     }
+
+    componentDidMount() {
+        console.log("+++++Albums");
+    }
+
+// ============= Methods ===============
 
     move = (sourceName, targetName) => {
         console.log("Entered move");

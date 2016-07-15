@@ -1,8 +1,13 @@
-import React    from 'react';
-import ReactDOM from "react-dom";
-import {DragSource, DropTarget}  from 'react-dnd';
-import ItemTypes from '../../constants/itemTypes';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+// Libs
+import React                        from 'react';
+import ReactDOM                     from "react-dom";
+import {DragSource, DropTarget}     from 'react-dnd';
+import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+
+// Files
+import ItemTypes                    from '../../constants/itemTypes';
+
+// ============= Drag and Drop ===============
 
 const albumSource = {
     beginDrag(props) {
@@ -32,10 +37,12 @@ const albumTarget = {
             if(source.type == ItemTypes.ARTWORK) {
                 // Move artwork to new album
                 targetProps.changeArtworkAlbum(source.id, source.album, target.name);
+
+                // Change album within artwork JSON
                 const thisUID  = firebase.auth().currentUser.uid;
-                let path = 'public/onboarders/' + thisUID +'/artworks/' + source.id;
-                let thisArtworkReference = firebase.database().ref(path);
-                thisArtworkReference.transaction((data) => {
+                let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
+                let thisArtworkRef = firebase.database().ref(path);
+                thisArtworkRef.transaction((data) => {
                     data['album'] = target.name;
                     console.log("Artwork Data: ", data);
                     return data;
@@ -54,28 +61,42 @@ const albumTarget = {
 @DropTarget([ItemTypes.ALBUM, ItemTypes.ARTWORK], albumTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
+
+/**
+ * TODO
+ */
 export default class Album extends React.Component {
+    state = {
+        editing: false  // Track editing state of the album name
+    };
+
     constructor(props) {
         super(props);
+    }
 
-        // Track 'editing' state.
-        this.state = {
-            editing: false
-        };
+    componentWillMount() {
+        console.log("-----Album");
     }
 
     render() {
         if(this.state.editing) {
             return this.renderEdit();
+        } else {
+            return this.renderAlbum();
         }
-
-        return this.renderAlbum();
     }
+
+    componentDidMount() {
+        console.log("+++++Album");
+    }
+
+// ============= Flow Control ===============
 
     renderEdit = () => {
         let thumbnail = "../../assets/images/icons/new-album.svg";
 
-        for (var artworkID in this.props.user.artworks) {
+        // Set avatar thumbnail
+        for (let artworkID in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
@@ -84,7 +105,7 @@ export default class Album extends React.Component {
             }
         }
 
-        let style = {
+        let avatarStyle = {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
@@ -107,7 +128,7 @@ export default class Album extends React.Component {
         return (
             <li className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <div style={style}
+                    <div style={avatarStyle}
                         className="avatar-container" />
                 </div>
                 <div className="album-writing">
@@ -116,23 +137,27 @@ export default class Album extends React.Component {
                         ref={
                             (e) => e ? e.selectionStart = this.props.album.name.length : null
                         }
-                        autoFocus={true}
-                        defaultValue={this.props.album.name}
-                        onBlur={this.finishEdit}
-                        onKeyPress={this.checkEnter}
-                        placeholder="Enter name" />
+                        autoFocus       ={true}
+                        defaultValue    ={this.props.album.name}
+                        onBlur          ={this.finishEdit}
+                        onKeyPress      ={this.checkEnter}
+                        placeholder     ="Enter name" />
                 </div>
                 <div className="album-download-delete">
-                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                    <OverlayTrigger
+                        placement   ="bottom"
+                        overlay     ={downloadTooltip}>
                         <img
-                            className="album-more"
-                            src='assets/images/icons/download-white.svg' />
+                            className   ="album-more"
+                            src         ='assets/images/icons/download-white.svg' />
                     </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                    <OverlayTrigger
+                        placement   ="bottom"
+                        overlay     ={deleteTooltip}>
                         <img
-                            className="album-more"
-                            src='assets/images/icons/delete-white.svg'
-                            onClick={this.props.onDelete} />
+                            className   ="album-more"
+                            src         ='assets/images/icons/delete-white.svg'
+                            onClick     ={this.props.onDelete} />
                     </OverlayTrigger>
                 </div>
             </li>
@@ -143,9 +168,10 @@ export default class Album extends React.Component {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
-        var thumbnail = "../../assets/images/icons/new-album.svg";
+        // Set avatar thumbnail
+        let thumbnail = "../../assets/images/icons/new-album.svg";
 
-        for (var artworkID in this.props.user.artworks) {
+        for (let artworkID in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
 
                 let artwork = this.props.user.artworks[artworkID];
@@ -155,7 +181,7 @@ export default class Album extends React.Component {
             }
         }
 
-        var style = {
+        let avatarStyle = {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
@@ -184,38 +210,47 @@ export default class Album extends React.Component {
         );
 
         return connectDragSource(connectDropTarget(
-            <li style={{opacity: isDragging ? 0 : 1}}
-                onClick={this.props.changeAlbum}
-                className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
+            <li style       ={{opacity: isDragging ? 0 : 1}}
+                onClick     ={this.props.changeAlbum}
+                className   ={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
                 <div className="album-avatar">
-                    <div style={style}
+                    <div style={avatarStyle}
                         className="avatar-container" />
                 </div>
                 <div className="album-writing">
-                    <OverlayTrigger placement="bottom" overlay={editTooltip}>
+                    <OverlayTrigger
+                        placement   ="bottom"
+                        overlay     ={editTooltip}>
                         <h3
-                            onClick={this.edit}
-                            className="album-name" >
-                            {this.props.album.name}</h3>
+                            onClick     ={this.edit}
+                            className   ="album-name" >
+                            {this.props.album.name}
+                        </h3>
                     </OverlayTrigger>
                 </div>
                 <div className="album-download-delete">
-                    <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                    <OverlayTrigger
+                        placement   ="bottom"
+                        overlay     ={downloadTooltip}>
                         <img
-                            className="album-more"
-                            src='assets/images/icons/download-white.svg' />
+                            className   ="album-more"
+                            src         ='assets/images/icons/download-white.svg' />
                     </OverlayTrigger>
-                    <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                    <OverlayTrigger
+                        placement   ="bottom"
+                        overlay     ={deleteTooltip}>
                         <img
-                            className="album-more"
-                            src='assets/images/icons/delete-white.svg'
-                            onClick={this.props.onDelete}
+                            className   ="album-more"
+                            src         ='assets/images/icons/delete-white.svg'
+                            onClick     ={this.props.onDelete}
                         />
                     </OverlayTrigger>
                 </div>
             </li>
         ));
     };
+
+// ============= Methods ===============
 
     edit = (e) => {
         // Avoid bubbling to click that opens up album view

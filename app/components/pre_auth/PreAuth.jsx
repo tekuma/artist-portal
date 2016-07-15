@@ -49,7 +49,7 @@ export default class PreAuth extends React.Component {
     }
 
 
-// ============= Methods ===============
+// ============= Flow Control ===============
 
     /**
      * [Displays the Landing Page]
