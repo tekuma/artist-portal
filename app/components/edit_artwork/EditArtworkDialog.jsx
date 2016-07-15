@@ -1,97 +1,108 @@
-// libs
-import React       from 'react';
-import uuid        from 'node-uuid';
-import Dialog      from 'material-ui/Dialog';
-import Snackbar from 'material-ui/Snackbar';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider';
+// Libs
+import React                from 'react';
+import uuid                 from 'node-uuid';
+import Dialog               from 'material-ui/Dialog';
+import Snackbar             from 'material-ui/Snackbar';
+import getMuiTheme          from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
 
-// files
-import EditArtworkForm from './EditArtworkForm';
-import ConfirmButton     from '../confirm-dialog/ConfirmButton';
+// Files
+import EditArtworkForm      from './EditArtworkForm';
+import ConfirmButton        from '../confirm_dialog/ConfirmButton';
 
-
+/**
+ * TODO
+ */
 export default class EditArtworkDialog extends React.Component {
+    state =  {
+        artworkInfo: {},   // Used to store the artwork informationto be edited
+        errorType: {},     // Used to keep track of the type of error encountered to highlight relevant input field
+        errors: [],        // Used to store Auth errors from Registration errors
+        currentError: ""   // Used to store the current error to be displayed in the snackbar
+    };
+
     constructor(props) {
         super(props);
-
-        this.state =  {
-            formInfo: {},
-            errorType: {},
-            errors: [],
-            currentError: ""
-        };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            formInfo: nextProps.currentEditArtworkInfo
-        })
+    componentWillMount() {
+        console.log("-----EditArtworkDialog");
     }
 
     render() {
         const actions = [
               <ConfirmButton
-                label={"Update"}
-                className="edit-artwork-yes"
-                onClick={this.onSubmit}
-              />,
-          <ConfirmButton
-                label={"Cancel"}
-                className="edit-artwork-no"
-                onClick={this.props.toggleEditArtworkDialog}
-              />
+                  label     ={"Update"}
+                  className ="edit-artwork-yes"
+                  onClick   ={this.onSubmit} />,
+
+              <ConfirmButton
+                  label     ={"Cancel"}
+                  className ="edit-artwork-no"
+                  onClick   ={this.props.toggleEditArtworkDialog} />
         ];
 
         return (
             <div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Dialog
-                        title="Edit Artwork"
-                        actions={actions}
-                        modal={false}
-                        open={this.props.editArtworkIsOpen}
-                        titleClassName="edit-artwork-title"
-                        actionsContainerClassName="edit-artwork-actions"
-                        bodyClassName="edit-artwork-body"
-                        contentClassName="edit-artwork-content" >
+                        title                       ="Edit Artwork"
+                        actions                     ={actions}
+                        modal                       ={false}
+                        open                        ={this.props.editArtworkIsOpen}
+                        titleClassName              ="edit-artwork-title"
+                        actionsContainerClassName   ="edit-artwork-actions"
+                        bodyClassName               ="edit-artwork-body"
+                        contentClassName            ="edit-artwork-content" >
                         <EditArtworkForm
-                            albumNames={this.props.albumNames}
-                            value={this.state.formInfo}
-                            errorType={this.state.errorType}
-                            currentError={this.state.currentError}
-                            onChange={this.updateFormInfo}
-                            onSubmit={this.onSubmit}
-                            clearErrors={this.clearErrors}
-                            handleDelete={this.handleDelete}
-                            handleAddition={this.handleAddition}
-                            handleDrag={this.handleDrag} />
+                            user            ={this.props.user}
+                            albumNames      ={this.props.albumNames}
+                            value           ={this.state.artworkInfo}
+                            errorType       ={this.state.errorType}
+                            currentError    ={this.state.currentError}
+                            onChange        ={this.updateArtworkInfo}
+                            onSubmit        ={this.onSubmit}
+                            clearErrors     ={this.clearErrors}
+                            handleDelete    ={this.handleDelete}
+                            handleAddition  ={this.handleAddition}
+                            handleDrag      ={this.handleDrag} />
                     </Dialog>
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
-                        open={Object.keys(this.state.errorType).length > 0}
-                        message={this.state.currentError}
-                        autoHideDuration={4000} />
+                        className           ="registration-error"
+                        open                ={Object.keys(this.state.errorType).length > 0}
+                        message             ={this.state.currentError}
+                        autoHideDuration    ={4000} />
                 </MuiThemeProvider>
             </div>
         );
     }
 
-    updateFormInfo = (formInfo) => {
-        console.log("Entered updateFormInfo");
-        this.setState({formInfo});
-        console.log("Form Info: ", formInfo);
+    componentDidMount() {
+        console.log("+++++EditArtworkDialog");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            artworkInfo : nextProps.currentEditArtworkInfo
+        })
+    }
+    updateArtworkInfo = (artworkInfo) => {
+        console.log("Entered updateArtworkInfo");
+        this.setState({
+            artworkInfo : artworkInfo
+        });
+        console.log("Form Info: ", artworkInfo);
     }
 
     onSubmit = (e) => {
         console.log("Entered onSubmit");
-        console.log("Artwork form: ", this.state.formInfo);
+        console.log("Artwork form: ", this.state.artworkInfo);
         e.preventDefault();
-        
+
         // Test that user inputed a title
-        if (!this.state.formInfo.title) {
+        if (!this.state.artworkInfo.title) {
             let errorType = this.state.errorType;
             errorType.title = true;
             this.setState({
@@ -101,7 +112,7 @@ export default class EditArtworkDialog extends React.Component {
         }
 
         // Test that user inputed an artist
-        if (!this.state.formInfo.artist) {
+        if (!this.state.artworkInfo.artist) {
             let errorType = this.state.errorType;
             errorType.artist = true;
             this.setState({
@@ -111,7 +122,7 @@ export default class EditArtworkDialog extends React.Component {
         }
 
         // Test that user inputed a year
-        if (!this.state.formInfo.year) {
+        if (!this.state.artworkInfo.year) {
             let errorType = this.state.errorType;
             errorType.year = true;
             this.setState({
@@ -121,7 +132,7 @@ export default class EditArtworkDialog extends React.Component {
         }
 
         // Test that user inputed correct year
-        if (!/[0-9]{4}/.test(this.state.formInfo.year)) {
+        if (!/[0-9]{4}/.test(this.state.artworkInfo.year)) {
             let errorType = this.state.errorType;
             errorType.year = true;
             this.setState({
@@ -133,9 +144,9 @@ export default class EditArtworkDialog extends React.Component {
         console.log("Got through errors");
 
         if(this.state.errors.length == 0) {
-            console.log("Edit Artwork Info: ", this.state.formInfo);
+            console.log("Edit Artwork Info: ", this.state.artworkInfo);
             // this.props.toggleEditArtworkDialog();
-            this.props.updateArtwork(this.state.formInfo);
+            this.props.updateArtwork(this.state.artworkInfo);
         }
         console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);
 

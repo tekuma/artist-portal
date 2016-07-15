@@ -60,7 +60,6 @@ export default class PostAuth extends React.Component {
             <div className="app">
                 <HiddenNav
                     user={this.state.user}
-                    userprivate={this.state.userprivate}
                     navIsOpen={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
                     signOutUser={this.props.signOutUser} />
@@ -88,6 +87,7 @@ export default class PostAuth extends React.Component {
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
                     changeArtworkAlbum={this.changeArtworkAlbum} />
                 <EditArtworkDialog
+                    user={this.state.user}
                     albums={this.state.albums}
                     albumNames={this.state.albumNames}
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
