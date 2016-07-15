@@ -9,9 +9,9 @@ import Views               from '../constants/Views';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
 import HiddenNav           from '../components/hidden_nav/HiddenNav';
 import HamburgerIcon       from '../components/hamburger_icon/HamburgerIcon';
-import PortalMain       from '../components/main/PortalMain';
-import EditArtworkDialog   from '../components/edit-artwork/EditArtworkDialog';
-import EditProfileDialog   from '../components/edit-profile/EditProfileDialog';
+import PortalMain          from '../components/main/PortalMain';
+import EditArtworkDialog   from '../components/edit_artwork/EditArtworkDialog';
+import EditProfileDialog   from '../components/edit_profile/EditProfileDialog';
 import UploadDialog        from '../components/main/UploadDialog';
 
 
@@ -24,6 +24,9 @@ const colorCount            = 64;  // ->amount of possible color swatches to sta
 const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
                                    //  1 means no downscaling, 5 is default.
 
+/**
+ * TODO
+ */
 @DragDropContext(HTML5Backend)     // Adds Drag & Drop to App
 export default class PostAuth extends React.Component {
     state = {
@@ -38,10 +41,10 @@ export default class PostAuth extends React.Component {
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
         albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
-        albums : {},
-        isUploading: false,
-        user  : {},
-        userprivate : {}
+        albums : {},                                //
+        isUploading: false,                         //
+        user  : {},                                 // public/onboarders/{UID} node
+        userprivate : {}                            // _private/onboarders/{UID} node
     };
 
     constructor(props) {
@@ -49,40 +52,8 @@ export default class PostAuth extends React.Component {
     }
 
     componentWillMount() {
-        console.log("---- PostAuth");
-
+        console.log("-----PostAuth");
     }
-
-    componentDidMount() {
-        console.log("++++++ PostAuth");
-        const thisUID   = firebase.auth().currentUser.uid;
-        const  userPath = `public/onboarders/${thisUID}`;
-        const userprivatePath = `_private/onboarders/${thisUID}`;
-
-
-        firebase.database().ref(userPath).on('value', (snapshot)=>{
-            this.setState({
-                user:snapshot.val()
-            });
-            console.log("public user set");
-        }, (error)=>{
-            console.error(error);
-        }, this);
-
-        firebase.database().ref(userprivatePath).on('value', (snapshot)=>{
-            this.setState({
-                userprivate:snapshot.val()
-            });
-            console.log("SETSTATE");
-            this.forceUpdate();
-        }, (error)=>{
-            console.error(error);
-        }, this);
-
-        this.forceUpdate();
-        console.log("****************");
-    }
-
 
     render() {
         return (
@@ -90,7 +61,6 @@ export default class PostAuth extends React.Component {
                 <HiddenNav
                     user={this.state.user}
                     userprivate={this.state.userprivate}
-
                     navIsOpen={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
                     signOutUser={this.props.signOutUser} />
@@ -100,7 +70,6 @@ export default class PostAuth extends React.Component {
                 <PortalMain
                     user={this.state.user}
                     userprivate={this.state.userprivate}
-
                     albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
                     deleteArtwork={this.deleteArtwork}
@@ -138,6 +107,41 @@ export default class PostAuth extends React.Component {
                     deleteAccount={this.deleteAccount} />
             </div>
         );
+    }
+
+    componentDidMount() {
+        console.log("++++++PostAuth");
+        const thisUID   = firebase.auth().currentUser.uid;
+        const  userPath = `public/onboarders/${thisUID}`;
+        const userprivatePath = `_private/onboarders/${thisUID}`;
+
+        //NOTE: MAIN LISTENER FOR CONNECTION TO firebase
+        // these 2 on-methods listen for any change to the database and
+        // trigger a re-render on 'value'
+        firebase.database().ref(userPath).on('value', (snapshot)=>{
+            this.setState({
+                user:snapshot.val()
+            });
+            console.log("public user set");
+        }, (error)=>{
+            console.error(error);
+        }, this);
+
+        firebase.database().ref(userprivatePath).on('value', (snapshot)=>{
+            this.setState({
+                userprivate:snapshot.val()
+            });
+            console.log("SETSTATE");
+            this.forceUpdate();
+        }, (error)=>{
+            console.error(error);
+        }, this);
+
+        this.forceUpdate(); //FIXME TODO  is this needed?
+    }
+
+    ccomponentWillReceiveProps(nextProps) {
+        //TODO
     }
 
 
@@ -224,14 +228,14 @@ export default class PostAuth extends React.Component {
      * @return {Object}  an object with keys:
      *                   v,m,lv,lm,dv,dm; which represent:
      * Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
+     * NOTE: This is a synchronous method
      * @see [ https://github.com/akfish/node-vibrant ]
      */
     extractColors = (url) => {
-        console.log("about to palette");
+        console.log(">> Extracting Color Palette from Upload...");
         let colors;
         getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
         .getPalette( (error,palette)=>{
-            console.log("building Palette color Object...");
             colors = {
                 v:{
                     hex:palette.Vibrant.getHex(),
@@ -270,7 +274,7 @@ export default class PostAuth extends React.Component {
     }
 
     /** FIXME handle color processing in background
-     * Heads up: This is a nested-synchronous mess.
+     * Heads up: This is a nested-Asynchronous mess.
      *
      * This method takes in a blob object that a user has uploaded, then
      * -uploads the original file to gs:"portal/{user uid}/uploads"
@@ -424,7 +428,6 @@ export default class PostAuth extends React.Component {
             });//END Onload image
     }//END METHOD
 
-
     /**
      * This method will take in an array of blobs, then for each blob
      * it will handle uploading, storing, and setting into the database.
@@ -465,7 +468,7 @@ export default class PostAuth extends React.Component {
     }
 
     /**
-     * This method is used by the Hidden Navigation component and PostAuthHeader component
+     * This method is used by the HiddenNav component and PostAuthHeader component
      * to switch the the layout currently being displayed in the Root App Layout component
      * by changing this.state.currentAppLayout.
      * The value can be: Views.UPLOAD, Views.ARTWORKS, and Views.EDIT
@@ -490,7 +493,7 @@ export default class PostAuth extends React.Component {
      * This method is used by Album components to change the album artworks
      * currently being displayed in the Artworks component by changing
      * to change this.state.currentAlbum
-     * @param  {[String]} album [The album to be displayed]
+     * @param  {String} album [The album to be displayed]
      */
     changeAlbum = (album) => {
         this.setState({
@@ -518,9 +521,8 @@ export default class PostAuth extends React.Component {
         }, null, this);
     }
 
-
     /**
-     * [description]
+     * TODO
      * @param  {Object} data - object that holds one or more of:
      * - display_name
      * - bio
@@ -632,7 +634,6 @@ export default class PostAuth extends React.Component {
 
     }
 
-
     /** TODO re-do this function to 'clean up' the database when deleting a user
      * This method is used by the Delete Account Dialog component
      * to delete a user's information and artworks from the Firebase Database
@@ -672,19 +673,21 @@ export default class PostAuth extends React.Component {
     }
 
     /**
-     * [description]
+     * TODO
      * @param  {} artworkUID - the UID of the artwork
      * @param  {[type]} oldName [description]
      * @param  {[type]} newName [description]
      */
     changeArtworkAlbum = (artworkUID, oldName, newName) => {
-        const thisUID  = firebase.auth().currentUser.uid;
-        let albumsPath = 'public/onboarders/'+thisUID+'/albums';
-        let albumsRef   = firebase.database().ref(albumsPath);
+        const thisUID    = firebase.auth().currentUser.uid;
+        const albumsPath = `public/onboarders/${thisUID}/albums`;
+        const albumsRef  = firebase.database().ref(albumsPath);
+
         albumsRef.transaction( (node) => {
             let albumsCount = Object.keys(node).length;
             for (let i = 0; i < albumsCount; i++) {
                 if (node[i]['name'] == oldName) {
+                    // NOTE: Firebase has de-abstracted arrays.
                     // remove the ID, then shift indexes manually
                     let artworksCount = Object.keys(node[i]['artworks']).length;
                     let artworksNode = node[i]['artworks'];
@@ -726,7 +729,7 @@ export default class PostAuth extends React.Component {
         const thisUID = firebase.auth().currentUser.uid;
         const thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
         thisArtworkReference.set(null).then(()=>{
-            console.log("Deletion successful");
+            console.log(">> Artwork deleted successfully");
         });
 
         // Remove the artwork pointer from the album via transaction, then
@@ -743,7 +746,6 @@ export default class PostAuth extends React.Component {
                         node[i]['artworks'][j-1] = aheadObject;
                     }
                     if (node[i]['artworks'][j] == id) {
-                        console.log("MATCH", id);
                         delete node[i]['artworks'][j];
                         found = true;
                     }
