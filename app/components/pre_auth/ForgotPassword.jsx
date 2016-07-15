@@ -3,7 +3,7 @@ import React           from 'react';
 import firebase        from 'firebase';
 
 // Files
-import PreAuthHeader   from './headers/PreAuthHeader';
+import PreAuthHeader   from '../headers/PreAuthHeader';
 
 /**
  * TODO
@@ -46,48 +46,6 @@ export default class ForgotPassword extends React.Component {
                                     </button>
                                 </ul>
                             </div>
-                            // <div className="bottom-form">
-                            //     <ul>
-                            //         <li id="email-landing">
-                            //             <input
-                            //                 type="text"
-                            //                 id="reset-code"
-                            //                 ref="code"
-                            //                 placeholder="Reset Code"
-                            //                 required=""
-                            //                 maxLength="50"
-                            //                 autoCapitalize="off"
-                            //                 autoComplete="off"
-                            //                 autoCorrect="off" />
-                            //         </li>
-                            //         <li>
-                            //             <input
-                            //                 type="password"
-                            //                 id="password"
-                            //                 ref="password"
-                            //                 placeholder="Password"
-                            //                 required="true"
-                            //                 maxLength="100"
-                            //                 autoComplete="off" />
-                            //         </li>
-                            //
-                            //         <li>
-                            //             <input
-                            //                 type="password"
-                            //                 id="confirm-password"
-                            //                 ref="confirmPassword"
-                            //                 placeholder="Confirm Password"
-                            //                 required="true"
-                            //                 maxLength="100" />
-                            //         </li>
-                            //     </ul>
-                            //     <button
-                            //         className="signup-button"
-                            //         type="submit"
-                            //         onClick={this.confirmPasswordReset}>
-                            //         <h3>Update</h3>
-                            //     </button>
-                            // </div>
                         </form>
                     </article>
                 </div>

@@ -5,7 +5,7 @@ import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Files
-import confirm          from '../confirm-dialog/ConfirmFunction';
+import confirm          from '../confirm_dialog/ConfirmFunction';
 import PublicEdit       from './PublicEdit.jsx';
 import PrivateEdit      from './PrivateEdit.jsx';
 

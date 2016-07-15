@@ -7,7 +7,7 @@ import update     from 'react-addons-update';
 
 // Files
 import Artwork    from './Artwork';
-import confirm    from '../confirm-dialog/ConfirmFunction';
+import confirm    from '../confirm_dialog/ConfirmFunction';
 import Views      from '../../constants/Views';
 
 
