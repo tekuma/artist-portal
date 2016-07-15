@@ -316,7 +316,8 @@ export default class PostAuth extends React.Component {
         // Load the blob as an <Image>
         fullSizeImage.addEventListener('load', ()=>{
             //*Store the original upload, un-changed.
-            const fullRef = firebase.storage().ref(pathToUserStorage+'/uploads/'+fileName);
+            let uploadPath = `portal/${thisUID}/uploads/${fileName}`;
+            const fullRef = firebase.storage().ref(uploadPath);
             fullRef.put(blob).on(
                 firebase.storage.TaskEvent.STATE_CHANGED,
                 (snapshot)=>{ //on-event change
@@ -353,7 +354,8 @@ export default class PostAuth extends React.Component {
                         //Revert Canvas into file Blob for upload
                         canvas.toBlob( (thumbBlob)=>{
                             console.log(">>blobbed");
-                            const thumbRef = firebase.storage().ref(pathToUserStorage+'/thumbnails/'+fileName);
+                            let thumbPath = `portal/${thisUID}/thumbnails/${fileName}`;
+                            const thumbRef = firebase.storage().ref(thumbPath);
                             thumbRef.put(thumbBlob).on(
                                 firebase.storage.TaskEvent.STATE_CHANGED,
                                 (thumbSnap)=>{
