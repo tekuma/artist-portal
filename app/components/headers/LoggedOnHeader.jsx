@@ -46,8 +46,10 @@ export default class LoggedOnHeader extends React.Component {
                 	<div
                         className="tekuma-logo"
                         onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
-                        >
-                            <img id="tekuma-logo-image" src='assets/images/tekuma-white.svg' />
+                  >
+
+                    <img id="tekuma-logo-image-small" src='assets/images/logo-white.svg' />
+
                 	</div>
                 	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
