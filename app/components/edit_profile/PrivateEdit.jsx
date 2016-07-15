@@ -228,7 +228,7 @@ export default class PrivateEdit extends React.Component {
 
         // Only test regex if user has typed in an email and has password
         if(email.length > 0 &&
-            email != this.props.user.email &&
+            email != this.props.userPrivate.email &&
             !/.+@.+\..+/.test(email) &&
             this.props.user.auth_provider == "password") {
             this.state.errors.push("The email address you supplied is invalid.");
@@ -238,7 +238,7 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.user.email &&
+        } else if (email != this.props.userPrivate.email &&
             emailPassword.length == 0 &&
             this.props.user.auth_provider == "password") {
             this.state.errors.push("To change your email, you must enter your current password.");
@@ -248,7 +248,7 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.user.email &&
+        } else if (email != this.props.userPrivate.email &&
                 email.length > 0 &&
                 emailPassword.length > 0 &&
                 this.props.user.auth_provider == "password") {

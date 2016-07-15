@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const json = require("json!./file.json");
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 // Load *package.json* so we can use `dependencies` from there
@@ -27,7 +28,7 @@ const common = {
     node: {
         fs: "empty"
     },
-    
+
     // Add resolve.extensions.
     // '' is needed to allow imports without an extension.
     // Note the .'s before extensions as it will fail to match without!!!
