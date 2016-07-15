@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * TODO
+ * @param  {[type]} {searchOpen   [description]
+ * @param  {[type]} toggleSearch} [description]
+ * @return {[type]}               [description]
+ */
 export default ({searchOpen, toggleSearch}) => {
     return (
         <div id="search-bar"

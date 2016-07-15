@@ -1,37 +1,43 @@
+// Libs
 import React            from 'react';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar         from 'material-ui/Snackbar';
 
+
 export default class PublicEdit extends React.Component {
+    state = {
+        avatarUploaded  : false,
+        avatarPreview   : "",
+        avatar          : [],
+        gender          : "",
+        accordion       : {
+            display_name: false,
+            avatar      : false,
+            bio         : false,
+            location    : false,
+            portfolio   : false,
+            age         : false,
+            pronoun     : false
+        },
+        errorType       : {},
+        errors          : [],
+        currentError    : ""
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            avatarUploaded: false,
-            avatarPreview: "",
-            avatar: [],
-            gender: "",
-            accordion: {
-                display_name: false,
-                avatar: false,
-                bio: false,
-                location: false,
-                portfolio: false,
-                age: false,
-                pronoun: false
-            },
-            errorType: {},
-            errors: [],
-            currentError: ""
-        }
+    componentWillMount() {
+        //Pass
     }
 
     render() {
         let avatar;
 
-        if(this.props.user != null &&
+        if (this.props.user != null &&
             this.props.user != undefined &&
             this.props.user.hasOwnProperty('avatar') &&
             this.props.user.avatar != "") {
@@ -40,7 +46,7 @@ export default class PublicEdit extends React.Component {
                 avatar = 'assets/images/default-avatar.png';
             }
 
-        var avatarStyle = {
+        let avatarStyle = {
             backgroundImage: 'url(' + avatar + ')'
         }
 
@@ -309,66 +315,87 @@ export default class PublicEdit extends React.Component {
         );
     }
 
-    toggleAccordion = (item) => {
-        let accordion = this.state.accordion;
-        accordion[item] = !accordion[item];
+    componentDidMount() {
+        //pass
+    }
 
+    componentWillReceiveProps(nextProps) {
+        //pass
+    }
+
+    // -------- METHODS ------------
+
+    /**
+     * TODO
+     * @param  {[type]} item [description]
+     * @return {[type]}      [description]
+     */
+    toggleAccordion = (item) => {
+        let accordion   = this.state.accordion;
+        accordion[item] = !accordion[item];
         this.setState({
             accordion: accordion
         });
     }
 
+    /**
+     * TODO
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
     setGender = (e) => {
         this.setState({
             gender: e.target.value
         });
-        console.log(e.target.value);
     }
 
+    /**
+     * TODO
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
     saveProfileInfo = (e) => {
         e.preventDefault();
-        console.log("entered save profile");
 
         // Clear errors from any previous form submission
         this.state.errors = [];
         let data = {};
 
         // Public
-        let displayName = this.refs.displayname.value;
-        let bio = this.refs.bio.value;
-        let location = this.refs.location.value;
-        let portfolio = this.refs.portfolio.value;
-
-        let day = this.refs.dobDay.value;
-        let month = this.refs.dobMonth.value;
-        let year = this.refs.dobYear.value;
+        let bio          = this.refs.bio.value;
+        let location     = this.refs.location.value;
+        let portfolio    = this.refs.portfolio.value;
+        let displayName  = this.refs.displayname.value;
+        let day          = this.refs.dobDay.value;
+        let month        = this.refs.dobMonth.value;
+        let year         = this.refs.dobYear.value;
         let overEighteen = this.refs.overEighteen.checked;
+        let gender       = this.state.gender;
+
         data.over_eighteen = overEighteen;
 
-        let gender = this.state.gender;
-
         // Public Validations
-        if(displayName.length > 0) {
+        if (displayName.length > 0) {
             data.display_name = displayName;
         }
 
-        if(this.state.avatarUploaded) {
+        if (this.state.avatarUploaded) {
             data.avatar = this.state.avatar;
         }
 
-        if(bio.length > 0) {
+        if (bio.length > 0) {
             data.bio = bio;
         }
 
-        if(location.length > 0) {
+        if (location.length > 0) {
             data.location = location;
         }
 
-        if(portfolio.length > 0) {
+        if (portfolio.length > 0) {
             data.portfolio = portfolio;
         }
 
-        if(day.length > 0 && day.length > 2) {
+        if (day.length > 0 && day.length > 2) {
             this.state.errors.push("Please enter a valid day of the month.");
 
             let errorType = this.state.errorType;
@@ -414,8 +441,7 @@ export default class PublicEdit extends React.Component {
         this.forceUpdate();
 
         // gather inputs that have been entered
-
-        if(this.state.errors.length == 0) {
+        if (this.state.errors.length == 0) {
             this.props.editPublicUserInfo(data);
             console.log("edited data: ", data);
             console.log("edited profile");
@@ -433,7 +459,7 @@ export default class PublicEdit extends React.Component {
             })
 
         }
-        console.log(this.state.errors);
+        console.error(this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {
@@ -445,6 +471,11 @@ export default class PublicEdit extends React.Component {
         }
     }
 
+    /**
+     * TODO
+     * @param  {[type]} file [description]
+     * @return {[type]}      [description]
+     */
     onDrop = (file) => {
         this.setState({
             avatarUploaded: true,

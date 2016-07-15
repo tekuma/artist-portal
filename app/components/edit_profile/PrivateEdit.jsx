@@ -1,24 +1,27 @@
-import React from 'react';
+import React            from 'react';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar         from 'material-ui/Snackbar';
 
 export default class PrivateEdit extends React.Component {
+    state = {
+        accordion: {
+            legal_name: false,
+            email: false,
+            password: false
+        },
+        errorType: {},
+        errors: [],
+        currentError: ""
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            accordion: {
-                legal_name: false,
-                email: false,
-                password: false
-            },
-            errorType: {},
-            errors: [],
-            currentError: ""
-        }
-
+    componentWillMount() {
+        //pass
     }
 
     render() {
@@ -163,6 +166,21 @@ export default class PrivateEdit extends React.Component {
         );
     }
 
+    componentDidMount() {
+        //pass
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //pass
+    }
+
+    // ----------- METHODS --------------
+
+    /**
+     * TODO
+     * @param  {[type]} item [description]
+     * @return {[type]}      [description]
+     */
     toggleAccordion = (item) => {
         let accordion = this.state.accordion;
         accordion[item] = !accordion[item];
@@ -172,6 +190,11 @@ export default class PrivateEdit extends React.Component {
         });
     }
 
+    /**
+     * TODO
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
     saveProfileInfo = (e) => {
         e.preventDefault();
         console.log("entered save profile");
@@ -297,7 +320,8 @@ export default class PrivateEdit extends React.Component {
                 }
             });
         }
-        console.log(this.state.errors);
+
+        console.error(this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {
@@ -308,4 +332,5 @@ export default class PrivateEdit extends React.Component {
             }, 3000 * i);
         }
     }
+
 }

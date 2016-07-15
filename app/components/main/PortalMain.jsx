@@ -53,27 +53,30 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
-                    setUploadedFiles={this.props.setUploadedFiles}
-                    changeAppLayout={this.props.changeAppLayout}/>
+                    setUploadedFiles ={this.props.setUploadedFiles}
+                    changeAppLayout  ={this.props.changeAppLayout}
+                    />
                 <AlbumManager
-                    user={this.props.user}
-                    userprivate={this.props.userprivate}
-                    managerIsOpen={this.props.managerIsOpen}
-                    toggleManager={this.props.toggleManager}
-                    currentAlbum={this.props.currentAlbum}
-                    changeAlbum={this.props.changeAlbum}
-                    setAlbumNames={this.props.setAlbumNames}
-                    albums={this.props.albums}
-                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
+                    user               ={this.props.user}
+                    userprivate        ={this.props.userprivate}
+                    managerIsOpen      ={this.props.managerIsOpen}
+                    toggleManager      ={this.props.toggleManager}
+                    currentAlbum       ={this.props.currentAlbum}
+                    changeAlbum        ={this.props.changeAlbum}
+                    setAlbumNames      ={this.props.setAlbumNames}
+                    albums             ={this.props.albums}
+                    changeArtworkAlbum ={this.props.changeArtworkAlbum}
+                    />
                 <ArtworkManager
-                    deleteArtwork={this.props.deleteArtwork}
-                    user={this.props.user}
-                    currentAlbum={this.props.currentAlbum}
-                    toggleEditArtworkDialog={this.props.toggleEditArtworkDialog}
-                    changeCurrentEditArtwork={this.props.changeCurrentEditArtwork}
-                    changeAppLayout={this.props.changeAppLayout}
-                    managerIsOpen={this.props.managerIsOpen}
-                    setUploadedFiles={this.props.setUploadedFiles} />
+                    deleteArtwork            ={this.props.deleteArtwork}
+                    user                     ={this.props.user}
+                    currentAlbum             ={this.props.currentAlbum}
+                    toggleEditArtworkDialog  ={this.props.toggleEditArtworkDialog}
+                    changeCurrentEditArtwork ={this.props.changeCurrentEditArtwork}
+                    changeAppLayout          ={this.props.changeAppLayout}
+                    managerIsOpen            ={this.props.managerIsOpen}
+                    setUploadedFiles         ={this.props.setUploadedFiles}
+                    />
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>
         );
@@ -87,10 +90,11 @@ export default class PortalMain extends React.Component {
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="layout-centered">
                     <EditProfile
-                        user={this.props.user}
-                        editPublicUserInfo={this.props.editPublicUserInfo}
-                        editPrivateUserInfo={this.props.editPrivateUserInfo}
-                        toggleDeleteAccountDialog={this.props.toggleDeleteAccountDialog} />
+                        user                      ={this.props.user}
+                        editPublicUserInfo        ={this.props.editPublicUserInfo}
+                        editPrivateUserInfo       ={this.props.editPrivateUserInfo}
+                        toggleDeleteAccountDialog ={this.props.toggleDeleteAccountDialog}
+                        />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>
@@ -98,7 +102,7 @@ export default class PortalMain extends React.Component {
     }
 }
 
-//TODO: Comment out what the fuck this is|does
+//TODO: Comment out what this is|does
 
 PortalMain.propTypes = {
     navIsOpen: React.PropTypes.bool.isRequired,

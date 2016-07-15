@@ -1,10 +1,19 @@
-import React from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// Libs
+import React            from 'react';
+import Dialog           from 'material-ui/Dialog';
+import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dialog from 'material-ui/Dialog';
-import ConfirmButton from '../confirm-dialog/ConfirmButton';
 
+// Files
+import ConfirmButton    from '../confirm-dialog/ConfirmButton';
+
+
+/**
+ * TODO
+ */
 export default class EditProfileDialog extends React.Component {
+    //NOTE: Class left with incomplete code-styling for efficency
+
     render() {
         const actions = [
               <ConfirmButton

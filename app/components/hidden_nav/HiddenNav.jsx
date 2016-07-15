@@ -1,35 +1,39 @@
-import React from 'react';
-import uuid from 'node-uuid';
+// Libs
+import React          from 'react';
+import firebase       from 'firebase';
+import uuid           from 'node-uuid';
+// Files
 import DisplayNameTag from './DisplayNameTag';
-import NavItems from './NavItems';
-import Views from '../../constants/Views';
-import LogoutButton from './LogoutButton';
+import LogoutButton   from './LogoutButton';
+import NavItems       from './NavItems';
+import Views          from '../../constants/Views';
+
 
 export default class HiddenNav extends React.Component {
+    navItems = [
+        {
+            id: uuid.v4(),
+            item: 'Artworks',
+            icon: '../../assets/images/icons/canvas.svg',
+            href:  Views.ARTWORKS,
+            title: 'Browse Artworks'
+        },
+        {
+            id: uuid.v4(),
+            item: 'Edit Profile',
+            icon: '../../assets/images/icons/person.svg',
+            href:  Views.EDIT,
+            title: 'Edit Your Profile'
+        }
+
+    ];
+
     constructor(props) {
         super(props);
-
-        this.navItems = [
-            {
-                id: uuid.v4(),
-                item: 'Artworks',
-                icon: '../../assets/images/icons/canvas.svg',
-                href:  Views.ARTWORKS,
-                title: 'Browse Artworks'
-            },
-            {
-                id: uuid.v4(),
-                item: 'Edit Profile',
-                icon: '../../assets/images/icons/person.svg',
-                href:  Views.EDIT,
-                title: 'Edit Your Profile'
-            }
-
-        ]
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return true;
+    componentWillMount() {
+        console.log("-----HiddenNav");
     }
 
     render() {
@@ -64,4 +68,13 @@ export default class HiddenNav extends React.Component {
             </nav>
         );
     }
+
+    componentDidMount() {
+        console.log("+++++HiddenNav");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //pass
+    }
+    
 }
