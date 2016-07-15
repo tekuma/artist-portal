@@ -10,10 +10,10 @@
 import React              from 'react';
 import Firebase           from 'firebase';
 // Files
-import PostAuth            from './views/PostAuth';
-import PreAuth    from './views/PreAuth';
-import ResetPassword  from './views/ResetPassword';
-import ForgotPassword from './views/ForgotPassword';
+import PostAuth           from './views/PostAuth';
+import PreAuth            from './views/PreAuth';
+import ResetPassword      from './views/ResetPassword';
+import ForgotPassword     from './views/ForgotPassword';
 // Styles
 import './assets/stylesheets/spinkit.css';
 import './assets/stylesheets/folding-cube.css';
@@ -28,39 +28,51 @@ var config = {
 firebase.initializeApp(config);
 
 //  # Global Variables
-const userPath = 'public/onboarders/';
+const userPath  = 'public/onboarders/';
 
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb auth
 
-
+/**
+ * TODO
+ */
 export default class App extends React.Component {
     state = {
-        errors      : [],   // error logs, snackbar display?
-        reg         : {},   // public reg info
-        _reg        : {},   // private reg info
-        login       : {},   //
-        loggedIn    : null, //
-        loaded      : false,// dictates if folding-cube is displayed
-        forgotPass  : false // TODO
+        errors      : [],    // error logs, snackbar display?
+        reg         : {},    // public reg info
+        _reg        : {},    // private reg info
+        login       : {},    //
+        loggedIn    : null,  //
+        loaded      : false, // dictates if folding-cube is displayed
+        forgotPass  : false  // TODO
     };
 
     constructor(props) {
         super(props);
-        //pass
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-      return true;
     }
 
     componentWillMount() {
         console.log("-----App");
     }
 
+    render() {
+        if (!this.state.loaded) {
+            return this.goToLoadingScreen();
+        } else {
+            if (this.state.loggedIn) {
+                return this.goToPostAuth();
+            } else if (this.state.forgotPass) {
+                return this.goToForgotPassword();
+            } else {
+                return this.goToPreAuth();
+            }
+        }
+    }
+
     componentDidMount() {
         console.log("++++++App");
+        //LISTENER: listen for auth state changes
         firebase.auth().onAuthStateChanged( (currentUser)=>{
             if (currentUser) {
                 this.setState({loggedIn: true,  loaded:true});
@@ -68,31 +80,6 @@ export default class App extends React.Component {
                 this.setState({loggedIn: false, loaded:true});
             }
         });
-    }
-
-    render() {
-        // console.log("||++>>>Rendering root app...");
-        // Show loading animation if not loaded
-        if (!this.state.loaded) {
-            return (
-                <div className="layout-centered">
-                    <div className="sk-folding-cube">
-                      <div className="sk-cube1 sk-cube"></div>
-                      <div className="sk-cube2 sk-cube"></div>
-                      <div className="sk-cube4 sk-cube"></div>
-                      <div className="sk-cube3 sk-cube"></div>
-                    </div>
-                </div>
-            );
-        } else {
-            if (this.state.loggedIn) {
-                return this.goToArtistPortal();
-            } else if (this.state.forgotPass) {
-                return this.goToForgotPassword();
-            } else {
-                return this.goToLandingPage();
-            }
-        }
     }
 
 
@@ -105,7 +92,7 @@ export default class App extends React.Component {
      * '/', they are sent here.
      * @return {[JSX]} [renders into PostAuth]
      */
-    goToArtistPortal = () => {
+    goToPostAuth = () => {
         return(
             <PostAuth
               thisUID = {this.state.thisUID}
@@ -117,9 +104,9 @@ export default class App extends React.Component {
     /**
      * Flow Control Function: If no user is detected when accessing '/', then
      * they the UX will render the login page, "PreAuth".
-     * @return {[type]} [description]
+     * @return {JSX} Renders the PreAuth screen
      */
-    goToLandingPage = () => {
+    goToPreAuth = () => {
         console.log("|>Rendering Login Page");
         return(
             <PreAuth
@@ -150,12 +137,28 @@ export default class App extends React.Component {
         )
     }
 
+    /**
+     * TODO
+     * @return {[type]} [description]
+     */
+    goToLoadingScreen = () => {
+        return (
+            <div className="layout-centered">
+                <div className="sk-folding-cube">
+                  <div className="sk-cube1 sk-cube"></div>
+                  <div className="sk-cube2 sk-cube"></div>
+                  <div className="sk-cube4 sk-cube"></div>
+                  <div className="sk-cube3 sk-cube"></div>
+                </div>
+            </div>
+        );
+    }
 
     // #Mutator Methods
     // NOTE: Always use methods to setState, never directly mutate state.
 
     /**
-     * [description]
+     * TODO
      * @return {[type]} [description]
      */
     toggleForgotPassword = () => {
@@ -163,9 +166,8 @@ export default class App extends React.Component {
     }
 
     /**
-     * [description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
+     * TODO
+     * @param  {Object} data - data to be combined with this.state.reg
      */
     saveRegPublic = (data) => {
         this.setState({
@@ -174,7 +176,7 @@ export default class App extends React.Component {
     }
 
     /**
-     * [description]
+     * TODO
      * @param  {[type]} data [description]
      * @return {[type]}      [description]
      */
@@ -204,7 +206,6 @@ export default class App extends React.Component {
     }
 
     // #Authentication Methods
-    // TODO Add createdAt
 
     /**
      * This function will launch a pop-up with the Google Provider object,
@@ -291,7 +292,7 @@ export default class App extends React.Component {
             legal_age      = false,
             avatar         = "";
 
-            //FIXME do this with a forloop and .hasOwnProperty()
+        //FIXME do this with a forloop and .hasOwnProperty()
         //Check for info Submitted, if so override defaults
         if (this.state.reg.dob != undefined && this.state.reg.dob != null) {
            dob = this.state.reg.dob;
@@ -328,7 +329,8 @@ export default class App extends React.Component {
             bio             : bio,
             location        : location,
             portfolio       : portfolio,
-            over_eighteen   : legal_age
+            over_eighteen   : legal_age,
+            joined          : new Date().toISOString()
         };
 
         return onboarder;
@@ -492,7 +494,8 @@ export default class App extends React.Component {
                     bio             : bio,
                     location        : location,
                     portfolio       : portfolio,
-                    over_eighteen   : false
+                    over_eighteen   : false,
+                    joined          : new Date().toISOString()
                 }).then( ()=>{
                     console.log(">>node set in public onboarder");
                 });
@@ -535,7 +538,8 @@ export default class App extends React.Component {
     }
 
     /**
-     * Signs the user out from firebase auth()
+     * Signs the user out from firebase auth().
+     * Listener in Render() will detect change.
      */
     signOutUser = () => {
         firebase.auth().signOut().then( () => {
