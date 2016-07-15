@@ -5,7 +5,7 @@ import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Files
-import ConfirmButton    from '../confirm-dialog/ConfirmButton';
+import ConfirmButton    from '../confirm_dialog/ConfirmButton';
 
 
 /**

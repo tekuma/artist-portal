@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog           from 'material-ui/Dialog';
 import uuid             from 'node-uuid';
 // Files
-import ConfirmButton    from '../confirm-dialog/ConfirmButton';
+import ConfirmButton    from '../confirm_dialog/ConfirmButton';
 
 
 export default class UploadDialog extends React.Component {
