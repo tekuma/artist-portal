@@ -7,7 +7,7 @@ import update     from 'react-addons-update';
 
 // Files
 import Artwork    from './Artwork';
-import confirm    from '../confirm-dialog/ConfirmFunction';
+import confirm    from '../confirm_dialog/ConfirmFunction';
 import Views      from '../../constants/Views';
 
 
@@ -29,12 +29,6 @@ export default class ArtworkManager extends React.Component {
     }
 
     render() {
-
-        if(this.state.album.length == 0) {
-            return this.renderEmptyAlbum();
-        } else {
-            return this.renderArtworks();
-        }
         if(this.state.album.length == 0) {
             if (this.props.currentAlbum == "Uploads") {
                 return this.renderEmptyUploads();
@@ -48,7 +42,10 @@ export default class ArtworkManager extends React.Component {
 
     componentDidMount() {
         console.log("+++++ ArtworkManager");
-        if (this.props.user.albums != undefined) {
+        if (this.props.user.albums != undefined &&
+            this.props.user.albums != null &&
+            this.props.user.albums[0]['artworks'] != null &&
+            this.props.user.albums[0]['artworks'] != undefined) {
 
             let albumIndex;
             let album         = [];
@@ -85,7 +82,10 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.albums != undefined) {
+        if (nextProps.user.albums != undefined &&
+            nextProps.user.albums != null &&
+            nextProps.user.albums[0]['artworks'] != null &&
+            nextProps.user.albums[0]['artworks'] != undefined) {
             console.log("====Entered it");
             let albumIndex;
             let album         = [];
