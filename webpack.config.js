@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const json = require("json!./file.json");
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 // Load *package.json* so we can use `dependencies` from there
@@ -72,6 +71,10 @@ const common = {
             {
                 test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
                 loader: 'imports?define=>false&this=>window'
+            },
+            {
+                test:/\.json$/,
+                loader: "json-loader"
             }
         ]
     }
