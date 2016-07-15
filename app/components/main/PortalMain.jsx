@@ -109,8 +109,6 @@ export default class PortalMain extends React.Component {
 
 // ============= PropTypes ==============
 
-//TODO: Comment out what this is|does
-
 PortalMain.propTypes = {
     navIsOpen: React.PropTypes.bool.isRequired,
     managerIsOpen: React.PropTypes.bool.isRequired,

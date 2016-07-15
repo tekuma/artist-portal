@@ -20,6 +20,7 @@ const albumSource = {
 
 const albumTarget = {
     hover(targetProps, monitor) {
+        console.log("TargetProps: ", targetProps);
         const target = targetProps.album;
         const source = monitor.getItem();
         if(source.name !== target.name) {
