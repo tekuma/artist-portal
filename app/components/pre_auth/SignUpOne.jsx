@@ -226,6 +226,8 @@ export default class SignUpOne extends React.Component {
         console.log('+++++SignUpOne');
     }
 
+// ============= Methods ===============
+
     saveAndContinue = (e) => {
         e.preventDefault();
 

@@ -12,18 +12,22 @@ import PreAuthHeader  from '../headers/PreAuthHeader';
  * TODO
  */
 export default class SignUpTwo extends React.Component {
+    state = {
+        errors          : this.props.errors,
+        errorType       : {},
+        currentError    : ""
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            errors: this.props.errors,
-            errorType: {},
-            currentError: ""
-        };
+    componentWillMount() {
+        console.log('-----SignUpTwo');
     }
 
     render() {
-        var errorStyle = {
+        let errorStyle = {
             border: '1px solid #ec167c'
         };
 
@@ -109,6 +113,12 @@ export default class SignUpTwo extends React.Component {
         );
     }
 
+    componentDidMount() {
+        console.log('+++++SignUpTwo');
+    }
+
+// ============= Methods ===============
+
     saveAndContinue = (e) => {
         e.preventDefault();
 
@@ -116,12 +126,12 @@ export default class SignUpTwo extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var publicData = {};
-        var privateData = {};
-        var legalName = this.refs.legalname.value;
-        var bio = this.refs.bio.value;
-        var location = this.refs.location.value;
-        var portfolio = this.refs.portfolio.value;
+        let publicData = {};
+        let privateData = {};
+        let legalName = this.refs.legalname.value;
+        let bio = this.refs.bio.value;
+        let location = this.refs.location.value;
+        let portfolio = this.refs.portfolio.value;
 
         if(legalName.length == 0) {
             this.state.errors.push("To make use of Tekuma's services, we require your legal name.");

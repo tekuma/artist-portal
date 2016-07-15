@@ -255,6 +255,8 @@ export default class PreAuth extends React.Component {
           </div>
         );
     }
+    
+// ============= Methods ===============
 
     /**
      * [description]

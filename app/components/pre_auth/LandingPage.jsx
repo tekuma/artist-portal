@@ -154,7 +154,8 @@ export default class LandingPage extends React.Component {
         });
     }
 
-/// ----- Methods
+// ============= Methods ===============
+
     saveAndContinue = (e) => {
         e.preventDefault();
 
