@@ -1,13 +1,21 @@
+// Libs
 import React from 'react';
+
+// Files
 import PreAuthHeader from '../headers/PreAuthHeader';
 
+/**
+ * TODO
+ */
 export default class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
     }
+
     componentWillMount() {
         console.log('-----ResetPassword');
     }
+    
     render() {
         return (
             <div className="main-wrapper">

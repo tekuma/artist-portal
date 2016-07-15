@@ -7,6 +7,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Files
 import PreAuthHeader  from '../headers/PreAuthHeader';
 
+/**
+ * TODO
+ */
 export default class SignUpTwo extends React.Component {
     constructor(props) {
         super(props);

@@ -8,7 +8,6 @@ import LandingPage   from './LandingPage';
 import SignUpOne     from './SignUpOne';
 import SignUpTwo     from './SignUpTwo';
 
-
 /**
  * TODO
  */
