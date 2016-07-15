@@ -5,14 +5,14 @@ import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
 // Files    NOTE: Do not include '.jsx'
-import Views               from '../constants/Views';
-import DeleteAccountDialog from '../components/DeleteAccountDialog';
-import HiddenNav           from '../components/hidden_nav/HiddenNav';
-import HamburgerIcon       from '../components/hamburger_icon/HamburgerIcon';
-import PortalMain          from '../components/main/PortalMain';
-import EditArtworkDialog   from '../components/edit_artwork/EditArtworkDialog';
-import EditProfileDialog   from '../components/edit_profile/EditProfileDialog';
-import UploadDialog        from '../components/main/UploadDialog';
+import Views               from '../../constants/Views';
+import DeleteAccountDialog from '../DeleteAccountDialog';
+import HiddenNav           from '../hidden_nav/HiddenNav';
+import HamburgerIcon       from '../hamburger_icon/HamburgerIcon';
+import PortalMain          from './PortalMain';
+import EditArtworkDialog   from '../edit_artwork/EditArtworkDialog';
+import EditProfileDialog   from '../edit_profile/EditProfileDialog';
+import UploadDialog        from './UploadDialog';
 
 
 // #Global Variables
