@@ -12,7 +12,7 @@ import Views from '../../constants/Views';
  */
 export default class PostAuthHeader extends React.Component {
     state = {
-        searchOpen: false
+        searchOpen: false // 
     };
 
     constructor(props) {
