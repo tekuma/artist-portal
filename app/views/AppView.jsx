@@ -41,43 +41,47 @@ export default class AppView extends React.Component {
         albums : {},
         isUploading: false,
         user  : {},
-        _user : {}
+        userprivate : {}
     };
 
     constructor(props) {
         super(props);
     }
 
-
     componentWillMount() {
         console.log("---- AppView");
 
+    }
+
+
+
+    componentDidMount() {
+        console.log("++++++ AppView");
         const thisUID   = firebase.auth().currentUser.uid;
         const  userPath = `public/onboarders/${thisUID}`;
-        const _userPath = `_private/onboarders/${thisUID}`;
+        const userprivatePath = `_private/onboarders/${thisUID}`;
 
 
         firebase.database().ref(userPath).on('value', (snapshot)=>{
             this.setState({
                 user:snapshot.val()
             });
+            console.log("public user set");
         }, (error)=>{
             console.error(error);
         }, this);
 
-        firebase.database().ref(_userPath).on('value', (snapshot)=>{
+        firebase.database().ref(userprivatePath).on('value', (snapshot)=>{
             this.setState({
-                _user:snapshot.val()
+                userprivate:snapshot.val()
             });
+            console.log("SETSTATE");
+            this.forceUpdate();
         }, (error)=>{
             console.error(error);
         }, this);
 
-    }
-
-
-    componentDidMount() {
-        console.log("++++++ AppView");
+        this.forceUpdate();
         console.log("****************");
     }
 
@@ -87,7 +91,7 @@ export default class AppView extends React.Component {
             <div className="app">
                 <HiddenNav
                     user={this.state.user}
-                    _user={this.state._user}
+                    userprivate={this.state.userprivate}
 
                     navIsOpen={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
@@ -97,7 +101,7 @@ export default class AppView extends React.Component {
                     navIsOpen={this.state.navIsOpen} />
                 <RootAppLayout
                     user={this.state.user}
-                    _user={this.state._user}
+                    userprivate={this.state.userprivate}
 
                     albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
@@ -577,7 +581,7 @@ export default class AppView extends React.Component {
     editPrivateUserInfo = (data) => {
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
-        const _userPath   = `_private/onboarders/${thisUID}`;
+        const userprivatePath   = `_private/onboarders/${thisUID}`;
 
         if (data.hasOwnProperty('email')) {
             if (data.email != thisUser.email) {
@@ -587,7 +591,7 @@ export default class AppView extends React.Component {
                     thisUser.updateEmail(data.email).then(
                         ()=>{
                             console.log("change email request sent to email");
-                            firebase.database().ref(_userPath).update({
+                            firebase.database().ref(userprivatePath).update({
                                 email: data.email
                             }).then(()=>{
                                 //FIXME use a toggle method?
@@ -618,7 +622,7 @@ export default class AppView extends React.Component {
         }
 
         if (data.hasOwnProperty('legal_name')) {
-            firebase.database().ref(_userPath).update({
+            firebase.database().ref(userprivatePath).update({
                 legal_name: data.legal_name
             }).then(()=>{
                 //FIXME use a toggle method?

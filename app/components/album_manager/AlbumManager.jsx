@@ -27,34 +27,73 @@ export default class AlbumManager extends React.Component {
 
     componentDidMount() {
         console.log("+++++AlbumManager");
-        const user       = this.props.user;
-        const allAlbums  = user['albums'];
 
-        let albums  = {};
-        let uploads = allAlbums[0];
+        if (this.props.user.albums != undefined) {
+            console.log("in if");
+            console.log(this.props.user);
+            let user       = this.props.user;
+            let allAlbums  = user['albums'];
 
-        let albumKeys  = Object.keys(allAlbums);
-        let albumNames = ["Uploads"];
-        //NOTE 'i' starting at 1 to ignore uploads album
-        for (let i = 1; i < albumKeys.length; i++) {
-            let key = albumKeys[i];
-            albumNames.push(allAlbums[key]['name']);
-            albums[key] = allAlbums[key];
+            let albums  = {};
+            let uploads = allAlbums[0];
+
+            let albumKeys  = Object.keys(allAlbums);
+            let albumNames = ["Uploads"];
+            //NOTE 'i' starting at 1 to ignore uploads album
+            for (let i = 1; i < albumKeys.length; i++) {
+                let key = albumKeys[i];
+                albumNames.push(allAlbums[key]['name']);
+                albums[key] = allAlbums[key];
+            }
+
+            //Send list of album names up to AppView, to be used by EditArtworkLayout
+            // (to be able to have a list of all albums)
+            this.props.setAlbumNames(albumNames);
+
+            //Set albums to state
+            this.setState({
+                albums    :albums,
+                uploads   :uploads,
+                albumNames:albumNames
+            });
+
         }
-
-        //Send list of album names up to AppView, to be used by EditArtworkLayout
-        // (to be able to have a list of all albums)
-        this.props.setAlbumNames(albumNames);
-
-        //Set albums to state
-        this.setState({
-            albums    :albums,
-            uploads   :uploads,
-            albumNames:albumNames
-        });
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.albums != undefined) {
+            console.log("====Entered receive album manager");
+            console.log(nextProps);
+            let user       = nextProps.user;
+            let allAlbums  = user['albums'];
+
+            let albums  = {};
+            let uploads = allAlbums[0];
+
+            let albumKeys  = Object.keys(allAlbums);
+            let albumNames = ["Uploads"];
+
+            //NOTE 'i' starting at 1 to ignore uploads album
+            for (let i = 1; i < albumKeys.length; i++) {
+                let key = albumKeys[i];
+                albumNames.push(allAlbums[key]['name']);
+                albums[key] = allAlbums[key];
+            }
+
+            //Send list of album names up to AppView, to be used by EditArtworkLayout
+            // (to be able to have a list of all albums)
+
+            // nextProps.setAlbumNames(albumNames);
+
+            //Set albums to state
+            this.setState({
+                albums    :albums,
+                uploads   :uploads,
+                albumNames:albumNames
+            });
+        }
+    }
 
     render() {
         if(this.props.managerIsOpen) {

@@ -9,22 +9,27 @@ import EditProfileLayout from '../edit-profile/EditProfileLayout';
 import Views             from '../../constants/Views';
 
 export default class RootAppLayout extends React.Component {
+    state = {
+
+    };
+
     constructor(props) {
         super(props);
-        this.state = {}
     }
 
-    rerender = () => {
-        this.setState({});
-    }
+    // rerender = () => {
+    //     this.setState({});
+    // }
 
     componentDidMount() {
         console.log("++++RootAppLayout");
+        console.log(this.props.user);
         // window.addEventListener("resize", this.rerender);
     }
 
     componentWillMount() {
         console.log("----RootAppLayout");
+
     }
 
     // componentWillUnmount() {
@@ -51,8 +56,8 @@ export default class RootAppLayout extends React.Component {
                     changeAppLayout={this.props.changeAppLayout}/>
                 <AlbumManager
                     user={this.props.user}
-                    _user={this.props._user}
-                    
+                    userprivate={this.props.userprivate}
+
                     managerIsOpen={this.props.managerIsOpen}
                     toggleManager={this.props.toggleManager}
                     currentAlbum={this.props.currentAlbum}

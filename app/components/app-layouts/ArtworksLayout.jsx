@@ -28,42 +28,80 @@ export default class ArtworksLayout extends React.Component {
 
     componentDidMount() {
         console.log("+++++ ArtworksLayout");
+        if (this.props.user.albums != undefined) {
+            console.log("====Entered it");
+            let album = [];
+            let   thisAlbumName = this.props.currentAlbum; //passed from AppView
+            let   user          = this.props.user;
+            let   albums        = user['albums'];
 
-        let album = [];
-        const thisAlbumName = this.props.currentAlbum; //passed from AppView
-        const user          = this.props.user;
-        let   albums        = user['albums'];
+            let albumIndex;
+            let albumsLength    = Object.keys(albums).length;
 
-        let albumIndex;
-        let albumsLength    = Object.keys(albums).length;
-
-        // Look through the albums branch to find which album we are in
-        // we have the album name, we need the index of it.
-        for (let i = 0; i < albumsLength; i++) {
-            if (thisAlbumName == albums[i]['name']) {
-                albumIndex = i;
-                break;
+            // Look through the albums branch to find which album we are in
+            // we have the album name, we need the index of it.
+            for (let i = 0; i < albumsLength; i++) {
+                if (thisAlbumName == albums[i]['name']) {
+                    albumIndex = i;
+                    break;
+                }
             }
+            //FIXME if we never match, albumIndex will be undefined
+
+            let artworks = albums[albumIndex]['artworks'];
+            let artworksLength = Object.keys(artworks).length;
+
+            // Load relevant artworks to state album
+            for (let i = 0; i < artworksLength; i++) {
+                let artworkUID = artworks[i];
+                let artwork    = user['artworks'][artworkUID];
+                console.log("$$THIS is not an artwork", artwork);
+                album.push(artwork);
+            }
+
+            this.setState({
+                album: album
+            });
         }
-        //FIXME if we never match, albumIndex will be undefined
-
-        let artworks = albums[albumIndex]['artworks'];
-        let artworksLength = Object.keys(artworks).length;
-
-        // Load relevant artworks to state album
-        for (let i = 0; i < artworksLength; i++) {
-            let artworkUID = artworks[i];
-            let artwork    = user['artworks'][artworkUID];
-            console.log("$$THIS is not an artwork", artwork);
-            album.push(artwork);
-        }
-
-        this.setState({
-            album: album
-        });
-
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.albums != undefined) {
+            console.log("====Entered it");
+            let album = [];
+            let   thisAlbumName = nextProps.currentAlbum; //passed from AppView
+            let   user          = nextProps.user;
+            let   albums        = user['albums'];
+
+            let albumIndex;
+            let albumsLength    = Object.keys(albums).length;
+
+            // Look through the albums branch to find which album we are in
+            // we have the album name, we need the index of it.
+            for (let i = 0; i < albumsLength; i++) {
+                if (thisAlbumName == albums[i]['name']) {
+                    albumIndex = i;
+                    break;
+                }
+            }
+            //FIXME if we never match, albumIndex will be undefined
+
+            let artworks = albums[albumIndex]['artworks'];
+            let artworksLength = Object.keys(artworks).length;
+
+            // Load relevant artworks to state album
+            for (let i = 0; i < artworksLength; i++) {
+                let artworkUID = artworks[i];
+                let artwork    = user['artworks'][artworkUID];
+                console.log("$$THIS is not an artwork", artwork);
+                album.push(artwork);
+            }
+
+            this.setState({
+                album: album
+            });
+        }
+    }
 
     render() {
 
@@ -112,7 +150,8 @@ export default class ArtworksLayout extends React.Component {
                             onDelete={this.deleteArtwork}
                             onDownload={this.downloadArtwork}
                             onMove={this.move}
-                            artwork={artwork} />
+                            artwork={artwork}
+                        />
                     );
                 })}
             </Dropzone>

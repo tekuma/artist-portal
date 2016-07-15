@@ -404,7 +404,7 @@ export default class App extends React.Component {
             });
 
             //>>>> Instantiate _private/onboarders/thisUID
-            let _userPath  = `_private/onboarders/${thisUID}`;
+            let userprivatePath  = `_private/onboarders/${thisUID}`;
 
             let legal_name = "no_legal_name_given";
             if (this.state._reg.legal_name != undefined && this.state._reg.legal_name != null) {
@@ -415,7 +415,7 @@ export default class App extends React.Component {
             if (this.state._reg.email != undefined && this.state._reg.email != null) {
                email = this.state._reg.email;
             }
-            firebase.database().ref(_userPath).set({
+            firebase.database().ref(userprivatePath).set({
                 legal_name: legal_name,
                 email     : email
             }).then( ()=>{
@@ -515,8 +515,8 @@ export default class App extends React.Component {
 
 
             //>>>> Instantiate _private/onboarders/thisUID
-            let _userPath = `_private/onboarders/${thisUID}`;
-            firebase.database().ref(_userPath).set({
+            let userprivatePath = `_private/onboarders/${thisUID}`;
+            firebase.database().ref(userprivatePath).set({
                 legal_name: "",
                 email     : user.email
             }).then(()=>{
