@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * TODO
+ * @param  {[type]} {signOutUser} [description]
+ * @return {[type]}               [description]
+ */
 export default ({signOutUser}) => {
     return (
         <div
