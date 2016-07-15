@@ -46,13 +46,13 @@ export default class PrivateEdit extends React.Component {
             <div>
                 <div className="edit-profile-heading">
                     <div
-                        className={this.props.currentEditLayout == "public" ? "edit-profile-public selected" : "edit-profile-public"}
-                        onClick={this.props.changeEditLayout.bind({}, "public")}>
+                        className={this.props.editingPublic ? "edit-profile-public selected" : "edit-profile-public"}
+                        onClick={this.props.editPublic}>
                         <h2>Public</h2>
                     </div>
                     <div
-                        className={this.props.currentEditLayout == "private" ? "edit-profile-private selected" : "edit-profile-private"}
-                        onClick={this.props.changeEditLayout.bind({}, "private")}>
+                        className={!this.props.editingPublic ? "edit-profile-private selected" : "edit-profile-private"}
+                        onClick={this.props.editPrivate}>
                         <h2>Private</h2>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.legal ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.legal_name != "" ? this.props.user.legal_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.legal_name != "" ? this.props.user.legal_name : "Unset"}</h3>
                         </div>
                         <div
                             id="legal-name-content"
@@ -70,7 +70,7 @@ export default class PrivateEdit extends React.Component {
                                 <input
                                 type="text"
                                 id="edit-legalname"
-                                defaultValue={this.props.user.legal}
+                                defaultValue={this.props.userPrivate.legal_name}
                                 ref="legalname"
                                 style={this.state.errorType.legalName ? errorStyle : null}
                                 placeholder="Legal Name"
@@ -85,7 +85,7 @@ export default class PrivateEdit extends React.Component {
                             onClick={this.toggleAccordion.bind({},"email")}
                             style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Email</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.email != "" ? this.props.user.email : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.email != "" ? this.props.userPrivate.email : "Unset"}</h3>
                         </div>
                         <div
                             id="email-content"
@@ -94,7 +94,7 @@ export default class PrivateEdit extends React.Component {
                             <input
                                 type="email"
                                 id="edit-email"
-                                defaultValue={this.props.user.email}
+                                defaultValue={this.props.userPrivate.email}
                                 ref="email"
                                 style={this.state.errorType.email ? errorStyle : null}
                                 placeholder="Email"
@@ -227,7 +227,10 @@ export default class PrivateEdit extends React.Component {
         }
 
         // Only test regex if user has typed in an email and has password
-        if(email.length > 0 && email != this.props.user.email && !/.+@.+\..+/.test(email)) {
+        if(email.length > 0 &&
+            email != this.props.user.email &&
+            !/.+@.+\..+/.test(email) &&
+            this.props.user.auth_provider == "password") {
             this.state.errors.push("The email address you supplied is invalid.");
 
             let errorType = this.state.errorType;
@@ -235,7 +238,9 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.user.email && emailPassword.length == 0) {
+        } else if (email != this.props.user.email &&
+            emailPassword.length == 0 &&
+            this.props.user.auth_provider == "password") {
             this.state.errors.push("To change your email, you must enter your current password.");
 
             let errorType = this.state.errorType;
@@ -243,13 +248,16 @@ export default class PrivateEdit extends React.Component {
             this.setState({
                 errorType: errorType
             });
-        } else if (email != this.props.user.email && email.length > 0 && emailPassword.length > 0) {
+        } else if (email != this.props.user.email &&
+                email.length > 0 &&
+                emailPassword.length > 0 &&
+                this.props.user.auth_provider == "password") {
             data.email = email;
             data.email_password = emailPassword;
         }
 
         // Only test password length if typed in
-        if(password.length > 0 && password.length < 6) {
+        if(password.length > 0 && password.length < 6 && this.props.user.auth_provider == "password") {
             this.state.errors.push("Your password must be at least 6 characters long.");
 
             let errorType = this.state.errorType;
@@ -260,7 +268,7 @@ export default class PrivateEdit extends React.Component {
         }
 
         // Only test confirm password length if password typed in
-        if(password.length > 0 && confirmPassword.length == 0) {
+        if(password.length > 0 && confirmPassword.length == 0 && this.props.user.auth_provider == "password") {
             this.state.errors.push("Please confirm your password.");
 
             let errorType = this.state.errorType;
@@ -275,7 +283,8 @@ export default class PrivateEdit extends React.Component {
             currentPassword.length > 0
             && password.length > 0
             && confirmPassword.length > 0
-            && password != confirmPassword) {
+            && password != confirmPassword
+            && this.props.user.auth_provider == "password") {
             this.state.errors.push("Passwords do not match.");
 
             let errorType = this.state.errorType;
@@ -286,7 +295,8 @@ export default class PrivateEdit extends React.Component {
             });
         } else if (password.length >= 6
         && confirmPassword.length >= 6
-        && currentPassword.length == 0) {
+        && currentPassword.length == 0
+        && this.props.user.auth_provider == "password") {
                 this.state.errors.push("To change your password, you must enter your current password.");
 
                 let errorType = this.state.errorType;
@@ -297,7 +307,8 @@ export default class PrivateEdit extends React.Component {
         } else if (currentPassword.length >= 6
                     && password.length >= 6
                     && confirmPassword.length >= 6
-                    && password == confirmPassword) {
+                    && password == confirmPassword
+                    && this.props.user.auth_provider == "password") {
                         data.current_password = currentPassword;
                         data.password = password;
                     }

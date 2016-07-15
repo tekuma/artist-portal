@@ -14,7 +14,7 @@ import PrivateEdit      from './PrivateEdit.jsx';
  */
 export default class EditProfile extends React.Component {
     state = {
-        currentEditLayout: "public"
+        editingPublic: true
     };
 
     constructor(props) {
@@ -26,10 +26,10 @@ export default class EditProfile extends React.Component {
     }
 
     render() {
-        if(this.state.currentEditLayout === "public") {
-            return this.goToPublicEdit;
+        if(this.state.editingPublic) {
+            return this.goToPublicEdit();
         } else {
-            return this.goToPrivateEdit;
+            return this.goToPrivateEdit();
         }
     }
 
@@ -51,8 +51,10 @@ export default class EditProfile extends React.Component {
         return (
             <PrivateEdit
                 user={this.props.user}
-                currentEditLayout={this.state.currentEditLayout}
-                changeEditLayout={this.changeEditLayout}
+                userPrivate={this.props.userPrivate}
+                editingPublic={this.state.editingPublic}
+                editPublic={this.editPublic}
+                editPrivate={this.editPrivate}
                 currentError={this.state.currentError}
                 editPrivateUserInfo={this.props.editPrivateUserInfo} />
         );
@@ -66,8 +68,9 @@ export default class EditProfile extends React.Component {
         return (
             <PublicEdit
                 user={this.props.user}
-                currentEditLayout={this.state.currentEditLayout}
-                changeEditLayout={this.changeEditLayout}
+                editingPublic={this.state.editingPublic}
+                editPublic={this.editPublic}
+                editPrivate={this.editPrivate}
                 editPublicUserInfo={this.props.editPublicUserInfo}
                  />
         );
@@ -77,9 +80,22 @@ export default class EditProfile extends React.Component {
      * Mutator Method to change layout in state
      * @param  {[type]} layout [TODO]
      */
-    changeEditLayout = (layout) => {
+    editPublic = () => {
         this.setState({
-            currentEditLayout: layout,
+            editingPublic: true,
+            errors: [],
+            errorType: {},
+            currentError: ""
+        });
+    }
+
+    /**
+     * Mutator Method to change layout in state
+     * @param  {[type]} layout [TODO]
+     */
+    editPrivate = () => {
+        this.setState({
+            editingPublic: false,
             errors: [],
             errorType: {},
             currentError: ""

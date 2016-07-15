@@ -44,7 +44,7 @@ export default class PostAuth extends React.Component {
         albums : {},                                //
         isUploading: false,                         //
         user  : {},                                 // public/onboarders/{UID} node
-        userprivate : {}                            // _private/onboarders/{UID} node
+        userPrivate : {}                            // _private/onboarders/{UID} node
     };
 
     constructor(props) {
@@ -68,7 +68,7 @@ export default class PostAuth extends React.Component {
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
                     user={this.state.user}
-                    userprivate={this.state.userprivate}
+                    userPrivate={this.state.userPrivate}
                     albums={this.state.albums}
                     navIsOpen={this.state.navIsOpen}
                     deleteArtwork={this.deleteArtwork}
@@ -113,7 +113,7 @@ export default class PostAuth extends React.Component {
         console.log("++++++PostAuth");
         const thisUID   = firebase.auth().currentUser.uid;
         const  userPath = `public/onboarders/${thisUID}`;
-        const userprivatePath = `_private/onboarders/${thisUID}`;
+        const userPrivatePath = `_private/onboarders/${thisUID}`;
 
         //NOTE: MAIN LISTENER FOR CONNECTION TO firebase
         // these 2 on-methods listen for any change to the database and
@@ -127,9 +127,9 @@ export default class PostAuth extends React.Component {
             console.error(error);
         }, this);
 
-        firebase.database().ref(userprivatePath).on('value', (snapshot)=>{
+        firebase.database().ref(userPrivatePath).on('value', (snapshot)=>{
             this.setState({
-                userprivate:snapshot.val()
+                userPrivate:snapshot.val()
             });
             console.log("SETSTATE");
             this.forceUpdate();
@@ -581,7 +581,7 @@ export default class PostAuth extends React.Component {
     editPrivateUserInfo = (data) => {
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
-        const userprivatePath   = `_private/onboarders/${thisUID}`;
+        const userPrivatePath   = `_private/onboarders/${thisUID}`;
 
         if (data.hasOwnProperty('email')) {
             if (data.email != thisUser.email) {
@@ -591,7 +591,7 @@ export default class PostAuth extends React.Component {
                     thisUser.updateEmail(data.email).then(
                         ()=>{
                             console.log("change email request sent to email");
-                            firebase.database().ref(userprivatePath).update({
+                            firebase.database().ref(userPrivatePath).update({
                                 email: data.email
                             }).then(()=>{
                                 //FIXME use a toggle method?
@@ -622,7 +622,7 @@ export default class PostAuth extends React.Component {
         }
 
         if (data.hasOwnProperty('legal_name')) {
-            firebase.database().ref(userprivatePath).update({
+            firebase.database().ref(userPrivatePath).update({
                 legal_name: data.legal_name
             }).then(()=>{
                 //FIXME use a toggle method?

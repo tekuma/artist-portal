@@ -58,7 +58,7 @@ export default class PortalMain extends React.Component {
                     />
                 <AlbumManager
                     user               ={this.props.user}
-                    userprivate        ={this.props.userprivate}
+                    userPrivate        ={this.props.userPrivate}
                     managerIsOpen      ={this.props.managerIsOpen}
                     toggleManager      ={this.props.toggleManager}
                     currentAlbum       ={this.props.currentAlbum}
@@ -91,6 +91,7 @@ export default class PortalMain extends React.Component {
                 <div className="layout-centered">
                     <EditProfile
                         user                      ={this.props.user}
+                        userPrivate               ={this.props.userPrivate}
                         editPublicUserInfo        ={this.props.editPublicUserInfo}
                         editPrivateUserInfo       ={this.props.editPrivateUserInfo}
                         toggleDeleteAccountDialog ={this.props.toggleDeleteAccountDialog}

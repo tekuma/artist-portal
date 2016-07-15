@@ -54,13 +54,13 @@ export default class PublicEdit extends React.Component {
             <div>
                 <div className="edit-profile-heading">
                     <div
-                        className={this.props.currentEditLayout == "public" ? "edit-profile-public selected" : "edit-profile-public"}
-                        onClick={this.props.changeEditLayout.bind({}, "public")}>
+                        className={this.props.editingPublic ? "edit-profile-public selected" : "edit-profile-public"}
+                        onClick={this.props.editPublic}>
                         <h2>Public</h2>
                     </div>
                     <div
-                        className={this.props.currentEditLayout == "private" ? "edit-profile-private selected" : "edit-profile-private"}
-                        onClick={this.props.changeEditLayout.bind({}, "private")}>
+                        className={!this.props.editingPublic ? "edit-profile-private selected" : "edit-profile-private"}
+                        onClick={this.props.editPrivate}>
                         <h2>Private</h2>
                     </div>
                 </div>
