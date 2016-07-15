@@ -1,4 +1,4 @@
-import React from 'react';
+import React   from 'react';
 import NavItem from './NavItem';
 
 export default ({navItems, changeAppLayout, signOutUser}) => {
