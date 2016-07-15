@@ -49,11 +49,11 @@ export default class PreAuth extends React.Component {
     }
 
 
-    ////  --------   #Methods ----------------------------
+// ============= Methods ===============
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the Landing Page]
+     * @return {HTML} [landing page view]
      */
     landingPage = () => {
         return(
@@ -123,8 +123,8 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the first Sign Up Page]
+     * @return {HTML} [Sign Up Page One]
      */
     signUpOne = () => {
         return(
@@ -192,10 +192,9 @@ export default class PreAuth extends React.Component {
         );
     }
 
-
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the second Sign Up Page]
+     * @return {HTML} [Sign Up Page Two]
      */
     signUpTwo = () => {
         return(
@@ -267,8 +266,7 @@ export default class PreAuth extends React.Component {
 // ============= Methods ===============
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Increments this.state.step to chnage the PreAuth View
      */
     nextStep = () => {
         this.setState({
@@ -277,8 +275,7 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Toggles this.state.popoverIsOpen to open or close the popover
      */
     togglePopover = () => {
         this.setState({
@@ -287,9 +284,8 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [TODO]
-     * @param  {[type]} e [description]
-     * @return {[type]}   [description]
+     * Used to log in a user
+     * @param  {[HTML element]} e [The element that has been pressed]
      */
     onLogin = (e) => {
         e.preventDefault();
