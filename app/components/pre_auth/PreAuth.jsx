@@ -1,44 +1,51 @@
-import LandingPage   from '../components/pre_auth/LandingPage';
-import SignUpOne     from '../components/pre_auth/SignUpOne';
-import SignUpTwo     from '../components/pre_auth/SignUpTwo';
-import {Popover} from 'react-bootstrap';
-import React               from 'react';
-import uuid from 'node-uuid';
+// Libs
+import React         from 'react';
+import uuid          from 'node-uuid';
+import {Popover}     from 'react-bootstrap';
+
+// Files
+import LandingPage   from './LandingPage';
+import SignUpOne     from './SignUpOne';
+import SignUpTwo     from './SignUpTwo';
 
 
 /**
  * TODO
  */
 export default class PreAuth extends React.Component {
+    state = {
+        step          : 1,                      // Used to keep track of which component in the pre-auth flow should be shown
+        popoverIsOpen : false,                  // Used to keep track of whether the popover is open
+        errors        : this.props.errors       // Used to store errors from App.jsx
+        };
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            step       : 1,
-            popoverIsOpen: false,
-            errors: this.props.errors,
-            };
+    componentWillMount() {
+        console.log('-----PreAuth');
+    }
+
+    render() {
+        switch(this.state.step) {
+            case 1:
+                return this.landingPage();
+            case 2:
+                return this.signUpOne();
+            case 3:
+                return this.signUpTwo();
+        }
+    }
+
+    componentDidMount() {
+        console.log('+++++PreAuth');
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             errors: nextProps.errors
         });
-    }
-
-    render() {
-        switch(this.state.step) {
-            case 1:
-                return this.landingPageLayout();
-            case 2:
-                return this.signUpLayoutOne();
-            case 3:
-                return this.signUpLayoutTwo();
-        }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-      return true;
     }
 
 
@@ -48,13 +55,13 @@ export default class PreAuth extends React.Component {
      * [description]
      * @return {[type]} [description]
      */
-    landingPageLayout = () => {
+    landingPage = () => {
         return(
           <div>
               <LandingPage
                   popoverIsOpen={this.state.popoverIsOpen}
                   togglePopover={this.togglePopover}
-                  errors={this.props.errors}
+                  errors={this.state.errors}
                   clearErrors={this.props.clearErrors}
                   saveRegPrivate = {this.props.saveRegPrivate}
                   nextStep   = {this.nextStep}
@@ -117,13 +124,13 @@ export default class PreAuth extends React.Component {
      * [description]
      * @return {[type]} [description]
      */
-    signUpLayoutOne = () => {
+    signUpOne = () => {
         return(
           <div>
             <SignUpOne
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
-                errors={this.props.errors}
+                errors={this.state.errors}
                 clearErrors={this.props.clearErrors}
                 saveRegPublic = {this.props.saveRegPublic}
                 nextStep   = {this.nextStep}
@@ -186,13 +193,13 @@ export default class PreAuth extends React.Component {
      * [description]
      * @return {[type]} [description]
      */
-    signUpLayoutTwo = () => {
+    signUpTwo = () => {
         return(
           <div>
             <SignUpTwo
                 popoverIsOpen={this.state.popoverIsOpen}
                 togglePopover={this.togglePopover}
-                errors={this.props.errors}
+                errors={this.state.errors}
                 clearErrors={this.props.clearErrors}
                 saveRegPublic = {this.props.saveRegPublic}
                 saveRegPrivate = {this.props.saveRegPrivate}
