@@ -60,7 +60,7 @@ export default class Confirmation extends React.Component {
         );
     }
 
-    componentWillMount() {
+    componentDidMount() {
         console.log("+++++Confirmation");
     }
 }
