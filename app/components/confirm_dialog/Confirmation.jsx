@@ -1,12 +1,25 @@
-import React from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// Libs
+import React            from 'react';
+import {confirmable}    from 'react-confirm';
+import Dialog           from 'material-ui/Dialog';
+import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dialog from 'material-ui/Dialog';
-import { confirmable } from 'react-confirm';
-import ConfirmButton from './ConfirmButton';
 
+// Files
+import ConfirmButton    from './ConfirmButton';
 
+/**
+ * TODO
+ */
 export default class Confirmation extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        console.log("-----Confirmation");
+    }
+
     render() {
         const {
             okLabel = 'Yes',
@@ -19,33 +32,36 @@ export default class Confirmation extends React.Component {
         } = this.props;
 
         const actions = [
-              <ConfirmButton
-                label={okLabel}
-                className="confirm-yes"
-                onClick={proceed}
-              />,
-          <ConfirmButton
-                label={cancelLabel}
-                className="confirm-no"
-                onClick={cancel}
-              />
+            <ConfirmButton
+                label       ={okLabel}
+                className   ="confirm-yes"
+                onClick     ={proceed}/>,
+
+            <ConfirmButton
+                label       ={cancelLabel}
+                className   ="confirm-no"
+                onClick     ={cancel} />
         ];
 
         return (
             <div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Dialog
-                        actions={actions}
-                        modal={false}
-                        open={show}
-                        onRequestClose={dismiss}
-                        actionsContainerClassName="confirm-actions"
-                        bodyClassName="confirm-body" >
+                        actions                     ={actions}
+                        modal                       ={false}
+                        open                        ={show}
+                        onRequestClose              ={dismiss}
+                        actionsContainerClassName   ="confirm-actions"
+                        bodyClassName               ="confirm-body" >
                             {confirmation}
                     </Dialog>
                 </MuiThemeProvider>
             </div>
         );
+    }
+
+    componentWillMount() {
+        console.log("+++++Confirmation");
     }
 }
 
