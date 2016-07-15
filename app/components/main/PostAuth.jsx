@@ -122,7 +122,7 @@ export default class PostAuth extends React.Component {
             this.setState({
                 user:snapshot.val()
             });
-            console.log("public user set");
+            console.log("FIREBASE: user info updated");
         }, (error)=>{
             console.error(error);
         }, this);
@@ -131,8 +131,7 @@ export default class PostAuth extends React.Component {
             this.setState({
                 userPrivate:snapshot.val()
             });
-            console.log("SETSTATE");
-            this.forceUpdate();
+            this.forceUpdate(); //FIXME in theory this line is un-needed.
         }, (error)=>{
             console.error(error);
         }, this);
@@ -241,42 +240,51 @@ export default class PostAuth extends React.Component {
      */
     extractColors = (url) => {
         console.log(">> Extracting Color Palette from Upload...");
-        let colors;
+        let colors = {};
         getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
         .getPalette( (error,palette)=>{
-            colors = {
-                v:{
+            if (palette.Vibrant != null) {
+                colors['v'] = {
                     hex:palette.Vibrant.getHex(),
                     rgb:palette.Vibrant.getRgb(),
                     cnt:palette.Vibrant.getPopulation()
-                },
-                m:{
+                };
+            }
+            if (palette.Muted != null) {
+                colors['m'] = {
                     hex:palette.Muted.getHex(),
                     rgb:palette.Muted.getRgb(),
                     cnt:palette.Muted.getPopulation()
-                },
-                dv:{
+                };
+            }
+            if (palette.DarkVibrant != null) {
+                colors['dv'] = {
                     hex:palette.DarkVibrant.getHex(),
                     rgb:palette.DarkVibrant.getRgb(),
                     cnt:palette.DarkVibrant.getPopulation()
-                },
-                dm:{
+                };
+            }
+            if (palette.DarkMuted != null) {
+                colors['dm'] = {
                     hex:palette.DarkMuted.getHex(),
                     rgb:palette.DarkMuted.getRgb(),
                     cnt:palette.DarkMuted.getPopulation()
-                },
-                lv:{
+                };
+            }
+            if (palette.LightVibrant != null) {
+                colors['lv'] = {
                     hex:palette.LightVibrant.getHex(),
                     rgb:palette.LightVibrant.getRgb(),
                     cnt:palette.LightVibrant.getPopulation()
-                },
-                lm:{
+                };
+            }
+            if (palette.LightMuted != null) {
+                colors['lm'] = {
                     hex:palette.LightMuted.getHex(),
                     rgb:palette.LightMuted.getRgb(),
                     cnt:palette.LightMuted.getPopulation()
-                }
-
-            };
+                };
+            }
         });
         return colors;
     }

@@ -85,7 +85,6 @@ export default class ArtworkManager extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.user.albums != undefined &&
             nextProps.user.albums != null) {
-            console.log("====Entered it");
             let albumIndex;
             let album         = [];
             let thisAlbumName = nextProps.currentAlbum; //passed from PostAuth
@@ -127,16 +126,13 @@ export default class ArtworkManager extends React.Component {
 // ============= Flow Control ===============
 
     renderArtworks = () => {
-        console.log("Rendering artowrks");
         const album = this.state.album;
-
         let styleManagerClosed = {
             width: window.innerWidth - 40
         };
         let styleSmallScreen = {
             width: window.innerWidth - 250
         };
-
         return (
             <Dropzone
                 disableClick
