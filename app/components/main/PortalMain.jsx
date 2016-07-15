@@ -1,12 +1,14 @@
 // Libs
 import React             from 'react';
+import firebase          from 'firebase';
 
 //Files
 import PostAuthHeader    from '../headers/PostAuthHeader';
 import AlbumManager      from '../album_manager/AlbumManager';
 import ArtworkManager    from './ArtworkManager';
-import EditProfile from '../edit-profile/EditProfile';
+import EditProfile       from '../edit-profile/EditProfile';
 import Views             from '../../constants/Views';
+
 
 export default class PortalMain extends React.Component {
     state = {
