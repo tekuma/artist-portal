@@ -1,13 +1,13 @@
 import React from 'react';
-import PreAuthHeader from '../components/headers/PreAuthHeader';
+import PreAuthHeader from '../headers/PreAuthHeader';
 
 export default class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {};
     }
-
+    componentWillMount() {
+        console.log('-----ResetPassword');
+    }
     render() {
         return (
             <div className="main-wrapper">
@@ -61,5 +61,9 @@ export default class ResetPassword extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        console.log('+++++ResetPassword');
     }
 }
