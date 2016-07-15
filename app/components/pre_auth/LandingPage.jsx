@@ -4,32 +4,33 @@ import uuid             from 'node-uuid';
 import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// Files
-import PreAuthHeader  from '../headers/PreAuthHeader';
 
-
+/**
+ * TODO
+ */
 export default class LandingPage extends React.Component {
+    state = {
+        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
+        currentError    : ""                    // Used to store the current error to be displayed in the snackbar
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            errors: this.props.errors,
-            errorType: {},
-            currentError: ""
-        };
+    componentWillMount() {
+        console.log('-----LandingPage');
     }
 
     render() {
-        var errorStyle = {
+        let errorStyle = {
             border: '2px solid #ec167c'
         };
 
         return (
             <div>
                 <div className="main-wrapper">
-                    <PreAuthHeader
-                        togglePopover={this.props.togglePopover}
-                         />
                     <div className="layout-centered">
                         <article className="signup-wrapper">
                             <div className="artist-logo-wrapper">
@@ -137,7 +138,18 @@ export default class LandingPage extends React.Component {
         );
     }
 
-/// ----- Functions
+    componentDidMount() {
+        console.log('+++++LandingPage');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
+    }
+
+// ============= Methods ===============
+
     saveAndContinue = (e) => {
         e.preventDefault();
 
@@ -145,10 +157,10 @@ export default class LandingPage extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var privateData = {};
-        var email = this.refs.email.value;
-        var password = this.refs.password.value;
-        var confirmPassword = this.refs.confirmPassword.value;
+        let privateData = {};
+        let email = this.refs.email.value;
+        let password = this.refs.password.value;
+        let confirmPassword = this.refs.confirmPassword.value;
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address");

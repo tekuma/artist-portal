@@ -1,23 +1,45 @@
-import LandingPage   from '../components/pre_auth/LandingPage';
-import SignUpOne     from '../components/pre_auth/SignUpOne';
-import SignUpTwo     from '../components/pre_auth/SignUpTwo';
-import {Popover} from 'react-bootstrap';
-import React               from 'react';
-import uuid from 'node-uuid';
+// Libs
+import React         from 'react';
+import uuid          from 'node-uuid';
+import {Popover}     from 'react-bootstrap';
 
+// Files
+import LandingPage   from './LandingPage';
+import SignUpOne     from './SignUpOne';
+import SignUpTwo     from './SignUpTwo';
+import PreAuthHeader from '../headers/PreAuthHeader';
 
 /**
  * TODO
  */
 export default class PreAuth extends React.Component {
+    state = {
+        step          : 1,                      // Used to keep track of which component in the pre-auth flow should be shown
+        popoverIsOpen : false,                  // Used to keep track of whether the popover is open
+        errors        : this.props.errors       // Used to store errors from App.jsx
+    }
+
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            step       : 1,
-            popoverIsOpen: false,
-            errors: this.props.errors,
-            };
+    componentWillMount() {
+        console.log('-----PreAuth');
+    }
+
+    render() {
+        switch(this.state.step) {
+            case 1:
+                return this.landingPage();
+            case 2:
+                return this.signUpOne();
+            case 3:
+                return this.signUpTwo();
+        }
+    }
+
+    componentDidMount() {
+        console.log('+++++PreAuth');
     }
 
     componentWillReceiveProps(nextProps) {
@@ -26,40 +48,27 @@ export default class PreAuth extends React.Component {
         });
     }
 
-    render() {
-        switch(this.state.step) {
-            case 1:
-                return this.landingPageLayout();
-            case 2:
-                return this.signUpLayoutOne();
-            case 3:
-                return this.signUpLayoutTwo();
-        }
-    }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return true;
-    }
-
-
-    ////  --------   #Methods ----------------------------
+// ============= Methods ===============
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the Landing Page]
+     * @return {HTML} [landing page view]
      */
-    landingPageLayout = () => {
+    landingPage = () => {
         return(
           <div>
+              <PreAuthHeader
+                  togglePopover             ={this.props.togglePopover} />
               <LandingPage
-                  popoverIsOpen={this.state.popoverIsOpen}
-                  togglePopover={this.togglePopover}
-                  errors={this.props.errors}
-                  clearErrors={this.props.clearErrors}
-                  saveRegPrivate = {this.props.saveRegPrivate}
-                  nextStep   = {this.nextStep}
-                  authenticateWithGoogle = {this.props.authenticateWithGoogle}
-                  authenticateWithFB    ={this.props.authenticateWithFB}
+                  popoverIsOpen             ={this.state.popoverIsOpen}
+                  togglePopover             ={this.togglePopover}
+                  errors                    ={this.state.errors}
+                  clearErrors               ={this.props.clearErrors}
+                  saveRegPrivate            = {this.props.saveRegPrivate}
+                  nextStep                  = {this.nextStep}
+                  authenticateWithGoogle    = {this.props.authenticateWithGoogle}
+                  authenticateWithFB        ={this.props.authenticateWithFB}
                 />
                 <Popover
                     className="login-popover"
@@ -114,27 +123,29 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the first Sign Up Page]
+     * @return {HTML} [Sign Up Page One]
      */
-    signUpLayoutOne = () => {
+    signUpOne = () => {
         return(
           <div>
-            <SignUpOne
-                popoverIsOpen={this.state.popoverIsOpen}
-                togglePopover={this.togglePopover}
-                errors={this.props.errors}
-                clearErrors={this.props.clearErrors}
-                saveRegPublic = {this.props.saveRegPublic}
-                nextStep   = {this.nextStep}
-                returnToLandingPage={this.returnToLandingPage}
-              />
+              <PreAuthHeader
+                  togglePopover         ={this.props.togglePopover}
+                  returnToLandingPage   ={this.returnToLandingPage} />
+              <SignUpOne
+                  popoverIsOpen         ={this.state.popoverIsOpen}
+                  togglePopover         ={this.togglePopover}
+                  errors                ={this.state.errors}
+                  clearErrors           ={this.props.clearErrors}
+                  saveRegPublic         ={this.props.saveRegPublic}
+                  nextStep              = {this.nextStep}
+                  returnToLandingPage   ={this.returnToLandingPage} />
               <Popover
-                  className="login-popover"
-                  style={{display: this.state.popoverIsOpen ? "block" : "none" }}
-                  placement="bottom"
-                  key = {uuid.v4()}
-                  title="Have an account?">
+                  className ="login-popover"
+                  style     ={{display: this.state.popoverIsOpen ? "block" : "none" }}
+                  placement ="bottom"
+                  key       = {uuid.v4()}
+                  title     ="Have an account?">
                   <ul>
                       <li>
                           <input
@@ -181,30 +192,32 @@ export default class PreAuth extends React.Component {
         );
     }
 
-
     /**
-     * [description]
-     * @return {[type]} [description]
+     * [Displays the second Sign Up Page]
+     * @return {HTML} [Sign Up Page Two]
      */
-    signUpLayoutTwo = () => {
+    signUpTwo = () => {
         return(
           <div>
-            <SignUpTwo
-                popoverIsOpen={this.state.popoverIsOpen}
-                togglePopover={this.togglePopover}
-                errors={this.props.errors}
-                clearErrors={this.props.clearErrors}
-                saveRegPublic = {this.props.saveRegPublic}
-                saveRegPrivate = {this.props.saveRegPrivate}
-                submitRegistration  = {this.props.submitRegistration}
-                returnToLandingPage={this.returnToLandingPage}
-              />
+              <PreAuthHeader
+                  togglePopover         ={this.props.togglePopover}
+                  returnToLandingPage   ={this.returnToLandingPage} />
+              <SignUpTwo
+                  popoverIsOpen         ={this.state.popoverIsOpen}
+                  togglePopover         ={this.togglePopover}
+                  errors                ={this.state.errors}
+                  clearErrors           ={this.props.clearErrors}
+                  saveRegPublic         = {this.props.saveRegPublic}
+                  saveRegPrivate        = {this.props.saveRegPrivate}
+                  submitRegistration    = {this.props.submitRegistration}
+                  returnToLandingPage   ={this.returnToLandingPage}
+                />
               <Popover
-                  className="login-popover"
-                  style={{display: this.state.popoverIsOpen ? "block" : "none"}}
-                  placement="bottom"
-                  key = {uuid.v4()}
-                  title="Have an account?">
+                  className ="login-popover"
+                  style     ={{display: this.state.popoverIsOpen ? "block" : "none"}}
+                  placement ="bottom"
+                  key       = {uuid.v4()}
+                  title     ="Have an account?">
                   <ul>
                       <li>
                           <input
@@ -250,9 +263,10 @@ export default class PreAuth extends React.Component {
         );
     }
 
+// ============= Methods ===============
+
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Increments this.state.step to chnage the PreAuth View
      */
     nextStep = () => {
         this.setState({
@@ -261,8 +275,7 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Toggles this.state.popoverIsOpen to open or close the popover
      */
     togglePopover = () => {
         this.setState({
@@ -271,9 +284,8 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * [TODO]
-     * @param  {[type]} e [description]
-     * @return {[type]}   [description]
+     * Used to log in a user
+     * @param  {[HTML element]} e [The element that has been pressed]
      */
     onLogin = (e) => {
         e.preventDefault();
@@ -281,9 +293,9 @@ export default class PreAuth extends React.Component {
         this.state.errors = [];
 
         // Clear errors from any previous form submission
-        var data = {};
-        var email = this.refs.email.value;
-        var password = this.refs.password.value;
+        let data = {};
+        let email = this.refs.email.value;
+        let password = this.refs.password.value;
 
         if(email.length == 0) {
             this.state.errors.push("Please enter an email address.");

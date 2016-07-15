@@ -1,11 +1,19 @@
-import React from 'react';
-import PreAuthHeader from '../components/headers/PreAuthHeader';
+// Libs
+import React         from 'react';
 
+// Files
+import PreAuthHeader from '../headers/PreAuthHeader';
+
+/**
+ * TODO
+ */
 export default class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
+    }
 
-        this.state = {};
+    componentWillMount() {
+        console.log('-----ResetPassword');
     }
 
     render() {
@@ -61,5 +69,9 @@ export default class ResetPassword extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        console.log('+++++ResetPassword');
     }
 }

@@ -1,48 +1,49 @@
 // Libs
 import React            from 'react';
-import Dropzone         from 'react-dropzone';
 import uuid             from 'node-uuid';
+import Dropzone         from 'react-dropzone';
 import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// Files
-import PreAuthHeader  from '../headers/PreAuthHeader';
 
+/**
+ * TODO
+ */
 export default class SignUpOne extends React.Component {
+    state = {
+        avatarUploaded  : false,                // Used to keep track of whether an avatar has been uploaded
+        avatarPreview   : "",                   // Used store a preview URL of the uploaded avatar
+        gender          : "",                   // Used to store the chosen gender pronoun
+        avatar          : [],                   // Used to store the uploaded avatar blob
+        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
+        currentError    : ""                    // Used to store the current error to be displayed in the snackbar
+    }
+
     constructor(props) {
         super(props);
-        console.log("Error props: ", this.props.errors);
-        this.state = {
-            avatarUploaded: false,
-            avatarPreview: "",
-            gender: "",
-            avatar: [],
-            errors: this.props.errors,
-            errorType: {},
-            currentError: ""
-        };
+    }
+
+    componentWillMount() {
+        console.log('-----SignUpOne');
     }
 
     render() {
-        var errorStyle = {
+        let errorStyle = {
             border: '1px solid #ec167c'
         };
 
-        var avatarErrorStyle = {
+        let avatarErrorStyle = {
             border: '2px dashed #ec167c'
         }
 
-        var genderErrorStyle = {
+        let genderErrorStyle = {
             color: '#ec167c'
         }
 
-        console.log(this.state.errors);
         return (
             <div>
                 <div className="main-wrapper">
-                    <PreAuthHeader
-                        togglePopover={this.props.togglePopover}
-                        returnToLandingPage={this.props.returnToLandingPage} />
                     <div className="layout-centered">
                         <article className="signup-wrapper">
                             <div className="signup-heading-wrapper pink">
@@ -215,6 +216,18 @@ export default class SignUpOne extends React.Component {
         );
     }
 
+    componentDidMount() {
+        console.log('+++++SignUpOne');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errors: nextProps.errors
+        });
+    }
+
+// ============= Methods ===============
+
     saveAndContinue = (e) => {
         e.preventDefault();
 
@@ -222,12 +235,12 @@ export default class SignUpOne extends React.Component {
         this.state.errors = [];
         this.state.errorType = {};
 
-        var publicData = {};
-        var displayName = this.refs.displayname.value;
-        var day = this.refs.dobDay.value;
-        var month = this.refs.dobMonth.value;
-        var year = this.refs.dobYear.value;
-        var gender = this.state.gender;
+        let publicData = {};
+        let displayName = this.refs.displayname.value;
+        let day = this.refs.dobDay.value;
+        let month = this.refs.dobMonth.value;
+        let year = this.refs.dobYear.value;
+        let gender = this.state.gender;
 
         if(displayName.length == 0) {
             this.state.errors.push("Please enter a display name.");
