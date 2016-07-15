@@ -88,6 +88,9 @@ export default class EditArtworkDialog extends React.Component {
             artworkInfo : nextProps.currentEditArtworkInfo
         })
     }
+
+// ============= Methods ===============
+
     updateArtworkInfo = (artworkInfo) => {
         console.log("Entered updateArtworkInfo");
         this.setState({
