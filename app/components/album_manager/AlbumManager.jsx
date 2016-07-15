@@ -68,8 +68,6 @@ export default class AlbumManager extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user.albums != undefined) {
-            console.log("====Entered receive album manager");
-            console.log(nextProps);
             let user       = nextProps.user;
             let allAlbums  = user['albums'];
 
