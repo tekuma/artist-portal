@@ -222,7 +222,7 @@ export default class SignUpOne extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            errors: nextProps.errors
+            errors: this.state.errors.concat(nextProps.errors)
         });
     }
 

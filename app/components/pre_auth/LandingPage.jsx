@@ -143,7 +143,8 @@ export default class LandingPage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            errors: nextProps.errors
+            errors: this.state.errors.concat(nextProps.errors),
+            currentError: nextProps.errors[0]
         });
     }
 
@@ -151,7 +152,7 @@ export default class LandingPage extends React.Component {
 
     saveAndContinue = (e) => {
         e.preventDefault();
-
+        console.log("errors: ", this.state.errors);
         // Clear errors from any previous form submission
         this.state.errors = [];
         this.state.errorType = {};

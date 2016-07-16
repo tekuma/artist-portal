@@ -425,7 +425,7 @@ header.black {
 
 .tekuma-logo {
 	position: relative;
-	top: 21px;
+	top: 19px;
 	width: 180px;
 	height: 38.06px;
 	margin: 0 auto;
@@ -1641,12 +1641,12 @@ login-button.left {
 }
 
 .optin span a {
-	color: #ec167c;
+	color: #ec167e;
 	cursor: pointer;
 }
 
 .optin span a:hover {
-	color: #ea6595;
+	color: #e73827;
 }
 
 .separator {

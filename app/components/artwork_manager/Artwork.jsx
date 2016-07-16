@@ -15,7 +15,7 @@ const artworkSource = {
             id: props.artwork.id,
             album: props.artwork.album,
             type: ItemTypes.ARTWORK
-        };
+        }
     }
 };
 
