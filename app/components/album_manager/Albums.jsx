@@ -58,7 +58,7 @@ export default class Albums extends React.Component {
                             user={this.props.user}
                             onEdit={this.props.onEdit.bind(null, album.id)}
                             onDelete={this.props.onDelete.bind(null, album.id)}
-                            onMove={this.moveArtwork}
+                            onMove={this.moveAlbum}
                             currentAlbum={this.props.currentAlbum}
                             changeAlbum={this.props.changeAlbum.bind(null, album.name)}
                             changeArtworkAlbum={this.props.changeArtworkAlbum} />
@@ -75,27 +75,18 @@ export default class Albums extends React.Component {
 
 // ============= Methods ===============
 
-    moveArtwork = (sourceName, targetName) => {
+    moveAlbum = (source, target) => {
         console.log("Entered move");
         const thisUID = firebase.auth().currentUser.uid;
         const albumPath = `public/onboarders/${thisUID}/albums`;
         const albumRef = firebase.database().ref(albumPath);
-        albumRef.transaction( (data) => {
-            let albumsLength = Object.keys(data).length;
-            let sourceData;
-            let sourceIndex;
-            let targetIndex;
 
-            for (let i = 0; i < albumsLength; i++) {
-                if (data[i]['name'] == sourceName) {
-                    sourceData = data[i];
-                    sourceIndex = i;
-                } else if (data[i]['name'] == targetName) {
-                    targetIndex = i;
-                }
-            }
+        albumRef.transaction((data) => {
+            let sourceIndex = source['album']['id'];
+            let targetIndex = target['id'];
+            let sourceData = data[sourceIndex];
 
-            let modifiedAlbums = update(data, {
+            let albums = update(data, {
                 $splice: [[sourceIndex, 1],[targetIndex, 0, sourceData]]
             });
 
@@ -112,7 +103,7 @@ export default class Albums extends React.Component {
             // then we are removing 0 elements starting from targetAlbumIndex
             // and adding sourceAlbum before targetAlbumIndex
 
-            return modifiedAlbums;
+            return albums;
         });
     }
 }

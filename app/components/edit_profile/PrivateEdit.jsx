@@ -59,7 +59,7 @@ export default class PrivateEdit extends React.Component {
                 <div className ="scroll-edit-profile">
                     <article className="edit-accordion">
                         <div
-                            className={this.state.accordion.legal ? "accordion-item open" : "accordion-item"}
+                            className={this.state.accordion.legal_name ? (this.props.user.auth_provider != "password" ? "accordion-item open no-border-bottom": "accordion-item open") : (this.props.user.auth_provider != "password" ? "accordion-item no-border-bottom": "accordion-item" )}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
                             <h3 className="accordion-item-preview">{this.props.userPrivate.legal_name != "" ? this.props.user.legal_name : "Unset"}</h3>

@@ -46,7 +46,6 @@ export default class LandingPage extends React.Component {
                               		</g>
                               	</g>
                               </svg>
-
                             </div>
 
                             <form className="signup-form page-1">

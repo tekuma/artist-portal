@@ -20,7 +20,7 @@ const artworkSource = {
 };
 
 const artworkTarget = {
-    drop(targetProps, monitor) {
+    hover(targetProps, monitor) {
         const targetId = targetProps.artwork.id;
         console.log("Target ID: ", targetId);
         const sourceProps = monitor.getItem();

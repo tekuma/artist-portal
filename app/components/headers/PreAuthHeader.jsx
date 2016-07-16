@@ -22,7 +22,7 @@ export default class PreAuthHeader extends React.Component {
 
     render() {
         return (
-            <header>
+            <header className="pre-auth">
                 <div className="header-icon home-icon" title="Go to Homepage">
                     <a href="http://tekuma.io">
                         <img src='assets/images/icons/home.svg' />

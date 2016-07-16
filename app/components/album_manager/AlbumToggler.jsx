@@ -9,7 +9,7 @@ export default ({managerIsOpen, toggleManager, addAlbum}) => {
     };
 
     let iconStyle = {
-        height: window.innerHeight - 120
+        height: window.innerHeight - 60
     };
 
     return (

@@ -80,6 +80,7 @@ export default class EditArtworkForm extends React.Component {
                                             <select
                                                 className   ="edit-artwork-select"
                                                 ref         ="editAlbum"
+                                                value={this.props.value.album}
                                                 onChange    ={(e) => {
                                                     onChange(Object.assign({}, oldArtwork, {album: e.target.value}))
                                                 }}>

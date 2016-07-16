@@ -12,7 +12,7 @@ import ItemTypes                    from '../../constants/itemTypes';
 const albumSource = {
     beginDrag(props) {
         return {
-            name: props.album.name,
+            album: props.album,
             type: ItemTypes.ALBUM
         };
     }
@@ -20,13 +20,12 @@ const albumSource = {
 
 const albumTarget = {
     hover(targetProps, monitor) {
-        console.log("TargetProps: ", targetProps);
         const target = targetProps.album;
         const source = monitor.getItem();
-        if(source.name !== target.name) {
+        if(source.album.name !== target.name) {
             if(source.type == ItemTypes.ALBUM) {
                 // Move order of albums
-                targetProps.onMove(source.name, target.name);
+                targetProps.onMove(source, target);
             }
         }
     },
@@ -218,17 +217,15 @@ export default class Album extends React.Component {
                     <div style={avatarStyle}
                         className="avatar-container" />
                 </div>
-                <div className="album-writing">
-                    <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={editTooltip}>
-                        <h3
-                            onClick     ={this.edit}
-                            className   ="album-name" >
-                            {this.props.album.name}
-                        </h3>
-                    </OverlayTrigger>
-                </div>
+                <OverlayTrigger
+                    placement   ="bottom"
+                    overlay     ={editTooltip}>
+                    <h3
+                        onClick     ={this.edit}
+                        className   ="album-name" >
+                        {this.props.album.name}
+                    </h3>
+                </OverlayTrigger>
                 <div className="album-download-delete">
                     <OverlayTrigger
                         placement   ="bottom"
