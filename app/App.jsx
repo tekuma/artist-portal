@@ -9,6 +9,10 @@
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
+import Snackbar         from 'material-ui/Snackbar';
+import getMuiTheme      from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Files
 import PostAuth           from './components/main/PostAuth';
 import PreAuth            from './components/pre_auth/PreAuth';
@@ -22,6 +26,7 @@ var config = {
     databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
+
 firebase.initializeApp(config);
 
 //  # Global Variables
@@ -42,7 +47,8 @@ export default class App extends React.Component {
         login       : {},    //
         loggedIn    : null,  //
         loaded      : false, // dictates if folding-cube is displayed
-        forgotPass  : false  // TODO
+        forgotPass  : false,  // TODO,
+        verifyEmailMessage: ""
     };
 
     constructor(props) {
@@ -91,10 +97,20 @@ export default class App extends React.Component {
      */
     goToPostAuth = () => {
         return(
-            <PostAuth
-              thisUID = {this.state.thisUID}
-              signOutUser = {this.signOutUser}
-            />
+            <div>
+                <PostAuth
+                  thisUID = {this.state.thisUID}
+                  signOutUser = {this.signOutUser}
+                  clearVerifyEmailMessage={this.clearVerifyEmailMessage}
+                />
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <Snackbar
+                        className="registration-error"
+                        open={this.state.verifyEmailMessage.length > 0}
+                        message={this.state.verifyEmailMessage}
+                        autoHideDuration={4000} />
+                </MuiThemeProvider>
+            </div>
         )
     }
 
@@ -151,8 +167,7 @@ export default class App extends React.Component {
         );
     }
 
-    // #Mutator Methods
-    // NOTE: Always use methods to setState, never directly mutate state.
+// ============= Methods ===============
 
     /**
      * TODO
@@ -356,7 +371,12 @@ export default class App extends React.Component {
             //>>>> First, Send email verified email
             thisUser.sendEmailVerification().then(()=>{
                 console.log("Verification Email sent to", thisUser.email);
-                //TODO display in a snackbar message
+
+                this.setState({
+                    verifyEmailMessage: `Verification Email sent to ${thisUser.email}`
+                });
+
+                console.log("This is the verifyEmailMessage: ",this.state.verifyEmailMessage);
             });
 
 
@@ -548,5 +568,11 @@ export default class App extends React.Component {
         });
     }
 
+    clearVerifyEmailMessage = () => {
+        this.setState({
+            verifyEmailMessage: ""
+        });
 
+        console.log("This is the verifyEmailMessage after display: ",this.state.verifyEmailMessage);
+    }
 }//END App

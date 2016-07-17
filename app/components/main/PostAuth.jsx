@@ -154,6 +154,8 @@ export default class PostAuth extends React.Component {
         }, this);
 
         this.forceUpdate(); //FIXME TODO  is this needed?
+
+        this.props.clearVerifyEmailMessage(); // Closes verify email snackbar message if manual registration
     }
 
     componentWillReceiveProps(nextProps) {
