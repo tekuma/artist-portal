@@ -118,7 +118,8 @@ export default class AlbumManager extends React.Component {
                 <Albums
                     albums              ={this.state.albums}
                     uploads             ={this.state.uploads}
-                    onEdit              ={this.editAlbum}
+                    onEditName      ={this.editAlbumName}
+                    onEdit          ={this.editAlbum}
                     onDelete            ={this.deleteAlbum}
                     currentAlbum        ={this.props.currentAlbum}
                     changeAlbum         ={this.props.changeAlbum}
@@ -165,6 +166,7 @@ export default class AlbumManager extends React.Component {
                 <Albums
                     albums          ={this.state.albums}
                     uploads         ={this.state.uploads}
+                    onEditName      ={this.editAlbumName}
                     onEdit          ={this.editAlbum}
                     onDelete        ={this.deleteAlbum}
                     currentAlbum    ={this.props.currentAlbum}
@@ -201,7 +203,10 @@ export default class AlbumManager extends React.Component {
 
         albumRef.transaction( (data) => {
             let albumLength = Object.keys(data).length;
-            data[albumLength] = {name: newAlbumName};
+            data[albumLength] = {
+                name: newAlbumName,
+                description: ""
+            };
             console.log(albumLength, "albumLength");
             console.log("data:" ,data);
             return data;
@@ -220,7 +225,7 @@ export default class AlbumManager extends React.Component {
      * @param  {Integer} index - index of the album
      * @param  {[type]}  name  - new name to update album name to.
      */
-    editAlbum = (index, name) => {
+    editAlbumName = (index, name) => {
         const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
         let isNameThere = this.state.albumNames.indexOf(name) != -1;
@@ -235,17 +240,30 @@ export default class AlbumManager extends React.Component {
             console.log("name update successful");
         });
 
-        // change the album key for each artwork object
-        let artLength = Object.keys(this.state.albums[index]['artworks']).length;
-        for (let i = 0; i < artLength; i++) {
-            let thisArtKey = this.state.albums[index]['artworks'][i];
-            let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-            artworkRef.update({album:name}).then( () => {
-                return;
-            });
-        }
+        if (this.state.albums[index]['artworks'] != null &&
+            this.state.albums[index]['artworks'] != undefined) {
+                // change the album field for each artwork object
+                let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.albums[index]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.update({album:name}).then( () => {
+                        return;
+                    });
+                }
+            }
+
         this.props.changeAlbum("Uploads");  // If user had edited album open, then no album is highlighted after edit.
     };
+
+    /**
+     * [description]
+     * @param  {String}  id [description]
+     */
+    editAlbum = (id) => {
+        this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
+        this.props.toggleEditAlbumDialog();    // Open Edit Dialog
+    }
 
     /**
      * [description]

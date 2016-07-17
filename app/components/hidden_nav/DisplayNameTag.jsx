@@ -8,7 +8,7 @@ export default ({navIsOpen, displayName}) => {
             className="nav-username"
             style={{left : navIsOpen ? 25 : -700}}>
 			<span className="nav-username-writing">
-				{displayName}
+				{displayName != "" ? displayName : 'Untitled Artist'}
 			</span>
 		</div>
     );

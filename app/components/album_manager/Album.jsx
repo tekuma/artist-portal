@@ -126,6 +126,14 @@ export default class Album extends React.Component {
             </Tooltip>
         );
 
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
+            </Tooltip>
+        );
+
         const deleteTooltip = (
             <Tooltip
                 id="delete-tooltip-edit"
@@ -161,6 +169,15 @@ export default class Album extends React.Component {
                         <img
                             className   ="album-more"
                             src         ='assets/images/icons/download-white.svg' />
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={editTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/edit-white.svg'
+                            onClick={this.props.onEdit}
+                             />
                     </OverlayTrigger>
                     <OverlayTrigger
                         placement   ="bottom"
@@ -212,6 +229,14 @@ export default class Album extends React.Component {
             </Tooltip>
         );
 
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
+            </Tooltip>
+        );
+
         const deleteTooltip = (
             <Tooltip
                 id="delete-tooltip-regular"
@@ -242,6 +267,15 @@ export default class Album extends React.Component {
                             className   ="album-more"
                             src         ='assets/images/icons/download-white.svg' />
                     </OverlayTrigger>
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={editTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/edit-white.svg'
+                            onClick={this.props.onEdit}
+                             />
+                     </OverlayTrigger>
                     <OverlayTrigger
                         placement   ="bottom"
                         overlay     ={deleteTooltip}>
@@ -278,13 +312,13 @@ export default class Album extends React.Component {
     finishEdit = (e) => {
         const value = e.target.value;
 
-        if (this.props.onEdit) {
+        if (this.props.onEditName) {
             // Exit edit mode.
             this.setState({
                 editing: false
             });
 
-            this.props.onEdit(value);
+            this.props.onEditName(value);
         }
     }
 }

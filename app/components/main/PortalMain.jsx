@@ -55,15 +55,17 @@ export default class PortalMain extends React.Component {
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <AlbumManager
-                    user               ={this.props.user}
-                    userPrivate        ={this.props.userPrivate}
-                    managerIsOpen      ={this.props.managerIsOpen}
-                    toggleManager      ={this.props.toggleManager}
-                    currentAlbum       ={this.props.currentAlbum}
-                    changeAlbum        ={this.props.changeAlbum}
-                    setAlbumNames      ={this.props.setAlbumNames}
-                    albums             ={this.props.albums}
-                    changeArtworkAlbum ={this.props.changeArtworkAlbum}
+                    user                        ={this.props.user}
+                    userPrivate                 ={this.props.userPrivate}
+                    managerIsOpen               ={this.props.managerIsOpen}
+                    toggleManager               ={this.props.toggleManager}
+                    currentAlbum                ={this.props.currentAlbum}
+                    changeAlbum                 ={this.props.changeAlbum}
+                    toggleEditAlbumDialog       ={this.props.toggleEditAlbumDialog}
+                    changeCurrentEditAlbum      ={this.props.changeCurrentEditAlbum}
+                    setAlbumNames               ={this.props.setAlbumNames}
+                    albums                      ={this.props.albums}
+                    changeArtworkAlbum          ={this.props.changeArtworkAlbum}
                     />
                 <ArtworkManager
                     deleteArtwork            ={this.props.deleteArtwork}

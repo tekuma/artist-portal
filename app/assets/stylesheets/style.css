@@ -741,7 +741,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-#manager-icon:hover polygon {
+.manager-icon-wrapper:hover #manager-icon polygon {
 	fill: #ec167e;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -959,7 +959,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-more, .uploads-album-more {
-	margin: 7px;
+	margin: 5px;
 	opacity: 0.7;
 	width: 13px;
 	transition: all 0.3s;
@@ -2078,7 +2078,8 @@ login-button.left {
 .artwork-form input[type=email],
 .artwork-form input[type=password],
 .artwork-form input[type=number],
-#artwork-description {
+#artwork-description,
+#album-description {
     border-radius: 3px;
     appearance: none;
 	-webkit-appearance: none;
@@ -2090,7 +2091,8 @@ login-button.left {
 	display: inline-block;
 }
 
-#artwork-description {
+#artwork-description,
+#album-description {
 	width: 300px;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	font-weight: 500;
@@ -2107,7 +2109,8 @@ login-button.left {
     margin: 0;
 }
 
-#artwork-description {
+#artwork-description,
+#album-description {
 	background-color: #f4f6f7;
 	border: 1.5px solid #d6d3ce;
 	appearance: none;
@@ -2150,12 +2153,14 @@ login-button.left {
 	margin: 3px;
 }
 
-.edit-artwork-content {
+.edit-artwork-content,
+.edit-album-content {
 	width: 405px !important;
 	max-width: none;
 }
 
-.edit-artwork-title {
+.edit-artwork-title,
+.edit-album-title {
 	text-align: center;
 	font-size: 1.6em !important;
 	color: #4d5967 !important;
@@ -2168,7 +2173,8 @@ login-button.left {
 	overflow: scroll !important;
 }
 
-.edit-artwork-actions {
+.edit-artwork-actions,
+.edit-album-actions {
 	padding: 0 !important;
 }
 
@@ -2276,6 +2282,7 @@ login-button.left {
 
 .confirm-yes,
 .edit-artwork-yes,
+.edit-album-yes,
 .delete-account-yes {
 	width: 50%;
 	height: 100%;
@@ -2301,6 +2308,7 @@ login-button.left {
 
 .confirm-yes h2,
 .edit-artwork-yes h2,
+.edit-album-yes h2,
 .delete-account-yes h2 {
 	color: #ffffff;
 	margin: 0 auto;
@@ -2310,6 +2318,7 @@ login-button.left {
 
 .confirm-no,
 .edit-artwork-no,
+.edit-album-no,
 .delete-account-no {
 	width: 50%;
 	height: 100%;
@@ -2335,6 +2344,7 @@ login-button.left {
 
 .confirm-no h2,
 .edit-artwork-no h2,
+.edit-album-no h2,
 .confirm-edit-profile h2,
 .delete-account-no h2 {
 	color: #ffffff;
@@ -2347,6 +2357,8 @@ login-button.left {
 .confirm-yes:hover,
 .edit-artwork-yes:hover,
 .edit-artwork-no:hover,
+.edit-album-yes:hover,
+.edit-album-no:hover,
 .upload-dialog-button:hover,
 .confirm-edit-profile:hover,
 .delete-account-yes:hover,
@@ -2593,7 +2605,8 @@ login-button.left {
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
-.edit-artwork-body {
+.edit-artwork-body,
+.edit-album-body {
 	width: 405px;
 }
 
@@ -2723,7 +2736,8 @@ login-button.left {
 		text-align: center;
 	}
 
-	#artwork-description {
+	#artwork-description,
+	#album-description {
 		width: 250px;
 		height: 50px;
 
@@ -2741,12 +2755,14 @@ login-button.left {
 		width: 270px;
 	}
 
-	.edit-artwork-content {
+	.edit-artwork-content,
+	.edit-album-content {
 		width: 300px !important;
 	}
 
 
-	.edit-artwork-title {
+	.edit-artwork-title,
+	.edit-album-title {
 		display: none;
 	}
 

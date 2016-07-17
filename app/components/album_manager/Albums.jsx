@@ -53,15 +53,16 @@ export default class Albums extends React.Component {
                 {albumArray.map(album => {
                     return (
                         <Album
-                            key={album.id}
-                            album={album}
-                            user={this.props.user}
-                            onEdit={this.props.onEdit.bind(null, album.id)}
-                            onDelete={this.props.onDelete.bind(null, album.id)}
-                            onMove={this.moveAlbum}
-                            currentAlbum={this.props.currentAlbum}
-                            changeAlbum={this.props.changeAlbum.bind(null, album.name)}
-                            changeArtworkAlbum={this.props.changeArtworkAlbum} />
+                            key                 ={album.id}
+                            album               ={album}
+                            user                ={this.props.user}
+                            onEditName          ={this.props.onEditName.bind(null, album.id)}
+                            onEdit              ={this.props.onEdit.bind(null, album.id)}
+                            onDelete            ={this.props.onDelete.bind(null, album.id)}
+                            onMove              ={this.moveAlbum}
+                            currentAlbum        ={this.props.currentAlbum}
+                            changeAlbum         ={this.props.changeAlbum.bind(null, album.name)}
+                            changeArtworkAlbum  ={this.props.changeArtworkAlbum} />
                     );
                 })}
             </ul>

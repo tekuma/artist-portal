@@ -11,6 +11,7 @@ import HiddenNav           from '../hidden_nav/HiddenNav';
 import HamburgerIcon       from '../hamburger_icon/HamburgerIcon';
 import PortalMain          from './PortalMain';
 import EditArtworkDialog   from '../edit_artwork/EditArtworkDialog';
+import EditAlbumDialog     from '../edit_album/EditAlbumDialog';
 import EditProfileDialog   from '../edit_profile/EditProfileDialog';
 import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
@@ -34,6 +35,7 @@ export default class PostAuth extends React.Component {
         navIsOpen: false,                           // Used to track whether Hidden Navigation is open
         managerIsOpen: true,                        // Used to track whether Album Manager is open
         editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
+        editAlbumIsOpen: false,                     // Used to track whether Album Dialog is open
         deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
@@ -41,6 +43,7 @@ export default class PostAuth extends React.Component {
         currentAlbum: 'Uploads',                    // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
+        currentEditAlbumInfo: {},                   // Used to store information of album being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
         albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
         albums : {},                                //
@@ -75,7 +78,9 @@ export default class PostAuth extends React.Component {
                     navIsOpen={this.state.navIsOpen}
                     deleteArtwork={this.deleteArtwork}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
+                    toggleEditAlbumDialog={this.toggleEditAlbumDialog}
                     changeCurrentEditArtwork={this.changeCurrentEditArtwork}
+                    changeCurrentEditAlbum={this.changeCurrentEditAlbum}
                     toggleManager={this.toggleManager}
                     managerIsOpen={this.state.managerIsOpen}
                     currentAppLayout={this.state.currentAppLayout}
@@ -97,6 +102,12 @@ export default class PostAuth extends React.Component {
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
+                <EditAlbumDialog
+                    user={this.state.user}
+                    editAlbumIsOpen={this.state.editAlbumIsOpen}
+                    toggleEditAlbumDialog={this.toggleEditAlbumDialog}
+                    updateAlbum={this.updateAlbum}
+                    currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
                 <UploadDialog
                     closeUploadDialog={this.closeUploadDialog}
                     uploadedPreviews={this.state.uploadPreviews}
@@ -195,6 +206,18 @@ export default class PostAuth extends React.Component {
     toggleEditArtworkDialog = () => {
         this.setState({
             editArtworkIsOpen: !this.state.editArtworkIsOpen
+        });
+    }
+
+    /**
+     * This method is used by Album components
+     * to toggle the boolean value of this.state.editAlbumIsOpen
+     * to change the state of the the Edit Album Dialog component
+     * from open to closed.
+     */
+    toggleEditAlbumDialog = () => {
+        this.setState({
+            editAlbumIsOpen: !this.state.editAlbumIsOpen
         });
     }
 
@@ -558,6 +581,26 @@ export default class PostAuth extends React.Component {
     }
 
     /**
+     * This method is used by the editAlbum method of the AlbumManager component
+     * populate this.state.currentEditAlbumInfo with the information of the
+     * album being edited.
+     * @param  {String} id [the unique id of the artwork being edited]
+     */
+    changeCurrentEditAlbum = (id) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let path = `public/onboarders/${thisUID}/albums/${id}`;
+        let albumRef = firebase.database().ref(path);
+        albumRef.once("value", (snapshot) => {
+            let data = snapshot.val();
+            data["id"] = id;
+
+            this.setState({
+                currentEditAlbumInfo: data
+            });
+        }, null, this);
+    }
+
+    /**
      * TODO
      * @param  {Object} data - object that holds one or more of:
      * - display_name
@@ -706,6 +749,20 @@ export default class PostAuth extends React.Component {
             this.changeArtworkAlbum(data['id'], data.oldAlbumName, data.album);
         }
 
+    }
+
+    /**
+     * This method is used by the EditAlbumForm Component to:
+     * -Update all attributes of this album in the albums branch
+     * @param  {JSON} data - obj of {attribute:update} to be written to
+     * the database.
+     */
+    updateAlbum = (id ,data) => {
+        const thisUID = firebase.auth().currentUser.uid;
+        let thisAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/' + id);
+        thisAlbumRef.update(data).then( () => {
+            this.toggleEditAlbumDialog();
+        });
     }
 
     /**

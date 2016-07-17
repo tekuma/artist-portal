@@ -55,19 +55,19 @@ export default class Artwork extends React.Component {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
-        const editTooltip = (
-            <Tooltip
-                id="edit-artwork-tooltip"
-                className="tooltip">
-                Edit
-            </Tooltip>
-        );
-
         const downloadTooltip = (
             <Tooltip
                 id="download-artwork-tooltip"
                 className="tooltip">
                 Download
+            </Tooltip>
+        );
+
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
             </Tooltip>
         );
 
@@ -101,7 +101,7 @@ export default class Artwork extends React.Component {
                         <OverlayTrigger placement="bottom" overlay={editTooltip}>
                             <img
                                 className="artwork-more"
-                                src='assets/images/icons/edit.svg'
+                                src='assets/images/icons/edit-black.svg'
                                 onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                                  />
                         </OverlayTrigger>

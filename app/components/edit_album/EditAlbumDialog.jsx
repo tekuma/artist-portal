@@ -7,15 +7,15 @@ import getMuiTheme          from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
 
 // Files
-import EditArtworkForm      from './EditArtworkForm';
+import EditAlbumForm      from './EditAlbumForm';
 import ConfirmButton        from '../confirm_dialog/ConfirmButton';
 
 /**
  * TODO
  */
-export default class EditArtworkDialog extends React.Component {
+export default class EditAlbumDialog extends React.Component {
     state =  {
-        artworkInfo: {},   // Used to store the artwork informationto be edited
+        albumInfo: {},     // Used to store the album information to be edited
         errorType: {},     // Used to keep track of the type of error encountered to highlight relevant input field
         errors: [],        // Used to store Auth errors from Registration errors
         currentError: ""   // Used to store the current error to be displayed in the snackbar
@@ -26,41 +26,40 @@ export default class EditArtworkDialog extends React.Component {
     }
 
     componentWillMount() {
-        console.log("-----EditArtworkDialog");
+        console.log("-----EditAlbumDialog");
     }
 
     render() {
         const actions = [
               <ConfirmButton
                   label     ={"Update"}
-                  className ="edit-artwork-yes"
+                  className ="edit-album-yes"
                   onClick   ={this.onSubmit} />,
 
               <ConfirmButton
                   label     ={"Cancel"}
-                  className ="edit-artwork-no"
-                  onClick   ={this.props.toggleEditArtworkDialog} />
+                  className ="edit-album-no"
+                  onClick   ={this.props.toggleEditAlbumDialog} />
         ];
 
         return (
             <div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Dialog
-                        title                       ="Edit Artwork"
+                        title                       ="Edit Album"
                         actions                     ={actions}
                         modal                       ={false}
-                        open                        ={this.props.editArtworkIsOpen}
+                        open                        ={this.props.editAlbumIsOpen}
                         titleClassName              ="edit-artwork-title"
                         actionsContainerClassName   ="edit-artwork-actions"
                         bodyClassName               ="edit-artwork-body"
                         contentClassName            ="edit-artwork-content" >
-                        <EditArtworkForm
+                        <EditAlbumForm
                             user            ={this.props.user}
-                            albumNames      ={this.props.albumNames}
-                            value           ={this.state.artworkInfo}
+                            value           ={this.state.albumInfo}
                             errorType       ={this.state.errorType}
                             currentError    ={this.state.currentError}
-                            onChange        ={this.updateArtworkInfo}
+                            onChange        ={this.updateAlbumInfo}
                             onSubmit        ={this.onSubmit}
                             clearErrors     ={this.clearErrors} />
                     </Dialog>
@@ -77,76 +76,58 @@ export default class EditArtworkDialog extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++EditArtworkDialog");
+        console.log("+++++EditAlbumDialog");
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            artworkInfo : nextProps.currentEditArtworkInfo
+            albumInfo : nextProps.currentEditAlbumInfo
         })
     }
 
 // ============= Methods ===============
 
-    updateArtworkInfo = (artworkInfo) => {
-        console.log("Entered updateArtworkInfo");
+    updateAlbumInfo = (albumInfo) => {
+        console.log("Entered updateAlbumInfo");
         this.setState({
-            artworkInfo : artworkInfo
+            albumInfo : albumInfo
         });
-        console.log("Form Info: ", artworkInfo);
+        console.log("Form Info: ", albumInfo);
     }
 
     onSubmit = (e) => {
         console.log("Entered onSubmit");
-        console.log("Artwork form: ", this.state.artworkInfo);
+        console.log("Album form: ", this.state.albumInfo);
         e.preventDefault();
 
-        // Test that user inputed a title
-        if (!this.state.artworkInfo.title) {
+        // Test that user inputed an album name
+        if (!this.state.albumInfo.name) {
             let errorType = this.state.errorType;
-            errorType.title = true;
+            errorType.name = true;
             this.setState({
                 errorType: errorType
             });
-            this.state.errors.push("Please enter a title for the artwork");
+            this.state.errors.push("Please enter a bane for the album");
         }
 
-        // Test that user inputed an artist
-        if (!this.state.artworkInfo.artist) {
+        // Test that user inputed an album description
+        if (!this.state.albumInfo.description) {
             let errorType = this.state.errorType;
-            errorType.artist = true;
+            errorType.description = true;
             this.setState({
                 errorType: errorType
             });
-            this.state.errors.push("Please enter an artist name");
-        }
-
-        // Test that user inputed a year
-        if (!this.state.artworkInfo.year) {
-            let errorType = this.state.errorType;
-            errorType.year = true;
-            this.setState({
-                errorType: errorType
-            });
-            this.state.errors.push("Please enter the year in which the artwork was completed");
-        }
-
-        // Test that user inputed correct year
-        if (!/[0-9]{4}/.test(this.state.artworkInfo.year)) {
-            let errorType = this.state.errorType;
-            errorType.year = true;
-            this.setState({
-                errorType: errorType
-            });
-            this.state.errors.push("Please enter a valid year");
+            this.state.errors.push("Please enter an album description");
         }
 
         console.log("Got through errors");
 
         if(this.state.errors.length == 0) {
-            console.log("Edit Artwork Info: ", this.state.artworkInfo);
+            console.log("Edit Album Info: ", this.state.albumInfo);
             // this.props.toggleEditArtworkDialog();
-            this.props.updateArtwork(this.state.artworkInfo);
+            let id = this.state.albumInfo["id"] // get ID
+            this.state.albumInfo["id"] = null // remove ID from information
+            this.props.updateAlbum(id, this.state.albumInfo);
         }
         console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);
 

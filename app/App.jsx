@@ -316,7 +316,8 @@ export default class App extends React.Component {
         // now create the object
         let onboarder = {
             albums        : { 0: {
-                name:"Uploads"
+                name:"Uploads",
+                description: "The default album in which uploaded artworks are placed."
             }},
             auth_provider   : "password",
             display_name    : display_name,
@@ -481,7 +482,8 @@ export default class App extends React.Component {
 
                 usersRef.child(thisUID).set({
                     albums        : { 0: {
-                        name:"Uploads"
+                        name:"Uploads",
+                        description: "The default album in which uploaded artworks are placed."
                     }},
                     auth_provider   : provider,
                     display_name    : thisDisplayName,
