@@ -1,4 +1,6 @@
+// Libs
 import React            from 'react';
+import firebase            from 'firebase';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -9,6 +11,7 @@ export default class PrivateEdit extends React.Component {
         accordion: {
             legal_name: false,
             email: false,
+            emailVerified: false,
             password: false
         },
         errorType: {},
@@ -25,13 +28,9 @@ export default class PrivateEdit extends React.Component {
     }
 
     render() {
-        let passwordAuth = {
-            display: 'block'
-        };
 
         let errorStylePasswordAuth = {
-            border: '1px solid #ec167c',
-            display: 'block'
+            border: '1px solid #ec167c'
         };
 
         let errorStyle = {
@@ -41,6 +40,9 @@ export default class PrivateEdit extends React.Component {
         let hideStyle = {
             display: 'none'
         };
+
+        let user = firebase.auth().currentUser;
+        let emailVerified = user.emailVerified;
 
         return(
             <div>
@@ -62,7 +64,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.legal_name ? (this.props.user.auth_provider != "password" ? "accordion-item open no-border-bottom": "accordion-item open") : (this.props.user.auth_provider != "password" ? "accordion-item no-border-bottom": "accordion-item" )}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.userPrivate.legal_name != "" ? this.props.user.legal_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.legal_name != "" ? this.props.userPrivate.legal_name : "Unset"}</h3>
                         </div>
                         <div
                             id="legal-name-content"
@@ -83,14 +85,14 @@ export default class PrivateEdit extends React.Component {
                         <div
                             className={this.state.accordion.email ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"email")}
-                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Email</h2>
                             <h3 className="accordion-item-preview">{this.props.userPrivate.email != "" ? this.props.userPrivate.email : "Unset"}</h3>
                         </div>
                         <div
                             id="email-content"
                             className={this.state.accordion.email ? "accordion-content open" : "accordion-content"}
-                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <input
                                 type="email"
                                 id="edit-email"
@@ -110,16 +112,38 @@ export default class PrivateEdit extends React.Component {
                                     autoComplete="off" />
                         </div>
                         <div
-                            className={this.state.accordion.password ? "accordion-item open" : "accordion-item"}
+                            className={this.state.accordion.emailVerified ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"emailVerified")}
+                            style={this.props.user.auth_provider == "password" ? null : hideStyle}>
+                            <h2 className="accordion-item-heading">Email Verification</h2>
+                            <h3 className="accordion-item-preview">{(emailVerified) ? "Verified" : "Unverified"}</h3>
+                        </div>
+                        <div
+                            id="email-verified-content"
+                            className={this.state.accordion.emailVerified ? "accordion-content open" : "accordion-content"}
+                            style={this.props.user.auth_provider == "password" ? null : hideStyle}>
+                            {emailVerified ?
+                                <h3 className="email-verified-writing">
+                                    Email Verified
+                                </h3> :
+                                <button
+                                    className="verify-button"
+                                    type="submit"
+                                    onClick={this.verifyEmail}>
+                                    <h3>Verify Email</h3>
+                                </button>}
+                        </div>
+                        <div
+                            className={this.state.accordion.password ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"password")}
-                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Password</h2>
                             <h3 className="accordion-item-preview">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h3>
                         </div>
                         <div
                             id="password-content"
                             className={this.state.accordion.password ? "accordion-content open" : "accordion-content"}
-                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : passwordAuth) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <input
                                 type="password"
                                 id="edit-password"
@@ -342,6 +366,10 @@ export default class PrivateEdit extends React.Component {
                 console.log(this.state.errors[i]);
             }, 3000 * i);
         }
+    }
+
+    verifyEmail = () => {
+        this.props.toggleVerifyDialog();
     }
 
 }

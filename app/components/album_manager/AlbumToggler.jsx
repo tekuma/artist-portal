@@ -19,10 +19,20 @@ export default ({managerIsOpen, toggleManager, addAlbum}) => {
             <div
                 onClick     ={toggleManager}
                 style       ={iconStyle}
-                className   ={managerIsOpen ? "manager-icon toggle-manager" : "manager-icon toggle-manager closed"}>
-                <img
-                    className   ="toggle"
-                    src         ='assets/images/icons/arrow.svg' />
+                className   ={managerIsOpen ? "manager-icon-wrapper toggle-manager" : "manager-icon-wrapper toggle-manager closed"}>
+                <svg
+                    version="1.1"
+                    id="manager-icon"
+                    x="0px"
+                    y="0px"
+                    width="50px"
+                    height="50px"
+                    viewBox="0 0 50 50"
+                    enable-background="new 0 0 50 50">
+                     <polygon
+                         points="15.14,49.86 11.398,46.118 32.649,24.866 11.531,3.749 15.14,0.14 40,25 "/>
+                </svg>
+
             </div>
         </div>
 

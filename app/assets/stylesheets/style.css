@@ -10,7 +10,7 @@ body {
 	color: #000000;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	margin: 0;
-	background: #ffffff;
+	background: #000000;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
 	height: 100vh;
 }
@@ -156,6 +156,7 @@ button {
 	vertical-align: top;
 	margin: 0;
 	padding: 0;
+	color: #666666;
 }
 
 .logout-button {
@@ -706,7 +707,7 @@ input::-webkit-search-cancel-button {
 	z-index: 3;
 }
 
-.manager-icon {
+.manager-icon-wrapper {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -724,7 +725,7 @@ input::-webkit-search-cancel-button {
 	cursor: pointer;
 }
 
-.manager-icon img {
+#manager-icon {
 	width: 20px;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -732,8 +733,16 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.manager-icon:hover img {
-	width: 22px;
+#manager-icon polygon {
+	fill: #ffffff;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+#manager-icon:hover polygon {
+	fill: #ec167e;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -816,6 +825,10 @@ input::-webkit-search-cancel-button {
 .album.selected,
 .album.uploads.selected {
 	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 .album-avatar {
@@ -830,7 +843,7 @@ input::-webkit-search-cancel-button {
 	justify-content: center;
 	float: left;
 	height: 100%;
-	width: 35%;
+	width: 70px;
 	position: absolute;
 }
 
@@ -872,7 +885,7 @@ input::-webkit-search-cancel-button {
 	-moz-justify-content: center;
 	justify-content: center;
 	min-width: 50px;
-	min-height: 50px;
+	min-height: 40px;
 	background: #ffffff;
 	background-position: center center;
 	background-size: cover;
@@ -896,33 +909,24 @@ input::-webkit-search-cancel-button {
 
 
 .album-name,
-.album-writing {
+.album-edit {
 	position: relative;
-	left: 35%;
+	left: 70px;
 	display: inline-block;
-	width: 65%;
-}
-
-.uploads-name,
-.album-name {
-	margin: 12px 0px;
-	padding-right: 12px;
+	margin: 15px 0px 27px;
+	padding: 0px 12px 0px 5px;
 	font-weight: 700;
-	font-size: 1.1em;
+	font-size: 1em;
 	color: #ffffff;
-}
-
-.album.selected .album-name,
-.album.selected .uploads-name {
-	color: #ffffff;
-}
-
-.album-name {
 	cursor: pointer;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.album-edit {
+	margin: 8px 0px 27px;
 }
 
 .album-name:hover {
@@ -931,6 +935,27 @@ input::-webkit-search-cancel-button {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.album.selected .album-name {
+	color: #ffffff;
+}
+
+.album-edit-input {
+    appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	border-radius: 3px;
+	padding: 0.8em 0.2em 0.5em;
+    width: 100%;
+	height: 23px;
+	background-color: #f4f6f7;
+    border: 1px solid #ec167e;
+    color: #000000;
+	font-weight: 500;
+	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-size: 0.9em;
 }
 
 .album-more, .uploads-album-more {
@@ -952,26 +977,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.edit-album {
-	margin-top: 10px;
-	margin-bottom: 6px;
-	border-radius: 3px;
-    appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	-ms-appearance: none;
-    padding: 0.5em .5em;
-	padding-top: 0.9em;
-    width: 92%;
-	height: 25px;
-	background-color: #f4f6f7;
-    border: 1.5px solid #d6d3ce;
-    color: #000000;
-	font-weight: 500;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
-    font-size: .9375em;
-    line-height: normal;
-}
+
 
 .empty-album {
 	position: absolute;
@@ -2641,6 +2647,11 @@ login-button.left {
   	  height: auto !important;
     }
 
+	.edit-accordion .accordion-item {
+		flex-direction: column;
+		height: 69px !important;
+	}
+
     .accordion-item-heading {
   	  text-align: center;
   	  width: auto !important;
@@ -2651,6 +2662,10 @@ login-button.left {
   	  text-align: center;
   	  width: auto !important;
     }
+
+	.accordion-item-avatar-wrapper {
+		width: auto !important
+	}
 
     .edit-profile-save-button {
   	  bottom: 30px !important;
@@ -2794,13 +2809,13 @@ login-button.left {
   }
 }
 
-@media (max-width: 390px) {
-  #tekuma-logo-image {
-	  display: none;
+@media (max-width: 410px) {
+  main {
+	  width: 100vw;
   }
 
-  .tekuma-logo{
-	  display: none;
+  .artwork {
+	  width: 90%;
   }
 }
 
@@ -2913,7 +2928,7 @@ login-button.left {
 	color: rgba(0,0,0,0.87);
 	font-size: 1em;
 	font-weight: 500;
-	margin: 0;
+	margin: 0 !important;
 	padding: 0;
 	cursor: pointer;
 	line-height: normal;
@@ -2924,7 +2939,7 @@ login-button.left {
 	font-size: 0.8em;
 	font-weight: 400;
 	color: rgba(0,0,0,0.54);
-	margin: 0;
+	margin: 0 !important;
 }
 
 .accordion-item.open {
@@ -3056,7 +3071,7 @@ login-button.left {
 	width: auto;
 	height: auto;
 	padding: 5px;
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .edit-profile-avatar-wrapper {
@@ -3153,6 +3168,53 @@ login-button.left {
 
 .edit-profile-save-button img {
 	width: 22px;
+}
+
+.verify-button {
+	position: relative;
+	width: 150px;
+	height: 43.2px;
+	margin: 0 auto;
+	background: black;
+	border-radius: 0px;
+	cursor: pointer;
+	box-shadow: 0px;
+	border: none;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.verify-button:hover {
+	background: #ec167e;
+	border: none;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.verify-button h3 {
+	line-height: 1em;
+	text-align: center;
+	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-weight: 700;
+	font-size: 1em;
+	color: #ffffff;
+	margin: 0;
+	transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+
+}
+
+.email-verified-writing {
+	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-weight: 700;
+	font-size: 1.2em;
+	color: #ec167e;
 }
 
 /*=====*/

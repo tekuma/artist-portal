@@ -37,7 +37,7 @@ export default class EditArtworkForm extends React.Component {
                             <ul>
                                 <li>
                                     <label htmlFor="artwork-title">
-                                        Title <span className="pink">*</span> :
+                                        Title <span className="pink">*</span>
                                     </label>
                                     <input
                                         type        ="text"
@@ -53,7 +53,7 @@ export default class EditArtworkForm extends React.Component {
                                 </li>
                                 <li>
                                     <label htmlFor="artwork-artist">
-                                        Artist <span className="pink">*</span> :
+                                        Artist <span className="pink">*</span>
                                     </label>
                                     <input
                                         type        ="text"
@@ -71,7 +71,7 @@ export default class EditArtworkForm extends React.Component {
                                     id="li-album"
                                     className="controls-album">
                                     <label htmlFor="edit-artwork-album">
-                                        Album:
+                                        Album
                                     </label>
                                     <div
                                         id="edit-artwork-album"
@@ -99,7 +99,7 @@ export default class EditArtworkForm extends React.Component {
                                 </li>
                                 <li>
                                     <label htmlFor="artwork-year">
-                                        Year <span className="pink">*</span> :
+                                        Year <span className="pink">*</span>
                                     </label>
                                     <input
                                         type        ="text"
@@ -117,7 +117,7 @@ export default class EditArtworkForm extends React.Component {
                                     <label
                                         className="center"
                                         htmlFor="artwork-description">
-                                        Description:
+                                        Description
                                     </label>
                                     <textarea
                                         id          ="artwork-description"
@@ -131,7 +131,7 @@ export default class EditArtworkForm extends React.Component {
                                 </li>
                                 <li className="color-tags">
                                     <label className="color-heading center">
-                                        Color :
+                                        Color
                                     </label>
                                     <div className="color-circle-wrapper">
                                         <label
@@ -408,7 +408,7 @@ export default class EditArtworkForm extends React.Component {
                                 </li>
                                 <li>
                                     <label htmlFor="artwork-tags">
-                                        Tags :
+                                        Tags 
                                     </label>
                                     <input
                                         type        ="text"

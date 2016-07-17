@@ -109,6 +109,15 @@ export default class Album extends React.Component {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
+        let styleResponsive = {
+            width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
+        };
+
+        let styleFixed = {
+            width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
+        };
+
+
         const downloadTooltip = (
             <Tooltip
                 id="download-tooltip-edit"
@@ -131,9 +140,11 @@ export default class Album extends React.Component {
                     <div style={avatarStyle}
                         className="avatar-container" />
                 </div>
-                <div className="album-writing">
+                <div
+                    className="album-edit"
+                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}>
                     <input type="text"
-                        className="edit-album"
+                        className="album-edit-input"
                         ref={
                             (e) => e ? e.selectionStart = this.props.album.name.length : null
                         }
@@ -185,19 +196,19 @@ export default class Album extends React.Component {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
+        let styleResponsive = {
+            width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
+        };
+
+        let styleFixed = {
+            width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
+        };
+
         const downloadTooltip = (
             <Tooltip
                 id="download-tooltip-regular"
                 className="tooltip">
                 Download
-            </Tooltip>
-        );
-
-        const editTooltip = (
-            <Tooltip
-                id="edit-tooltip-regular"
-                className="tooltip">
-                Edit album name
             </Tooltip>
         );
 
@@ -217,15 +228,12 @@ export default class Album extends React.Component {
                     <div style={avatarStyle}
                         className="avatar-container" />
                 </div>
-                <OverlayTrigger
-                    placement   ="bottom"
-                    overlay     ={editTooltip}>
-                    <h3
-                        onClick     ={this.edit}
-                        className   ="album-name" >
-                        {this.props.album.name}
-                    </h3>
-                </OverlayTrigger>
+                <h3
+                    onClick     ={this.edit}
+                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
+                    className   ="album-name" >
+                    {this.props.album.name}
+                </h3>
                 <div className="album-download-delete">
                     <OverlayTrigger
                         placement   ="bottom"

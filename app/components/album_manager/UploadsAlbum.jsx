@@ -69,11 +69,9 @@ export default class Albums extends React.Component {
                         <img src='assets/images/icons/upload.svg' />
                     </div>
                 </div>
-                <div className="album-writing">
-                    <h3 className="uploads-name">
-                        Uploads
-                    </h3>
-                </div>
+                <h3 className="album-name">
+                    Uploads
+                </h3>
                 <div className="album-download-delete">
                     <OverlayTrigger
                         placement   ="bottom"

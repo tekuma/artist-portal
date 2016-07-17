@@ -164,8 +164,12 @@ export default class ArtworkManager extends React.Component {
             width: window.innerWidth - 250
         };
 
+        let fixedWidth = {
+            width: 410
+        };
+
         return (
-            <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed} >
+            <main style={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : (window.innerWidth > 410) ? styleSmallScreen : fixedWidth : styleManagerClosed} >
                 <div
                     className="empty-album">
                     <h2>

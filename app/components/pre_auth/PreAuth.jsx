@@ -59,10 +59,10 @@ export default class PreAuth extends React.Component {
         return(
           <div>
               <PreAuthHeader
-                  togglePopover             ={this.props.togglePopover} />
+                  togglePopover             ={this.props.togglePopover}
+                  togglePopover             ={this.togglePopover} />
               <LandingPage
                   popoverIsOpen             ={this.state.popoverIsOpen}
-                  togglePopover             ={this.togglePopover}
                   errors                    ={this.state.errors}
                   clearErrors               ={this.props.clearErrors}
                   saveRegPrivate            = {this.props.saveRegPrivate}
@@ -131,10 +131,10 @@ export default class PreAuth extends React.Component {
           <div>
               <PreAuthHeader
                   togglePopover         ={this.props.togglePopover}
-                  returnToLandingPage   ={this.returnToLandingPage} />
+                  returnToLandingPage   ={this.returnToLandingPage}
+                  togglePopover         ={this.togglePopover} />
               <SignUpOne
                   popoverIsOpen         ={this.state.popoverIsOpen}
-                  togglePopover         ={this.togglePopover}
                   errors                ={this.state.errors}
                   clearErrors           ={this.props.clearErrors}
                   saveRegPublic         ={this.props.saveRegPublic}
@@ -201,10 +201,10 @@ export default class PreAuth extends React.Component {
           <div>
               <PreAuthHeader
                   togglePopover         ={this.props.togglePopover}
-                  returnToLandingPage   ={this.returnToLandingPage} />
+                  returnToLandingPage   ={this.returnToLandingPage}
+                  togglePopover         ={this.togglePopover} />
               <SignUpTwo
                   popoverIsOpen         ={this.state.popoverIsOpen}
-                  togglePopover         ={this.togglePopover}
                   errors                ={this.state.errors}
                   clearErrors           ={this.props.clearErrors}
                   saveRegPublic         = {this.props.saveRegPublic}

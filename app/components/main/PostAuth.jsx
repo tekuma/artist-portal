@@ -35,7 +35,8 @@ export default class PostAuth extends React.Component {
         editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
         deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
-        editProfileDialogIsOpen: false,             // Used to track whether Edit Profile is open
+        editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
+        verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
         currentAlbum: 'Uploads',                    // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
@@ -201,6 +202,18 @@ export default class PostAuth extends React.Component {
     toggleDeleteAccountDialog = () => {
         this.setState({
             deleteAccountIsOpen: !this.state.deleteAccountIsOpen
+        });
+    }
+
+    /**
+     * This method is used by the Verify Email button the Private Edit Profile page component
+     * to toggle the boolean value of this.state.verifyEmailIsOpen
+     * to change the state of the the Verify Email Dialog component
+     * from open to closed.
+     */
+    toggleVerifyEmailDialog = () => {
+        this.setState({
+            verifyEmailDialogIsOpen: !this.state.verifyEmailDialogIsOpen
         });
     }
 
@@ -406,7 +419,7 @@ export default class PostAuth extends React.Component {
                                             artist      : artist,
                                             album       : "Uploads",
                                             upload_date : new Date().toISOString(),
-                                            year        : 2012,
+                                            year        : new Date().getFullYear(),
                                             description : "",
                                             tags        : "art",
                                             size        : fileSize,
