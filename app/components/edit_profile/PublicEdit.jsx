@@ -50,6 +50,8 @@ export default class PublicEdit extends React.Component {
             backgroundImage: 'url(' + avatar + ')'
         }
 
+        let age = `${this.props.user.dob.split("-")[1]}-${this.props.user.dob.split("-")[0]}-${this.props.user.dob.split("-")[2]}`;
+        
         return(
             <div>
                 <div className="edit-profile-heading">
@@ -179,7 +181,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"age")}>
                             <h2 className="accordion-item-heading">Age</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.dob != "" ? this.props.user.dob : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.dob != "" ? age : "Unset"}</h3>
                         </div>
                         <div
                             id="age-content"

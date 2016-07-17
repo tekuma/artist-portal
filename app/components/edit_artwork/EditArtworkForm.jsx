@@ -29,6 +29,63 @@ export default class EditArtworkForm extends React.Component {
             border: '1px solid #ec167c'
         };
 
+        let vibrantColor;
+        let mutedColor;
+        let darkVibrantColor;
+        let darkMutedColor;
+        let lightVibrantColor;
+        let lightMutedColor;
+
+        if (this.props.value.colors.v != undefined &&
+            this.props.value.colors.v != null ) {
+                vibrantColor = {
+                    background: this.props.value.colors.v.hex
+                }
+            }
+
+
+
+        if (this.props.value.colors.m != undefined &&
+            this.props.value.colors.m != null ) {
+                mutedColor = {
+                    background: this.props.value.colors.m.hex
+                }
+            }
+
+
+
+        if (this.props.value.colors.dv != undefined &&
+            this.props.value.colors.dv != null ) {
+                darkVibrantColor = {
+                    background: this.props.value.colors.dv.hex
+                }
+            }
+
+
+
+        if (this.props.value.colors.dm != undefined &&
+            this.props.value.colors.dm != null ) {
+                darkMutedColor = {
+                    background: this.props.value.colors.dm.hex
+                }
+            }
+
+
+
+        if (this.props.value.colors.lv != undefined &&
+            this.props.value.colors.lv != null ) {
+                lightVibrantColor = {
+                    background: this.props.value.colors.lv.hex
+                }
+            }
+
+        if (this.props.value.colors.lm != undefined &&
+            this.props.value.colors.lm != null ) {
+                lightMutedColor = {
+                    background: this.props.value.colors.lm.hex
+                }
+            }
+
         return (
             <div>
                 <div>
@@ -134,281 +191,35 @@ export default class EditArtworkForm extends React.Component {
                                         Color
                                     </label>
                                     <div className="color-circle-wrapper">
-                                        <label
-                                            htmlFor="red"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="red"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.red}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {red: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle red">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="yellow"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="yellow"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.yellow}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {yellow: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle yellow">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="blue"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="blue"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.blue}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {blue: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle blue">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="green"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="green"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.green}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {green: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle green">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor     ="orange"
-                                            className   ="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="orange"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.orange}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {orange: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle orange">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor     ="purple"
-                                            className   ="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="purple"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.purple}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {purple: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle purple">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="brown"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="brown"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.brown}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {brown: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle brown">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="black"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="black"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.black}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {black: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle black">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="gray"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="gray"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.gray}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {gray: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle gray">
-                                            </div>
-                                        </label>
-                                        <label
-                                            htmlFor="white"
-                                            className="checkbox">
-                                            <input
-                                                type        ="checkbox"
-                                                id          ="white"
-                                                className   ="color"
-                                                name        ="color"
-                                                checked     ={this.props.value.colors.white}
-                                                onClick     ={clearErrors}
-                                                onChange    ={(e) => {
-                                                    onChange(
-                                                        Object.assign(
-                                                            {},
-                                                            oldArtwork,
-                                                            {
-                                                                colors: Object.assign(
-                                                                    {},
-                                                                    oldArtwork.colors,
-                                                                    {white: e.target.checked}
-                                                                )
-                                                            }
-                                                        )
-                                                    )}} />
-                                            <div className="color-circle white">
-                                            </div>
-                                        </label>
+                                        <div
+                                            className="color-box vibrant"
+                                            style={ vibrantColor != null ? vibrantColor : null}>
+                                        </div>
+                                        <div
+                                            className="color-box muted"
+                                            style={ mutedColor != null ? mutedColor : null}>
+                                        </div>
+                                        <div
+                                            className="color-box dark-vibrant"
+                                            style={ darkVibrantColor != null ? darkVibrantColor : null}>
+                                        </div>
+                                        <div
+                                            className="color-box dark-muted"
+                                            style={ darkMutedColor != null ? darkMutedColor : null}>
+                                        </div>
+                                        <div
+                                            className="color-box light-vibrant"
+                                            style={ lightVibrantColor != null ? lightVibrantColor : null}>
+                                        </div>
+                                        <div
+                                            className="color-box light-muted"
+                                            style={ lightMutedColor != null ? lightMutedColor : null}>
+                                        </div>
                                     </div>
                                 </li>
                                 <li>
                                     <label htmlFor="artwork-tags">
-                                        Tags 
+                                        Tags
                                     </label>
                                     <input
                                         type        ="text"

@@ -2138,70 +2138,16 @@ login-button.left {
 	width: 100%;
 }
 
-.checkbox {
-	display: inline-block;
-	margin: 3px;
-}
-
 .color-circle-wrapper {
 	display: block;
 	text-align: center;
 }
 
-.color-circle {
-	width: 20px;
-	height: 20px;
-	border-radius: 10px;
-	margin: 0;
-}
-
-.color-circle.red {
-	background: red;
-}
-
-.color-circle.yellow {
-	background: yellow;
-}
-
-.color-circle.blue {
-	background: blue;
-}
-
-.color-circle.green{
-	background: green;
-}
-
-.color-circle.orange {
-	background: orange;
-}
-
-.color-circle.purple {
-	background: purple;
-}
-
-.color-circle.brown {
-	background: brown;
-}
-
-.color-circle.black {
-	background:black;
-}
-
-.color-circle.gray {
-	background: gray;
-}
-
-.color-circle.white {
-	background: white;
-	border: 1px solid #dddddd;
-}
-
-.checkbox input {
-	display: none;
-}
-
-.checkbox input:checked + .color-circle {
-	border: 2px solid #e72f80;
+.color-box {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	margin: 3px;
 }
 
 .edit-artwork-content {
