@@ -47,21 +47,33 @@ export default class UploadDialog extends React.Component {
                         <h2 className="upload-artwork-count">
                             Uploaded {this.state.files.length} file{(this.state.files.length == 1) ? "" : "s"}
                         </h2>
-                        <div className="uploaded-artworks-container">
-                            {this.state.files.map(file =>
-                                <article
-                                    key={uuid.v4()}
-                                    className="dropzone-image-preview-container">
-                                    <img src={file.url} />
-                                    <div className="overlay">
-                                        <div>
-                                            <h2 className="file-name">{file.name}</h2>
-                                            <h2 className="file-size">{this.getFileSize(file.size)}</h2>
+                        {(this.state.files.length > 0) ?
+                            <div className="uploaded-artworks-container">
+                                {this.state.files.map(file =>
+                                    <article
+                                        key={uuid.v4()}
+                                        className="dropzone-image-preview-container">
+                                        <img src={file.url} />
+                                        <div className="overlay">
+                                            <div>
+                                                <h2 className="file-name">{file.name}</h2>
+                                                <h2 className="file-size">{this.getFileSize(file.size)}</h2>
+                                            </div>
                                         </div>
-                                    </div>
-                                </article>
-                            )}
-                        </div>
+                                    </article>
+                                )}
+                            </div>
+                            :
+                            <div className="uploads-loading">
+                                <div className="sk-wave">
+                                    <div className="sk-rect sk-rect1"></div>
+                                    <div className="sk-rect sk-rect2"></div>
+                                    <div className="sk-rect sk-rect3"></div>
+                                    <div className="sk-rect sk-rect4"></div>
+                                    <div className="sk-rect sk-rect5"></div>
+                                </div>
+                            </div>
+                          }
                         <h2 className="upload-artwork-hint">View your artworks in the Uploads album</h2>
                     </Dialog>
                 </MuiThemeProvider>

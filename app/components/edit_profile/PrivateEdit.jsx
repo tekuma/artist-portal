@@ -369,7 +369,7 @@ export default class PrivateEdit extends React.Component {
     }
 
     verifyEmail = () => {
-        this.props.toggleVerifyDialog();
+        this.props.toggleVerifyEmailDialog();
     }
 
 }

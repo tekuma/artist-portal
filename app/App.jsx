@@ -14,9 +14,6 @@ import PostAuth           from './components/main/PostAuth';
 import PreAuth            from './components/pre_auth/PreAuth';
 import ResetPassword      from './components/pre_auth/ResetPassword';
 import ForgotPassword     from './components/pre_auth/ForgotPassword';
-// Styles
-import './assets/stylesheets/spinkit.css';
-import './assets/stylesheets/folding-cube.css';
 
 //Initialize Firebase  SDK in root JSX (here)
 var config = {

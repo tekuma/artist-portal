@@ -56,7 +56,8 @@ export default class EditProfile extends React.Component {
                 editPublic={this.editPublic}
                 editPrivate={this.editPrivate}
                 currentError={this.state.currentError}
-                editPrivateUserInfo={this.props.editPrivateUserInfo} />
+                editPrivateUserInfo={this.props.editPrivateUserInfo}
+                toggleVerifyEmailDialog={this.props.toggleVerifyEmailDialog} />
         );
     }
 

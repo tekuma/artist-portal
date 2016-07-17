@@ -86,13 +86,14 @@ export default class PortalMain extends React.Component {
                 <PostAuthHeader
                     setUploadedFiles={this.props.setUploadedFiles}
                     changeAppLayout={this.props.changeAppLayout} />
-                <div className="layout-centered">
+                <div className="edit-profile-layout">
                     <EditProfile
                         user                      ={this.props.user}
                         userPrivate               ={this.props.userPrivate}
                         editPublicUserInfo        ={this.props.editPublicUserInfo}
                         editPrivateUserInfo       ={this.props.editPrivateUserInfo}
                         toggleDeleteAccountDialog ={this.props.toggleDeleteAccountDialog}
+                        toggleVerifyEmailDialog   ={this.props.toggleVerifyEmailDialog}
                         />
                 </div>
                 <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>

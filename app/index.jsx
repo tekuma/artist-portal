@@ -1,9 +1,12 @@
-import './assets/stylesheets/style.css';
-import './assets/stylesheets/animation.css';
+// Libs
 import React    from 'react';
 import ReactDOM from 'react-dom';
 import App      from './App.jsx';
-import alt      from './libs/alt';// import storage  from './libs/storage';// import persist  from './libs/persist';
+
+// Styles
+import './assets/stylesheets/style.css';
+import './assets/stylesheets/spinkit.css';
+import './assets/stylesheets/animation.css';
 
 
 /**

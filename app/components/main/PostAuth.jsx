@@ -12,6 +12,7 @@ import HamburgerIcon       from '../hamburger_icon/HamburgerIcon';
 import PortalMain          from './PortalMain';
 import EditArtworkDialog   from '../edit_artwork/EditArtworkDialog';
 import EditProfileDialog   from '../edit_profile/EditProfileDialog';
+import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
 
 
@@ -86,6 +87,7 @@ export default class PostAuth extends React.Component {
                     editPublicUserInfo={this.editPublicUserInfo}
                     editPrivateUserInfo={this.editPrivateUserInfo}
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
+                    toggleVerifyEmailDialog={this.toggleVerifyEmailDialog}
                     changeArtworkAlbum={this.changeArtworkAlbum} />
                 <EditArtworkDialog
                     user={this.state.user}
@@ -106,6 +108,9 @@ export default class PostAuth extends React.Component {
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
                     deleteAccountIsOpen={this.state.deleteAccountIsOpen}
                     deleteAccount={this.deleteAccount} />
+                <VerifyEmailDialog
+                    toggleVerifyEmailDialog={this.toggleVerifyEmailDialog}
+                    verifyEmailDialogIsOpen={this.state.verifyEmailDialogIsOpen} />
             </div>
         );
     }
