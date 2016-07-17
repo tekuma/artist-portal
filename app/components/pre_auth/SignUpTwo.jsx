@@ -30,8 +30,8 @@ export default class SignUpTwo extends React.Component {
 
         return (
             <div>
-                <div className="main-wrapper">
-                    <div className="layout-centered">
+                <div className="main-wrapper login">
+                    <div className="login-layout">
                         <article className="signup-wrapper">
                             <div className="signup-heading-wrapper pink">
                                 <h3>SIGN UP</h3>
@@ -41,7 +41,7 @@ export default class SignUpTwo extends React.Component {
                             </div>
                             <form className="signup-form page-3">
                                 <fieldset>
-                                    <ul>
+                                    <ul className="signup-form-two">
                                         <li>
                                             <input
                                                 type="text"

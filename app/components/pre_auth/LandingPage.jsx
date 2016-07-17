@@ -30,8 +30,8 @@ export default class LandingPage extends React.Component {
 
         return (
             <div>
-                <div className="main-wrapper">
-                    <div className="layout-centered">
+                <div className="main-wrapper login">
+                    <div className="login-layout">
                         <article className="signup-wrapper">
                             <div className="artist-logo-wrapper">
                               <svg version="1.0" id="tekuma-logo" x="0px" y="0px" viewBox="0 0 1000 1000" style={{"enableBackground":"new 0 0 1000 1000"}}>

@@ -426,7 +426,7 @@ export default class App extends React.Component {
             //>>>> Instantiate _private/onboarders/thisUID
             let userPrivatePath  = `_private/onboarders/${thisUID}`;
 
-            let legal_name = "no_legal_name_given";
+            let legal_name = "Legal Name not provided";
             if (this.state._reg.legal_name != undefined && this.state._reg.legal_name != null) {
                legal_name = this.state._reg.legal_name;
             }

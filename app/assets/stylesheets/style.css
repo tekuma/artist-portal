@@ -10,7 +10,7 @@ body {
 	color: #000000;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	margin: 0;
-	background: #000000;
+	background: #ffffff;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
 	height: 100vh;
 }
@@ -238,6 +238,15 @@ button {
     box-shadow: 0 0 3px 3px rgba(0,0,0,0.5);
 }
 
+.pre-auth-main-wrapper.open {
+    right: 300px;
+    box-shadow: 0 0 3px 3px rgba(0,0,0,0.5);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
 .nav-trigger + label, .main-wrapper {
     transition: left 0.3s;
     -webkit-transition: left 0.3s;
@@ -369,6 +378,42 @@ button {
     bottom: 100% !important;
     left: 0;
     z-index: 4;
+}
+
+.main-wrapper.login {
+	position: absolute;
+	left: auto;
+}
+
+.pre-auth-main-wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 100% !important;
+    right: 0;
+    z-index: 4;
+	transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+}
+
+.login-layout {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	padding-top: 90px;
+	z-index: 4;
+	overflow: scroll;
 }
 
 .site-overlay {
@@ -1263,6 +1308,36 @@ main, .artworks {
 	padding: 10px;
 }
 
+.hidden-login {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100vh;
+	width: 300px;
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	flex-direction: column;
+	background: #000000;
+}
+
+.login-header h2 {
+	color: #ffffff;
+	font-size: 2em;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
 .edit-heading {
 	height: 40px;
 	margin-bottom: 20px;
@@ -1288,7 +1363,7 @@ main, .artworks {
 
 .profile-form fieldset ul,
 .signup-form div ul,
-.login-popover div ul,
+.hidden-login ul,
 .signup-form fieldset ul,
 .login-form fieldset ul {
 	list-style: none;
@@ -1297,14 +1372,25 @@ main, .artworks {
 	width: 530px;
 }
 
-.login-popover div ul {
-	width: 232px;
+.signup-form div ul.signup-form-one,
+.signup-form fieldset ul.signup-form-two {
+	width: 255px;
+}
+
+.signup-form div ul.signup-form-one li,
+.signup-form fieldset ul.signup-form-two li {
+	margin: 0;
+	margin-bottom: 8px;
+}
+
+.hidden-login ul {
+	width: 222px;
 }
 
 .profile-form fieldset ul li,
 .profile-form fieldset ul button,
 .signup-form div ul li,
-.login-popover div ul li,
+.hidden-login ul li,
 .signup-form div ul button,
 .signup-form fieldset ul li,
 .signup-form fieldset ul button,
@@ -1315,15 +1401,15 @@ main, .artworks {
 }
 
 .signup-form div ul li,
-.login-popover div ul li,
+.hidden-login ul li,
 .signup-form fieldset ul li,
 .login-form fieldset ul li {
 	display: inline-block;
 	width: 255px;
-	margin: 5px 5px;
+	margin: 5px;
 }
 
-.login-popover div ul li {
+.hidden-login ul li {
 	width: 212px;
 }
 
@@ -1334,7 +1420,7 @@ main, .artworks {
 
 .profile-form fieldset ul button,
 .signup-form div button,
-.login-popover div button,
+.hidden-login button,
 .signup-form fieldset button,
 .login-form fieldset ul button {
 	border: none;
@@ -1352,12 +1438,11 @@ main, .artworks {
 .login-form input[type=email],
 .login-form input[type=password],
 .login-form input[type=number],
-.login-popover input[type=email],
-.login-popover input[type=password],
+.hidden-login input[type=email],
+.hidden-login input[type=password],
 textarea.bio {
     border-radius: 0px;
 	border: 2px solid black;
-	background: none !important;
     appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -1368,15 +1453,18 @@ textarea.bio {
 	color: #000000;
 }
 
-.login-popover input[type=email],
-.login-popover input[type=password] {
+
+.hidden-login input[type=email],
+.hidden-login input[type=password] {
 	width: 212px;
+	border: 1px solid #ec167e;
+	background: #ffffff;
 }
 
 .profile-form input:not([type='radio']),
 .signup-form input:not([type='radio']),
 .login-form input:not([type='radio']),
-.login-popover input {
+.hidden-login input {
     background-color: none;
     border: 2px solid black;
     color: #000000;
@@ -1395,7 +1483,7 @@ textarea.bio {
 .signup-form div > ul > li > label {
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
-    color: #4d5967;
+    color: #000000;
     display: inline-block;
     font-size: .9375em;
     text-align: left;
@@ -1476,7 +1564,7 @@ textarea.bio {
 .profile-form select,
 .signup-form select,
 .edit-artwork-select {
-    border-radius: 2px;
+	border-radius: 2px;
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
@@ -1486,6 +1574,14 @@ textarea.bio {
     margin: 0;
     padding: .6em .6em;
     width: 100%;
+}
+
+.signup-form select {
+	border-radius: 0px;
+	background-color: #ffffff;
+	border: 2px solid #000000;
+	color: #000000;
+	height: 43.2px;
 }
 
 .edit-artwork-select {
@@ -1542,6 +1638,16 @@ textarea.bio {
 	font-weight: 500;
 }
 
+.signup-form textarea.bio {
+	background-color: #ffffff;
+	border: 2px solid #000000;
+}
+
+.signup-form input:focus,
+.signup-form textarea.bio:focus {
+	border-color: #ec167c;
+}
+
 .edit-button,
 .signup-button,
 .login-button {
@@ -1549,7 +1655,7 @@ textarea.bio {
 	width: 150px;
 	height: 43.2px;
 	margin: 0 auto;
-	background: black;
+	background: #000000;
 	border-radius: 0px;
 	cursor: pointer;
 	box-shadow: 0px;
@@ -1557,12 +1663,14 @@ textarea.bio {
 }
 
 .login-button {
-	margin: 15px 10px 0px 10px;
+	margin: 15px 36px;
+	text-align: center;
+	background: #ffffff;
 }
 
 .signup-button.left,
 login-button.left {
-	margin: 15px 0 5px 10px;
+	margin: 0px 0 5px;
 }
 
 .signup-button.center{
@@ -1605,7 +1713,14 @@ login-button.left {
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
+}
 
+.login-button h3 {
+	color: #000000;
+}
+
+.login-button:hover h3 {
+	color: #ffffff;
 }
 
 .solo-links {
@@ -1874,7 +1989,7 @@ login-button.left {
 }
 
 .signup-form .right-form {
-	width: 270px;
+	width: 255px;
 }
 
 .signup-form .left-form {
@@ -1906,6 +2021,12 @@ login-button.left {
 	flex-direction: column;
 	cursor: pointer;
 	overflow: hidden;
+}
+
+.left-form .image-upload-box {
+	border: 2px dashed #cccccc;
+	border-radius: 0px;
+	background: #eeeeee;
 }
 
 .artwork-upload-box {
@@ -1997,14 +2118,6 @@ login-button.left {
 .registration-error.page-2 h2,
 .registration-error.page-3 h2 {
 	font-size: 0.7em;
-}
-
-
-.login-popover {
-	position: absolute;
-	right: 20px !important;
-	left: auto;
-	top: 55px;
 }
 
 .popover-title {
@@ -2610,197 +2723,6 @@ login-button.left {
 	width: 405px;
 }
 
-/*========================================== */
-
-/* Media Queries */
-
-@media (max-height: 670px) {
-	.uploaded-artworks-container {
-		height: 40vh;
-	}
-}
-
-@media (max-width: 650px) {
-	.accordion label {
-  	  flex-direction: column;
-  	  height: auto !important;
-    }
-
-	.edit-accordion .accordion-item {
-		flex-direction: column;
-		height: 69px !important;
-	}
-
-    .accordion-item-heading {
-  	  text-align: center;
-  	  width: auto !important;
-    }
-
-    .accordion-item-preview {
-  	  margin: 5px 0 0 0 !important;
-  	  text-align: center;
-  	  width: auto !important;
-    }
-
-	.accordion-item-avatar-wrapper {
-		width: auto !important
-	}
-
-    .edit-profile-save-button {
-  	  bottom: 30px !important;
-  	  right: 30px !important;
-    }
-
-	.edit-profile-save-button.private {
-  	  left: 30px !important;
-    }
-
-	.edit-profile-save-button.public {
-  	  right: 30px !important;
-    }
-}
-
-@media (max-width: 590px) {
-
-	.signup-form .top-form,
-	.signup-form .bottom-form,
-	.signup-form .social-wrapper {
-		width: 265px;
-		flex-direction: column;
-		border-radius: 0px;
-	}
-
-	.social-buttons {
-		width: 265px;
-		flex-direction: column;
-	}
-
-	.social-terms {
-		width: 265px;
-	}
-
-	.social-button {
-		flex: 1 1 100%;
-		-webkit-flex: 1 1 100%;
-	}
-
-	#email-landing {
-		width: 250px;
-	}
-
-	.artist-logo-wrapper img {
-		width: 110px;
-	}
-
-	.artist-logo-wrapper h3 {
-		font-size: 2em;
-		margin: 15px 0 30px 0;
-	}
-}
-
-@media (min-width: 390px) and (max-width: 470px) {
-  #tekuma-logo-image {
-	  width: 120px;
-  }
-
-  .tekuma-logo{
-	  width: 120px
-  }
-}
-
-@media (max-height: 570px) {
-	.uploaded-artworks-container {
-		height: 30vh;
-	}
-}
-
-@media (max-height: 480px) {
-	.uploaded-artworks-container {
-		height: 25vh;
-	}
-}
-
-@media (max-width: 450px) {
-	.artwork-form fieldset ul li {
-		text-align: center;
-	}
-
-	.artwork-form fieldset ul li label:not(.checkbox) {
-		width: 100%;
-		text-align: center;
-	}
-
-	.artwork-form input:not([type='radio']) {
-		width: 100%;
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	#artwork-description,
-	#album-description {
-		width: 250px;
-		height: 50px;
-
-	}
-
-	.artwork-form fieldset ul {
-		width: 270px;
-	}
-
-	.artwork-form fieldset ul li {
-		width: 250px;
-	}
-
-	.artwork-form {
-		width: 270px;
-	}
-
-	.edit-artwork-content,
-	.edit-album-content {
-		width: 300px !important;
-	}
-
-
-	.edit-artwork-title,
-	.edit-album-title {
-		display: none;
-	}
-
-	.edit-artwork-body {
-		padding: 0 !important;
-		width: 270px;
-		margin: 0 auto;
-		margin-bottom: 20px;
-	}
-
-	#edit-artwork-album {
-		width: 100%;
-	}
-
-
-}
-
-@media (max-width: 440px) {
-  main {
-	  text-align: center;
-	  padding-top: 90px;
-  }
-
-  .artwork {
-	  width: 90%;
-  }
-}
-
-@media (max-width: 410px) {
-  main {
-	  width: 100vw;
-  }
-
-  .artwork {
-	  width: 90%;
-  }
-}
-
 /*=======================================*/
 
 /* Public/Private Heading */
@@ -3345,6 +3267,269 @@ label.age-confirm-label {
 	font-size: .9375em;
 	font-weight: 500;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+}
+
+/*========================================== */
+
+/* Media Queries */
+
+@media (max-height: 670px) {
+	.uploaded-artworks-container {
+		height: 40vh;
+	}
+}
+
+@media (max-width: 650px) {
+	.accordion label {
+  	  flex-direction: column;
+  	  height: auto !important;
+    }
+
+	.edit-accordion .accordion-item {
+		flex-direction: column;
+		height: 69px !important;
+	}
+
+    .accordion-item-heading {
+  	  text-align: center;
+  	  width: auto !important;
+    }
+
+    .accordion-item-preview {
+  	  margin: 5px 0 0 0 !important;
+  	  text-align: center;
+  	  width: auto !important;
+    }
+
+	.accordion-item-avatar-wrapper {
+		width: auto !important
+	}
+
+    .edit-profile-save-button {
+  	  bottom: 30px !important;
+  	  right: 30px !important;
+    }
+
+	.edit-profile-save-button.private {
+  	  left: 30px !important;
+    }
+
+	.edit-profile-save-button.public {
+  	  right: 30px !important;
+    }
+}
+
+@media (max-width: 590px) {
+	.signup-wrapper {
+		display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+		display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
+	  	display: -ms-block;  /* TWEENER - IE 10 */
+	  	display: block; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+	}
+
+	.artist-logo-wrapper {
+		margin: 0 auto;
+	}
+
+	.signup-form .top-form,
+	.signup-form .bottom-form,
+	.signup-form .social-wrapper {
+		width: 265px;
+		flex-direction: column;
+		border-radius: 0px;
+	}
+
+	.separator {
+	   width: 265px;
+	   margin: 10px 0;
+	}
+
+	.signup-form div ul {
+		width: 265px;
+	}
+
+	.social-buttons {
+		display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+		display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
+	  	display: -ms-block;  /* TWEENER - IE 10 */
+	  	display: block;
+		width: 265px;
+	}
+
+	.social-terms {
+		width: 265px;
+	}
+
+	.social-button {
+		flex: 0 1 auto;
+		-webkit-flex: 0 1 auto;
+	}
+
+	#email-landing {
+		width: 255px;
+	}
+
+	.artist-logo-wrapper img {
+		width: 110px;
+	}
+
+	.artist-logo-wrapper h3 {
+		font-size: 2em;
+		margin: 15px 0 30px 0;
+	}
+
+	.signup-form.page-2,
+	.signup-form.page-3 {
+		width: 255px;
+		margin: 0 auto;
+		display: -webkit-block;
+		display: -moz-block;
+		display: -ms-block;
+		display: block;
+		margin-bottom: 30px;
+	}
+
+	.signup-form .left-form {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 30px;
+	}
+
+	.controls-dob label {
+		width: 100%;
+		text-align: center !important;
+	}
+
+	.gender {
+		text-align: center;
+	}
+
+	.gender-label {
+		position: relative;
+	}
+
+	.gender-radio {
+		margin-top: 0;
+	}
+
+	.signup-button.left,
+	login-button.left {
+    margin: 0px auto 5px;
+	}
+
+	.solo-links {
+		text-align: center;
+	}
+}
+
+@media (max-width: 470px) {
+  #tekuma-logo-image {
+	  margin-top: 10px;
+	  width: 120px;
+  }
+
+  .tekuma-logo{
+	  width: 120px
+  }
+}
+
+@media (max-height: 570px) {
+	.uploaded-artworks-container {
+		height: 30vh;
+	}
+}
+
+@media (max-height: 480px) {
+	.uploaded-artworks-container {
+		height: 25vh;
+	}
+}
+
+@media (max-width: 450px) {
+	.artwork-form fieldset ul li {
+		text-align: center;
+	}
+
+	.artwork-form fieldset ul li label:not(.checkbox) {
+		width: 100%;
+		text-align: center;
+	}
+
+	.artwork-form input:not([type='radio']) {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	#artwork-description,
+	#album-description {
+		width: 250px;
+		height: 50px;
+
+	}
+
+	.artwork-form fieldset ul {
+		width: 270px;
+	}
+
+	.artwork-form fieldset ul li {
+		width: 250px;
+	}
+
+	.artwork-form {
+		width: 270px;
+	}
+
+	.edit-artwork-content,
+	.edit-album-content {
+		width: 300px !important;
+	}
+
+
+	.edit-artwork-title,
+	.edit-album-title {
+		display: none;
+	}
+
+	.edit-artwork-body {
+		padding: 0 !important;
+		width: 270px;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+
+	#edit-artwork-album {
+		width: 100%;
+	}
+
+
+}
+
+@media (max-width: 440px) {
+  main {
+	  text-align: center;
+	  padding-top: 90px;
+  }
+
+  .artwork {
+	  width: 90%;
+  }
+}
+
+@media (max-width: 420px) {
+  .tekuma-logo {
+	  display: none;
+  }
+}
+
+@media (max-width: 410px) {
+  main {
+	  width: 100vw;
+  }
+
+  .artwork {
+	  width: 90%;
+  }
 }
 
 /*========================================== */

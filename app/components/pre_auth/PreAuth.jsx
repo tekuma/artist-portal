@@ -1,13 +1,13 @@
 // Libs
 import React         from 'react';
 import uuid          from 'node-uuid';
-import {Popover}     from 'react-bootstrap';
 
 // Files
 import LandingPage   from './LandingPage';
 import SignUpOne     from './SignUpOne';
 import SignUpTwo     from './SignUpTwo';
 import PreAuthHeader from '../headers/PreAuthHeader';
+import HiddenLogin   from './HiddenLogin.jsx'
 
 /**
  * TODO
@@ -15,8 +15,8 @@ import PreAuthHeader from '../headers/PreAuthHeader';
 export default class PreAuth extends React.Component {
     state = {
         step          : 1,                      // Used to keep track of which component in the pre-auth flow should be shown
-        popoverIsOpen : false,                  // Used to keep track of whether the popover is open
-        errors        : this.props.errors       // Used to store errors from App.jsx
+        errors        : this.props.errors ,     // Used to store errors from App.jsx
+        loginIsOpen   : false                   // Used to track whether Hidden login is open
     }
 
     constructor(props) {
@@ -58,66 +58,21 @@ export default class PreAuth extends React.Component {
     landingPage = () => {
         return(
           <div>
-              <PreAuthHeader
-                  togglePopover             ={this.props.togglePopover}
-                  togglePopover             ={this.togglePopover} />
-              <LandingPage
-                  popoverIsOpen             ={this.state.popoverIsOpen}
-                  errors                    ={this.state.errors}
-                  clearErrors               ={this.props.clearErrors}
-                  saveRegPrivate            = {this.props.saveRegPrivate}
-                  nextStep                  = {this.nextStep}
-                  authenticateWithGoogle    = {this.props.authenticateWithGoogle}
-                  authenticateWithFB        ={this.props.authenticateWithFB}
-                />
-                <Popover
-                    className="login-popover"
-                    style={{display: this.state.popoverIsOpen ? "block" : "none" }}
-                    placement="bottom"
-                    key = {uuid.v4()}
-                    title="Have an account?">
-                    <ul>
-                        <li>
-                            <input
-                                type="email"
-                                id="register-email"
-                                ref="email"
-                                placeholder="Email"
-                                required="true"
-                                maxLength="100" />
-                        </li>
-                        <li>
-                            <input
-                                type="password"
-                                id="register-password"
-                                ref="password"
-                                placeholder="Password"
-                                required="true"
-                                maxLength="100"
-                                autoComplete="off" />
-                        </li>
-                        {this.state.errors.map(error => {
-                                return (
-                                    <div
-                                        key={uuid.v4()}
-                                        className="login-error">
-                                        <h2>{error}</h2>
-                                    </div>
-                                );
-                            })}
-                        <li
-                            className="solo-links left"
-                            onClick={this.props.toggleForgotPassword}>
-                            <h3>Forgot your Password?</h3>
-                        </li>
-                        <button
-                            className="login-button left"
-                            type="submit"
-                            onClick={this.onLogin}>
-                            <h3>Login</h3>
-                        </button>
-                    </ul>
-                </Popover>
+              <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
+                  <PreAuthHeader
+                      toggleLogin             ={this.toggleLogin} />
+                  <LandingPage
+                      loginIsOpen               ={this.state.loginIsOpen}
+                      errors                    ={this.state.errors}
+                      clearErrors               ={this.props.clearErrors}
+                      saveRegPrivate            = {this.props.saveRegPrivate}
+                      nextStep                  = {this.nextStep}
+                      authenticateWithGoogle    = {this.props.authenticateWithGoogle}
+                      authenticateWithFB        ={this.props.authenticateWithFB} />
+              </div>
+              <HiddenLogin
+                  authenticateWithPassword  ={this.props.authenticateWithPassword}
+                  errors                    ={this.state.errors} />
           </div>
         );
     }
@@ -129,65 +84,20 @@ export default class PreAuth extends React.Component {
     signUpOne = () => {
         return(
           <div>
-              <PreAuthHeader
-                  togglePopover         ={this.props.togglePopover}
-                  returnToLandingPage   ={this.returnToLandingPage}
-                  togglePopover         ={this.togglePopover} />
-              <SignUpOne
-                  popoverIsOpen         ={this.state.popoverIsOpen}
-                  errors                ={this.state.errors}
-                  clearErrors           ={this.props.clearErrors}
-                  saveRegPublic         ={this.props.saveRegPublic}
-                  nextStep              = {this.nextStep}
-                  returnToLandingPage   ={this.returnToLandingPage} />
-              <Popover
-                  className ="login-popover"
-                  style     ={{display: this.state.popoverIsOpen ? "block" : "none" }}
-                  placement ="bottom"
-                  key       = {uuid.v4()}
-                  title     ="Have an account?">
-                  <ul>
-                      <li>
-                          <input
-                              type="email"
-                              id="register-email"
-                              ref="email"
-                              placeholder="Email"
-                              required="true"
-                              maxLength="100" />
-                      </li>
-                      <li>
-                          <input
-                              type="password"
-                              id="register-password"
-                              ref="password"
-                              placeholder="Password"
-                              required="true"
-                              maxLength="100"
-                              autoComplete="off" />
-                      </li>
-                      {this.state.errors.map(error => {
-                              return (
-                                  <div
-                                      key = {uuid.v4()}
-                                      className="login-error">
-                                      <h2>{error}</h2>
-                                  </div>
-                              );
-                          })}
-                      <li
-                          className="solo-links left"
-                          onClick={this.props.toggleForgotPassword}>
-                          <h3>Forgot your Password?</h3>
-                      </li>
-                      <button
-                          className="login-button left"
-                          type="submit"
-                          onClick={this.onLogin}>
-                          <h3>Login</h3>
-                      </button>
-                  </ul>
-              </Popover>
+              <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
+                  <PreAuthHeader
+                      returnToLandingPage   ={this.returnToLandingPage}
+                      toggleLogin           ={this.toggleLogin} />
+                  <SignUpOne
+                      loginIsOpen           ={this.state.loginIsOpen}
+                      errors                ={this.state.errors}
+                      clearErrors           ={this.props.clearErrors}
+                      saveRegPublic         ={this.props.saveRegPublic}
+                      nextStep              = {this.nextStep}
+                      returnToLandingPage   ={this.returnToLandingPage} />
+              </div>
+              <HiddenLogin
+                  errors ={this.state.errors} />
           </div>
         );
     }
@@ -199,66 +109,21 @@ export default class PreAuth extends React.Component {
     signUpTwo = () => {
         return(
           <div>
-              <PreAuthHeader
-                  togglePopover         ={this.props.togglePopover}
-                  returnToLandingPage   ={this.returnToLandingPage}
-                  togglePopover         ={this.togglePopover} />
-              <SignUpTwo
-                  popoverIsOpen         ={this.state.popoverIsOpen}
-                  errors                ={this.state.errors}
-                  clearErrors           ={this.props.clearErrors}
-                  saveRegPublic         = {this.props.saveRegPublic}
-                  saveRegPrivate        = {this.props.saveRegPrivate}
-                  submitRegistration    = {this.props.submitRegistration}
-                  returnToLandingPage   ={this.returnToLandingPage}
-                />
-              <Popover
-                  className ="login-popover"
-                  style     ={{display: this.state.popoverIsOpen ? "block" : "none"}}
-                  placement ="bottom"
-                  key       = {uuid.v4()}
-                  title     ="Have an account?">
-                  <ul>
-                      <li>
-                          <input
-                              type="email"
-                              id="register-email"
-                              ref="email"
-                              placeholder="Email"
-                              required="true"
-                              maxLength="100" />
-                      </li>
-                      <li>
-                          <input
-                              type="password"
-                              id="register-password"
-                              ref="password"
-                              placeholder="Password"
-                              required="true"
-                              maxLength="100"
-                              autoComplete="off" />
-                      </li>
-                      {this.state.errors.map(error => {
-                              return (
-                                  <div
-                                      className="login-error">
-                                      <h2>{error}</h2>
-                                  </div>
-                              );
-                          })}
-                      <li
-                          className="solo-links left"
-                          onClick={this.props.toggleForgotPassword}>
-                          <h3>Forgot your Password?</h3>
-                      </li>
-                      <button
-                          className="login-button left"
-                          type="submit"
-                          onClick={this.onLogin}>
-                          <h3>Login</h3>
-                      </button>
-                  </ul>
-              </Popover>
+              <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
+                  <PreAuthHeader
+                      returnToLandingPage   ={this.returnToLandingPage}
+                      toggleLogin           ={this.toggleLogin} />
+                  <SignUpTwo
+                      loginIsOpen           ={this.state.loginIsOpen}
+                      errors                ={this.state.errors}
+                      clearErrors           ={this.props.clearErrors}
+                      saveRegPublic         = {this.props.saveRegPublic}
+                      saveRegPrivate        = {this.props.saveRegPrivate}
+                      submitRegistration    = {this.props.submitRegistration}
+                      returnToLandingPage   ={this.returnToLandingPage} />
+              </div>
+              <HiddenLogin
+                  errors ={this.state.errors} />
           </div>
         );
     }
@@ -275,46 +140,13 @@ export default class PreAuth extends React.Component {
     }
 
     /**
-     * Toggles this.state.popoverIsOpen to open or close the popover
+     * Toggles this.state.loginIsOpen to open or close the hidden login
      */
-    togglePopover = () => {
+    toggleLogin = () => {
         this.setState({
-            popoverIsOpen: !this.state.popoverIsOpen
+            loginIsOpen: !this.state.loginIsOpen
         });
-    }
-
-    /**
-     * Used to log in a user
-     * @param  {[HTML element]} e [The element that has been pressed]
-     */
-    onLogin = (e) => {
-        e.preventDefault();
-
-        this.state.errors = [];
-
-        // Clear errors from any previous form submission
-        let data = {};
-        let email = this.refs.email.value;
-        let password = this.refs.password.value;
-
-        if(email.length == 0) {
-            this.state.errors.push("Please enter an email address.");
-        } else if(!/.+@.+\..+/.test(email)) {
-            this.state.errors.push("The email address you supplied is invalid.");
-        }
-
-        if(password.length == 0) {
-            this.state.errors.push("Please enter your password.");
-        }
-
-        if(this.props.errors.length == 0) {
-            data.email = email;
-            data.password = password;
-            this.props.authenticateWithPassword(data);
-        }
-
-        this.forceUpdate();
-        this.props.clearErrors();
+        console.log("loginIsOpen is: ", this.state.loginIsOpen);
     }
 
     returnToLandingPage = () => {
