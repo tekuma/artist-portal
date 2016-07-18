@@ -167,6 +167,7 @@ export default class AlbumManager extends React.Component {
                     onEditName      ={this.editAlbumName}
                     onEdit          ={this.editAlbum}
                     onDelete        ={this.deleteAlbum}
+                    emptyUploads    ={this.emptyUploads}
                     currentAlbum    ={this.props.currentAlbum}
                     changeAlbum     ={this.props.changeAlbum}
                     user            ={this.props.user} />
@@ -281,7 +282,7 @@ export default class AlbumManager extends React.Component {
                 // # they clicked "yes", so
                 // First, Delete all attributed artworks
                 // check if album is empty, if so bi-pass first step.
-                if (this.state.albums[index]['artworks'] != null && this.state.albums[index]['artworks'] != undefined){
+                if (this.state.albums[index]['artworks']) {
                     let artLength = Object.keys(this.state.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
                         let thisArtKey = this.state.albums[index]['artworks'][i];
@@ -295,7 +296,6 @@ export default class AlbumManager extends React.Component {
                 let path = 'public/onboarders/' + thisUID + '/albums' ;
                 let albumRef = firebase.database().ref(path);
                 albumRef.transaction( (data) => {
-                    console.log("inside transaction", data);
                     let albumLength = Object.keys(data).length;
                     let found = false;
                     for (let i = 0; i < albumLength; i++) {
@@ -320,6 +320,43 @@ export default class AlbumManager extends React.Component {
                 return;
             }
         );
+    }
+
+    /**
+     * This method removes all artworks from the Uploads album.
+     * -gather all artwork UIDs that are in uploads
+     * -set uploads artworks array to []
+     * -push null to each artwork ref in the DB artworks branch.
+     * @return {[type]} [description]
+     */
+    emptyUploads = (e) => {
+        console.log("method called");
+        e.stopPropagation();
+        confirm('Are you sure you want to empty your Uploads album?').then( () => {
+            console.log("confirmed");
+            const Uploads  =  this.props.user.albums[0];
+            const thisUID  = firebase.auth().currentUser.uid;
+            const userPath = `public/onboarders/${thisUID}`
+            const userRef  = firebase.database().ref(userPath);
+
+            if (Uploads['artworks']) {
+                let artworks  =  Uploads['artworks'];
+                userRef.child("albums/0/artworks").set(null).then(()=>{
+                    console.log("Uploads set to null");
+                });
+
+                // remove each artwork from artworks
+                for (let i = 0; i < Object.keys(artworks).length; i++) {
+                    let artUID = artworks[i];
+                    userRef.child(`artworks/${artUID}`).set(null).then(()=>{
+                        console.log("success delete");
+                    });
+                }
+            }
+        }, () => {
+            // they clicked 'no'
+            return;
+        });
     }
 
     /**

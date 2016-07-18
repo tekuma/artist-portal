@@ -47,9 +47,11 @@ export default class Albums extends React.Component {
         return (
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
                 <UploadsAlbum
-                    changeAlbum={this.props.changeAlbum.bind(null, "Uploads")}
-                    currentAlbum={this.props.currentAlbum}
-                    changeArtworkAlbum={this.props.changeArtworkAlbum} />
+                    changeAlbum        ={this.props.changeAlbum.bind(null, "Uploads")}
+                    currentAlbum       ={this.props.currentAlbum}
+                    changeArtworkAlbum ={this.props.changeArtworkAlbum}
+                    emptyUploads       ={this.props.emptyUploads}
+                    />
                 {albumArray.map(album => {
                     return (
                         <Album

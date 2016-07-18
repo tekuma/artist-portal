@@ -484,7 +484,7 @@ export default class App extends React.Component {
                 isNewUser = true;
 
                 // Setting Onboarder name
-                let thisDisplayName = "Untitled Artist";
+                let thisDisplayName = "Untitled Artist";``
                 if (user.displayName) {
                     thisDisplayName = user.displayName;
                 }

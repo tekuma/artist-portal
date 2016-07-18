@@ -85,7 +85,9 @@ export default class Albums extends React.Component {
                         overlay     ={deleteTooltip}>
                         <img
                             className   ="album-more"
-                            src         ='assets/images/icons/delete-white.svg' />
+                            src         ='assets/images/icons/delete-white.svg'
+                            onClick     = {this.props.emptyUploads} />
+
                     </OverlayTrigger>
                 </div>
             </li>
