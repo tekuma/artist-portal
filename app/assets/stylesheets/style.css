@@ -10,7 +10,7 @@ body {
 	color: #000000;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 	margin: 0;
-	background: #ffffff;
+	background: #000000;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
 	height: 100vh;
 }
