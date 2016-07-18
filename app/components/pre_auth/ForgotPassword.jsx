@@ -72,7 +72,8 @@ export default class ForgotPassword extends React.Component {
                     </div>
                 </div>
                 <HiddenLogin
-                    authenticateWithPassword={this.props.authenticateWithPassword} />
+                    authenticateWithPassword={this.props.authenticateWithPassword}
+                    toggleForgotPassword   ={this.toggleLogin} />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
                         className="registration-error"
