@@ -118,6 +118,7 @@ export default class AlbumManager extends React.Component {
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
                     emptyUploads       ={this.emptyUploads}
+                    downloadAlbum      ={this.downloadAlbum}
                     onEdit             ={this.editAlbum}
                     onDelete           ={this.deleteAlbum}
                     currentAlbum       ={this.props.currentAlbum}
@@ -192,14 +193,14 @@ export default class AlbumManager extends React.Component {
      * @return {[type]} [description]
      */
     addAlbum = () => {
-        const thisUID = firebase.auth().currentUser.uid;
+        const thisUID    = firebase.auth().currentUser.uid;
         let newAlbumName = this.getUniqueNewAlbumName();
-        let albums = this.state.albums;
+        let albums       = this.state.albums;
 
 
         console.log(this.state.albums, "thisstatealbums");
         let albumPath = `public/onboarders/${thisUID}/albums`;
-        let albumRef = firebase.database().ref(albumPath);
+        let albumRef  = firebase.database().ref(albumPath);
 
         albumRef.transaction( (data) => {
             let albumLength = Object.keys(data).length;
@@ -257,7 +258,7 @@ export default class AlbumManager extends React.Component {
     };
 
     /**
-     * [description]
+     * TODO
      * @param  {String}  id [description]
      */
     editAlbum = (id) => {
@@ -335,7 +336,7 @@ export default class AlbumManager extends React.Component {
         confirm('Are you sure you want to empty your Uploads album?').then( () => {
             const Uploads  =  this.props.user.albums[0];
             const thisUID  = firebase.auth().currentUser.uid;
-            const userPath = `public/onboarders/${thisUID}`
+            const userPath = `public/onboarders/${thisUID}`;
             const userRef  = firebase.database().ref(userPath);
 
             if (Uploads['artworks']) {
@@ -359,7 +360,43 @@ export default class AlbumManager extends React.Component {
     }
 
     /**
-     * [description]
+     * TODO
+     * @param  {Int} index [the index of the album to download]
+     */
+    downloadAlbum = (index) => {
+
+        let album = this.props.user.albums[index];
+
+        let blobs = [];
+        for (let i   = 0; i < Object.keys(album).length; i++) {
+            let artUID = album[i];
+            let artURL = this.props.user.artworks[artUID]['fullsize_url'];
+            let artIMG = new Image;
+            artIMG.src = localURL;
+            // Load the blob as an <Image>
+            artIMG.addEventListener('load', ()=>{
+                let canvas    = document.createElement("canvas");
+                canvas.height = artIMG.height;
+                canvas.width  = artIMG.width;
+                let ctx       = canvas.getContext("2d");
+
+                //Draw the Image to canvas, args: img,x0,y0,scaled w, scaled h
+                ctx.drawImage(fullSizeImage,0,0);
+                canvas.toBlob( (thisBlob)=>{
+                    blobs.push(thisBlob);
+                });
+            });
+        }
+
+        while (blobs.length < album.length ) {
+            //Wait..... FIXME FIXME FIXME
+        }
+        console.log(blobs);
+
+    }
+
+    /**
+     * TODO TODO TODO
      * @return {[type]} [description]
      */
     getUniqueNewAlbumName = () => {

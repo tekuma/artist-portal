@@ -286,7 +286,7 @@ export default class PostAuth extends React.Component {
         let colors = {};
         getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
         .getPalette( (error,palette)=>{
-            if (palette.Vibrant != null) {
+            if (palette.Vibrant) {
                 colors['v'] = {
                     hex:palette.Vibrant.getHex(),
                     rgb:palette.Vibrant.getRgb(),
