@@ -1271,11 +1271,14 @@ main, .artworks {
 }
 
 .signup-form .top-form,
-.signup-form .bottom-form,
-.signup-form .social-wrapper {
+.signup-form .bottom-form {
 	display: block;
 	width: 530px;
 	text-align: center;
+}
+
+.signup-form .bottom-form {
+	margin-bottom: 30px;
 }
 
 .social-terms {
@@ -1825,32 +1828,18 @@ login-button.left {
 	text-align: center;
 }
 
-.signup-form .social-wrapper {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	margin: 0 auto;
-	flex-direction: column;
-}
-
-.social-buttons {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+.social-buttons-wrapper {
+	display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-block;  /* TWEENER - IE 10 */
+	display: block;
 	margin: 0;
 	width: 530px;
+	height: 53.2px;
 }
 
 .social-button {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
+  	display: inline-flex;
 	border-radius: 0px !important;
 	width: 255px;
 	height: 43.2px;
@@ -3337,8 +3326,7 @@ label.age-confirm-label {
 	}
 
 	.signup-form .top-form,
-	.signup-form .bottom-form,
-	.signup-form .social-wrapper {
+	.signup-form .bottom-form {
 		width: 265px;
 		flex-direction: column;
 		border-radius: 0px;
@@ -3353,7 +3341,7 @@ label.age-confirm-label {
 		width: 265px;
 	}
 
-	.social-buttons {
+	.social-buttons-wrapper {
 		display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 		display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
 	  	display: -ms-block;  /* TWEENER - IE 10 */
