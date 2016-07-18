@@ -992,7 +992,7 @@ input::-webkit-search-cancel-button {
 	-moz-appearance: none;
 	-ms-appearance: none;
 	border-radius: 3px;
-	padding: 0.8em 0.2em 0.5em;
+	padding: 0.5em 0.2em 0.5em;
     width: 100%;
 	height: 23px;
 	background-color: #f4f6f7;
