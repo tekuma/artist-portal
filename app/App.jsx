@@ -87,7 +87,9 @@ export default class App extends React.Component {
 
     //// ----------- #Methods ---------------------------------
 
-    // #Render flowcontrol Methods
+    // ===== Flow Control ================
+    // NOTE: To de-clutter the render() method, if multiple things could be
+    // rendered, split returns into flow control methods. #ETU 
 
     /**
      * Flow Control Function: If a user is currently logged in after accessing
