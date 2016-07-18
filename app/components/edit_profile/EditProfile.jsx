@@ -14,7 +14,8 @@ import PrivateEdit      from './PrivateEdit.jsx';
  */
 export default class EditProfile extends React.Component {
     state = {
-        editingPublic: true
+        editingPublic: true,
+        saved: true
     };
 
     constructor(props) {
@@ -50,14 +51,16 @@ export default class EditProfile extends React.Component {
     goToPrivateEdit = () => {
         return (
             <PrivateEdit
-                user={this.props.user}
-                userPrivate={this.props.userPrivate}
-                editingPublic={this.state.editingPublic}
-                editPublic={this.editPublic}
-                editPrivate={this.editPrivate}
-                currentError={this.state.currentError}
-                editPrivateUserInfo={this.props.editPrivateUserInfo}
-                toggleVerifyEmailDialog={this.props.toggleVerifyEmailDialog} />
+                user                    ={this.props.user}
+                userPrivate             ={this.props.userPrivate}
+                editingPublic           ={this.state.editingPublic}
+                editPublic              ={this.editPublic}
+                editPrivate             ={this.editPrivate}
+                currentError            ={this.state.currentError}
+                editPrivateUserInfo     ={this.props.editPrivateUserInfo}
+                toggleVerifyEmailDialog ={this.props.toggleVerifyEmailDialog}
+                setSaved                ={this.setSaved}
+                setUnsaved              ={this.setUnsaved} />
         );
     }
 
@@ -68,13 +71,27 @@ export default class EditProfile extends React.Component {
     goToPublicEdit = () => {
         return (
             <PublicEdit
-                user={this.props.user}
-                editingPublic={this.state.editingPublic}
-                editPublic={this.editPublic}
-                editPrivate={this.editPrivate}
-                editPublicUserInfo={this.props.editPublicUserInfo}
+                user                ={this.props.user}
+                editingPublic       ={this.state.editingPublic}
+                editPublic          ={this.editPublic}
+                editPrivate         ={this.editPrivate}
+                editPublicUserInfo  ={this.props.editPublicUserInfo}
+                setSaved            ={this.setSaved}
+                setUnsaved          ={this.setUnsaved}
                  />
         );
+    }
+
+    setSaved = () => {
+        this.setState({
+            saved: true
+        });
+    }
+
+    setUnsaved = () => {
+        this.setState({
+            saved: false
+        });
     }
 
     /**
@@ -82,12 +99,23 @@ export default class EditProfile extends React.Component {
      * @param  {[type]} layout [TODO]
      */
     editPublic = () => {
-        this.setState({
-            editingPublic: true,
-            errors: [],
-            errorType: {},
-            currentError: ""
-        });
+        if (!this.state.saved) {
+            confirm('Are you sure you changed tabs without saving?').then( () => {
+                    this.setState({
+                        editingPublic: true,
+                        saved: true
+                    });
+                }, () => {
+                    // they clicked 'no'
+                    return;
+                }
+            );
+        } else {
+            this.setState({
+                editingPublic: true,
+                saved: this.state.saved
+            });
+        }
     }
 
     /**
@@ -95,12 +123,23 @@ export default class EditProfile extends React.Component {
      * @param  {[type]} layout [TODO]
      */
     editPrivate = () => {
-        this.setState({
-            editingPublic: false,
-            errors: [],
-            errorType: {},
-            currentError: ""
-        });
+        if (!this.state.saved) {
+            confirm('Are you sure you changed tabs without saving?').then( () => {
+                    this.setState({
+                        editingPublic: false,
+                        saved: true
+                    });
+                }, () => {
+                    // they clicked 'no'
+                    return;
+                }
+            );
+        } else {
+            this.setState({
+                editingPublic: false,
+                saved: this.state.saved
+            });
+        }
     }
 
 }

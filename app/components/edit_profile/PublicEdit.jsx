@@ -85,6 +85,7 @@ export default class PublicEdit extends React.Component {
                             type="text"
                             id="edit-displayname"
                             defaultValue={this.props.user.display_name}
+                            onKeyPress={this.setUnsaved}
                             ref="displayname"
                             placeholder="Display Name"
                             required=""
@@ -147,7 +148,8 @@ export default class PublicEdit extends React.Component {
                                 className="bio"
                                 placeholder="Bio"
                                 ref="bio"
-                                defaultValue={this.props.user.bio}></textarea>
+                                defaultValue={this.props.user.bio}
+                                onKeyPress={this.setUnsaved}></textarea>
                         </div>
                         <div
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
@@ -163,7 +165,8 @@ export default class PublicEdit extends React.Component {
                             id="edit-location"
                             ref="location"
                             placeholder="Location"
-                            defaultValue={this.props.user.location} />
+                            defaultValue={this.props.user.location}
+                            onKeyPress={this.setUnsaved} />
                         </div>
                         <div
                             className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
@@ -179,7 +182,8 @@ export default class PublicEdit extends React.Component {
                             id="edit-portfolio"
                             ref="portfolio"
                             placeholder="Portfolio/Website"
-                            defaultValue={this.props.user.portfolio} />
+                            defaultValue={this.props.user.portfolio}
+                            onKeyPress={this.setUnsaved} />
                         </div>
                         <div
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
@@ -353,6 +357,12 @@ export default class PublicEdit extends React.Component {
         this.setState({
             gender: e.target.value
         });
+
+        this.props.setUnsaved();
+    }
+
+    setUnsaved = () => {
+        this.props.setUnsaved();
     }
 
     /**
@@ -462,7 +472,9 @@ export default class PublicEdit extends React.Component {
                     age: false,
                     pronoun: false
                 }
-            })
+            });
+
+            this.props.setSaved(); // Used to track whether user has save info to show confirm dialog or not
         }
 
         for(let i = 0; i < this.state.errors.length; i++) {
@@ -486,5 +498,7 @@ export default class PublicEdit extends React.Component {
             avatar: file[0],
             avatarPreview: file[0].preview
         });
+
+        this.props.setUnsaved();
     }
 }

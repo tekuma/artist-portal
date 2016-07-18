@@ -75,6 +75,7 @@ export default class PrivateEdit extends React.Component {
                                 defaultValue={this.props.userPrivate.legal_name}
                                 ref="legalname"
                                 style={this.state.errorType.legalName ? errorStyle : null}
+                                onKeyPress={this.setUnsaved}
                                 placeholder="Legal Name"
                                 required=""
                                 maxLength="50"
@@ -99,6 +100,7 @@ export default class PrivateEdit extends React.Component {
                                 defaultValue={this.props.userPrivate.email}
                                 ref="email"
                                 style={this.state.errorType.email ? errorStyle : null}
+                                onKeyPress={this.setUnsaved}
                                 placeholder="Email"
                                 required="true"
                                 maxLength="100" />
@@ -149,6 +151,7 @@ export default class PrivateEdit extends React.Component {
                                 id="edit-password"
                                 ref="currentPassword"
                                 style={this.state.errorType.currentPassword ? errorStyle : null}
+                                onKeyPress={this.setUnsaved}
                                 placeholder="Current Password"
                                 required="true"
                                 maxLength="100"
@@ -158,6 +161,7 @@ export default class PrivateEdit extends React.Component {
                                 id="edit-password"
                                 ref="password"
                                 style={this.state.errorType.password ? errorStyle : null}
+                                onKeyPress={this.setUnsaved}
                                 placeholder="New Password"
                                 required="true"
                                 maxLength="100"
@@ -167,6 +171,7 @@ export default class PrivateEdit extends React.Component {
                                 id="edit-confirm-password"
                                 ref="confirmPassword"
                                 style={this.state.errorType.confirmPassword ? errorStyle : null}
+                                onKeyPress={this.setUnsaved}
                                 placeholder="Confirm Password"
                                 required="true"
                                 maxLength="100" />
@@ -212,6 +217,10 @@ export default class PrivateEdit extends React.Component {
         this.setState({
             accordion: accordion
         });
+    }
+
+    setUnsaved = () => {
+        this.props.setUnsaved();
     }
 
     /**
@@ -354,6 +363,8 @@ export default class PrivateEdit extends React.Component {
                     password: false
                 }
             });
+
+            this.props.setSaved(); // Used to track whether user has save info to show confirm dialog or not
         }
 
         console.error(this.state.errors);
