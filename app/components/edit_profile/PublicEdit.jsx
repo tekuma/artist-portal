@@ -463,9 +463,7 @@ export default class PublicEdit extends React.Component {
                     pronoun: false
                 }
             })
-
         }
-        console.error(this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {

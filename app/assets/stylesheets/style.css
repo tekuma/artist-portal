@@ -1843,7 +1843,7 @@ login-button.left {
 	display: block;
 	margin: 0;
 	width: 530px;
-	height: 53.2px;
+	height: auto;
 }
 
 .social-button {
@@ -3273,6 +3273,24 @@ label.age-confirm-label {
 
 /*========================================== */
 
+/* Animations */
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes showAndHide {
+    0%   {opacity: 0;}
+    50% {opacity: 1;}
+	100%   {opacity: 0;}
+}
+
+/* Standard syntax */
+@keyframes showAndHide {
+	0%   {opacity: 0;}
+    50% {opacity: 1;}
+	100%   {opacity: 0;}
+}
+
+/*========================================== */
+
 /* Media Queries */
 
 @media (max-height: 670px) {
@@ -3355,6 +3373,7 @@ label.age-confirm-label {
 	  	display: -ms-block;  /* TWEENER - IE 10 */
 	  	display: block;
 		width: 265px;
+		height: auto;
 	}
 
 	.social-terms {
@@ -3506,8 +3525,6 @@ label.age-confirm-label {
 	#edit-artwork-album {
 		width: 100%;
 	}
-
-
 }
 
 @media (max-width: 440px) {

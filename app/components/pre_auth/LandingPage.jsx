@@ -36,9 +36,9 @@ export default class LandingPage extends React.Component {
                             <div className="artist-logo-wrapper">
                               <svg version="1.0" id="tekuma-logo" x="0px" y="0px" viewBox="0 0 1000 1000" style={{"enableBackground":"new 0 0 1000 1000"}}>
                               	<g style= {{ "fill": "none","stroke":"#000000","strokeWidth":"7","strokeMiterlimit":"10" }} >
-                              		<g className="logoanimation">
-                              			<rect x="56.8" y="57.4" className="st0" width="886.3" height="886.3"/>
-                              			<rect x="322.7" y="323.3" className="st0" width="354.5" height="354.5"/>
+                              		<g>
+                              			<rect id="outer-square" x="56.8" y="57.4" width="886.3" height="886.3"/>
+                              			<rect id="inner-square" x="322.7" y="323.3" className="st0" width="354.5" height="354.5"/>
                               			<line className="st0" x1="677.3" y1="323.3" x2="943.2" y2="57.4"/>
                               			<line className="st0" x1="322.7" y1="323.3" x2="56.8" y2="57.4"/>
                               			<line className="st0" x1="322.7" y1="677.9" x2="56.8" y2="943.8"/>
@@ -47,7 +47,6 @@ export default class LandingPage extends React.Component {
                               	</g>
                               </svg>
                             </div>
-
                             <form className="signup-form page-1">
                                 <div className="social-buttons-wrapper">
                                     <div
