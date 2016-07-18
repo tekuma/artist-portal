@@ -4,6 +4,8 @@ import firebase            from 'firebase';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
+import update              from 'react-addons-update';
+
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../../constants/Views';
 import DeleteAccountDialog from '../DeleteAccountDialog';
@@ -825,30 +827,40 @@ export default class PostAuth extends React.Component {
         const userRef  = firebase.database().ref(userPath);
         // Remove the artwork pointer from the album via transaction, then
         // shift indexes bc firebase uses de-abstracted arrays
-        let albumsRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
         userRef.child('albums').transaction( (node)=>{
             let albumCount = Object.keys(node).length;
+            let albumIndex;
+            let artworkIndex;
+            let found = false;
+
             for (let i = 0; i < albumCount; i++) {
+                if (found) {
+                    break;
+                }
+
                 if (node[i]['artworks']) {
                     let artworksCount = Object.keys(node[i]['artworks']).length;
-                    let found = false;
                     for (let j = 0; j < artworksCount; j++) {
                         if (node[i]['artworks'][j]) {
-                            if (found) {
-                                let aheadObject = node[i]['artworks'][j];
-                                node[i]['artworks'][j-1] = aheadObject;
-                            }
                             if (node[i]['artworks'][j] == id) {
                                 console.log("FOUND IN ALBUMS ");
-                                delete node[i]['artworks'][j];
+                                albumIndex = i;
+                                artworkIndex = j;
                                 found = true;
+                                break;
                             }
                         }
                     }
-                    delete node[i]['artworks'][artworksCount-1];
-                    return node;
                 }
             }
+
+            let artworks = update(node[albumIndex]['artworks'], {
+                $splice: [[artworkIndex, 1]]
+            });
+
+            node[albumIndex]['artworks'] = artworks;
+            return node;
+
         }).then(()=>{
             // Delete from public/onboarders/{uid}/artworks branch
             userRef.child(`artworks/${id}`).set(null).then(()=>{
