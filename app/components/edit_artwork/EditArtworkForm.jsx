@@ -47,16 +47,12 @@ export default class EditArtworkForm extends React.Component {
                 }
             }
 
-
-
         if (this.props.value.colors.m != undefined &&
             this.props.value.colors.m != null ) {
                 mutedColor = {
                     background: this.props.value.colors.m.hex
                 }
             }
-
-
 
         if (this.props.value.colors.dv != undefined &&
             this.props.value.colors.dv != null ) {
@@ -65,16 +61,12 @@ export default class EditArtworkForm extends React.Component {
                 }
             }
 
-
-
         if (this.props.value.colors.dm != undefined &&
             this.props.value.colors.dm != null ) {
                 darkMutedColor = {
                     background: this.props.value.colors.dm.hex
                 }
             }
-
-
 
         if (this.props.value.colors.lv != undefined &&
             this.props.value.colors.lv != null ) {
@@ -90,9 +82,52 @@ export default class EditArtworkForm extends React.Component {
                 }
             }
 
+        let previewImage = {
+            backgroundImage: 'url(' + this.props.value.fullsize_url + ')'
+        }
+
         return (
-            <div>
-                <div>
+            <div className="artwork-edit-dialog">
+                <div className="artwork-preview-colors">
+                    <div className="artwork-preview-wrapper">
+                        <div
+                            className="artwork-preview"
+                            style={previewImage}>
+                        </div>
+                    </div>
+                    <div className="artwork-colors">
+                            <label className="color-heading center">
+                                Color
+                            </label>
+                            <div className="color-circle-wrapper">
+                                <div
+                                    className="color-box vibrant"
+                                    style={ vibrantColor != null ? vibrantColor : null}>
+                                </div>
+                                <div
+                                    className="color-box muted"
+                                    style={ mutedColor != null ? mutedColor : null}>
+                                </div>
+                                <div
+                                    className="color-box dark-vibrant"
+                                    style={ darkVibrantColor != null ? darkVibrantColor : null}>
+                                </div>
+                                <div
+                                    className="color-box dark-muted"
+                                    style={ darkMutedColor != null ? darkMutedColor : null}>
+                                </div>
+                                <div
+                                    className="color-box light-vibrant"
+                                    style={ lightVibrantColor != null ? lightVibrantColor : null}>
+                                </div>
+                                <div
+                                    className="color-box light-muted"
+                                    style={ lightMutedColor != null ? lightMutedColor : null}>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div className="artwork-form-wrapper">
                     <form className="artwork-form" onSubmit={onSubmit}>
                         <fieldset>
                             <ul>
@@ -179,7 +214,6 @@ export default class EditArtworkForm extends React.Component {
                                 </li>
                                 <li>
                                     <label
-                                        className="center"
                                         htmlFor="artwork-description">
                                         Description
                                     </label>
@@ -192,37 +226,6 @@ export default class EditArtworkForm extends React.Component {
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldArtwork, {description: e.target.value}))
                                         }} />
-                                </li>
-                                <li className="color-tags">
-                                    <label className="color-heading center">
-                                        Color
-                                    </label>
-                                    <div className="color-circle-wrapper">
-                                        <div
-                                            className="color-box vibrant"
-                                            style={ vibrantColor != null ? vibrantColor : null}>
-                                        </div>
-                                        <div
-                                            className="color-box muted"
-                                            style={ mutedColor != null ? mutedColor : null}>
-                                        </div>
-                                        <div
-                                            className="color-box dark-vibrant"
-                                            style={ darkVibrantColor != null ? darkVibrantColor : null}>
-                                        </div>
-                                        <div
-                                            className="color-box dark-muted"
-                                            style={ darkMutedColor != null ? darkMutedColor : null}>
-                                        </div>
-                                        <div
-                                            className="color-box light-vibrant"
-                                            style={ lightVibrantColor != null ? lightVibrantColor : null}>
-                                        </div>
-                                        <div
-                                            className="color-box light-muted"
-                                            style={ lightMutedColor != null ? lightMutedColor : null}>
-                                        </div>
-                                    </div>
                                 </li>
                                 <li>
                                     <label htmlFor="artwork-tags">

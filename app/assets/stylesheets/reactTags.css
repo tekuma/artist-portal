@@ -6,8 +6,6 @@ div.ReactTags__selected {
 }
 
 div.ReactTags__tags {
-    position: relative;
-    top: 10px;
 }
 
 /* Styles for the input */

@@ -2162,13 +2162,67 @@ login-button.left {
 /*========================================== */
 
 /* Edit Artwork */
+.artwork-edit-dialog {
+	position: relative;
+	height: 100%;
+}
+
+.artwork-preview-colors {
+	width: 456px;
+	height: 100%;
+	display: inline-block;
+	overflow: scroll;
+}
+
+.artwork-preview-wrapper {
+	display: flex;
+	width: 456px;
+	height: 350px;
+	background: #ffffff;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+}
+
+.artwork-preview {
+	background-position: center center;
+	background-size: contain;
+    background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+}
+
+.artwork-colors {
+	height: 76px;
+	width: 100%;
+}
+
+.color-heading {
+	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-weight: 600;
+    color: #000000;
+    width: 100%;
+    font-size: .9375em;
+    text-align: center;
+    line-height: 1.5em;
+    margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.artwork-form-wrapper {
+	display: inline-block;
+	overflow: scroll;
+	width: 320px;
+	height: 100%;
+	margin-left: 24px;
+}
 
 .artwork-form {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-	display: -ms-flexbox;  /* TWEENER - IE 10 */
-	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-	display: flex;
 	vertical-align: top;
 	width: 320px;
 	margin: 0 auto;
@@ -2280,9 +2334,14 @@ login-button.left {
 	margin: 3px;
 }
 
-.edit-artwork-content,
 .edit-album-content {
-	width: 405px !important;
+	width: 402px !important;
+	max-width: none;
+}
+
+.edit-artwork-content {
+	width: 848px !important;
+	max-width: 1000px !important;
 	max-width: none;
 }
 
@@ -2296,8 +2355,8 @@ login-button.left {
 }
 
 .edit-artwork-body {
-	width: 405px;
-	overflow: scroll !important;
+	width: 848px !important;
+	height: 450px;
 }
 
 .edit-artwork-actions,
@@ -2732,7 +2791,6 @@ login-button.left {
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
-.edit-artwork-body,
 .edit-album-body {
 	width: 405px;
 }
@@ -3293,6 +3351,42 @@ label.age-confirm-label {
 
 /* Media Queries */
 
+@media (max-width: 880px) {
+
+	.edit-artwork-content {
+		width: 592px !important;
+	}
+
+	.edit-artwork-body {
+		width: 592px !important;
+	}
+
+	.artwork-preview-colors {
+		width: 200px;
+	}
+
+	.artwork-preview-wrapper {
+		width: 200px;
+		height: 200px;
+	}
+}
+
+@media (max-width: 740px) {
+	.add-album img {
+		position: absolute;
+		bottom: 50%;
+		right: 50%;
+		transform: translate(50%, 50%);
+	}
+
+	.add-album:hover img {
+		position: absolute;
+		bottom: 50%;
+		right: 50%;
+		transform: translate(50%, 50%);
+	}
+}
+
 @media (max-height: 670px) {
 	.uploaded-artworks-container {
 		height: 40vh;
@@ -3343,6 +3437,26 @@ label.age-confirm-label {
 	.edit-profile-save-button.public {
   	  right: 30px !important;
     }
+}
+
+@media (max-width: 640px) {
+
+	.edit-artwork-content {
+		width: 542px !important;
+	}
+
+	.edit-artwork-body {
+		width: 542px !important;
+	}
+
+	.artwork-preview-colors {
+		width: 150px;
+	}
+
+	.artwork-preview-wrapper {
+		width: 150px;
+		height: 200px;
+	}
 }
 
 @media (max-width: 590px) {
@@ -3439,19 +3553,24 @@ label.age-confirm-label {
 	.solo-links {
 		text-align: center;
 	}
+}
 
-	.add-album img {
-		position: absolute;
-		bottom: 50%;
-		right: 50%;
-		transform: translate(50%, 50%);
+@media (max-width: 575px) {
+
+	.edit-artwork-content {
+		width: 368px !important;
 	}
 
-	.add-album:hover img {
-		position: absolute;
-		bottom: 50%;
-		right: 50%;
-		transform: translate(50%, 50%);
+	.edit-artwork-body {
+		width: 368px !important;
+	}
+
+	.artwork-preview-colors {
+		display: none;
+	}
+
+	.artwork-form-wrapper {
+		margin-left: 0;
 	}
 }
 
@@ -3513,7 +3632,6 @@ label.age-confirm-label {
 		width: 270px;
 	}
 
-	.edit-artwork-content,
 	.edit-album-content {
 		width: 300px !important;
 	}
@@ -3525,10 +3643,8 @@ label.age-confirm-label {
 	}
 
 	.edit-artwork-body {
-		padding: 0 !important;
 		width: 270px;
 		margin: 0 auto;
-		margin-bottom: 20px;
 	}
 
 	#edit-artwork-album {
@@ -3561,6 +3677,17 @@ label.age-confirm-label {
   .artwork {
 	  width: 90%;
   }
+}
+
+@media (max-width: 400px) {
+	.edit-artwork-content {
+		width: 310px !important;
+	}
+
+	.edit-artwork-body {
+		width: 250px;
+		padding: 0 !important;
+	}
 }
 
 /*========================================== */
