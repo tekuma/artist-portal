@@ -4,6 +4,8 @@
 
     // Set rules for public branch //global read access?
     "public":{
+        //Set global read access to the public branch
+        ".write" : "auth.uid != null",
         "onboarders" :{
             "$thisUID" :{
                 ".write" :"auth.uid === $thisUID",
@@ -20,6 +22,7 @@
 
     // Set rules for Private branch
     "_private": {
+        // NOTE there is no public read access in the private branch
         "onboarders": {
             "$thisUID" : {
                 ".write" :"auth.uid === $thisUID",
