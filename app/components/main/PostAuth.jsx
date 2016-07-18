@@ -806,7 +806,7 @@ export default class PostAuth extends React.Component {
                         console.log("Artworks already: ", node[i]['artworks']);
                     } else {
                         node[i]['artworks'] = {0: artworkUID};
-                        console.log("No artworks");
+
                     }
                 }
             }
@@ -816,38 +816,45 @@ export default class PostAuth extends React.Component {
 
     /**
      * Delete artwork object from /artworks and
-     * delete pointer from albums/##/artworks/
+     * delete pointer from albums/{##}/artworks/
      * @param  {String} id [UID of artwork to be deleted]
      */
     deleteArtwork = (id) => {
-        // Delete from public/onboarders/{uid}/artworks branch
-        const thisUID = firebase.auth().currentUser.uid;
-        const thisArtworkReference = firebase.database().ref(pathToPublicOnboarder+thisUID+'/artworks/' + id);
-        thisArtworkReference.set(null).then(()=>{
-            console.log(">> Artwork deleted successfully");
-        });
-
+        const thisUID  = firebase.auth().currentUser.uid;
+        const userPath = `public/onboarders/${thisUID}`
+        const userRef  = firebase.database().ref(userPath);
         // Remove the artwork pointer from the album via transaction, then
         // shift indexes bc firebase uses de-abstracted arrays
         let albumsRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums');
-        albumsRef.transaction( (node)=>{
+        userRef.child('albums').transaction( (node)=>{
             let albumCount = Object.keys(node).length;
             for (let i = 0; i < albumCount; i++) {
-                let artworksCount = Object.keys(node[i]['artworks']).length;
-                let found = false;
-                for (let j = 0; j < artworksCount; j++) {
-                    if (found) {
-                        let aheadObject = node[i]['artworks'][j];
-                        node[i]['artworks'][j-1] = aheadObject;
+                if (node[i]['artworks']) {
+                    let artworksCount = Object.keys(node[i]['artworks']).length;
+                    let found = false;
+                    for (let j = 0; j < artworksCount; j++) {
+                        if (node[i]['artworks'][j]) {
+                            if (found) {
+                                let aheadObject = node[i]['artworks'][j];
+                                node[i]['artworks'][j-1] = aheadObject;
+                            }
+                            if (node[i]['artworks'][j] == id) {
+                                console.log("FOUND IN ALBUMS ");
+                                delete node[i]['artworks'][j];
+                                found = true;
+                            }
+                        }
                     }
-                    if (node[i]['artworks'][j] == id) {
-                        delete node[i]['artworks'][j];
-                        found = true;
-                    }
+                    delete node[i]['artworks'][artworksCount-1];
+                    return node;
                 }
-                delete node[i]['artworks'][artworksCount-1];
-                return node;
             }
+        }).then(()=>{
+            // Delete from public/onboarders/{uid}/artworks branch
+            userRef.child(`artworks/${id}`).set(null).then(()=>{
+                console.log(">> Artwork deleted successfully");
+            });
+
         });
 
     }
