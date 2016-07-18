@@ -28,7 +28,7 @@ export default ({managerIsOpen, toggleManager, addAlbum}) => {
                     width="50px"
                     height="50px"
                     viewBox="0 0 50 50"
-                    enable-background="new 0 0 50 50">
+                    enableBackground="new 0 0 50 50">
                      <polygon
                          points="15.14,49.86 11.398,46.118 32.649,24.866 11.531,3.749 15.14,0.14 40,25 "/>
                 </svg>
