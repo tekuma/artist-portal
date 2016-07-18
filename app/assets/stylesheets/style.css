@@ -1208,7 +1208,14 @@ main, .artworks {
 	border-radius: 0px;
 }
 
-.signup-wrapper, .login-wrapper {
+.signup-wrapper {
+	display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-block;  /* TWEENER - IE 10 */
+	display: block; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+}
+
+.login-wrapper {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -1279,7 +1286,7 @@ main, .artworks {
 }
 
 .signup-form .bottom-form {
-	margin-bottom: 30px;
+	margin-bottom: 80px;
 }
 
 .social-terms {
@@ -1826,6 +1833,7 @@ login-button.left {
 
 .artist-logo-wrapper {
 	width:50%;
+	margin: 0 auto;
 }
 
 .artist-logo-wrapper img,
@@ -3338,17 +3346,6 @@ label.age-confirm-label {
 }
 
 @media (max-width: 590px) {
-	.signup-wrapper {
-		display: -webkit-block;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-		display: -moz-block;         /* OLD - Firefox 19- (buggy but mostly works) */
-	  	display: -ms-block;  /* TWEENER - IE 10 */
-	  	display: block; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-	}
-
-	.artist-logo-wrapper {
-		margin: 0 auto;
-	}
-
 	.signup-form .top-form,
 	.signup-form .bottom-form {
 		width: 265px;

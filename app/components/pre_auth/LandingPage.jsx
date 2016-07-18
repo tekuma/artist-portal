@@ -110,7 +110,7 @@ export default class LandingPage extends React.Component {
                                 </div>
                                 <div className="bottom-form">
                                     <div className="optin">
-                                        <span> Creating an account means you&#8217;re okay with Tekuma&#8217;s <a href="">Terms of Use</a>.</span>
+                                        <span> Creating an account means you&#8217;re okay with Tekuma&#8217;s <a href="http://tekuma.io/artist/artist-tous/" target="_blank">Terms of Use</a>.</span>
                                     </div>
                                     <button
                                         className="signup-button"
