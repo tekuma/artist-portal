@@ -127,11 +127,11 @@ export default class AlbumManager extends React.Component {
                 <OverlayTrigger
                     placement   ="left"
                     overlay     ={addAlbumTooltip}>
-                    <div
+                    <button
                         onClick     ={this.addAlbum}
                         className   ="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
-                    </div>
+                    </button>
                 </OverlayTrigger>
             </section>
         );

@@ -796,18 +796,6 @@ input::-webkit-search-cancel-button {
 
 .add-album {
 	position: absolute;
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
 	bottom: 20px;
 	right: 20px;
 	width: 40px;
@@ -825,10 +813,22 @@ input::-webkit-search-cancel-button {
 
 .add-album img {
 	width: 18px;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 .add-album:hover {
 	box-shadow: 0 2px 7px 0 rgba(0,0,0,0.5),0 4px 12px 0 rgba(0,0,0,0.2);
+}
+
+.add-album:hover img {
+	transform: rotate(180deg);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 .album-locker {
@@ -958,7 +958,7 @@ input::-webkit-search-cancel-button {
 	position: relative;
 	left: 70px;
 	display: inline-block;
-	margin: 15px 0px 27px;
+	margin: 10px 0px 27px;
 	padding: 0px 12px 0px 5px;
 	font-weight: 700;
 	font-size: 1em;
@@ -1054,7 +1054,7 @@ input::-webkit-search-cancel-button {
 
 .album-download-delete {
 	position: absolute;
-	bottom: 0px;
+	bottom: 2px;
 	right: 5px;
 	z-index: 3;
 }
@@ -1450,6 +1450,9 @@ textarea.bio {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
+	outline:0;
+    outline:none;
+	outline-width: 0;
     padding: 0.75em .75em;
     width: 100%;
 	height: 43.2px;
@@ -3048,18 +3051,6 @@ login-button.left {
 
 .edit-profile-save-button {
 	position: absolute;
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
 	bottom: 50px;
 	width: 50px;
 	height: 50px;
@@ -3323,6 +3314,12 @@ label.age-confirm-label {
 
 	.accordion-item-avatar-wrapper {
 		width: auto !important
+	}
+
+	.accordion-item-avatar {
+		margin-top: 8px;
+		width: 24px;
+		height: 24px;
 	}
 
     .edit-profile-save-button {

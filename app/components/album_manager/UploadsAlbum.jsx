@@ -50,11 +50,11 @@ export default class Albums extends React.Component {
             </Tooltip>
         );
 
-        const deleteTooltip = (
+        const emptyTooltip = (
             <Tooltip
                 id="delete-tooltip-regular"
                 className="tooltip">
-                Delete
+                Empty
             </Tooltip>
         );
 
@@ -82,7 +82,7 @@ export default class Albums extends React.Component {
                     </OverlayTrigger>
                     <OverlayTrigger
                         placement   ="bottom"
-                        overlay     ={deleteTooltip}>
+                        overlay     ={emptyTooltip}>
                         <img
                             className   ="album-more"
                             src         ='assets/images/icons/delete-white.svg'
