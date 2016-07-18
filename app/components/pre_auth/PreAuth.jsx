@@ -60,7 +60,8 @@ export default class PreAuth extends React.Component {
           <div>
               <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
                   <PreAuthHeader
-                      toggleLogin             ={this.toggleLogin} />
+                      returnToLandingPage   ={this.returnToLandingPage}
+                      toggleLogin           ={this.toggleLogin} />
                   <LandingPage
                       loginIsOpen               ={this.state.loginIsOpen}
                       errors                    ={this.state.errors}

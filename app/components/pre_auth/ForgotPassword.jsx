@@ -38,7 +38,8 @@ export default class ForgotPassword extends React.Component {
                 <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
                     <div className="main-wrapper login">
                         <PreAuthHeader
-                            toggleLogin={this.toggleLogin} />
+                            returnToLandingPage={this.props.returnToLandingPage}
+                            toggleLogin        ={this.toggleLogin} />
                         <div className="layout-centered">
                             <article className="signup-wrapper">
                                 <div className="forgot-heading-wrapper pink">
