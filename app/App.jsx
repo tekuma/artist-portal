@@ -234,7 +234,7 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerG)
         .then( ()=>{
             console.log(">Google Auth successful");
-            this.socialLoginToTekuma();
+            this.socialLoginToTekuma("google");
         }).catch( (error) => {
             console.error(error);
             this.setState({
@@ -261,7 +261,7 @@ export default class App extends React.Component {
         firebase.auth().signInWithPopup(providerF)
         .then( ()=>{
             console.log(">FB Auth successful");
-            this.socialLoginToTekuma();
+            this.socialLoginToTekuma("facebook");
         }).catch( (error) => {
             console.error(error);
             this.setState({
@@ -469,10 +469,8 @@ export default class App extends React.Component {
      * - branch of marketed products in 'public/products/{UID}'
      * - branch of sales information in '_private/products/{UID}'
      */
-    socialLoginToTekuma = () => {
-
+    socialLoginToTekuma = (provider) => {
         const user    = firebase.auth().currentUser;
-        const provider= user.providerId;
         const thisUID = user.uid;
         let isNewUser = true;
 
