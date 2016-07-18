@@ -1,6 +1,6 @@
 // Libs
 import React            from 'react';
-import firebase            from 'firebase';
+import firebase         from 'firebase';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -368,8 +368,16 @@ export default class PrivateEdit extends React.Component {
         }
     }
 
+
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     verifyEmail = () => {
-        this.props.toggleVerifyEmailDialog();
+        firebase.auth().currentUser.sendEmailVerification().then(()=>{
+            this.props.toggleVerifyEmailDialog();
+        });
+
     }
 
 }

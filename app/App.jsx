@@ -9,9 +9,9 @@
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
-import Snackbar         from 'material-ui/Snackbar';
-import getMuiTheme      from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Snackbar           from 'material-ui/Snackbar';
+import getMuiTheme        from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
 
 // Files
 import PostAuth           from './components/main/PostAuth';
@@ -26,7 +26,6 @@ var config = {
     databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
-
 firebase.initializeApp(config);
 
 //  # Global Variables
@@ -37,7 +36,7 @@ const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb auth
 
 /**
- * TODO
+ * a
  */
 export default class App extends React.Component {
     state = {
@@ -234,8 +233,8 @@ export default class App extends React.Component {
     authenticateWithGoogle = () => {
         firebase.auth().signInWithPopup(providerG)
         .then( ()=>{
-            this.socialLoginToTekuma(firebase.auth().currentUser, "google");
             console.log(">Google Auth successful");
+            this.socialLoginToTekuma();
         }).catch( (error) => {
             console.error(error);
             this.setState({
@@ -261,8 +260,8 @@ export default class App extends React.Component {
     authenticateWithFB = () => {
         firebase.auth().signInWithPopup(providerF)
         .then( ()=>{
-            this.socialLoginToTekuma(firebase.auth().currentUser, "fb");
             console.log(">FB Auth successful");
+            this.socialLoginToTekuma();
         }).catch( (error) => {
             console.error(error);
             this.setState({
@@ -469,15 +468,17 @@ export default class App extends React.Component {
      * - private    object in '_private/onboarders/{UID}'
      * - branch of marketed products in 'public/products/{UID}'
      * - branch of sales information in '_private/products/{UID}'
-     * @param  {firebase.auth.currentUser} user [current user object]
-     * @param  {String} provider - one of("google", "fb")
      */
-    socialLoginToTekuma = (user, provider) => {
+    socialLoginToTekuma = () => {
+
+        const user    = firebase.auth().currentUser;
+        const provider= user.providerId;
         const thisUID = user.uid;
         let isNewUser = true;
 
         //>>>> Instantiate public/onboarders/thisUID
         // and check if isNewUser.
+
         const usersRef = firebase.database().ref('public/onboarders');
         usersRef.once('value').then( (snapshot) => {
             //check if user already exists at node
@@ -486,7 +487,7 @@ export default class App extends React.Component {
 
                 // Setting Onboarder name
                 let thisDisplayName = "Untitled Artist";
-                if (user.displayName !== undefined && user.displayName !== null) {
+                if (user.displayName !== null) {
                     thisDisplayName = user.displayName;
                 }
 
@@ -519,7 +520,7 @@ export default class App extends React.Component {
                     over_eighteen   : false,
                     joined          : new Date().toISOString()
                 }).then( ()=>{
-                    console.log(">>node set in public onboarder");
+                    console.log("//node set in public user (1/4)");
                 });
 
             } else {
@@ -535,7 +536,7 @@ export default class App extends React.Component {
             firebase.database().ref(productPath).set({
                 on_shopify: false
             }).then(()=>{
-                console.log("node set in public products");
+                console.log("//node set in public products (2/4)");
             });
 
 
@@ -545,7 +546,7 @@ export default class App extends React.Component {
                 legal_name: "",
                 email     : user.email
             }).then(()=>{
-                console.log("node set in private user");
+                console.log("//node set in private user (3/4)");
             });
 
             //>>>> Instantiate _private/products/thisUID
@@ -553,7 +554,7 @@ export default class App extends React.Component {
             firebase.database().ref(_productPath).set({
                 on_shopify: false
             }).then(()=>{
-                console.log("node set in private products");
+                console.log("//node set in private products (4/4)");
             });
 
         }
