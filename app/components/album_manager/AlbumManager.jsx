@@ -39,8 +39,6 @@ export default class AlbumManager extends React.Component {
         console.log("+++++AlbumManager");
 
         if (!this.props.user.albums) {
-            console.log("in if");
-            console.log(this.props.user);
             let user       = this.props.user;
             let allAlbums  = user['albums'];
 

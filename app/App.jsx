@@ -485,18 +485,20 @@ export default class App extends React.Component {
 
                 // Setting Onboarder name
                 let thisDisplayName = "Untitled Artist";
-                if (user.displayName !== null) {
+                console.log("Display Name:", user.displayName);
+                if (!user.displayName) {
                     thisDisplayName = user.displayName;
                 }
 
                 // Setting onboarder info (if registered)
-                let dob = "",
-                    avatar = "",
+                let dob            = "",
+                    avatar         = "",
                     gender_pronoun = "",
-                    bio = "",
-                    location = "",
-                    portfolio = "",
-                    legal_age = false;
+                    bio            = "",
+                    location       = "",
+                    portfolio      = "",
+                    legal_age      = false;
+
 
                 if (user.photoURL !== undefined ) {
                     avatar = user.photoURL;
