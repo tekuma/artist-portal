@@ -58,7 +58,7 @@ export default class HiddenNav extends React.Component {
                     style={avatarStyle}>
 	    		</div>
                 <DisplayNameTag
-                    displayName={(this.props.user == null)? "Default Artist":this.props.user.display_name}
+                    displayName={this.props.user ? this.props.user.display_name : "Untitled Artist"}
                     navIsOpen={this.props.navIsOpen} />
                 <NavItems
                     navItems={navItems}
@@ -76,5 +76,5 @@ export default class HiddenNav extends React.Component {
     componentWillReceiveProps(nextProps) {
         //pass
     }
-    
+
 }
