@@ -114,15 +114,16 @@ export default class AlbumManager extends React.Component {
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
-                    albums              ={this.state.albums}
-                    uploads             ={this.state.uploads}
-                    onEditName      ={this.editAlbumName}
-                    onEdit          ={this.editAlbum}
-                    onDelete            ={this.deleteAlbum}
-                    currentAlbum        ={this.props.currentAlbum}
-                    changeAlbum         ={this.props.changeAlbum}
-                    user                ={this.props.user}
-                    changeArtworkAlbum  ={this.props.changeArtworkAlbum} />
+                    albums             ={this.state.albums}
+                    uploads            ={this.state.uploads}
+                    onEditName         ={this.editAlbumName}
+                    emptyUploads       ={this.emptyUploads}
+                    onEdit             ={this.editAlbum}
+                    onDelete           ={this.deleteAlbum}
+                    currentAlbum       ={this.props.currentAlbum}
+                    changeAlbum        ={this.props.changeAlbum}
+                    user               ={this.props.user}
+                    changeArtworkAlbum ={this.props.changeArtworkAlbum} />
                 <OverlayTrigger
                     placement   ="left"
                     overlay     ={addAlbumTooltip}>
@@ -330,10 +331,8 @@ export default class AlbumManager extends React.Component {
      * @return {[type]} [description]
      */
     emptyUploads = (e) => {
-        console.log("method called");
         e.stopPropagation();
         confirm('Are you sure you want to empty your Uploads album?').then( () => {
-            console.log("confirmed");
             const Uploads  =  this.props.user.albums[0];
             const thisUID  = firebase.auth().currentUser.uid;
             const userPath = `public/onboarders/${thisUID}`
