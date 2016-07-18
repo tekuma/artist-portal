@@ -451,7 +451,7 @@ export default class PostAuth extends React.Component {
                                             upload_date : new Date().toISOString(),
                                             year        : new Date().getFullYear(),
                                             description : "",
-                                            tags        : "#Art",
+                                            tags        : [{id: 1, text: "Art"}],
                                             size        : fileSize,
                                             fullsize_url: fullSizeURL,
                                             aspect_ratio: aspectRatio,

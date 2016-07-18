@@ -70,6 +70,7 @@
     "react-mixin": "^2.0.2",
     "react-router": "^2.4.1",
     "react-tap-event-plugin": "^1.0.0",
+    "react-tag-input": "^4.0.0",
     "reactfire": "^1.0.0"
   }
 }

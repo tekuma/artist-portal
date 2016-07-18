@@ -1,6 +1,7 @@
 // Libs
 import React from 'react';
 import uuid from 'node-uuid';
+const ReactTags = require('react-tag-input').WithOutContext;
 
 /**
  * TODO
@@ -8,7 +9,8 @@ import uuid from 'node-uuid';
 export default class EditArtworkForm extends React.Component {
 
     state = {
-        albumNames: []
+        albumNames: [],
+        tags: []
     }
 
     constructor(props) {
@@ -21,6 +23,8 @@ export default class EditArtworkForm extends React.Component {
 
     render() {
         let oldArtwork  = this.props.value;
+        let tags        = this.state.tags;
+        console.log(tags);
         let onChange    = this.props.onChange;
         let clearErrors = this.props.clearErrors;
         let onSubmit    = this.props.onSubmit;
@@ -100,6 +104,7 @@ export default class EditArtworkForm extends React.Component {
                                         type        ="text"
                                         style       ={this.props.errorType.title != undefined ? errorStyle : null}
                                         id          ="artwork-title"
+                                        className   ="text-inputs"
                                         name        ="title"
                                         placeholder ="What is the title of this artwork?"
                                         value       ={this.props.value.title}
@@ -116,6 +121,7 @@ export default class EditArtworkForm extends React.Component {
                                         type        ="text"
                                         style       ={this.props.errorType.artist != undefined ? errorStyle : null}
                                         id          ="artwork-artist"
+                                        className   ="text-inputs"
                                         name        ="title"
                                         placeholder ="Who completed this artwork?"
                                         value       ={this.props.value.artist}
@@ -162,6 +168,7 @@ export default class EditArtworkForm extends React.Component {
                                         type        ="text"
                                         style       ={this.props.errorType.year != undefined ? errorStyle : null}
                                         id          ="artwork-year"
+                                        className   ="text-inputs"
                                         name        ="year"
                                         placeholder ="Year artwork was completed?"
                                         value       ={this.props.value.year}
@@ -221,16 +228,11 @@ export default class EditArtworkForm extends React.Component {
                                     <label htmlFor="artwork-tags">
                                         Tags
                                     </label>
-                                    <input
-                                        type        ="text"
-                                        id          ="artwork-tags"
-                                        name        ="tags"
-                                        placeholder ="Enter searchable tag words..."
-                                        value       ={this.props.value.tags}
-                                        onClick     ={clearErrors}
-                                        onChange    ={(e) => {
-                                            onChange(Object.assign({}, oldArtwork, {tags: e.target.value}))
-                                        }} />
+                                    <ReactTags
+                                        tags={tags}
+                                        handleDelete={this.handleDelete}
+                                        handleAddition={this.handleAddition}
+                                        handleDrag={this.handleDrag} />
                                 </li>
                             </ul>
                         </fieldset>
@@ -244,7 +246,8 @@ export default class EditArtworkForm extends React.Component {
     componentDidMount() {
         console.log("+++++EditArtworkForm");
 
-        if (this.props.user.albums != undefined) {
+        // Get Album Names
+        if (this.props.user.albums) {
             let user       = this.props.user;
             let allAlbums  = user['albums'];
             let albumKeys  = Object.keys(allAlbums);
@@ -260,10 +263,27 @@ export default class EditArtworkForm extends React.Component {
                 albumNames : albumNames
             });
         }
+
+        // Get Tags
+        if (this.props.value.tags) {
+            let allTags  = this.props.value.tags;
+            let tagKeys  = Object.keys(allTags);
+            let tags = [];
+
+            for (let i = 0; i < tagKeys.length; i++) {
+                tags.push(allTags[i]);
+            }
+
+            //Set tags to state
+            this.setState({
+                tags : tags
+            });
+        }
+
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.albums != undefined) {
+        if (nextProps.user.albums) {
             let user       = nextProps.user;
             let allAlbums  = user['albums'];
             let albumKeys  = Object.keys(allAlbums);
@@ -279,6 +299,54 @@ export default class EditArtworkForm extends React.Component {
                 albumNames : albumNames
             });
         }
+
+        // Get Tags
+        if (nextProps.value.tags) {
+            let allTags  = nextProps.value.tags;
+            let tagKeys  = Object.keys(allTags);
+            let tags = [];
+
+            for (let i = 0; i < tagKeys.length; i++) {
+                tags.push(allTags[i]);
+            }
+
+            //Set tags to state
+            this.setState({
+                tags : tags
+            });
+        }
+    }
+
+// ============= Methods ===============
+
+    handleDelete = (i) => {
+        let tags = this.state.tags;
+        tags.splice(i, 1);
+        this.setState({tags: tags});
+        this.props.modifyTags(tags);
+    }
+
+    handleAddition = (tag) => {
+        let tags = this.state.tags;
+        tags.push({
+            id: tags.length + 1,
+            text: tag
+        });
+
+        this.setState({tags: tags});
+        this.props.modifyTags(tags);
+    }
+
+    handleDrag = (tag, currPos, newPos) => {
+        let tags = this.state.tags;
+
+        // mutate array
+        tags.splice(currPos, 1);
+        tags.splice(newPos, 0, tag);
+
+        // re-render
+        this.setState({ tags: tags });
+        this.props.modifyTags(tags);
     }
 }
 

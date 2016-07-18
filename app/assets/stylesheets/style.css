@@ -2193,7 +2193,7 @@ login-button.left {
 	color: #e72f80;
 }
 
-.artwork-form input[type=text],
+.artwork-form .text-inputs,
 .artwork-form input[type=email],
 .artwork-form input[type=password],
 .artwork-form input[type=number],
@@ -2217,7 +2217,7 @@ login-button.left {
 	font-weight: 500;
 }
 
-.artwork-form input:not([type='radio']) {
+.artwork-form .text-inputs {
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
@@ -2247,7 +2247,7 @@ login-button.left {
 .artwork-form label:not(.checkbox) {
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
-    color: #4d5967;
+    color: #000000;
     display: inline-block;
     font-size: .9375em;
     text-align: left;
@@ -2282,7 +2282,7 @@ login-button.left {
 .edit-album-title {
 	text-align: center;
 	font-size: 1.6em !important;
-	color: #4d5967 !important;
+	color: #000000 !important;
 	font-weight: 600 !important;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
@@ -3491,7 +3491,7 @@ label.age-confirm-label {
 		text-align: center;
 	}
 
-	.artwork-form input:not([type='radio']) {
+	.artwork-form .text-inputs {
 		width: 100%;
 		margin: 0 auto;
 		text-align: center;

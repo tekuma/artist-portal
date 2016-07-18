@@ -61,6 +61,7 @@ export default class EditArtworkDialog extends React.Component {
                             errorType       ={this.state.errorType}
                             currentError    ={this.state.currentError}
                             onChange        ={this.updateArtworkInfo}
+                            modifyTags      ={this.modifyTags}
                             onSubmit        ={this.onSubmit}
                             clearErrors     ={this.clearErrors} />
                     </Dialog>
@@ -94,6 +95,15 @@ export default class EditArtworkDialog extends React.Component {
             artworkInfo : artworkInfo
         });
         console.log("Form Info: ", artworkInfo);
+    }
+
+    modifyTags = (tags) => {
+        let artworkInfo = this.state.artworkInfo;
+        artworkInfo["tags"] = tags;
+
+        this.setState({
+            artworkInfo : artworkInfo
+        });
     }
 
     onSubmit = (e) => {

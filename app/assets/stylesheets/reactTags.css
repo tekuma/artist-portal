@@ -1,0 +1,205 @@
+/* Example Styles for React Tags*/
+
+div.ReactTags__selected {
+    border: 2px solid #dddddd;
+    border-radius: 3px;
+}
+
+div.ReactTags__tags {
+    position: relative;
+    top: 10px;
+}
+
+/* Styles for the input */
+div.ReactTags__tagInput {
+    appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+    display: inline-block;
+    width: 102px;
+    font-weight: 500;
+    padding: 5px;
+}
+
+div.ReactTags__tagInput input:focus {
+    width: 102px;
+    font-size: 12px;
+    background-color: #f4f6f7;
+    color: #000000;
+    font-weight: 500;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-size: 0.8em;
+}
+
+div.ReactTags__tagInput input,
+div.ReactTags__tagInput input:focus {
+    background-color: #f4f6f7;
+    color: #000000;
+    height: 29px;
+    margin: 0;
+    font-size: 12px;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    width: 102px;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    padding: 0.75em .75em;
+}
+
+/* Styles for selected tags */
+div.ReactTags__selected span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #eee;
+    font-size: 12px;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    cursor: move;
+    border-radius: 2px;
+}
+div.ReactTags__selected a.ReactTags__remove {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styles for suggestions */
+div.ReactTags__suggestions {
+    position: absolute;
+}
+div.ReactTags__suggestions ul {
+    list-style-type: none;
+    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+    background: white;
+    width: 200px;
+}
+div.ReactTags__suggestions li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 10px;
+    margin: 0;
+}
+div.ReactTags__suggestions li mark {
+    text-decoration: underline;
+    background: none;
+    font-weight: 600;
+}
+div.ReactTags__suggestions ul li.active {
+    background: #b7cfe0;
+    cursor: pointer;
+}
+
+/*========================================== */
+
+/* Fonts */
+
+
+/* Duplicating Font */
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Black.ttf);
+font-weight: 900;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Heavy.ttf);
+font-weight: 800;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-XBold.ttf);
+font-weight: 700;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Bold.ttf);
+font-weight: 600;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Book.ttf);
+font-weight: 500;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa.ttf);
+font-weight: 400;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Light.ttf);
+font-weight: 300;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Thin.ttf);
+font-weight: 200;
+}
+
+@font-face {
+font-family: Nexa;
+src: url(../fonts/nexa/Nexa-Thin.ttf);
+font-weight: 100;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Black-Italic.ttf);
+font-weight: 900;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Heavy-Italic.ttf);
+font-weight: 800;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-XBold-Italic.ttf);
+font-weight: 700;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Bold-Italic.ttf);
+font-weight: 600;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Book-Italic.ttf);
+font-weight: 500;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa.ttf);
+font-weight: 400;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Light-Italic.ttf);
+font-weight: 300;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Thin-Italic.ttf);
+font-weight: 200;
+}
+
+@font-face {
+font-family: "Nexa Italic";
+src: url(../fonts/nexa/Nexa-Thin-Italic.ttf);
+font-weight: 100;
+}

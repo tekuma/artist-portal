@@ -1,0 +1,746 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save',
+1 verbose cli   'react-tag-input' ]
+2 info using npm@2.15.8
+3 info using node@v4.4.7
+4 verbose install initial load of /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/package.json
+5 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/alt/package.json
+6 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/alt-utils/package.json
+7 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/assets/package.json
+8 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-core/package.json
+9 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-loader/package.json
+10 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-preset-es2015/package.json
+11 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-preset-react/package.json
+12 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-preset-react-hmre/package.json
+13 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/babel-preset-survivejs-kanban/package.json
+14 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/css-loader/package.json
+15 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/dotenv/package.json
+16 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/file-loader/package.json
+17 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/file-saver/package.json
+18 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/firebase/package.json
+19 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/imports-loader/package.json
+20 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/json-loader/package.json
+21 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/material-ui/package.json
+22 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/node-uuid/package.json
+23 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/node-vibrant/package.json
+24 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/npm-install-webpack-plugin/package.json
+25 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/palette/package.json
+26 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/raw-loader/package.json
+27 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react/package.json
+28 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-addons-update/package.json
+29 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-bootstrap/package.json
+30 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-bootstrap-confirm/package.json
+31 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-confirm/package.json
+32 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-dnd/package.json
+33 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-dnd-html5-backend/package.json
+34 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-dom/package.json
+35 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-dropzone/package.json
+36 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-mixin/package.json
+37 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-router/package.json
+38 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tap-event-plugin/package.json
+39 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/reactfire/package.json
+40 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/style-loader/package.json
+41 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/unique-id-mixin/package.json
+42 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/url-loader/package.json
+43 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/webpack/package.json
+44 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/webpack-dev-server/package.json
+45 verbose installManyTop reading scoped package data from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/webpack-merge/package.json
+46 info package.json assets@2.1.0 No license field.
+47 info package.json alt-utils@1.0.0 No repository field.
+48 info package.json firebase@3.1.0 No license field.
+49 info package.json node-uuid@1.4.7 No license field.
+50 info package.json raw-loader@0.5.1 No license field.
+51 info package.json react-tap-event-plugin@1.0.0 No license field.
+52 info package.json palette@0.0.1 No repository field.
+53 info package.json palette@0.0.1 No license field.
+54 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/package.json
+55 silly cache add args [ 'react-tag-input', null ]
+56 verbose cache add spec react-tag-input
+57 silly cache add parsed spec Result {
+57 silly cache add   raw: 'react-tag-input',
+57 silly cache add   scope: null,
+57 silly cache add   name: 'react-tag-input',
+57 silly cache add   rawSpec: '',
+57 silly cache add   spec: 'latest',
+57 silly cache add   type: 'tag' }
+58 silly addNamed react-tag-input@latest
+59 verbose addNamed "latest" is being treated as a dist-tag for react-tag-input
+60 info addNameTag [ 'react-tag-input', 'latest' ]
+61 silly mapToRegistry name react-tag-input
+62 silly mapToRegistry using default registry
+63 silly mapToRegistry registry https://registry.npmjs.org/
+64 silly mapToRegistry data Result {
+64 silly mapToRegistry   raw: 'react-tag-input',
+64 silly mapToRegistry   scope: null,
+64 silly mapToRegistry   name: 'react-tag-input',
+64 silly mapToRegistry   rawSpec: '',
+64 silly mapToRegistry   spec: 'latest',
+64 silly mapToRegistry   type: 'tag' }
+65 silly mapToRegistry uri https://registry.npmjs.org/react-tag-input
+66 verbose addNameTag registry:https://registry.npmjs.org/react-tag-input not in flight; fetching
+67 verbose request uri https://registry.npmjs.org/react-tag-input
+68 verbose request no auth needed
+69 info attempt registry request try #1 at 1:29:20 PM
+70 verbose request id 14d056a69771f9d0
+71 verbose etag "7BV7AU7HW48Q0H05UI6YOG1S9"
+72 http request GET https://registry.npmjs.org/react-tag-input
+73 http 200 https://registry.npmjs.org/react-tag-input
+74 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+74 verbose headers   etag: '"5OCKDCC5SQI0DP2PYGEZR6CSN"',
+74 verbose headers   'content-type': 'application/json',
+74 verbose headers   'content-encoding': 'gzip',
+74 verbose headers   'cache-control': 'max-age=300',
+74 verbose headers   'content-length': '11296',
+74 verbose headers   'accept-ranges': 'bytes',
+74 verbose headers   date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+74 verbose headers   via: '1.1 varnish',
+74 verbose headers   age: '0',
+74 verbose headers   connection: 'keep-alive',
+74 verbose headers   'x-served-by': 'cache-bos8230-BOS',
+74 verbose headers   'x-cache': 'MISS',
+74 verbose headers   'x-cache-hits': '0',
+74 verbose headers   'x-timer': 'S1468862957.702372,VS0,VE557',
+74 verbose headers   vary: 'Accept-Encoding' }
+75 silly get cb [ 200,
+75 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+75 silly get     etag: '"5OCKDCC5SQI0DP2PYGEZR6CSN"',
+75 silly get     'content-type': 'application/json',
+75 silly get     'content-encoding': 'gzip',
+75 silly get     'cache-control': 'max-age=300',
+75 silly get     'content-length': '11296',
+75 silly get     'accept-ranges': 'bytes',
+75 silly get     date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+75 silly get     via: '1.1 varnish',
+75 silly get     age: '0',
+75 silly get     connection: 'keep-alive',
+75 silly get     'x-served-by': 'cache-bos8230-BOS',
+75 silly get     'x-cache': 'MISS',
+75 silly get     'x-cache-hits': '0',
+75 silly get     'x-timer': 'S1468862957.702372,VS0,VE557',
+75 silly get     vary: 'Accept-Encoding' } ]
+76 verbose get saving react-tag-input to /Users/anyati/.npm/registry.npmjs.org/react-tag-input/.cache.json
+77 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+78 silly addNameTag next cb for react-tag-input with tag latest
+79 silly addNamed react-tag-input@4.0.0
+80 verbose addNamed "4.0.0" is a plain semver version for react-tag-input
+81 silly mapToRegistry name react-tag-input
+82 silly mapToRegistry using default registry
+83 silly mapToRegistry registry https://registry.npmjs.org/
+84 silly mapToRegistry data Result {
+84 silly mapToRegistry   raw: 'react-tag-input',
+84 silly mapToRegistry   scope: null,
+84 silly mapToRegistry   name: 'react-tag-input',
+84 silly mapToRegistry   rawSpec: '',
+84 silly mapToRegistry   spec: 'latest',
+84 silly mapToRegistry   type: 'tag' }
+85 silly mapToRegistry uri https://registry.npmjs.org/react-tag-input
+86 verbose addRemoteTarball https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz not in flight; adding
+87 verbose addRemoteTarball [ 'https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz',
+87 verbose addRemoteTarball   '9191578c3f918490dc80b4100d74d3fd2682118c' ]
+88 info retry fetch attempt 1 at 1:29:21 PM
+89 info attempt registry request try #1 at 1:29:21 PM
+90 http fetch GET https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz
+91 http fetch 200 https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz
+92 silly fetchAndShaCheck shasum 9191578c3f918490dc80b4100d74d3fd2682118c
+93 verbose addTmpTarball /var/folders/d9/644ckttd3d34l1382ydxfw_00000gp/T/npm-13443-385bf16f/registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz not in flight; adding
+94 verbose addTmpTarball already have metadata; skipping unpack for react-tag-input@4.0.0
+95 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+96 silly cache afterAdd react-tag-input@4.0.0
+97 verbose afterAdd /Users/anyati/.npm/react-tag-input/4.0.0/package/package.json not in flight; writing
+98 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+99 verbose afterAdd /Users/anyati/.npm/react-tag-input/4.0.0/package/package.json written
+100 silly install resolved [ { name: 'react-tag-input',
+100 silly install resolved     version: '4.0.0',
+100 silly install resolved     description: 'React tags is a fantastically simple tagging component for your React projects',
+100 silly install resolved     main: 'dist-modules/reactTags.js',
+100 silly install resolved     scripts:
+100 silly install resolved      { test: 'mocha test/.setup.js test/**/*-test.js',
+100 silly install resolved        'test-watch': 'mocha --watch test/.setup.js test/**/*-test.js',
+100 silly install resolved        dev: 'webpack-dev-server --hot --progress --colors --watch --display-error-details --content-base ./',
+100 silly install resolved        build: 'webpack -p && babel lib --out-dir dist-modules' },
+100 silly install resolved     keywords:
+100 silly install resolved      [ 'react',
+100 silly install resolved        'drag-drop',
+100 silly install resolved        'tags',
+100 silly install resolved        'tag input',
+100 silly install resolved        'react-component',
+100 silly install resolved        'autosuggest' ],
+100 silly install resolved     author: { name: 'Prakhar Srivastav' },
+100 silly install resolved     license: 'MIT',
+100 silly install resolved     repository:
+100 silly install resolved      { type: 'git',
+100 silly install resolved        url: 'git+https://github.com/prakhar1989/react-tags.git' },
+100 silly install resolved     dependencies:
+100 silly install resolved      { 'lodash.flow': '^3.3.0',
+100 silly install resolved        'react-dnd': '^2.0.2',
+100 silly install resolved        'react-dnd-html5-backend': '^2.0.0' },
+100 silly install resolved     peerDependencies: { react: '^15.1.0', 'react-dom': '^15.1.0' },
+100 silly install resolved     devDependencies:
+100 silly install resolved      { react: '^15.1.0',
+100 silly install resolved        'react-dom': '^15.1.0',
+100 silly install resolved        'babel-cli': '^6.9.0',
+100 silly install resolved        'babel-core': '^6.0.20',
+100 silly install resolved        'babel-eslint': '^4.1.3',
+100 silly install resolved        'babel-loader': '^6.0.1',
+100 silly install resolved        'babel-preset-es2015': '^6.0.15',
+100 silly install resolved        'babel-preset-react': '^6.0.15',
+100 silly install resolved        'babel-preset-stage-0': '^6.0.15',
+100 silly install resolved        'babel-register': '^6.9.0',
+100 silly install resolved        chai: '^3.5.0',
+100 silly install resolved        enzyme: '^2.3.0',
+100 silly install resolved        jsdom: '^9.4.0',
+100 silly install resolved        mocha: '^2.5.3',
+100 silly install resolved        'react-addons-test-utils': '^15.1.0',
+100 silly install resolved        'react-dnd-test-backend': '^1.0.2',
+100 silly install resolved        sinon: '^1.17.4',
+100 silly install resolved        webpack: '^1.13.1',
+100 silly install resolved        'webpack-dev-server': '^1.14.1' },
+100 silly install resolved     gitHead: '37cba21c8839885a416247b06f0c16574a94c0a8',
+100 silly install resolved     bugs: { url: 'https://github.com/prakhar1989/react-tags/issues' },
+100 silly install resolved     homepage: 'https://github.com/prakhar1989/react-tags#readme',
+100 silly install resolved     _id: 'react-tag-input@4.0.0',
+100 silly install resolved     _shasum: '9191578c3f918490dc80b4100d74d3fd2682118c',
+100 silly install resolved     _from: 'react-tag-input@latest',
+100 silly install resolved     _npmVersion: '3.8.6',
+100 silly install resolved     _nodeVersion: '6.1.0',
+100 silly install resolved     _npmUser: { name: 'prakhar1989', email: 'prakhar1989@gmail.com' },
+100 silly install resolved     dist:
+100 silly install resolved      { shasum: '9191578c3f918490dc80b4100d74d3fd2682118c',
+100 silly install resolved        tarball: 'https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz' },
+100 silly install resolved     maintainers: [ [Object] ],
+100 silly install resolved     _npmOperationalInternal:
+100 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+100 silly install resolved        tmp: 'tmp/react-tag-input-4.0.0.tgz_1468592575160_0.6424624130595475' },
+100 silly install resolved     directories: {},
+100 silly install resolved     _resolved: 'https://registry.npmjs.org/react-tag-input/-/react-tag-input-4.0.0.tgz' } ]
+101 info install react-tag-input@4.0.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+102 info installOne react-tag-input@4.0.0
+103 verbose installOne of react-tag-input to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding not in flight; installing
+104 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+105 verbose lock using /Users/anyati/.npm/_locks/react-tag-input-a523263ffff91988.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+106 silly install write writing react-tag-input 4.0.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+107 verbose unbuild node_modules/react-tag-input
+108 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+109 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+110 verbose tar unpack /Users/anyati/.npm/react-tag-input/4.0.0/package.tgz
+111 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+112 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input is being purged
+113 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+114 silly gunzTarPerm modes [ '755', '644' ]
+115 silly gunzTarPerm extractEntry package.json
+116 silly gunzTarPerm extractEntry .npmignore
+117 silly gunzTarPerm extractEntry README.md
+118 silly gunzTarPerm extractEntry LICENSE
+119 silly gunzTarPerm extractEntry webpack.config.js
+120 silly gunzTarPerm extractEntry demo.gif
+121 silly gunzTarPerm extractEntry dist/ReactTags.min.js
+122 silly gunzTarPerm extractEntry example/main.js
+123 silly gunzTarPerm extractEntry example/index.html
+124 silly gunzTarPerm extractEntry example/reactTags.css
+125 silly gunzTarPerm extractEntry example/vendor/JSXTransformer.js
+126 silly gunzTarPerm extractEntry example/vendor/ReactDND.min.js
+127 silly gunzTarPerm extractEntry lib/ReactTags.js
+128 silly gunzTarPerm extractEntry lib/Suggestions.js
+129 silly gunzTarPerm extractEntry lib/Tag.js
+130 silly gunzTarPerm extractEntry test/.setup.js
+131 silly gunzTarPerm extractEntry test/reactTags-test.js
+132 silly gunzTarPerm extractEntry test/suggestions-test.js
+133 silly gunzTarPerm extractEntry test/tag-test.js
+134 silly gunzTarPerm extractEntry .babelrc
+135 silly gunzTarPerm extractEntry dist-modules/Suggestions.js
+136 silly gunzTarPerm extractEntry dist-modules/Tag.js
+137 silly gunzTarPerm extractEntry dist-modules/reactTags.js
+138 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/package.json
+139 info preinstall react-tag-input@4.0.0
+140 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/package.json
+141 silly prepareForInstallMany adding lodash.flow@^3.3.0 from react-tag-input dependencies
+142 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/package.json
+143 silly cache add args [ 'lodash.flow@^3.3.0', null ]
+144 verbose cache add spec lodash.flow@^3.3.0
+145 silly cache add parsed spec Result {
+145 silly cache add   raw: 'lodash.flow@^3.3.0',
+145 silly cache add   scope: null,
+145 silly cache add   name: 'lodash.flow',
+145 silly cache add   rawSpec: '^3.3.0',
+145 silly cache add   spec: '>=3.3.0 <4.0.0',
+145 silly cache add   type: 'range' }
+146 silly addNamed lodash.flow@>=3.3.0 <4.0.0
+147 verbose addNamed ">=3.3.0 <4.0.0" is a valid semver range for lodash.flow
+148 silly addNameRange { name: 'lodash.flow', range: '>=3.3.0 <4.0.0', hasData: false }
+149 silly mapToRegistry name lodash.flow
+150 silly mapToRegistry using default registry
+151 silly mapToRegistry registry https://registry.npmjs.org/
+152 silly mapToRegistry data Result {
+152 silly mapToRegistry   raw: 'lodash.flow',
+152 silly mapToRegistry   scope: null,
+152 silly mapToRegistry   name: 'lodash.flow',
+152 silly mapToRegistry   rawSpec: '',
+152 silly mapToRegistry   spec: 'latest',
+152 silly mapToRegistry   type: 'tag' }
+153 silly mapToRegistry uri https://registry.npmjs.org/lodash.flow
+154 verbose addNameRange registry:https://registry.npmjs.org/lodash.flow not in flight; fetching
+155 verbose request uri https://registry.npmjs.org/lodash.flow
+156 verbose request no auth needed
+157 info attempt registry request try #1 at 1:29:21 PM
+158 http request GET https://registry.npmjs.org/lodash.flow
+159 http 200 https://registry.npmjs.org/lodash.flow
+160 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+160 verbose headers   etag: '"2IFQ1JV5K6Z1BGCGIB0TC4SSI"',
+160 verbose headers   'content-type': 'application/json',
+160 verbose headers   'content-encoding': 'gzip',
+160 verbose headers   'cache-control': 'max-age=300',
+160 verbose headers   'content-length': '2057',
+160 verbose headers   'accept-ranges': 'bytes',
+160 verbose headers   date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+160 verbose headers   via: '1.1 varnish',
+160 verbose headers   age: '0',
+160 verbose headers   connection: 'keep-alive',
+160 verbose headers   'x-served-by': 'cache-bos8230-BOS',
+160 verbose headers   'x-cache': 'MISS',
+160 verbose headers   'x-cache-hits': '0',
+160 verbose headers   'x-timer': 'S1468862958.577188,VS0,VE158',
+160 verbose headers   vary: 'Accept-Encoding' }
+161 silly get cb [ 200,
+161 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+161 silly get     etag: '"2IFQ1JV5K6Z1BGCGIB0TC4SSI"',
+161 silly get     'content-type': 'application/json',
+161 silly get     'content-encoding': 'gzip',
+161 silly get     'cache-control': 'max-age=300',
+161 silly get     'content-length': '2057',
+161 silly get     'accept-ranges': 'bytes',
+161 silly get     date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+161 silly get     via: '1.1 varnish',
+161 silly get     age: '0',
+161 silly get     connection: 'keep-alive',
+161 silly get     'x-served-by': 'cache-bos8230-BOS',
+161 silly get     'x-cache': 'MISS',
+161 silly get     'x-cache-hits': '0',
+161 silly get     'x-timer': 'S1468862958.577188,VS0,VE158',
+161 silly get     vary: 'Accept-Encoding' } ]
+162 verbose get saving lodash.flow to /Users/anyati/.npm/registry.npmjs.org/lodash.flow/.cache.json
+163 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+164 silly addNameRange number 2 { name: 'lodash.flow', range: '>=3.3.0 <4.0.0', hasData: true }
+165 silly addNameRange versions [ 'lodash.flow',
+165 silly addNameRange   [ '3.0.0', '3.0.1', '3.0.2', '3.1.0', '3.2.0', '3.2.1', '3.3.0' ] ]
+166 silly addNamed lodash.flow@3.3.0
+167 verbose addNamed "3.3.0" is a plain semver version for lodash.flow
+168 silly mapToRegistry name lodash.flow
+169 silly mapToRegistry using default registry
+170 silly mapToRegistry registry https://registry.npmjs.org/
+171 silly mapToRegistry data Result {
+171 silly mapToRegistry   raw: 'lodash.flow',
+171 silly mapToRegistry   scope: null,
+171 silly mapToRegistry   name: 'lodash.flow',
+171 silly mapToRegistry   rawSpec: '',
+171 silly mapToRegistry   spec: 'latest',
+171 silly mapToRegistry   type: 'tag' }
+172 silly mapToRegistry uri https://registry.npmjs.org/lodash.flow
+173 verbose addRemoteTarball https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz not in flight; adding
+174 verbose addRemoteTarball [ 'https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz',
+174 verbose addRemoteTarball   '6dfd0e9b60e763ace0a36dbd59fe46885c2452a6' ]
+175 info retry fetch attempt 1 at 1:29:21 PM
+176 info attempt registry request try #1 at 1:29:21 PM
+177 http fetch GET https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz
+178 http fetch 200 https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz
+179 silly fetchAndShaCheck shasum 6dfd0e9b60e763ace0a36dbd59fe46885c2452a6
+180 verbose addTmpTarball /var/folders/d9/644ckttd3d34l1382ydxfw_00000gp/T/npm-13443-385bf16f/registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz not in flight; adding
+181 verbose addTmpTarball already have metadata; skipping unpack for lodash.flow@3.3.0
+182 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+183 silly cache afterAdd lodash.flow@3.3.0
+184 verbose afterAdd /Users/anyati/.npm/lodash.flow/3.3.0/package/package.json not in flight; writing
+185 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+186 verbose afterAdd /Users/anyati/.npm/lodash.flow/3.3.0/package/package.json written
+187 silly install resolved [ { name: 'lodash.flow',
+187 silly install resolved     version: '3.3.0',
+187 silly install resolved     description: 'The lodash method `_.flow` exported as a module.',
+187 silly install resolved     homepage: 'https://lodash.com/',
+187 silly install resolved     icon: 'https://lodash.com/icon.svg',
+187 silly install resolved     license: 'MIT',
+187 silly install resolved     keywords: [ 'lodash-modularized', 'flow' ],
+187 silly install resolved     author:
+187 silly install resolved      { name: 'John-David Dalton',
+187 silly install resolved        email: 'john.david.dalton@gmail.com',
+187 silly install resolved        url: 'http://allyoucanleet.com/' },
+187 silly install resolved     contributors: [ [Object], [Object], [Object] ],
+187 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+187 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+187 silly install resolved     dependencies: { 'lodash._baseflatten': '~4.2.0', 'lodash.rest': '^4.0.0' },
+187 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+187 silly install resolved     _id: 'lodash.flow@3.3.0',
+187 silly install resolved     _shasum: '6dfd0e9b60e763ace0a36dbd59fe46885c2452a6',
+187 silly install resolved     _from: 'lodash.flow@>=3.3.0 <4.0.0',
+187 silly install resolved     _npmVersion: '2.15.3',
+187 silly install resolved     _nodeVersion: '5.5.0',
+187 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+187 silly install resolved     dist:
+187 silly install resolved      { shasum: '6dfd0e9b60e763ace0a36dbd59fe46885c2452a6',
+187 silly install resolved        tarball: 'https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz' },
+187 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+187 silly install resolved     _npmOperationalInternal:
+187 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+187 silly install resolved        tmp: 'tmp/lodash.flow-3.3.0.tgz_1460393659107_0.11622576601803303' },
+187 silly install resolved     directories: {},
+187 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.3.0.tgz' } ]
+188 info install lodash.flow@3.3.0 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+189 info installOne lodash.flow@3.3.0
+190 verbose installOne of lodash.flow to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input not in flight; installing
+191 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+192 verbose lock using /Users/anyati/.npm/_locks/lodash-flow-87a4252b1f962098.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+193 silly install write writing lodash.flow 3.3.0 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+194 verbose unbuild node_modules/react-tag-input/node_modules/lodash.flow
+195 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+196 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+197 verbose tar unpack /Users/anyati/.npm/lodash.flow/3.3.0/package.tgz
+198 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+199 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow is being purged
+200 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+201 silly gunzTarPerm modes [ '755', '644' ]
+202 silly gunzTarPerm extractEntry package.json
+203 silly gunzTarPerm extractEntry README.md
+204 silly gunzTarPerm extractEntry LICENSE
+205 silly gunzTarPerm extractEntry index.js
+206 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/package.json
+207 info preinstall lodash.flow@3.3.0
+208 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/package.json
+209 silly prepareForInstallMany adding lodash._baseflatten@~4.2.0 from lodash.flow dependencies
+210 silly prepareForInstallMany adding lodash.rest@^4.0.0 from lodash.flow dependencies
+211 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/package.json
+212 silly cache add args [ 'lodash._baseflatten@~4.2.0', null ]
+213 verbose cache add spec lodash._baseflatten@~4.2.0
+214 silly cache add args [ 'lodash.rest@^4.0.0', null ]
+215 verbose cache add spec lodash.rest@^4.0.0
+216 silly cache add parsed spec Result {
+216 silly cache add   raw: 'lodash._baseflatten@~4.2.0',
+216 silly cache add   scope: null,
+216 silly cache add   name: 'lodash._baseflatten',
+216 silly cache add   rawSpec: '~4.2.0',
+216 silly cache add   spec: '>=4.2.0 <4.3.0',
+216 silly cache add   type: 'range' }
+217 silly addNamed lodash._baseflatten@>=4.2.0 <4.3.0
+218 verbose addNamed ">=4.2.0 <4.3.0" is a valid semver range for lodash._baseflatten
+219 silly addNameRange { name: 'lodash._baseflatten',
+219 silly addNameRange   range: '>=4.2.0 <4.3.0',
+219 silly addNameRange   hasData: false }
+220 silly mapToRegistry name lodash._baseflatten
+221 silly mapToRegistry using default registry
+222 silly mapToRegistry registry https://registry.npmjs.org/
+223 silly mapToRegistry data Result {
+223 silly mapToRegistry   raw: 'lodash._baseflatten',
+223 silly mapToRegistry   scope: null,
+223 silly mapToRegistry   name: 'lodash._baseflatten',
+223 silly mapToRegistry   rawSpec: '',
+223 silly mapToRegistry   spec: 'latest',
+223 silly mapToRegistry   type: 'tag' }
+224 silly mapToRegistry uri https://registry.npmjs.org/lodash._baseflatten
+225 verbose addNameRange registry:https://registry.npmjs.org/lodash._baseflatten not in flight; fetching
+226 silly cache add parsed spec Result {
+226 silly cache add   raw: 'lodash.rest@^4.0.0',
+226 silly cache add   scope: null,
+226 silly cache add   name: 'lodash.rest',
+226 silly cache add   rawSpec: '^4.0.0',
+226 silly cache add   spec: '>=4.0.0 <5.0.0',
+226 silly cache add   type: 'range' }
+227 silly addNamed lodash.rest@>=4.0.0 <5.0.0
+228 verbose addNamed ">=4.0.0 <5.0.0" is a valid semver range for lodash.rest
+229 silly addNameRange { name: 'lodash.rest', range: '>=4.0.0 <5.0.0', hasData: false }
+230 silly mapToRegistry name lodash.rest
+231 silly mapToRegistry using default registry
+232 silly mapToRegistry registry https://registry.npmjs.org/
+233 silly mapToRegistry data Result {
+233 silly mapToRegistry   raw: 'lodash.rest',
+233 silly mapToRegistry   scope: null,
+233 silly mapToRegistry   name: 'lodash.rest',
+233 silly mapToRegistry   rawSpec: '',
+233 silly mapToRegistry   spec: 'latest',
+233 silly mapToRegistry   type: 'tag' }
+234 silly mapToRegistry uri https://registry.npmjs.org/lodash.rest
+235 verbose addNameRange registry:https://registry.npmjs.org/lodash.rest not in flight; fetching
+236 verbose request uri https://registry.npmjs.org/lodash._baseflatten
+237 verbose request no auth needed
+238 info attempt registry request try #1 at 1:29:21 PM
+239 verbose etag "CZKE4UYJ3LZJK7QDMV9SN8J69"
+240 http request GET https://registry.npmjs.org/lodash._baseflatten
+241 verbose request uri https://registry.npmjs.org/lodash.rest
+242 verbose request no auth needed
+243 info attempt registry request try #1 at 1:29:21 PM
+244 verbose etag "DVFX5VT4H724C93A1IKHU2WMM"
+245 http request GET https://registry.npmjs.org/lodash.rest
+246 http 304 https://registry.npmjs.org/lodash._baseflatten
+247 verbose headers { date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+247 verbose headers   via: '1.1 varnish',
+247 verbose headers   'cache-control': 'max-age=300',
+247 verbose headers   etag: '"CZKE4UYJ3LZJK7QDMV9SN8J69"',
+247 verbose headers   age: '5',
+247 verbose headers   connection: 'keep-alive',
+247 verbose headers   'x-served-by': 'cache-bos8230-BOS',
+247 verbose headers   'x-cache': 'HIT',
+247 verbose headers   'x-cache-hits': '1',
+247 verbose headers   'x-timer': 'S1468862958.786857,VS0,VE0',
+247 verbose headers   vary: 'Accept-Encoding' }
+248 silly get cb [ 304,
+248 silly get   { date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+248 silly get     via: '1.1 varnish',
+248 silly get     'cache-control': 'max-age=300',
+248 silly get     etag: '"CZKE4UYJ3LZJK7QDMV9SN8J69"',
+248 silly get     age: '5',
+248 silly get     connection: 'keep-alive',
+248 silly get     'x-served-by': 'cache-bos8230-BOS',
+248 silly get     'x-cache': 'HIT',
+248 silly get     'x-cache-hits': '1',
+248 silly get     'x-timer': 'S1468862958.786857,VS0,VE0',
+248 silly get     vary: 'Accept-Encoding' } ]
+249 verbose etag https://registry.npmjs.org/lodash._baseflatten from cache
+250 verbose get saving lodash._baseflatten to /Users/anyati/.npm/registry.npmjs.org/lodash._baseflatten/.cache.json
+251 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+252 silly addNameRange number 2 { name: 'lodash._baseflatten',
+252 silly addNameRange   range: '>=4.2.0 <4.3.0',
+252 silly addNameRange   hasData: true }
+253 silly addNameRange versions [ 'lodash._baseflatten',
+253 silly addNameRange   [ '2.0.0',
+253 silly addNameRange     '2.1.0',
+253 silly addNameRange     '2.2.0',
+253 silly addNameRange     '2.2.1',
+253 silly addNameRange     '2.3.0',
+253 silly addNameRange     '2.4.0',
+253 silly addNameRange     '2.4.1',
+253 silly addNameRange     '3.0.0',
+253 silly addNameRange     '3.1.0',
+253 silly addNameRange     '3.1.1',
+253 silly addNameRange     '3.1.2',
+253 silly addNameRange     '3.1.3',
+253 silly addNameRange     '3.1.4',
+253 silly addNameRange     '4.0.0',
+253 silly addNameRange     '4.0.1',
+253 silly addNameRange     '4.1.0',
+253 silly addNameRange     '4.1.1',
+253 silly addNameRange     '4.2.0',
+253 silly addNameRange     '4.2.1' ] ]
+254 silly addNamed lodash._baseflatten@4.2.1
+255 verbose addNamed "4.2.1" is a plain semver version for lodash._baseflatten
+256 silly cache afterAdd lodash._baseflatten@4.2.1
+257 verbose afterAdd /Users/anyati/.npm/lodash._baseflatten/4.2.1/package/package.json not in flight; writing
+258 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+259 verbose afterAdd /Users/anyati/.npm/lodash._baseflatten/4.2.1/package/package.json written
+260 http 304 https://registry.npmjs.org/lodash.rest
+261 verbose headers { date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+261 verbose headers   via: '1.1 varnish',
+261 verbose headers   'cache-control': 'max-age=300',
+261 verbose headers   etag: '"DVFX5VT4H724C93A1IKHU2WMM"',
+261 verbose headers   age: '60',
+261 verbose headers   connection: 'keep-alive',
+261 verbose headers   'x-served-by': 'cache-bos8225-BOS',
+261 verbose headers   'x-cache': 'HIT',
+261 verbose headers   'x-cache-hits': '1',
+261 verbose headers   'x-timer': 'S1468862958.805485,VS0,VE0',
+261 verbose headers   vary: 'Accept-Encoding' }
+262 silly get cb [ 304,
+262 silly get   { date: 'Mon, 18 Jul 2016 17:29:18 GMT',
+262 silly get     via: '1.1 varnish',
+262 silly get     'cache-control': 'max-age=300',
+262 silly get     etag: '"DVFX5VT4H724C93A1IKHU2WMM"',
+262 silly get     age: '60',
+262 silly get     connection: 'keep-alive',
+262 silly get     'x-served-by': 'cache-bos8225-BOS',
+262 silly get     'x-cache': 'HIT',
+262 silly get     'x-cache-hits': '1',
+262 silly get     'x-timer': 'S1468862958.805485,VS0,VE0',
+262 silly get     vary: 'Accept-Encoding' } ]
+263 verbose etag https://registry.npmjs.org/lodash.rest from cache
+264 verbose get saving lodash.rest to /Users/anyati/.npm/registry.npmjs.org/lodash.rest/.cache.json
+265 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+266 silly addNameRange number 2 { name: 'lodash.rest', range: '>=4.0.0 <5.0.0', hasData: true }
+267 silly addNameRange versions [ 'lodash.rest',
+267 silly addNameRange   [ '2.0.0',
+267 silly addNameRange     '2.1.0',
+267 silly addNameRange     '2.2.0',
+267 silly addNameRange     '2.2.1',
+267 silly addNameRange     '2.3.0',
+267 silly addNameRange     '2.4.0',
+267 silly addNameRange     '2.4.1',
+267 silly addNameRange     '3.0.0',
+267 silly addNameRange     '4.0.0',
+267 silly addNameRange     '4.0.1',
+267 silly addNameRange     '4.0.2',
+267 silly addNameRange     '4.0.3' ] ]
+268 silly addNamed lodash.rest@4.0.3
+269 verbose addNamed "4.0.3" is a plain semver version for lodash.rest
+270 silly cache afterAdd lodash.rest@4.0.3
+271 verbose afterAdd /Users/anyati/.npm/lodash.rest/4.0.3/package/package.json not in flight; writing
+272 verbose correctMkdir /Users/anyati/.npm correctMkdir not in flight; initializing
+273 verbose afterAdd /Users/anyati/.npm/lodash.rest/4.0.3/package/package.json written
+274 silly install resolved [ { name: 'lodash._baseflatten',
+274 silly install resolved     version: '4.2.1',
+274 silly install resolved     description: 'The internal lodash function `baseFlatten` exported as a module.',
+274 silly install resolved     homepage: 'https://lodash.com/',
+274 silly install resolved     icon: 'https://lodash.com/icon.svg',
+274 silly install resolved     license: 'MIT',
+274 silly install resolved     author:
+274 silly install resolved      { name: 'John-David Dalton',
+274 silly install resolved        email: 'john.david.dalton@gmail.com',
+274 silly install resolved        url: 'http://allyoucanleet.com/' },
+274 silly install resolved     contributors: [ [Object], [Object], [Object] ],
+274 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+274 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+274 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+274 silly install resolved     _id: 'lodash._baseflatten@4.2.1',
+274 silly install resolved     _shasum: '54acad5e6ef53532a5b8269c0ad725470cfd9208',
+274 silly install resolved     _from: 'lodash._baseflatten@>=4.2.0 <4.3.0',
+274 silly install resolved     _npmVersion: '2.15.5',
+274 silly install resolved     _nodeVersion: '5.5.0',
+274 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+274 silly install resolved     dist:
+274 silly install resolved      { shasum: '54acad5e6ef53532a5b8269c0ad725470cfd9208',
+274 silly install resolved        tarball: 'https://registry.npmjs.org/lodash._baseflatten/-/lodash._baseflatten-4.2.1.tgz' },
+274 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+274 silly install resolved     _npmOperationalInternal:
+274 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+274 silly install resolved        tmp: 'tmp/lodash._baseflatten-4.2.1.tgz_1463062009548_0.7446099303197116' },
+274 silly install resolved     directories: {},
+274 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._baseflatten/-/lodash._baseflatten-4.2.1.tgz',
+274 silly install resolved     readme: 'ERROR: No README data found!' },
+274 silly install resolved   { name: 'lodash.rest',
+274 silly install resolved     version: '4.0.3',
+274 silly install resolved     description: 'The lodash method `_.rest` exported as a module.',
+274 silly install resolved     homepage: 'https://lodash.com/',
+274 silly install resolved     icon: 'https://lodash.com/icon.svg',
+274 silly install resolved     license: 'MIT',
+274 silly install resolved     keywords: [ 'lodash-modularized', 'rest' ],
+274 silly install resolved     author:
+274 silly install resolved      { name: 'John-David Dalton',
+274 silly install resolved        email: 'john.david.dalton@gmail.com',
+274 silly install resolved        url: 'http://allyoucanleet.com/' },
+274 silly install resolved     contributors: [ [Object], [Object], [Object] ],
+274 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+274 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+274 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+274 silly install resolved     _id: 'lodash.rest@4.0.3',
+274 silly install resolved     _shasum: '4c1c32c40028087250fabf70d42e0151548f48c5',
+274 silly install resolved     _from: 'lodash.rest@>=4.0.0 <5.0.0',
+274 silly install resolved     _npmVersion: '2.15.5',
+274 silly install resolved     _nodeVersion: '5.5.0',
+274 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+274 silly install resolved     dist:
+274 silly install resolved      { shasum: '4c1c32c40028087250fabf70d42e0151548f48c5',
+274 silly install resolved        tarball: 'https://registry.npmjs.org/lodash.rest/-/lodash.rest-4.0.3.tgz' },
+274 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+274 silly install resolved     _npmOperationalInternal:
+274 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+274 silly install resolved        tmp: 'tmp/lodash.rest-4.0.3.tgz_1463062507321_0.6458017621189356' },
+274 silly install resolved     directories: {},
+274 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.rest/-/lodash.rest-4.0.3.tgz',
+274 silly install resolved     readme: 'ERROR: No README data found!' } ]
+275 info install lodash._baseflatten@4.2.1 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+276 info install lodash.rest@4.0.3 into /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+277 info installOne lodash._baseflatten@4.2.1
+278 verbose installOne of lodash._baseflatten to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow not in flight; installing
+279 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+280 info installOne lodash.rest@4.0.3
+281 verbose installOne of lodash.rest to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow not in flight; installing
+282 verbose correctMkdir /Users/anyati/.npm/_locks correctMkdir not in flight; initializing
+283 verbose lock using /Users/anyati/.npm/_locks/lodash-baseflatten-83ef6bba0af14485.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+284 verbose lock using /Users/anyati/.npm/_locks/lodash-rest-f3b6199145dcefb9.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+285 silly install write writing lodash._baseflatten 4.2.1 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+286 silly install write writing lodash.rest 4.0.3 to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+287 verbose unbuild node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+288 verbose unbuild node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+289 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+290 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+291 verbose tar unpack /Users/anyati/.npm/lodash._baseflatten/4.2.1/package.tgz
+292 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+293 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten is being purged
+294 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+295 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest is being purged from base /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+296 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+297 silly gunzTarPerm modes [ '755', '644' ]
+298 verbose tar unpack /Users/anyati/.npm/lodash.rest/4.0.3/package.tgz
+299 verbose tar unpacking to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+300 silly gentlyRm /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest is being purged
+301 verbose gentlyRm don't care about contents; nuking /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+302 silly gunzTarPerm modes [ '755', '644' ]
+303 silly gunzTarPerm extractEntry package.json
+304 silly gunzTarPerm extractEntry package.json
+305 silly gunzTarPerm extractEntry README.md
+306 silly gunzTarPerm extractEntry LICENSE
+307 silly gunzTarPerm extractEntry README.md
+308 silly gunzTarPerm extractEntry LICENSE
+309 silly gunzTarPerm extractEntry index.js
+310 silly gunzTarPerm extractEntry index.js
+311 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest/package.json
+312 verbose write writing to /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten/package.json
+313 info preinstall lodash.rest@4.0.3
+314 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest/package.json
+315 info preinstall lodash._baseflatten@4.2.1
+316 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest/package.json
+317 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten/package.json
+318 silly install resolved []
+319 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+320 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+321 verbose readDependencies loading dependencies from /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten/package.json
+322 info linkStuff lodash.rest@4.0.3
+323 silly linkStuff lodash.rest@4.0.3 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules as its parent node_modules
+324 silly install resolved []
+325 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+326 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+327 info linkStuff lodash._baseflatten@4.2.1
+328 silly linkStuff lodash._baseflatten@4.2.1 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules as its parent node_modules
+329 verbose linkBins lodash.rest@4.0.3
+330 verbose linkMans lodash.rest@4.0.3
+331 verbose rebuildBundles lodash.rest@4.0.3
+332 info install lodash.rest@4.0.3
+333 info postinstall lodash.rest@4.0.3
+334 verbose linkBins lodash._baseflatten@4.2.1
+335 verbose linkMans lodash._baseflatten@4.2.1
+336 verbose rebuildBundles lodash._baseflatten@4.2.1
+337 verbose unlock done using /Users/anyati/.npm/_locks/lodash-rest-f3b6199145dcefb9.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash.rest
+338 info install lodash._baseflatten@4.2.1
+339 info postinstall lodash._baseflatten@4.2.1
+340 verbose unlock done using /Users/anyati/.npm/_locks/lodash-baseflatten-83ef6bba0af14485.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow/node_modules/lodash._baseflatten
+341 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+342 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+343 info linkStuff lodash.flow@3.3.0
+344 silly linkStuff lodash.flow@3.3.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules as its parent node_modules
+345 verbose linkBins lodash.flow@3.3.0
+346 verbose linkMans lodash.flow@3.3.0
+347 verbose rebuildBundles lodash.flow@3.3.0
+348 verbose rebuildBundles [ 'lodash._baseflatten', 'lodash.rest' ]
+349 info install lodash.flow@3.3.0
+350 info postinstall lodash.flow@3.3.0
+351 verbose unlock done using /Users/anyati/.npm/_locks/lodash-flow-87a4252b1f962098.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input/node_modules/lodash.flow
+352 verbose about to build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+353 info build /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+354 info linkStuff react-tag-input@4.0.0
+355 silly linkStuff react-tag-input@4.0.0 has /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules as its parent node_modules
+356 verbose linkBins react-tag-input@4.0.0
+357 verbose linkMans react-tag-input@4.0.0
+358 verbose rebuildBundles react-tag-input@4.0.0
+359 verbose rebuildBundles [ 'lodash.flow' ]
+360 info install react-tag-input@4.0.0
+361 info postinstall react-tag-input@4.0.0
+362 verbose unlock done using /Users/anyati/.npm/_locks/react-tag-input-a523263ffff91988.lock for /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/node_modules/react-tag-input
+363 verbose validateInstall loading /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding/package.json for validation
+364 verbose stack Error: The package react-dom@15.2.1 does not satisfy its siblings' peerDependencies requirements!
+364 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+364 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+364 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+364 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+364 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+364 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+364 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+364 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+364 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+364 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+365 verbose cwd /Users/anyati/Documents/MIT/2 - Sophomore Year/Tekuma/art-onboarding
+366 error Darwin 15.3.0
+367 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--save" "react-tag-input"
+368 error node v4.4.7
+369 error npm  v2.15.8
+370 error code EPEERINVALID
+371 error peerinvalid The package react-dom@15.2.1 does not satisfy its siblings' peerDependencies requirements!
+371 error peerinvalid Peer material-ui@0.15.2 wants react-dom@^15.0.0
+371 error peerinvalid Peer react-confirm@0.1.13 wants react-dom@^0.14.7
+371 error peerinvalid Peer react-tag-input@4.0.0 wants react-dom@^15.1.0
+371 error peerinvalid Peer react-bootstrap@0.29.5 wants react-dom@>=0.14.0
+372 verbose exit [ 1, true ]

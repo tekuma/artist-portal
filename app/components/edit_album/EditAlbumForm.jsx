@@ -40,7 +40,7 @@ export default class EditAlbumForm extends React.Component {
                                         id          ="album-title"
                                         name        ="title"
                                         placeholder ="What is the name of this album?"
-                                        value       ={this.props.value.name}
+                                        defaultValue={this.props.value.name}
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {title: e.target.value}))

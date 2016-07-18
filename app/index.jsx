@@ -6,6 +6,7 @@ import App      from './App.jsx';
 // Styles
 import './assets/stylesheets/style.css';
 import './assets/stylesheets/spinkit.css';
+import './assets/stylesheets/reactTags.css';
 import './assets/stylesheets/animation.css';
 
 
