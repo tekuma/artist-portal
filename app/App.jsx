@@ -9,9 +9,9 @@
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
-import Snackbar         from 'material-ui/Snackbar';
-import getMuiTheme      from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Snackbar           from 'material-ui/Snackbar';
+import getMuiTheme        from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
 
 // Files
 import PostAuth           from './components/main/PostAuth';
@@ -26,7 +26,6 @@ var config = {
     databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
-
 firebase.initializeApp(config);
 
 //  # Global Variables
@@ -37,7 +36,7 @@ const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb auth
 
 /**
- * TODO
+ * a
  */
 export default class App extends React.Component {
     state = {
@@ -478,6 +477,10 @@ export default class App extends React.Component {
 
         //>>>> Instantiate public/onboarders/thisUID
         // and check if isNewUser.
+        console.log("*****************************");
+        console.log("About to attempt database connection");
+        console.log("auth status:", firebase.auth().currentUser);
+        console.log("auth obj:  ", user);
         const usersRef = firebase.database().ref('public/onboarders');
         usersRef.once('value').then( (snapshot) => {
             //check if user already exists at node
