@@ -49,27 +49,25 @@ export default class LandingPage extends React.Component {
                             </div>
 
                             <form className="signup-form page-1">
-                                <div className="social-wrapper">
-                                    <div className="social-buttons">
-                                        <div
-                                            onClick={this.props.authenticateWithFB}
-                                            className="social-button facebook">
-                                            <div className="social-icon">
-                                                <img src="../assets/images/icons/facebook.svg" />
-                                            </div>
-                                            <div className="social-writing">
-                                                <h3>Log In with Facebook</h3>
-                                            </div>
+                                <div className="social-buttons-wrapper">
+                                    <div
+                                        onClick={this.props.authenticateWithFB}
+                                        className="social-button facebook">
+                                        <div className="social-icon">
+                                            <img src="../assets/images/icons/facebook.svg" />
                                         </div>
-                                        <div
-                                            onClick={this.props.authenticateWithGoogle}
-                                            className="social-button google">
-                                            <div className="social-icon">
-                                                <img src="../assets/images/icons/google.svg" />
-                                            </div>
-                                            <div className="social-writing">
-                                                <h3>Log In with Google</h3>
-                                            </div>
+                                        <div className="social-writing">
+                                            <h3>Log In with Facebook</h3>
+                                        </div>
+                                    </div>
+                                    <div
+                                        onClick={this.props.authenticateWithGoogle}
+                                        className="social-button google">
+                                        <div className="social-icon">
+                                            <img src="../assets/images/icons/google.svg" />
+                                        </div>
+                                        <div className="social-writing">
+                                            <h3>Log In with Google</h3>
                                         </div>
                                     </div>
                                 </div>
