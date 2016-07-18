@@ -49,9 +49,13 @@ export default class PublicEdit extends React.Component {
         let avatarStyle = {
             backgroundImage: 'url(' + avatar + ')'
         }
+        let age;
 
-        let age = `${this.props.user.dob.split("-")[1]}-${this.props.user.dob.split("-")[0]}-${this.props.user.dob.split("-")[2]}`;
-        
+        if (this.props.user.dob) {
+            age = `${this.props.user.dob.split("-")[1]}-${this.props.user.dob.split("-")[0]}-${this.props.user.dob.split("-")[2]}`;
+        }
+
+
         return(
             <div>
                 <div className="edit-profile-heading">
@@ -192,7 +196,7 @@ export default class PublicEdit extends React.Component {
                                     <select
                                         id="accordion-dob-month"
                                         className="dob"
-                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[1] : null}
+                                        defaultValue={this.props.user.dob ? this.props.user.dob.split("-")[1] : null}
                                         ref="dobMonth"
                                         style={this.state.errorType.month? errorStyle : null}>
                                         <option value="" disabled="">Month</option>
@@ -214,7 +218,7 @@ export default class PublicEdit extends React.Component {
                                     <input
                                         type="number"
                                         id="accordion-dob-day"
-                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[0] : null}
+                                        defaultValue={this.props.user.dob ? this.props.user.dob.split("-")[0] : null}
                                         className="dob"
                                         ref="dobDay"
                                         style={this.state.errorType.day ? errorStyle : null}
@@ -228,7 +232,7 @@ export default class PublicEdit extends React.Component {
                                     <input
                                         type="number"
                                         id="accordion-dob-year"
-                                        defaultValue={this.props.user.dob != "" ? this.props.user.dob.split("-")[2] : null}
+                                        defaultValue={this.props.user.dob ? this.props.user.dob.split("-")[2] : null}
                                         className="dob"
                                         ref="dobYear"
                                         style={this.state.errorType.year ? errorStyle : null}
