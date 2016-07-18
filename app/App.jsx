@@ -145,7 +145,9 @@ export default class App extends React.Component {
     goToForgotPassword = () => {
         return(
             <ForgotPassword
+                authenticateWithPassword={this.authenticateWithPassword}
                 errors                  ={this.state.errors}
+                toggleForgotPassword    ={this.toggleForgotPassword}
             />
         )
     }

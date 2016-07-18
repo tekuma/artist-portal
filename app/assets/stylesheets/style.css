@@ -239,7 +239,7 @@ button {
 }
 
 .pre-auth-main-wrapper.open {
-    right: 300px;
+    right: 250px;
     box-shadow: 0 0 3px 3px rgba(0,0,0,0.5);
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -1313,7 +1313,7 @@ main, .artworks {
 	top: 0;
 	right: 0;
 	height: 100vh;
-	width: 300px;
+	width: 250px;
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -1662,6 +1662,10 @@ textarea.bio {
 	border: none;
 }
 
+.signup-button {
+	margin-top: 10px;
+}
+
 .login-button {
 	margin: 15px 36px;
 	text-align: center;
@@ -1801,6 +1805,7 @@ login-button.left {
 	-ms-align-items: center;
 	-moz-align-items: center;
 	align-items: center;
+	margin-bottom: 15px;
 }
 
 
@@ -3386,6 +3391,10 @@ label.age-confirm-label {
 		display: -moz-block;
 		display: -ms-block;
 		display: block;
+		margin-bottom: 30px;
+	}
+
+	.signup-form {
 		margin-bottom: 30px;
 	}
 

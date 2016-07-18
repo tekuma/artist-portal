@@ -1,14 +1,25 @@
 // Libs
 import React           from 'react';
 import firebase        from 'firebase';
+import Snackbar         from 'material-ui/Snackbar';
+import getMuiTheme      from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Files
 import PreAuthHeader   from '../headers/PreAuthHeader';
+import HiddenLogin     from './HiddenLogin.jsx'
 
 /**
  * TODO
  */
 export default class ForgotPassword extends React.Component {
+    state = {
+        errors          : {},    // Used to store Auth errors from Firebase and Registration errors
+        errorType       : {},    // Used to keep track of the type of error encountered to highlight relevant input field
+        currentError    : "",     // Used to store the current error to be displayed in the snackbar
+        loginIsOpen     : false                   // Used to track whether Hidden login is open
+    }
+
     constructor(props) {
         super(props);
     }
@@ -18,37 +29,56 @@ export default class ForgotPassword extends React.Component {
     }
 
     render() {
+        let errorStyle = {
+            border: '2px solid #ec167c'
+        };
+
         return (
-            <div className="main-wrapper">
-                <PreAuthHeader />
-                <div className="layout-centered">
-                    <article className="signup-wrapper">
-                        <div className="forgot-heading-wrapper pink">
-                            <h3>FORGOT PASSWORD</h3>
+            <div>
+                <div className={this.state.loginIsOpen ? "pre-auth-main-wrapper open" : "pre-auth-main-wrapper"}>
+                    <div className="main-wrapper login">
+                        <PreAuthHeader
+                            toggleLogin={this.toggleLogin} />
+                        <div className="layout-centered">
+                            <article className="signup-wrapper">
+                                <div className="forgot-heading-wrapper pink">
+                                    <h3>FORGOT PASSWORD</h3>
+                                </div>
+                                <form className="signup-form">
+                                    <div className="top-form">
+                                        <ul>
+                                            <li id="email-landing">
+                                                <input
+                                                    type="email"
+                                                    id="email"
+                                                    ref="email"
+                                                    style={this.state.errorType.email ? errorStyle : null}
+                                                    placeholder="Email"
+                                                    required="true"
+                                                    maxLength="100" />
+                                            </li>
+                                            <button
+                                                className="signup-button forgot"
+                                                type="submit"
+                                                onClick={this.sendResetEmail}>
+                                                <h3>Reset</h3>
+                                            </button>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </article>
                         </div>
-                        <form className="signup-form">
-                            <div className="top-form">
-                                <ul>
-                                    <li id="email-landing">
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            ref="email"
-                                            placeholder="Email"
-                                            required="true"
-                                            maxLength="100" />
-                                    </li>
-                                    <button
-                                        className="signup-button"
-                                        type="submit"
-                                        onClick={this.sendResetEmail}>
-                                        <h3>Reset</h3>
-                                    </button>
-                                </ul>
-                            </div>
-                        </form>
-                    </article>
+                    </div>
                 </div>
+                <HiddenLogin
+                    authenticateWithPassword={this.props.authenticateWithPassword} />
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <Snackbar
+                        className="registration-error"
+                        open={this.state.errors.length > 0}
+                        message={this.state.currentError}
+                        autoHideDuration={4000} />
+                </MuiThemeProvider>
             </div>
         );
     }
@@ -60,6 +90,16 @@ export default class ForgotPassword extends React.Component {
 // ============= Methods ===============
 
     /**
+     * Toggles this.state.loginIsOpen to open or close the hidden login
+     */
+    toggleLogin = () => {
+        this.setState({
+            loginIsOpen: !this.state.loginIsOpen
+        });
+        console.log("loginIsOpen is: ", this.state.loginIsOpen);
+    }
+
+    /**
      * Sends an email to the user with instructions on how to reset their
      * password authentication
      * @param  {String} emailAddress - email address to send reset email to
@@ -68,14 +108,43 @@ export default class ForgotPassword extends React.Component {
     sendResetEmail = () =>{
         let emailAddress = this.refs.email.value;
 
-        firebase.auth().sendPasswordResetEmail(emailAddress).then( ()=>{
-            console.log("Password reset Email Sent to:", emailAddress);
-            //TODO: Display this message in a snackbar popup in UX
-        }).catch( (error)=>{
-            console.error(error);
-            //error is either: auth/invalid-email or  auth/user-not-found
-            //TODO Display these errors to UX
-        });
+        if(emailAddress.length == 0) {
+            this.state.errors.push("Please enter an email address");
+
+            let errorType = this.state.errorType;
+            errorType.email = true;
+            this.setState({
+                errorType: errorType
+            });
+
+        } else if(!/.+@.+\..+/.test(emailAddress)) {
+            this.state.errors.push("The email address you supplied is invalid");
+
+            let errorType = this.state.errorType;
+            errorType.email = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if(this.state.errors.length == 0) {
+            firebase.auth().sendPasswordResetEmail(emailAddress).then( ()=>{
+                console.log("Password reset Email Sent to:", emailAddress);
+                this.state.errors.push(`Password reset Email Sent to: ${emailAddress}`);
+            }).catch( (error)=>{
+                console.error(error);
+                //error is either: auth/invalid-email or  auth/user-not-found
+                this.state.errors.push(error.message);
+            });
+        }
+
+        for(let i = 0; i < this.state.errors.length; i++) {
+            setTimeout(() => {
+                this.setState({
+                    currentError: this.state.errors[i]
+                });
+            }, 3000 * i);
+        }
     }
 
     /**
