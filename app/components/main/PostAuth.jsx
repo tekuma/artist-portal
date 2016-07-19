@@ -1,6 +1,7 @@
 // Libs
 import React               from 'react';
 import firebase            from 'firebase';
+import cloudinary          from 'cloudinary';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
@@ -74,28 +75,29 @@ export default class PostAuth extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
-                    user={this.state.user}
-                    userPrivate={this.state.userPrivate}
-                    albums={this.state.albums}
-                    navIsOpen={this.state.navIsOpen}
-                    deleteArtwork={this.deleteArtwork}
-                    toggleEditArtworkDialog={this.toggleEditArtworkDialog}
-                    toggleEditAlbumDialog={this.toggleEditAlbumDialog}
-                    changeCurrentEditArtwork={this.changeCurrentEditArtwork}
-                    changeCurrentEditAlbum={this.changeCurrentEditAlbum}
-                    toggleManager={this.toggleManager}
-                    managerIsOpen={this.state.managerIsOpen}
-                    currentAppLayout={this.state.currentAppLayout}
-                    changeAppLayout={this.changeAppLayout}
-                    currentAlbum={this.state.currentAlbum}
-                    changeAlbum={this.changeAlbum}
-                    setUploadedFiles={this.setUploadedFiles}
-                    setAlbumNames={this.setAlbumNames}
-                    editPublicUserInfo={this.editPublicUserInfo}
-                    editPrivateUserInfo={this.editPrivateUserInfo}
-                    toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
-                    toggleVerifyEmailDialog={this.toggleVerifyEmailDialog}
-                    changeArtworkAlbum={this.changeArtworkAlbum} />
+                    thumbnail                 ={this.props.thumbnail}
+                    user                      ={this.state.user}
+                    userPrivate               ={this.state.userPrivate}
+                    albums                    ={this.state.albums}
+                    navIsOpen                 ={this.state.navIsOpen}
+                    deleteArtwork             ={this.deleteArtwork}
+                    toggleEditArtworkDialog   ={this.toggleEditArtworkDialog}
+                    toggleEditAlbumDialog     ={this.toggleEditAlbumDialog}
+                    changeCurrentEditArtwork  ={this.changeCurrentEditArtwork}
+                    changeCurrentEditAlbum    ={this.changeCurrentEditAlbum}
+                    toggleManager             ={this.toggleManager}
+                    managerIsOpen             ={this.state.managerIsOpen}
+                    currentAppLayout          ={this.state.currentAppLayout}
+                    changeAppLayout           ={this.changeAppLayout}
+                    currentAlbum              ={this.state.currentAlbum}
+                    changeAlbum               ={this.changeAlbum}
+                    setUploadedFiles          ={this.setUploadedFiles}
+                    setAlbumNames             ={this.setAlbumNames}
+                    editPublicUserInfo        ={this.editPublicUserInfo}
+                    editPrivateUserInfo       ={this.editPrivateUserInfo}
+                    toggleDeleteAccountDialog ={this.toggleDeleteAccountDialog}
+                    toggleVerifyEmailDialog   ={this.toggleVerifyEmailDialog}
+                    changeArtworkAlbum        ={this.changeArtworkAlbum} />
                 <EditArtworkDialog
                     user={this.state.user}
                     albums={this.state.albums}
