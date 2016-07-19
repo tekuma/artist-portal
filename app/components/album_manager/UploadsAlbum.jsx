@@ -75,13 +75,6 @@ export default class Albums extends React.Component {
                 <div className="album-download-delete">
                     <OverlayTrigger
                         placement   ="bottom"
-                        overlay     ={downloadTooltip}>
-                        <img
-                            className="album-more"
-                            src='assets/images/icons/download-white.svg' />
-                    </OverlayTrigger>
-                    <OverlayTrigger
-                        placement   ="bottom"
                         overlay     ={emptyTooltip}>
                         <img
                             className   ="album-more"

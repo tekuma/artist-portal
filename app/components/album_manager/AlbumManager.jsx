@@ -115,6 +115,7 @@ export default class AlbumManager extends React.Component {
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
                     albums             ={this.state.albums}
+                    thumbnail          ={this.props.thumbnail}
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
                     emptyUploads       ={this.emptyUploads}
@@ -139,25 +140,12 @@ export default class AlbumManager extends React.Component {
     };
 
     closedManager = () => {
-        let albumManagerWidth;
-
-        if(document.getElementsByClassName('album-manager')[0] != undefined) {
-            albumManagerWidth = document.getElementsByClassName('album-manager')[0].clientWidth;
-        }
-
-        const addAlbumTooltip = (
-            <Tooltip
-                id="add-album-tooltip"
-                className="tooltip">
-                Create new album
-            </Tooltip>
-        );
 
         return (
             <section
                 style={{
                 height: window.innerHeight - 60,
-                right: -1 * albumManagerWidth + 40
+                right: -1 * document.getElementsByClassName('album-manager')[0].clientWidth + 40
                 }}
                 className="album-manager">
                 <AlbumToggler
@@ -173,15 +161,11 @@ export default class AlbumManager extends React.Component {
                     currentAlbum    ={this.props.currentAlbum}
                     changeAlbum     ={this.props.changeAlbum}
                     user            ={this.props.user} />
-                <OverlayTrigger
-                    placement="left"
-                    overlay={addAlbumTooltip}>
-                    <div
-                        onClick     ={this.addAlbum}
-                        className   ="add-album" >
-                        <img src='assets/images/icons/plus-white.svg' />
-                    </div>
-                </OverlayTrigger>
+                <div
+                    onClick     ={this.addAlbum}
+                    className   ="add-album" >
+                    <img src='assets/images/icons/plus-white.svg' />
+                </div>
             </section>
         );
     }
@@ -227,6 +211,7 @@ export default class AlbumManager extends React.Component {
      * @param  {[type]}  name  - new name to update album name to.
      */
     editAlbumName = (index, name) => {
+
         const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
         let isNameThere = this.state.albumNames.indexOf(name) != -1;
@@ -261,7 +246,9 @@ export default class AlbumManager extends React.Component {
      * TODO
      * @param  {String}  id [description]
      */
-    editAlbum = (id) => {
+    editAlbum = (id, e) => {
+        e.stopPropagation();
+
         this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
         this.props.toggleEditAlbumDialog();    // Open Edit Dialog
     }

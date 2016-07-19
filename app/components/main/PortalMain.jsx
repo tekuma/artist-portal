@@ -55,19 +55,21 @@ export default class PortalMain extends React.Component {
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <AlbumManager
-                    user                        ={this.props.user}
-                    userPrivate                 ={this.props.userPrivate}
-                    managerIsOpen               ={this.props.managerIsOpen}
-                    toggleManager               ={this.props.toggleManager}
-                    currentAlbum                ={this.props.currentAlbum}
-                    changeAlbum                 ={this.props.changeAlbum}
-                    toggleEditAlbumDialog       ={this.props.toggleEditAlbumDialog}
-                    changeCurrentEditAlbum      ={this.props.changeCurrentEditAlbum}
-                    setAlbumNames               ={this.props.setAlbumNames}
-                    albums                      ={this.props.albums}
-                    changeArtworkAlbum          ={this.props.changeArtworkAlbum}
+                    thumbnail              ={this.props.thumbnail}
+                    user                   ={this.props.user}
+                    userPrivate            ={this.props.userPrivate}
+                    managerIsOpen          ={this.props.managerIsOpen}
+                    toggleManager          ={this.props.toggleManager}
+                    currentAlbum           ={this.props.currentAlbum}
+                    changeAlbum            ={this.props.changeAlbum}
+                    toggleEditAlbumDialog  ={this.props.toggleEditAlbumDialog}
+                    changeCurrentEditAlbum ={this.props.changeCurrentEditAlbum}
+                    setAlbumNames          ={this.props.setAlbumNames}
+                    albums                 ={this.props.albums}
+                    changeArtworkAlbum     ={this.props.changeArtworkAlbum}
                     />
                 <ArtworkManager
+                    thumbnail                ={this.props.thumbnail}
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
                     currentAlbum             ={this.props.currentAlbum}

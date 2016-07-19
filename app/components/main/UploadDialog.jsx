@@ -5,6 +5,7 @@ import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog           from 'material-ui/Dialog';
 import uuid             from 'node-uuid';
+import Masonry    from 'react-masonry-component';
 // Files
 import ConfirmButton    from '../confirm_dialog/ConfirmButton';
 
@@ -31,6 +32,10 @@ export default class UploadDialog extends React.Component {
               />
         ];
 
+        let masonryOptions = {
+            transitionDuration: 0
+        };
+
         return (
             <div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -48,21 +53,27 @@ export default class UploadDialog extends React.Component {
                             Uploaded {this.state.files.length} file{(this.state.files.length == 1) ? "" : "s"}
                         </h2>
                         {(this.state.files.length > 0) ?
-                            <div className="uploaded-artworks-container">
-                                {this.state.files.map(file =>
-                                    <article
-                                        key={uuid.v4()}
-                                        className="dropzone-image-preview-container">
-                                        <img src={file.url} />
-                                        <div className="overlay">
-                                            <div>
-                                                <h2 className="file-name">{file.name}</h2>
-                                                <h2 className="file-size">{this.getFileSize(file.size)}</h2>
-                                            </div>
+                            <Masonry
+                                className="uploaded-artworks-container"
+                                elementType={'div'}
+                                options={masonryOptions}
+                                disableImagesLoaded={false}
+                                updateOnEachImageLoad={false}
+                           >
+                            {this.state.files.map(file =>
+                                <article
+                                    key={uuid.v4()}
+                                    className="dropzone-image-preview-container">
+                                    <img src={file.url} />
+                                    <div className="overlay">
+                                        <div>
+                                            <h2 className="file-name">{file.name}</h2>
+                                            <h2 className="file-size">{this.getFileSize(file.size)}</h2>
                                         </div>
-                                    </article>
-                                )}
-                            </div>
+                                    </div>
+                                </article>
+                            )}
+                            </Masonry>
                             :
                             <div className="uploads-loading">
                                 <div className="sk-wave">

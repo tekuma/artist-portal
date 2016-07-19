@@ -12,9 +12,7 @@ export default ({signOutUser}) => {
              title="End Session"
              onClick={signOutUser}
              >
-			<a href="/">
-				<h3>Logout</h3>
-			</a>
+			<h3>Logout</h3>
 		</div>
     );
 }

@@ -99,7 +99,8 @@ export default class Album extends React.Component {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
-                    thumbnail = artwork.thumbnail;
+                    let image = this.props.thumbnail(artwork.fullsize_url, 50);
+                    thumbnail = image;
                 }
             }
         }
@@ -163,13 +164,6 @@ export default class Album extends React.Component {
                 </div>
                 <div className="album-download-delete">
                     <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={downloadTooltip}>
-                        <img
-                            className   ="album-more"
-                            src         ='assets/images/icons/download-white.svg' />
-                    </OverlayTrigger>
-                    <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>
                         <img
@@ -203,7 +197,8 @@ export default class Album extends React.Component {
 
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
-                    thumbnail = artwork.thumbnail;
+                    let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                    thumbnail = image;
                 }
             }
         }
@@ -259,13 +254,6 @@ export default class Album extends React.Component {
                     {this.props.album.name}
                 </h3>
                 <div className="album-download-delete">
-                    <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={downloadTooltip}>
-                        <img
-                            className   ="album-more"
-                            src         ='assets/images/icons/download-white.svg' />
-                    </OverlayTrigger>
                     <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>

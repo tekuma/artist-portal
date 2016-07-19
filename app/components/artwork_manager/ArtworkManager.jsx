@@ -4,6 +4,7 @@ import firebase   from 'firebase';
 import filesaver  from 'file-saver';
 import Dropzone   from 'react-dropzone';
 import update     from 'react-addons-update';
+import Masonry    from 'react-masonry-component';
 
 // Files
 import Artwork    from './Artwork';
@@ -123,12 +124,19 @@ export default class ArtworkManager extends React.Component {
 
     renderArtworks = () => {
         const album = this.state.album;
+
         let styleManagerClosed = {
             width: window.innerWidth - 40
         };
+
         let styleSmallScreen = {
             width: window.innerWidth - 250
         };
+
+        let masonryOptions = {
+            transitionDuration: 0
+        };
+
         return (
             <Dropzone
                 disableClick
@@ -137,9 +145,19 @@ export default class ArtworkManager extends React.Component {
                 onDrop          ={this.onDrop}
                 ref             ="dropzone"
                 style           ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}>
+                <Masonry
+                    className       ="artworks"
+                    style           ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}
+                    elementType={'div'}
+                    options={masonryOptions}
+                    disableImagesLoaded={false}
+                    updateOnEachImageLoad={false}
+               >
+
                 {album.map(artwork => {
                     return (
                         <Artwork
+                            thumbnail   ={this.props.thumbnail}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}
                             onDelete    ={this.deleteArtwork}
@@ -148,7 +166,9 @@ export default class ArtworkManager extends React.Component {
                             artwork     ={artwork} />
                     );
                 })}
+                </Masonry>
             </Dropzone>
+
         );
     };
 

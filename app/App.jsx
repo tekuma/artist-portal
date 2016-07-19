@@ -9,6 +9,7 @@
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
+import cloudinary         from 'cloudinary';
 import Snackbar           from 'material-ui/Snackbar';
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
@@ -27,6 +28,13 @@ var config = {
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
 firebase.initializeApp(config);
+
+//FIXME move api secret to env var
+cloudinary.config({
+  cloud_name: 'tekuma-io',
+  api_key   : '815625669726765',
+  api_secret: 'vciXc0S5BmQcft0ev7eBgJQJAIc'
+});
 
 //  # Global Variables
 const userPath  = 'public/onboarders/';
@@ -89,7 +97,7 @@ export default class App extends React.Component {
 
     // ===== Flow Control ================
     // NOTE: To de-clutter the render() method, if multiple things could be
-    // rendered, split returns into flow control methods. #ETU 
+    // rendered, split returns into flow control methods. #ETU
 
     /**
      * Flow Control Function: If a user is currently logged in after accessing
@@ -100,16 +108,17 @@ export default class App extends React.Component {
         return(
             <div>
                 <PostAuth
-                  thisUID = {this.state.thisUID}
-                  signOutUser = {this.signOutUser}
-                  clearVerifyEmailMessage={this.clearVerifyEmailMessage}
+                  thisUID                 ={this.state.thisUID}
+                  signOutUser             ={this.signOutUser}
+                  clearVerifyEmailMessage ={this.clearVerifyEmailMessage}
+                  thumbnail               ={this.thumbnail}
                 />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
-                        open={this.state.verifyEmailMessage.length > 0}
-                        message={this.state.verifyEmailMessage}
-                        autoHideDuration={4000} />
+                        className        ="registration-error"
+                        open             ={this.state.verifyEmailMessage.length > 0}
+                        message          ={this.state.verifyEmailMessage}
+                        autoHideDuration ={4000} />
                 </MuiThemeProvider>
             </div>
         )
@@ -462,6 +471,25 @@ export default class App extends React.Component {
     }
 
     /**
+     * Cloudinary Method. This method takes in a fullsize_url or any image url,
+     * sends the image to be used by cloudinary, and returns a dynamic link
+     * that can be used in the UX.
+     * @param  {String} url [a raw or fullsize url directing to an image file]
+     * @return {String}     [a dynamic URL safe for use inside of the UI/UX]
+     */
+    thumbnail = (url,width) => {
+        let args = {
+            width       :width,
+            fetch_format: "auto",
+            type        : "fetch"
+        };
+        let theImage = cloudinary.image(url, args);
+        let regex = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
+        let theURL = theImage.match(regex);
+        return theURL[0] ;
+    }
+
+    /**
      * When logging in via a social button, there is no way to know if a user
      * is clicking that button for the first time. First, we check a snapshot
      * of the database to see if the user already exists. If not, then we
@@ -566,11 +594,22 @@ export default class App extends React.Component {
      * Listener in Render() will detect change.
      */
     signOutUser = () => {
+        const thisUID   = firebase.auth().currentUser.uid;
+        const  userPath = `public/onboarders/${thisUID}`;
+        const userPrivatePath = `_private/onboarders/${thisUID}`;
+        firebase.database().ref(userPath).off();
+        firebase.database().ref(userPrivatePath).off();
+
         firebase.auth().signOut().then( () => {
           console.log("User signed out");
+          this.setState({
+              loggedIn  : false,
+              loaded    : false
+          });
         }, (error) => {
           console.error(error);
         });
+
     }
 
     clearVerifyEmailMessage = () => {

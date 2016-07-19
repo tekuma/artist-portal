@@ -12,9 +12,9 @@ import ItemTypes from '../../constants/itemTypes';
 const artworkSource = {
     beginDrag(props) {
         return {
-            id: props.artwork.id,
+            id   : props.artwork.id,
             album: props.artwork.album,
-            type: ItemTypes.ARTWORK
+            type : ItemTypes.ARTWORK
         }
     }
 };
@@ -84,7 +84,7 @@ export default class Artwork extends React.Component {
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
                 <div className="artwork-image">
-                    <img src={this.props.artwork.thumbnail} />
+                    <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)}  />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
