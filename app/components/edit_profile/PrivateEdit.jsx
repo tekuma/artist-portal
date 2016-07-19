@@ -41,9 +41,6 @@ export default class PrivateEdit extends React.Component {
             display: 'none'
         };
 
-        let user = firebase.auth().currentUser;
-        let emailVerified = user.emailVerified;
-
         return(
             <div>
                 <div className="edit-profile-heading">
@@ -124,7 +121,7 @@ export default class PrivateEdit extends React.Component {
                             id="email-verified-content"
                             className={this.state.accordion.emailVerified ? "accordion-content open" : "accordion-content"}
                             style={this.props.user.auth_provider == "password" ? null : hideStyle}>
-                            {emailVerified ?
+                            {firebase.auth().currentUser.emailVerified ?
                                 <h3 className="email-verified-writing">
                                     Email Verified
                                 </h3> :

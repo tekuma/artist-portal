@@ -41,13 +41,14 @@ export default class HiddenLogin extends React.Component {
                         </li>
                         <li>
                             <input
-                                type="password"
-                                id="register-password"
-                                ref="password"
-                                placeholder="Password"
-                                required="true"
-                                maxLength="100"
-                                autoComplete="off" />
+                                type        ="password"
+                                id          ="register-password"
+                                ref         ="password"
+                                placeholder ="Password"
+                                required    ="true"
+                                maxLength   ="100"
+                                autoComplete="off"
+                                onKeyPress  ={this.checkEnter} />
                         </li>
                         <li
                             className="solo-links center"
@@ -82,6 +83,16 @@ export default class HiddenLogin extends React.Component {
     }
 
 // ============= Methods ===============
+
+    checkEnter = (e) => {
+        let email = this.refs.email.value;
+        let password = this.refs.password.value;
+
+        // The user hit *enter*, let's finish up.
+        if(e.key === 'Enter' && email && password) {
+            this.onLogin(e);
+        }
+    };
 
     /**
      * Used to log in a user
