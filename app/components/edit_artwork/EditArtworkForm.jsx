@@ -24,7 +24,6 @@ export default class EditArtworkForm extends React.Component {
     render() {
         let oldArtwork  = this.props.value;
         let tags        = this.state.tags;
-        console.log(tags);
         let onChange    = this.props.onChange;
         let clearErrors = this.props.clearErrors;
         let onSubmit    = this.props.onSubmit;

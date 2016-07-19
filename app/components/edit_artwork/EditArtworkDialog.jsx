@@ -90,11 +90,9 @@ export default class EditArtworkDialog extends React.Component {
 // ============= Methods ===============
 
     updateArtworkInfo = (artworkInfo) => {
-        console.log("Entered updateArtworkInfo");
         this.setState({
             artworkInfo : artworkInfo
         });
-        console.log("Form Info: ", artworkInfo);
     }
 
     modifyTags = (tags) => {
@@ -107,8 +105,6 @@ export default class EditArtworkDialog extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log("Entered onSubmit");
-        console.log("Artwork form: ", this.state.artworkInfo);
         e.preventDefault();
 
         // Test that user inputed a title
@@ -151,14 +147,10 @@ export default class EditArtworkDialog extends React.Component {
             this.state.errors.push("Please enter a valid year");
         }
 
-        console.log("Got through errors");
-
         if(this.state.errors.length == 0) {
-            console.log("Edit Artwork Info: ", this.state.artworkInfo);
             // this.props.toggleEditArtworkDialog();
             this.props.updateArtwork(this.state.artworkInfo);
         }
-        console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {

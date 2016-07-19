@@ -14,7 +14,7 @@ import HiddenLogin     from './HiddenLogin.jsx'
  */
 export default class ForgotPassword extends React.Component {
     state = {
-        errors          : {},    // Used to store Auth errors from Firebase and Registration errors
+        errors          : [],    // Used to store Auth errors from Firebase and Registration errors
         errorType       : {},    // Used to keep track of the type of error encountered to highlight relevant input field
         currentError    : "",     // Used to store the current error to be displayed in the snackbar
         loginIsOpen     : false                   // Used to track whether Hidden login is open
@@ -107,7 +107,10 @@ export default class ForgotPassword extends React.Component {
      * @param  {String} emailAddress - email address to send reset email to
      * @throws auth/invalid-email or  auth/user-not-found error
      */
-    sendResetEmail = () =>{
+    sendResetEmail = (e) =>{
+        e.preventDefault();
+
+        console.log("Entered Reset Email", this.refs.email.value);
         let emailAddress = this.refs.email.value;
 
         if(emailAddress.length == 0) {
@@ -129,10 +132,21 @@ export default class ForgotPassword extends React.Component {
             });
         }
 
+        console.log("Number of errors: ", this.state.errors);
+
         if(this.state.errors.length == 0) {
+            console.log("Entered if statement");
             firebase.auth().sendPasswordResetEmail(emailAddress).then( ()=>{
                 console.log("Password reset Email Sent to:", emailAddress);
                 this.state.errors.push(`Password reset Email Sent to: ${emailAddress}`);
+
+                for(let i = 0; i < this.state.errors.length; i++) {
+                    setTimeout(() => {
+                        this.setState({
+                            currentError: this.state.errors[i]
+                        });
+                    }, 3000 * i);
+                }
             }).catch( (error)=>{
                 console.error(error);
                 //error is either: auth/invalid-email or  auth/user-not-found
@@ -140,13 +154,7 @@ export default class ForgotPassword extends React.Component {
             });
         }
 
-        for(let i = 0; i < this.state.errors.length; i++) {
-            setTimeout(() => {
-                this.setState({
-                    currentError: this.state.errors[i]
-                });
-            }, 3000 * i);
-        }
+
     }
 
     /**
@@ -163,8 +171,6 @@ export default class ForgotPassword extends React.Component {
 
         let code = this.refs.code.value;
         let newPassword = this.refs.password.value;
-
-
 
         firebase.auth().verifyPasswordResetCode(code).then((userEmail)=>{
             firebase.auth().confirmPasswordReset(code, newPassword).then(()=>{
