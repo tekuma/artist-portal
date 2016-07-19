@@ -1241,9 +1241,18 @@ main, .artworks {
 	margin-top: 50px;
 }
 
-.signup-form.page-2,
-.signup-form.page-3  {
+.signup-form.page-2 {
 	flex-direction: row;
+}
+
+.signup-form.page-3  {
+	display: -webkit-block;
+	display: -moz-block;
+	display: -ms-block;
+	display: block;
+	margin-bottom: 150px;
+	width: 255px;
+	margin: 0 auto;
 }
 
 .profile-pic-container {

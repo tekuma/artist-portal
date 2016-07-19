@@ -38,7 +38,7 @@ export default class AlbumManager extends React.Component {
     componentDidMount() {
         console.log("+++++AlbumManager");
 
-        if (this.props.user.albums) {
+        if (this.props.user && this.props.user.albums) {
             let user       = this.props.user;
             let allAlbums  = user['albums'];
 
@@ -66,7 +66,7 @@ export default class AlbumManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.albums) {
+        if (nextProps.user && nextProps.user.albums) {
             let user       = nextProps.user;
             let allAlbums  = user['albums'];
 

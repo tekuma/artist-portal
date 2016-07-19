@@ -48,9 +48,15 @@ export default class HiddenNav extends React.Component {
                 avatar = 'assets/images/default-avatar.png';
             }
 
-        var avatarStyle = {
+        let avatarStyle = {
             backgroundImage: 'url(' + avatar + ')'
         }
+        let displayName = "Untitled Artist";
+
+        if (this.props.user && this.props.user.display_name) {
+            displayName = this.props.user.display_name; // This is here because of the initial split second an account isn't created
+        }
+
         return (
             <nav className="navigation">
                 <div
@@ -58,7 +64,7 @@ export default class HiddenNav extends React.Component {
                     style={avatarStyle}>
 	    		</div>
                 <DisplayNameTag
-                    displayName={this.props.user.display_name}
+                    displayName={displayName}
                     navIsOpen={this.props.navIsOpen} />
                 <NavItems
                     navItems={navItems}

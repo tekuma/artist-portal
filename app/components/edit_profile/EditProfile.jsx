@@ -100,7 +100,7 @@ export default class EditProfile extends React.Component {
      */
     editPublic = () => {
         if (!this.state.saved) {
-            confirm('Are you sure you changed tabs without saving?').then( () => {
+            confirm('Are you sure you want to change tabs without saving?').then( () => {
                     this.setState({
                         editingPublic: true,
                         saved: true
@@ -124,7 +124,7 @@ export default class EditProfile extends React.Component {
      */
     editPrivate = () => {
         if (!this.state.saved) {
-            confirm('Are you sure you changed tabs without saving?').then( () => {
+            confirm('Are you sure you want to change tabs without saving?').then( () => {
                     this.setState({
                         editingPublic: false,
                         saved: true

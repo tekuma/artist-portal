@@ -42,8 +42,7 @@ export default class ArtworkManager extends React.Component {
 
     componentDidMount() {
         console.log("+++++ ArtworkManager");
-        if (this.props.user.albums != undefined &&
-            this.props.user.albums != null) {
+        if (this.props.user && this.props.user.albums) {
 
             let albumIndex;
             let album         = [];
@@ -83,8 +82,7 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.albums != undefined &&
-            nextProps.user.albums != null) {
+        if (nextProps.user && nextProps.user.albums) {
             let albumIndex;
             let album         = [];
             let thisAlbumName = nextProps.currentAlbum; //passed from PostAuth

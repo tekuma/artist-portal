@@ -85,7 +85,7 @@ export default class PublicEdit extends React.Component {
                             type="text"
                             id="edit-displayname"
                             defaultValue={this.props.user.display_name}
-                            onKeyPress={this.setUnsaved}
+                            onChange={this.setUnsaved}
                             ref="displayname"
                             placeholder="Display Name"
                             required=""
@@ -149,7 +149,7 @@ export default class PublicEdit extends React.Component {
                                 placeholder="Bio"
                                 ref="bio"
                                 defaultValue={this.props.user.bio}
-                                onKeyPress={this.setUnsaved}></textarea>
+                                onChange={this.setUnsaved}></textarea>
                         </div>
                         <div
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
@@ -166,7 +166,7 @@ export default class PublicEdit extends React.Component {
                             ref="location"
                             placeholder="Location"
                             defaultValue={this.props.user.location}
-                            onKeyPress={this.setUnsaved} />
+                            onChange={this.setUnsaved} />
                         </div>
                         <div
                             className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
@@ -183,7 +183,7 @@ export default class PublicEdit extends React.Component {
                             ref="portfolio"
                             placeholder="Portfolio/Website"
                             defaultValue={this.props.user.portfolio}
-                            onKeyPress={this.setUnsaved} />
+                            onChange={this.setUnsaved} />
                         </div>
                         <div
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
@@ -201,6 +201,7 @@ export default class PublicEdit extends React.Component {
                                         id="accordion-dob-month"
                                         className="dob"
                                         defaultValue={this.props.user.dob ? this.props.user.dob.split("-")[1] : null}
+                                        onChange={this.setUnsaved}
                                         ref="dobMonth"
                                         style={this.state.errorType.month? errorStyle : null}>
                                         <option value="" disabled="">Month</option>
@@ -226,6 +227,7 @@ export default class PublicEdit extends React.Component {
                                         className="dob"
                                         ref="dobDay"
                                         style={this.state.errorType.day ? errorStyle : null}
+                                        onChange={this.setUnsaved}
                                         placeholder="Day"
                                         pattern="[0-9]*"
                                         maxLength="2"
@@ -240,6 +242,7 @@ export default class PublicEdit extends React.Component {
                                         className="dob"
                                         ref="dobYear"
                                         style={this.state.errorType.year ? errorStyle : null}
+                                        onChange={this.setUnsaved}
                                         placeholder="Year"
                                         pattern="[0-9]*"
                                         maxLength="4" />
@@ -250,7 +253,8 @@ export default class PublicEdit extends React.Component {
                                     type="checkbox"
                                     id="over-eighteen-checkbox"
                                     ref="overEighteen"
-                                    defaultChecked={this.props.user.over_eighteen} />
+                                    defaultChecked={this.props.user.over_eighteen}
+                                    onChange={this.setUnsaved} />
                                     I confirm that I am 18+
                             </label>
                         </div>
