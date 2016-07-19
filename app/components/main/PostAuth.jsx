@@ -105,6 +105,7 @@ export default class PostAuth extends React.Component {
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
+                    thumbnail={this.props.thumbnail}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <EditAlbumDialog
                     user={this.state.user}
