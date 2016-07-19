@@ -157,6 +157,7 @@ export default class ArtworkManager extends React.Component {
                 {album.map(artwork => {
                     return (
                         <Artwork
+                            thumbnail   ={this.props.thumbnail}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}
                             onDelete    ={this.deleteArtwork}

@@ -9,6 +9,7 @@
 // Libs
 import React              from 'react';
 import Firebase           from 'firebase';
+import cloudinary         from 'cloudinary';
 import Snackbar           from 'material-ui/Snackbar';
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
@@ -27,6 +28,13 @@ var config = {
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
 firebase.initializeApp(config);
+
+//FIXME move api secret to env var
+cloudinary.config({
+  cloud_name: 'tekuma-io',
+  api_key   : '815625669726765',
+  api_secret: 'vciXc0S5BmQcft0ev7eBgJQJAIc'
+});
 
 //  # Global Variables
 const userPath  = 'public/onboarders/';
@@ -100,16 +108,17 @@ export default class App extends React.Component {
         return(
             <div>
                 <PostAuth
-                  thisUID = {this.state.thisUID}
-                  signOutUser = {this.signOutUser}
-                  clearVerifyEmailMessage={this.clearVerifyEmailMessage}
+                  thisUID                 ={this.state.thisUID}
+                  signOutUser             ={this.signOutUser}
+                  clearVerifyEmailMessage ={this.clearVerifyEmailMessage}
+                  thumbnail               ={this.thumbnail}
                 />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
-                        open={this.state.verifyEmailMessage.length > 0}
-                        message={this.state.verifyEmailMessage}
-                        autoHideDuration={4000} />
+                        className        ="registration-error"
+                        open             ={this.state.verifyEmailMessage.length > 0}
+                        message          ={this.state.verifyEmailMessage}
+                        autoHideDuration ={4000} />
                 </MuiThemeProvider>
             </div>
         )
@@ -459,6 +468,16 @@ export default class App extends React.Component {
             console.log("user not created :(");
             console.error(error);
         });
+    }
+
+    thumbnail = (url ) => {
+        let args = {
+             width       : 300,
+             fetch_format: "auto",
+             type        : "fetch"
+        };
+
+        return <div dangerouslySetInnerHTML={{__html:cloudinary.image(url, args) }} /> ;
     }
 
     /**
