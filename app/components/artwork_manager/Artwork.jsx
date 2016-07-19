@@ -84,7 +84,7 @@ export default class Artwork extends React.Component {
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
                 <div className="artwork-image">
-                    {this.props.thumbnail(this.props.artwork.fullsize_url)}
+                    {this.props.thumbnail(this.props.artwork.fullsize_url,550)}
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
