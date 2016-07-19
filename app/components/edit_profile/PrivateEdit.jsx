@@ -115,7 +115,7 @@ export default class PrivateEdit extends React.Component {
                             onClick={this.toggleAccordion.bind({},"emailVerified")}
                             style={this.props.user.auth_provider == "password" ? null : hideStyle}>
                             <h2 className="accordion-item-heading">Email Verification</h2>
-                            <h3 className="accordion-item-preview">{(emailVerified) ? "Verified" : "Unverified"}</h3>
+                            <h3 className="accordion-item-preview">{(firebase.auth().currentUser.emailVerified) ? "Verified" : "Unverified"}</h3>
                         </div>
                         <div
                             id="email-verified-content"

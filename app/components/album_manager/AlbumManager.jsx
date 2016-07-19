@@ -227,6 +227,7 @@ export default class AlbumManager extends React.Component {
      * @param  {[type]}  name  - new name to update album name to.
      */
     editAlbumName = (index, name) => {
+
         const thisUID = firebase.auth().currentUser.uid;
         // Don't modify if trying set an empty value or album name is already in use
         let isNameThere = this.state.albumNames.indexOf(name) != -1;
@@ -261,7 +262,9 @@ export default class AlbumManager extends React.Component {
      * TODO
      * @param  {String}  id [description]
      */
-    editAlbum = (id) => {
+    editAlbum = (id, e) => {
+        e.stopPropagation();
+        
         this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
         this.props.toggleEditAlbumDialog();    // Open Edit Dialog
     }
