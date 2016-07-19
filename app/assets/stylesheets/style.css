@@ -1847,6 +1847,7 @@ login-button.left {
 .artist-logo-wrapper {
 	width:50%;
 	margin: 0 auto;
+	margin-bottom:30px;
 }
 
 .artist-logo-wrapper img,
