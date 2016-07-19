@@ -1,9 +1,14 @@
 // Libs
 import React               from 'react';
 import firebase            from 'firebase';
+import Imgix               from 'react-imgix';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
+import cloudinary          from 'cloudinary';
+import cloudinaryJ         from 'cloudinary-jquery';
+import { cloudinaryConfig, CloudinaryImage, CloudinaryVideo } from 'react-cloudinary';
+
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../../constants/Views';
 import DeleteAccountDialog from '../DeleteAccountDialog';
@@ -341,153 +346,43 @@ export default class PostAuth extends React.Component {
      * -makes a thumbnail size copy of the image,
      * -uploads the thumbnail to "portal/{user uid}/thumbnails"
      * -sets DB entry /public/onboarders/artworks/{uid}/thumbnail_url
-     * -sends image to this.extractColors(url)
-     *. Asynchronously, we need to wait for:
-     *  full url, thumb url, colors.
+     *
      * @param  {Blob} blob - an uploaded blob
      */
     uploadArtToTekuma = (blob) => {
-        const fileName  = blob.name;
-        const fileSize  = blob.size;
-        const thisUID   = firebase.auth().currentUser.uid;
-        const localURL  = URL.createObjectURL(blob);
-        const pathToUserStorage = 'portal/' + thisUID;
-        const fullSizeImage     = new Image;
-        fullSizeImage.src       = localURL;
+        const fileName   = blob.name;
+        const fileSize   = blob.size;
+        const thisUID    = firebase.auth().currentUser.uid;
+        const storePath  = `portal/${thisUID}/uploads/${fileName}`;
+        const thisImgRef = firebase.storage().ref(storePath);
 
+        thisImgRef.put(blob).on(
+            firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot)=>{ //on-event change
+                let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+                console.log(percent + "% done w/ upload");
+            },
+            (error)=>{
+                console.error(error);
+            },
+            ()=>{
+                thisImgRef.getDownloadURL().then((tekuma_url)=>{
+                    console.log(tekuma_url);
+                    let sig = "zroyxvdb";
+                    // $.cloudinary.config({ cloud_name: "tekuma-io"});
+                    cloudinary.v2.uploader.unsigned_upload(tekuma_url, sig,
+                    { cloud_name: "tekuma-io" },
+                    (error, result)=>{
+                        console.log(result);
+                        console.log(error);
+                        console.log("=====Cloud Success=======");
+                        //TODO Make artwork object.
+                        //TODO add to DB and Uploads
+                    });
+                });
 
-        // Load the blob as an <Image>
-        fullSizeImage.addEventListener('load', ()=>{
-            //*Store the original upload, un-changed.
-            let uploadPath = `portal/${thisUID}/uploads/${fileName}`;
-            const fullRef = firebase.storage().ref(uploadPath);
-            fullRef.put(blob).on(
-                firebase.storage.TaskEvent.STATE_CHANGED,
-                (snapshot)=>{ //on-event change
-                    let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-                    console.log(percent + "% done w/ original");
-                },
-                (error)=>{
-                    console.error(error);
-                },
-                ()=>{ //on-complete fullsize upload
-                    console.log(">>Full size upload complete");
-                    fullRef.getDownloadURL().then( (fullSizeURL)=>{
-                        console.log(">>URL:",fullSizeURL);
-                        //Variables
-                        const aspectRatio  = fullSizeImage.width / fullSizeImage.height;
-                        const maxThumbnailHeight = Math.ceil(maxThumbnailWidth / aspectRatio);
-
-                        //Make a Canvas
-                        const canvas  = document.createElement("canvas");
-                        canvas.height = maxThumbnailHeight + thumbNailPadding*2;
-                        canvas.width  = maxThumbnailWidth  + thumbNailPadding*2;
-                        const ctx     = canvas.getContext("2d");
-                        console.log(">>Canvas drawn");
-
-                        //Draw the Image to canvas, args: img,x0,y0,scaled w, scaled h
-                        ctx.drawImage(
-                            fullSizeImage,
-                            thumbNailPadding,
-                            thumbNailPadding,
-                            maxThumbnailWidth,
-                            maxThumbnailHeight
-                        );
-
-                        //Revert Canvas into file Blob for upload
-                        canvas.toBlob( (thumbBlob)=>{
-                            console.log(">>blobbed");
-                            let thumbPath = `portal/${thisUID}/thumbnails/${fileName}`;
-                            const thumbRef = firebase.storage().ref(thumbPath);
-                            thumbRef.put(thumbBlob).on(
-                                firebase.storage.TaskEvent.STATE_CHANGED,
-                                (thumbSnap)=>{
-                                    let percent2 = Math.ceil(thumbSnap.bytesTransferred / thumbSnap.totalBytes * 100);
-                                    console.log(percent2 + "% done w/ thumb");
-                                },
-                                (error)=>{
-                                    console.error(error);
-                                },
-                                ()=>{ // on-complete thumbnail upload
-                                    console.log(">>Thumbnail upload complete");
-                                    thumbRef.getDownloadURL().then( (thumbURL)=>{
-                                        console.log(">>T_URL:",thumbURL);
-
-                                        let uploadInfo = {
-                                            url :thumbURL,
-                                            size:fileSize,
-                                            name:fileName
-                                        };
-                                        this.setState({
-                                            uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
-                                        });
-                                        //Now, we have all needed async-data. Set it to the DB.
-                                        const artRef = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
-                                        const artworkUID     = artRef.push().key;
-                                        const uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
-
-                                        //Get the color palette
-                                        console.log("---Begin Color swatching");
-                                        const colorObject    = this.extractColors(localURL);
-                                        console.log("Color Digest:", colorObject);
-                                        console.log("---End Color swatching");
-
-                                        //Build the artwork object
-                                        let title = fileName.split(".")[0];
-                                        let artist = "Self";
-                                        if (this.state.user != null && this.state.user != undefined &&
-                                            this.state.user.display_name != "Untitled Artist")
-                                            {
-                                            artist = this.state.user.display_name;
-                                        }
-
-                                        let artObject = {
-                                            id          : artworkUID,
-                                            thumbnail   : thumbURL,
-                                            filename    : fileName,
-                                            title       : title,
-                                            artist      : artist,
-                                            album       : "Uploads",
-                                            upload_date : new Date().toISOString(),
-                                            year        : new Date().getFullYear(),
-                                            description : "",
-                                            tags        : "#Art",
-                                            size        : fileSize,
-                                            fullsize_url: fullSizeURL,
-                                            aspect_ratio: aspectRatio,
-                                            colors      : colorObject
-                                        };
-
-                                        // set the art object to the artworks node
-                                        artRef.child(artworkUID).set(artObject).then(()=>{
-                                            console.log(">>>>Artwork info set into DB");
-                                        }).catch((error)=>{
-                                            console.error(error);
-                                        });
-
-                                        //Now, add a pointer to the artwork object to the uploads album
-                                        uploadAlbumRef.transaction( (node)=>{
-                                            if (node == null) {
-                                                node = {0:artworkUID};
-                                            } else {
-                                                let currentLength   = Object.keys(node).length;
-                                                node[currentLength] = artworkUID;
-                                            }
-                                            return node; //finish transaction
-                                        }, (error,bool,snap)=>{
-                                                console.log(">>>Img set into album");
-                                                //At the end of the async flow, revoke the local url
-                                                //to free up cache space.
-                                                URL.revokeObjectURL(localURL);
-                                                //END  OF ASYNC FLOW
-                                        });
-                                    });//END upload promise and thenable
-                            });//END on-complete thumb  and on
-                        });//END toblob
-                    });//END fullsize upload thenable
-                });//END fullsize oncomplete and toBlob
-            });//END Onload image
-    }//END METHOD
+            });
+    }
 
     /**
      * This method will take in an array of blobs, then for each blob

@@ -1,6 +1,6 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
+const path             = require('path');
+const webpack          = require('webpack');
+const merge            = require('webpack-merge');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 // Load *package.json* so we can use `dependencies` from there
@@ -9,10 +9,10 @@ const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
-    app: path.join(__dirname, 'app'),
-    build: path.join(__dirname, 'build'),
+    app   : path.join(__dirname, 'app'),
+    build : path.join(__dirname, 'build'),
     images: path.join(__dirname, 'app/assets/images'),
-    fonts: path.join(__dirname, 'app/assets/fonts')
+    fonts : path.join(__dirname, 'app/assets/fonts')
 };
 
 process.env.BABEL_ENV = TARGET;

@@ -1,8 +1,10 @@
 // Libs
-import React    from 'react';
-import firebase from 'firebase';
-import {DragSource, DropTarget} from 'react-dnd';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import React              from 'react';
+import firebase           from 'firebase';
+import cloudinary         from 'cloudinary';
+import { cloudinaryConfig, CloudinaryImage, CloudinaryVideo } from 'react-cloudinary';
+import {DragSource, DropTarget}           from 'react-dnd';
+import {Tooltip, OverlayTrigger}          from 'react-bootstrap';
 
 // Files
 import ItemTypes from '../../constants/itemTypes';
@@ -84,7 +86,8 @@ export default class Artwork extends React.Component {
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
                 <div className="artwork-image">
-                    <img src={this.props.artwork.thumbnail} />
+                    {this.cloudy()}
+                    <img  />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
@@ -120,5 +123,9 @@ export default class Artwork extends React.Component {
 
     componentDidMount() {
         console.log("+++++++Artwork");
+    }
+
+    cloudy = () => {
+        return <div dangerouslySetInnerHTML={{__html:cloudinary.image(this.props.artwork.thumbnail, {width: 300, height: 300, fetch_format: "auto", type: "fetch"}) }} /> ;
     }
 }

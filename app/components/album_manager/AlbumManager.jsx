@@ -3,6 +3,8 @@ import React                        from 'react';
 import firebase                     from 'firebase';
 import uuid                         from 'node-uuid';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+import cloudinary                   from 'cloudinary';
+import { cloudinaryConfig, CloudinaryImage, CloudinaryVideo } from 'react-cloudinary';
 
 // Files
 import Albums                       from './Albums.jsx';

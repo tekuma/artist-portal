@@ -12,6 +12,8 @@ import Firebase           from 'firebase';
 import Snackbar           from 'material-ui/Snackbar';
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+import cloudinary         from 'cloudinary';
+import { cloudinaryConfig, CloudinaryImage, CloudinaryVideo } from 'react-cloudinary';
 
 // Files
 import PostAuth           from './components/main/PostAuth';
@@ -20,13 +22,24 @@ import ResetPassword      from './components/pre_auth/ResetPassword';
 import ForgotPassword     from './components/pre_auth/ForgotPassword';
 
 //Initialize Firebase  SDK in root JSX (here)
-var config = {
-    apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
-    authDomain: "artist-tekuma-4a697.firebaseapp.com",
-    databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
+let config = {
+    apiKey       : "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
+    authDomain   : "artist-tekuma-4a697.firebaseapp.com",
+    databaseURL  : "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
 firebase.initializeApp(config);
+
+
+cloudinary.config({
+  cloud_name: 'tekuma-io',
+  api_key   : '815625669726765',
+  api_secret: 'vciXc0S5BmQcft0ev7eBgJQJAIc'
+});
+cloudinary.cloudinary_js_config();
+
+//TODO let cloudinary_cors = "http://" + request.headers.host + "/cloudinary_cors.html";
+
 
 //  # Global Variables
 const userPath  = 'public/onboarders/';
@@ -89,7 +102,7 @@ export default class App extends React.Component {
 
     // ===== Flow Control ================
     // NOTE: To de-clutter the render() method, if multiple things could be
-    // rendered, split returns into flow control methods. #ETU 
+    // rendered, split returns into flow control methods. #ETU
 
     /**
      * Flow Control Function: If a user is currently logged in after accessing
