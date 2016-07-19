@@ -89,7 +89,7 @@ export default class App extends React.Component {
 
     // ===== Flow Control ================
     // NOTE: To de-clutter the render() method, if multiple things could be
-    // rendered, split returns into flow control methods. #ETU 
+    // rendered, split returns into flow control methods. #ETU
 
     /**
      * Flow Control Function: If a user is currently logged in after accessing
@@ -568,9 +568,11 @@ export default class App extends React.Component {
     signOutUser = () => {
         firebase.auth().signOut().then( () => {
           console.log("User signed out");
+          this.setState({});
         }, (error) => {
           console.error(error);
         });
+
     }
 
     clearVerifyEmailMessage = () => {
