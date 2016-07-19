@@ -719,8 +719,10 @@ export default class PostAuth extends React.Component {
     updateAlbum = (id ,data) => {
         const thisUID = firebase.auth().currentUser.uid;
         let thisAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/' + id);
+        this.changeAlbum(data.name);
         thisAlbumRef.update(data).then( () => {
             this.toggleEditAlbumDialog();
+
         });
     }
 

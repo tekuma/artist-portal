@@ -32,7 +32,7 @@ export default class EditAlbumForm extends React.Component {
                             <ul>
                                 <li>
                                     <label htmlFor="album-title">
-                                        Name <span className="pink">*</span> 
+                                        Name <span className="pink">*</span>
                                     </label>
                                     <input
                                         type        ="text"
@@ -44,7 +44,7 @@ export default class EditAlbumForm extends React.Component {
                                         defaultValue={this.props.value.name}
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
-                                            onChange(Object.assign({}, oldAlbum, {title: e.target.value}))
+                                            onChange(Object.assign({}, oldAlbum, {name: e.target.value}))
                                         }} />
                                 </li>
                                 <li>
