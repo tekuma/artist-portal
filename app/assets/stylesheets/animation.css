@@ -62,3 +62,74 @@ svg {
   width: 50%;
   margin: auto;
 }
+
+/* ------------
+Option 2
+------------ */
+
+#top-3,
+#right-3,
+#bottom-3,
+#left-3 {
+  stroke: transparent;
+  animation: rotate 1s 1.5s ease-out forwards;
+}
+
+#top-3 {
+  transform-origin: 10px 10px;
+}
+
+#right-3 {
+  transform-origin: 990px 10px;
+}
+
+#bottom-3 {
+  transform-origin: 990px 990px;
+}
+
+#left-3 {
+  transform-origin: 10px 990px;
+}
+
+@keyframes grow4 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    stroke: black;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0);
+    stroke: black;
+  }
+}
+
+.smallbox3 {
+  animation: grow4 1s ease-out;
+  transform-origin: 50% 50%;
+}
+
+.inner-3 {
+  stroke: transparent;
+  animation: grow4 1s .5s ease-out forwards;
+  transform-origin: 50% 50%;
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}

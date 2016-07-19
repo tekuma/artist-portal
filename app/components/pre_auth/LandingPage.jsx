@@ -34,6 +34,24 @@ export default class LandingPage extends React.Component {
                     <div className="login-layout">
                         <article className="signup-wrapper">
                             <div className="artist-logo-wrapper">
+                              <svg version="1.0" id="Group_copy_8_xA0_Image_1_" x="0px" y="0px" viewBox="0 0 1000 1000" style={{"enable-background":"new 0 0 1000 1000"}}>
+                              <g className="drawing">
+                                <g>
+                                  <line id="top-3" class="st0" x1="10" y1="10" x2="990" y2="10"/>
+                                  <line id="right-3" class="st0" x1="990" y1="10" x2="990" y2="990"/>
+                                  <line id="bottom-3" class="st0" x1="990" y1="990" x2="10" y2="990"/>
+                                  <line id="left-3" class="st0" x1="10" y1="990" x2="10" y2="10"/>
+
+                                  <g class="inner-3">
+                                    <line className="st0" x1="500" y1="500" x2="990" y2="10"/>
+                                    <line className="st0" x1="500" y1="500" x2="10" y2="10"/>
+                                    <line className="st0" x1="500" y1="500" x2="10" y2="990"/>
+                                    <line className="st0" x1="500" y1="500" x2="990" y2="990"/>
+                                  </g>
+                                    <rect class="smallbox3" x="323" y="323" class="st0" width="354" height="354"/>
+                                </g>
+                              </g>
+                              </svg>
                               <svg version="1.0" id="tekuma-logo" x="0px" y="0px" viewBox="0 0 1000 1000" style={{"enableBackground":"new 0 0 1000 1000"}}>
                               	<g style= {{ "fill": "none","stroke":"#000000","strokeWidth":"7","strokeMiterlimit":"10" }} >
                               		<g>
