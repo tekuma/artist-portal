@@ -286,7 +286,7 @@ export default class PostAuth extends React.Component {
         let colors = {};
         getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
         .getPalette( (error,palette)=>{
-            if (palette.Vibrant) {
+            if (palette.Vibrant != null && palette.Vibrant != undefined) {
                 colors['v'] = {
                     hex:palette.Vibrant.getHex(),
                     rgb:palette.Vibrant.getRgb(),
@@ -384,7 +384,7 @@ export default class PostAuth extends React.Component {
 
                     //Get the color palette
                     console.log("---Begin Color swatching");
-                    const colorObject    = this.extractColors(localURL);
+                    const colorObject = this.extractColors(fullSizeURL);
                     console.log("Color Digest:", colorObject);
                     console.log("---End Color swatching");
 

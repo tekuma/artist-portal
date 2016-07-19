@@ -31,9 +31,9 @@ firebase.initializeApp(config);
 
 //FIXME move api secret to env var
 cloudinary.config({
-  cloud_name: 'sample',
-  api_key: '874837483274837',
-  api_secret: 'a676b67565c6767a6767d6767f676fe1'
+  cloud_name: 'tekuma-io',
+  api_key   : '815625669726765',
+  api_secret: 'vciXc0S5BmQcft0ev7eBgJQJAIc'
 });
 
 //  # Global Variables
@@ -470,10 +470,9 @@ export default class App extends React.Component {
         });
     }
 
-    thumbnail = (url,width, height ) => {
+    thumbnail = (url ) => {
         let args = {
-             width       : width,
-             height      : height,
+             width       : 300,
              fetch_format: "auto",
              type        : "fetch"
         };
