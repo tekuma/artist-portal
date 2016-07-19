@@ -144,6 +144,10 @@ if(TARGET === 'build') {
               compress: {
                   warnings: false
               }
+          }),
+          // Extract vendor and manifest files
+          new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'manifest']
           })
       ]
   });
