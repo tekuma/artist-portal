@@ -10,7 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  */
 export default class LandingPage extends React.Component {
     state = {
-        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errors          : [],    // Used to store Auth errors from Firebase and Registration errors
         errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
         currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
@@ -136,6 +136,11 @@ export default class LandingPage extends React.Component {
 
     componentDidMount() {
         console.log('+++++LandingPage');
+        this.setState({
+            errors: [],
+            currentError: ""
+        });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -153,6 +158,7 @@ export default class LandingPage extends React.Component {
         // Clear errors from any previous form submission
         this.state.errors = [];
         this.state.errorType = {};
+        this.state.currentError = "";
 
         let privateData = {};
         let email = this.refs.email.value;

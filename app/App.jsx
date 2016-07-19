@@ -571,7 +571,7 @@ export default class App extends React.Component {
         const userPrivatePath = `_private/onboarders/${thisUID}`;
         firebase.database().ref(userPath).off();
         firebase.database().ref(userPrivatePath).off();
-        
+
         firebase.auth().signOut().then( () => {
           console.log("User signed out");
           this.setState({

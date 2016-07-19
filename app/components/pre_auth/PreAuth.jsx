@@ -74,7 +74,8 @@ export default class PreAuth extends React.Component {
               <HiddenLogin
                   authenticateWithPassword  ={this.props.authenticateWithPassword}
                   toggleForgotPassword      ={this.props.toggleForgotPassword}
-                  errors                    ={this.state.errors} />
+                  errors                    ={this.state.errors}
+                  clearErrors               ={this.props.clearErrors} />
           </div>
         );
     }
@@ -101,7 +102,8 @@ export default class PreAuth extends React.Component {
               <HiddenLogin
                   authenticateWithPassword  ={this.props.authenticateWithPassword}
                   toggleForgotPassword      ={this.props.toggleForgotPassword}
-                  errors                    ={this.state.errors} />
+                  errors                    ={this.state.errors}
+                  clearErrors               ={this.props.clearErrors} />
           </div>
         );
     }
@@ -129,7 +131,8 @@ export default class PreAuth extends React.Component {
               <HiddenLogin
                   authenticateWithPassword  ={this.props.authenticateWithPassword}
                   toggleForgotPassword      ={this.props.toggleForgotPassword}
-                  errors                    ={this.state.errors} />
+                  errors                    ={this.state.errors}
+                  clearErrors               ={this.props.clearErrors} />
           </div>
         );
     }
