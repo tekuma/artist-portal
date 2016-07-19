@@ -27,17 +27,18 @@ export default class EditAlbumForm extends React.Component {
         return (
             <div>
                 <div>
-                    <form className="artwork-form" onSubmit={onSubmit}>
+                    <form className="album-form" onSubmit={onSubmit}>
                         <fieldset>
                             <ul>
                                 <li>
                                     <label htmlFor="album-title">
-                                        Name <span className="pink">*</span>
+                                        Name <span className="pink">*</span> 
                                     </label>
                                     <input
                                         type        ="text"
                                         style       ={this.props.errorType.name != undefined ? errorStyle : null}
                                         id          ="album-title"
+                                        className   ="text-inputs"
                                         name        ="title"
                                         placeholder ="What is the name of this album?"
                                         defaultValue={this.props.value.name}

@@ -2222,26 +2222,29 @@ login-button.left {
 	margin-left: 24px;
 }
 
-.artwork-form {
+.artwork-form, .album-form {
 	vertical-align: top;
 	width: 320px;
 	margin: 0 auto;
 }
 
-.artwork-form fieldset {
+.artwork-form fieldset,
+.album-form fieldset {
 	border: 0;
 	padding: 0;
 	margin: 0 auto;
 }
 
-.artwork-form fieldset ul {
+.artwork-form fieldset ul,
+.album-form fieldset ul {
 	list-style: none;
     margin: 0;
     padding: 0;
 	width: 320px;
 }
 
-.artwork-form fieldset ul li {
+.artwork-form fieldset ul li,
+.album-form fieldset ul li {
 	display: inline-block;
 	width: 300px;
 	margin: 5px 10px;
@@ -2251,11 +2254,13 @@ login-button.left {
 	width: 20%;
 }
 
-.artwork-form fieldset ul li label span.pink {
+.artwork-form fieldset ul li label span.pink,
+.album-form fieldset ul li label span.pink {
 	color: #e72f80;
 }
 
 .artwork-form .text-inputs,
+.album-form .text-inputs,
 .artwork-form input[type=email],
 .artwork-form input[type=password],
 .artwork-form input[type=number],
@@ -2272,6 +2277,10 @@ login-button.left {
 	display: inline-block;
 }
 
+.album-form .text-inputs {
+	width: 100%;
+}
+
 #artwork-description,
 #album-description {
 	width: 300px;
@@ -2279,7 +2288,8 @@ login-button.left {
 	font-weight: 500;
 }
 
-.artwork-form .text-inputs {
+.artwork-form .text-inputs,
+.album-form .text-inputs {
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
@@ -2306,7 +2316,8 @@ login-button.left {
 	line-height: 1.2em;
 }
 
-.artwork-form label:not(.checkbox) {
+.artwork-form label:not(.checkbox),
+.album-form label:not(.checkbox) {
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
     font-weight: 600;
     color: #000000;
@@ -2317,7 +2328,13 @@ login-button.left {
     margin-bottom: 5px;
 }
 
-.artwork-form fieldset ul li label.center {
+.album-form label:not(.checkbox) {
+	display: block;
+	text-align: center;
+}
+
+.artwork-form fieldset ul li label.center,
+.album-form fieldset ul li label.center  {
 	text-align: center !important;
 	width: 100%;
 }
@@ -3636,6 +3653,25 @@ label.age-confirm-label {
 		width: 300px !important;
 	}
 
+	.edit-album-body {
+		width: 300px;
+	}
+
+	.album-form {
+		width: 100%;
+	}
+
+	.album-form fieldset ul {
+		list-style: none;
+	    margin: 0;
+	    padding: 0;
+		width: 100%;
+	}
+
+	.album-form fieldset ul li {
+		width: 100%;
+		margin: 5px 0px;
+	}
 
 	.edit-artwork-title,
 	.edit-album-title {

@@ -50,10 +50,10 @@ export default class EditAlbumDialog extends React.Component {
                         actions                     ={actions}
                         modal                       ={false}
                         open                        ={this.props.editAlbumIsOpen}
-                        titleClassName              ="edit-artwork-title"
-                        actionsContainerClassName   ="edit-artwork-actions"
-                        bodyClassName               ="edit-artwork-body"
-                        contentClassName            ="edit-artwork-content" >
+                        titleClassName              ="edit-album-title"
+                        actionsContainerClassName   ="edit-album-actions"
+                        bodyClassName               ="edit-album-body"
+                        contentClassName            ="edit-album-content" >
                         <EditAlbumForm
                             user            ={this.props.user}
                             value           ={this.state.albumInfo}
