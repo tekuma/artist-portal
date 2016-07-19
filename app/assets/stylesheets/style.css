@@ -970,6 +970,10 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
+.album.uploads .album-name {
+	cursor: default;
+}
+
 .album-edit {
 	margin: 8px 0px 27px;
 }
