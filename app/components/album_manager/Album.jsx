@@ -44,7 +44,6 @@ const albumTarget = {
                 let thisArtworkRef = firebase.database().ref(path);
                 thisArtworkRef.transaction((data) => {
                     data['album'] = target.name;
-                    console.log("Artwork Data: ", data);
                     return data;
                 });
             }

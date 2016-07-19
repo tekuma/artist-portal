@@ -152,12 +152,10 @@ export default class PreAuth extends React.Component {
         this.setState({
             loginIsOpen: !this.state.loginIsOpen
         });
-        console.log("loginIsOpen is: ", this.state.loginIsOpen);
     }
 
     returnToLandingPage = () => {
         this.setState({step: 1});
         this.props.clearRegistration();
-        console.log("Returned to Landing Page");
     }
 }

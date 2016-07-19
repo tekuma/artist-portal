@@ -70,7 +70,6 @@ export default class ArtworkManager extends React.Component {
                 for (let i = 0; i < artworksLength; i++) {
                     let artworkUID = artworks[i];
                     let artwork    = user['artworks'][artworkUID];
-                    console.log("$$THIS is not an artwork", artwork);
                     album.push(artwork);
                 }
             }
