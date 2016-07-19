@@ -283,53 +283,61 @@ export default class PostAuth extends React.Component {
      */
     extractColors = (url) => {
         console.log(">> Extracting Color Palette from Upload...");
-        let colors = {};
-        getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
-        .getPalette( (error,palette)=>{
-            if (palette.Vibrant != null && palette.Vibrant != undefined) {
-                colors['v'] = {
-                    hex:palette.Vibrant.getHex(),
-                    rgb:palette.Vibrant.getRgb(),
-                    cnt:palette.Vibrant.getPopulation()
-                };
-            }
-            if (palette.Muted != null) {
-                colors['m'] = {
-                    hex:palette.Muted.getHex(),
-                    rgb:palette.Muted.getRgb(),
-                    cnt:palette.Muted.getPopulation()
-                };
-            }
-            if (palette.DarkVibrant != null) {
-                colors['dv'] = {
-                    hex:palette.DarkVibrant.getHex(),
-                    rgb:palette.DarkVibrant.getRgb(),
-                    cnt:palette.DarkVibrant.getPopulation()
-                };
-            }
-            if (palette.DarkMuted != null) {
-                colors['dm'] = {
-                    hex:palette.DarkMuted.getHex(),
-                    rgb:palette.DarkMuted.getRgb(),
-                    cnt:palette.DarkMuted.getPopulation()
-                };
-            }
-            if (palette.LightVibrant != null) {
-                colors['lv'] = {
-                    hex:palette.LightVibrant.getHex(),
-                    rgb:palette.LightVibrant.getRgb(),
-                    cnt:palette.LightVibrant.getPopulation()
-                };
-            }
-            if (palette.LightMuted != null) {
-                colors['lm'] = {
-                    hex:palette.LightMuted.getHex(),
-                    rgb:palette.LightMuted.getRgb(),
-                    cnt:palette.LightMuted.getPopulation()
-                };
-            }
+        return new Promise( (resolve,reject)=>{
+            getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
+            .getPalette( (error,palette)=>{
+                console.log(palette);
+                let colors = {};
+                if (palette.Vibrant != null && palette.Vibrant != undefined) {
+                    colors['v'] = {
+                        hex:palette.Vibrant.getHex(),
+                        rgb:palette.Vibrant.getRgb(),
+                        cnt:palette.Vibrant.getPopulation()
+                    };
+                }
+                if (palette.Muted != null) {
+                    colors['m'] = {
+                        hex:palette.Muted.getHex(),
+                        rgb:palette.Muted.getRgb(),
+                        cnt:palette.Muted.getPopulation()
+                    };
+                }
+                if (palette.DarkVibrant != null) {
+                    colors['dv'] = {
+                        hex:palette.DarkVibrant.getHex(),
+                        rgb:palette.DarkVibrant.getRgb(),
+                        cnt:palette.DarkVibrant.getPopulation()
+                    };
+                }
+                if (palette.DarkMuted != null) {
+                    colors['dm'] = {
+                        hex:palette.DarkMuted.getHex(),
+                        rgb:palette.DarkMuted.getRgb(),
+                        cnt:palette.DarkMuted.getPopulation()
+                    };
+                }
+                if (palette.LightVibrant != null) {
+                    colors['lv'] = {
+                        hex:palette.LightVibrant.getHex(),
+                        rgb:palette.LightVibrant.getRgb(),
+                        cnt:palette.LightVibrant.getPopulation()
+                    };
+                }
+                if (palette.LightMuted != null) {
+                    colors['lm'] = {
+                        hex:palette.LightMuted.getHex(),
+                        rgb:palette.LightMuted.getRgb(),
+                        cnt:palette.LightMuted.getPopulation()
+                    };
+                }
+                console.log("--------Finished analyzing palette");
+                resolve(colors);
+            });
         });
-        return colors;
+
+
+
+
     }
 
     /** FIXME handle color processing in background
@@ -383,51 +391,55 @@ export default class PostAuth extends React.Component {
                     const uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
 
                     //Get the color palette
+                    let tempURL = URL.createObjectURL(blob);
                     console.log("---Begin Color swatching");
-                    const colorObject = this.extractColors(fullSizeURL);
-                    console.log("Color Digest:", colorObject);
-                    console.log("---End Color swatching");
+                    this.extractColors(tempURL).then( (colorObject)=>{
+                        console.log("Color Digest:", colorObject);
+                        console.log("---End Color swatching");
 
-                    //Build the artwork object
-                    let title = fileName.split(".")[0];
-                    let artist = "Self";
-                    if (this.state.user && this.state.user.display_name != "Untitled Artist") {
-                        artist = this.state.user.display_name;
-                    }
-
-                    let artObject = {
-                        id          : artworkUID,
-                        filename    : fileName,
-                        title       : title,
-                        artist      : artist,
-                        album       : "Uploads",
-                        upload_date : new Date().toISOString(),
-                        year        : new Date().getFullYear(),
-                        description : "",
-                        tags        : [{id: 1, text: "Art"}],
-                        size        : fileSize,
-                        fullsize_url: fullSizeURL,
-                        colors      : colorObject
-                    };
-
-                    // set the art object to the artworks node
-                    artRef.child(artworkUID).set(artObject).then(()=>{
-                        console.log(">>>>Artwork info set into DB");
-                    }).catch((error)=>{
-                        console.error(error);
-                    });
-
-                    //Now, add a pointer to the artwork object to the uploads album
-                    uploadAlbumRef.transaction( (node)=>{
-                        if (node == null) {
-                            node = {0:artworkUID};
-                        } else {
-                            let currentLength   = Object.keys(node).length;
-                            node[currentLength] = artworkUID;
+                        //Build the artwork object
+                        let title = fileName.split(".")[0];
+                        let artist = "Self";
+                        if (this.state.user && this.state.user.display_name != "Untitled Artist") {
+                            artist = this.state.user.display_name;
                         }
-                        return node; //finish transaction
-                    }, (error,bool,snap)=>{
-                            console.log(">>>Img set into album");
+
+                        let artObject = {
+                            id          : artworkUID,
+                            filename    : fileName,
+                            title       : title,
+                            artist      : artist,
+                            album       : "Uploads",
+                            upload_date : new Date().toISOString(),
+                            year        : new Date().getFullYear(),
+                            description : "",
+                            tags        : [{id: 1, text: "Art"}],
+                            size        : fileSize,
+                            fullsize_url: fullSizeURL,
+                            colors      : colorObject
+                        };
+
+                        // set the art object to the artworks node
+                        artRef.child(artworkUID).set(artObject).then(()=>{
+                            console.log(">>>>Artwork info set into DB");
+                        }).catch((error)=>{
+                            console.error(error);
+                        });
+
+                        //Now, add a pointer to the artwork object to the uploads album
+                        uploadAlbumRef.transaction( (node)=>{
+                            if (node == null) {
+                                node = {0:artworkUID};
+                            } else {
+                                let currentLength   = Object.keys(node).length;
+                                node[currentLength] = artworkUID;
+                            }
+                            return node; //finish transaction
+                        }, (error,bool,snap)=>{
+                                URL.revokeObjectURL(tempURL);
+                                console.log(">>>Img set into album");
+                        });
+
                     });
                 });//END upload promise and thenable
         });

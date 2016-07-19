@@ -470,13 +470,17 @@ export default class App extends React.Component {
         });
     }
 
-    thumbnail = (url ) => {
+    /**
+     * [description]
+     * @param  {[type]} url [description]
+     * @return {[type]}     [description]
+     */
+    thumbnail = (url,width) => {
         let args = {
-             width       : 300,
-             fetch_format: "auto",
-             type        : "fetch"
+            width       :width,
+            fetch_format: "auto",
+            type        : "fetch"
         };
-
         return <div dangerouslySetInnerHTML={{__html:cloudinary.image(url, args) }} /> ;
     }
 
