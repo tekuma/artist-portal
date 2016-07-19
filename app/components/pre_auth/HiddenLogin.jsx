@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class HiddenLogin extends React.Component {
     state = {
-        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errors          : [],    // Used to store Auth errors from Firebase and Registration errors
         errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
         currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
@@ -76,10 +76,14 @@ export default class HiddenLogin extends React.Component {
 
     componentDidMount() {
         console.log("+++++HiddenLogin");
+        this.setState({
+            errors: [],
+            currentError: ""
+        });
     }
 
     componentWillReceiveProps(nextProps) {
-        //pass
+        // pass
     }
 
 // ============= Methods ===============
@@ -102,6 +106,9 @@ export default class HiddenLogin extends React.Component {
         e.preventDefault();
 
         this.state.errors = [];
+        this.props.clearErrors();
+        this.state.errorType = {};
+        this.state.currentError = "";
 
         // Clear errors from any previous form submission
         let data = {};
@@ -118,7 +125,7 @@ export default class HiddenLogin extends React.Component {
             this.state.errors.push("Please enter your password.");
         }
 
-        if(this.props.errors.length == 0) {
+        if(this.state.errors.length == 0) {
             data.email = email;
             data.password = password;
             this.props.authenticateWithPassword(data);
@@ -135,9 +142,10 @@ export default class HiddenLogin extends React.Component {
 
             setTimeout(() => {
                 this.setState({
-                    currentError: ""
+                    currentError: "",
+                    errors: []
                 });
-            }, 3000 * i + 3000);
+            }, 3000 * i + 4000);
         }
     }
 
