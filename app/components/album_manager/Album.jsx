@@ -164,13 +164,6 @@ export default class Album extends React.Component {
                 </div>
                 <div className="album-download-delete">
                     <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={downloadTooltip}>
-                        <img
-                            className   ="album-more"
-                            src         ='assets/images/icons/download-white.svg' />
-                    </OverlayTrigger>
-                    <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>
                         <img
@@ -261,13 +254,6 @@ export default class Album extends React.Component {
                     {this.props.album.name}
                 </h3>
                 <div className="album-download-delete">
-                    <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={downloadTooltip}>
-                        <img
-                            className   ="album-more"
-                            src         ='assets/images/icons/download-white.svg' />
-                    </OverlayTrigger>
                     <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>
