@@ -4,67 +4,49 @@
 
 svg {
 	margin: auto;
-  	display: block;
+  display: block;
 }
 
 /* --------------------------
   Keyframes
 --------------------------- */
 
-@keyframes grow {
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0);
+    stroke: black;
+  }
+}
+
+@keyframes grow4 {
   0% {
     transform: scale(0);
   }
-  30% {
-    transform: scale(1.0);
-  }
-  60% {
-    transform: scale(0.8);
+  100% {
+    transform: scale(1);
+    stroke: black;
   }
 }
+
 
 /* --------------------------
   SVG Styles
 --------------------------- */
 
-#tekuma-logo {
-  padding-bottom: 20px;
-}
-
-.badge * {
-  transform-origin: 50% 50%;
-}
-
-.outer,
-.logoanimation,
-.inline {
-  animation: grow 3s ease-out backwards;
-}
-
-.logoanimation {
-  fill: #fff;
-  animation-delay: .5s;
-  transform-origin: 50% 50%;
-  -webkit-transition: all 1s; /* Safari */
+.drawing {
+  fill:white;
+  stroke:#000000;
+  stroke-width:6;
+  stroke-miterlimit:10;
   transition: all 1s;
 }
 
-.logoanimation:hover {
-  stroke: #ec167c;
-}
-
-
-.inline {
-  animation-delay: .15s;
-}
-
-.logowrap {
-  width: 50%;
-  margin: auto;
-}
-
 /* ------------
-Option 2
+animation
 ------------ */
 
 #top-3,
@@ -91,25 +73,6 @@ Option 2
   transform-origin: 10px 990px;
 }
 
-@keyframes grow4 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-    stroke: black;
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(-15deg);
-  }
-  100% {
-    transform: rotate(0);
-    stroke: black;
-  }
-}
 
 .smallbox3 {
   animation: grow4 1s ease-out;
@@ -120,16 +83,4 @@ Option 2
   stroke: transparent;
   animation: grow4 1s .5s ease-out forwards;
   transform-origin: 50% 50%;
-}
-
-@keyframes shrink {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(0);
-  }
 }
