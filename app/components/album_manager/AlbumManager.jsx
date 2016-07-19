@@ -115,6 +115,7 @@ export default class AlbumManager extends React.Component {
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
                     albums             ={this.state.albums}
+                    thumbnail          ={this.props.thumbnail}
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
                     emptyUploads       ={this.emptyUploads}
