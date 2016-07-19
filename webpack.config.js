@@ -75,10 +75,6 @@ const common = {
             {
                 test:/\.json$/,
                 loader: "json-loader"
-            },
-            {
-                test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
-                loader: 'imports?define=>false&this=>window'
             }
         ]
     }
@@ -144,10 +140,6 @@ if(TARGET === 'build') {
               compress: {
                   warnings: false
               }
-          }),
-          // Extract vendor and manifest files
-          new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest']
           })
       ]
   });
