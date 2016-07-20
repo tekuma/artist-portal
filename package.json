@@ -76,7 +76,6 @@
     "react-tag-input": "^4.0.0",
     "react-tap-event-plugin": "^1.0.0",
     "reactfire": "^1.0.0",
-    "react-tap-event-plugin": "^1.0.0",
-    "react-lazy-load": "^3.0.10"
+    "react-tap-event-plugin": "^1.0.0"
   }
 }
