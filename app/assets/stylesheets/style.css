@@ -599,6 +599,7 @@ header.black {
 .header-writing h3 {
 	color: #666666;
 	font-weight: 600;
+	margin-top: 10px;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -1837,7 +1838,7 @@ login-button.left {
 .separator span {
     background:#fff;
     padding:0 10px;
-	font-weight: 500;
+	font-weight: 400;
 	color: #000000;
 }
 
