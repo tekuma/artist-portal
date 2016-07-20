@@ -604,6 +604,10 @@ export default class App extends React.Component {
 
     }
 
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
     clearVerifyEmailMessage = () => {
         this.setState({
             verifyEmailMessage: ""
