@@ -83,7 +83,11 @@ export default class Artwork extends React.Component {
             <article
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
-                <div className="artwork-image">
+                <div
+                    className="artwork-image"
+                    onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                    onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                    >
                     <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)} alt="File Too Large"  />
                 </div>
                 <div className="artwork-info">

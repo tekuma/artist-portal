@@ -1098,7 +1098,7 @@ main, .artworks {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
-	cursor: move;
+	cursor: default;
 	overflow: hidden;
 }
 

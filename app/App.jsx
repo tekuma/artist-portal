@@ -512,6 +512,7 @@ export default class App extends React.Component {
         usersRef.once('value').then( (snapshot) => {
             //check if user already exists at node
             if (!snapshot.child(thisUID).exists()) {
+                console.log("Entered IF in socialLoginToTekuma");
                 isNewUser = true;
 
                 // Setting Onboarder name
@@ -554,6 +555,7 @@ export default class App extends React.Component {
                 });
 
             } else {
+                console.log("Entered ELSE in socialLoginToTekuma");
                 isNewUser = false;
             }
         }, (error) => {
@@ -561,6 +563,7 @@ export default class App extends React.Component {
         }, this);
 
         if (isNewUser) {
+            console.log("Am I a new User?", isNewUser);
             //>>>> Instantiate public/products/thisUID
             let  productPath  = `public/products/${thisUID}`;
             firebase.database().ref(productPath).set({

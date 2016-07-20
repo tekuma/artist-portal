@@ -159,6 +159,7 @@ export default class PostAuth extends React.Component {
             this.setState({
                 userPrivate:snapshot.val()
             });
+            console.log("This is private user info in componentDidMount: ", snapshot.val());
             this.forceUpdate(); //FIXME in theory this line is un-needed.
         }, (error)=>{
             console.error(error);
@@ -623,6 +624,7 @@ export default class PostAuth extends React.Component {
      * - legal_name
      */
     editPrivateUserInfo = (data) => {
+        console.log("Data in editPrivateUserInfo: ", data);
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
         const userPrivatePath   = `_private/onboarders/${thisUID}`;
@@ -670,6 +672,7 @@ export default class PostAuth extends React.Component {
                 legal_name: data.legal_name
             }).then(()=>{
                 //FIXME use a toggle method?
+                console.log("This is data.legal_name: ", data.legal_name);
                 this.setState({
                     editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                 });

@@ -194,6 +194,7 @@ export default class PrivateEdit extends React.Component {
 
     componentDidMount() {
         //pass
+        console.log("Private Data: ", this.props.userPrivate);
     }
 
     componentWillReceiveProps(nextProps) {
