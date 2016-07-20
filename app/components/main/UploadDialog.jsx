@@ -85,7 +85,7 @@ export default class UploadDialog extends React.Component {
                                 </div>
                             </div>
                           }
-                        <h2 className="upload-artwork-hint">View your artworks in the Uploads album</h2>
+                        <h2 className="upload-artwork-hint">Closing this dialog won't stop the uploading process</h2>
                     </Dialog>
                 </MuiThemeProvider>
             </div>

@@ -159,7 +159,6 @@ export default class PostAuth extends React.Component {
             this.setState({
                 userPrivate:snapshot.val()
             });
-            console.log("This is private user info in componentDidMount: ", snapshot.val());
             this.forceUpdate(); //FIXME in theory this line is un-needed.
         }, (error)=>{
             console.error(error);
@@ -394,9 +393,26 @@ export default class PostAuth extends React.Component {
 
 
                     //Now, we have all needed async-data. Set it to the DB.
-                    const artRef         = firebase.database().ref(pathToPublicOnboarder+thisUID).child('artworks');
+                    let artPath          = `public/onboarders/${thisUID}`
+                    const artRef         = firebase.database().ref(artPath).child('artworks');
                     const artworkUID     = artRef.push().key;
-                    const uploadAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/0/artworks');
+
+                    // Find Current Album index
+
+                    let albums = this.state.user.albums;
+                    let albumIndex = 0;
+
+                    for(let i = 0; i < Object.keys(albums).length; i++) {
+                        let album = albums[i];
+
+                        if (album.name == this.state.currentAlbum) {
+                            console.log("AlbumIndex: ", i);
+                            albumIndex = i;
+                        }
+                    }
+
+                    let albumPath        = `public/onboarders/${thisUID}/albums/${albumIndex}/artworks`
+                    const uploadAlbumRef = firebase.database().ref(albumPath);
 
                     //Get the color palette
                     let tempURL = URL.createObjectURL(blob);
@@ -417,7 +433,7 @@ export default class PostAuth extends React.Component {
                             filename    : fileName,
                             title       : title,
                             artist      : artist,
-                            album       : "Uploads",
+                            album       : this.state.currentAlbum,
                             upload_date : new Date().toISOString(),
                             year        : new Date().getFullYear(),
                             description : "",
