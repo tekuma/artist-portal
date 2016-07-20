@@ -170,6 +170,7 @@ export default class Album extends React.Component {
                             className="album-more"
                             src='assets/images/icons/edit-white.svg'
                             onClick={this.props.onEdit}
+                            onTouchTap={this.props.onEdit}
                              />
                     </OverlayTrigger>
                     <OverlayTrigger
@@ -178,7 +179,8 @@ export default class Album extends React.Component {
                         <img
                             className   ="album-more"
                             src         ='assets/images/icons/delete-white.svg'
-                            onClick     ={this.props.onDelete} />
+                            onClick     ={this.props.onDelete}
+                            onTouchTap  ={this.props.onDelete} />
                     </OverlayTrigger>
                 </div>
             </li>
@@ -261,6 +263,7 @@ export default class Album extends React.Component {
                             className="album-more"
                             src='assets/images/icons/edit-white.svg'
                             onClick={this.props.onEdit}
+                            onTouchTap={this.props.onEdit}
                              />
                      </OverlayTrigger>
                     <OverlayTrigger
@@ -270,6 +273,7 @@ export default class Album extends React.Component {
                             className   ="album-more"
                             src         ='assets/images/icons/delete-white.svg'
                             onClick     ={this.props.onDelete}
+                            onTouchTap  ={this.props.onDelete}
                         />
                     </OverlayTrigger>
                 </div>

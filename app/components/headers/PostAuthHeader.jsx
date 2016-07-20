@@ -46,6 +46,7 @@ export default class PostAuthHeader extends React.Component {
                 	<div
                         className="tekuma-logo"
                         onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                        onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                   >
                       <svg version="1.0" id="tekuma-logo-image-small" x="0px" y="0px" viewBox="0 0 1000 1000">
                         <g>
@@ -66,6 +67,7 @@ export default class PostAuthHeader extends React.Component {
                 	    	<div
                                 className="header-icon"
                                 onClick={this.onOpenClick}
+                                onTouchTap={this.onOpenClick}
                                 >
                                 <img src='assets/images/icons/plus-pink.svg' />
                 	    	</div>
@@ -74,6 +76,7 @@ export default class PostAuthHeader extends React.Component {
                 	    	<div
                                 className="header-icon"
                                 onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                                onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                                 >
                                 <img src='assets/images/icons/organize.svg' />
                 	    	</div>

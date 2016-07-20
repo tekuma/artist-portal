@@ -131,6 +131,7 @@ export default class AlbumManager extends React.Component {
                     overlay     ={addAlbumTooltip}>
                     <button
                         onClick     ={this.addAlbum}
+                        onTouchTap  ={this.addAlbum}
                         className   ="add-album" >
                         <img src='assets/images/icons/plus-white.svg' />
                     </button>
@@ -163,6 +164,7 @@ export default class AlbumManager extends React.Component {
                     user            ={this.props.user} />
                 <div
                     onClick     ={this.addAlbum}
+                    onTouchTap  ={this.addAlbum}
                     className   ="add-album" >
                     <img src='assets/images/icons/plus-white.svg' />
                 </div>
@@ -248,6 +250,7 @@ export default class AlbumManager extends React.Component {
      */
     editAlbum = (id, e) => {
         e.stopPropagation();
+        e.preventDefault();
 
         this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
         this.props.toggleEditAlbumDialog();    // Open Edit Dialog

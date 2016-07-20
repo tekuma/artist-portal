@@ -79,7 +79,8 @@ export default class Albums extends React.Component {
                         <img
                             className   ="album-more"
                             src         ='assets/images/icons/delete-white.svg'
-                            onClick     = {this.props.emptyUploads} />
+                            onClick     = {this.props.emptyUploads}
+                            onTouchTap  ={this.props.changeAlbum} />
 
                     </OverlayTrigger>
                 </div>

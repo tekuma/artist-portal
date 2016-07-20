@@ -103,6 +103,7 @@ export default class Artwork extends React.Component {
                                 className="artwork-more"
                                 src='assets/images/icons/edit-black.svg'
                                 onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                                  />
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
@@ -110,6 +111,7 @@ export default class Artwork extends React.Component {
                                 className="artwork-more"
                                 src='assets/images/icons/delete-black.svg'
                                 onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
+                                onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}
                                 />
                         </OverlayTrigger>
                     </div>

@@ -2789,7 +2789,7 @@ login-button.left {
 	box-shadow: inset 0 2px 5px rgba(0,0,0,0.24);
 	padding: 15px;
 	width: 100%;
-	height: 50vh;
+	height: 50vh !important;
 	overflow: scroll;
 	text-align: center;
 }

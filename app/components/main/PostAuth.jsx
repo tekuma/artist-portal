@@ -6,6 +6,12 @@ import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
 import update              from 'react-addons-update';
+import injectTapEventPlugin from "react-tap-event-plugin";
+injectTapEventPlugin({
+  shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
+    return true;
+  }
+}); // Initializing to enable Touch Tap events. It is global
 
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../../constants/Views';
