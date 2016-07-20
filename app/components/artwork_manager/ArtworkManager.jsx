@@ -5,6 +5,7 @@ import filesaver  from 'file-saver';
 import Dropzone   from 'react-dropzone';
 import update     from 'react-addons-update';
 import Masonry    from 'react-masonry-component';
+import LazyLoad   from 'react-lazy-load';
 
 // Files
 import Artwork    from './Artwork';
@@ -156,14 +157,17 @@ export default class ArtworkManager extends React.Component {
 
                 {album.map(artwork => {
                     return (
-                        <Artwork
-                            thumbnail   ={this.props.thumbnail}
-                            key         ={artwork.id}
-                            onEdit      ={this.editArtwork}
-                            onDelete    ={this.deleteArtwork}
-                            onDownload  ={this.downloadArtwork}
-                            onMove      ={this.move}
-                            artwork     ={artwork} />
+                        <LazyLoad offsetBottom={500}>
+                            <Artwork
+                                thumbnail   ={this.props.thumbnail}
+                                key         ={artwork.id}
+                                onEdit      ={this.editArtwork}
+                                onDelete    ={this.deleteArtwork}
+                                onDownload  ={this.downloadArtwork}
+                                onMove      ={this.move}
+                                artwork     ={artwork} />
+                        </LazyLoad>
+
                     );
                 })}
                 </Masonry>
