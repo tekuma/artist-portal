@@ -75,5 +75,5 @@ To deploy to 'https://artist.tekuma.io' simply :
  Outside of the world of Google, this app uses the frontend framework known as ReactJS (by Facebook, 'https://facebook.github.io/react/')
 
  And, as uploaded artworks are rich and detailed files, all images rendered inside of the UX are rendered through an image processing and image CDN known as Cloudinary. Cloudinary can be managed via:
- 
+
  'https://cloudinary.com/console'
