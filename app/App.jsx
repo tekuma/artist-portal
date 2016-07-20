@@ -22,13 +22,14 @@ import ForgotPassword     from './components/pre_auth/ForgotPassword';
 
 //Initialize Firebase  SDK in root JSX (here)
 var config = {
-    apiKey: "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
-    authDomain: "artist-tekuma-4a697.firebaseapp.com",
-    databaseURL: "https://artist-tekuma-4a697.firebaseio.com",
+    apiKey       : "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
+    authDomain   : "artist-tekuma-4a697.firebaseapp.com",
+    databaseURL  : "https://artist-tekuma-4a697.firebaseio.com",
     storageBucket: "artist-tekuma-4a697.appspot.com",
 };
 firebase.initializeApp(config);
 
+//FIXME FIXME FIXME 
 //FIXME move api secret to env var
 cloudinary.config({
   cloud_name: 'tekuma-io',
