@@ -69,7 +69,9 @@ export default class Albums extends React.Component {
                         <img src='assets/images/icons/upload.svg' />
                     </div>
                 </div>
-                <h3 className="album-name">
+                <h3
+                    id="uploads-album-name"
+                    className="album-name">
                     Uploads
                 </h3>
                 <div className="album-download-delete">

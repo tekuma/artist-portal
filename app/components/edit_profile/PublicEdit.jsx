@@ -463,8 +463,6 @@ export default class PublicEdit extends React.Component {
         // gather inputs that have been entered
         if (this.state.errors.length == 0) {
             this.props.editPublicUserInfo(data);
-            console.log("edited data: ", data);
-            console.log("edited profile");
 
             this.setState({
                 accordion: {
