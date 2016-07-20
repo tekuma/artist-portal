@@ -61,4 +61,19 @@ To deploy to 'https://artist.tekuma.io' simply :
 
  from the root of the project directory.
 
+ #### Technical Stuff
+
+ Nearly all of this app is managed through
+ Google Firebase, which is a sub-branch of Google Cloud.
+
+ The cloud project can be managed through:
+ 'https://console.cloud.google.com/home/dashboard?project=artist-tekuma-4a697'
+
+ The Firebase interface, where Users, Data, and file storage from the UX can be managed from:
+ 'https://console.firebase.google.com/project/artist-tekuma-4a697/overview'
+
+ Outside of the world of Google, this app uses the frontend framework known as ReactJS (by Facebook, 'https://facebook.github.io/react/')
+
+ And, as uploaded artworks are rich and detailed files, all images rendered inside of the UX are rendered through an image processing and image CDN known as Cloudinary. Cloudinary can be managed via:
  
+ 'https://cloudinary.com/console'
