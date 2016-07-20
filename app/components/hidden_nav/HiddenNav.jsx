@@ -21,7 +21,7 @@ export default class HiddenNav extends React.Component {
         {
             id: uuid.v4(),
             item: 'Edit Profile',
-            icon: '../../assets/images/icons/person.svg',
+            icon: '../../assets/images/icons/person-outline.svg',
             href:  Views.EDIT,
             title: 'Edit Your Profile'
         }

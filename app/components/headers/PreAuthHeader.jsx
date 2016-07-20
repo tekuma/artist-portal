@@ -33,7 +33,7 @@ export default class PreAuthHeader extends React.Component {
                     className="tekuma-logo"
                     onClick={this.props.returnToLandingPage}
                     >
-                    <img id="tekuma-logo-image" src='assets/logos/text_black.png' />
+                    <h1 className="pre-auth-header-logotype">TEKUMA</h1>
             	</div>
             	<div
                     className="header-icons logged-off"

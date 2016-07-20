@@ -120,6 +120,7 @@ export default class PostAuth extends React.Component {
                     updateAlbum={this.updateAlbum}
                     currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
                 <UploadDialog
+                    thumbnail        ={this.props.thumbnail}
                     closeUploadDialog={this.closeUploadDialog}
                     uploadedPreviews={this.state.uploadPreviews}
                     uploadDialogIsOpen={this.state.uploadDialogIsOpen} />

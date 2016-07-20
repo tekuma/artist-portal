@@ -99,7 +99,7 @@ export default class Album extends React.Component {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                 let artwork = this.props.user.artworks[artworkID];
                 if (artwork.album == this.props.album.name) {
-                    let image = this.props.thumbnail(artwork.fullsize_url, 50);
+                    let image = this.props.thumbnail(artwork.fullsize_url, 150);
                     thumbnail = image;
                 }
             }

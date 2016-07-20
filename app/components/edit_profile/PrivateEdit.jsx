@@ -194,7 +194,6 @@ export default class PrivateEdit extends React.Component {
 
     componentDidMount() {
         //pass
-        console.log("Private Data: ", this.props.userPrivate);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -228,7 +227,6 @@ export default class PrivateEdit extends React.Component {
      */
     saveProfileInfo = (e) => {
         e.preventDefault();
-        console.log("entered save profile");
 
         // Clear errors from any previous form submission
         this.state.errors = [];
@@ -351,8 +349,6 @@ export default class PrivateEdit extends React.Component {
 
         if(this.state.errors.length == 0) {
             this.props.editPrivateUserInfo(data);
-            console.log("edited data: ", data);
-            console.log("edited profile");
 
             this.setState({
                 accordion: {
