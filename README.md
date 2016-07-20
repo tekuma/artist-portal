@@ -2,40 +2,63 @@
 
 Tekuma Artist Portal
 =====================
-### **NOTE** This app is still in *closed* BETA 
+### **NOTE** This app is still in *closed* BETA
+
+##  v0.2  (beta 2)
 
 [logo]:https://artist.tekuma.io/logos/logo.png
 
+NOTE: This README assumes you have authenticated with Google Firebase,
+and have the Firebase Command Line Interface (CLI) installed.
 
 #### Development
-
-To run a local developmental instance, clone this repo, and navigate to the CWD.
-Then, do:
-
+Development is handled on the local machine. After cloning this repo and navigating
+to the CWD, first run:
 
 `npm install`
 
-
-to install all dependencies and npm modules.
-After installation, run:
-
+to install all dependencies/libraries (located in the package.json).
+Then, run
 
 `npm run start`
 
+to launch a developmental server on the localhost @
+'http://localhost:8080' .
 
-to host a local server at 'http://localhost:8080'.
-
-#### Production
-First, run
+#### Staging
+Before this app can be deployed, the ES6+ codebase must be transpiled and
+web-packed into a build bundle. To do this, run:
 
 `npm run build`
 
- to compile all code into the build folder
-and down compile ES6 into "vanilla" JS.
-To deploy to artist.tekuma.io , you must be authenticated with Google Firebase,
-and have the Firebase Command Line Interface (CLI) installed. If so, simply do:
+Then, the /build directory should be ready for deployment. You can serve the
+build locally with
+`firebase serve`
+ -or-
+ it can be deployed to a staging enviornment on Google's CDN.
+ To do so, do:
 
+ `firebase use staging`
 
-`firebase deploy`
+ `firebase deploy -m "Message about the deployment"`
 
- from the root of the CWD.
+ to deploy to 'https://project-7614141605200030275.firebaseapp.com'
+
+#### Production
+
+Production builds are served through Firebase's static hosting CDN.
+
+To deploy a production build, run:
+
+`npm run build`
+
+to compile all code into the build folder and down compile into "vanilla" JS.
+To deploy to 'https://artist.tekuma.io' simply :
+
+`firebase use production`
+
+`firebase deploy -m "Message here"`
+
+ from the root of the project directory.
+
+ 
