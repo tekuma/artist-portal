@@ -2,7 +2,9 @@
     // BEGIN Rules
     // NOTE: Access is denied by default, a rule MUST be defined for access.
 
-    // Set rules for public branch //global read access?
+    // Set the admin to have global read access.
+    ".read" : "auth.uid === eCwt2Kx7qVZZDdZUsLNNtkpvClN2",
+    // Set rules for public branch
     "public":{
         //Set global read access to the public branch
         ".read" : "auth.uid != null",
