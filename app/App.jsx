@@ -501,18 +501,14 @@ export default class App extends React.Component {
      * - branch of sales information in '_private/products/{UID}'
      */
     socialLoginToTekuma = (provider) => {
-        const user    = firebase.auth().currentUser;
-        const thisUID = user.uid;
-        let isNewUser = true;
+        const user      = firebase.auth().currentUser;
+        const thisUID   = user.uid;
 
         //>>>> Instantiate public/onboarders/thisUID
-        // and check if isNewUser.
-
         const usersRef = firebase.database().ref('public/onboarders');
         usersRef.once('value').then( (snapshot) => {
             //check if user already exists at node
             if (!snapshot.child(thisUID).exists()) {
-                isNewUser = true;
 
                 // Setting Onboarder name
                 let thisDisplayName = "Untitled Artist";``
@@ -553,41 +549,36 @@ export default class App extends React.Component {
                     console.log("//node set in public user (1/4)");
                 });
 
+                //>>>> Instantiate public/products/thisUID
+                let  productPath  = `public/products/${thisUID}`;
+                firebase.database().ref(productPath).set({
+                    on_shopify: false
+                }).then(()=>{
+                    console.log("//node set in public products (2/4)");
+                });
+                //>>>> Instantiate _private/onboarders/thisUID
+                let userPrivatePath = `_private/onboarders/${thisUID}`;
+                firebase.database().ref(userPrivatePath).set({
+                    legal_name: "",
+                    email     : user.email
+                }).then(()=>{
+                    console.log("//node set in private user (3/4)");
+                });
+
+                //>>>> Instantiate _private/products/thisUID
+                let  _productPath  = `_private/products/${thisUID}`;
+                firebase.database().ref(_productPath).set({
+                    on_shopify: false
+                }).then(()=>{
+                    console.log("//node set in private products (4/4)");
+                });
+
             } else {
-                isNewUser = false;
+                console.log("welcome back!");
             }
         }, (error) => {
-            console.error("reg Error: ", error);
+            console.error("Social Login Error: ", error);
         }, this);
-
-        if (isNewUser) {
-            //>>>> Instantiate public/products/thisUID
-            let  productPath  = `public/products/${thisUID}`;
-            firebase.database().ref(productPath).set({
-                on_shopify: false
-            }).then(()=>{
-                console.log("//node set in public products (2/4)");
-            });
-
-
-            //>>>> Instantiate _private/onboarders/thisUID
-            let userPrivatePath = `_private/onboarders/${thisUID}`;
-            firebase.database().ref(userPrivatePath).set({
-                legal_name: "",
-                email     : user.email
-            }).then(()=>{
-                console.log("//node set in private user (3/4)");
-            });
-
-            //>>>> Instantiate _private/products/thisUID
-            let  _productPath  = `_private/products/${thisUID}`;
-            firebase.database().ref(_productPath).set({
-                on_shopify: false
-            }).then(()=>{
-                console.log("//node set in private products (4/4)");
-            });
-
-        }
     }
 
     /**

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "dev": "artist-tekuma-4a697"
+    "staging": "project-7614141605200030275",
+    "production": "artist-tekuma-4a697"
   }
 }
