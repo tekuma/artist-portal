@@ -73,16 +73,22 @@ div.ReactTags__suggestions ul {
     width: 200px;
 }
 div.ReactTags__suggestions li {
-    border-bottom: 1px solid #ddd;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    color: #000000;
+    width: 180px !important;
     padding: 5px 10px;
     margin: 0;
 }
 div.ReactTags__suggestions li mark {
     text-decoration: underline;
     background: none;
-    font-weight: 600;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    font-weight: 500;
+    color: #000000;
 }
 div.ReactTags__suggestions ul li.active {
-    background: #b7cfe0;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    background: #888888;
+    color: #000000;
     cursor: pointer;
 }

@@ -1,7 +1,7 @@
 // Libs
 import React from 'react';
 import uuid from 'node-uuid';
-const ReactTags = require('react-tag-input').WithOutContext;
+import { WithOutContext as ReactTags } from 'react-tag-input';
 
 /**
  * TODO
@@ -10,7 +10,8 @@ export default class EditArtworkForm extends React.Component {
 
     state = {
         albumNames: [],
-        tags: []
+        tags: [],
+        suggestions: []
     }
 
     constructor(props) {
@@ -24,6 +25,7 @@ export default class EditArtworkForm extends React.Component {
     render() {
         let oldArtwork  = this.props.value;
         let tags        = this.state.tags;
+        let suggestions = this.state.suggestions;
         let onChange    = this.props.onChange;
         let clearErrors = this.props.clearErrors;
         let onSubmit    = this.props.onSubmit;
@@ -177,9 +179,10 @@ export default class EditArtworkForm extends React.Component {
                                         className="edit-artwork-album">
                                         <div className="controls controls-album">
                                             <select
+                                                
                                                 className   ="edit-artwork-select"
                                                 ref         ="editAlbum"
-                                                value={this.props.value.album}
+                                                defaultValue={this.props.value.album}
                                                 onChange    ={(e) => {
                                                     onChange(Object.assign({}, oldArtwork, {album: e.target.value}))
                                                 }}>
@@ -214,6 +217,17 @@ export default class EditArtworkForm extends React.Component {
                                         }} />
                                 </li>
                                 <li>
+                                    <label htmlFor="artwork-tags">
+                                        Tags
+                                    </label>
+                                    <ReactTags
+                                        tags={tags}
+                                        suggestions={suggestions}
+                                        handleDelete={this.handleDelete}
+                                        handleAddition={this.handleAddition}
+                                        handleDrag={this.handleDrag} />
+                                </li>
+                                <li>
                                     <label
                                         htmlFor="artwork-description">
                                         Description
@@ -228,16 +242,7 @@ export default class EditArtworkForm extends React.Component {
                                             onChange(Object.assign({}, oldArtwork, {description: e.target.value}))
                                         }} />
                                 </li>
-                                <li>
-                                    <label htmlFor="artwork-tags">
-                                        Tags
-                                    </label>
-                                    <ReactTags
-                                        tags={tags}
-                                        handleDelete={this.handleDelete}
-                                        handleAddition={this.handleAddition}
-                                        handleDrag={this.handleDrag} />
-                                </li>
+
                             </ul>
                         </fieldset>
                     </form>
@@ -284,6 +289,23 @@ export default class EditArtworkForm extends React.Component {
             });
         }
 
+        // Get suggestions
+        let suggestions = [];
+        let artworks = this.props.user.artworks;
+
+        for (let artwork in artworks) {
+            let artworkTags = artworks[artwork]["tags"];
+            for (let i = 0; i < Object.keys(artworkTags).length; i++) {
+                let text = artworkTags[i].text;
+                if (suggestions.indexOf(text) == -1) {
+                    suggestions.push(text);
+                }
+            }
+        }
+
+        this.setState({
+            suggestions : suggestions
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -301,22 +323,6 @@ export default class EditArtworkForm extends React.Component {
             //Set albums to state
             this.setState({
                 albumNames : albumNames
-            });
-        }
-
-        // Get Tags
-        if (nextProps.value.tags) {
-            let allTags  = nextProps.value.tags;
-            let tagKeys  = Object.keys(allTags);
-            let tags = [];
-
-            for (let i = 0; i < tagKeys.length; i++) {
-                tags.push(allTags[i]);
-            }
-
-            //Set tags to state
-            this.setState({
-                tags : tags
             });
         }
     }
