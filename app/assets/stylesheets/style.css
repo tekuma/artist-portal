@@ -2795,7 +2795,7 @@ login-button.left {
 	text-align: center;
 	font-size: 1.2em !important;
 	color: #e83081 !important;
-	font-weight: 500 !important;
+	font-weight: 400 !important;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
@@ -2834,7 +2834,7 @@ login-button.left {
 	text-align: center;
 	font-size: 1.1em !important;
 	color: #000000 !important;
-	font-weight: 600 !important;
+	font-weight: 500 !important;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
 }
 
