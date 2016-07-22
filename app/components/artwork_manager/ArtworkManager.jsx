@@ -126,11 +126,28 @@ export default class ArtworkManager extends React.Component {
         const album = this.state.album;
 
         let styleManagerClosed = {
-            width: window.innerWidth - 40
+            width: window.innerWidth - 40,
+            height: window.innerHeight - 60
+        };
+
+        let styleManagerOpen = {
+            width: window.innerWidth * 0.7,  // Album Manager is 30% of Screen
+            height: window.innerHeight - 60
+        };
+
+        let styleLargeScreen = {
+            width: window.innerWidth - 440,
+            height: window.innerHeight - 60
         };
 
         let styleSmallScreen = {
-            width: window.innerWidth - 250
+            width: window.innerWidth - 250,
+            height: window.innerHeight - 60
+        };
+
+        let fixedWidth = {
+            width: window.innerWidth,
+            height: window.innerHeight - 60
         };
 
         let masonryOptions = {
@@ -139,14 +156,23 @@ export default class ArtworkManager extends React.Component {
 
         return (
             <Dropzone
+                style={this.props.managerIsOpen ?
+                            (window.innerWidth * 0.3 > 440) ?
+                                styleLargeScreen :
+                                (window.innerWidth * 0.3 > 250) ?
+                                    styleManagerOpen :
+                                    (window.innerWidth > 410) ?
+                                        styleSmallScreen :
+                                        fixedWidth
+                                : styleManagerClosed}
                 disableClick
                 className       ="artworks"
                 accept          ="image/*"
                 onDrop          ={this.onDrop}
                 ref             ="dropzone"
-                style           ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}>
+                >
                 <Masonry
-                    className       ="artworks"
+                    className       ="artworks no-margin"
                     style           ={this.props.managerIsOpen ? (window.innerWidth * 0.3 > 250) ? null : styleSmallScreen : styleManagerClosed}
                     elementType={'div'}
                     options={masonryOptions}
@@ -184,6 +210,11 @@ export default class ArtworkManager extends React.Component {
             height: window.innerHeight - 60
         };
 
+        let styleLargeScreen = {
+            width: window.innerWidth - 440,
+            height: window.innerHeight - 60
+        };
+
         let styleSmallScreen = {
             width: window.innerWidth - 250,
             height: window.innerHeight - 60
@@ -197,12 +228,14 @@ export default class ArtworkManager extends React.Component {
         return (
             <Dropzone
                 style={this.props.managerIsOpen ?
-                            (window.innerWidth * 0.3 > 250) ?
-                                styleManagerOpen :
-                                (window.innerWidth > 410) ?
-                                    styleSmallScreen :
-                                    fixedWidth
-                            : styleManagerClosed}
+                            (window.innerWidth * 0.3 > 440) ?
+                                styleLargeScreen :
+                                (window.innerWidth * 0.3 > 250) ?
+                                    styleManagerOpen :
+                                    (window.innerWidth > 410) ?
+                                        styleSmallScreen :
+                                        fixedWidth
+                                : styleManagerClosed}
                 className   ="artwork-upload-box"
                 accept      ="image/*"
                 onDrop      ={this.onDrop}>
@@ -224,6 +257,11 @@ export default class ArtworkManager extends React.Component {
             height: window.innerHeight - 60
         };
 
+        let styleLargeScreen = {
+            width: window.innerWidth - 440,
+            height: window.innerHeight - 60
+        };
+
         let styleSmallScreen = {
             width: window.innerWidth - 250,
             height: window.innerHeight - 60
@@ -237,12 +275,14 @@ export default class ArtworkManager extends React.Component {
         return (
             <Dropzone
                 style={this.props.managerIsOpen ?
-                            (window.innerWidth * 0.3 > 250) ?
-                                styleManagerOpen :
-                                (window.innerWidth > 410) ?
-                                    styleSmallScreen :
-                                    fixedWidth
-                            : styleManagerClosed}
+                            (window.innerWidth * 0.3 > 440) ?
+                                styleLargeScreen :
+                                (window.innerWidth * 0.3 > 250) ?
+                                    styleManagerOpen :
+                                    (window.innerWidth > 410) ?
+                                        styleSmallScreen :
+                                        fixedWidth
+                                : styleManagerClosed}
                 className   ="artwork-upload-box"
                 accept      ="image/*"
                 onDrop      ={this.onDrop}>

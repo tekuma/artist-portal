@@ -1082,7 +1082,7 @@ main, .artworks {
 	position: absolute !important;
 	top: 0;
 	left: 0;
-	padding-top: 60px;
+	margin-top: 60px;
 	height: 100vh;
 	width: 70vw;
 	z-index: 4;
@@ -1091,6 +1091,10 @@ main, .artworks {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.artworks.no-margin {
+	margin: 0;
 }
 
 .artwork {
