@@ -191,6 +191,7 @@ export default class EditArtworkForm extends React.Component {
                                         </div>
                                     </div>
                                 </li>
+                                <li><h3 className="edit-artwork-album-hint">Select multiple albums by holding Ctrl (Linux) and &#8984; (Mac).</h3></li>
                                 <li>
                                     <label htmlFor="artwork-year">
                                         Year <span className="pink">*</span>

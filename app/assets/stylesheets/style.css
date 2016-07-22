@@ -2186,7 +2186,7 @@ login-button.left {
 
 #edit-artwork-album {
 	display: inline-block;
-	width: 78%;
+	width: 80%;
 }
 
 /*========================================== */
@@ -2302,7 +2302,7 @@ login-button.left {
 	-moz-appearance: none;
 	-ms-appearance: none;
     padding: 0.75em .75em;
-    width: 78%;
+    width: 80%;
 	height: 2.7em;
 	display: inline-block;
 }
@@ -2409,6 +2409,17 @@ login-button.left {
 .edit-artwork-actions,
 .edit-album-actions {
 	padding: 0 !important;
+}
+
+.edit-artwork-album-hint {
+	position: relative;
+	left: 20%;
+	margin: 0;
+	width: 80%;
+	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
+	font-size: 0.8em;
+	font-weight: 400;
+	color: #000000;
 }
 
 /*========================================== */
@@ -3720,6 +3731,11 @@ label.age-confirm-label {
 	}
 
 	#edit-artwork-album {
+		width: 100%;
+	}
+
+	.edit-artwork-album-hint {
+		left: 0;
 		width: 100%;
 	}
 }
