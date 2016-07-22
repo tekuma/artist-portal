@@ -158,6 +158,7 @@ export default class ArtworkManager extends React.Component {
                     return (
                         <Artwork
                             thumbnail   ={this.props.thumbnail}
+                            currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}
                             onDelete    ={this.deleteArtwork}
@@ -256,10 +257,10 @@ export default class ArtworkManager extends React.Component {
     /**
      * [description]
      * @param  {String}  id [description]
-     * @param  {String}  oldAlbumName - name of the album that art was moved from
+     * @param  {Array}  albums - name of the albums the artwork is currently in
      */
-    editArtwork = (id, oldAlbumName) => {
-        this.props.changeCurrentEditArtwork(id, oldAlbumName);  // Attach Artwork ID to View
+    editArtwork = (id, albums) => {
+        this.props.changeCurrentEditArtwork(id, albums);  // Attach Artwork ID to View
         this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 
@@ -284,8 +285,10 @@ export default class ArtworkManager extends React.Component {
         );
     }
 
-    move = (sourceId, targetId) => {
+    move = (albumName ,sourceId, targetId) => {
         console.log("Entered move");
+        console.log("Source ID: ", sourceId);
+        console.log("Target ID: ", targetId);
         const thisUID = firebase.auth().currentUser.uid;
         const albumPath = `public/onboarders/${thisUID}/albums`;
         const albumRef = firebase.database().ref(albumPath);
@@ -295,32 +298,29 @@ export default class ArtworkManager extends React.Component {
             let sourceIndex;
             let targetIndex;
             let albumsLength = Object.keys(data).length;
-            let sourceFound = false;
-            let targetFound = false;
 
-            console.log("Here is Albums: ", data);
             // Find Artworks
             for (let i = 0; i < albumsLength; i++) {
-                console.log("Current iteration: ", i);
                 let artworks = data[i]['artworks'];
 
-                if (artworks != null && artworks != undefined) {
-                    let artworksLength = Object.keys(data[i]['artworks']).length;
+                if(data[i]['name'] == albumName) {
+                    if (artworks) {
+                        let artworksLength = Object.keys(data[i]['artworks']).length;
 
-                    for (let j = 0; j < artworksLength; j++) {
-                        if (data[i]['artworks'][j] === sourceId){
-                            sourceFound = true;
-                            sourceIndex = j;
-                            albumIndex = i;
-                        } else if (data[i]['artworks'][j] === targetId) {
-                            targetFound = true;
-                            targetIndex = j;
-                            albumIndex = i;
+                        for (let j = 0; j < artworksLength; j++) {
+                            if (data[i]['artworks'][j] == sourceId){
+                                sourceIndex = j;
+                                albumIndex = i;
+
+                            } else if (data[i]['artworks'][j] == targetId) {
+                                targetIndex = j;
+                                albumIndex = i;
+
+                            }
                         }
                     }
                 }
             }
-
             // array.splice(start, deleteCount[, item1[, item2[, ...]]])
             // start:
             //  -> index at which to start changing the array (with origin 0)

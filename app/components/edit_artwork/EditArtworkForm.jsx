@@ -41,43 +41,37 @@ export default class EditArtworkForm extends React.Component {
         let lightVibrantColor;
         let lightMutedColor;
 
-        if (this.props.value.colors.v != undefined &&
-            this.props.value.colors.v != null ) {
+        if (this.props.value.colors && this.props.value.colors.v) {
                 vibrantColor = {
                     background: this.props.value.colors.v.hex
                 }
             }
 
-        if (this.props.value.colors.m != undefined &&
-            this.props.value.colors.m != null ) {
+        if (this.props.value.colors && this.props.value.colors.m) {
                 mutedColor = {
                     background: this.props.value.colors.m.hex
                 }
             }
 
-        if (this.props.value.colors.dv != undefined &&
-            this.props.value.colors.dv != null ) {
+        if (this.props.value.colors && this.props.value.colors.dv) {
                 darkVibrantColor = {
                     background: this.props.value.colors.dv.hex
                 }
             }
 
-        if (this.props.value.colors.dm != undefined &&
-            this.props.value.colors.dm != null ) {
+        if (this.props.value.colors && this.props.value.colors.dm) {
                 darkMutedColor = {
                     background: this.props.value.colors.dm.hex
                 }
             }
 
-        if (this.props.value.colors.lv != undefined &&
-            this.props.value.colors.lv != null ) {
+        if (this.props.value.colors && this.props.value.colors.lv) {
                 lightVibrantColor = {
                     background: this.props.value.colors.lv.hex
                 }
             }
 
-        if (this.props.value.colors.lm != undefined &&
-            this.props.value.colors.lm != null ) {
+        if (this.props.value.colors && this.props.value.colors.lm) {
                 lightMutedColor = {
                     background: this.props.value.colors.lm.hex
                 }
@@ -172,20 +166,18 @@ export default class EditArtworkForm extends React.Component {
                                     id="li-album"
                                     className="controls-album">
                                     <label htmlFor="edit-artwork-album">
-                                        Album
+                                        Albums
                                     </label>
                                     <div
                                         id="edit-artwork-album"
                                         className="edit-artwork-album">
                                         <div className="controls controls-album">
                                             <select
-                                                
+                                                multiple    ={true}
                                                 className   ="edit-artwork-select"
                                                 ref         ="editAlbum"
-                                                defaultValue={this.props.value.album}
-                                                onChange    ={(e) => {
-                                                    onChange(Object.assign({}, oldArtwork, {album: e.target.value}))
-                                                }}>
+                                                value={this.props.value.albums}
+                                                onChange    ={this.handleAlbums}>
                                                 {this.state.albumNames.map(album => {
                                                         return (
                                                             <option
@@ -357,6 +349,20 @@ export default class EditArtworkForm extends React.Component {
         // re-render
         this.setState({ tags: tags });
         this.props.modifyTags(tags);
+    }
+
+    handleAlbums = (e) => {
+        let options = e.target.options;
+        let albums = [];
+
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                albums.push(options[i].value);
+            }
+        }
+
+        this.props.onChange(Object.assign({}, this.props.value, {albums: albums}));
+
     }
 }
 

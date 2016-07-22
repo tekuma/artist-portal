@@ -22,8 +22,8 @@ const albumTarget = {
     hover(targetProps, monitor) {
         const target = targetProps.album;
         const source = monitor.getItem();
-        if(source.album.name !== target.name) {
-            if(source.type == ItemTypes.ALBUM) {
+        if(source.type == ItemTypes.ALBUM) {
+            if(source.album.name !== target.name) {
                 // Move order of albums
                 targetProps.onMove(source, target);
             }
@@ -35,17 +35,25 @@ const albumTarget = {
         const source = monitor.getItem();
         if(source.name !== target.name) {
             if(source.type == ItemTypes.ARTWORK) {
-                // Move artwork to new album
-                targetProps.changeArtworkAlbum(source.id, source.album, target.name);
+                // Only do drag if album isn't already in album
+                if(source.albums.indexOf(target.name) == -1) {
+                    // Create array of albums that doesn't have currentAlbum and has new album
+                    let newAlbums = source['albums'].slice(0);
+                    let currentAlbumIndex = newAlbums.indexOf(source.currentAlbum)
+                    newAlbums.splice(currentAlbumIndex, 1);
+                    newAlbums.push(target.name);
+                    // Move artwork to new album
+                    targetProps.changeArtworkAlbum(source.id, source.albums, newAlbums);
 
-                // Change album within artwork JSON
-                const thisUID  = firebase.auth().currentUser.uid;
-                let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
-                let thisArtworkRef = firebase.database().ref(path);
-                thisArtworkRef.transaction((data) => {
-                    data['album'] = target.name;
-                    return data;
-                });
+                    // Change album within artwork JSON
+                    const thisUID  = firebase.auth().currentUser.uid;
+                    let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
+                    let thisArtworkRef = firebase.database().ref(path);
+                    thisArtworkRef.transaction((data) => {
+                        data['albums'] = newAlbums;
+                        return data;
+                    });
+                }
             }
         }
     }
@@ -98,7 +106,7 @@ export default class Album extends React.Component {
         for (let artworkID in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                 let artwork = this.props.user.artworks[artworkID];
-                if (artwork.album == this.props.album.name) {
+                if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
                     let image = this.props.thumbnail(artwork.fullsize_url, 150);
                     thumbnail = image;
                 }
@@ -196,9 +204,8 @@ export default class Album extends React.Component {
 
         for (let artworkID in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
-
                 let artwork = this.props.user.artworks[artworkID];
-                if (artwork.album == this.props.album.name && this.props.thumbnail) {
+                if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
                     let image = this.props.thumbnail(artwork.fullsize_url, 150);
                     thumbnail = image;
                 }

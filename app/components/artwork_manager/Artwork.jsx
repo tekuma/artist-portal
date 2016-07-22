@@ -13,7 +13,8 @@ const artworkSource = {
     beginDrag(props) {
         return {
             id   : props.artwork.id,
-            album: props.artwork.album,
+            albums: props.artwork.albums,
+            currentAlbum: props.currentAlbum,
             type : ItemTypes.ARTWORK
         }
     }
@@ -22,13 +23,10 @@ const artworkSource = {
 const artworkTarget = {
     hover(targetProps, monitor) {
         const targetId = targetProps.artwork.id;
-        console.log("Target ID: ", targetId);
         const sourceProps = monitor.getItem();
-        console.log("SourceProps: ", sourceProps);
         const sourceId = sourceProps.id;
         if(sourceId != targetId) {
-            console.log("Source ID != Target ID");
-            targetProps.onMove(sourceId, targetId);
+            targetProps.onMove(sourceProps.currentAlbum ,sourceId, targetId);
         }
     }
 };
@@ -106,8 +104,8 @@ export default class Artwork extends React.Component {
                             <img
                                 className="artwork-more"
                                 src='assets/images/icons/edit-black.svg'
-                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
-                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.albums)}
+                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.albums)}
                                  />
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={deleteTooltip}>

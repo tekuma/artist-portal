@@ -13,6 +13,13 @@ import cloudinary         from 'cloudinary';
 import Snackbar           from 'material-ui/Snackbar';
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from "react-tap-event-plugin";
+
+injectTapEventPlugin({
+  shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
+    return true;
+  }
+}); // Initializing to enable Touch Tap events. It is global
 
 // Files
 import PostAuth           from './components/main/PostAuth';
@@ -21,15 +28,26 @@ import ResetPassword      from './components/pre_auth/ResetPassword';
 import ForgotPassword     from './components/pre_auth/ForgotPassword';
 
 //Initialize Firebase  SDK in root JSX (here)
+
+// Production
+// var config = {
+//     apiKey       : "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
+//     authDomain   : "artist-tekuma-4a697.firebaseapp.com",
+//     databaseURL  : "https://artist-tekuma-4a697.firebaseio.com",
+//     storageBucket: "artist-tekuma-4a697.appspot.com",
+// };
+
+// Staging
 var config = {
-    apiKey       : "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
-    authDomain   : "artist-tekuma-4a697.firebaseapp.com",
-    databaseURL  : "https://artist-tekuma-4a697.firebaseio.com",
-    storageBucket: "artist-tekuma-4a697.appspot.com",
+    apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
+    authDomain: "project-7614141605200030275.firebaseapp.com",
+    databaseURL: "https://project-7614141605200030275.firebaseio.com",
+    storageBucket: "project-7614141605200030275.appspot.com",
 };
+
 firebase.initializeApp(config);
 
-//FIXME FIXME FIXME 
+//FIXME FIXME FIXME
 //FIXME move api secret to env var
 cloudinary.config({
   cloud_name: 'tekuma-io',
@@ -613,7 +631,5 @@ export default class App extends React.Component {
         this.setState({
             verifyEmailMessage: ""
         });
-
-        console.log("This is the verifyEmailMessage after display: ",this.state.verifyEmailMessage);
     }
 }//END App
