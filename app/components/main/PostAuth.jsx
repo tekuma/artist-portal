@@ -719,10 +719,11 @@ export default class PostAuth extends React.Component {
      * the database.
      */
     updateArtwork = (data) => {
-
         console.log("Entered updateArtwork");
+        console.log("Here is updated artwork data: ", data);
         let artworkInfo = data;
         let oldAlbums = data['oldAlbums'];
+        artworkInfo['oldAlbums'] = null;
 
         const thisUID = firebase.auth().currentUser.uid;
         let thisArtworkRef = firebase.database().ref(`public/onboarders/${thisUID}/artworks/${data.id}`);
