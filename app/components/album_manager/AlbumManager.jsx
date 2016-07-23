@@ -286,6 +286,8 @@ export default class AlbumManager extends React.Component {
                 // # they clicked "yes", so
                 // First, Delete all attributed artworks if not in other album
                 // check if album is empty, if so bi-pass first step.
+                this.props.changeAlbum("Uploads");
+
                 if (this.props.user.albums[index]['artworks']) {
                     let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
@@ -302,8 +304,6 @@ export default class AlbumManager extends React.Component {
                                 node['albums'] = albums;
                                 return node;
                             }
-                        }).then(() => {
-                            this.props.changeAlbum("Uploads"); // Switch current album
                         });
                     }
                 }

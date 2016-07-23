@@ -719,8 +719,6 @@ export default class PostAuth extends React.Component {
      * the database.
      */
     updateArtwork = (data) => {
-        console.log("Entered updateArtwork");
-        console.log("Here is updated artwork data: ", data);
         let artworkInfo = data;
         let oldAlbums = data['oldAlbums'];
         artworkInfo['oldAlbums'] = null;
@@ -821,7 +819,6 @@ export default class PostAuth extends React.Component {
                     for (let j = 0; j < artworksCount; j++) {
                         if (artworksNode[j] == artworkUID) {
                             artworkIndex = j;
-                            console.log("Index of Artwork to be deleted: ", artworkIndex);
                         }
                     }
 
