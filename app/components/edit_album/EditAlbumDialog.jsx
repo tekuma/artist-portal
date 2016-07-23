@@ -127,6 +127,7 @@ export default class EditAlbumDialog extends React.Component {
             // this.props.toggleEditArtworkDialog();
             let id = this.state.albumInfo["id"] // get ID
             this.state.albumInfo["id"] = null // remove ID from information
+            console.log("Here is the album info: ", this.state.albumInfo);
             this.props.updateAlbum(id, this.state.albumInfo);
         }
         console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);

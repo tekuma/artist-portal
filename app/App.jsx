@@ -29,15 +29,15 @@ import ForgotPassword     from './components/pre_auth/ForgotPassword';
 
 //Initialize Firebase  SDK in root JSX (here)
 
-// Production
+// ======= Production ======
 // var config = {
 //     apiKey       : "AIzaSyAOS1ZTz4YcbIpTNNihtr-FeLb_905GefM",
 //     authDomain   : "artist-tekuma-4a697.firebaseapp.com",
 //     databaseURL  : "https://artist-tekuma-4a697.firebaseio.com",
-//     storageBucket: "artist-tekuma-4a697.appspot.com",
+//     storageBucket: "art-uploads",
 // };
 
-// Staging
+// ====== Staging ======
 var config = {
     apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
     authDomain: "project-7614141605200030275.firebaseapp.com",

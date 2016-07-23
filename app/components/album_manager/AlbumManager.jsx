@@ -3,6 +3,7 @@ import React                        from 'react';
 import firebase                     from 'firebase';
 import uuid                         from 'node-uuid';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+import update                       from 'react-addons-update';
 
 // Files
 import Albums                       from './Albums.jsx';
@@ -228,15 +229,25 @@ export default class AlbumManager extends React.Component {
             console.log("name update successful");
         });
 
-        if (this.state.albums[index]['artworks'] != null &&
-            this.state.albums[index]['artworks'] != undefined) {
+        // Change the name of associated artworks
+        if (this.props.user.albums[index]['artworks']) {
                 // change the album field for each artwork object
-                let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+                let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
                 for (let i = 0; i < artLength; i++) {
-                    let thisArtKey = this.state.albums[index]['artworks'][i];
+                    let thisArtKey = this.props.user.albums[index]['artworks'][i];
                     let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                    artworkRef.update({album:name}).then( () => {
-                        return;
+                    artworkRef.transaction((node) => {
+                        let oldAlbumName = this.props.user.albums[index]['name'];
+
+                        for (let i = 0; i < node['albums'].length; i++) {
+                            if(node['albums'][i] == oldAlbumName) {
+                                node['albums'][i] = name;
+                                break;
+                            }
+                        }
+
+                        return node;
+
                     });
                 }
             }
@@ -262,50 +273,50 @@ export default class AlbumManager extends React.Component {
      * @param  {[type]} e  - element
      */
     deleteAlbum = (index, e) => {
+        // Avoid bubbling to edit
+        e.stopPropagation();
+
         if (index === 0) {
             console.log(">>>ERROR: attempting to delete 'Uploads' album");
             return;
         }
         const thisUID = firebase.auth().currentUser.uid;
-        // Avoid bubbling to edit
-        e.stopPropagation();
-
         confirm('Are you sure you want to delete this album?').then( () => {
+
                 // # they clicked "yes", so
-                // First, Delete all attributed artworks
+                // First, Delete all attributed artworks if not in other album
                 // check if album is empty, if so bi-pass first step.
-                if (this.state.albums[index]['artworks']) {
-                    let artLength = Object.keys(this.state.albums[index]['artworks']).length;
+                if (this.props.user.albums[index]['artworks']) {
+                    let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
-                        let thisArtKey = this.state.albums[index]['artworks'][i];
+                        let thisArtKey = this.props.user.albums[index]['artworks'][i];
                         let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                        artworkRef.set(null).then( () =>{
-                            console.log(thisArtKey, "deleted successfully");
+                        artworkRef.transaction((node) => {
+                            if((node.albums.length - 1 ) == 0) {
+                                // delete artwork
+                                return null;
+                            } else {
+                                let albums = node.albums;
+                                let currentAlbumIndex = albums.indexOf(this.props.user.albums[index]['name']);
+                                albums.splice(currentAlbumIndex, 1);
+                                node['albums'] = albums;
+                                return node;
+                            }
+                        }).then(() => {
+                            this.props.changeAlbum("Uploads"); // Switch current album
                         });
                     }
                 }
+
                 // then Delete this album branch, and manually update indexes.
-                let path = 'public/onboarders/' + thisUID + '/albums' ;
+                let path = `public/onboarders/${thisUID}/albums`;
                 let albumRef = firebase.database().ref(path);
-                albumRef.transaction( (data) => {
-                    let albumLength = Object.keys(data).length;
-                    let found = false;
-                    for (let i = 0; i < albumLength; i++) {
-                        if (found) {
-                            let aheadObject = data[i]
-                            data[i-1] = aheadObject;
-                        }
-                        console.log("stuff", i, index);
-                        if (i == index) {
-                            console.log("DELETED::", i, data[i]);
-                            delete data[i];
-                            found = true;
-                        }
-                    }
-                    console.log("DELETED2::", albumLength-1, data[albumLength-1]);
-                    delete data[albumLength-1];
-                    this.props.changeAlbum("Uploads");
-                    return data;
+                albumRef.transaction((data) => {
+                    let albums = update(data, {
+                        $splice: [[index, 1]]
+                    });
+
+                    return albums;
                 });
             }, () => {
                 // they clicked 'no'
@@ -329,20 +340,38 @@ export default class AlbumManager extends React.Component {
             const userPath = `public/onboarders/${thisUID}`;
             const userRef  = firebase.database().ref(userPath);
 
-            if (Uploads['artworks']) {
-                let artworks  =  Uploads['artworks'];
-                userRef.child("albums/0/artworks").set(null).then(()=>{
-                    console.log("Uploads set to null");
-                });
+            // Set Uploads artwork branch to null
+            userRef.child("albums/0/artworks").set(null).then(()=>{
+                console.log("Uploads set to null");
+            });
 
-                // remove each artwork from artworks
-                for (let i = 0; i < Object.keys(artworks).length; i++) {
-                    let artUID = artworks[i];
-                    userRef.child(`artworks/${artUID}`).set(null).then(()=>{
-                        console.log("success delete");
+            // Remove Uploads from artwork albums, or delete if only in Uploads album
+            if (Uploads['artworks']) {
+                console.log("Entered If of Empty Uploads");
+                let artLength = Object.keys(Uploads['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = Uploads['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        if((node.albums.length - 1 ) == 0) {
+                            console.log("Deleted artwork: ", node);
+                            // delete artwork
+                            return null;
+                        } else {
+                            console.log("Editing albums of this artwork: ", node);
+                            let albums = node.albums;
+                            let currentAlbumIndex = albums.indexOf("Uploads");
+                            console.log("Index of Album: ", currentAlbumIndex);
+                            albums.splice(currentAlbumIndex, 1);
+                            console.log("Spliced albums: ", albums);
+                            node['albums'] = albums;
+                            return node;
+                        }
                     });
                 }
             }
+
+
         }, () => {
             // they clicked 'no'
             return;

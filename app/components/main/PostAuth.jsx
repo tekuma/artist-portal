@@ -745,11 +745,37 @@ export default class PostAuth extends React.Component {
      */
     updateAlbum = (id ,data) => {
         const thisUID = firebase.auth().currentUser.uid;
-        let thisAlbumRef = firebase.database().ref(pathToPublicOnboarder+thisUID+'/albums/' + id);
+        let thisAlbumRef = firebase.database().ref(`public/onboarders/${thisUID}/albums/${id}`);
+
+        // Change the name of associated artworks if album changed
+        if(data['name'] != this.state.user.albums[id]['name']) {
+            // Change the name of associated artworks
+            if (this.state.user.albums[id]['artworks']) {
+                // change the album field for each artwork object
+                let artLength = Object.keys(this.state.user.albums[id]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.user.albums[id]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        let oldAlbumName = this.state.user.albums[id]['name'];
+                        console.log("Old Album Name: ", oldAlbumName);
+
+                        for (let i = 0; i < node['albums'].length; i++) {
+                            if(node['albums'][i] == oldAlbumName) {
+                                node['albums'][i] = data['name'];
+                                console.log("Changed artwork: ", node);
+                                break;
+                            }
+                        }
+                        return node;
+                    });
+                }
+            }
+        }
+
         this.changeAlbum(data.name);
         thisAlbumRef.update(data).then( () => {
             this.toggleEditAlbumDialog();
-
         });
     }
 
@@ -840,6 +866,7 @@ export default class PostAuth extends React.Component {
             let artworkIndex;
             let found = false;
 
+            // Find albumIndex and artworkIndex
             for (let i = 0; i < albumCount; i++) {
                 if (found) {
                     break;
