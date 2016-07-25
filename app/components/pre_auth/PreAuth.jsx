@@ -15,7 +15,7 @@ import HiddenLogin   from './HiddenLogin.jsx'
 export default class PreAuth extends React.Component {
     state = {
         step          : 1,                      // Used to keep track of which component in the pre-auth flow should be shown
-        errors        : this.props.errors ,     // Used to store errors from App.jsx
+        errors        : [],                     // Used to store errors from App.jsx
         loginIsOpen   : false                   // Used to track whether Hidden login is open
     }
 
@@ -43,6 +43,7 @@ export default class PreAuth extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("Errors from App: ", nextProps.errors);
         this.setState({
             errors: this.state.errors.concat(nextProps.errors)
         });
@@ -95,8 +96,9 @@ export default class PreAuth extends React.Component {
                       loginIsOpen           ={this.state.loginIsOpen}
                       errors                ={this.state.errors}
                       clearErrors           ={this.props.clearErrors}
+                      saveRegPrivate        ={this.props.saveRegPrivate}
                       saveRegPublic         ={this.props.saveRegPublic}
-                      nextStep              = {this.nextStep}
+                      nextStep              ={this.nextStep}
                       returnToLandingPage   ={this.returnToLandingPage} />
               </div>
               <HiddenLogin

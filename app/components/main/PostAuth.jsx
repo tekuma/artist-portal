@@ -20,10 +20,7 @@ import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
 
 
-// #Global Variables
-const pathToPublicOnboarder = "public/onboarders/";
-const maxThumbnailWidth     = 550; // ->height set proportional to this value
-const thumbNailPadding      = 4;   // ->count(pixels to pad each side of thumbnail with)
+// ====== Global Variables ======
 const colorCount            = 64;  // ->amount of possible color swatches to start with when
                                    // determining dominant vibrant and muted colors (64 default)
 const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
@@ -692,6 +689,18 @@ export default class PostAuth extends React.Component {
             });
         }
 
+        if (data.hasOwnProperty('dob')) {
+            firebase.database().ref(userPrivatePath).update({
+                dob: data.dob
+            }).then(()=>{
+                //FIXME use a toggle method?
+                console.log("This is data.dob: ", data.dob);
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
+        }
+
     }
 
     /** TODO re-do this function to 'clean up' the database when deleting a user
@@ -702,7 +711,7 @@ export default class PostAuth extends React.Component {
         const thisUID = firebase.auth().currentUser.uid;
         firebase.auth().signOut().then(function() {
             console.log(thisUID, "this id here >>>>");
-            thisPromise = firebase.database().ref(pathToPublicOnboarder + thisUID)
+            thisPromise = firebase.database().ref(`public/onboarders/${thisUID}`)
             .set(null, function(error) {console.log(error.message);})
             .then(function() {console.log("Account has been Deleted!");});
           // Sign-out successful.

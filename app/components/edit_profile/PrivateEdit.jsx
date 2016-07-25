@@ -12,7 +12,8 @@ export default class PrivateEdit extends React.Component {
             legal_name: false,
             email: false,
             emailVerified: false,
-            password: false
+            password: false,
+            age         : false
         },
         errorType: {},
         errors: [],
@@ -40,6 +41,12 @@ export default class PrivateEdit extends React.Component {
         let hideStyle = {
             display: 'none'
         };
+
+        let age;
+
+        if (this.props.userPrivate.dob) {
+            age = `${this.props.userPrivate.dob.split("-")[1]}-${this.props.userPrivate.dob.split("-")[0]}-${this.props.userPrivate.dob.split("-")[2]}`;
+        }
 
         return(
             <div>
@@ -173,6 +180,79 @@ export default class PrivateEdit extends React.Component {
                                 required="true"
                                 maxLength="100" />
                         </div>
+                        <div
+                            className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"age")}>
+                            <h2 className="accordion-item-heading">Age</h2>
+                            <h3 className="accordion-item-preview">{this.props.user.dob != "" ? age : "Unset"}</h3>
+                        </div>
+                        <div
+                            id="age-content"
+                            className={this.state.accordion.age ? "accordion-content open" : "accordion-content"}>
+                            <label htmlFor="edit-age">Date of Birth: </label>
+                            <div id="accordion-dob" className="accordion-dob">
+                                <div className="controls controls-month">
+                                    <select
+                                        id="accordion-dob-month"
+                                        className="dob"
+                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[1] : null}
+                                        onChange={this.setUnsaved}
+                                        ref="dobMonth"
+                                        style={this.state.errorType.month? errorStyle : null}>
+                                        <option value="" disabled="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div className="controls controls-day">
+                                    <input
+                                        type="number"
+                                        id="accordion-dob-day"
+                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[0] : null}
+                                        className="dob"
+                                        ref="dobDay"
+                                        style={this.state.errorType.day ? errorStyle : null}
+                                        onChange={this.setUnsaved}
+                                        placeholder="Day"
+                                        pattern="[0-9]*"
+                                        maxLength="2"
+                                        min="1"
+                                        max="31" />
+                                </div>
+                                <div className="controls controls-year">
+                                    <input
+                                        type="number"
+                                        id="accordion-dob-year"
+                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[2] : null}
+                                        className="dob"
+                                        ref="dobYear"
+                                        style={this.state.errorType.year ? errorStyle : null}
+                                        onChange={this.setUnsaved}
+                                        placeholder="Year"
+                                        pattern="[0-9]*"
+                                        maxLength="4" />
+                                </div>
+                            </div>
+                            <label className="age-confirm-label">
+                                <input
+                                    type="checkbox"
+                                    id="over-eighteen-checkbox"
+                                    ref="overEighteen"
+                                    defaultChecked={this.props.userPrivate.over_eighteen}
+                                    onChange={this.setUnsaved} />
+                                    I confirm that I am 18+
+                            </label>
+                        </div>
                     </article>
                     <button
                         className="edit-profile-save-button private"
@@ -242,7 +322,16 @@ export default class PrivateEdit extends React.Component {
         let password = this.refs.password.value;
         let confirmPassword = this.refs.confirmPassword.value;
 
-        // Private Validations
+        let day          = this.refs.dobDay.value;
+        let month        = this.refs.dobMonth.value;
+        let year         = this.refs.dobYear.value;
+        let overEighteen = this.refs.overEighteen.checked;
+
+        data.over_eighteen = overEighteen;
+
+        // ====== Private Validations ======
+
+        // Legal Name
         if(legalName.length == 0) {
             this.state.errors.push("To make use of Tekuma's services, we require your legal name.");
 
@@ -254,6 +343,8 @@ export default class PrivateEdit extends React.Component {
         } else {
             data.legal_name = legalName;
         }
+
+        // Email
 
         // Only test regex if user has typed in an email and has password
         if(email.length > 0 &&
@@ -284,6 +375,8 @@ export default class PrivateEdit extends React.Component {
             data.email = email;
             data.email_password = emailPassword;
         }
+
+        // Password
 
         // Only test password length if typed in
         if(password.length > 0 && password.length < 6 && this.props.user.auth_provider == "password") {
@@ -342,6 +435,43 @@ export default class PrivateEdit extends React.Component {
                         data.password = password;
                     }
 
+        // Date of Birth
+        if (day.length > 0 && day.length > 2) {
+            this.state.errors.push("Please enter a valid day of the month.");
+
+            let errorType = this.state.errorType;
+            errorType.day = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if(month.length > 0 && month.length > 2) {
+            this.state.errors.push("Please enter a valid month.");
+
+            let errorType = this.state.errorType;
+            errorType.month = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if(year.length > 0 && year.length > 4 || eval(year) > new Date().getFullYear()) {
+            this.state.errors.push("Please enter a valid year.");
+
+            let errorType = this.state.errorType;
+            errorType.year = true;
+            this.setState({
+                errorType: errorType
+            });
+        }
+
+        if((day.length == 1 || day.length == 2) &&
+            (month.length == 1 || month.length == 2) &&
+            year.length == 4) {
+            data.dob = day + "-" + month + "-" + year;
+        }
+
         // Rerender the component to show errors
         this.forceUpdate();
 
@@ -354,7 +484,8 @@ export default class PrivateEdit extends React.Component {
                 accordion: {
                     legal_name: false,
                     email: false,
-                    password: false
+                    password: false,
+                    age: false
                 }
             });
 

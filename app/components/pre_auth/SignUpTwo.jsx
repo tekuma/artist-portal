@@ -10,7 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  */
 export default class SignUpTwo extends React.Component {
     state = {
-        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errors          : [],                   // Used to store Auth errors from Firebase and Registration errors
         errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
         currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
@@ -112,8 +112,10 @@ export default class SignUpTwo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("Errors willReceive, SignUpTwo: ", nextProps.errors);
         this.setState({
-            errors: this.state.errors.concat(nextProps.errors)
+            errors: this.state.errors.concat(nextProps.errors),
+            currentError: nextProps.errors[0]
         });
     }
 

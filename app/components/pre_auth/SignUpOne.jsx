@@ -15,7 +15,7 @@ export default class SignUpOne extends React.Component {
         avatarPreview   : "",                   // Used store a preview URL of the uploaded avatar
         gender          : "",                   // Used to store the chosen gender pronoun
         avatar          : [],                   // Used to store the uploaded avatar blob
-        errors          : this.props.errors,    // Used to store Auth errors from Firebase and Registration errors
+        errors          : [],                   // Used to store Auth errors from Firebase and Registration errors
         errorType       : {},                   // Used to keep track of the type of error encountered to highlight relevant input field
         currentError    : ""                    // Used to store the current error to be displayed in the snackbar
     }
@@ -222,7 +222,8 @@ export default class SignUpOne extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            errors: this.state.errors.concat(nextProps.errors)
+            errors: this.state.errors.concat(nextProps.errors),
+            currentError: nextProps.errors[0]
         });
     }
 
@@ -236,6 +237,7 @@ export default class SignUpOne extends React.Component {
         this.state.errorType = {};
 
         let publicData = {};
+        let privateData = {};
         let displayName = this.refs.displayname.value;
         let day = this.refs.dobDay.value;
         let month = this.refs.dobMonth.value;
@@ -309,10 +311,11 @@ export default class SignUpOne extends React.Component {
         if(this.state.errors.length == 0) {
 
             publicData.display_name = displayName;
-            publicData.dob = day + "-" + month + "-" + year;
+            privateData.dob = day + "-" + month + "-" + year;
             publicData.gender_pronoun =  gender;
             publicData.avatar = this.state.avatar;
             this.props.saveRegPublic(publicData);
+            this.props.saveRegPrivate(privateData);
             this.props.nextStep();
         }
 

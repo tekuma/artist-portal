@@ -327,36 +327,32 @@ export default class App extends React.Component {
      */
     createPublicOnboarderObject = () => {
         // email and password WILL be non-null
-        let dob            = "",
-            gender_pronoun = "",
+        let gender_pronoun = "",
             bio            = "",
             location       = "",
             portfolio      = "",
             display_name   = "",
-            legal_age      = false,
             avatar         = "";
 
         //FIXME do this with a forloop and .hasOwnProperty()
         //Check for info Submitted, if so override defaults
-        if (this.state.reg.dob != undefined && this.state.reg.dob != null) {
-           dob = this.state.reg.dob;
-        }
-        if (this.state.reg.gender_pronoun != undefined && this.state.reg.gender_pronoun != null) {
+
+        if (this.state.reg.gender_pronoun) {
            gender_pronoun = this.state.reg.gender_pronoun;
         }
-        if (this.state.reg.bio != undefined && this.state.reg.bio != null) {
+        if (this.state.reg.bio) {
            bio = this.state.reg.bio;
         }
-        if (this.state.reg.location != undefined && this.state.reg.location != null) {
+        if (this.state.reg.location) {
            location = this.state.reg.location;
         }
-        if (this.state.reg.portfolio != undefined && this.state.reg.portfolio != null) {
+        if (this.state.reg.portfolio) {
            portfolio = this.state.reg.portfolio;
         }
-        if (this.state.reg.display_name != undefined && this.state.reg.display_name != null) {
+        if (this.state.reg.display_name) {
            display_name = this.state.reg.display_name;
         }
-        if (this.state.reg.legal_age != undefined && this.state.reg.legal_age != null) {
+        if (this.state.reg.legal_age) {
            legal_age = this.state.reg.legal_age;
         }
 
@@ -369,12 +365,10 @@ export default class App extends React.Component {
             auth_provider   : "password",
             display_name    : display_name,
             avatar          : "",
-            dob             : dob,
             gender_pronoun  : gender_pronoun,
             bio             : bio,
             location        : location,
             portfolio       : portfolio,
-            over_eighteen   : legal_age,
             joined          : new Date().toISOString()
         };
 
@@ -416,7 +410,7 @@ export default class App extends React.Component {
             let onboarderPath = `public/onboarders/${thisUID}`;
             const userRef     = firebase.database().ref(onboarderPath);
             const onboarder   = this.createPublicOnboarderObject();
-            if (this.state.reg.avatar != null && this.state.reg.avatar != undefined){
+            if (this.state.reg.avatar){
                 //If the user chose to upload an avatar, we have to asynchronously upload it
                 const avatarPath = `portal/${thisUID}/avatars/${this.state.reg.avatar.name}`;
                 const avatarRef  = firebase.storage().ref(avatarPath);
@@ -439,13 +433,11 @@ export default class App extends React.Component {
                     }
                 );
 
-            }
-            else { // no avatar, no async, no hassle
+            } else { // no avatar, no async, no hassle
                 userRef.set(onboarder).then( ()=>{
                     console.log(">>>>User created in DB");
                 });
             }
-
 
             //>>>> Instantiate public/products/thisUID
             let  productPath  = `public/products/${thisUID}`;
@@ -459,17 +451,25 @@ export default class App extends React.Component {
             let userPrivatePath  = `_private/onboarders/${thisUID}`;
 
             let legal_name = "Legal Name not provided";
-            if (this.state._reg.legal_name != undefined && this.state._reg.legal_name != null) {
+            if (this.state._reg.legal_name) {
                legal_name = this.state._reg.legal_name;
             }
 
             let email = "";
-            if (this.state._reg.email != undefined && this.state._reg.email != null) {
+            if (this.state._reg.email) {
                email = this.state._reg.email;
             }
+
+            let dob = "";
+            if (this.state._reg.dob) {
+               dob = this.state._reg.dob;
+            }
+
             firebase.database().ref(userPrivatePath).set({
-                legal_name: legal_name,
-                email     : email
+                legal_name      : legal_name,
+                email           : email,
+                dob             : dob,
+                over_eighteen   : false // Registration doesn't ask to confirm over 18.
             }).then( ()=>{
                 console.log("private onboarder node created");
             });
@@ -483,9 +483,11 @@ export default class App extends React.Component {
                 console.log("private product node created");
             });
 
-        }).catch( (error) => {
+        }).catch((error) => {
             console.log("user not created :(");
-            console.error(error);
+            this.setState({
+                errors: this.state.errors.concat(error.message)
+            })
         });
     }
 
@@ -530,22 +532,21 @@ export default class App extends React.Component {
             if (!snapshot.child(thisUID).exists()) {
 
                 // Setting Onboarder name
-                let thisDisplayName = "Untitled Artist";``
+                let thisDisplayName = "Untitled Artist";
                 if (user.displayName) {
                     thisDisplayName = user.displayName;
                 }
 
                 // Setting onboarder info (if registered)
-                let dob            = "",
-                    avatar         = "",
+                let avatar         = "",
                     gender_pronoun = "",
                     bio            = "",
                     location       = "",
                     portfolio      = "",
-                    legal_age      = false;
+                    dob            = "";
 
 
-                if (user.photoURL !== undefined ) {
+                if (user.photoURL) {
                     avatar = user.photoURL;
                 }
 
@@ -557,12 +558,10 @@ export default class App extends React.Component {
                     auth_provider   : provider,
                     display_name    : thisDisplayName,
                     avatar          : avatar,
-                    dob             : dob,
                     gender_pronoun  : gender_pronoun,
                     bio             : bio,
                     location        : location,
                     portfolio       : portfolio,
-                    over_eighteen   : false,
                     joined          : new Date().toISOString()
                 }).then( ()=>{
                     console.log("//node set in public user (1/4)");
@@ -578,8 +577,10 @@ export default class App extends React.Component {
                 //>>>> Instantiate _private/onboarders/thisUID
                 let userPrivatePath = `_private/onboarders/${thisUID}`;
                 firebase.database().ref(userPrivatePath).set({
-                    legal_name: "",
-                    email     : user.email
+                    legal_name      : "",
+                    email           : user.email,
+                    dob             : dob,
+                    over_eighteen   : false
                 }).then(()=>{
                     console.log("//node set in private user (3/4)");
                 });
@@ -597,6 +598,9 @@ export default class App extends React.Component {
             }
         }, (error) => {
             console.error("Social Login Error: ", error);
+            this.setState({
+                errors: this.state.errors.concat(error.message)
+            });
         }, this);
     }
 
@@ -619,6 +623,9 @@ export default class App extends React.Component {
           });
         }, (error) => {
           console.error(error);
+          this.setState({
+              errors: this.state.errors.concat(error.message)
+          });
         });
 
     }
