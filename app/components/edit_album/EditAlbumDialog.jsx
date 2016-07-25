@@ -88,11 +88,9 @@ export default class EditAlbumDialog extends React.Component {
 // ============= Methods ===============
 
     updateAlbumInfo = (albumInfo) => {
-        console.log("Entered updateAlbumInfo");
         this.setState({
             albumInfo : albumInfo
         });
-        console.log("Form Info: ", albumInfo);
     }
 
     onSubmit = (e) => {
@@ -110,24 +108,12 @@ export default class EditAlbumDialog extends React.Component {
             this.state.errors.push("Please enter a bane for the album");
         }
 
-        // Test that user inputed an album description
-        if (!this.state.albumInfo.description) {
-            let errorType = this.state.errorType;
-            errorType.description = true;
-            this.setState({
-                errorType: errorType
-            });
-            this.state.errors.push("Please enter an album description");
-        }
-
         console.log("Got through errors");
 
         if(this.state.errors.length == 0) {
-            console.log("Edit Album Info: ", this.state.albumInfo);
             // this.props.toggleEditArtworkDialog();
             let id = this.state.albumInfo["id"] // get ID
             this.state.albumInfo["id"] = null // remove ID from information
-            console.log("Here is the album info: ", this.state.albumInfo);
             this.props.updateAlbum(id, this.state.albumInfo);
         }
         console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);

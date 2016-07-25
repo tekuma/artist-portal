@@ -41,7 +41,7 @@ export default class PublicEdit extends React.Component {
             this.props.user != undefined &&
             this.props.user.hasOwnProperty('avatar') &&
             this.props.user.avatar != "") {
-                avatar = this.props.user.avatar;
+                avatar = this.props.thumbnail(this.props.user.avatar, 250);
             } else {
                 avatar = 'assets/images/default-avatar.png';
             }

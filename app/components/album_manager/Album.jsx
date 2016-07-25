@@ -101,16 +101,13 @@ export default class Album extends React.Component {
 
     renderEdit = () => {
         let thumbnail = "../../assets/images/icons/new-album.svg";
-        let currentAlbum = this.props.currentAlbum;
         let artworkID;
 
         // ====== SETTING AVATAR IMAGE ======
 
         // STEP 1: FIND FIRST ARTWORK IN ALBUM
-        for (let albumID in this.props.user.albums) {
-            if (this.props.user.albums[albumID]['name'] == currentAlbum) {
-                artworkID = this.props.user.albums[albumID]['artworks'][0];
-            }
+        if (this.props.album.artworks) {
+            artworkID = this.props.album.artworks[0];
         }
 
         // STEP 2: GET ARTWORK'S IMAGE URL
@@ -216,16 +213,13 @@ export default class Album extends React.Component {
             id, onMove, ...props} = this.props;
 
         let thumbnail = "../../assets/images/icons/new-album.svg";
-        let currentAlbum = this.props.currentAlbum;
         let artworkID;
 
         // ====== SETTING AVATAR IMAGE ======
 
         // STEP 1: FIND FIRST ARTWORK IN ALBUM
-        for (let albumID in this.props.user.albums) {
-            if (this.props.user.albums[albumID]['name'] == currentAlbum) {
-                artworkID = this.props.user.albums[albumID]['artworks'][0];
-            }
+        if (this.props.album.artworks) {
+            artworkID = this.props.album.artworks[0];
         }
 
         // STEP 2: GET ARTWORK'S IMAGE URL

@@ -67,10 +67,11 @@ export default class PostAuth extends React.Component {
         return (
             <div className="app">
                 <HiddenNav
-                    user={this.state.user}
-                    navIsOpen={this.state.navIsOpen}
+                    user           ={this.state.user}
+                    thumbnail      ={this.props.thumbnail}
+                    navIsOpen      ={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
-                    signOutUser={this.props.signOutUser} />
+                    signOutUser    ={this.props.signOutUser} />
                 <HamburgerIcon
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
@@ -109,6 +110,7 @@ export default class PostAuth extends React.Component {
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <EditAlbumDialog
                     user={this.state.user}
+                    thumbnail={this.props.thumbnail}
                     editAlbumIsOpen={this.state.editAlbumIsOpen}
                     toggleEditAlbumDialog={this.toggleEditAlbumDialog}
                     updateAlbum={this.updateAlbum}

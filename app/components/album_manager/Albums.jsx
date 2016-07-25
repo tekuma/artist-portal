@@ -41,7 +41,12 @@ export default class Albums extends React.Component {
         for (let i = 0; i < albumKeys.length; i++) {
             let index = albumKeys[i];
             let thisName = this.props.albums[index]['name'];
-            albumArray.push({id:index, name:thisName});
+            let artworks = this.props.albums[index]['artworks'];
+            albumArray.push({
+                id: index,
+                name: thisName,
+                artworks: artworks
+            });
         }
 
         return (
