@@ -312,7 +312,7 @@ export default class SignUpOne extends React.Component {
 
             publicData.display_name = displayName;
             privateData.dob = day + "-" + month + "-" + year;
-            publicData.gender_pronoun =  gender;
+            privateData.gender_pronoun =  gender;
             publicData.avatar = this.state.avatar;
             this.props.saveRegPublic(publicData);
             this.props.saveRegPrivate(privateData);

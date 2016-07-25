@@ -8,12 +8,14 @@ import Snackbar         from 'material-ui/Snackbar';
 
 export default class PrivateEdit extends React.Component {
     state = {
+        gender          : "",
         accordion: {
             legal_name: false,
             email: false,
             emailVerified: false,
             password: false,
-            age         : false
+            age         : false,
+            pronoun     : false
         },
         errorType: {},
         errors: [],
@@ -65,7 +67,7 @@ export default class PrivateEdit extends React.Component {
                 <div className ="scroll-edit-profile">
                     <article className="edit-accordion">
                         <div
-                            className={this.state.accordion.legal_name ? (this.props.user.auth_provider != "password" ? "accordion-item open no-border-bottom": "accordion-item open") : (this.props.user.auth_provider != "password" ? "accordion-item no-border-bottom": "accordion-item" )}
+                            className={this.state.accordion.legal_name ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"legal_name")}>
                             <h2 className="accordion-item-heading">Legal Name</h2>
                             <h3 className="accordion-item-preview">{this.props.userPrivate.legal_name != "" ? this.props.userPrivate.legal_name : "Unset"}</h3>
@@ -140,7 +142,7 @@ export default class PrivateEdit extends React.Component {
                                 </button>}
                         </div>
                         <div
-                            className={this.state.accordion.password ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
+                            className={this.state.accordion.password ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"password")}
                             style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
                             <h2 className="accordion-item-heading">Password</h2>
@@ -184,7 +186,7 @@ export default class PrivateEdit extends React.Component {
                             className={this.state.accordion.age ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"age")}>
                             <h2 className="accordion-item-heading">Age</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.dob != "" ? age : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.dob != "" ? age : "Unset"}</h3>
                         </div>
                         <div
                             id="age-content"
@@ -253,6 +255,58 @@ export default class PrivateEdit extends React.Component {
                                     I confirm that I am 18+
                             </label>
                         </div>
+                        <div
+                            className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
+                            onClick={this.toggleAccordion.bind({},"pronoun")}>
+                            <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.gender_pronoun != "" ? this.props.userPrivate.gender_pronoun : "Unset"}</h3>
+                        </div>
+                        <div
+                            id="pronoun-content"
+                            className={this.state.accordion.pronoun ? "accordion-content open" : "accordion-content"}>
+                            <label
+                                htmlFor="edit-she"
+                                className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-she"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="She"
+                                    defaultChecked={this.props.userPrivate.gender_pronoun == "She"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                She
+                          </label>
+                          <label
+                              htmlFor="edit-he"
+                              className="gender-radio control-inline">
+                              <input
+                                  type="radio"
+                                  id="edit-he"
+                                  name="gender"
+                                  className="reg-radio"
+                                  defaultValue="He"
+                                  defaultChecked={this.props.userPrivate.gender_pronoun == "He"}
+                                  onChange={this.setGender}
+                                  required="" />
+                              He
+                        </label>
+                        <label
+                            htmlFor="edit-they"
+                            className="gender-radio control-inline">
+                                <input
+                                    type="radio"
+                                    id="edit-they"
+                                    name="gender"
+                                    className="reg-radio"
+                                    defaultValue="They"
+                                    defaultChecked={this.props.userPrivate.gender_pronoun == "They"}
+                                    onChange={this.setGender}
+                                    required="" />
+                                They
+                            </label>
+                        </div>
                     </article>
                     <button
                         className="edit-profile-save-button private"
@@ -296,6 +350,18 @@ export default class PrivateEdit extends React.Component {
         });
     }
 
+    /**
+     * TODO
+     * @param  {[type]} e [description]
+     * @return {[type]}   [description]
+     */
+    setGender = (e) => {
+        this.setState({
+            gender: e.target.value
+        });
+        this.props.setUnsaved();
+    }
+
     setUnsaved = () => {
         this.props.setUnsaved();
     }
@@ -326,6 +392,8 @@ export default class PrivateEdit extends React.Component {
         let month        = this.refs.dobMonth.value;
         let year         = this.refs.dobYear.value;
         let overEighteen = this.refs.overEighteen.checked;
+
+        let gender       = this.state.gender;
 
         data.over_eighteen = overEighteen;
 
@@ -472,6 +540,11 @@ export default class PrivateEdit extends React.Component {
             data.dob = day + "-" + month + "-" + year;
         }
 
+        // Gender
+        if(gender.length > 0) {
+            data.gender_pronoun =  gender;
+        }
+
         // Rerender the component to show errors
         this.forceUpdate();
 
@@ -479,20 +552,22 @@ export default class PrivateEdit extends React.Component {
 
         if(this.state.errors.length == 0) {
             this.props.editPrivateUserInfo(data);
+            this.refs.currentPassword.value = "";
+            this.refs.password.value = "";
+            this.refs.confirmPassword.value = "";
 
             this.setState({
                 accordion: {
                     legal_name: false,
                     email: false,
                     password: false,
-                    age: false
+                    age: false,
+                    pronoun: false
                 }
             });
 
             this.props.setSaved(); // Used to track whether user has save info to show confirm dialog or not
         }
-
-        console.error(this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {

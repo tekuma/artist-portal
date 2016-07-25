@@ -327,8 +327,7 @@ export default class App extends React.Component {
      */
     createPublicOnboarderObject = () => {
         // email and password WILL be non-null
-        let gender_pronoun = "",
-            bio            = "",
+        let bio            = "",
             location       = "",
             portfolio      = "",
             display_name   = "",
@@ -337,9 +336,6 @@ export default class App extends React.Component {
         //FIXME do this with a forloop and .hasOwnProperty()
         //Check for info Submitted, if so override defaults
 
-        if (this.state.reg.gender_pronoun) {
-           gender_pronoun = this.state.reg.gender_pronoun;
-        }
         if (this.state.reg.bio) {
            bio = this.state.reg.bio;
         }
@@ -352,9 +348,6 @@ export default class App extends React.Component {
         if (this.state.reg.display_name) {
            display_name = this.state.reg.display_name;
         }
-        if (this.state.reg.legal_age) {
-           legal_age = this.state.reg.legal_age;
-        }
 
         // now create the object
         let onboarder = {
@@ -365,7 +358,6 @@ export default class App extends React.Component {
             auth_provider   : "password",
             display_name    : display_name,
             avatar          : "",
-            gender_pronoun  : gender_pronoun,
             bio             : bio,
             location        : location,
             portfolio       : portfolio,
@@ -460,6 +452,11 @@ export default class App extends React.Component {
                email = this.state._reg.email;
             }
 
+            let gender_pronoun = "";
+            if (this.state._reg.gender_pronoun) {
+               gender_pronoun = this.state._reg.gender_pronoun;
+            }
+
             let dob = "";
             if (this.state._reg.dob) {
                dob = this.state._reg.dob;
@@ -468,6 +465,7 @@ export default class App extends React.Component {
             firebase.database().ref(userPrivatePath).set({
                 legal_name      : legal_name,
                 email           : email,
+                gender_pronoun  : gender_pronoun,
                 dob             : dob,
                 over_eighteen   : false // Registration doesn't ask to confirm over 18.
             }).then( ()=>{
@@ -558,7 +556,6 @@ export default class App extends React.Component {
                     auth_provider   : provider,
                     display_name    : thisDisplayName,
                     avatar          : avatar,
-                    gender_pronoun  : gender_pronoun,
                     bio             : bio,
                     location        : location,
                     portfolio       : portfolio,
@@ -579,6 +576,7 @@ export default class App extends React.Component {
                 firebase.database().ref(userPrivatePath).set({
                     legal_name      : "",
                     email           : user.email,
+                    gender_pronoun  : gender_pronoun,
                     dob             : dob,
                     over_eighteen   : false
                 }).then(()=>{

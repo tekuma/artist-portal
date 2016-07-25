@@ -6,6 +6,9 @@ import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
 import update              from 'react-addons-update';
+import Snackbar            from 'material-ui/Snackbar';
+import getMuiTheme         from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider    from 'material-ui/styles/MuiThemeProvider';
 
 // Files    NOTE: Do not include '.jsx'
 import Views               from '../../constants/Views';
@@ -49,7 +52,8 @@ export default class PostAuth extends React.Component {
         albums : {},                                //
         isUploading: false,                         //
         user  : {},                                 // public/onboarders/{UID} node
-        userPrivate : {}                            // _private/onboarders/{UID} node
+        userPrivate : {},                            // _private/onboarders/{UID} node
+        currentError: ""
     };
 
     constructor(props) {
@@ -127,6 +131,13 @@ export default class PostAuth extends React.Component {
                 <VerifyEmailDialog
                     toggleVerifyEmailDialog={this.toggleVerifyEmailDialog}
                     verifyEmailDialogIsOpen={this.state.verifyEmailDialogIsOpen} />
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <Snackbar
+                        className="registration-error"
+                        open={this.state.currentError.length > 0}
+                        message={this.state.currentError}
+                        autoHideDuration={4000} />
+                </MuiThemeProvider>
             </div>
         );
     }
@@ -147,6 +158,15 @@ export default class PostAuth extends React.Component {
             console.log("FIREBASE: user info updated");
         }, (error)=>{
             console.error(error);
+            this.setState({
+                currentError: error.message
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    currentError: ""
+                });
+            }, 4500);   // Clear error once it has been shown
         }, this);
 
         firebase.database().ref(userPrivatePath).on('value', (snapshot)=>{
@@ -156,6 +176,15 @@ export default class PostAuth extends React.Component {
             this.forceUpdate(); //FIXME in theory this line is un-needed.
         }, (error)=>{
             console.error(error);
+            this.setState({
+                currentError: error.message
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    currentError: ""
+                });
+            }, 4500);   // Clear error once it has been shown
         }, this);
 
         this.forceUpdate(); //FIXME TODO  is this needed?
@@ -371,6 +400,15 @@ export default class PostAuth extends React.Component {
             },
             (error)=>{
                 console.error(error);
+                this.setState({
+                    currentError: error.message
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        currentError: ""
+                    });
+                }, 4500);   // Clear error once it has been shown
             },
             ()=>{ //on-complete fullsize upload
                 console.log(">>Full size upload complete");
@@ -442,6 +480,15 @@ export default class PostAuth extends React.Component {
                             console.log(">>>>Artwork info set into DB");
                         }).catch((error)=>{
                             console.error(error);
+                            this.setState({
+                                currentError: error.message
+                            });
+
+                            setTimeout(() => {
+                                this.setState({
+                                    currentError: ""
+                                });
+                            }, 4500);   // Clear error once it has been shown
                         });
 
                         //Now, add a pointer to the artwork object to the current album
@@ -634,7 +681,6 @@ export default class PostAuth extends React.Component {
      * - legal_name
      */
     editPrivateUserInfo = (data) => {
-        console.log("Data in editPrivateUserInfo: ", data);
         const thisUser    = firebase.auth().currentUser;
         const thisUID     = thisUser.uid;
         const userPrivatePath   = `_private/onboarders/${thisUID}`;
@@ -658,6 +704,14 @@ export default class PostAuth extends React.Component {
                         },
                         (error)=>{
                             console.error(error);
+                            this.setState({
+                                currentError: error.message
+                            });
+                            setTimeout(() => {
+                                this.setState({
+                                    currentError: ""
+                                });
+                            }, 4500);   // Clear error once it has been shown
                     });
                 });
             }
@@ -671,7 +725,14 @@ export default class PostAuth extends React.Component {
                         console.log("successful reset password");
                     },
                     (error) => {
-                        console.error(error);
+                        this.setState({
+                            currentError: error.message
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                currentError: ""
+                            });
+                        }, 4500);   // Clear error once it has been shown
                     }
                 );
             });
@@ -701,6 +762,30 @@ export default class PostAuth extends React.Component {
             });
         }
 
+        if (data.hasOwnProperty('gender_pronoun')) {
+            firebase.database().ref(userPrivatePath).update({
+                gender_pronoun: data.gender_pronoun
+            }).then(()=>{
+                //FIXME use a toggle method?
+                console.log("This is data.gender_pronoun: ", data.gender_pronoun);
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
+        }
+
+        if (data.hasOwnProperty('over_eighteen')) {
+            firebase.database().ref(userPrivatePath).update({
+                over_eighteen: data.over_eighteen
+            }).then(()=>{
+                //FIXME use a toggle method?
+                console.log("This is data.over_eighteen: ", data.over_eighteen);
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
+        }
+
     }
 
     /** TODO re-do this function to 'clean up' the database when deleting a user
@@ -718,6 +803,15 @@ export default class PostAuth extends React.Component {
         }, function(error) {
           // An error happened.
           console.log("Error occured.");
+          this.setState({
+              currentError: error.message
+          });
+
+          setTimeout(() => {
+              this.setState({
+                  currentError: ""
+              });
+          }, 4500);   // Clear error once it has been shown
         });
     }
 

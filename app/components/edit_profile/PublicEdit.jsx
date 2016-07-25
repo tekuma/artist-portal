@@ -11,14 +11,12 @@ export default class PublicEdit extends React.Component {
         avatarUploaded  : false,
         avatarPreview   : "",
         avatar          : [],
-        gender          : "",
         accordion       : {
             display_name: false,
             avatar      : false,
             bio         : false,
             location    : false,
-            portfolio   : false,
-            pronoun     : false
+            portfolio   : false
         },
         errorType       : {},
         errors          : [],
@@ -36,8 +34,7 @@ export default class PublicEdit extends React.Component {
     render() {
         let avatar;
 
-        if (this.props.user != null &&
-            this.props.user != undefined &&
+        if (this.props.user &&
             this.props.user.hasOwnProperty('avatar') &&
             this.props.user.avatar != "") {
                 avatar = this.props.thumbnail(this.props.user.avatar, 250);
@@ -162,7 +159,7 @@ export default class PublicEdit extends React.Component {
                             onChange={this.setUnsaved} />
                         </div>
                         <div
-                            className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
+                            className={this.state.accordion.portfolio ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
                             <h3 className="accordion-item-preview">{this.props.user.portfolio != "" ? this.props.user.portfolio : "Unset"}</h3>
@@ -177,58 +174,6 @@ export default class PublicEdit extends React.Component {
                             placeholder="Portfolio/Website"
                             defaultValue={this.props.user.portfolio}
                             onChange={this.setUnsaved} />
-                        </div>
-                        <div
-                            className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
-                            onClick={this.toggleAccordion.bind({},"pronoun")}>
-                            <h2 className="accordion-item-heading">Preferred Gender Pronoun</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.gender_pronoun != "" ? this.props.user.gender_pronoun : "Unset"}</h3>
-                        </div>
-                        <div
-                            id="pronoun-content"
-                            className={this.state.accordion.pronoun ? "accordion-content open" : "accordion-content"}>
-                            <label
-                                htmlFor="edit-she"
-                                className="gender-radio control-inline">
-                                <input
-                                    type="radio"
-                                    id="edit-she"
-                                    name="gender"
-                                    className="reg-radio"
-                                    defaultValue="She"
-                                    defaultChecked={this.props.user.gender_pronoun == "She"}
-                                    onChange={this.setGender}
-                                    required="" />
-                                She
-                          </label>
-                          <label
-                              htmlFor="edit-he"
-                              className="gender-radio control-inline">
-                              <input
-                                  type="radio"
-                                  id="edit-he"
-                                  name="gender"
-                                  className="reg-radio"
-                                  defaultValue="He"
-                                  defaultChecked={this.props.user.gender_pronoun == "He"}
-                                  onChange={this.setGender}
-                                  required="" />
-                              He
-                        </label>
-                        <label
-                            htmlFor="edit-they"
-                            className="gender-radio control-inline">
-                                <input
-                                    type="radio"
-                                    id="edit-they"
-                                    name="gender"
-                                    className="reg-radio"
-                                    defaultValue="They"
-                                    defaultChecked={this.props.user.gender_pronoun == "They"}
-                                    onChange={this.setGender}
-                                    required="" />
-                                They
-                            </label>
                         </div>
                     </article>
                     <button
@@ -272,19 +217,6 @@ export default class PublicEdit extends React.Component {
         });
     }
 
-    /**
-     * TODO
-     * @param  {[type]} e [description]
-     * @return {[type]}   [description]
-     */
-    setGender = (e) => {
-        this.setState({
-            gender: e.target.value
-        });
-
-        this.props.setUnsaved();
-    }
-
     setUnsaved = () => {
         this.props.setUnsaved();
     }
@@ -306,7 +238,6 @@ export default class PublicEdit extends React.Component {
         let location     = this.refs.location.value;
         let portfolio    = this.refs.portfolio.value;
         let displayName  = this.refs.displayname.value;
-        let gender       = this.state.gender;
 
         // ====== Public Validations ======
 
@@ -335,11 +266,6 @@ export default class PublicEdit extends React.Component {
             data.portfolio = portfolio;
         }
 
-        // Gender
-        if(gender.length > 0) {
-            data.gender_pronoun =  gender;
-        }
-
         // Rerender the component to show errors
         this.forceUpdate();
 
@@ -353,8 +279,7 @@ export default class PublicEdit extends React.Component {
                     avatar: false,
                     bio: false,
                     location: false,
-                    portfolio: false,
-                    pronoun: false
+                    portfolio: false
                 }
             });
 
