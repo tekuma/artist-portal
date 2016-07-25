@@ -101,17 +101,33 @@ export default class Album extends React.Component {
 
     renderEdit = () => {
         let thumbnail = "../../assets/images/icons/new-album.svg";
+        let currentAlbum = this.props.currentAlbum;
+        let artworkID;
 
-        // Set avatar thumbnail
-        for (let artworkID in this.props.user.artworks) {
+        // ====== SETTING AVATAR IMAGE ======
+
+        // STEP 1: FIND FIRST ARTWORK IN ALBUM
+        for (let albumID in this.props.user.albums) {
+            if (this.props.user.albums[albumID]['name'] == currentAlbum) {
+                artworkID = this.props.user.albums[albumID]['artworks'][0];
+            }
+        }
+
+        // STEP 2: GET ARTWORK'S IMAGE URL
+        for (let id in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
-                let artwork = this.props.user.artworks[artworkID];
-                if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
-                    let image = this.props.thumbnail(artwork.fullsize_url, 150);
-                    thumbnail = image;
+                if (artworkID == id) {
+                    let artwork = this.props.user.artworks[artworkID];
+                    if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
+                        let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                        thumbnail = image;
+                        break;
+                    }
                 }
             }
         }
+
+        // ==================================
 
         let avatarStyle = {
             backgroundImage: 'url(' + thumbnail + ')'
@@ -199,18 +215,34 @@ export default class Album extends React.Component {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
-        // Set avatar thumbnail
         let thumbnail = "../../assets/images/icons/new-album.svg";
+        let currentAlbum = this.props.currentAlbum;
+        let artworkID;
 
-        for (let artworkID in this.props.user.artworks) {
+        // ====== SETTING AVATAR IMAGE ======
+
+        // STEP 1: FIND FIRST ARTWORK IN ALBUM
+        for (let albumID in this.props.user.albums) {
+            if (this.props.user.albums[albumID]['name'] == currentAlbum) {
+                artworkID = this.props.user.albums[albumID]['artworks'][0];
+            }
+        }
+
+        // STEP 2: GET ARTWORK'S IMAGE URL
+        for (let id in this.props.user.artworks) {
             if (this.props.user.artworks.hasOwnProperty(artworkID)) {
-                let artwork = this.props.user.artworks[artworkID];
-                if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
-                    let image = this.props.thumbnail(artwork.fullsize_url, 150);
-                    thumbnail = image;
+                if (artworkID == id) {
+                    let artwork = this.props.user.artworks[artworkID];
+                    if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
+                        let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                        thumbnail = image;
+                        break;
+                    }
                 }
             }
         }
+
+        // ==================================
 
         let avatarStyle = {
             backgroundImage: 'url(' + thumbnail + ')'
