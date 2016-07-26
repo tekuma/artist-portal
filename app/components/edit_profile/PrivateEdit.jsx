@@ -57,7 +57,7 @@ export default class PrivateEdit extends React.Component {
             <Tooltip
                 id="delete-tooltip-regular"
                 className="tooltip">
-                Save Profile
+                Save Private Information
             </Tooltip>
         );
 
@@ -65,7 +65,7 @@ export default class PrivateEdit extends React.Component {
             <Tooltip
                 id="delete-tooltip-regular"
                 className="tooltip">
-                Open Accordion
+                Open All Private Fields
             </Tooltip>
         );
 

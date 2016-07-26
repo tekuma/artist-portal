@@ -90,7 +90,7 @@ export default class PublicEdit extends React.Component {
             <Tooltip
                 id="delete-tooltip-regular"
                 className="tooltip">
-                Save Profile
+                Save Public Information
             </Tooltip>
         );
 
@@ -98,7 +98,7 @@ export default class PublicEdit extends React.Component {
             <Tooltip
                 id="delete-tooltip-regular"
                 className="tooltip">
-                Open Accordion
+                Open All Public Fields
             </Tooltip>
         );
 

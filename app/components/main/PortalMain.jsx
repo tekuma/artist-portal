@@ -81,7 +81,8 @@ export default class PortalMain extends React.Component {
                     />
                 <div
                     onClick     ={this.props.toggleNav}
-                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
+                    onTouchTap  ={this.props.toggleNav}
+                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
             </div>
         );
     }
@@ -103,7 +104,10 @@ export default class PortalMain extends React.Component {
                         toggleVerifyEmailDialog   ={this.props.toggleVerifyEmailDialog}
                         />
                 </div>
-                <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
+                <div
+                    onClick     ={this.props.toggleNav}
+                    onTouchTap  ={this.props.toggleNav}
+                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
             </div>
         );
     }

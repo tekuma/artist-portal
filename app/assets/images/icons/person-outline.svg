@@ -3,15 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="8" x2="16" y2="8">
-	<stop  offset="0" style="stop-color:#EC008B"/>
-	<stop  offset="0.13" style="stop-color:#ED0284"/>
-	<stop  offset="0.33" style="stop-color:#F00770"/>
-	<stop  offset="0.56" style="stop-color:#F4104F"/>
-	<stop  offset="0.82" style="stop-color:#FA1D22"/>
-	<stop  offset="1" style="stop-color:#FF2600"/>
-</linearGradient>
-<path fill="url(#SVGID_1_)" d="M8,1.9c1.16,0,2.1,0.939,2.1,2.1S9.161,6.1,8,6.1S5.9,5.16,5.9,4S6.84,1.9,8,1.9 M8,10.9
+<path fill="#FFFFFF" d="M8,1.9c1.16,0,2.1,0.939,2.1,2.1S9.161,6.1,8,6.1S5.9,5.16,5.9,4S6.84,1.9,8,1.9 M8,10.9
 	c2.971,0,6.1,1.459,6.1,2.1v1.102H1.9V13C1.9,12.359,5.03,10.9,8,10.9 M8,0C5.79,0,4,1.79,4,4s1.79,4,4,4c2.209,0,4-1.79,4-4
 	S10.209,0,8,0z M8,9c-2.67,0-8,1.34-8,4v3h16v-3C16,10.34,10.67,9,8,9z"/>
 <path fill="none" d="M0,0h36v36H0V0z"/>
