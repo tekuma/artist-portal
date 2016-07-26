@@ -6,7 +6,7 @@ import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 import update                       from 'react-addons-update';
 
 // Files
-import UploadsAlbum   from './UploadsAlbum';
+import MiscAlbum   from './MiscAlbum';
 import Album          from './Album';
 import ItemTypes      from '../../constants/itemTypes';
 
@@ -51,11 +51,14 @@ export default class Albums extends React.Component {
 
         return (
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
-                <UploadsAlbum
-                    changeAlbum        ={this.props.changeAlbum.bind(null, "Uploads")}
+                <MiscAlbum
+                    user               ={this.props.user}
+                    uploads            ={this.props.uploads}
+                    thumbnail          ={this.props.thumbnail}
+                    changeAlbum        ={this.props.changeAlbum.bind(null, "Miscellaneous")}
                     currentAlbum       ={this.props.currentAlbum}
                     changeArtworkAlbum ={this.props.changeArtworkAlbum}
-                    emptyUploads       ={this.props.emptyUploads}
+                    emptyMisc          ={this.props.emptyMisc}
                     />
                 {albumArray.map(album => {
                     return (

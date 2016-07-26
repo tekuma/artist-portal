@@ -166,18 +166,19 @@ export default class EditArtworkForm extends React.Component {
                                     id="li-album"
                                     className="controls-album">
                                     <label htmlFor="edit-artwork-album">
-                                        Albums
+                                        Album
                                     </label>
                                     <div
                                         id="edit-artwork-album"
                                         className="edit-artwork-album">
                                         <div className="controls controls-album">
                                             <select
-                                                multiple    ={true}
                                                 className   ="edit-artwork-select"
                                                 ref         ="editAlbum"
-                                                value={this.props.value.albums}
-                                                onChange    ={this.handleAlbums}>
+                                                value={this.props.value.album}
+                                                onChange    ={(e) => {
+                                                    onChange(Object.assign({}, oldArtwork, {album: e.target.value}))
+                                                }}>
                                                 {this.state.albumNames.map(album => {
                                                         return (
                                                             <option
@@ -191,7 +192,6 @@ export default class EditArtworkForm extends React.Component {
                                         </div>
                                     </div>
                                 </li>
-                                <li><h3 className="edit-artwork-album-hint">Select multiple albums by holding Ctrl (Linux) or &#8984; (Mac).</h3></li>
                                 <li>
                                     <label htmlFor="artwork-year">
                                         Year <span className="pink">*</span>
@@ -350,20 +350,6 @@ export default class EditArtworkForm extends React.Component {
         // re-render
         this.setState({ tags: tags });
         this.props.modifyTags(tags);
-    }
-
-    handleAlbums = (e) => {
-        let options = e.target.options;
-        let albums = [];
-
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].selected) {
-                albums.push(options[i].value);
-            }
-        }
-
-        this.props.onChange(Object.assign({}, this.props.value, {albums: albums}));
-
     }
 }
 

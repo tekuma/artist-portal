@@ -44,16 +44,54 @@ const albumTarget = {
 /**
  * TODO
  */
-export default class Albums extends React.Component {
+export default class MiscAlbum extends React.Component {
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        console.log("-----UploadsAlbum");
+        console.log("-----MiscAlbum");
     }
 
     render() {
+        let thumbnail = "../../assets/images/icons/new-album.svg";
+        let artworkID;
+
+        // ====== SETTING AVATAR IMAGE ======
+
+        // STEP 1: FIND FIRST ARTWORK IN ALBUM
+        if (this.props.uploads.artworks) {
+            artworkID = this.props.uploads.artworks[0];
+        }
+
+        // STEP 2: GET ARTWORK'S IMAGE URL
+        for (let id in this.props.user.artworks) {
+            if (this.props.user.artworks.hasOwnProperty(artworkID)) {
+                if (artworkID == id) {
+                    let artwork = this.props.user.artworks[artworkID];
+                    if (artwork.album && this.props.thumbnail) {
+                        let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                        thumbnail = image;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // ==================================
+
+        let avatarStyle = {
+            backgroundImage: 'url(' + thumbnail + ')'
+        }
+
+        let styleResponsive = {
+            width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
+        };
+
+        let styleFixed = {
+            width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
+        };
+
         const downloadTooltip = (
             <Tooltip
                 id="download-tooltip-regular"
@@ -75,16 +113,16 @@ export default class Albums extends React.Component {
         return connectDropTarget(
             <li
                 onClick     ={this.props.changeAlbum}
-                className   ={(this.props.currentAlbum === 'Uploads') ? "album uploads selected" : "album uploads"}>
+                className   ={(this.props.currentAlbum === 'Miscellaneous') ? "album uploads selected" : "album uploads"}>
                 <div className="album-avatar">
-                    <div className="empty-container">
-                        <img src='assets/images/icons/upload.svg' />
-                    </div>
+                    <div style={avatarStyle}
+                        className="avatar-container" />
                 </div>
                 <h3
+                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
                     id="uploads-album-name"
                     className="album-name">
-                    Uploads
+                    Miscellaneous
                 </h3>
                 <div className="album-download-delete">
                     <OverlayTrigger
@@ -93,7 +131,7 @@ export default class Albums extends React.Component {
                         <img
                             className   ="album-more"
                             src         ='assets/images/icons/delete-white.svg'
-                            onClick     = {this.props.emptyUploads}
+                            onClick     = {this.props.emptyMisc}
                             onTouchTap  ={this.props.changeAlbum} />
 
                     </OverlayTrigger>
@@ -103,6 +141,6 @@ export default class Albums extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++UploadsAlbum");
+        console.log("+++++MiscAlbum");
     }
 }

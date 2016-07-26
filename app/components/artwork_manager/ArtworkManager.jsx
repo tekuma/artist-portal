@@ -64,7 +64,7 @@ export default class ArtworkManager extends React.Component {
 
             let artworks = albums[albumIndex]['artworks'];
 
-            if (artworks != undefined && artworks != null) {
+            if (artworks) {
                 let artworksLength = Object.keys(artworks).length;
 
                 // Load relevant artworks to state album
@@ -102,7 +102,7 @@ export default class ArtworkManager extends React.Component {
 
             let artworks = albums[albumIndex]['artworks'];
 
-            if (artworks != undefined && artworks != null) {
+            if (artworks) {
                 let artworksLength = Object.keys(artworks).length;
 
                 // Load relevant artworks to state album
@@ -297,10 +297,10 @@ export default class ArtworkManager extends React.Component {
     /**
      * [description]
      * @param  {String}  id [description]
-     * @param  {Array}  albums - name of the albums the artwork is currently in
+     * @param  {Array}  oldAlbumName - name of the albums the artwork is currently in
      */
-    editArtwork = (id, albums) => {
-        this.props.changeCurrentEditArtwork(id, albums);  // Attach Artwork ID to View
+    editArtwork = (id, oldAlbumName) => {
+        this.props.changeCurrentEditArtwork(id, oldAlbumName);  // Attach Artwork ID to View
         this.props.toggleEditArtworkDialog();    // Open Edit Dialog
     }
 

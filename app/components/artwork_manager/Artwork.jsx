@@ -86,7 +86,7 @@ export default class Artwork extends React.Component {
                     onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     >
-                    <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)} alt="File Too Large"  />
+                    <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)} />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
@@ -104,8 +104,8 @@ export default class Artwork extends React.Component {
                             <img
                                 className="artwork-more"
                                 src='assets/images/icons/edit-black.svg'
-                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.albums)}
-                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.albums)}
+                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                                  />
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={deleteTooltip}>

@@ -47,7 +47,7 @@ export default class AlbumManager extends React.Component {
             let uploads = allAlbums[0];
 
             let albumKeys  = Object.keys(allAlbums);
-            let albumNames = ["Uploads"];
+            let albumNames = ["Miscellaneous"];
             //NOTE 'i' starting at 1 to ignore uploads album
             for (let i = 1; i < albumKeys.length; i++) {
                 let key = albumKeys[i];
@@ -75,7 +75,7 @@ export default class AlbumManager extends React.Component {
             let uploads = allAlbums[0];
 
             let albumKeys  = Object.keys(allAlbums);
-            let albumNames = ["Uploads"];
+            let albumNames = ["Miscellaneous"];
 
             //NOTE 'i' starting at 1 to ignore uploads album
             for (let i = 1; i < albumKeys.length; i++) {
@@ -119,7 +119,7 @@ export default class AlbumManager extends React.Component {
                     thumbnail          ={this.props.thumbnail}
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
-                    emptyUploads       ={this.emptyUploads}
+                    emptyMisc          ={this.emptyMisc}
                     downloadAlbum      ={this.downloadAlbum}
                     onEdit             ={this.editAlbum}
                     onDelete           ={this.deleteAlbum}
@@ -158,7 +158,7 @@ export default class AlbumManager extends React.Component {
                     uploads         ={this.state.uploads}
                     onEdit          ={this.editAlbum}
                     onDelete        ={this.deleteAlbum}
-                    emptyUploads    ={this.emptyUploads}
+                    emptyMisc       ={this.emptyMisc}
                     currentAlbum    ={this.props.currentAlbum}
                     changeAlbum     ={this.props.changeAlbum}
                     user            ={this.props.user} />
@@ -229,33 +229,24 @@ export default class AlbumManager extends React.Component {
         e.stopPropagation();
 
         if (index === 0) {
-            console.log(">>>ERROR: attempting to delete 'Uploads' album");
+            console.log(">>>ERROR: attempting to delete 'Miscellaneous' album");
             return;
         }
         const thisUID = firebase.auth().currentUser.uid;
         confirm('Are you sure you want to delete this album?').then( () => {
 
                 // # they clicked "yes", so
-                // First, Delete all attributed artworks if not in other album
+                // First, Delete all attributed artworks
                 // check if album is empty, if so bi-pass first step.
-                this.props.changeAlbum("Uploads");
+                this.props.changeAlbum("Miscellaneous");
 
                 if (this.props.user.albums[index]['artworks']) {
                     let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
                         let thisArtKey = this.props.user.albums[index]['artworks'][i];
                         let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                        artworkRef.transaction((node) => {
-                            if((node.albums.length - 1 ) == 0) {
-                                // delete artwork
-                                return null;
-                            } else {
-                                let albums = node.albums;
-                                let currentAlbumIndex = albums.indexOf(this.props.user.albums[index]['name']);
-                                albums.splice(currentAlbumIndex, 1);
-                                node['albums'] = albums;
-                                return node;
-                            }
+                        artworkRef.set(null).then(()=>{
+                            console.log(">> Artwork deleted successfully");
                         });
                     }
                 }
@@ -278,47 +269,34 @@ export default class AlbumManager extends React.Component {
     }
 
     /**
-     * This method removes all artworks from the Uploads album.
+     * This method removes all artworks from the Miscellaneous album.
      * -gather all artwork UIDs that are in uploads
      * -set uploads artworks array to []
      * -push null to each artwork ref in the DB artworks branch.
      * @return {[type]} [description]
      */
-    emptyUploads = (e) => {
+    emptyMisc = (e) => {
         e.stopPropagation();
-        confirm('Are you sure you want to empty your Uploads album?').then( () => {
-            const Uploads  =  this.props.user.albums[0];
+        confirm('Are you sure you want to empty the Miscellaneous album?').then( () => {
+            const Misc  =  this.props.user.albums[0];
             const thisUID  = firebase.auth().currentUser.uid;
             const userPath = `public/onboarders/${thisUID}`;
             const userRef  = firebase.database().ref(userPath);
 
-            // Set Uploads artwork branch to null
+            // Set Miscellaneous artwork branch to null
             userRef.child("albums/0/artworks").set(null).then(()=>{
-                console.log("Uploads set to null");
+                console.log("Miscellaneous set to null");
             });
 
-            // Remove Uploads from artwork albums, or delete if only in Uploads album
-            if (Uploads['artworks']) {
-                console.log("Entered If of Empty Uploads");
-                let artLength = Object.keys(Uploads['artworks']).length;
+            // Delete artworks in Miscellaneous
+            if (Misc['artworks']) {
+                console.log("Entered If of Empty Misc");
+                let artLength = Object.keys(Misc['artworks']).length;
                 for (let i = 0; i < artLength; i++) {
-                    let thisArtKey = Uploads['artworks'][i];
+                    let thisArtKey = Misc['artworks'][i];
                     let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                    artworkRef.transaction((node) => {
-                        if((node.albums.length - 1 ) == 0) {
-                            console.log("Deleted artwork: ", node);
-                            // delete artwork
-                            return null;
-                        } else {
-                            console.log("Editing albums of this artwork: ", node);
-                            let albums = node.albums;
-                            let currentAlbumIndex = albums.indexOf("Uploads");
-                            console.log("Index of Album: ", currentAlbumIndex);
-                            albums.splice(currentAlbumIndex, 1);
-                            console.log("Spliced albums: ", albums);
-                            node['albums'] = albums;
-                            return node;
-                        }
+                    artworkRef.set(null).then(()=>{
+                        console.log(">> Artwork deleted successfully");
                     });
                 }
             }

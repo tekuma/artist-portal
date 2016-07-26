@@ -43,12 +43,12 @@ export default class PostAuth extends React.Component {
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
-        currentAlbum: 'Uploads',                    // Used to track the current album open
+        currentAlbum: "Miscellaneous",              // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         currentEditAlbumInfo: {},                   // Used to store information of album being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
-        albumNames: ["Uploads"],                    // Used to store the JSON objects to be used by  Edit Artwork Form
+        albumNames: ["Miscellaneous"],              // Used to store the JSON objects to be used by  Edit Artwork Form
         albums : {},                                //
         isUploading: false,                         //
         user  : {},                                 // public/onboarders/{UID} node
@@ -466,7 +466,7 @@ export default class PostAuth extends React.Component {
                             filename    : fileName,
                             title       : title,
                             artist      : artist,
-                            albums       : [this.state.currentAlbum],
+                            album       : this.state.currentAlbum,
                             upload_date : new Date().toISOString(),
                             year        : new Date().getFullYear(),
                             description : "",
@@ -589,15 +589,15 @@ export default class PostAuth extends React.Component {
      * populate this.state.currentEditArtworkInfo with the information of the
      * artwork being edited.
      * @param  {String} id [the unique id of the artwork being edited]
-     * @param  {Array} albums - name of the albums the artwork is currently in
+     * @param  {Array} oldAlbumName - name of the albums the artwork is currently in
      */
-    changeCurrentEditArtwork = (id, albums) => {
+    changeCurrentEditArtwork = (id, oldAlbumName) => {
         const thisUID = firebase.auth().currentUser.uid;
         let path = `public/onboarders/${thisUID}/artworks/${id}`;
         let artRef = firebase.database().ref(path);
         artRef.once("value", (snapshot) => {
             let data = snapshot.val();
-            data["oldAlbums"] = albums;
+            data["oldAlbumName"] = oldAlbumName;
             this.setState({
                 currentEditArtworkInfo: data
             });
@@ -838,8 +838,10 @@ export default class PostAuth extends React.Component {
      */
     updateArtwork = (data) => {
         let artworkInfo = data;
-        let oldAlbums = data['oldAlbums'];
-        artworkInfo['oldAlbums'] = null;
+        console.log("Here is update artwork info: ", data);
+
+        let oldAlbumName = artworkInfo.oldAlbumName;
+        artworkInfo.oldAlbumName = null;
 
         const thisUID = firebase.auth().currentUser.uid;
         let thisArtworkRef = firebase.database().ref(`public/onboarders/${thisUID}/artworks/${data.id}`);
@@ -848,8 +850,8 @@ export default class PostAuth extends React.Component {
             console.log("Set new artwork info");
         });
 
-        if (artworkInfo.albums != oldAlbums) {
-            this.changeArtworkAlbum(artworkInfo['id'], oldAlbums, artworkInfo.albums);
+        if (artworkInfo.album != oldAlbumName) {
+            this.changeArtworkAlbum(artworkInfo['id'], oldAlbumName, artworkInfo.album);
         }
     }
 
@@ -898,38 +900,19 @@ export default class PostAuth extends React.Component {
     /**
      * TODO
      * @param  {} artworkUID - the UID of the artwork
-     * @param  {[type]} oldAlbums [description]
-     * @param  {[type]} newAlbums [description]
+     * @param  {[type]} oldName [description]
+     * @param  {[type]} newName [description]
      */
-    changeArtworkAlbum = (artworkUID, oldAlbums, newAlbums) => {
+    changeArtworkAlbum = (artworkUID, oldName, newName) => {
         const thisUID    = firebase.auth().currentUser.uid;
         const albumsPath = `public/onboarders/${thisUID}/albums`;
         const albumsRef  = firebase.database().ref(albumsPath);
 
-        albumsRef.transaction( (node) => {
-
-            let albumsToRemove = [];
-            let albumsToAdd = [];
-
-            for(let i = 0; i < oldAlbums.length; i++) {
-                // Add albums not in newAlbums to albumsToRemove
-                if(newAlbums.indexOf(oldAlbums[i]) == -1) {
-                    albumsToRemove.push(oldAlbums[i])
-                }
-            }
-
-            for(let i = 0; i < newAlbums.length; i++) {
-                // Add albums not in newAlbums to albumsToRemove
-                if(oldAlbums.indexOf(newAlbums[i]) == -1) {
-                    albumsToAdd.push(newAlbums[i])
-                }
-            }
-
+        albumsRef.transaction((node) => {
             let albumsCount = Object.keys(node).length;
 
             for (let i = 0; i < albumsCount; i++) {
-                // If this album is one of the albums that must remove artwork, remove it
-                if(albumsToRemove.indexOf(node[i]['name']) != -1) {
+                if (node[i]['name'] == oldName) {
                     let artworksCount = Object.keys(node[i]['artworks']).length;
                     let artworksNode = node[i]['artworks'];
                     let artworkIndex;
@@ -945,14 +928,12 @@ export default class PostAuth extends React.Component {
                     });
 
                     node[i]['artworks'] = artworks;
-                }
-
-                // If this album is one of the albums that must add artwork, add it
-                if(albumsToAdd.indexOf(node[i]['name']) != -1) {
+                } else if (node[i]['name'] == newName) {
                     // just add the ID at the end of the 'array'
-                    if (node[i]['artworks']){
+                    if (node[i]['artworks']) {
                         let artLength = Object.keys(node[i]['artworks']).length;
                         node[i]['artworks'][artLength] = artworkUID;
+                        console.log("Artworks already: ", node[i]['artworks']);
                     } else {
                         node[i]['artworks'] = {0: artworkUID};
                     }
@@ -1014,21 +995,10 @@ export default class PostAuth extends React.Component {
             return node;
 
         }).then(()=>{
-            // Delete from public/onboarders/{uid}/artworks branch if not in other album
-            if ((this.state.user.artworks[id]['albums'].length - 1) == 0) {
-                userRef.child(`artworks/${id}`).set(null).then(()=>{
-                    console.log(">> Artwork deleted successfully");
-                });
-            } else {
-                userRef.child(`artworks/${id}`).transaction((node) => {
-                    let albums = node.albums;
-                    let currentAlbumIndex = albums.indexOf(this.state.currentAlbum);
-                    albums.splice(currentAlbumIndex, 1);
-                    node['albums'] = albums;
-
-                    return node;
-                });
-            }
+            // Delete from public/onboarders/{uid}/artworks branch
+            userRef.child(`artworks/${id}`).set(null).then(()=>{
+                console.log(">> Artwork deleted successfully");
+            });
         });
 
     }

@@ -71,7 +71,7 @@ button {
 	padding-top: 7px;
 	z-index: 3;
 	border-radius: 0px;
-	box-shadow: 0px;
+	box-shadow: 0px 2px 8px rgba(0,0,0, 0.4);
 	transition: all 0s 0.3s;
 	-webkit-transition: all 0.3s 0.3s;
 	-moz-transition: all 0.3s 0.3s;
@@ -107,12 +107,12 @@ button {
     padding-top: 40px;
     left: 0;
     z-index: 0;
-    background: #000000;
+    background: #222222;
     overflow: scroll;
 }
 
 .nav-item {
-	background: #000000;
+	background: #222222;
 	width: 250px;
 	height: 50px;
 	padding: 0;
@@ -133,7 +133,7 @@ button {
 }
 
 .nav-item:hover h3 {
-	color: #ec167e;
+	color: #ea6595;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -156,7 +156,7 @@ button {
 	vertical-align: top;
 	margin: 0;
 	padding: 0;
-	color: #aaaaaa;
+	color: #ffffff;
 }
 
 .logout-button {
@@ -172,7 +172,7 @@ button {
 	padding: 0;
 	z-index: 2;
 	border-top: 1px solid rgba(255,255,255,0.12);
-	background: #000000;
+	background: #222222;
 	-webkit-align-items: center;
 	-ms-align-items: center;
 	-moz-align-items: center;
@@ -187,7 +187,7 @@ button {
 .logout-button h3 {
 	font-size: 1.3em;
 	margin: 0;
-	color: #aaaaaa;
+	color: #ffffff;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -195,7 +195,7 @@ button {
 }
 
 .logout-button:hover h3 {
-	color: #ec167e;
+	color: #ea6595;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -3582,6 +3582,12 @@ label.age-confirm-label {
 		right: 50%;
 		transform: translate(50%, 50%);
 	}
+
+	.accordion-item-social-icon {
+		margin-top: 3px;
+		width: 30px;
+		height: 30px;
+	}
 }
 
 @media (max-height: 670px) {
@@ -3612,17 +3618,20 @@ label.age-confirm-label {
   	  width: auto !important;
     }
 
-	.accordion-item-avatar-wrapper {
+	.accordion-item-avatar-wrapper,
+	.accordion-item-social-icon-wrapper {
 		width: auto !important
 	}
 
-	.accordion-item-avatar {
+	.accordion-item-avatar,
+	.accordion-item-social-icon {
 		margin-top: 8px;
 		width: 24px;
 		height: 24px;
 	}
 
-    .edit-profile-save-button {
+    .edit-profile-save-button,
+	.edit-profile-open-accordion-button {
   	  bottom: 30px !important;
   	  right: 30px !important;
     }
@@ -3634,6 +3643,10 @@ label.age-confirm-label {
 	.edit-profile-save-button.public {
   	  right: 30px !important;
     }
+
+	.accordion-item-social-icon:first-child {
+		margin-left: 5px;
+	}
 }
 
 @media (max-width: 640px) {
@@ -3653,6 +3666,16 @@ label.age-confirm-label {
 	.artwork-preview-wrapper {
 		width: 150px;
 		height: 200px;
+	}
+
+	.edit-social-icon img {
+    	height: 30px;
+	}
+
+	.accordion-content input[type=text].edit-social-input {
+		padding: 0.5em 0.5em;
+		height: 2.2em;
+		width: 100px;
 	}
 }
 
@@ -3769,6 +3792,15 @@ label.age-confirm-label {
 	.artwork-form-wrapper {
 		margin-left: 0;
 	}
+
+	.edit-social-icon {
+		display: none;
+	}
+
+	.edit-accordion #social-media-content {
+		padding: 20px;
+	}
+
 }
 
 @media (max-width: 470px) {
@@ -3881,6 +3913,16 @@ label.age-confirm-label {
 
   .artwork {
 	  width: 90%;
+  }
+
+  .edit-social-url {
+	  font-size: 0.8em;
+	  width: 100px;
+  }
+
+  .accordion-content input[type=text].edit-social-input {
+	  height: 2em;
+	  font-size: 0.8em;
   }
 }
 
