@@ -56,6 +56,7 @@ export default class EditAlbumDialog extends React.Component {
                         contentClassName            ="edit-album-content" >
                         <EditAlbumForm
                             user            ={this.props.user}
+                            modifyTags      ={this.modifyTags}
                             value           ={this.state.albumInfo}
                             errorType       ={this.state.errorType}
                             currentError    ={this.state.currentError}
@@ -88,6 +89,15 @@ export default class EditAlbumDialog extends React.Component {
 // ============= Methods ===============
 
     updateAlbumInfo = (albumInfo) => {
+        this.setState({
+            albumInfo : albumInfo
+        });
+    }
+
+    modifyTags = (tags) => {
+        let albumInfo = this.state.albumInfo;
+        albumInfo["tags"] = tags;
+
         this.setState({
             albumInfo : albumInfo
         });
