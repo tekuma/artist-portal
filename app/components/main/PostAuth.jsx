@@ -81,6 +81,7 @@ export default class PostAuth extends React.Component {
                     user                      ={this.state.user}
                     userPrivate               ={this.state.userPrivate}
                     albums                    ={this.state.albums}
+                    toggleNav                 ={this.toggleNav}
                     navIsOpen                 ={this.state.navIsOpen}
                     deleteArtwork             ={this.deleteArtwork}
                     toggleEditArtworkDialog   ={this.toggleEditArtworkDialog}
@@ -756,6 +757,18 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.dob: ", data.dob);
+                this.setState({
+                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
+                });
+            });
+        }
+
+        if (data.hasOwnProperty('paypal')) {
+            firebase.database().ref(userPrivatePath).update({
+                paypal: data.paypal
+            }).then(()=>{
+                //FIXME use a toggle method?
+                console.log("This is data.paypal: ", data.paypal);
                 this.setState({
                     editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
                 });

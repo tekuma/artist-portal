@@ -156,7 +156,6 @@ export default class AlbumManager extends React.Component {
                 <Albums
                     albums          ={this.state.albums}
                     uploads         ={this.state.uploads}
-                    onEditName      ={this.editAlbumName}
                     onEdit          ={this.editAlbum}
                     onDelete        ={this.deleteAlbum}
                     emptyUploads    ={this.emptyUploads}
@@ -206,53 +205,6 @@ export default class AlbumManager extends React.Component {
             this.props.toggleManager();
         }
 
-    };
-
-    /**
-     * [description]
-     * @param  {Integer} index - index of the album
-     * @param  {[type]}  name  - new name to update album name to.
-     */
-    editAlbumName = (index, name) => {
-
-        const thisUID = firebase.auth().currentUser.uid;
-        // Don't modify if trying set an empty value or album name is already in use
-        let isNameThere = this.state.albumNames.indexOf(name) != -1;
-        if(!name.trim() || isNameThere) {
-            return;
-        }
-
-        // Change the name in the album branch
-        let path = `public/onboarders/${thisUID}/albums/${index}`;
-        let thisAlbumRef = firebase.database().ref(path);
-        thisAlbumRef.update({name: name}).then( () => {
-            console.log("name update successful");
-        });
-
-        // Change the name of associated artworks
-        if (this.props.user.albums[index]['artworks']) {
-                // change the album field for each artwork object
-                let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
-                for (let i = 0; i < artLength; i++) {
-                    let thisArtKey = this.props.user.albums[index]['artworks'][i];
-                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                    artworkRef.transaction((node) => {
-                        let oldAlbumName = this.props.user.albums[index]['name'];
-
-                        for (let i = 0; i < node['albums'].length; i++) {
-                            if(node['albums'][i] == oldAlbumName) {
-                                node['albums'][i] = name;
-                                break;
-                            }
-                        }
-
-                        return node;
-
-                    });
-                }
-            }
-
-        this.props.changeAlbum("Uploads");  // If user had edited album open, then no album is highlighted after edit.
     };
 
     /**

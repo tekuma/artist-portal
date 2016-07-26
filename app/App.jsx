@@ -331,7 +331,14 @@ export default class App extends React.Component {
             location       = "",
             portfolio      = "",
             display_name   = "",
-            avatar         = "";
+            avatar         = "",
+            social_media   = {
+                facebook    : "",
+                twitter     : "",
+                instagram   : "",
+                pinterest   : "",
+                behance     : ""
+            };
 
         //FIXME do this with a forloop and .hasOwnProperty()
         //Check for info Submitted, if so override defaults
@@ -361,6 +368,7 @@ export default class App extends React.Component {
             bio             : bio,
             location        : location,
             portfolio       : portfolio,
+            social_media    : social_media,
             joined          : new Date().toISOString()
         };
 
@@ -466,6 +474,7 @@ export default class App extends React.Component {
                 legal_name      : legal_name,
                 email           : email,
                 gender_pronoun  : gender_pronoun,
+                paypal          : "",
                 dob             : dob,
                 over_eighteen   : false // Registration doesn't ask to confirm over 18.
             }).then( ()=>{
@@ -541,7 +550,14 @@ export default class App extends React.Component {
                     bio            = "",
                     location       = "",
                     portfolio      = "",
-                    dob            = "";
+                    dob            = "",
+                    social_media   = {
+                        facebook    : "",
+                        twitter     : "",
+                        instagram   : "",
+                        pinterest   : "",
+                        behance     : ""
+                    };
 
 
                 if (user.photoURL) {
@@ -558,6 +574,7 @@ export default class App extends React.Component {
                     avatar          : avatar,
                     bio             : bio,
                     location        : location,
+                    social_media    : social_media,
                     portfolio       : portfolio,
                     joined          : new Date().toISOString()
                 }).then( ()=>{
@@ -577,6 +594,7 @@ export default class App extends React.Component {
                     legal_name      : "",
                     email           : user.email,
                     gender_pronoun  : gender_pronoun,
+                    paypal          : "",
                     dob             : dob,
                     over_eighteen   : false
                 }).then(()=>{

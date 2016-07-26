@@ -46,6 +46,45 @@ export default class PublicEdit extends React.Component {
             backgroundImage: 'url(' + avatar + ')'
         }
 
+        let showSocialIconPreview = {
+            facebook : false,
+            twitter : false,
+            instagram : false,
+            pinterest : false,
+            behance : false
+        };
+
+        let socialSet = false;
+
+        for (let social_media in this.props.user.social_media) {
+            if (this.props.user.social_media[social_media].length > 0) {
+                showSocialIconPreview[social_media] = true;
+                socialSet = true;
+            }
+        }
+
+        let facebookStyle = {
+            backgroundImage: 'url(assets/images/icons/social-icons/facebook.svg)'
+        }
+
+        let instagramStyle = {
+            backgroundImage: 'url(assets/images/icons/social-icons/instagram.svg)'
+        }
+
+        let twitterStyle = {
+            backgroundImage: 'url(assets/images/icons/social-icons/twitter.svg)'
+        }
+
+        let pinterestStyle = {
+            backgroundImage: 'url(assets/images/icons/social-icons/pinterest.svg)'
+        }
+
+        let behanceStyle = {
+            backgroundImage: 'url(assets/images/icons/social-icons/behance.svg)'
+        }
+
+        console.log("Social Media: ", showSocialIconPreview);
+
         return(
             <div>
                 <div className="edit-profile-heading">
@@ -159,7 +198,7 @@ export default class PublicEdit extends React.Component {
                             onChange={this.setUnsaved} />
                         </div>
                         <div
-                            className={this.state.accordion.portfolio ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
+                            className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
                             <h3 className="accordion-item-preview">{this.props.user.portfolio != "" ? this.props.user.portfolio : "Unset"}</h3>
@@ -174,6 +213,132 @@ export default class PublicEdit extends React.Component {
                             placeholder="Portfolio/Website"
                             defaultValue={this.props.user.portfolio}
                             onChange={this.setUnsaved} />
+                        </div>
+                        <div
+                            className={this.state.accordion.social_media ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
+                            onClick={this.toggleAccordion.bind({},"social_media")}>
+                            <h2 className="accordion-item-heading">Social Media</h2>
+                            {socialSet ?
+                                <div className="accordion-item-social-icon-wrapper">
+                                    { showSocialIconPreview["facebook"] ?
+                                        <div
+                                        className="accordion-item-social-icon"
+                                        style={facebookStyle}></div> : null
+                                    }
+
+                                    { showSocialIconPreview["instagram"] ?
+                                        <div
+                                        className="accordion-item-social-icon"
+                                        style={instagramStyle}></div> : null
+                                    }
+
+                                    { showSocialIconPreview["twitter"] ?
+                                        <div
+                                        className="accordion-item-social-icon"
+                                        style={twitterStyle}></div> : null
+                                    }
+
+                                    { showSocialIconPreview["pinterest"] ?
+                                        <div
+                                        className="accordion-item-social-icon"
+                                        style={pinterestStyle}></div> : null
+                                    }
+
+                                    { showSocialIconPreview["behance"] ?
+                                        <div
+                                        className="accordion-item-social-icon"
+                                        style={behanceStyle}></div> : null
+                                    }
+                                </div>
+                                :
+                                <h3 className="accordion-item-preview">Unset</h3>
+                                }
+                        </div>
+                        <div
+                            id="social-media-content"
+                            className={this.state.accordion.social_media ? "accordion-content open" : "accordion-content"}>
+                            <ul>
+                                <li>
+                                    <div className="edit-social-icon facebook">
+                                        <img src="assets/images/icons/social-icons/facebook.svg" />
+                                    </div>
+                                    <p className="edit-social-url">
+                                        facebook.com/
+                                    </p>
+                                    <input
+                                    type="text"
+                                    id="edit-facebook"
+                                    className="edit-social-input"
+                                    ref="facebook"
+                                    placeholder="tekuma.world"
+                                    defaultValue={this.props.user.social_media.facebook}
+                                    onChange={this.setUnsaved} />
+                                </li>
+                                <li>
+                                    <div className="edit-social-icon instagram">
+                                        <img src="assets/images/icons/social-icons/instagram.svg" />
+                                    </div>
+                                    <p className="edit-social-url">
+                                        instagram.com/
+                                    </p>
+                                    <input
+                                    type="text"
+                                    id="edit-instagram"
+                                    className="edit-social-input"
+                                    ref="instagram"
+                                    placeholder="tekuma.io"
+                                    defaultValue={this.props.user.social_media.instagram}
+                                    onChange={this.setUnsaved} />
+                                </li>
+                                <li>
+                                    <div className="edit-social-icon twitter">
+                                        <img src="assets/images/icons/social-icons/twitter.svg" />
+                                    </div>
+                                    <p className="edit-social-url">
+                                        twitter.com/
+                                    </p>
+                                    <input
+                                    type="text"
+                                    id="edit-twitter"
+                                    className="edit-social-input"
+                                    ref="twitter"
+                                    placeholder="tekuma_"
+                                    defaultValue={this.props.user.social_media.twitter}
+                                    onChange={this.setUnsaved} />
+                                </li>
+                                <li>
+                                    <div className="edit-social-icon pinterest">
+                                        <img src="assets/images/icons/social-icons/pinterest.svg" />
+                                    </div>
+                                    <p className="edit-social-url">
+                                        pinterest.com/
+                                    </p>
+                                    <input
+                                    type="text"
+                                    id="edit-pinterest"
+                                    className="edit-social-input"
+                                    ref="pinterest"
+                                    placeholder="Tekumaio"
+                                    defaultValue={this.props.user.social_media.pinterest}
+                                    onChange={this.setUnsaved} />
+                                </li>
+                                <li>
+                                    <div className="edit-social-icon behance">
+                                        <img src="assets/images/icons/social-icons/behance.svg" />
+                                    </div>
+                                    <p className="edit-social-url">
+                                        behance.net/
+                                    </p>
+                                    <input
+                                    type="text"
+                                    id="edit-behance"
+                                    className="edit-social-input"
+                                    ref="behance"
+                                    placeholder="tekuma.io"
+                                    defaultValue={this.props.user.social_media.behance}
+                                    onChange={this.setUnsaved} />
+                                </li>
+                            </ul>
                         </div>
                     </article>
                     <button

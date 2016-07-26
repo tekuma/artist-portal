@@ -14,6 +14,7 @@ export default class PrivateEdit extends React.Component {
             email: false,
             emailVerified: false,
             password: false,
+            paypal: false,
             age         : false,
             pronoun     : false
         },
@@ -100,24 +101,30 @@ export default class PrivateEdit extends React.Component {
                             id="email-content"
                             className={this.state.accordion.email ? "accordion-content open" : "accordion-content"}
                             style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
-                            <input
-                                type="email"
-                                id="edit-email"
-                                defaultValue={this.props.userPrivate.email}
-                                ref="email"
-                                style={this.state.errorType.email ? errorStyle : null}
-                                onKeyPress={this.setUnsaved}
-                                placeholder="Email"
-                                required="true"
-                                maxLength="100" />
-                                <input
-                                    type="password"
-                                    id="edit-password"
-                                    ref="emailPassword"
-                                    placeholder="Current Password"
-                                    required="true"
-                                    maxLength="100"
-                                    autoComplete="off" />
+                            <ul>
+                                <li>
+                                    <input
+                                        type="email"
+                                        id="edit-email"
+                                        defaultValue={this.props.userPrivate.email}
+                                        ref="email"
+                                        style={this.state.errorType.email ? errorStyle : null}
+                                        onKeyPress={this.setUnsaved}
+                                        placeholder="Email"
+                                        required="true"
+                                        maxLength="100" />
+                                </li>
+                                <li>
+                                    <input
+                                        type="password"
+                                        id="edit-password"
+                                        ref="emailPassword"
+                                        placeholder="Current Password"
+                                        required="true"
+                                        maxLength="100"
+                                        autoComplete="off" />
+                                </li>
+                            </ul>
                         </div>
                         <div
                             className={this.state.accordion.emailVerified ? "accordion-item open" : "accordion-item"}
@@ -152,33 +159,61 @@ export default class PrivateEdit extends React.Component {
                             id="password-content"
                             className={this.state.accordion.password ? "accordion-content open" : "accordion-content"}
                             style={this.props.user.auth_provider == "password" ? (this.state.errorType.email ? errorStylePasswordAuth : null) : (this.state.errorType.email ? errorStyle : hideStyle)}>
+                            <ul>
+                                <li>
+                                    <input
+                                        type="password"
+                                        id="edit-password"
+                                        ref="currentPassword"
+                                        style={this.state.errorType.currentPassword ? errorStyle : null}
+                                        onKeyPress={this.setUnsaved}
+                                        placeholder="Current Password"
+                                        required="true"
+                                        maxLength="100"
+                                        autoComplete="off" />
+                                </li>
+                                <li>
+                                    <input
+                                        type="password"
+                                        id="edit-password"
+                                        ref="password"
+                                        style={this.state.errorType.password ? errorStyle : null}
+                                        onKeyPress={this.setUnsaved}
+                                        placeholder="New Password"
+                                        required="true"
+                                        maxLength="100"
+                                        autoComplete="off" />
+                                </li>
+                                <li>
+                                    <input
+                                        type="password"
+                                        id="edit-confirm-password"
+                                        ref="confirmPassword"
+                                        style={this.state.errorType.confirmPassword ? errorStyle : null}
+                                        onKeyPress={this.setUnsaved}
+                                        placeholder="Confirm Password"
+                                        required="true"
+                                        maxLength="100" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div
+                            className={this.state.accordion.paypal ? "accordion-item open" : "accordion-item"}
+                            onClick={this.toggleAccordion.bind({},"paypal")}>
+                            <h2 className="accordion-item-heading">PayPal Email</h2>
+                            <h3 className="accordion-item-preview">{this.props.userPrivate.paypal != "" ? this.props.userPrivate.paypal : "Unset"}</h3>
+                        </div>
+                        <div
+                            id="paypal-content"
+                            className={this.state.accordion.paypal ? "accordion-content open" : "accordion-content"}>
                             <input
-                                type="password"
-                                id="edit-password"
-                                ref="currentPassword"
-                                style={this.state.errorType.currentPassword ? errorStyle : null}
+                                type="email"
+                                id="edit-paypal"
+                                defaultValue={this.props.userPrivate.paypal}
+                                ref="paypal"
+                                style={this.state.errorType.paypal ? errorStyle : null}
                                 onKeyPress={this.setUnsaved}
-                                placeholder="Current Password"
-                                required="true"
-                                maxLength="100"
-                                autoComplete="off" />
-                            <input
-                                type="password"
-                                id="edit-password"
-                                ref="password"
-                                style={this.state.errorType.password ? errorStyle : null}
-                                onKeyPress={this.setUnsaved}
-                                placeholder="New Password"
-                                required="true"
-                                maxLength="100"
-                                autoComplete="off" />
-                            <input
-                                type="password"
-                                id="edit-confirm-password"
-                                ref="confirmPassword"
-                                style={this.state.errorType.confirmPassword ? errorStyle : null}
-                                onKeyPress={this.setUnsaved}
-                                placeholder="Confirm Password"
+                                placeholder="PayPal Email"
                                 required="true"
                                 maxLength="100" />
                         </div>
@@ -191,69 +226,71 @@ export default class PrivateEdit extends React.Component {
                         <div
                             id="age-content"
                             className={this.state.accordion.age ? "accordion-content open" : "accordion-content"}>
-                            <label htmlFor="edit-age">Date of Birth: </label>
-                            <div id="accordion-dob" className="accordion-dob">
-                                <div className="controls controls-month">
-                                    <select
-                                        id="accordion-dob-month"
-                                        className="dob"
-                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[1] : null}
-                                        onChange={this.setUnsaved}
-                                        ref="dobMonth"
-                                        style={this.state.errorType.month? errorStyle : null}>
-                                        <option value="" disabled="">Month</option>
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
+                            <div>
+                                <label htmlFor="edit-age">Date of Birth: </label>
+                                <div id="accordion-dob" className="accordion-dob">
+                                    <div className="controls controls-month">
+                                        <select
+                                            id="accordion-dob-month"
+                                            className="dob"
+                                            defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[1] : null}
+                                            onChange={this.setUnsaved}
+                                            ref="dobMonth"
+                                            style={this.state.errorType.month? errorStyle : null}>
+                                            <option value="" disabled="">Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div className="controls controls-day">
+                                        <input
+                                            type="number"
+                                            id="accordion-dob-day"
+                                            defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[0] : null}
+                                            className="dob"
+                                            ref="dobDay"
+                                            style={this.state.errorType.day ? errorStyle : null}
+                                            onChange={this.setUnsaved}
+                                            placeholder="Day"
+                                            pattern="[0-9]*"
+                                            maxLength="2"
+                                            min="1"
+                                            max="31" />
+                                    </div>
+                                    <div className="controls controls-year">
+                                        <input
+                                            type="number"
+                                            id="accordion-dob-year"
+                                            defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[2] : null}
+                                            className="dob"
+                                            ref="dobYear"
+                                            style={this.state.errorType.year ? errorStyle : null}
+                                            onChange={this.setUnsaved}
+                                            placeholder="Year"
+                                            pattern="[0-9]*"
+                                            maxLength="4" />
+                                    </div>
                                 </div>
-                                <div className="controls controls-day">
+                                <label className="age-confirm-label">
                                     <input
-                                        type="number"
-                                        id="accordion-dob-day"
-                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[0] : null}
-                                        className="dob"
-                                        ref="dobDay"
-                                        style={this.state.errorType.day ? errorStyle : null}
-                                        onChange={this.setUnsaved}
-                                        placeholder="Day"
-                                        pattern="[0-9]*"
-                                        maxLength="2"
-                                        min="1"
-                                        max="31" />
-                                </div>
-                                <div className="controls controls-year">
-                                    <input
-                                        type="number"
-                                        id="accordion-dob-year"
-                                        defaultValue={this.props.userPrivate.dob ? this.props.userPrivate.dob.split("-")[2] : null}
-                                        className="dob"
-                                        ref="dobYear"
-                                        style={this.state.errorType.year ? errorStyle : null}
-                                        onChange={this.setUnsaved}
-                                        placeholder="Year"
-                                        pattern="[0-9]*"
-                                        maxLength="4" />
-                                </div>
+                                        type="checkbox"
+                                        id="over-eighteen-checkbox"
+                                        ref="overEighteen"
+                                        defaultChecked={this.props.userPrivate.over_eighteen}
+                                        onChange={this.setUnsaved} />
+                                        I confirm that I am 18+
+                                </label>
                             </div>
-                            <label className="age-confirm-label">
-                                <input
-                                    type="checkbox"
-                                    id="over-eighteen-checkbox"
-                                    ref="overEighteen"
-                                    defaultChecked={this.props.userPrivate.over_eighteen}
-                                    onChange={this.setUnsaved} />
-                                    I confirm that I am 18+
-                            </label>
                         </div>
                         <div
                             className={this.state.accordion.pronoun ? "accordion-item no-border-bottom open" : "accordion-item no-border-bottom"}
@@ -388,6 +425,8 @@ export default class PrivateEdit extends React.Component {
         let password = this.refs.password.value;
         let confirmPassword = this.refs.confirmPassword.value;
 
+        let paypal = this.refs.paypal.value;
+
         let day          = this.refs.dobDay.value;
         let month        = this.refs.dobMonth.value;
         let year         = this.refs.dobYear.value;
@@ -503,6 +542,11 @@ export default class PrivateEdit extends React.Component {
                         data.password = password;
                     }
 
+        // PayPal Email
+        if (paypal.length > 0) {
+            data.paypal = paypal;
+        }
+
         // Date of Birth
         if (day.length > 0 && day.length > 2) {
             this.state.errors.push("Please enter a valid day of the month.");
@@ -561,6 +605,7 @@ export default class PrivateEdit extends React.Component {
                     legal_name: false,
                     email: false,
                     password: false,
+                    paypal: false,
                     age: false,
                     pronoun: false
                 }

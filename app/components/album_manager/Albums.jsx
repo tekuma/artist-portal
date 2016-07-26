@@ -64,7 +64,6 @@ export default class Albums extends React.Component {
                             album               ={album}
                             user                ={this.props.user}
                             thumbnail           ={this.props.thumbnail}
-                            onEditName          ={this.props.onEditName.bind(null, album.id)}
                             onEdit              ={this.props.onEdit.bind(null, album.id)}
                             onDelete            ={this.props.onDelete.bind(null, album.id)}
                             onMove              ={this.moveAlbum}

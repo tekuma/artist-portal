@@ -449,7 +449,7 @@ header {
 	width: 100%;
 	height: 60px;
 	background: #ffffff;
-	z-index: 6;
+	z-index: 10;
 	/* box-shadow: 0 1px 3px rgba(0,0,0,0.12),
 	0 1px 2px rgba(0,0,0,0.24); */
 	transition: all 0.3s;
@@ -973,7 +973,6 @@ input::-webkit-search-cancel-button {
 	font-weight: 600;
 	font-size: 1em;
 	color: #ffffff;
-	cursor: pointer;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -986,14 +985,6 @@ input::-webkit-search-cancel-button {
 
 .album-edit {
 	margin: 8px 0px 27px;
-}
-
-.album-name:hover:not(#uploads-album-name) {
-	color: #f4bfce;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
 }
 
 .album.selected .album-name {
@@ -2908,7 +2899,7 @@ login-button.left {
 	0 3px 1px -2px rgba(0,0,0,.2),
 	0 1px 5px 0 rgba(0,0,0,.12);
 	cursor: pointer;
-	z-index: 5;
+	z-index: 9;
 }
 
 .edit-profile-heading div {
@@ -2958,7 +2949,7 @@ login-button.left {
     display: block;
     height: 50px;
 	width: 100%;
-    z-index: 2;
+    z-index: 8;
     cursor: pointer;
     background: #ffffff;
 	border-bottom: 1px solid rgba(0,0,0,0.12);
@@ -3062,6 +3053,44 @@ login-button.left {
     transition: all 0.3s ease-in-out;
 }
 
+.edit-accordion #display-name-content,
+.edit-accordion #legal-name-content{
+	z-index: 7;
+}
+
+.edit-accordion #avatar-content,
+.edit-accordion #email-content {
+	z-index: 6;
+}
+
+.edit-accordion #bio-content,
+.edit-accordion #email-verified-content {
+	z-index: 5;
+}
+
+.edit-accordion #location-content,
+.edit-accordion #password-content {
+	z-index: 4;
+}
+
+.edit-accordion #portfolio-content,
+.edit-accordion #paypal-content {
+	z-index: 3;
+}
+
+.edit-accordion #social-media-content,
+.edit-accordion #age-content {
+	z-index: 2;
+}
+
+.edit-accordion #age-content {
+	text-align: center;
+}
+
+.edit-accordion #pronoun-content {
+	z-index: 1;
+}
+
 .edit-accordion .accordion-content.open {
 	top: 0px;
 	opacity: 1;
@@ -3086,15 +3115,16 @@ login-button.left {
     transition: all 0.5s ease-in-out;
 }
 
-.edit-accordion #display-name-content.open,
-.edit-accordion #location-content.open,
-.edit-accordion #portfolio-content.open,
-.edit-accordion #legal-name-content.open.
-.edit-accordion #email-content.open {
-	height: 180px;
+.edit-accordion #display-name-content.accordion-content.open,
+.edit-accordion #location-content.accordion-content.open,
+.edit-accordion #portfolio-content.accordion-content.open,
+.edit-accordion #legal-name-content.accordion-content.open,
+.edit-accordion #email-content.accordion-content.open,
+.edit-accordion #paypal-content.accordion-content.open {
+	height: 100px;
 }
 
-.edit-accordion #email-content.open {
+.edit-accordion #email-content.accordion-content.open {
 	height: 200px;
 	padding: 40px;
 	flex-direction: column;
@@ -3129,11 +3159,19 @@ login-button.left {
 	flex-direction: column;
 }
 
+.edit-accordion #social-media-content.open {
+	height: 380px;
+}
+
 #age-content label {
 	width: auto;
 	height: auto;
 	padding: 5px;
 	font-weight: 500;
+}
+
+.edit-accordion .gender-radio {
+	margin-top: 0;
 }
 
 .edit-profile-avatar-wrapper {
@@ -3170,7 +3208,8 @@ login-button.left {
 	font-size: 1em;
 }
 
-.accordion-item-avatar {
+.accordion-item-avatar,
+.accordion-item-social-icon {
 	background-position: center center;
 	background-size: cover;
     background-repeat: no-repeat;
@@ -3180,8 +3219,24 @@ login-button.left {
 	margin: 0;
 }
 
-.accordion-item-avatar-wrapper {
+.accordion-item-social-icon {
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	margin: 0 5px;
+}
+
+.accordion-item-social-icon:first-child {
+	margin-left: 0px;
+}
+
+.accordion-item-avatar-wrapper,
+.accordion-item-social-icon-wrapper {
 	width: 50%;
+}
+
+.accordion-item-social-icon-wrapper {
+	height: 35px;
 }
 
 .edit-profile-save-button {
@@ -3265,6 +3320,48 @@ login-button.left {
 	font-weight: 600;
 	font-size: 1.2em;
 	color: #ec167e;
+}
+
+#social-media-content ul,
+#email-content ul,
+#password-content ul {
+	list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#email-content ul,
+#password-content ul {
+	width: 100%;
+}
+
+#social-media-content ul li {
+	margin: 10px;
+}
+
+#email-content ul li,
+#password-content ul li {
+	margin: 15px;
+}
+
+.edit-social-icon,
+.edit-social-url {
+	display: inline-block;
+}
+
+.edit-social-icon img {
+	height: 40px;
+}
+
+.edit-social-url {
+	margin: 11px 10px;
+	width: 120px;
+	text-align: right;
+}
+
+.accordion-content input[type=text].edit-social-input {
+	display: inline-block;
+	width: 130px;
 }
 
 /*=====*/

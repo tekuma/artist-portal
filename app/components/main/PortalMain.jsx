@@ -79,7 +79,9 @@ export default class PortalMain extends React.Component {
                     managerIsOpen            ={this.props.managerIsOpen}
                     setUploadedFiles         ={this.props.setUploadedFiles}
                     />
-                <div className={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
+                <div
+                    onClick     ={this.props.toggleNav}
+                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"}></div>
             </div>
         );
     }

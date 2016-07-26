@@ -73,10 +73,6 @@ const albumTarget = {
  * TODO
  */
 export default class Album extends React.Component {
-    state = {
-        editing: false  // Track editing state of the album name
-    };
-
     constructor(props) {
         super(props);
     }
@@ -86,129 +82,6 @@ export default class Album extends React.Component {
     }
 
     render() {
-        if(this.state.editing) {
-            return this.renderEdit();
-        } else {
-            return this.renderAlbum();
-        }
-    }
-
-    componentDidMount() {
-        console.log("+++++Album");
-    }
-
-// ============= Flow Control ===============
-
-    renderEdit = () => {
-        let thumbnail = "../../assets/images/icons/new-album.svg";
-        let artworkID;
-
-        // ====== SETTING AVATAR IMAGE ======
-
-        // STEP 1: FIND FIRST ARTWORK IN ALBUM
-        if (this.props.album.artworks) {
-            artworkID = this.props.album.artworks[0];
-        }
-
-        // STEP 2: GET ARTWORK'S IMAGE URL
-        for (let id in this.props.user.artworks) {
-            if (this.props.user.artworks.hasOwnProperty(artworkID)) {
-                if (artworkID == id) {
-                    let artwork = this.props.user.artworks[artworkID];
-                    if (artwork.albums.indexOf(this.props.album.name) != -1 && this.props.thumbnail) {
-                        let image = this.props.thumbnail(artwork.fullsize_url, 150);
-                        thumbnail = image;
-                        break;
-                    }
-                }
-            }
-        }
-
-        // ==================================
-
-        let avatarStyle = {
-            backgroundImage: 'url(' + thumbnail + ')'
-        }
-
-        let styleResponsive = {
-            width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
-        };
-
-        let styleFixed = {
-            width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
-        };
-
-
-        const downloadTooltip = (
-            <Tooltip
-                id="download-tooltip-edit"
-                className="tooltip">
-                Download
-            </Tooltip>
-        );
-
-        const editTooltip = (
-            <Tooltip
-                id="edit-artwork-tooltip"
-                className="tooltip">
-                Edit
-            </Tooltip>
-        );
-
-        const deleteTooltip = (
-            <Tooltip
-                id="delete-tooltip-edit"
-                className="tooltip">
-                Delete
-            </Tooltip>
-        );
-
-        return (
-            <li className={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
-                <div className="album-avatar">
-                    <div style={avatarStyle}
-                        className="avatar-container" />
-                </div>
-                <div
-                    className="album-edit"
-                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}>
-                    <input type="text"
-                        className="album-edit-input"
-                        ref={
-                            (e) => e ? e.selectionStart = this.props.album.name.length : null
-                        }
-                        autoFocus       ={true}
-                        defaultValue    ={this.props.album.name}
-                        onBlur          ={this.finishEdit}
-                        onKeyPress      ={this.checkEnter}
-                        placeholder     ="Enter name" />
-                </div>
-                <div className="album-download-delete">
-                    <OverlayTrigger
-                        placement="bottom"
-                        overlay={editTooltip}>
-                        <img
-                            className="album-more"
-                            src='assets/images/icons/edit-white.svg'
-                            onClick={this.props.onEdit}
-                            onTouchTap={this.props.onEdit}
-                             />
-                    </OverlayTrigger>
-                    <OverlayTrigger
-                        placement   ="bottom"
-                        overlay     ={deleteTooltip}>
-                        <img
-                            className   ="album-more"
-                            src         ='assets/images/icons/delete-white.svg'
-                            onClick     ={this.props.onDelete}
-                            onTouchTap  ={this.props.onDelete} />
-                    </OverlayTrigger>
-                </div>
-            </li>
-        );
-    };
-
-    renderAlbum = () => {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
@@ -283,7 +156,6 @@ export default class Album extends React.Component {
                         className="avatar-container" />
                 </div>
                 <h3
-                    onClick     ={this.edit}
                     style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
                     className   ="album-name" >
                     {this.props.album.name}
@@ -312,37 +184,9 @@ export default class Album extends React.Component {
                 </div>
             </li>
         ));
-    };
+    }
 
-// ============= Methods ===============
-
-    edit = (e) => {
-        // Avoid bubbling to click that opens up album view
-        e.stopPropagation();
-
-        // Enter edit mode.
-        this.setState({
-            editing: true
-        });
-    };
-
-    checkEnter = (e) => {
-        // The user hit *enter*, let's finish up.
-        if(e.key === 'Enter') {
-            this.finishEdit(e);
-        }
-    };
-
-    finishEdit = (e) => {
-        const value = e.target.value;
-
-        if (this.props.onEditName) {
-            // Exit edit mode.
-            this.setState({
-                editing: false
-            });
-
-            this.props.onEditName(value);
-        }
+    componentDidMount() {
+        console.log("+++++Album");
     }
 }
