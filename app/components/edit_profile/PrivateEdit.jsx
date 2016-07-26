@@ -18,6 +18,7 @@ export default class PrivateEdit extends React.Component {
             age         : false,
             pronoun     : false
         },
+        allAccordion    : false,
         errorType: {},
         errors: [],
         currentError: ""
@@ -346,10 +347,33 @@ export default class PrivateEdit extends React.Component {
                         </div>
                     </article>
                     <button
-                        className="edit-profile-save-button private"
+                        className="edit-profile-save-button"
                         type="submit"
                         onClick={this.saveProfileInfo}>
                         <img src="assets/images/icons/save.svg" />
+                    </button>
+                    <button
+                        className="edit-profile-open-accordion-button"
+                        type="submit"
+                        onClick={this.toggleAllAccordion}>
+                        <svg
+                            version="1.1"
+                            id="open-accordion"
+                            x="0px"
+                            y="0px"
+                            width="25px"
+                            height="25px"
+                            viewBox="11.5 11.5 25 25"
+                            enableBackground="new 11.5 11.5 25 25">
+                            <polygon
+                                id="up-arrow"
+                                fill="#FFFFFF"
+                                points="30.25,30.26 30.25,24 27.12,24 27.12,30.26 22.44,30.26 28.69,36.5 34.94,30.26 "/>
+                            <polygon
+                                id="down-arrow"
+                                fill="#FFFFFF"
+                                points="19.31,11.5 13.06,17.73 17.75,17.73 17.75,24 20.88,24 20.88,17.73 25.56,17.73 "/>
+                        </svg>
                     </button>
                 </div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -384,6 +408,25 @@ export default class PrivateEdit extends React.Component {
 
         this.setState({
             accordion: accordion
+        });
+    }
+
+    toggleAllAccordion = () => {
+        let allAccordion = this.state.allAccordion;
+
+        let accordion   = {
+            legal_name      : !allAccordion,
+            email           : !allAccordion,
+            emailVerified   : !allAccordion,
+            password        : !allAccordion,
+            paypal          : !allAccordion,
+            age             : !allAccordion,
+            pronoun         : !allAccordion
+        };
+
+        this.setState({
+            accordion: accordion,
+            allAccordion: !allAccordion
         });
     }
 

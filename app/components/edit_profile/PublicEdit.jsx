@@ -16,8 +16,10 @@ export default class PublicEdit extends React.Component {
             avatar      : false,
             bio         : false,
             location    : false,
-            portfolio   : false
+            portfolio   : false,
+            social_media: false
         },
+        allAccordion    : false,
         errorType       : {},
         errors          : [],
         currentError    : ""
@@ -64,26 +66,24 @@ export default class PublicEdit extends React.Component {
         }
 
         let facebookStyle = {
-            backgroundImage: 'url(assets/images/icons/social-icons/facebook.svg)'
+            backgroundImage: 'url(assets/images/icons/social-icons/facebook-gray.svg)'
         }
 
         let instagramStyle = {
-            backgroundImage: 'url(assets/images/icons/social-icons/instagram.svg)'
+            backgroundImage: 'url(assets/images/icons/social-icons/instagram-gray.svg)'
         }
 
         let twitterStyle = {
-            backgroundImage: 'url(assets/images/icons/social-icons/twitter.svg)'
+            backgroundImage: 'url(assets/images/icons/social-icons/twitter-gray.svg)'
         }
 
         let pinterestStyle = {
-            backgroundImage: 'url(assets/images/icons/social-icons/pinterest.svg)'
+            backgroundImage: 'url(assets/images/icons/social-icons/pinterest-gray.svg)'
         }
 
         let behanceStyle = {
-            backgroundImage: 'url(assets/images/icons/social-icons/behance.svg)'
+            backgroundImage: 'url(assets/images/icons/social-icons/behance-gray.svg)'
         }
-
-        console.log("Social Media: ", showSocialIconPreview);
 
         return(
             <div>
@@ -142,18 +142,9 @@ export default class PublicEdit extends React.Component {
                                 accept="image/*"
                                 onDrop={this.onDrop}>
                                 <img
+                                    className="edit-avatar-no-avatar-icon"
                                     style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
                                     src="../assets/images/icons/person-beige.svg" />
-                                <h3
-                                    style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                                    className="upload-writing big">
-                                    Click to Upload your Photo
-                                </h3>
-                                <h3
-                                    style={{display: (this.props.user.avatar == "" || this.props.user.avatar == undefined || this.props.user.avatar == null) && !this.state.avatarUploaded ? "block" : "none" }}
-                                    className="upload-writing small">
-                                    or Simply Drag it Here
-                                </h3>
                                 <img
                                     id="uploaded-avatar"
                                     style={{display: (this.props.user.avatar !== "" && this.props.user.avatar !== undefined && this.props.user.avatar !== null && !this.state.avatarUploaded)  ? "block" : "none" }}
@@ -260,7 +251,7 @@ export default class PublicEdit extends React.Component {
                             <ul>
                                 <li>
                                     <div className="edit-social-icon facebook">
-                                        <img src="assets/images/icons/social-icons/facebook.svg" />
+                                        <img src="assets/images/icons/social-icons/facebook-black.svg" />
                                     </div>
                                     <p className="edit-social-url">
                                         facebook.com/
@@ -276,7 +267,7 @@ export default class PublicEdit extends React.Component {
                                 </li>
                                 <li>
                                     <div className="edit-social-icon instagram">
-                                        <img src="assets/images/icons/social-icons/instagram.svg" />
+                                        <img src="assets/images/icons/social-icons/instagram-black.svg" />
                                     </div>
                                     <p className="edit-social-url">
                                         instagram.com/
@@ -292,7 +283,7 @@ export default class PublicEdit extends React.Component {
                                 </li>
                                 <li>
                                     <div className="edit-social-icon twitter">
-                                        <img src="assets/images/icons/social-icons/twitter.svg" />
+                                        <img src="assets/images/icons/social-icons/twitter-black.svg" />
                                     </div>
                                     <p className="edit-social-url">
                                         twitter.com/
@@ -308,7 +299,7 @@ export default class PublicEdit extends React.Component {
                                 </li>
                                 <li>
                                     <div className="edit-social-icon pinterest">
-                                        <img src="assets/images/icons/social-icons/pinterest.svg" />
+                                        <img src="assets/images/icons/social-icons/pinterest-black.svg" />
                                     </div>
                                     <p className="edit-social-url">
                                         pinterest.com/
@@ -324,7 +315,7 @@ export default class PublicEdit extends React.Component {
                                 </li>
                                 <li>
                                     <div className="edit-social-icon behance">
-                                        <img src="assets/images/icons/social-icons/behance.svg" />
+                                        <img src="assets/images/icons/social-icons/behance-black.svg" />
                                     </div>
                                     <p className="edit-social-url">
                                         behance.net/
@@ -342,10 +333,33 @@ export default class PublicEdit extends React.Component {
                         </div>
                     </article>
                     <button
-                        className="edit-profile-save-button public"
+                        className="edit-profile-save-button"
                         type="submit"
                         onClick={this.saveProfileInfo}>
                         <img src="assets/images/icons/save.svg" />
+                    </button>
+                    <button
+                        className="edit-profile-open-accordion-button"
+                        type="submit"
+                        onClick={this.toggleAllAccordion}>
+                        <svg
+                            version="1.1"
+                            id="open-accordion"
+                            x="0px"
+                            y="0px"
+                            width="25px"
+                            height="25px"
+                            viewBox="11.5 11.5 25 25"
+                            enableBackground="new 11.5 11.5 25 25">
+                            <polygon
+                                id="up-arrow"
+                                fill="#FFFFFF"
+                                points="30.25,30.26 30.25,24 27.12,24 27.12,30.26 22.44,30.26 28.69,36.5 34.94,30.26 "/>
+                            <polygon
+                                id="down-arrow"
+                                fill="#FFFFFF"
+                                points="19.31,11.5 13.06,17.73 17.75,17.73 17.75,24 20.88,24 20.88,17.73 25.56,17.73 "/>
+                        </svg>
                     </button>
                 </div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -382,6 +396,24 @@ export default class PublicEdit extends React.Component {
         });
     }
 
+    toggleAllAccordion = () => {
+        let allAccordion = this.state.allAccordion;
+
+        let accordion   = {
+            display_name: !allAccordion,
+            avatar      : !allAccordion,
+            bio         : !allAccordion,
+            location    : !allAccordion,
+            portfolio   : !allAccordion,
+            social_media: !allAccordion
+        };
+
+        this.setState({
+            accordion: accordion,
+            allAccordion: !allAccordion
+        });
+    }
+
     setUnsaved = () => {
         this.props.setUnsaved();
     }
@@ -396,13 +428,21 @@ export default class PublicEdit extends React.Component {
 
         // Clear errors from any previous form submission
         this.state.errors = [];
-        let data = {};
+        let data = {
+            social_media: {}
+        };
 
         // Public
         let bio          = this.refs.bio.value;
         let location     = this.refs.location.value;
         let portfolio    = this.refs.portfolio.value;
         let displayName  = this.refs.displayname.value;
+        let facebook     = this.refs.facebook.value;
+        let instagram    = this.refs.instagram.value;
+        let twitter      = this.refs.twitter.value;
+        let pinterest    = this.refs.pinterest.value;
+        let behance      = this.refs.behance.value;
+
 
         // ====== Public Validations ======
 
@@ -431,6 +471,27 @@ export default class PublicEdit extends React.Component {
             data.portfolio = portfolio;
         }
 
+        // Social Media
+        if (facebook.length > 0) {
+            data.social_media.facebook = facebook;
+        }
+
+        if (instagram.length > 0) {
+            data.social_media.instagram = instagram;
+        }
+
+        if (twitter.length > 0) {
+            data.social_media.twitter = twitter;
+        }
+
+        if (pinterest.length > 0) {
+            data.social_media.pinterest = pinterest;
+        }
+
+        if (behance.length > 0) {
+            data.social_media.behance = behance;
+        }
+
         // Rerender the component to show errors
         this.forceUpdate();
 
@@ -444,7 +505,8 @@ export default class PublicEdit extends React.Component {
                     avatar: false,
                     bio: false,
                     location: false,
-                    portfolio: false
+                    portfolio: false,
+                    social_media: false
                 }
             });
 
