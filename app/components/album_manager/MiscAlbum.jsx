@@ -13,25 +13,18 @@ import ItemTypes                    from '../../constants/itemTypes';
 const albumTarget = {
     drop(targetProps, monitor) {
         const source = monitor.getItem();
-        // Only do drag if album isn't already in album
-        if(source.albums.indexOf("Uploads") == -1) {
-            // Create array of albums that doesn't have currentAlbum and has new album
-            let newAlbums = source['albums'].slice(0);
-            let currentAlbumIndex = newAlbums.indexOf(source.currentAlbum)
-            newAlbums.splice(currentAlbumIndex, 1);
-            newAlbums.push("Uploads");
-            // Move artwork to new album
-            targetProps.changeArtworkAlbum(source.id, source.albums, newAlbums);
 
-            // Change album within artwork JSON
-            const thisUID  = firebase.auth().currentUser.uid;
-            let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
-            let thisArtworkRef = firebase.database().ref(path);
-            thisArtworkRef.transaction((data) => {
-                data['albums'] = newAlbums;
-                return data;
-            });
-        }
+        // Move artwork to new album
+        targetProps.changeArtworkAlbum(source.id, source.album, "Miscellaneous");
+
+        // Change album within artwork JSON
+        const thisUID  = firebase.auth().currentUser.uid;
+        let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
+        let thisArtworkRef = firebase.database().ref(path);
+        thisArtworkRef.transaction((data) => {
+            data['album'] = "Miscellaneous";
+            return data;
+        });
     }
 };
 

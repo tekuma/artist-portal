@@ -13,8 +13,7 @@ const artworkSource = {
     beginDrag(props) {
         return {
             id   : props.artwork.id,
-            albums: props.artwork.albums,
-            currentAlbum: props.currentAlbum,
+            album: props.artwork.album,
             type : ItemTypes.ARTWORK
         }
     }
@@ -26,7 +25,7 @@ const artworkTarget = {
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id;
         if(sourceId != targetId) {
-            targetProps.onMove(sourceProps.currentAlbum ,sourceId, targetId);
+            targetProps.onMove(sourceProps.album,sourceId, targetId);
         }
     }
 };

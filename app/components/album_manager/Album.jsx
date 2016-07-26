@@ -35,25 +35,17 @@ const albumTarget = {
         const source = monitor.getItem();
         if(source.name !== target.name) {
             if(source.type == ItemTypes.ARTWORK) {
-                // Only do drag if album isn't already in album
-                if(source.albums.indexOf(target.name) == -1) {
-                    // Create array of albums that doesn't have currentAlbum and has new album
-                    let newAlbums = source['albums'].slice(0);
-                    let currentAlbumIndex = newAlbums.indexOf(source.currentAlbum)
-                    newAlbums.splice(currentAlbumIndex, 1);
-                    newAlbums.push(target.name);
-                    // Move artwork to new album
-                    targetProps.changeArtworkAlbum(source.id, source.albums, newAlbums);
+                // Move artwork to new album
+                targetProps.changeArtworkAlbum(source.id, source.album, target.name);
 
-                    // Change album within artwork JSON
-                    const thisUID  = firebase.auth().currentUser.uid;
-                    let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
-                    let thisArtworkRef = firebase.database().ref(path);
-                    thisArtworkRef.transaction((data) => {
-                        data['albums'] = newAlbums;
-                        return data;
-                    });
-                }
+                // Change album within artwork JSON
+                const thisUID  = firebase.auth().currentUser.uid;
+                let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
+                let thisArtworkRef = firebase.database().ref(path);
+                thisArtworkRef.transaction((data) => {
+                    data['album'] = target.name;
+                    return data;
+                });
             }
         }
     }
