@@ -2374,6 +2374,7 @@ login-button.left {
 	height: 40px;
 	display: inline-block;
 	margin: 3px;
+	border: 2px solid #dddddd;
 }
 
 .edit-album-content {
