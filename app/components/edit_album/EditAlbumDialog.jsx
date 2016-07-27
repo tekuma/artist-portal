@@ -104,8 +104,6 @@ export default class EditAlbumDialog extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log("Entered onSubmit");
-        console.log("Album form: ", this.state.albumInfo);
         e.preventDefault();
 
         // Test that user inputed an album name
@@ -118,15 +116,12 @@ export default class EditAlbumDialog extends React.Component {
             this.state.errors.push("Please enter a bane for the album");
         }
 
-        console.log("Got through errors");
-
         if(this.state.errors.length == 0) {
             // this.props.toggleEditArtworkDialog();
             let id = this.state.albumInfo["id"] // get ID
             this.state.albumInfo["id"] = null // remove ID from information
             this.props.updateAlbum(id, this.state.albumInfo);
         }
-        console.log("I have " + this.state.errors.length + " errors: ", this.state.errors);
 
         for(let i = 0; i < this.state.errors.length; i++) {
             setTimeout(() => {

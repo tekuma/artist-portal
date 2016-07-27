@@ -91,8 +91,6 @@ export default class EditMiscAlbumDialog extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log("Entered onSubmit");
-        console.log("Album form: ", this.state.albumInfo);
         e.preventDefault();
 
         let id = this.state.albumInfo["id"] // get ID

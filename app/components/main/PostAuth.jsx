@@ -490,7 +490,7 @@ export default class PostAuth extends React.Component {
                             upload_date : new Date().toISOString(),
                             year        : new Date().getFullYear(),
                             description : "",
-                            tags        : [{id: 1, text: "Art"}],
+                            tags        : [],
                             size        : fileSize,
                             fullsize_url: fullSizeURL,
                             colors      : colorObject
@@ -859,7 +859,6 @@ export default class PostAuth extends React.Component {
      */
     updateArtwork = (data) => {
         let artworkInfo = data;
-        console.log("Here is update artwork info: ", data);
 
         let oldAlbumName = artworkInfo.oldAlbumName;
         artworkInfo.oldAlbumName = null;
@@ -957,7 +956,8 @@ export default class PostAuth extends React.Component {
                             let artworkTagsLength = 0
 
                             if (node['tags']) {
-                                artworkTagsLength = node['tags'].length;
+                                artworkTagsLength = Object.keys(node['tags']).length;
+
                                 // Loops through all artwork tags
                                 for (let j = 0; j < artworkTagsLength; j++) {
                                     if (data['tags'][i]['text'] == node['tags'][j]['text']) {
@@ -973,15 +973,13 @@ export default class PostAuth extends React.Component {
                                     id: artworkTagsLength + 1,
                                     text: data['tags'][i]['text']
                                 };
-
                                 node['tags'][artworkTagsLength] = newTag;
-                            } else {
+                            } else if (!tagInArtwork) {
                                 // Entered if doesn't have tags field
                                 let newTag = {
                                     id: 1,
                                     text: data['tags'][i]['text']
                                 };
-
                                 node['tags'] = {0 : newTag};
                             }
                         }
