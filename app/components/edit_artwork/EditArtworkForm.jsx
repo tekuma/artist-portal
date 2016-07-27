@@ -34,48 +34,14 @@ export default class EditArtworkForm extends React.Component {
             border: '1px solid #ec167c'
         };
 
-        let vibrantColor;
-        let mutedColor;
-        let darkVibrantColor;
-        let darkMutedColor;
-        let lightVibrantColor;
-        let lightMutedColor;
+        let colors = [];
 
-        if (this.props.value.colors && this.props.value.colors.v) {
-                vibrantColor = {
-                    background: this.props.value.colors.v.hex
-                }
-            }
-
-        if (this.props.value.colors && this.props.value.colors.m) {
-                mutedColor = {
-                    background: this.props.value.colors.m.hex
-                }
-            }
-
-        if (this.props.value.colors && this.props.value.colors.dv) {
-                darkVibrantColor = {
-                    background: this.props.value.colors.dv.hex
-                }
-            }
-
-        if (this.props.value.colors && this.props.value.colors.dm) {
-                darkMutedColor = {
-                    background: this.props.value.colors.dm.hex
-                }
-            }
-
-        if (this.props.value.colors && this.props.value.colors.lv) {
-                lightVibrantColor = {
-                    background: this.props.value.colors.lv.hex
-                }
-            }
-
-        if (this.props.value.colors && this.props.value.colors.lm) {
-                lightMutedColor = {
-                    background: this.props.value.colors.lm.hex
-                }
-            }
+        for (let i = 0; i < Object.keys(this.props.value.colors).length; i++) {
+            let color = this.props.value.colors[i].hex;
+            colors.push({
+                background: color
+            });
+        }
 
         let image = this.props.thumbnail(this.props.value.fullsize_url, 500);
 
@@ -97,30 +63,14 @@ export default class EditArtworkForm extends React.Component {
                                 Color
                             </label>
                             <div className="color-circle-wrapper">
-                                <div
-                                    className="color-box vibrant"
-                                    style={ vibrantColor != null ? vibrantColor : null}>
-                                </div>
-                                <div
-                                    className="color-box muted"
-                                    style={ mutedColor != null ? mutedColor : null}>
-                                </div>
-                                <div
-                                    className="color-box dark-vibrant"
-                                    style={ darkVibrantColor != null ? darkVibrantColor : null}>
-                                </div>
-                                <div
-                                    className="color-box dark-muted"
-                                    style={ darkMutedColor != null ? darkMutedColor : null}>
-                                </div>
-                                <div
-                                    className="color-box light-vibrant"
-                                    style={ lightVibrantColor != null ? lightVibrantColor : null}>
-                                </div>
-                                <div
-                                    className="color-box light-muted"
-                                    style={ lightMutedColor != null ? lightMutedColor : null}>
-                                </div>
+                                {colors.map(color => {
+                                    return (
+                                        <div
+                                            className="color-box"
+                                            style={color}>
+                                        </div>
+                                    );
+                                })}
                             </div>
                     </div>
                 </div>

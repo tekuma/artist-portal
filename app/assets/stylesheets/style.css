@@ -818,7 +818,7 @@ input::-webkit-search-cancel-button {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
-	z-index: 7;
+	z-index: 9;
 }
 
 .add-album img {
@@ -3257,7 +3257,7 @@ login-button.left {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
-	z-index: 7;
+	z-index: 9;
 }
 
 #open-accordion {
@@ -3635,12 +3635,8 @@ label.age-confirm-label {
   	  right: 30px !important;
     }
 
-	.edit-profile-save-button.private {
+	.edit-profile-save-button {
   	  left: 30px !important;
-    }
-
-	.edit-profile-save-button.public {
-  	  right: 30px !important;
     }
 
 	.accordion-item-social-icon:first-child {
@@ -3796,7 +3792,7 @@ label.age-confirm-label {
 		display: none;
 	}
 
-	.edit-accordion #social-media-content {
+	.edit-accordion #social-media-content.open {
 		padding: 20px;
 	}
 

@@ -33,7 +33,7 @@ export default class EditMiscAlbumForm extends React.Component {
                     <form className="album-form" onSubmit={onSubmit}>
                         <fieldset>
                             <ul>
-                                <li><h3 className="edit-album-hint">Any fields completed will be transferred to album artworks, and will overwrite corresponding artwork fields.</h3></li>
+                                <li><h3 className="edit-album-hint">Changes to fields will be transferred to album artworks, and will overwrite corresponding artwork fields.</h3></li>
                                 <li>
                                     <label htmlFor="album-title">
                                         Artist
