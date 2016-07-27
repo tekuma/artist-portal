@@ -59,6 +59,7 @@ export default class Albums extends React.Component {
                     currentAlbum       ={this.props.currentAlbum}
                     changeArtworkAlbum ={this.props.changeArtworkAlbum}
                     emptyMisc          ={this.props.emptyMisc}
+                    editMisc           ={this.props.editMisc}
                     />
                 {albumArray.map(album => {
                     return (

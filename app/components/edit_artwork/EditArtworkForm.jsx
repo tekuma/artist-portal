@@ -288,10 +288,13 @@ export default class EditArtworkForm extends React.Component {
 
         for (let artwork in artworks) {
             let artworkTags = artworks[artwork]["tags"];
-            for (let i = 0; i < Object.keys(artworkTags).length; i++) {
-                let text = artworkTags[i].text;
-                if (suggestions.indexOf(text) == -1) {
-                    suggestions.push(text);
+
+            if (artworkTags) {
+                for (let i = 0; i < Object.keys(artworkTags).length; i++) {
+                    let text = artworkTags[i].text;
+                    if (suggestions.indexOf(text) == -1) {
+                        suggestions.push(text);
+                    }
                 }
             }
         }

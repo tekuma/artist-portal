@@ -93,6 +93,14 @@ export default class MiscAlbum extends React.Component {
             </Tooltip>
         );
 
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
+            </Tooltip>
+        );
+
         const emptyTooltip = (
             <Tooltip
                 id="delete-tooltip-regular"
@@ -118,6 +126,16 @@ export default class MiscAlbum extends React.Component {
                     Miscellaneous
                 </h3>
                 <div className="album-download-delete">
+                    <OverlayTrigger
+                        placement="bottom"
+                        overlay={editTooltip}>
+                        <img
+                            className="album-more"
+                            src='assets/images/icons/edit-white.svg'
+                            onClick={this.props.editMisc}
+                            onTouchTap={this.props.editMisc}
+                             />
+                     </OverlayTrigger>
                     <OverlayTrigger
                         placement   ="bottom"
                         overlay     ={emptyTooltip}>

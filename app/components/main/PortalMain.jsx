@@ -63,6 +63,7 @@ export default class PortalMain extends React.Component {
                     currentAlbum           ={this.props.currentAlbum}
                     changeAlbum            ={this.props.changeAlbum}
                     toggleEditAlbumDialog  ={this.props.toggleEditAlbumDialog}
+                    toggleEditMiscAlbumDialog  ={this.props.toggleEditMiscAlbumDialog}
                     changeCurrentEditAlbum ={this.props.changeCurrentEditAlbum}
                     setAlbumNames          ={this.props.setAlbumNames}
                     albums                 ={this.props.albums}

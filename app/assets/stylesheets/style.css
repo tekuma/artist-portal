@@ -2406,15 +2406,14 @@ login-button.left {
 	padding: 0 !important;
 }
 
-.edit-artwork-album-hint {
-	position: relative;
-	left: 20%;
+.edit-album-hint {
 	margin: 0;
-	width: 80%;
+	width: 100%;
 	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif !important;
 	font-size: 0.8em;
 	font-weight: 400;
-	color: #000000;
+	text-align: center;
+	color: #e73827;
 }
 
 /*========================================== */
@@ -3895,12 +3894,11 @@ label.age-confirm-label {
 		margin: 0 auto;
 	}
 
-	#edit-artwork-album {
-		width: 100%;
+	.edit-album-hint {
+		margin-top: 20px;
 	}
 
-	.edit-artwork-album-hint {
-		left: 0;
+	#edit-artwork-album {
 		width: 100%;
 	}
 }

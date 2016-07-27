@@ -122,6 +122,7 @@ export default class AlbumManager extends React.Component {
                     emptyMisc          ={this.emptyMisc}
                     downloadAlbum      ={this.downloadAlbum}
                     onEdit             ={this.editAlbum}
+                    editMisc           ={this.editMisc}
                     onDelete           ={this.deleteAlbum}
                     currentAlbum       ={this.props.currentAlbum}
                     changeAlbum        ={this.props.changeAlbum}
@@ -157,6 +158,7 @@ export default class AlbumManager extends React.Component {
                     albums          ={this.state.albums}
                     uploads         ={this.state.uploads}
                     onEdit          ={this.editAlbum}
+                    editMisc        ={this.editMisc}
                     onDelete        ={this.deleteAlbum}
                     emptyMisc       ={this.emptyMisc}
                     currentAlbum    ={this.props.currentAlbum}
@@ -192,6 +194,9 @@ export default class AlbumManager extends React.Component {
             let albumLength = Object.keys(data).length;
             data[albumLength] = {
                 name: newAlbumName,
+                artist: "",
+                year: "",
+                tags: [],
                 description: ""
             };
             console.log(albumLength, "albumLength");
@@ -217,6 +222,18 @@ export default class AlbumManager extends React.Component {
 
         this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
         this.props.toggleEditAlbumDialog();    // Open Edit Dialog
+    }
+
+    /**
+     * TODO
+     * @param  {String}  id [description]
+     */
+    editMisc = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log("Entered editMisc");
+        this.props.changeCurrentEditAlbum(0);  // Attach Album ID to View
+        this.props.toggleEditMiscAlbumDialog();    // Open Edit Dialog
     }
 
     /**

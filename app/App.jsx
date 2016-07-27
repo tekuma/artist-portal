@@ -360,7 +360,10 @@ export default class App extends React.Component {
         let onboarder = {
             albums        : { 0: {
                 name:"Miscellaneous",
-                description: "The album intended to group all miscellaneous artworks, that don't belong to any specific collection."
+                artist: "",
+                year: "",
+                tags: [],
+                description: ""
             }},
             auth_provider   : "password",
             display_name    : display_name,
@@ -567,7 +570,10 @@ export default class App extends React.Component {
                 usersRef.child(thisUID).set({
                     albums        : { 0: {
                         name:"Miscellaneous",
-                        description: "The album intended to group all miscellaneous artworks, that don't belong to any specific collection."
+                        artist: "",
+                        year: "",
+                        tags: [],
+                        description: ""
                     }},
                     auth_provider   : provider,
                     display_name    : thisDisplayName,

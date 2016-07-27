@@ -18,6 +18,7 @@ import HamburgerIcon       from '../hamburger_icon/HamburgerIcon';
 import PortalMain          from './PortalMain';
 import EditArtworkDialog   from '../edit_artwork/EditArtworkDialog';
 import EditAlbumDialog     from '../edit_album/EditAlbumDialog';
+import EditMiscAlbumDialog from '../edit_misc/EditMiscAlbumDialog';
 import EditProfileDialog   from '../edit_profile/EditProfileDialog';
 import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
@@ -38,6 +39,7 @@ export default class PostAuth extends React.Component {
         navIsOpen: false,                           // Used to track whether Hidden Navigation is open
         managerIsOpen: true,                        // Used to track whether Album Manager is open
         editArtworkIsOpen: false,                   // Used to track whether Artwork Dialog is open
+        editMiscAlbumIsOpen: false,                 // Used to track whether MiscAlbum Dialog is open
         editAlbumIsOpen: false,                     // Used to track whether Album Dialog is open
         deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
@@ -86,6 +88,7 @@ export default class PostAuth extends React.Component {
                     deleteArtwork             ={this.deleteArtwork}
                     toggleEditArtworkDialog   ={this.toggleEditArtworkDialog}
                     toggleEditAlbumDialog     ={this.toggleEditAlbumDialog}
+                    toggleEditMiscAlbumDialog ={this.toggleEditMiscAlbumDialog}
                     changeCurrentEditArtwork  ={this.changeCurrentEditArtwork}
                     changeCurrentEditAlbum    ={this.changeCurrentEditAlbum}
                     toggleManager             ={this.toggleManager}
@@ -112,9 +115,14 @@ export default class PostAuth extends React.Component {
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <EditAlbumDialog
                     user={this.state.user}
-                    thumbnail={this.props.thumbnail}
                     editAlbumIsOpen={this.state.editAlbumIsOpen}
                     toggleEditAlbumDialog={this.toggleEditAlbumDialog}
+                    updateAlbum={this.updateAlbum}
+                    currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
+                <EditMiscAlbumDialog
+                    user={this.state.user}
+                    editMiscAlbumIsOpen={this.state.editMiscAlbumIsOpen}
+                    toggleEditMiscAlbumDialog={this.toggleEditMiscAlbumDialog}
                     updateAlbum={this.updateAlbum}
                     currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
                 <UploadDialog
@@ -239,6 +247,18 @@ export default class PostAuth extends React.Component {
     toggleEditArtworkDialog = () => {
         this.setState({
             editArtworkIsOpen: !this.state.editArtworkIsOpen
+        });
+    }
+
+    /**
+     * This method is used by the Misc Album component
+     * to toggle the boolean value of this.state.editMiscAlbumIsOpen
+     * to change the state of the the Edit Misc Album Dialog component
+     * from open to closed.
+     */
+    toggleEditMiscAlbumDialog = () => {
+        this.setState({
+            editMiscAlbumIsOpen: !this.state.editMiscAlbumIsOpen
         });
     }
 
@@ -611,6 +631,7 @@ export default class PostAuth extends React.Component {
      * @param  {String} id [the unique id of the artwork being edited]
      */
     changeCurrentEditAlbum = (id) => {
+        console.log("Entered changeCurrentEditAlbum");
         const thisUID = firebase.auth().currentUser.uid;
         let path = `public/onboarders/${thisUID}/albums/${id}`;
         let albumRef = firebase.database().ref(path);
@@ -861,7 +882,7 @@ export default class PostAuth extends React.Component {
      * @param  {JSON} data - obj of {attribute:update} to be written to
      * the database.
      */
-    updateAlbum = (id ,data) => {
+    updateAlbum = (id,data) => {
         const thisUID = firebase.auth().currentUser.uid;
         let thisAlbumRef = firebase.database().ref(`public/onboarders/${thisUID}/albums/${id}`);
 
@@ -875,25 +896,133 @@ export default class PostAuth extends React.Component {
                     let thisArtKey = this.state.user.albums[id]['artworks'][i];
                     let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
                     artworkRef.transaction((node) => {
-                        let oldAlbumName = this.state.user.albums[id]['name'];
-                        console.log("Old Album Name: ", oldAlbumName);
-
-                        for (let i = 0; i < node['albums'].length; i++) {
-                            if(node['albums'][i] == oldAlbumName) {
-                                node['albums'][i] = data['name'];
-                                console.log("Changed artwork: ", node);
-                                break;
-                            }
-                        }
+                        node['album'] = data['name'];
                         return node;
                     });
                 }
             }
         }
 
-        this.changeAlbum(data.name);
+        // Change the artist of associated artworks if album changed
+        if(data['artist'] && data['artist'] != this.state.user.albums[id]['artist']) {
+            // Change the name of associated artworks
+            if (this.state.user.albums[id]['artworks']) {
+                // change the artist field for each artwork object
+                let artLength = Object.keys(this.state.user.albums[id]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.user.albums[id]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        node['artist'] = data['artist'];
+                        return node;
+                    });
+                }
+            }
+        }
+
+        // Change the year of associated artworks if album changed
+        if(data['year'] && data['year'] != this.state.user.albums[id]['year']) {
+            // Change the name of associated artworks
+            if (this.state.user.albums[id]['artworks']) {
+                // change the artist field for each artwork object
+                let artLength = Object.keys(this.state.user.albums[id]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.user.albums[id]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        node['year'] = data['year'];
+                        return node;
+                    });
+                }
+            }
+        }
+
+        // Change the tags of associated artworks if album changed
+        if(data['tags'] && data['tags'] != this.state.user.albums[id]['tags']) {
+            // Change the name of associated artworks
+            if (this.state.user.albums[id]['artworks']) {
+                // change the artist field for each artwork object
+                let artLength = Object.keys(this.state.user.albums[id]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.user.albums[id]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        let albumTagsLength = data['tags'].length;
+
+                        let tagInArtwork = false;
+
+                        // Loops through all album tags
+                        for (let i = 0; i < albumTagsLength; i++) {
+                            tagInArtwork = false;
+                            let artworkTagsLength = 0
+
+                            if (node['tags']) {
+                                artworkTagsLength = node['tags'].length;
+                                // Loops through all artwork tags
+                                for (let j = 0; j < artworkTagsLength; j++) {
+                                    if (data['tags'][i]['text'] == node['tags'][j]['text']) {
+                                        tagInArtwork = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!tagInArtwork && artworkTagsLength > 0) {
+                                // Entered if already has tags field
+                                let newTag = {
+                                    id: artworkTagsLength + 1,
+                                    text: data['tags'][i]['text']
+                                };
+
+                                node['tags'][artworkTagsLength] = newTag;
+                            } else {
+                                // Entered if doesn't have tags field
+                                let newTag = {
+                                    id: 1,
+                                    text: data['tags'][i]['text']
+                                };
+
+                                node['tags'] = {0 : newTag};
+                            }
+                        }
+
+                        console.log("Here is the modified artwork: ", node);
+
+                        return node;
+                    });
+                }
+            }
+        }
+
+        // Change the description of associated artworks if album changed
+        if(data['description'] && data['description'] != this.state.user.albums[id]['description']) {
+            // Change the name of associated artworks
+            if (this.state.user.albums[id]['artworks']) {
+                // change the artist field for each artwork object
+                let artLength = Object.keys(this.state.user.albums[id]['artworks']).length;
+                for (let i = 0; i < artLength; i++) {
+                    let thisArtKey = this.state.user.albums[id]['artworks'][i];
+                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
+                    artworkRef.transaction((node) => {
+                        node['description'] = data['description'];
+                        return node;
+                    });
+                }
+            }
+        }
+
+        // If current album was this album, change its name
+        if (this.state.currentAlbum == this.state.user.albums[id]['name']) {
+            this.changeAlbum(data.name);
+        }
+
+        // Update Album
         thisAlbumRef.update(data).then( () => {
-            this.toggleEditAlbumDialog();
+            if (id == 0){
+                this.toggleEditMiscAlbumDialog();
+            } else {
+                this.toggleEditAlbumDialog();
+            }
         });
     }
 

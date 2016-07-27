@@ -6,7 +6,7 @@ import { WithOutContext as ReactTags } from 'react-tag-input';
 /**
  * TODO
  */
-export default class EditAlbumForm extends React.Component {
+export default class EditMiscAlbumForm extends React.Component {
     state = {
         tags: [],
         suggestions: []
@@ -17,7 +17,7 @@ export default class EditAlbumForm extends React.Component {
     }
 
     componentWillMount() {
-        console.log("-----EditAlbumForm");
+        console.log("-----EditMiscAlbumForm");
     }
 
     render() {
@@ -25,12 +25,7 @@ export default class EditAlbumForm extends React.Component {
         let tags        = this.state.tags;
         let suggestions = this.state.suggestions;
         let onChange    = this.props.onChange;
-        let clearErrors = this.props.clearErrors;
         let onSubmit    = this.props.onSubmit;
-
-        let errorStyle = {
-            border: '1px solid #ec167c'
-        };
 
         return (
             <div>
@@ -41,34 +36,15 @@ export default class EditAlbumForm extends React.Component {
                                 <li><h3 className="edit-album-hint">Any fields completed will be transferred to album artworks, and overwrite corresponding artwork fields.</h3></li>
                                 <li>
                                     <label htmlFor="album-title">
-                                        Name <span className="pink">*</span>
-                                    </label>
-                                    <input
-                                        type        ="text"
-                                        style       ={this.props.errorType.name ? errorStyle : null}
-                                        id          ="album-title"
-                                        className   ="text-inputs"
-                                        name        ="title"
-                                        placeholder ="What is the name of this album?"
-                                        defaultValue={this.props.value.name}
-                                        onClick     ={clearErrors}
-                                        onChange    ={(e) => {
-                                            onChange(Object.assign({}, oldAlbum, {name: e.target.value}))
-                                        }} />
-                                </li>
-                                <li>
-                                    <label htmlFor="album-title">
                                         Artist
                                     </label>
                                     <input
                                         type        ="text"
-                                        style       ={this.props.errorType.artist ? errorStyle : null}
                                         id          ="album-artist"
                                         className   ="text-inputs"
                                         name        ="artist"
                                         placeholder ="Who completed this collection of artworks?"
                                         defaultValue={this.props.value.artist}
-                                        onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {artist: e.target.value}))
                                         }} />
@@ -79,13 +55,11 @@ export default class EditAlbumForm extends React.Component {
                                     </label>
                                     <input
                                         type        ="text"
-                                        style       ={this.props.errorType.year ? errorStyle : null}
                                         id          ="album-year"
                                         className   ="text-inputs"
                                         name        ="title"
                                         placeholder ="Year collection completed?"
                                         defaultValue={this.props.value.year}
-                                        onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {year: e.target.value}))
                                         }} />
@@ -109,10 +83,8 @@ export default class EditAlbumForm extends React.Component {
                                     </label>
                                     <textarea
                                         id          ="album-description"
-                                        style       ={this.props.errorType.description != undefined ? errorStyle : null}
                                         placeholder ="Give this album a short description..."
                                         value       ={this.props.value.description}
-                                        onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {description: e.target.value}))
                                         }} />
@@ -127,7 +99,7 @@ export default class EditAlbumForm extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++EditAlbumForm");
+        console.log("+++++EditMiscAlbumForm");
 
         // Get Tags
         if (this.props.value.tags) {
@@ -150,7 +122,7 @@ export default class EditAlbumForm extends React.Component {
         let artworks = this.props.user.artworks;
 
         for (let artwork in artworks) {
-            if (artworks[artwork]["tags"]) {
+            if(artworks[artwork]["tags"]) {
                 let artworkTags = artworks[artwork]["tags"];
                 for (let i = 0; i < Object.keys(artworkTags).length; i++) {
                     let text = artworkTags[i].text;
@@ -218,7 +190,7 @@ export default class EditAlbumForm extends React.Component {
     }
 }
 
-EditAlbumForm.propTypes = {
+EditMiscAlbumForm.propTypes = {
     value: React.PropTypes.object.isRequired,
     onChange: React.PropTypes.func.isRequired,
     onSubmit: React.PropTypes.func.isRequired
