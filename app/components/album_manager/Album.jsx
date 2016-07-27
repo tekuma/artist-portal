@@ -82,20 +82,23 @@ export default class Album extends React.Component {
 
         // ====== SETTING AVATAR IMAGE ======
 
-        // STEP 1: FIND FIRST ARTWORK IN ALBUM
-        if (this.props.album.artworks) {
-            artworkID = this.props.album.artworks[0];
-        }
 
-        // STEP 2: GET ARTWORK'S IMAGE URL
-        for (let id in this.props.user.artworks) {
-            if (this.props.user.artworks.hasOwnProperty(artworkID)) {
-                if (artworkID == id) {
-                    let artwork = this.props.user.artworks[artworkID];
-                    if (artwork.album && this.props.thumbnail) {
-                        let image = this.props.thumbnail(artwork.fullsize_url, 150);
-                        thumbnail = image;
-                        break;
+        if (this.props.album.artworks) {
+            // STEP 1: FIND FIRST ARTWORK IN ALBUM
+            artworkID = this.props.album.artworks[0];
+
+            if (this.props.user) {
+                // STEP 2: GET ARTWORK'S IMAGE URL
+                for (let id in this.props.user.artworks) {
+                    if (this.props.user.artworks.hasOwnProperty(artworkID)) {
+                        if (artworkID == id) {
+                            let artwork = this.props.user.artworks[artworkID];
+                            if (artwork.album && this.props.thumbnail) {
+                                let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                                thumbnail = image;
+                                break;
+                            }
+                        }
                     }
                 }
             }
