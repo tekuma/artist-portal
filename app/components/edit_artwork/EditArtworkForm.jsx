@@ -36,11 +36,13 @@ export default class EditArtworkForm extends React.Component {
 
         let colors = [];
 
-        for (let i = 0; i < Object.keys(this.props.value.colors).length; i++) {
-            let color = this.props.value.colors[i].hex;
-            colors.push({
-                background: color
-            });
+        if (this.props.value.colors) {
+            for (let i = 0; i < Object.keys(this.props.value.colors).length; i++) {
+                let color = this.props.value.colors[i].hex;
+                colors.push({
+                    background: color
+                });
+            }
         }
 
         let image = this.props.thumbnail(this.props.value.fullsize_url, 500);

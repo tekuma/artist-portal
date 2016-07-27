@@ -467,65 +467,59 @@ export default class PostAuth extends React.Component {
                     const albumRef = firebase.database().ref(albumPath);
 
                     //Get the color palette
-                    let tempURL = URL.createObjectURL(blob);
-                    console.log("---Begin Color swatching");
-                    this.extractColors(tempURL).then( (colorObject)=>{
-                        console.log("Color Digest:", colorObject);
-                        console.log("---End Color swatching");
 
-                        //Build the artwork object
-                        let title = fileName.split(".")[0];
-                        let artist = "Self";
-                        if (this.state.user && this.state.user.display_name != "Untitled Artist") {
-                            artist = this.state.user.display_name;
-                        }
+                    //Build the artwork object
+                    let title = fileName.split(".")[0];
+                    let artist = "Self";
+                    if (this.state.user && this.state.user.display_name != "Untitled Artist") {
+                        artist = this.state.user.display_name;
+                    }
 
-                        let artObject = {
-                            id          : artworkUID,
-                            filename    : fileName,
-                            title       : title,
-                            artist      : artist,
-                            album       : this.state.currentAlbum,
-                            upload_date : new Date().toISOString(),
-                            year        : new Date().getFullYear(),
-                            description : "",
-                            tags        : [],
-                            size        : fileSize,
-                            fullsize_url: fullSizeURL,
-                            colors      : colorObject
-                        };
+                    let artObject = {
+                        id          : artworkUID,
+                        filename    : fileName,
+                        title       : title,
+                        artist      : artist,
+                        album       : this.state.currentAlbum,
+                        upload_date : new Date().toISOString(),
+                        year        : new Date().getFullYear(),
+                        description : "",
+                        tags        : [],
+                        size        : fileSize,
+                        fullsize_url: fullSizeURL,
+                        colors      : {}
+                    };
 
-                        // set the art object to the artworks node
-                        artRef.child(artworkUID).set(artObject).then(()=>{
-                            console.log(">>>>Artwork info set into DB");
-                        }).catch((error)=>{
-                            console.error(error);
+                    // set the art object to the artworks node
+                    artRef.child(artworkUID).set(artObject).then(()=>{
+                        console.log(">>>>Artwork info set into DB");
+                    }).catch((error)=>{
+                        console.error(error);
+                        this.setState({
+                            currentError: error.message
+                        });
+
+                        setTimeout(() => {
                             this.setState({
-                                currentError: error.message
+                                currentError: ""
                             });
-
-                            setTimeout(() => {
-                                this.setState({
-                                    currentError: ""
-                                });
-                            }, 4500);   // Clear error once it has been shown
-                        });
-
-                        //Now, add a pointer to the artwork object to the current album
-                        albumRef.transaction( (node)=>{
-                            if (node == null) {
-                                node = {0:artworkUID};
-                            } else {
-                                let currentLength   = Object.keys(node).length;
-                                node[currentLength] = artworkUID;
-                            }
-                            return node; //finish transaction
-                        }, (error,bool,snap)=>{
-                                URL.revokeObjectURL(tempURL);
-                                console.log(">>>Img set into album");
-                        });
-
+                        }, 4500);   // Clear error once it has been shown
                     });
+
+                    //Now, add a pointer to the artwork object to the current album
+                    albumRef.transaction( (node)=>{
+                        if (node == null) {
+                            node = {0:artworkUID};
+                        } else {
+                            let currentLength   = Object.keys(node).length;
+                            node[currentLength] = artworkUID;
+                        }
+                        return node; //finish transaction
+                    }, (error,bool,snap)=>{
+                            URL.revokeObjectURL(tempURL);
+                            console.log(">>>Img set into album");
+                    });
+
                 });//END upload promise and thenable
         });
     }
