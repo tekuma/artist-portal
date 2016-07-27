@@ -410,8 +410,13 @@ export default class PostAuth extends React.Component {
         const fileSize  = blob.size;
         const thisUID   = firebase.auth().currentUser.uid;
 
-            //*Store the original upload, un-changed.
-        let uploadPath = `portal/${thisUID}/uploads/${fileName}`;
+        //Now, we have all needed async-data. Set it to the DB.
+        let artPath          = `public/onboarders/${thisUID}`
+        const artRef         = firebase.database().ref(artPath).child('artworks');
+        const artworkUID     = artRef.push().key;
+
+        //*Store the original upload, un-changed.
+        let uploadPath = `portal/${thisUID}/uploads/${artworkUID}`;
         const fullRef = firebase.storage().ref(uploadPath);
         fullRef.put(blob).on(
             firebase.storage.TaskEvent.STATE_CHANGED,
@@ -443,12 +448,6 @@ export default class PostAuth extends React.Component {
                         uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
                     });
                     console.log(">>URL:",fullSizeURL);
-
-
-                    //Now, we have all needed async-data. Set it to the DB.
-                    let artPath          = `public/onboarders/${thisUID}`
-                    const artRef         = firebase.database().ref(artPath).child('artworks');
-                    const artworkUID     = artRef.push().key;
 
                     // Find Current Album index
 
