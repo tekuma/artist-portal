@@ -8,7 +8,7 @@
 body {
 	font-size: 16px;
 	color: #000000;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
 	background: #000000;
 	overflow-x: hidden; /* hides overflow from hidden navigation */
@@ -470,7 +470,7 @@ header.black {
 .pre-auth-header-logotype {
 	font-size: 2.5em;
 	font-weight: 400;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #000000;
 	margin: 0;
 
@@ -1024,7 +1024,7 @@ input::-webkit-search-cancel-button {
     border: 1px solid #ec167e;
     color: #000000;
 	font-weight: 500;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 0.9em;
 }
 
@@ -1103,18 +1103,24 @@ input::-webkit-search-cancel-button {
 	margin: 15px 0;
 }
 
+.review-status,
+.album .review-status {
+	display: inline-block;
+	padding: 0px 6px;
+	border: 2px solid #ec167e;
+}
+
 .album .review-status {
 	position: absolute;
 	right: 8px;
 	bottom: 8px;
-	padding: 0px 6px;
-	border: 2px solid #ec167e;
 }
 
 .album.selected .review-status {
 	border: 2px solid #ffffff;
 }
 
+.review-status h4,
 .album .review-status h4 {
 	display: inline-block;
 	margin: 0;
@@ -1132,7 +1138,6 @@ input::-webkit-search-cancel-button {
 	padding: 20px;
 	top: 60px;
 	right: 0;
-	min-height: 30vh;
 	width: 75vw;
 	background: #1b1b1b;
 	box-shadow: 0 4px 8px -2px rgba(0,0,0,0.5),
@@ -1152,7 +1157,6 @@ input::-webkit-search-cancel-button {
     background-position: 50%;
     background-size: contain;
     background-repeat: no-repeat;
-	background-color: #e73827;
     width: 100%;
     height: 100%;
 }
@@ -1197,7 +1201,7 @@ input::-webkit-search-cancel-button {
 	width: 38%;
 }
 
-.album-banner-decription,
+.album-banner-description,
 .album-banner-tags {
 	font-weight: 200;
 	font-size: 0.8em;
@@ -1214,13 +1218,67 @@ input::-webkit-search-cancel-button {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	height: 63vh;
-	width: 20vw;
+	width: 25vw;
 	background: #313131;
 	box-shadow: -4px 0px 8px -2px rgba(0,0,0,0.5),
 	-3px 0px 1px -2px rgba(0,0,0,.2),
 	-1px 0px 5px 0 rgba(0,0,0,.12);
 	z-index: 2;
+}
+
+.stats-wrapper {
+	float: right;
+    background: transparent;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    max-width: 400px;
+	width: 211px;
+}
+
+.stats-wrapper li {
+	padding: 10px;
+	border-bottom: 1px solid rgba(255,255,255, 0.12);
+}
+
+.stats-wrapper li:last-child {
+	border: none;
+}
+
+.stats-heading {
+	margin-top: 10px;
+	color: #ffffff;
+	font-size: 1.2em;
+	font-weight: 500;
+	text-align: center;
+}
+
+.stats-body {
+	font-size: 1em;
+	text-align: center;
+	color: rgba(255,255,255,0.7);
+}
+
+.stats-message {
+	border: 1px solid #666666;
+	border-radius: 3px;
+    width: 100%;
+	background: #3b3b3b;
+	font-size: 0.9em;
+	font-weight: 300;
+	color: rgba(255,255,255,0.7);
+    padding: 8px 10px;
+	text-align: left;
+}
+
+.review-artworks {
+	position: absolute;
+	bottom: 0;
+	left: 25vw;
+	width: 50vw;
+	height: 57vh;
+	overflow: scroll;
 }
 
 
@@ -1296,6 +1354,10 @@ main, .artworks {
 	text-align: left;
 }
 
+.artwork-info.review {
+	min-height: 40px;
+}
+
 .artwork-name {
 	margin: 0;
 	margin-bottom: 20px;
@@ -1305,6 +1367,10 @@ main, .artworks {
 	font-size: 1em;
 	text-align: center;
 	line-height: 1.5em;
+}
+
+.artwork-name.review {
+	margin-bottom: 0;
 }
 
 .artwork-tools {
@@ -1660,7 +1726,7 @@ textarea.bio {
     border: 2px solid black;
     color: #000000;
 	font-weight: 500;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: .9375em;
 	font-weight: 300;
     line-height: normal;
@@ -1673,7 +1739,7 @@ textarea.bio {
 
 .profile-form section > fieldset > ul > li > label,
 .signup-form div > ul > li > label:not(.gender-radio) {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
     color: #000000;
     display: inline-block;
@@ -1785,7 +1851,7 @@ textarea.bio {
 
 .edit-artwork-select {
 	height: 34.55px;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 0.8em;
 	font-weight: 400;
 	color: #000000;
@@ -1911,7 +1977,7 @@ login-button.left {
 .login-button h3 {
 	line-height: 1em;
 	text-align: center;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 600;
 	font-size: 1em;
 	color: #ffffff;
@@ -1944,7 +2010,7 @@ login-button.left {
 }
 
 .solo-links h3 {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 600;
 	font-size: 0.8em;
 	color: #ec167c;
@@ -2283,7 +2349,7 @@ login-button.left {
 }
 
 .registration-error span {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 1em;
 	font-weight: 500;
 	color: rgb(236, 22, 124);
@@ -2293,14 +2359,14 @@ login-button.left {
 	color: #ec167c;
 	font-size: 1em;
 	text-align: center;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .login-error h2 {
 	width: 212px;
 	margin: 10px 10px;
 	text-align: left;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 1em;
 	font-weight: 500;
 	color: #ec167c;
@@ -2311,7 +2377,7 @@ login-button.left {
 	color: #ec167c;
 	font-size: 1em;
 	text-align: center;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .registration-error.page-2 h2,
@@ -2327,7 +2393,7 @@ login-button.left {
 	font-size: 1.6em;
 	color: #4d5967;
 	font-weight: 600;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .popover-content {
@@ -2388,7 +2454,7 @@ login-button.left {
 }
 
 .color-heading {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
     color: #000000;
     width: 100%;
@@ -2469,7 +2535,7 @@ login-button.left {
 #artwork-description,
 #album-description {
 	width: 300px;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 400;
 }
 
@@ -2479,7 +2545,7 @@ login-button.left {
     border: 1.5px solid #d6d3ce;
     color: #000000;
 	font-weight: 400;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 0.8em;
     line-height: normal;
     margin: 0;
@@ -2503,7 +2569,7 @@ login-button.left {
 
 .artwork-form label:not(.checkbox),
 .album-form label:not(.checkbox) {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
     color: #000000;
     display: inline-block;
@@ -2554,7 +2620,7 @@ login-button.left {
 	font-size: 1.6em !important;
 	color: #000000 !important;
 	font-weight: 600 !important;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .edit-artwork-body {
@@ -2650,7 +2716,7 @@ login-button.left {
 /* Tooltip */
 
 .tooltip {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /*========================================== */
@@ -2665,7 +2731,7 @@ login-button.left {
 .confirm-body {
 	color: #000000 !important;
 	text-align: center !important;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 1.1em !important;
 	font-weight: 400;
 	padding: 30px !important;
@@ -2712,7 +2778,7 @@ login-button.left {
 	color: #ffffff;
 	margin: 0 auto;
 	font-size: 1.2em;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .confirm-no,
@@ -2749,7 +2815,7 @@ login-button.left {
 	color: #ffffff;
 	margin: 0 auto;
 	font-size: 1.2em;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .confirm-no:hover,
@@ -2937,7 +3003,7 @@ login-button.left {
 	color: #ffffff;
 	margin: 0 auto;
 	font-size: 1.4em;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .upload-dialog-title {
@@ -2945,7 +3011,7 @@ login-button.left {
 	font-size: 1.6em !important;
 	color: #000000 !important;
 	font-weight: 600 !important;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .upload-dialog-actions {
@@ -2962,7 +3028,7 @@ login-button.left {
 	font-size: 1.2em !important;
 	color: #e83081 !important;
 	font-weight: 400 !important;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .uploaded-artworks-container {
@@ -3001,7 +3067,7 @@ login-button.left {
 	font-size: 1.1em !important;
 	color: #000000 !important;
 	font-weight: 500 !important;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .upload-artwork-hint.small {
@@ -3495,7 +3561,7 @@ login-button.left {
 .verify-button h3 {
 	line-height: 1em;
 	text-align: center;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 600;
 	font-size: 1em;
 	color: #ffffff;
@@ -3508,7 +3574,7 @@ login-button.left {
 }
 
 .email-verified-writing {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 600;
 	font-size: 1.2em;
 	color: #ec167e;
@@ -3578,7 +3644,7 @@ login-button.left {
     border: 1.5px solid #d6d3ce;
     color: #000000;
 	font-weight: 400;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: .9375em;
     line-height: normal;
     margin: 0;
@@ -3617,7 +3683,7 @@ label.age-confirm-label {
 	margin-right: 10px;
 }
 .accordion-content > li > div > label {
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
     color: #4d5967;
     display: inline-block;
@@ -3683,7 +3749,7 @@ label.age-confirm-label {
 	resize: none;
 	font-size: .9375em;
 	font-weight: 400;
-	font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /*========================================== */

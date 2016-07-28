@@ -8,6 +8,7 @@ import ArtworksAlbumManager      from '../album_manager/ArtworksAlbumManager';
 import ReviewAlbumManager      from '../album_manager/ReviewAlbumManager';
 import ReviewAlbumBanner from '../review_albums/ReviewAlbumBanner';
 import ReviewStats from '../review_albums/ReviewStats';
+import ReviewArtworks from '../review_albums/ReviewArtworks';
 import ArtworkManager    from '../artwork_manager/ArtworkManager';
 import EditProfile       from '../edit_profile/EditProfile';
 import Views             from '../../constants/Views';
@@ -129,6 +130,7 @@ export default class PortalMain extends React.Component {
                 <ReviewAlbumManager />
                 <ReviewAlbumBanner />
                 <ReviewStats/>
+                <ReviewArtworks />
                 <div
                     onClick     ={this.props.toggleNav}
                     onTouchTap  ={this.props.toggleNav}

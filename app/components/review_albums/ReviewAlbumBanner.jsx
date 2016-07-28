@@ -18,10 +18,16 @@ export default class ReviewAlbumBanner extends React.Component {
 
     render() {
 
+        let previewStyle = {
+            backgroundImage: 'url(assets/starry.jpg)'
+        }
+
         return (
             <section className="review-album-banner">
                 <div className="album-banner-preview-wrapper">
-                    <div className="album-banner-preview" />
+                    <div
+                        style={previewStyle}
+                        className="album-banner-preview" />
                 </div>
                 <div className="album-banner-details-wrapper">
                     <div className="album-banner-details">
@@ -37,7 +43,7 @@ export default class ReviewAlbumBanner extends React.Component {
                     </div>
                 </div>
                 <div className="album-banner-description-wrapper">
-                    <p className="album-banner-decription">
+                    <p className="album-banner-description">
                         Vincent Van Gogh, a post-impressionist artist,
                         is one of the most famous and recognizable artists
                         of our time. Even so, while he was alive he struggled

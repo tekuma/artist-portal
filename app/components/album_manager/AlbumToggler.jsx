@@ -3,13 +3,13 @@ import React from 'react';
 /**
  * TODO
  */
-export default ({managerIsOpen, toggleManager, addAlbum}) => {
+export default ({managerIsOpen, toggleManager, addAlbum, height}) => {
     let componentStyle = {
-        height: window.innerHeight - 60
+        height: height
     };
 
     let iconStyle = {
-        height: window.innerHeight - 60
+        height: height
     };
 
     return (
