@@ -759,7 +759,6 @@ input::-webkit-search-cancel-button {
 	left: 0;
 	background: #323232;
 	width:	25vw;
-	height: 100%;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
 }
 

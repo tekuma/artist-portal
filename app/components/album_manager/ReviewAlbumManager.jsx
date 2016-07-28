@@ -31,221 +31,21 @@ export default class ReviewAlbumManager extends React.Component {
         );
 
         return (
-            <section className="album-manager review">
+            <section
+                style={{
+                    height: window.innerHeight - 60
+                }}
+                className="album-manager review">
                 <div className="review-albums-heading">
                     <h2>
                         Albums
                     </h2>
                 </div>
-                <ul className="album-locker">
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
-                    <li className   ={"album review selected"}>
-                        <div className="album-avatar">
-                            <div
-                                className="avatar-container" />
-                        </div>
-                        <h3 className   ="album-name" >
-                            Impressions
-                        </h3>
-                        <div className="review-status">
-                            <h4>
-                                In Review
-                            </h4>
-                        </div>
-                        <div className="album-tools top">
-                            <OverlayTrigger
-                                placement   ="bottom"
-                                overlay     ={deleteTooltip}>
-                                <img
-                                    className   ="album-tool"
-                                    src         ='assets/images/icons/delete-white.svg'
-                                    onClick     ={this.props.onDelete}
-                                    onTouchTap  ={this.props.onDelete}
-                                />
-                            </OverlayTrigger>
-                        </div>
-                    </li>
+                <ul
+                    style={{
+                        height: window.innerHeight - 60 - 60
+                    }}
+                    className="album-locker">
                     <li className   ={"album review selected"}>
                         <div className="album-avatar">
                             <div
@@ -285,6 +85,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 Declined
                             </h4>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="bottom"
+                                overlay     ={deleteTooltip}>
+                                <img
+                                    className   ="album-tool"
+                                    src         ='assets/images/icons/delete-white.svg'
+                                    onClick     ={this.props.onDelete}
+                                    onTouchTap  ={this.props.onDelete}
+                                />
+                            </OverlayTrigger>
+                        </div>
                     </li>
                     <li className   ={"album review"}>
                         <div className="album-avatar">
@@ -298,6 +110,18 @@ export default class ReviewAlbumManager extends React.Component {
                             <h4>
                                 Held
                             </h4>
+                        </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="bottom"
+                                overlay     ={deleteTooltip}>
+                                <img
+                                    className   ="album-tool"
+                                    src         ='assets/images/icons/delete-white.svg'
+                                    onClick     ={this.props.onDelete}
+                                    onTouchTap  ={this.props.onDelete}
+                                />
+                            </OverlayTrigger>
                         </div>
                     </li>
                 </ul>
