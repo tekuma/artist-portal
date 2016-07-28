@@ -46,7 +46,7 @@ export default class PostAuth extends React.Component {
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
         currentAlbum: "Miscellaneous",              // Used to track the current album open
-        currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
+        currentAppLayout: Views.REVIEW,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         currentEditAlbumInfo: {},                   // Used to store information of album being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
@@ -567,7 +567,7 @@ export default class PostAuth extends React.Component {
      * This method is used by the HiddenNav component and PostAuthHeader component
      * to switch the the layout currently being displayed in the Root App Layout component
      * by changing this.state.currentAppLayout.
-     * The value can be: Views.UPLOAD, Views.ARTWORKS, and Views.EDIT
+     * The value can be: Views.UPLOAD, Views.ARTWORKS, and Views.PROFILE
      * @param  {[A field of the Views object]} view [View to be displayed]
      */
     changeAppLayout = (view) => {
@@ -618,7 +618,7 @@ export default class PostAuth extends React.Component {
     }
 
     /**
-     * This method is used by the editAlbum method of the AlbumManager component
+     * This method is used by the editAlbum method of the ArtworksAlbumManager component
      * populate this.state.currentEditAlbumInfo with the information of the
      * album being edited.
      * @param  {String} id [the unique id of the artwork being edited]

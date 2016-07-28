@@ -50,7 +50,7 @@ export default class Albums extends React.Component {
         }
 
         return (
-            <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker">
+            <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker right">
                 <MiscAlbum
                     user               ={this.props.user}
                     uploads            ={this.props.uploads}

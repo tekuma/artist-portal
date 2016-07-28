@@ -4,7 +4,10 @@ import firebase          from 'firebase';
 
 //Files
 import PostAuthHeader    from '../headers/PostAuthHeader';
-import AlbumManager      from '../album_manager/AlbumManager';
+import ArtworksAlbumManager      from '../album_manager/ArtworksAlbumManager';
+import ReviewAlbumManager      from '../album_manager/ReviewAlbumManager';
+import ReviewAlbumBanner from '../review_albums/ReviewAlbumBanner';
+import ReviewStats from '../review_albums/ReviewStats';
 import ArtworkManager    from '../artwork_manager/ArtworkManager';
 import EditProfile       from '../edit_profile/EditProfile';
 import Views             from '../../constants/Views';
@@ -27,8 +30,11 @@ export default class PortalMain extends React.Component {
             case Views.ARTWORKS:
                 return this.goToArtworkManager();
 
-            case Views.EDIT:
+            case Views.PROFILE:
                 return this.goToEditProfile();
+
+            case Views.REVIEW:
+                return this.goToSubmissions();
         }
     }
 
@@ -54,7 +60,7 @@ export default class PortalMain extends React.Component {
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
-                <AlbumManager
+                <ArtworksAlbumManager
                     thumbnail              ={this.props.thumbnail}
                     user                   ={this.props.user}
                     userPrivate            ={this.props.userPrivate}
@@ -105,6 +111,24 @@ export default class PortalMain extends React.Component {
                         toggleVerifyEmailDialog   ={this.props.toggleVerifyEmailDialog}
                         />
                 </div>
+                <div
+                    onClick     ={this.props.toggleNav}
+                    onTouchTap  ={this.props.toggleNav}
+                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
+            </div>
+        );
+    }
+
+    goToSubmissions = () => {
+        return (
+            <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
+                <PostAuthHeader
+                    setUploadedFiles ={this.props.setUploadedFiles}
+                    changeAppLayout  ={this.props.changeAppLayout}
+                    />
+                <ReviewAlbumManager />
+                <ReviewAlbumBanner />
+                <ReviewStats/>
                 <div
                     onClick     ={this.props.toggleNav}
                     onTouchTap  ={this.props.toggleNav}

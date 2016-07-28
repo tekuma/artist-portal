@@ -145,7 +145,7 @@ export default class Album extends React.Component {
         return connectDragSource(connectDropTarget(
             <li style       ={{opacity: isDragging ? 0 : 1}}
                 onClick     ={this.props.changeAlbum}
-                className   ={(this.props.currentAlbum === this.props.album.name) ? "album selected" : "album"}>
+                className   ={(this.props.currentAlbum === this.props.album.name) ? "album artworks selected" : "album black"}>
                 <div className="album-avatar">
                     <div style={avatarStyle}
                         className="avatar-container" />
@@ -155,12 +155,12 @@ export default class Album extends React.Component {
                     className   ="album-name" >
                     {this.props.album.name}
                 </h3>
-                <div className="album-download-delete">
+                <div className="album-tools bottom">
                     <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>
                         <img
-                            className="album-more"
+                            className="album-tool"
                             src='assets/images/icons/edit-white.svg'
                             onClick={this.props.onEdit}
                             onTouchTap={this.props.onEdit}
@@ -170,7 +170,7 @@ export default class Album extends React.Component {
                         placement   ="bottom"
                         overlay     ={deleteTooltip}>
                         <img
-                            className   ="album-more"
+                            className   ="album-tool"
                             src         ='assets/images/icons/delete-white.svg'
                             onClick     ={this.props.onDelete}
                             onTouchTap  ={this.props.onDelete}

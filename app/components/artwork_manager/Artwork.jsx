@@ -89,19 +89,19 @@ export default class Artwork extends React.Component {
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
-                    <div className="download-edit-delete">
+                    <div className="artwork-tools">
                         <a
                             href={this.props.artwork.fullsize_url}
                             download={this.props.artwork.filename} >
                             <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
                                 <img
-                                    className="artwork-more"
+                                    className="artwork-tool"
                                     src='assets/images/icons/download-black.svg' />
                             </OverlayTrigger>
                         </a>
                         <OverlayTrigger placement="bottom" overlay={editTooltip}>
                             <img
-                                className="artwork-more"
+                                className="artwork-tool"
                                 src='assets/images/icons/edit-black.svg'
                                 onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                                 onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
@@ -109,7 +109,7 @@ export default class Artwork extends React.Component {
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
                             <img
-                                className="artwork-more"
+                                className="artwork-tool"
                                 src='assets/images/icons/delete-black.svg'
                                 onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
                                 onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}

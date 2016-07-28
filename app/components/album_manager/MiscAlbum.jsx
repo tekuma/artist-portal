@@ -73,7 +73,7 @@ export default class MiscAlbum extends React.Component {
                 }
             }
         }
-        
+
         // ==================================
 
         let avatarStyle = {
@@ -128,7 +128,7 @@ export default class MiscAlbum extends React.Component {
                     className="album-name">
                     Miscellaneous
                 </h3>
-                <div className="album-download-delete">
+                <div className="album-tools">
                     <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>

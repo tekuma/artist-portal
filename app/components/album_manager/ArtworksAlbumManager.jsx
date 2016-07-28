@@ -13,7 +13,7 @@ import AlbumToggler                 from './AlbumToggler.jsx';
 /**
  * TODO
  */
-export default class AlbumManager extends React.Component {
+export default class ArtworksAlbumManager extends React.Component {
     state = {
         albums    :{}, // album objects other than uploads
         uploads   :{}, // the uploads album object
@@ -25,7 +25,7 @@ export default class AlbumManager extends React.Component {
     }
 
     componentWillMount() {
-        console.log("-----AlbumManager");
+        console.log("-----ArtworksAlbumManager");
     }
 
     render() {
@@ -37,7 +37,7 @@ export default class AlbumManager extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++AlbumManager");
+        console.log("+++++ArtworksAlbumManager");
 
         if (this.props.user && this.props.user.albums) {
             let user       = this.props.user;
@@ -110,7 +110,7 @@ export default class AlbumManager extends React.Component {
                     height: window.innerHeight - 60,
                     right: 0
                 }}
-                className="album-manager">
+                className="album-manager artworks">
                 <AlbumToggler
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager}/>
