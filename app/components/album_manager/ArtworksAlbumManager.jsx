@@ -151,8 +151,9 @@ export default class ArtworksAlbumManager extends React.Component {
                 height: window.innerHeight - 60,
                 right: -1 * document.getElementsByClassName('album-manager')[0].clientWidth + 40
                 }}
-                className="album-manager">
+                className="album-manager artworks-manager">
                 <AlbumToggler
+                    height          ={window.innerHeight - 60}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
