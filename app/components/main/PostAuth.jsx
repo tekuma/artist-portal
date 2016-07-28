@@ -46,7 +46,7 @@ export default class PostAuth extends React.Component {
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
         currentAlbum: "Miscellaneous",              // Used to track the current album open
-        currentAppLayout: Views.REVIEW,           // Used to track the current layout being displayed in PortalMain
+        currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         currentEditAlbumInfo: {},                   // Used to store information of album being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded

@@ -117,7 +117,7 @@ export default class MiscAlbum extends React.Component {
         return connectDropTarget(
             <li
                 onClick     ={this.props.changeAlbum}
-                className   ={(this.props.currentAlbum === 'Miscellaneous') ? "album uploads selected" : "album uploads"}>
+                className   ={(this.props.currentAlbum === 'Miscellaneous') ? "album black uploads selected" : "album black uploads"}>
                 <div className="album-avatar">
                     <div style={avatarStyle}
                         className="avatar-container" />
@@ -128,12 +128,12 @@ export default class MiscAlbum extends React.Component {
                     className="album-name">
                     Miscellaneous
                 </h3>
-                <div className="album-tools">
+                <div className="album-tools bottom">
                     <OverlayTrigger
                         placement="bottom"
                         overlay={editTooltip}>
                         <img
-                            className="album-more"
+                            className="album-tool"
                             src='assets/images/icons/edit-white.svg'
                             onClick={this.props.editMisc}
                             onTouchTap={this.props.editMisc}
@@ -143,7 +143,7 @@ export default class MiscAlbum extends React.Component {
                         placement   ="bottom"
                         overlay     ={emptyTooltip}>
                         <img
-                            className   ="album-more"
+                            className   ="album-tool"
                             src         ='assets/images/icons/delete-white.svg'
                             onClick     = {this.props.emptyMisc}
                             onTouchTap  ={this.props.changeAlbum} />

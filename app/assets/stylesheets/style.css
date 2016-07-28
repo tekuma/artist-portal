@@ -746,7 +746,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album-manager.artworks {
+.album-manager.artworks-manager {
 	right: 0;
 	background: #e0e0df;
 	width:	30vw;
@@ -882,7 +882,7 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
-.album.artworks {
+.album.black {
 	background: #000000;
 	min-height: 60px;
 }

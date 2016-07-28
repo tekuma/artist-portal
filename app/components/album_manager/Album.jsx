@@ -145,7 +145,7 @@ export default class Album extends React.Component {
         return connectDragSource(connectDropTarget(
             <li style       ={{opacity: isDragging ? 0 : 1}}
                 onClick     ={this.props.changeAlbum}
-                className   ={(this.props.currentAlbum === this.props.album.name) ? "album artworks selected" : "album black"}>
+                className   ={(this.props.currentAlbum === this.props.album.name) ? "album black selected" : "album black"}>
                 <div className="album-avatar">
                     <div style={avatarStyle}
                         className="avatar-container" />
