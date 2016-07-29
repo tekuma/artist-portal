@@ -43,6 +43,7 @@ export default class ArtworkManager extends React.Component {
 
     componentDidMount() {
         console.log("+++++ ArtworkManager");
+        this.props.changeAlbum("Miscellaneous");
         if (this.props.user && this.props.user.albums) {
 
             let albumIndex;

@@ -1,6 +1,8 @@
 // Libs
 import React             from 'react';
 import firebase          from 'firebase';
+import TransitionGroup from 'react-addons-transition-group';
+
 
 //Files
 import PostAuthHeader    from '../headers/PostAuthHeader';
@@ -81,6 +83,7 @@ export default class PortalMain extends React.Component {
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
                     currentAlbum             ={this.props.currentAlbum}
+                    changeAlbum              ={this.props.changeAlbum}
                     toggleEditArtworkDialog  ={this.props.toggleEditArtworkDialog}
                     changeCurrentEditArtwork ={this.props.changeCurrentEditArtwork}
                     changeAppLayout          ={this.props.changeAppLayout}
@@ -127,10 +130,27 @@ export default class PortalMain extends React.Component {
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
-                <ReviewAlbumManager />
-                <ReviewAlbumBanner />
-                <ReviewStats/>
-                <ReviewArtworks />
+                <TransitionGroup>
+                    <ReviewAlbumManager
+                        currentAlbum       ={this.props.currentAlbum}
+                        changeAlbum        ={this.props.changeAlbum}
+                        currentAppLayout   ={this.props.currentAppLayout} />
+                </TransitionGroup>
+                <TransitionGroup>
+                    <ReviewStats
+                        currentAppLayout   ={this.props.currentAppLayout}
+                        managerIsOpen   ={this.props.managerIsOpen}
+                        toggleManager   ={this.props.toggleManager} />
+                </TransitionGroup>
+                <TransitionGroup>
+                    <ReviewArtworks
+                        managerIsOpen   ={this.props.managerIsOpen}
+                        currentAppLayout   ={this.props.currentAppLayout} />
+                </TransitionGroup>
+                <TransitionGroup>
+                    <ReviewAlbumBanner
+                            currentAppLayout   ={this.props.currentAppLayout} />
+                </TransitionGroup>
                 <div
                     onClick     ={this.props.toggleNav}
                     onTouchTap  ={this.props.toggleNav}

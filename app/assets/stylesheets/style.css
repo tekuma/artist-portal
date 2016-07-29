@@ -72,14 +72,10 @@ button {
 	z-index: 3;
 	border-radius: 0px;
 	box-shadow: 0px 2px 8px rgba(0,0,0, 0.4);
-	transition: all 0s 0.3s;
+	transition: all 0.3s 0.3s;
 	-webkit-transition: all 0.3s 0.3s;
 	-moz-transition: all 0.3s 0.3s;
 	-ms-transition: all 0.3s 0.3s;
-}
-
-.nav-username.open {
-	left: 25px;
 }
 
 .nav-username-writing {
@@ -741,9 +737,9 @@ input::-webkit-search-cancel-button {
 	top:60px;
 	z-index: 5;
 	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
 }
 
 .album-manager.artworks-manager {
@@ -756,10 +752,13 @@ input::-webkit-search-cancel-button {
 }
 
 .album-manager.review {
-	left: 0;
 	background: #323232;
 	width:	25vw;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
+	transition: left 0.3s 0.3s;
+	-webkit-transition: left 0.3s 0.3s;
+	-moz-transition: left 0.3s 0.3s;
+	-ms-transition: left 0.3s 0.3s;
 }
 
 .manager-opener {
@@ -1173,6 +1172,10 @@ input::-webkit-search-cancel-button {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
+	transition: all 0.3s linear 0.6s;
+	-webkit-transition: all 0.3s linear 0.6s;
+	-moz-transition: all 0.3s 0.6s;
+	-ms-transition: all 0.3s 0.6s;
 }
 
 .album-banner-title {
@@ -1216,13 +1219,18 @@ input::-webkit-search-cancel-button {
 .review-stats-wrapper {
 	position: absolute;
 	bottom: 0;
-	right: 0;
 	width: 25vw;
+	max-width: 440px;
+    min-width: 250px;
 	background: #313131;
 	box-shadow: -4px 0px 8px -2px rgba(0,0,0,0.5),
 	-3px 0px 1px -2px rgba(0,0,0,.2),
 	-1px 0px 5px 0 rgba(0,0,0,.12);
 	z-index: 2;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 .stats-wrapper {
@@ -1273,11 +1281,14 @@ input::-webkit-search-cancel-button {
 
 .review-artworks {
 	position: absolute;
-	bottom: 0;
 	left: 25vw;
 	width: 50vw;
 	height: 57vh;
 	overflow: scroll;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
 }
 
 

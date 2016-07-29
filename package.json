@@ -76,6 +76,8 @@
     "react-tag-input": "^4.0.0",
     "react-tap-event-plugin": "^1.0.0",
     "reactfire": "^1.0.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "gsap": "^1.19.0",
+    "react-addons-transition-group": "^15.2.1" 
   }
 }
