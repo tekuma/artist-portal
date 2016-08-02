@@ -324,83 +324,13 @@ export default class PostAuth extends React.Component {
     //  # Uploading Methods
 
     /**
-     * This method takes in an image as a URL, and
-     * @param  {String} url - an image to process
-     * @return {Object}  an object with keys:
-     *                   v,m,lv,lm,dv,dm; which represent:
-     * Vibrant, Muted, DarkVibrant, DarkMuted, LightVibrant, LightMuted
-     * NOTE: This is a synchronous method
-     * @see [ https://github.com/akfish/node-vibrant ]
-     */
-    extractColors = (url) => {
-        console.log(">> Extracting Color Palette from Upload...");
-        return new Promise( (resolve,reject)=>{
-            getPalette.from(url).quality(paletteDownscaling).maxColorCount(colorCount)
-            .getPalette( (error,palette)=>{
-                console.log(palette);
-                let colors = {};
-                if (palette.Vibrant != null && palette.Vibrant != undefined) {
-                    colors['v'] = {
-                        hex:palette.Vibrant.getHex(),
-                        rgb:palette.Vibrant.getRgb(),
-                        cnt:palette.Vibrant.getPopulation()
-                    };
-                }
-                if (palette.Muted != null) {
-                    colors['m'] = {
-                        hex:palette.Muted.getHex(),
-                        rgb:palette.Muted.getRgb(),
-                        cnt:palette.Muted.getPopulation()
-                    };
-                }
-                if (palette.DarkVibrant != null) {
-                    colors['dv'] = {
-                        hex:palette.DarkVibrant.getHex(),
-                        rgb:palette.DarkVibrant.getRgb(),
-                        cnt:palette.DarkVibrant.getPopulation()
-                    };
-                }
-                if (palette.DarkMuted != null) {
-                    colors['dm'] = {
-                        hex:palette.DarkMuted.getHex(),
-                        rgb:palette.DarkMuted.getRgb(),
-                        cnt:palette.DarkMuted.getPopulation()
-                    };
-                }
-                if (palette.LightVibrant != null) {
-                    colors['lv'] = {
-                        hex:palette.LightVibrant.getHex(),
-                        rgb:palette.LightVibrant.getRgb(),
-                        cnt:palette.LightVibrant.getPopulation()
-                    };
-                }
-                if (palette.LightMuted != null) {
-                    colors['lm'] = {
-                        hex:palette.LightMuted.getHex(),
-                        rgb:palette.LightMuted.getRgb(),
-                        cnt:palette.LightMuted.getPopulation()
-                    };
-                }
-                console.log("--------Finished analyzing palette");
-                resolve(colors);
-            });
-        });
-
-
-
-
-    }
-
-    /** FIXME handle color processing in background
-     * Heads up: This is a nested-Asynchronous mess.
-     *
      * This method takes in a blob object that a user has uploaded, then
      * -uploads the original file to gs:"portal/{user uid}/uploads"
      * - sets DB entry /public/onboarders/artworks/{uid}/fullsize_url
      * -makes a thumbnail size copy of the image,
      * -uploads the thumbnail to "portal/{user uid}/thumbnails"
      * -sets DB entry /public/onboarders/artworks/{uid}/thumbnail_url
-     * -sends image to this.extractColors(url)
+     * -sends image to this.Colors(url)
      *. Asynchronously, we need to wait for:
      *  full url, thumb url, colors.
      * @param  {Blob} blob - an uploaded blob
@@ -417,7 +347,7 @@ export default class PostAuth extends React.Component {
 
         //*Store the original upload, un-changed.
         let uploadPath = `portal/${thisUID}/uploads/${artworkUID}`;
-        const fullRef = firebase.storage().ref(uploadPath);
+        const fullRef  = firebase.storage().ref(uploadPath);
         fullRef.put(blob).on(
             firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot)=>{ //on-event change
@@ -463,10 +393,9 @@ export default class PostAuth extends React.Component {
                         }
                     }
 
-                    let albumPath        = `public/onboarders/${thisUID}/albums/${albumIndex}/artworks`
+                    let albumPath  = `public/onboarders/${thisUID}/albums/${albumIndex}/artworks`;
                     const albumRef = firebase.database().ref(albumPath);
 
-                    //Get the color palette
 
                     //Build the artwork object
                     let title = fileName.split(".")[0];
@@ -484,10 +413,10 @@ export default class PostAuth extends React.Component {
                         upload_date : new Date().toISOString(),
                         year        : new Date().getFullYear(),
                         description : "",
-                        tags        : [],
+                        tags        : [], // handled in cloud
                         size        : fileSize,
                         fullsize_url: fullSizeURL,
-                        colors      : {}
+                        colors      : {} // handled in cloud
                     };
 
                     // set the art object to the artworks node
@@ -516,10 +445,8 @@ export default class PostAuth extends React.Component {
                         }
                         return node; //finish transaction
                     }, (error,bool,snap)=>{
-                            URL.revokeObjectURL(tempURL);
                             console.log(">>>Img set into album");
                     });
-
                 });//END upload promise and thenable
         });
     }
