@@ -62,7 +62,7 @@ export default class PostAuthHeader extends React.Component {
                       </svg>
 
                 	</div>
-                	<div className={this.state.searchOpen ? "header-icons search-open" : "header-icons"}>
+                	<div className="header-icons">
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
                 	    	<div
                                 className="header-icon"

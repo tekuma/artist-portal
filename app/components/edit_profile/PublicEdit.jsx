@@ -373,16 +373,16 @@ export default class PublicEdit extends React.Component {
                                 y="0px"
                                 width="25px"
                                 height="25px"
-                                viewBox="11.5 11.5 25 25"
-                                enableBackground="new 11.5 11.5 25 25">
-                                <polygon
-                                    id="up-arrow"
-                                    fill="#FFFFFF"
-                                    points="30.25,30.26 30.25,24 27.12,24 27.12,30.26 22.44,30.26 28.69,36.5 34.94,30.26 "/>
-                                <polygon
-                                    id="down-arrow"
-                                    fill="#FFFFFF"
-                                    points="19.31,11.5 13.06,17.73 17.75,17.73 17.75,24 20.88,24 20.88,17.73 25.56,17.73 "/>
+                                viewBox="12.5 12.5 25 25"
+                                enableBackground="new 12.5 12.5 25 25">
+                               <polygon
+                                   id="up-arrow"
+                                   fill="#FFFFFF"
+                                   points="12.489,21.449 21.063,12.886 21.063,12.886 23.703,12.886 23.703,12.886 23.703,37.114 21.063,37.114 21.063,29.147 21.063,16.408 12.489,24.982 	"/>
+                              <polygon
+                                  id="down-arrow"
+                                  fill="#FFFFFF"
+                                  points="37.511,28.551 28.937,37.114 28.937,37.114 26.297,37.114 26.297,37.114 26.297,12.886 28.937,12.886 28.937,20.853 28.937,33.592 37.511,25.018 	"/>
                             </svg>
                         </button>
                     </OverlayTrigger>
@@ -454,7 +454,13 @@ export default class PublicEdit extends React.Component {
         // Clear errors from any previous form submission
         this.state.errors = [];
         let data = {
-            social_media: {}
+            social_media: {
+                facebook: "",
+                instagram: "",
+                twitter: "",
+                pinterest: "",
+                behance: ""
+            }
         };
 
         // Public

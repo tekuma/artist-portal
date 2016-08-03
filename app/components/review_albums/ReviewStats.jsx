@@ -74,7 +74,8 @@ export default class ReviewStats extends React.Component {
                 style={statsHeight}
                 className="review-stats-wrapper">
                 <AlbumToggler
-                    height={window.innerHeight * 0.7 - 60}
+                    height          ={window.innerHeight * 0.7 - 60}
+                    background      ={"#222222"}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
                 <ul

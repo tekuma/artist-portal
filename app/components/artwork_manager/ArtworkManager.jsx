@@ -242,6 +242,7 @@ export default class ArtworkManager extends React.Component {
                 onDrop      ={this.onDrop}>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
+                <h3 className="upload-writing tiny">Max File Size: 20Mb</h3>
             </Dropzone>
         );
     }
@@ -289,6 +290,7 @@ export default class ArtworkManager extends React.Component {
                 onDrop      ={this.onDrop}>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
+                <h3 className="upload-writing tiny">Max File Size: 20Mb</h3>
             </Dropzone>
         );
     }

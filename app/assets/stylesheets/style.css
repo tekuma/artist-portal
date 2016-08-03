@@ -2345,12 +2345,20 @@ login-button.left {
 	font-size: 0.85em;
 }
 
+.upload-writing.tiny {
+	font-size: 0.5em;
+}
+
 .artwork-upload-box .upload-writing {
 	font-size: 2.0em;
 }
 
 .artwork-upload-box .upload-writing.small {
 	font-size: 1.5em;
+}
+
+.artwork-upload-box .upload-writing.tiny {
+	font-size: 1em;
 }
 
 .registration-error {
@@ -3524,7 +3532,7 @@ login-button.left {
 }
 
 .edit-profile-open-accordion-button:hover #up-arrow {
-	transform: translateY(2.5px);
+	transform: translateY(-2.5px);
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -3532,7 +3540,7 @@ login-button.left {
 }
 
 .edit-profile-open-accordion-button:hover #down-arrow {
-	transform: translateY(-2.5px);
+	transform: translateY(2.5px);
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;

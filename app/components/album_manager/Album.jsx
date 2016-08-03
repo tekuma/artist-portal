@@ -23,7 +23,7 @@ const albumTarget = {
         const target = targetProps.album;
         const source = monitor.getItem();
         if(source.type == ItemTypes.ALBUM) {
-            if(source.album.name !== target.name) {
+            if(source.album.name != target.name) {
                 // Move order of albums
                 targetProps.onMove(source, target);
             }
@@ -33,8 +33,8 @@ const albumTarget = {
     drop(targetProps, monitor) {
         const target = targetProps.album;
         const source = monitor.getItem();
-        if(source.name !== target.name) {
-            if(source.type == ItemTypes.ARTWORK) {
+        if(source.type == ItemTypes.ARTWORK) {
+            if (source.album != target.name) {
                 // Move artwork to new album
                 targetProps.changeArtworkAlbum(source.id, source.album, target.name);
 

@@ -3,9 +3,10 @@ import React from 'react';
 /**
  * TODO
  */
-export default ({managerIsOpen, toggleManager, addAlbum, height}) => {
+export default ({managerIsOpen, toggleManager, height, background}) => {
     let componentStyle = {
-        height: height
+        height: height,
+        background: background
     };
 
     let iconStyle = {
