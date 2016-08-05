@@ -66,7 +66,7 @@ export default class EditAlbumForm extends React.Component {
                                         id          ="album-artist"
                                         className   ="text-inputs"
                                         name        ="artist"
-                                        placeholder ="Who completed this collection of artworks?"
+                                        placeholder ="Who completed this album of artworks?"
                                         defaultValue={this.props.value.artist}
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
@@ -83,7 +83,7 @@ export default class EditAlbumForm extends React.Component {
                                         id          ="album-year"
                                         className   ="text-inputs"
                                         name        ="title"
-                                        placeholder ="Year collection completed?"
+                                        placeholder ="Year album completed?"
                                         defaultValue={this.props.value.year}
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
