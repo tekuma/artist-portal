@@ -8,8 +8,7 @@ import TransitionGroup from 'react-addons-transition-group';
 import PostAuthHeader    from '../headers/PostAuthHeader';
 import ArtworksAlbumManager      from '../album_manager/ArtworksAlbumManager';
 import ReviewAlbumManager      from '../album_manager/ReviewAlbumManager';
-import ReviewAlbumBanner from '../review_albums/ReviewAlbumBanner';
-import ReviewStats from '../review_albums/ReviewStats';
+import ReviewArtworkInfo from '../review_albums/ReviewArtworkInfo';
 import ReviewArtworks from '../review_albums/ReviewArtworks';
 import ArtworkManager    from '../artwork_manager/ArtworkManager';
 import EditProfile       from '../edit_profile/EditProfile';
@@ -130,25 +129,19 @@ export default class PortalMain extends React.Component {
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
-                <TransitionGroup>
-                    <ReviewAlbumManager
-                        currentAlbum       ={this.props.currentAlbum}
-                        changeAlbum        ={this.props.changeAlbum}
-                        currentAppLayout   ={this.props.currentAppLayout} />
-                </TransitionGroup>
-                <TransitionGroup>
-                    <ReviewStats
-                        currentAppLayout   ={this.props.currentAppLayout}
-                        managerIsOpen   ={this.props.managerIsOpen}
-                        toggleManager   ={this.props.toggleManager} />
-                </TransitionGroup>
+                <ReviewAlbumManager
+                    currentAlbum       ={this.props.currentAlbum}
+                    changeAlbum        ={this.props.changeAlbum}
+                    currentAppLayout   ={this.props.currentAppLayout}
+                    managerIsOpen   ={this.props.managerIsOpen}
+                    toggleManager   ={this.props.toggleManager} />
                 <TransitionGroup>
                     <ReviewArtworks
                         managerIsOpen   ={this.props.managerIsOpen}
                         currentAppLayout   ={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <TransitionGroup>
-                    <ReviewAlbumBanner
+                    <ReviewArtworkInfo
                             currentAppLayout   ={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <div

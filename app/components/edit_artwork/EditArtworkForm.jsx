@@ -68,6 +68,7 @@ export default class EditArtworkForm extends React.Component {
                                 {colors.map(color => {
                                     return (
                                         <div
+                                            key     ={uuid.v4()}
                                             className="color-box"
                                             style={color}>
                                         </div>

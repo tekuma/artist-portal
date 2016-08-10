@@ -19,13 +19,13 @@ export default class HiddenNav extends React.Component {
             title: 'Manage Artworks'
         }
         ,
-        // {
-        //     id: uuid.v4(),
-        //     item: 'Gallery',
-        //     icon: '../../assets/images/logos/logo-white.svg',
-        //     href:  Views.REVIEW,
-        //     title: 'Manage Submitted Art'
-        // },
+        {
+            id: uuid.v4(),
+            item: 'Gallery',
+            icon: '../../assets/images/logos/logo-white.svg',
+            href:  Views.REVIEW,
+            title: 'Manage Submitted Art'
+        },
         {
             id: uuid.v4(),
             item: 'Profile',

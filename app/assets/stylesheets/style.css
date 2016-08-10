@@ -755,13 +755,12 @@ input::-webkit-search-cancel-button {
 	width:	25vw;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
 	transition: left 0.3s 0.3s;
-	-webkit-transition: left 0.3s 0.3s;
-	-moz-transition: left 0.3s 0.3s;
-	-ms-transition: left 0.3s 0.3s;
+	-webkit-transition: left 0.3s;
+	-moz-transition: left 0.3s;
+	-ms-transition: left 0.3s;
 }
 
 .manager-opener {
-	float: left;
 	background: #222222;
 	width: 40px;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,.4);
@@ -886,7 +885,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album.review {
-	background: #212121;
+	background: #000000;
 	min-height: 70px;
 }
 
@@ -979,6 +978,22 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
+.toggle-manager.review {
+	transform: scale(-1, 1);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.toggle-manager.review.closed {
+	transform: scale(1, 1);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
 
 .album-name,
 .album-edit {
@@ -1041,6 +1056,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-tool {
+	display: inline-block;
 	margin: 5px;
 	margin-left: 10px;
 	opacity: 0.7;
@@ -1050,6 +1066,16 @@ input::-webkit-search-cancel-button {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
 	cursor: pointer;
+	color: #ffffff;
+	vertical-align: middle;
+}
+
+.album-tool.review {
+	width: 20px;
+}
+
+.album-tool.message-count{
+	opacity: 1;
 }
 
 .album-tool:hover {
@@ -1121,7 +1147,16 @@ input::-webkit-search-cancel-button {
 .album .review-status h4 {
 	display: inline-block;
 	margin: 0;
-	font-size: 0.8em;
+	font-size: 0.9em;
+	text-align: center;
+	color: #ec167e;
+}
+
+.review-status h5,
+.album .review-status h5 {
+	display: inline-block;
+	margin: 0;
+	font-size: 0.6em;
 	text-align: center;
 	color: #ec167e;
 }
@@ -1130,17 +1165,21 @@ input::-webkit-search-cancel-button {
 	color: #ffffff;
 }
 
-.review-album-banner {
+.review-artwork-banner {
 	position: absolute;
-	padding: 20px;
 	top: 60px;
 	right: 0;
-	width: 75vw;
-	background: #1b1b1b;
-	box-shadow: 0 4px 8px -2px rgba(0,0,0,0.5),
-	0 3px 1px -2px rgba(0,0,0,.2),
-	0 1px 5px 0 rgba(0,0,0,.12);
+	width: 60vw;
+	background: #dddddc;
+	box-shadow: 0 5px 10px -2px rgba(0,0,0,0.7),
+	0 5px 1px -2px rgba(0,0,0,.4),
+	0 3px 5px 0 rgba(0,0,0,.3);
 	z-index: 3;
+}
+
+.review-artwork-info {
+	background: #aaaaaa;
+	padding: 20px;
 }
 
 .album-banner-preview-wrapper {
@@ -1179,20 +1218,21 @@ input::-webkit-search-cancel-button {
 
 .album-banner-title {
 	font-size: 2.2em;
-	font-weight: 600;
+	font-weight: 500;
 	margin-bottom: 10px;
 	color: #ffffff;
 }
 
 .album-banner-artist {
 	font-size: 1.3em;
-	font-weight: 400;
-	color: #ffffff;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
 	margin-bottom: 10px;
 }
 
 .album-banner-date {
-	color: rgba(255,255,255, 0.7);
+	font-weight: 500;
+	color: rgba(0,0,0,0.54);
 }
 
 .album-banner-description-wrapper {
@@ -1212,77 +1252,52 @@ input::-webkit-search-cancel-button {
 .album-banner-tags-heading {
 	margin-top: 20px;
 	font-size: 0.9em;
+	font-weight: 400;
 	color: #ffffff;
 }
 
-.review-stats-wrapper {
-	position: absolute;
-	bottom: 0;
-	width: 25vw;
-	max-width: 440px;
-    min-width: 250px;
-	background: #313131;
-	box-shadow: -4px 0px 8px -2px rgba(0,0,0,0.5),
-	-3px 0px 1px -2px rgba(0,0,0,.2),
-	-1px 0px 5px 0 rgba(0,0,0,.12);
-	z-index: 2;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
+.review-artwork-status {
+	margin: 0;
+	padding: 20px;
+	padding-top: 0px;
+	overflow: scroll;
 }
 
-.stats-wrapper {
-	float: right;
-    background: transparent;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
-    max-width: 400px;
-	width: 211px;
-}
-
-.stats-wrapper li {
+.status-wrapper {
+	display: inline-block;
+	float: left;
+	width: 50%;
 	padding: 10px;
-	border-bottom: 1px solid rgba(255,255,255, 0.12);
 }
 
-.stats-wrapper li:last-child {
-	border: none;
-}
-
-.stats-heading {
-	margin-top: 10px;
-	color: #ffffff;
-	font-size: 1.2em;
-	font-weight: 500;
+.status-heading {
+	font-size: 1.3em;
+	color: rgba(0,0,0,0.87);
 	text-align: center;
 }
 
-.stats-body {
-	font-size: 1em;
-	text-align: center;
-	color: rgba(255,255,255,0.7);
+.status-info-wrapper {
+	background: #ffffff;
+	padding: 15px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
+	0 1px 2px rgba(0,0,0,0.24);
 }
 
-.stats-message {
-	border: 1px solid #666666;
-	border-radius: 3px;
-    width: 100%;
-	background: #3b3b3b;
-	font-size: 0.9em;
-	font-weight: 300;
-	color: rgba(255,255,255,0.7);
-    padding: 8px 10px;
-	text-align: left;
+.status-info-wrapper.center {
+	text-align: center;
+}
+
+.status-info-wrapper p {
+	margin: 0;
+	color: rgba(0,0,0,0.54);
 }
 
 .review-artworks {
 	position: absolute;
 	left: 25vw;
-	width: 50vw;
-	height: 57vh;
+	bottom: 0;
+	width: 15vw;
+	height: 95vh;
 	overflow: scroll;
 	transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -1290,7 +1305,61 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
+.button {
+	position: absolute;
+	display:none; /* visibility: hidden takes up space - affects layout */;
+}
 
+.button + label {
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	margin: 0;
+	cursor: ew-resize;
+	outline: none;
+	user-select: none;
+}
+
+input.slide-square + label {
+	width: 80px;
+	height: 31px;
+	background-color: #989898;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+	transition: background 0.4s;
+}
+
+input.slide-square.small + label {
+	width: 60px;
+	height: 23px;
+}
+
+input.slide-square + label:after {
+	display: inline-block;
+	position: absolute;
+	content: "";
+	top: 3px;
+	left: 3px;
+	width: 25px;
+	height: 25px;
+	background-color: #ffffff;
+	transition: background 0.4s, margin 0.4s;
+}
+
+input.slide-square.small + label:after {
+	top: 2px;
+	left: 2px;
+	width: 19px;
+	height: 19px;
+}
+
+input.slide-square:checked + label:after {
+	background-color: #ec167e;
+	margin-left: 49px;
+}
+
+input.slide-square.small:checked + label:after {
+	margin-left: 37px;
+}
 
 /*========================================== */
 
@@ -1334,6 +1403,14 @@ main, .artworks {
 	overflow: hidden;
 }
 
+.artwork.review {
+	min-width: 0px;
+	width: 200px;
+	height: 80px;
+	z-index: 1;
+	cursor: pointer;
+}
+
 .artwork:hover {
 	box-shadow: 0 10px 20px rgba(0,0,0,0.19),
 	0 6px 6px rgba(0,0,0,0.23);
@@ -1349,8 +1426,14 @@ main, .artworks {
 	height: auto;
 }
 
-.artwork-image img {
-	width: 100%;
+.artwork-image.review {
+	vertical-align: top;
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .artwork-info {
@@ -1363,8 +1446,93 @@ main, .artworks {
 	text-align: left;
 }
 
-.artwork-info.review {
-	min-height: 40px;
+.artwork-status {
+	display: inline-block;
+	vertical-align: top;
+	background: #ffffff;
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+}
+
+
+.artwork-review-tools {
+	display: inline-block;
+	vertical-align: top;
+	background: #989898;
+	width: 40px;
+	height: 80px;
+}
+
+.review-delete {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	flex-direction: column;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+}
+
+.review-delete img {
+	width: 15px;
+	opacity: 0.7;
+}
+
+.review-delete:hover img {
+	opacity: 1;
+}
+
+.review-message {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	flex-direction: column;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+}
+
+.review-message svg {
+	width: 20px;
+}
+
+.review-message #mail-flap {
+	stroke: rgba(0,0,0,0.54);
+}
+
+.review-message #mail-sleeve {
+	fill: rgba(0,0,0,0.54);
+}
+
+.review-message.received {
+	background: #e73827;
+}
+
+.review-message.received #mail-flap {
+	stroke: #ffffff;
+}
+
+.review-message.received #mail-sleeve {
+	fill: #ffffff;
 }
 
 .artwork-name {
