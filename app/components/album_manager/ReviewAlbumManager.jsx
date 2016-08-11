@@ -55,6 +55,14 @@ export default class ReviewAlbumManager extends React.Component {
             </Tooltip>
         );
 
+        const removeTooltip = (
+            <Tooltip
+                id="remove-tooltip"
+                className="tooltip">
+                Remove
+            </Tooltip>
+        );
+
         let styleResponsive = {
             width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70
         };
@@ -89,7 +97,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                             Impressions of a Crazy Man
                         </h3>
@@ -106,6 +114,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 </div>
                             </OverlayTrigger>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
+                                </div>
+                            </OverlayTrigger>
+                        </div>
                     </li>
                     <li onClick     ={this.props.changeAlbum.bind({}, "Elephants")}
                         className   ={(this.props.currentAlbum === "Elephants") ? "album review selected" : "album review"}>
@@ -115,7 +135,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                             Elephants
                         </h3>
@@ -132,6 +152,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 </div>
                             </OverlayTrigger>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
+                                </div>
+                            </OverlayTrigger>
+                        </div>
                     </li>
                     <li onClick     ={this.props.changeAlbum.bind({}, "Sunsets")}
                         className   ={(this.props.currentAlbum === "Sunsets") ? "album review selected" : "album review"}>
@@ -141,7 +173,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                             Sunsets
                         </h3>
@@ -158,6 +190,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 </div>
                             </OverlayTrigger>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
+                                </div>
+                            </OverlayTrigger>
+                        </div>
                     </li>
                 </ul>
             </section>
@@ -170,6 +214,14 @@ export default class ReviewAlbumManager extends React.Component {
                 id="notifications-tooltip"
                 className="tooltip">
                 Notifications
+            </Tooltip>
+        );
+
+        const removeTooltip = (
+            <Tooltip
+                id="remove-tooltip"
+                className="tooltip">
+                Remove
             </Tooltip>
         );
 
@@ -207,7 +259,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                             Impressions of a Crazy Man
                         </h3>
@@ -224,6 +276,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 </div>
                             </OverlayTrigger>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
+                                </div>
+                            </OverlayTrigger>
+                        </div>
                     </li>
                     <li onClick     ={this.props.changeAlbum.bind({}, "Elephants")}
                         className   ={(this.props.currentAlbum === "Elephants") ? "album review selected" : "album review"}>
@@ -233,7 +297,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                             Elephants
                         </h3>
@@ -250,6 +314,18 @@ export default class ReviewAlbumManager extends React.Component {
                                 </div>
                             </OverlayTrigger>
                         </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
+                                </div>
+                            </OverlayTrigger>
+                        </div>
                     </li>
                     <li onClick     ={this.props.changeAlbum.bind({}, "Sunsets")}
                         className   ={(this.props.currentAlbum === "Sunsets") ? "album review selected" : "album review"}>
@@ -259,7 +335,7 @@ export default class ReviewAlbumManager extends React.Component {
                                 className="avatar-container" />
                         </div>
                         <h3
-                            className   ="album-name"
+                            className   ="album-name review"
                             style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                             Sunsets
                         </h3>
@@ -273,6 +349,18 @@ export default class ReviewAlbumManager extends React.Component {
                                         src         ='assets/images/icons/mail-white.svg'
                                     />
                                     <h5 className="album-tool message-count">0</h5>
+                                </div>
+                            </OverlayTrigger>
+                        </div>
+                        <div className="album-tools top">
+                            <OverlayTrigger
+                                placement   ="right"
+                                overlay     ={removeTooltip}>
+                                <div>
+                                    <img
+                                        className   ="album-tool"
+                                        src         ='assets/images/icons/delete-white.svg'
+                                    />
                                 </div>
                             </OverlayTrigger>
                         </div>

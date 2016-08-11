@@ -16,7 +16,6 @@ export default class ReviewAlbumBanner extends React.Component {
 
     componentWillMount() {
         console.log("-----ReviewAlbumBanner");
-
     }
 
     render() {
@@ -30,8 +29,16 @@ export default class ReviewAlbumBanner extends React.Component {
             width: window.innerWidth * 0.75 - 236
         }
 
-        let artworkStatusStyle = {
+        let artworkStatusStyleLarge = {
             height: window.innerHeight - 60 - 285
+        }
+
+        let artworkStatusStyleMedium = {
+            height: window.innerHeight - 60 - 397
+        }
+
+        let artworkStatusStyleSmall = {
+            height: window.innerHeight - 60 - 147
         }
 
         return (
@@ -73,7 +80,12 @@ export default class ReviewAlbumBanner extends React.Component {
                         </div>
                     </div>
                     <div
-                        style={artworkStatusStyle}
+                        style={window.innerHeight > 1280 ?
+                                artworkStatusStyleLarge :
+                                window.innerHeight > 990 ?
+                                    artworkStatusStyleMedium :
+                                    artworkStatusStyleSmall
+                                }
                         className="review-artwork-status">
                         <div className="status-wrapper">
                             <h3 className="status-heading">

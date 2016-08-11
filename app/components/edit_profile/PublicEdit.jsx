@@ -156,7 +156,7 @@ export default class PublicEdit extends React.Component {
                             <Dropzone
                                 style={{display: this.state.accordion.avatar ? "flex" : "none" }}
                                 className="edit-profile-avatar-wrapper"
-                                accept="image/*"
+                                accept="image/png, image/jpeg"
                                 onDrop={this.onDrop}>
                                 <img
                                     className="edit-avatar-no-avatar-icon"
@@ -186,6 +186,7 @@ export default class PublicEdit extends React.Component {
                                 placeholder="Bio"
                                 ref="bio"
                                 defaultValue={this.props.user.bio}
+                                maxLength="1500"
                                 onChange={this.setUnsaved}></textarea>
                         </div>
                         <div
@@ -203,6 +204,7 @@ export default class PublicEdit extends React.Component {
                             ref="location"
                             placeholder="Location"
                             defaultValue={this.props.user.location}
+                            maxLength="50"
                             onChange={this.setUnsaved} />
                         </div>
                         <div
@@ -220,6 +222,7 @@ export default class PublicEdit extends React.Component {
                             ref="portfolio"
                             placeholder="Portfolio/Website"
                             defaultValue={this.props.user.portfolio}
+                            maxLength="200"
                             onChange={this.setUnsaved} />
                         </div>
                         <div
@@ -280,6 +283,7 @@ export default class PublicEdit extends React.Component {
                                     ref="facebook"
                                     placeholder="tekuma.world"
                                     defaultValue={this.props.user.social_media.facebook}
+                                    maxLength="50"
                                     onChange={this.setUnsaved} />
                                 </li>
                                 <li>
@@ -296,6 +300,7 @@ export default class PublicEdit extends React.Component {
                                     ref="instagram"
                                     placeholder="tekuma.io"
                                     defaultValue={this.props.user.social_media.instagram}
+                                    maxLength="50"
                                     onChange={this.setUnsaved} />
                                 </li>
                                 <li>
@@ -312,6 +317,7 @@ export default class PublicEdit extends React.Component {
                                     ref="twitter"
                                     placeholder="tekuma_"
                                     defaultValue={this.props.user.social_media.twitter}
+                                    maxLength="50"
                                     onChange={this.setUnsaved} />
                                 </li>
                                 <li>
@@ -328,6 +334,7 @@ export default class PublicEdit extends React.Component {
                                     ref="pinterest"
                                     placeholder="Tekumaio"
                                     defaultValue={this.props.user.social_media.pinterest}
+                                    maxLength="50"
                                     onChange={this.setUnsaved} />
                                 </li>
                                 <li>
@@ -344,6 +351,7 @@ export default class PublicEdit extends React.Component {
                                     ref="behance"
                                     placeholder="tekuma.io"
                                     defaultValue={this.props.user.social_media.behance}
+                                    maxLength="50"
                                     onChange={this.setUnsaved} />
                                 </li>
                             </ul>

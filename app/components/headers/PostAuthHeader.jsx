@@ -85,7 +85,7 @@ export default class PostAuthHeader extends React.Component {
             	</header>
                 <Dropzone
                     style={{display: "none"}}
-                    accept="image/*"
+                    accept="image/png, image/jpeg"
                     disableClick
                     onDrop={this.onDrop}
                     ref="dropzone">

@@ -22,7 +22,7 @@ export default class ReviewArtworks extends React.Component {
     render() {
         let styleManagerClosed = {
             left: 40,
-            width: window.innerWidth * 0.25 + 236 - 40,
+            width: window.innerWidth * 0.25 + 236 - 40, // 25vw (Album Manager) + 236px (Artworks) + - 40 (AlbumToggler)
             height: window.innerHeight - 60
         };
 
@@ -32,17 +32,18 @@ export default class ReviewArtworks extends React.Component {
         };
 
         let styleLargeScreen = {
-            width: window.innerWidth * 0.40 - 400,
-            height: window.innerHeight - 60
+            width: window.innerWidth * 0.25 + 236 - 400, // 25vw (Album Manager) + 236px (Artworks) + - 400 (ReviewAlbumManager),
+            height: window.innerHeight - 60,
+            left: 400
         };
 
         let styleSmallScreen = {
-            width: window.innerWidth * 0.40 - 250,
+            width: 236,
             height: window.innerHeight - 60
         };
 
         let fixedWidth = {
-            width: window.innerWidth * 0.40,
+            width: 236,
             height: window.innerHeight - 60
         };
 
