@@ -6,7 +6,7 @@ export default ({navItems, changeAppLayout, signOutUser}) => {
         <ul
             className="nav-locker scrollable"
             style={{
-                height: window.innerHeight - 300
+                height: window.innerHeight - 250 - 50 /* 250px = Avatar, 50px = Logout Button, 40px = NavItems Padding */
             }}>{navItems.map(item => {
                 return (
                     <NavItem

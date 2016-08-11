@@ -1,3 +1,21 @@
+/* Tekuma Art Portal CSS File */
+
+/* ======
+
+	DO NOT EDIT STYLES UNLESS YOU HAVE
+	AN UNDERSTANDING OF ALL ELEMENTS
+	THAT MAKE USE OF THAT ELEMENT
+
+	IDEALLY, YOU CAN CREATE A NEW STYLE
+	THAT SUPPLEMENTS CURRENT STYLE THAT NEGATES
+	ANY UNWANTED STYLE PROPERTIES, OR ADDS NEW
+	STYLE PROPERTIES
+
+====== */
+
+/*========================================== */
+
+/* General Styles */
 * {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -5,8 +23,10 @@
 	-ms-box-sizing: border-box;
 }
 
+
+
 body {
-	font-size: 16px;
+	font-size: 16px;	/* All font sizes are relative to this font size using 'em' */
 	color: #000000;
 	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
@@ -21,20 +41,24 @@ a, a:visited, a:hover {
 
 textarea, input {
 	-webkit-transition: border .5s ease-in-out;
-  transition: border .5s ease-in-out;
+  	transition: border .5s ease-in-out;
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
 	border-color: none;
 }
 
-textarea:focus, input:focus, button:focus, button {
+textarea:focus,
+input:focus,
+button:focus, button {
     outline: #ec008b;
 }
 
 button {
 	border: none;
 }
+
 /*========================================== */
 
 /* Hidden Navigation Style */
@@ -47,7 +71,7 @@ button {
 	height: 250px;
 	z-index: 3;
 	box-shadow: 0px 2px 7px rgba(0,0,0, 0.4);
-	background-position: center center;
+	background-position: center center;	/* These background styles make sure avatar fills whole square */
 	background-size: cover;
     background-repeat: no-repeat;
 }
@@ -56,7 +80,7 @@ button {
 	position: fixed;
 	height: 40px;
 	top: 230px;
-	left: -110px;
+	left: -110px;	/* Starts off not on the screen, and flies onto the screen */
 	background: #e73827;
 	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
@@ -196,6 +220,7 @@ button {
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
 }
+
 /*========================================== */
 
 /* Nav-Trigger/Hamburger Style */
@@ -411,6 +436,8 @@ button {
 	overflow: scroll;
 }
 
+/* Site Overlay is the Transluscent Black Screen that activates when Hidden Nav is Open */
+
 .site-overlay {
 	min-width: 100vw;
     min-height: 100vh;
@@ -590,7 +617,7 @@ header.black {
 }
 
 .header-writing h3 {
-	color: #666666;
+	color: #000000;
 	font-weight: 500;
 	margin-top: 10px;
 	transition: all 0.3s;
@@ -607,129 +634,9 @@ header.black {
 	-ms-transition: all 0.3s;
 }
 
-#search-bar {
-	position: absolute;
-	top: 0px;
-	right: 0;
-	width: 60px;
-	height: 60px;
-	overflow: hidden;
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-	-webkit-backface-visibility: hidden;
-}
-
-#search-bar form {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-}
-
-input[type=search].search-input {
-	position: absolute;
-	top: 12px;
-	right: 60px;
-	border: solid 1px #d5d3cd;
-	border-radius: 20em;
-	outline: none;
-	background: #e4edf1;
-	width: 200px;
-	height: 36px;
-	margin: 0;
-	padding-left: 20px;
-	padding-right: 20px;
-	font-family: inherit;
-	font-size: 0.8em;
-	font-weight: 500;
-	color: #000000;
-	-webkit-appearance: textfield;
-	-moz-appearance: textfield;
-	-ms-appearance: textfield;
-	appearance: textfield;
-	transition: all 0.5s;
-	-webkit-transition: all 0.5s;
-	-moz-transition: all 0.5s;
-	-ms-transition: all 0.5s;
-
-}
-
-input::-webkit-search-decoration,
-input::-webkit-search-cancel-button {
-	display: none;
-}
-
-#search-icon,
-.search-submit  {
-	width: 60px;
-	height: 60px;
-	display: block;
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 0;
-	margin: 0;
-	line-height: 60px;
-	text-align: center;
-}
-
-.search-submit {
-	background: #fff; /* IE needs this */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
-    filter: alpha(opacity=0); /* IE 5-7 */
-    opacity: 0;
-	color: transparent;
-	border: none;
-	outline: none;
-	z-index: -1;
-}
-
-.search-div {
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 60px;
-	height: 60px;
-	cursor: pointer;
-}
-
-#search-bar.search-open {
-	width: 260px;
-}
-
-#search-bar #search-icon #mag-glass-icon {
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-}
-
-#search-bar.search-open #search-icon #mag-glass-icon {
-	fill: #e83081;
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-}
-
-.header-icons.search-open {
-	width: 389px;
-}
-
 /*========================================== */
 
-/* Album Manager */
+/* Album Manager (Artwork and Review)*/
 
 .album-manager {
 	position: absolute;
@@ -886,14 +793,15 @@ input::-webkit-search-cancel-button {
 	min-height: 60px;
 }
 
+.album:not(.uploads) {
+	cursor: move;
+}
+
 .album.review {
 	background: #000000;
 	min-height: 70px;
 	max-width: none;
-}
-
-.album:not(.uploads) {
-	cursor: move;
+	cursor: default;
 }
 
 .album.selected,
@@ -1079,10 +987,12 @@ input::-webkit-search-cancel-button {
 
 .album-tool.review {
 	width: 20px;
+	cursor: default;
 }
 
 .album-tool.message-count{
 	opacity: 1;
+	cursor: default;
 }
 
 .album-tool:hover {
@@ -1300,78 +1210,9 @@ input::-webkit-search-cancel-button {
 	color: rgba(0,0,0,0.54);
 }
 
-.review-artworks {
-	position: absolute;
-	left: 25vw;
-	bottom: 0;
-	width: 15vw;
-	height: 95vh;
-	overflow: scroll;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-}
-
-.button {
-	position: absolute;
-	display:none; /* visibility: hidden takes up space - affects layout */;
-}
-
-.button + label {
-	vertical-align: middle;
-	display: inline-block;
-	position: relative;
-	margin: 0;
-	cursor: ew-resize;
-	outline: none;
-	user-select: none;
-}
-
-input.slide-square + label {
-	width: 80px;
-	height: 31px;
-	background-color: #989898;
-	box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
-	transition: background 0.4s;
-}
-
-input.slide-square.small + label {
-	width: 60px;
-	height: 23px;
-}
-
-input.slide-square + label:after {
-	display: inline-block;
-	position: absolute;
-	content: "";
-	top: 3px;
-	left: 3px;
-	width: 25px;
-	height: 25px;
-	background-color: #ffffff;
-	transition: background 0.4s, margin 0.4s;
-}
-
-input.slide-square.small + label:after {
-	top: 2px;
-	left: 2px;
-	width: 19px;
-	height: 19px;
-}
-
-input.slide-square:checked + label:after {
-	background-color: #ec167e;
-	margin-left: 49px;
-}
-
-input.slide-square.small:checked + label:after {
-	margin-left: 37px;
-}
-
 /*========================================== */
 
-/* Artwork */
+/* Artwork (Studio and Review)*/
 
 main, .artworks {
 	position: absolute !important;
@@ -1590,6 +1431,79 @@ main, .artworks {
     -ms-transition: all 0.3s;
 }
 
+
+.review-artworks {
+	position: absolute;
+	left: 25vw;
+	bottom: 0;
+	width: 15vw;
+	height: 95vh;
+	overflow: scroll;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+/* The following styles are used by the slide square
+	button on the review artworks and the Publish Button */
+
+.button {
+	position: absolute;
+	display:none; /* visibility: hidden takes up space - affects layout */;
+}
+
+.button + label {
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	margin: 0;
+	cursor: ew-resize;
+	outline: none;
+	user-select: none;
+}
+
+input.slide-square + label {
+	width: 80px;
+	height: 31px;
+	background-color: #989898;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+	transition: background 0.4s;
+}
+
+input.slide-square.small + label {
+	width: 60px;
+	height: 23px;
+}
+
+input.slide-square + label:after {
+	display: inline-block;
+	position: absolute;
+	content: "";
+	top: 3px;
+	left: 3px;
+	width: 25px;
+	height: 25px;
+	background-color: #ffffff;
+	transition: background 0.4s, margin 0.4s;
+}
+
+input.slide-square.small + label:after {
+	top: 2px;
+	left: 2px;
+	width: 19px;
+	height: 19px;
+}
+
+input.slide-square:checked + label:after {
+	background-color: #ec167e;
+	margin-left: 49px;
+}
+
+input.slide-square.small:checked + label:after {
+	margin-left: 37px;
+}
+
 /*========================================== */
 
 /* Sign Up/Edit Profile */
@@ -1778,7 +1692,7 @@ main, .artworks {
 .login-header h2 {
 	color: #ffffff;
 	font-size: 2em;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 
@@ -2031,7 +1945,7 @@ textarea.bio {
 
 
 .signup-form select {
-	border-radius: 0px;
+	border-radius: 0px !important;
 	background-color: #ffffff;
 	border: 2px solid #000000;
 	color: #000000;
@@ -2144,12 +2058,10 @@ login-button.left {
 .edit-button:hover,
 .signup-button:hover,
 .login-button:hover {
-/*	box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22); */
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
-
 	background: #e73827;
 	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
@@ -2482,7 +2394,7 @@ login-button.left {
 .left-form .image-upload-box {
 	border: 2px dashed #cccccc;
 	border-radius: 0px;
-	background: #eeeeee;
+	background-color: transparent;
 }
 
 .artwork-upload-box {
@@ -2610,6 +2522,7 @@ login-button.left {
 /*========================================== */
 
 /* Edit Artwork */
+
 .artwork-edit-dialog {
 	position: relative;
 	height: 100%;
@@ -2842,74 +2755,6 @@ login-button.left {
 
 /*========================================== */
 
-/* Context Menu */
-
-.react-context-menu {
-	width: 150px;
-	padding: 10px 0;
-	background-color: #ffffff;
-	outline: none;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
-}
-
-.react-context-menu-item {
-	display: block;
-	height: 40px;
-	cursor: pointer;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-}
-
-.react-context-menu-item:hover {
-	background: #ececec;
-}
-
-.context-icon-container {
-	display: inline-flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	float: left;
-}
-
-.context-icon-container img {
-	width:	20px;
-	opacity: 0.54;
-}
-
-.context-writing {
-	display: inline-block;
-	height: 40px;
-	width: 110px;
-	float: right;
-}
-
-.context-writing h3 {
-	margin: 10px 10px;
-	margin-right: 20px;
-	font-size: 16px;
-	font-weight: 600;
-	color: rgba(0,0,0, 0.87);
-}
-
-.cross {
-	transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-}
-
-/*========================================== */
-
 /* Tooltip */
 
 .tooltip {
@@ -3051,39 +2896,9 @@ login-button.left {
     -ms-transition: all 0.3s;
 }
 
-
-
 /*========================================== */
 
-/* Upload Page */
-
-.uploading {
-	text-align: center;
-}
-
-.uploading span {
-  -webkit-animation: blink 1.4s infinite both;
-  -moz-animation: blink 1.4s infinite both;
-  -ms-animation: blink 1.4s infinite both;
-  -o-animation: blink 1.4s infinite both;
-  animation: blink 1.4s infinite both;
-}
-
-.uploadng span:nth-child(2) {
-  -webkit-animation-delay: .2s;
-  -moz-animation-delay: .2s;
-  -ms-animation-delay: .2s;
-  -o-animation-delay: .2s;
-  animation-delay: .2s;
-}
-
-.uploading span:nth-child(3) {
-  -webkit-animation-delay: .4s;
-  -moz-animation-delay: .4s;
-  -ms-animation-delay: .4s;
-  -o-animation-delay: .4s;
-  animation-delay: .4s;
-}
+/* Upload Dialog */
 
 .dropzone-image-preview-container {
 	margin: 5px;
@@ -3166,10 +2981,6 @@ login-button.left {
 	text-align: center;
 	margin: 0;
 }
-
-/*========================================== */
-
-/* Upload Dialog */
 
 .upload-dialog-button {
 	width: 100%;
@@ -3279,7 +3090,7 @@ login-button.left {
 
 /*=======================================*/
 
-/* Public/Private Heading */
+/* Public/Private Heading in Edit Profile */
 
 .edit-profile-layout {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
@@ -3929,25 +3740,12 @@ label.age-confirm-label {
 
 /*========================================== */
 
-/* Animations */
-
-/* Chrome, Safari, Opera */
-@-webkit-keyframes showAndHide {
-    0%   {opacity: 0;}
-    50% {opacity: 1;}
-	100%   {opacity: 0;}
-}
-
-/* Standard syntax */
-@keyframes showAndHide {
-	0%   {opacity: 0;}
-    50% {opacity: 1;}
-	100%   {opacity: 0;}
-}
-
-/*========================================== */
-
 /* Media Queries */
+/*
+	These are used to make styles responsive.
+	As screen width decreases, the styles change
+	to suit new screen width and size
+*/
 
 @media (max-width: 1410px) {
 	.album-banner-title {
@@ -4443,8 +4241,26 @@ label.age-confirm-label {
 
 /* Fonts */
 
+/*
+	Tekuma's official Font is Nexa.
+	This web application makes use of
+	the entire Nexa Font Family, namely:
 
-/* Duplicating Font */
+	- Nexa Black (800)
+	- Nexa Heavy (700)
+	- Nexa XBold (600)
+	- Nexa Bold (500)
+	- Nexa Nexa (400)
+	- Nexa Book (300)
+	- Nexa Light (200)
+	- Nexa Thin (100)
+
+	Each font weight has an accompanying Italic font.
+	If you wish to italicize writing, use the font instead of the <i></i> tag.
+
+	Similarly with bolding font, use a font with a thicker weight instead of the <b></b> tag.
+
+*/
 
 @font-face {
 font-family: Nexa;
