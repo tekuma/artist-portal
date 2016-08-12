@@ -4,9 +4,11 @@
   "description": "A art/image onboarding portal, based on Firebase/ReactJS web framework, written in ES6.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "stats": "webpack --profile --json > stats.json",
+    "test": "karma start",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "tdd": "karma start --auto-watch --no-single-run"
   },
   "repository": {
     "type": "git",
@@ -37,17 +39,29 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "css-loader": "^0.23.1",
+    "dotenv": "^2.0.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.2",
     "file-loader": "^0.9.0",
+    "isparta-instrumenter-loader": "^1.0.1",
+    "json-loader": "^0.5.4",
+    "karma": "^1.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.8.0",
+    "mocha": "^3.0.2",
     "npm-install-webpack-plugin": "^4.0.3",
+    "phantomjs-polyfill": "0.0.2",
+    "phantomjs-prebuilt": "^2.1.12",
     "raw-loader": "^0.5.1",
+    "react-addons-test-utils": "^15.3.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0",
-    "json-loader": "^0.5.4",
-    "dotenv": "^2.0.0",
-    "extract-text-webpack-plugin": "^2.0.0-beta.2"
+    "webpack-merge": "^0.14.0"
   },
   "dependencies": {
     "alt": "^0.18.4",

@@ -12,7 +12,8 @@ const PATHS = {
     app: path.join(__dirname, 'app'),
     build: path.join(__dirname, 'build'),
     images: path.join(__dirname, 'app/assets/images'),
-    fonts: path.join(__dirname, 'app/assets/fonts')
+    fonts: path.join(__dirname, 'app/assets/fonts'),
+    test: path.join(__dirname, 'tests')
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -124,7 +125,7 @@ if(TARGET === 'build') {
               // due to the way the package has been designed
               // (no package.json main).
               return v !== 'alt-utils';
-          }),
+          })
       },
       plugins: [
           // Setting DefinePlugin affects React library size!
@@ -143,4 +144,31 @@ if(TARGET === 'build') {
           })
       ]
   });
+}
+
+if(TARGET === 'test' || TARGET === 'tdd') {
+    module.exports = merge(common, {
+        devtool: 'inline-source-map',
+        resolve: {
+            alias: {
+                'app': PATHS.app
+            }
+        },
+        module: {
+            preLoaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['isparta-instrumenter'],
+                    include: PATHS.app
+                }
+            ],
+            loaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['babel?cacheDirectory'],
+                    include: PATHS.test
+                }
+            ]
+        }
+    });
 }
