@@ -1,5 +1,6 @@
 export default {
     ARTWORKS: 'Artworks',
     PROFILE: 'Profile',
-    REVIEW: 'Review'
+    REVIEW: 'Review',
+    INFO: 'Info'
 };
