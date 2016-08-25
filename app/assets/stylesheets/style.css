@@ -1,3 +1,21 @@
+/* Tekuma Art Portal CSS File */
+
+/* ======
+
+	DO NOT EDIT STYLES UNLESS YOU HAVE
+	AN UNDERSTANDING OF ALL ELEMENTS
+	THAT MAKE USE OF THAT ELEMENT
+
+	IDEALLY, YOU CAN CREATE A NEW STYLE
+	THAT SUPPLEMENTS CURRENT STYLE THAT NEGATES
+	ANY UNWANTED STYLE PROPERTIES, OR ADDS NEW
+	STYLE PROPERTIES
+
+====== */
+
+/*========================================== */
+
+/* General Styles */
 * {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -5,8 +23,10 @@
 	-ms-box-sizing: border-box;
 }
 
+
+
 body {
-	font-size: 16px;
+	font-size: 16px;	/* All font sizes are relative to this font size using 'em' */
 	color: #000000;
 	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
@@ -21,20 +41,24 @@ a, a:visited, a:hover {
 
 textarea, input {
 	-webkit-transition: border .5s ease-in-out;
-  transition: border .5s ease-in-out;
+  	transition: border .5s ease-in-out;
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
 	border-color: none;
 }
 
-textarea:focus, input:focus, button:focus, button {
+textarea:focus,
+input:focus,
+button:focus, button {
     outline: #ec008b;
 }
 
 button {
 	border: none;
 }
+
 /*========================================== */
 
 /* Hidden Navigation Style */
@@ -47,7 +71,7 @@ button {
 	height: 250px;
 	z-index: 3;
 	box-shadow: 0px 2px 7px rgba(0,0,0, 0.4);
-	background-position: center center;
+	background-position: center center;	/* These background styles make sure avatar fills whole square */
 	background-size: cover;
     background-repeat: no-repeat;
 }
@@ -56,7 +80,7 @@ button {
 	position: fixed;
 	height: 40px;
 	top: 230px;
-	left: -110px;
+	left: -110px;	/* Starts off not on the screen, and flies onto the screen */
 	background: #e73827;
 	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
@@ -108,19 +132,21 @@ button {
 }
 
 .nav-item {
+	position: relative;
+	left: 25px;
 	background: #222222;
-	width: 250px;
+	width: 200px;
 	height: 50px;
 	padding: 0;
 	z-index: 2;
 	cursor: pointer;
 }
 
-.nav-item > div {
+.nav-item div {
 	width: 100%;
 	height: 100%;
 	color: #ffffff;
-	padding: 15px 25px;
+	padding: 15px 0px;
 	font-weight: 400;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -128,12 +154,8 @@ button {
 	-ms-transition: all 0.3s;
 }
 
-.nav-item:hover h3 {
-	color: #ea6595;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
+.nav-item:hover {
+	border-bottom: 1.5px solid #e73827;
 }
 
 .nav-icon {
@@ -141,6 +163,7 @@ button {
 	padding: 0;
 	margin: 0;
 	padding-right: 15px;
+	vertical-align: top;
 }
 
 .nav-writing {
@@ -149,7 +172,7 @@ button {
 	font-size: 1em;
 	font-weight: 400;
 	text-align: center;
-	vertical-align: top;
+	vertical-align: middle;
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
@@ -191,12 +214,13 @@ button {
 }
 
 .logout-button:hover h3 {
-	color: #ea6595;
+	color: #e73827;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
 }
+
 /*========================================== */
 
 /* Nav-Trigger/Hamburger Style */
@@ -412,6 +436,8 @@ button {
 	overflow: scroll;
 }
 
+/* Site Overlay is the Transluscent Black Screen that activates when Hidden Nav is Open */
+
 .site-overlay {
 	min-width: 100vw;
     min-height: 100vh;
@@ -591,7 +617,7 @@ header.black {
 }
 
 .header-writing h3 {
-	color: #666666;
+	color: #000000;
 	font-weight: 500;
 	margin-top: 10px;
 	transition: all 0.3s;
@@ -608,129 +634,9 @@ header.black {
 	-ms-transition: all 0.3s;
 }
 
-#search-bar {
-	position: absolute;
-	top: 0px;
-	right: 0;
-	width: 60px;
-	height: 60px;
-	overflow: hidden;
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-	-webkit-backface-visibility: hidden;
-}
-
-#search-bar form {
-	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  	display: -ms-flexbox;  /* TWEENER - IE 10 */
-  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  	display: flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-}
-
-input[type=search].search-input {
-	position: absolute;
-	top: 12px;
-	right: 60px;
-	border: solid 1px #d5d3cd;
-	border-radius: 20em;
-	outline: none;
-	background: #e4edf1;
-	width: 200px;
-	height: 36px;
-	margin: 0;
-	padding-left: 20px;
-	padding-right: 20px;
-	font-family: inherit;
-	font-size: 0.8em;
-	font-weight: 500;
-	color: #000000;
-	-webkit-appearance: textfield;
-	-moz-appearance: textfield;
-	-ms-appearance: textfield;
-	appearance: textfield;
-	transition: all 0.5s;
-	-webkit-transition: all 0.5s;
-	-moz-transition: all 0.5s;
-	-ms-transition: all 0.5s;
-
-}
-
-input::-webkit-search-decoration,
-input::-webkit-search-cancel-button {
-	display: none;
-}
-
-#search-icon,
-.search-submit  {
-	width: 60px;
-	height: 60px;
-	display: block;
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 0;
-	margin: 0;
-	line-height: 60px;
-	text-align: center;
-}
-
-.search-submit {
-	background: #fff; /* IE needs this */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
-    filter: alpha(opacity=0); /* IE 5-7 */
-    opacity: 0;
-	color: transparent;
-	border: none;
-	outline: none;
-	z-index: -1;
-}
-
-.search-div {
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 60px;
-	height: 60px;
-	cursor: pointer;
-}
-
-#search-bar.search-open {
-	width: 260px;
-}
-
-#search-bar #search-icon #mag-glass-icon {
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-}
-
-#search-bar.search-open #search-icon #mag-glass-icon {
-	fill: #e83081;
-	transition: width 0.5s;
-	-webkit-transition: width 0.5s;
-	-moz-transition: width 0.5s;
-	-ms-transition: width 0.5s;
-}
-
-.header-icons.search-open {
-	width: 389px;
-}
-
 /*========================================== */
 
-/* Album Manager */
+/* Album Manager (Artwork and Review)*/
 
 .album-manager {
 	position: absolute;
@@ -754,15 +660,16 @@ input::-webkit-search-cancel-button {
 .album-manager.review {
 	background: #323232;
 	width:	25vw;
+	max-width: 400px;
+	min-width: 250px;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
 	transition: left 0.3s 0.3s;
-	-webkit-transition: left 0.3s 0.3s;
-	-moz-transition: left 0.3s 0.3s;
-	-ms-transition: left 0.3s 0.3s;
+	-webkit-transition: left 0.3s;
+	-moz-transition: left 0.3s;
+	-ms-transition: left 0.3s;
 }
 
 .manager-opener {
-	float: left;
 	background: #222222;
 	width: 40px;
 	box-shadow: 4px 0 2px -2px rgba(0,0,0,.4);
@@ -886,13 +793,15 @@ input::-webkit-search-cancel-button {
 	min-height: 60px;
 }
 
-.album.review {
-	background: #212121;
-	min-height: 70px;
-}
-
 .album:not(.uploads) {
 	cursor: move;
+}
+
+.album.review {
+	background: #000000;
+	min-height: 70px;
+	max-width: none;
+	cursor: default;
 }
 
 .album.selected,
@@ -980,6 +889,22 @@ input::-webkit-search-cancel-button {
     -ms-transition: all 0.3s;
 }
 
+.toggle-manager.review {
+	transform: scale(-1, 1);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+.toggle-manager.review.closed {
+	transform: scale(1, 1);
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
 
 .album-name,
 .album-edit {
@@ -995,6 +920,10 @@ input::-webkit-search-cancel-button {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.album-name.review {
+	padding: 0px 33px 0px 5px;
 }
 
 .album.uploads .album-name {
@@ -1042,6 +971,7 @@ input::-webkit-search-cancel-button {
 }
 
 .album-tool {
+	display: inline-block;
 	margin: 5px;
 	margin-left: 10px;
 	opacity: 0.7;
@@ -1051,6 +981,18 @@ input::-webkit-search-cancel-button {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
 	cursor: pointer;
+	color: #ffffff;
+	vertical-align: middle;
+}
+
+.album-tool.review {
+	width: 20px;
+	cursor: default;
+}
+
+.album-tool.message-count{
+	opacity: 1;
+	cursor: default;
 }
 
 .album-tool:hover {
@@ -1122,7 +1064,16 @@ input::-webkit-search-cancel-button {
 .album .review-status h4 {
 	display: inline-block;
 	margin: 0;
-	font-size: 0.8em;
+	font-size: 0.9em;
+	text-align: center;
+	color: #ec167e;
+}
+
+.review-status h5,
+.album .review-status h5 {
+	display: inline-block;
+	margin: 0;
+	font-size: 0.6em;
 	text-align: center;
 	color: #ec167e;
 }
@@ -1131,17 +1082,22 @@ input::-webkit-search-cancel-button {
 	color: #ffffff;
 }
 
-.review-album-banner {
+.review-artwork-banner {
 	position: absolute;
-	padding: 20px;
 	top: 60px;
 	right: 0;
-	width: 75vw;
-	background: #1b1b1b;
-	box-shadow: 0 4px 8px -2px rgba(0,0,0,0.5),
-	0 3px 1px -2px rgba(0,0,0,.2),
-	0 1px 5px 0 rgba(0,0,0,.12);
+	width: 60vw;
+	min-width: 250px;
+	background: #dddddc;
+	box-shadow: 0 5px 10px -2px rgba(0,0,0,0.7),
+	0 5px 1px -2px rgba(0,0,0,.4),
+	0 3px 5px 0 rgba(0,0,0,.3);
 	z-index: 3;
+}
+
+.review-artwork-info {
+	background: #aaaaaa;
+	padding: 20px;
 }
 
 .album-banner-preview-wrapper {
@@ -1180,20 +1136,21 @@ input::-webkit-search-cancel-button {
 
 .album-banner-title {
 	font-size: 2.2em;
-	font-weight: 600;
+	font-weight: 500;
 	margin-bottom: 10px;
 	color: #ffffff;
 }
 
 .album-banner-artist {
 	font-size: 1.3em;
-	font-weight: 400;
-	color: #ffffff;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
 	margin-bottom: 10px;
 }
 
 .album-banner-date {
-	color: rgba(255,255,255, 0.7);
+	font-weight: 500;
+	color: rgba(0,0,0,0.54);
 }
 
 .album-banner-description-wrapper {
@@ -1213,89 +1170,49 @@ input::-webkit-search-cancel-button {
 .album-banner-tags-heading {
 	margin-top: 20px;
 	font-size: 0.9em;
+	font-weight: 400;
 	color: #ffffff;
 }
 
-.review-stats-wrapper {
-	position: absolute;
-	bottom: 0;
-	width: 25vw;
-	max-width: 440px;
-    min-width: 250px;
-	background: #313131;
-	box-shadow: -4px 0px 8px -2px rgba(0,0,0,0.5),
-	-3px 0px 1px -2px rgba(0,0,0,.2),
-	-1px 0px 5px 0 rgba(0,0,0,.12);
-	z-index: 2;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-}
-
-.stats-wrapper {
-	float: right;
-    background: transparent;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
-    max-width: 400px;
-	width: 211px;
-}
-
-.stats-wrapper li {
-	padding: 10px;
-	border-bottom: 1px solid rgba(255,255,255, 0.12);
-}
-
-.stats-wrapper li:last-child {
-	border: none;
-}
-
-.stats-heading {
-	margin-top: 10px;
-	color: #ffffff;
-	font-size: 1.2em;
-	font-weight: 500;
-	text-align: center;
-}
-
-.stats-body {
-	font-size: 1em;
-	text-align: center;
-	color: rgba(255,255,255,0.7);
-}
-
-.stats-message {
-	border: 1px solid #666666;
-	border-radius: 3px;
-    width: 100%;
-	background: #3b3b3b;
-	font-size: 0.9em;
-	font-weight: 300;
-	color: rgba(255,255,255,0.7);
-    padding: 8px 10px;
-	text-align: left;
-}
-
-.review-artworks {
-	position: absolute;
-	left: 25vw;
-	width: 50vw;
-	height: 57vh;
+.review-artwork-status {
+	margin: 0;
+	padding: 20px;
+	padding-top: 0px;
 	overflow: scroll;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
 }
 
+.status-wrapper {
+	display: inline-block;
+	float: left;
+	width: 50%;
+	padding: 10px;
+}
 
+.status-heading {
+	font-size: 1.3em;
+	color: rgba(0,0,0,0.87);
+	text-align: center;
+}
+
+.status-info-wrapper {
+	background: #ffffff;
+	padding: 15px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
+	0 1px 2px rgba(0,0,0,0.24);
+}
+
+.status-info-wrapper.center {
+	text-align: center;
+}
+
+.status-info-wrapper p {
+	margin: 0;
+	color: rgba(0,0,0,0.54);
+}
 
 /*========================================== */
 
-/* Artwork */
+/* Artwork (Studio and Review)*/
 
 main, .artworks {
 	position: absolute !important;
@@ -1335,6 +1252,14 @@ main, .artworks {
 	overflow: hidden;
 }
 
+.artwork.review {
+	min-width: 0px;
+	width: 200px;
+	height: 80px;
+	z-index: 1;
+	cursor: pointer;
+}
+
 .artwork:hover {
 	box-shadow: 0 10px 20px rgba(0,0,0,0.19),
 	0 6px 6px rgba(0,0,0,0.23);
@@ -1354,6 +1279,16 @@ main, .artworks {
 	width: 100%;
 }
 
+.artwork-image.review {
+	vertical-align: top;
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .artwork-info {
 	position: relative;
 	display: block;
@@ -1364,8 +1299,93 @@ main, .artworks {
 	text-align: left;
 }
 
-.artwork-info.review {
-	min-height: 40px;
+.artwork-status {
+	display: inline-block;
+	vertical-align: top;
+	background: #ffffff;
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+}
+
+
+.artwork-review-tools {
+	display: inline-block;
+	vertical-align: top;
+	background: #989898;
+	width: 40px;
+	height: 80px;
+}
+
+.review-delete {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	flex-direction: column;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+}
+
+.review-delete img {
+	width: 15px;
+	opacity: 0.7;
+}
+
+.review-delete:hover img {
+	opacity: 1;
+}
+
+.review-message {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	flex-direction: column;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+}
+
+.review-message svg {
+	width: 20px;
+}
+
+.review-message #mail-flap {
+	stroke: rgba(0,0,0,0.54);
+}
+
+.review-message #mail-sleeve {
+	fill: rgba(0,0,0,0.54);
+}
+
+.review-message.received {
+	background: #e73827;
+}
+
+.review-message.received #mail-flap {
+	stroke: #ffffff;
+}
+
+.review-message.received #mail-sleeve {
+	fill: #ffffff;
 }
 
 .artwork-name {
@@ -1409,6 +1429,79 @@ main, .artworks {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+
+.review-artworks {
+	position: absolute;
+	left: 25vw;
+	bottom: 0;
+	width: 15vw;
+	height: 95vh;
+	overflow: scroll;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+/* The following styles are used by the slide square
+	button on the review artworks and the Publish Button */
+
+.button {
+	position: absolute;
+	display:none; /* visibility: hidden takes up space - affects layout */;
+}
+
+.button + label {
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	margin: 0;
+	cursor: ew-resize;
+	outline: none;
+	user-select: none;
+}
+
+input.slide-square + label {
+	width: 80px;
+	height: 31px;
+	background-color: #989898;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+	transition: background 0.4s;
+}
+
+input.slide-square.small + label {
+	width: 60px;
+	height: 23px;
+}
+
+input.slide-square + label:after {
+	display: inline-block;
+	position: absolute;
+	content: "";
+	top: 3px;
+	left: 3px;
+	width: 25px;
+	height: 25px;
+	background-color: #ffffff;
+	transition: background 0.4s, margin 0.4s;
+}
+
+input.slide-square.small + label:after {
+	top: 2px;
+	left: 2px;
+	width: 19px;
+	height: 19px;
+}
+
+input.slide-square:checked + label:after {
+	background-color: #ec167e;
+	margin-left: 49px;
+}
+
+input.slide-square.small:checked + label:after {
+	margin-left: 37px;
 }
 
 /*========================================== */
@@ -1599,7 +1692,7 @@ main, .artworks {
 .login-header h2 {
 	color: #ffffff;
 	font-size: 2em;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 
@@ -1852,7 +1945,7 @@ textarea.bio {
 
 
 .signup-form select {
-	border-radius: 0px;
+	border-radius: 0px !important;
 	background-color: #ffffff;
 	border: 2px solid #000000;
 	color: #000000;
@@ -1965,12 +2058,10 @@ login-button.left {
 .edit-button:hover,
 .signup-button:hover,
 .login-button:hover {
-/*	box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22); */
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-ms-transition: all 0.3s;
-
 	background: #e73827;
 	background: -moz-linear-gradient(top, #e73827 0%, #ec167e 100%); /* Old Browsers */
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, #e73827), color-stop(100%, #ec167e)); /* FF3.6+ */
@@ -2303,7 +2394,7 @@ login-button.left {
 .left-form .image-upload-box {
 	border: 2px dashed #cccccc;
 	border-radius: 0px;
-	background: #eeeeee;
+	background-color: transparent;
 }
 
 .artwork-upload-box {
@@ -2431,6 +2522,7 @@ login-button.left {
 /*========================================== */
 
 /* Edit Artwork */
+
 .artwork-edit-dialog {
 	position: relative;
 	height: 100%;
@@ -2663,74 +2755,6 @@ login-button.left {
 
 /*========================================== */
 
-/* Context Menu */
-
-.react-context-menu {
-	width: 150px;
-	padding: 10px 0;
-	background-color: #ffffff;
-	outline: none;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.11);
-}
-
-.react-context-menu-item {
-	display: block;
-	height: 40px;
-	cursor: pointer;
-	transition: all 0.3s;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-}
-
-.react-context-menu-item:hover {
-	background: #ececec;
-}
-
-.context-icon-container {
-	display: inline-flex;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	float: left;
-}
-
-.context-icon-container img {
-	width:	20px;
-	opacity: 0.54;
-}
-
-.context-writing {
-	display: inline-block;
-	height: 40px;
-	width: 110px;
-	float: right;
-}
-
-.context-writing h3 {
-	margin: 10px 10px;
-	margin-right: 20px;
-	font-size: 16px;
-	font-weight: 600;
-	color: rgba(0,0,0, 0.87);
-}
-
-.cross {
-	transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-}
-
-/*========================================== */
-
 /* Tooltip */
 
 .tooltip {
@@ -2872,39 +2896,9 @@ login-button.left {
     -ms-transition: all 0.3s;
 }
 
-
-
 /*========================================== */
 
-/* Upload Page */
-
-.uploading {
-	text-align: center;
-}
-
-.uploading span {
-  -webkit-animation: blink 1.4s infinite both;
-  -moz-animation: blink 1.4s infinite both;
-  -ms-animation: blink 1.4s infinite both;
-  -o-animation: blink 1.4s infinite both;
-  animation: blink 1.4s infinite both;
-}
-
-.uploadng span:nth-child(2) {
-  -webkit-animation-delay: .2s;
-  -moz-animation-delay: .2s;
-  -ms-animation-delay: .2s;
-  -o-animation-delay: .2s;
-  animation-delay: .2s;
-}
-
-.uploading span:nth-child(3) {
-  -webkit-animation-delay: .4s;
-  -moz-animation-delay: .4s;
-  -ms-animation-delay: .4s;
-  -o-animation-delay: .4s;
-  animation-delay: .4s;
-}
+/* Upload Dialog */
 
 .dropzone-image-preview-container {
 	margin: 5px;
@@ -2987,10 +2981,6 @@ login-button.left {
 	text-align: center;
 	margin: 0;
 }
-
-/*========================================== */
-
-/* Upload Dialog */
 
 .upload-dialog-button {
 	width: 100%;
@@ -3100,7 +3090,7 @@ login-button.left {
 
 /*=======================================*/
 
-/* Public/Private Heading */
+/* Public/Private Heading in Edit Profile */
 
 .edit-profile-layout {
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
@@ -3343,6 +3333,7 @@ login-button.left {
 	top: 0px;
 	opacity: 1;
 	padding: 50px;
+	height: auto;
 	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   	display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -3356,24 +3347,14 @@ login-button.left {
 	-ms-justify-content: center;
 	-moz-justify-content: center;
 	justify-content: center;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-.edit-accordion #display-name-content.accordion-content.open,
-.edit-accordion #location-content.accordion-content.open,
-.edit-accordion #portfolio-content.accordion-content.open,
-.edit-accordion #legal-name-content.accordion-content.open,
-.edit-accordion #email-content.accordion-content.open,
-.edit-accordion #paypal-content.accordion-content.open {
-	height: 100px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .edit-accordion #email-content.accordion-content.open {
-	height: 200px;
 	padding: 40px;
 	flex-direction: column;
 }
@@ -3383,16 +3364,7 @@ login-button.left {
 	display: block;
 }
 
-.edit-accordion #bio-content.open {
-	height: 250px;
-}
-
-.edit-accordion #avatar-content.open {
-	height: 300px;
-}
-
 .edit-accordion #password-content.open {
-	height: 250px;
 	padding: 40px;
 	flex-direction: column;
 }
@@ -3403,12 +3375,7 @@ login-button.left {
 }
 
 .edit-accordion #age-content.open {
-	height: 220px;
 	flex-direction: column;
-}
-
-.edit-accordion #social-media-content.open {
-	height: 380px;
 }
 
 #age-content label {
@@ -3613,6 +3580,7 @@ login-button.left {
 
 #social-media-content ul li {
 	margin: 10px;
+	text-align: center;
 }
 
 #email-content ul li,
@@ -3772,25 +3740,93 @@ label.age-confirm-label {
 
 /*========================================== */
 
-/* Animations */
-
-/* Chrome, Safari, Opera */
-@-webkit-keyframes showAndHide {
-    0%   {opacity: 0;}
-    50% {opacity: 1;}
-	100%   {opacity: 0;}
-}
-
-/* Standard syntax */
-@keyframes showAndHide {
-	0%   {opacity: 0;}
-    50% {opacity: 1;}
-	100%   {opacity: 0;}
-}
-
-/*========================================== */
-
 /* Media Queries */
+/*
+	These are used to make styles responsive.
+	As screen width decreases, the styles change
+	to suit new screen width and size
+*/
+
+@media (max-width: 1410px) {
+	.album-banner-title {
+		font-size: 2em;
+	}
+
+	.album-banner-artist {
+		font-size: 1em;
+	}
+
+	.album-banner-date {
+		font-size: 0.9em;
+	}
+}
+
+@media (max-width: 1280px) {
+	.album-banner-preview-wrapper {
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+		width: 50%;
+		height: 200px;
+	}
+
+	.album-banner-preview {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+	    height: 100%;
+	}
+
+	.album-banner-details-wrapper {
+		position: relative;
+		vertical-align: top;
+		display: inline-block;
+		width: 50%;
+		height: 100%;
+		padding-top: 20px;
+	}
+
+	.album-banner-details {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		transition: all 0.3s linear 0.6s;
+		-webkit-transition: all 0.3s linear 0.6s;
+		-moz-transition: all 0.3s 0.6s;
+		-ms-transition: all 0.3s 0.6s;
+	}
+
+	.album-banner-description-wrapper {
+		display: block;
+		padding-top: 30px;
+		margin-left: 2%;
+		width: 100%;
+	}
+}
+
+@media (max-width: 990px) {
+	.album-banner-preview-wrapper {
+		display: none;
+	}
+
+	.album-banner-details-wrapper {
+		width: 100%;
+		height: auto;
+		padding-top: 0px;
+		text-align: center;
+	}
+
+	.album-banner-details {
+		position: relative;
+		left: 50%;
+	}
+
+	.album-banner-description-wrapper {
+		display: none;
+	}
+}
 
 @media (max-width: 880px) {
 
@@ -3809,6 +3845,15 @@ label.age-confirm-label {
 	.artwork-preview-wrapper {
 		width: 200px;
 		height: 200px;
+	}
+}
+
+@media (max-width: 850px) {
+	.status-wrapper {
+		display: block;
+		float: left;
+		width: 100%;
+		padding: 10px;
 	}
 }
 
@@ -4196,8 +4241,26 @@ label.age-confirm-label {
 
 /* Fonts */
 
+/*
+	Tekuma's official Font is Nexa.
+	This web application makes use of
+	the entire Nexa Font Family, namely:
 
-/* Duplicating Font */
+	- Nexa Black (800)
+	- Nexa Heavy (700)
+	- Nexa XBold (600)
+	- Nexa Bold (500)
+	- Nexa Nexa (400)
+	- Nexa Book (300)
+	- Nexa Light (200)
+	- Nexa Thin (100)
+
+	Each font weight has an accompanying Italic font.
+	If you wish to italicize writing, use the font instead of the <i></i> tag.
+
+	Similarly with bolding font, use a font with a thicker weight instead of the <b></b> tag.
+
+*/
 
 @font-face {
 font-family: Nexa;

@@ -57,7 +57,7 @@ export default class SignUpOne extends React.Component {
                                     <Dropzone
                                         className="image-upload-box"
                                         style={this.state.errorType.avatar ? avatarErrorStyle : null}
-                                        accept="image/*"
+                                        accept="image/png, image/jpeg"
                                         onDrop={this.onDrop}>
                                         <img
                                             style={{display: this.state.avatarUploaded  ? "none" : "block" }}

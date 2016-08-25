@@ -98,7 +98,6 @@ export default class ForgotPassword extends React.Component {
         this.setState({
             loginIsOpen: !this.state.loginIsOpen
         });
-        console.log("loginIsOpen is: ", this.state.loginIsOpen);
     }
 
     /**

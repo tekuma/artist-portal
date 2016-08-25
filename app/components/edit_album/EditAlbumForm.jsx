@@ -51,13 +51,14 @@ export default class EditAlbumForm extends React.Component {
                                         name        ="title"
                                         placeholder ="What is the name of this album?"
                                         defaultValue={this.props.value.name}
+                                        maxLength   ="50"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {name: e.target.value}))
                                         }} />
                                 </li>
                                 <li>
-                                    <label htmlFor="album-title">
+                                    <label htmlFor="album-artist">
                                         Artist
                                     </label>
                                     <input
@@ -66,8 +67,9 @@ export default class EditAlbumForm extends React.Component {
                                         id          ="album-artist"
                                         className   ="text-inputs"
                                         name        ="artist"
-                                        placeholder ="Who completed this collection of artworks?"
+                                        placeholder ="Who completed this album of artworks?"
                                         defaultValue={this.props.value.artist}
+                                        maxLength   ="50"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {artist: e.target.value}))
@@ -83,8 +85,10 @@ export default class EditAlbumForm extends React.Component {
                                         id          ="album-year"
                                         className   ="text-inputs"
                                         name        ="title"
-                                        placeholder ="Year collection completed?"
+                                        placeholder ="Year album completed?"
                                         defaultValue={this.props.value.year}
+                                        maxLength   ="4"
+                                        pattern="[0-9]*"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {year: e.target.value}))
@@ -112,6 +116,7 @@ export default class EditAlbumForm extends React.Component {
                                         style       ={this.props.errorType.description != undefined ? errorStyle : null}
                                         placeholder ="Give this album a short description..."
                                         value       ={this.props.value.description}
+                                        maxLength   ="1500"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {description: e.target.value}))

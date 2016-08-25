@@ -68,6 +68,7 @@ export default class EditArtworkForm extends React.Component {
                                 {colors.map(color => {
                                     return (
                                         <div
+                                            key     ={uuid.v4()}
                                             className="color-box"
                                             style={color}>
                                         </div>
@@ -92,6 +93,7 @@ export default class EditArtworkForm extends React.Component {
                                         name        ="title"
                                         placeholder ="What is the title of this artwork?"
                                         value       ={this.props.value.title}
+                                        maxLength   ="50"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldArtwork, {title: e.target.value}))
@@ -109,6 +111,7 @@ export default class EditArtworkForm extends React.Component {
                                         name        ="title"
                                         placeholder ="Who completed this artwork?"
                                         value       ={this.props.value.artist}
+                                        maxLength   ="50"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldArtwork, {artist: e.target.value}))
@@ -156,6 +159,8 @@ export default class EditArtworkForm extends React.Component {
                                         name        ="year"
                                         placeholder ="Year artwork was completed?"
                                         value       ={this.props.value.year}
+                                        maxLength   ="4"
+                                        pattern="[0-9]*"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldArtwork, {year: e.target.value}))
@@ -182,6 +187,7 @@ export default class EditArtworkForm extends React.Component {
                                         style       ={this.props.errorType.description != undefined ? errorStyle : null}
                                         placeholder ="Give this artwork a short description..."
                                         value       ={this.props.value.description}
+                                        maxLength   ="1500"
                                         onClick     ={clearErrors}
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldArtwork, {description: e.target.value}))

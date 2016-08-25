@@ -168,7 +168,7 @@ export default class ArtworkManager extends React.Component {
                                 : styleManagerClosed}
                 disableClick
                 className       ="artworks"
-                accept          ="image/*"
+                accept          ="image/png, image/jpeg"
                 onDrop          ={this.onDrop}
                 ref             ="dropzone"
                 >
@@ -238,7 +238,7 @@ export default class ArtworkManager extends React.Component {
                                         fixedWidth
                                 : styleManagerClosed}
                 className   ="artwork-upload-box"
-                accept      ="image/*"
+                accept      ="image/png, image/jpeg"
                 onDrop      ={this.onDrop}>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
@@ -286,7 +286,7 @@ export default class ArtworkManager extends React.Component {
                                         fixedWidth
                                 : styleManagerClosed}
                 className   ="artwork-upload-box"
-                accept      ="image/*"
+                accept      ="image/png, image/jpeg"
                 onDrop      ={this.onDrop}>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>

@@ -14,10 +14,18 @@ export default class HiddenNav extends React.Component {
         {
             id: uuid.v4(),
             item: 'Artworks',
-            icon: '../../assets/images/icons/canvas.svg',
+            icon: '../../assets/images/icons/organize-outline.svg',
             href:  Views.ARTWORKS,
             title: 'Manage Artworks'
-        },
+        }
+        ,
+        // {
+        //     id: uuid.v4(),
+        //     item: 'Gallery',
+        //     icon: '../../assets/images/logos/logo-white.svg',
+        //     href:  Views.REVIEW,
+        //     title: 'Manage Submitted Art'
+        // },
         {
             id: uuid.v4(),
             item: 'Profile',
@@ -25,6 +33,7 @@ export default class HiddenNav extends React.Component {
             href:  Views.PROFILE,
             title: 'Edit Profile'
         }
+<<<<<<< HEAD
         ,
         {
             id: uuid.v4(),
@@ -34,6 +43,8 @@ export default class HiddenNav extends React.Component {
             title: 'Review Submitted Collections'
         }
 
+=======
+>>>>>>> 1fab11ba18aff9c33b11bf398b04fce9229c2dbc
     ];
 
     constructor(props) {

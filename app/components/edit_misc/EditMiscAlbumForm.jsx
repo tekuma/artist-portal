@@ -35,7 +35,7 @@ export default class EditMiscAlbumForm extends React.Component {
                             <ul>
                                 <li><h3 className="edit-album-hint">Changes to fields will be transferred to album artworks, and will overwrite corresponding artwork fields.</h3></li>
                                 <li>
-                                    <label htmlFor="album-title">
+                                    <label htmlFor="album-artist">
                                         Artist
                                     </label>
                                     <input
@@ -43,14 +43,15 @@ export default class EditMiscAlbumForm extends React.Component {
                                         id          ="album-artist"
                                         className   ="text-inputs"
                                         name        ="artist"
-                                        placeholder ="Who completed this collection of artworks?"
+                                        placeholder ="Who completed this album of artworks?"
                                         defaultValue={this.props.value.artist}
+                                        maxLength   ="50"
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {artist: e.target.value}))
                                         }} />
                                 </li>
                                 <li>
-                                    <label htmlFor="album-title">
+                                    <label htmlFor="album-year">
                                         Year
                                     </label>
                                     <input
@@ -58,8 +59,10 @@ export default class EditMiscAlbumForm extends React.Component {
                                         id          ="album-year"
                                         className   ="text-inputs"
                                         name        ="title"
-                                        placeholder ="Year collection completed?"
+                                        placeholder ="Year album completed?"
                                         defaultValue={this.props.value.year}
+                                        maxLength   ="4"
+                                        pattern     ="[0-9]*"
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {year: e.target.value}))
                                         }} />
@@ -85,6 +88,7 @@ export default class EditMiscAlbumForm extends React.Component {
                                         id          ="album-description"
                                         placeholder ="Give this album a short description..."
                                         value       ={this.props.value.description}
+                                        maxLength   ="1500"
                                         onChange    ={(e) => {
                                             onChange(Object.assign({}, oldAlbum, {description: e.target.value}))
                                         }} />

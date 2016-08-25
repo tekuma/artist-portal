@@ -3,10 +3,11 @@ import React from 'react';
 /**
  * TODO
  */
-export default ({managerIsOpen, toggleManager, height, background}) => {
+export default ({managerIsOpen, toggleManager, height, float, background}) => {
     let componentStyle = {
         height: height,
-        background: background
+        float: float,
+        backgroundColor: background
     };
 
     let iconStyle = {
@@ -20,7 +21,15 @@ export default ({managerIsOpen, toggleManager, height, background}) => {
             <div
                 onClick     ={toggleManager}
                 style       ={iconStyle}
-                className   ={managerIsOpen ? "manager-icon-wrapper toggle-manager" : "manager-icon-wrapper toggle-manager closed"}>
+                className   ={
+                    float == "left" ?
+                        managerIsOpen ?
+                            "manager-icon-wrapper toggle-manager" :
+                            "manager-icon-wrapper toggle-manager closed"
+                        :
+                        managerIsOpen ?
+                            "manager-icon-wrapper review toggle-manager" :
+                            "manager-icon-wrapper review toggle-manager closed"}>
                 <svg
                     version="1.1"
                     id="manager-icon"

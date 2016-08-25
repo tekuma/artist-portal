@@ -222,7 +222,8 @@ export default class PostAuth extends React.Component {
      */
     toggleNav = () => {
         this.setState({
-            navIsOpen: !this.state.navIsOpen
+            navIsOpen: !this.state.navIsOpen,
+            managerIsOpen: true
         });
     };
 

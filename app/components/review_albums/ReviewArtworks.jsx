@@ -2,7 +2,6 @@
 import React                        from 'react';
 import ReactDOM                     from 'react-dom';
 import firebase                     from 'firebase';
-import TweenMax                     from 'gsap';
 
 // Files
 import ReviewArtwork from '../artwork_manager/ReviewArtwork';
@@ -22,34 +21,36 @@ export default class ReviewArtworks extends React.Component {
 
     render() {
         let styleManagerClosed = {
-            width: window.innerWidth * 0.75 - 40,
-            height: window.innerHeight - 60 - 285
+            left: 40,
+            width: window.innerWidth * 0.25 + 236 - 40, // 25vw (Album Manager) + 236px (Artworks) + - 40 (AlbumToggler)
+            height: window.innerHeight - 60
         };
 
         let styleManagerOpen = {
-            width: window.innerWidth * 0.5,  // Album Manager is 30% of Screen
-            height: window.innerHeight - 60 - 285
+            width: 236,
+            height: window.innerHeight - 60
         };
 
         let styleLargeScreen = {
-            width: window.innerWidth * 0.75 - 440,
-            height: window.innerHeight - 60 - 285
+            width: window.innerWidth * 0.25 + 236 - 400, // 25vw (Album Manager) + 236px (Artworks) + - 400 (ReviewAlbumManager),
+            height: window.innerHeight - 60,
+            left: 400
         };
 
         let styleSmallScreen = {
-            width: window.innerWidth * 0.75 - 250,
-            height: window.innerHeight - 60 - 285
+            width: 236,
+            height: window.innerHeight - 60
         };
 
         let fixedWidth = {
-            width: window.innerWidth * 0.75,
-            height: window.innerHeight - 60 - 285
+            width: 236,
+            height: window.innerHeight - 60
         };
 
         return (
             <section
                 style={this.props.managerIsOpen ?
-                            (window.innerWidth * 0.25 > 440) ?
+                            (window.innerWidth * 0.25 > 400) ?
                                 styleLargeScreen :
                                 (window.innerWidth * 0.25 > 250) ?
                                     styleManagerOpen :
@@ -62,20 +63,12 @@ export default class ReviewArtworks extends React.Component {
                 <ReviewArtwork />
                 <ReviewArtwork />
                 <ReviewArtwork />
-                <ReviewArtwork />
-                <ReviewArtwork />
-                <ReviewArtwork />
-                <ReviewArtwork />
-                <ReviewArtwork />
-                <ReviewArtwork />
             </section>
         );
     }
 
     componentDidMount() {
         console.log("+++++ReviewArtworks");
-        const el = ReactDOM.findDOMNode(this);
-        TweenMax.fromTo(el, 0.2, {bottom: "-1000px"}, {bottom: "0px"}).delay(0.3);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -83,7 +76,5 @@ export default class ReviewArtworks extends React.Component {
     }
 
     componentWillUnmount () {
-        const el = ReactDOM.findDOMNode(this);
-        TweenMax.fromTo(el, 0.2, {bottom: "0px"}, {bottom: "-1000px"});
     }
 }
