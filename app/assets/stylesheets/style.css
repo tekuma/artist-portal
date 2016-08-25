@@ -4357,3 +4357,102 @@ font-family: "Nexa Italic";
 src: url(../fonts/nexa/Nexa-Thin-Italic.ttf);
 font-weight: 100;
 }
+
+
+/* ====================================== */
+
+#search-bar {
+	position: absolute;
+	top: 0px;
+	right: 120px;
+	width: 220px;
+	height: 60px;
+	overflow: hidden;
+	transition: width 0.5s;
+	-webkit-transition: width 0.5s;
+	-moz-transition: width 0.5s;
+	-ms-transition: width 0.5s;
+	-webkit-backface-visibility: hidden;
+}
+
+#search-bar form {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+}
+
+input[type=search].search-input {
+	position: absolute;
+	top: 12px;
+	border: solid 1px #444444;
+	outline: none;
+	background: #3b3b3b;
+	width: 220px;
+	height: 36px;
+	margin: 0;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-family: inherit;
+	font-size: 0.8em;
+	font-weight: 400;
+	color: #ffffff;
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+	-ms-appearance: textfield;
+	appearance: textfield;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+	display: none;
+}
+
+#search-icon,
+.search-submit  {
+	width: 60px;
+	height: 60px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+	line-height: 60px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.search-submit {
+	background: #fff; /* IE needs this */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
+    filter: alpha(opacity=0); /* IE 5-7 */
+    opacity: 0;
+	color: transparent;
+	border: none;
+	outline: none;
+	z-index: -1;
+}
+
+.search-div {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+}

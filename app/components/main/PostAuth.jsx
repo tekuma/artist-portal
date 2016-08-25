@@ -103,7 +103,8 @@ export default class PostAuth extends React.Component {
                     editPrivateUserInfo       ={this.editPrivateUserInfo}
                     toggleDeleteAccountDialog ={this.toggleDeleteAccountDialog}
                     toggleVerifyEmailDialog   ={this.toggleVerifyEmailDialog}
-                    changeArtworkAlbum        ={this.changeArtworkAlbum} />
+                    changeArtworkAlbum        ={this.changeArtworkAlbum}
+                    searchArtistUID           ={this.searchArtistUID} />
                 <EditArtworkDialog
                     user={this.state.user}
                     albums={this.state.albums}
@@ -154,6 +155,7 @@ export default class PostAuth extends React.Component {
     componentDidMount() {
         console.log("++++++PostAuth");
         const thisUID   = firebase.auth().currentUser.uid;
+//test        const thisUID   = "8tE7BuOm2mOThh70J4EWxBrr0Jh1";
         const  userPath = `public/onboarders/${thisUID}`;
         const userPrivatePath = `_private/onboarders/${thisUID}`;
 
@@ -1050,4 +1052,9 @@ export default class PostAuth extends React.Component {
         });
 
     }
+
+    searchArtistUID = (artistUID) => {
+      console.log(artistUID);
+    }
+
 }

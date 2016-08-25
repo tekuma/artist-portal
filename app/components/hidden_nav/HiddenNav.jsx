@@ -33,18 +33,6 @@ export default class HiddenNav extends React.Component {
             href:  Views.PROFILE,
             title: 'Edit Profile'
         }
-<<<<<<< HEAD
-        ,
-        {
-            id: uuid.v4(),
-            item: 'Submissions',
-            icon: '../../assets/images/icons/submit.svg',
-            href:  Views.REVIEW,
-            title: 'Review Submitted Collections'
-        }
-
-=======
->>>>>>> 1fab11ba18aff9c33b11bf398b04fce9229c2dbc
     ];
 
     constructor(props) {

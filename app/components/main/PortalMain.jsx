@@ -61,6 +61,7 @@ export default class PortalMain extends React.Component {
                 <PostAuthHeader
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
+                    searchArtistUID  ={this.props.searchArtistUID}
                     />
                 <ArtworksAlbumManager
                     thumbnail              ={this.props.thumbnail}

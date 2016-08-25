@@ -6,21 +6,55 @@ import React from 'react';
  * @param  {[type]} toggleSearch} [description]
  * @return {[type]}               [description]
  */
-export default ({searchOpen, toggleSearch}) => {
-    return (
-        <div id="search-bar"
-            className={searchOpen ? "header-icon search-open" : "header-icon"}
-            data-tip="Search for artworks">
-            <form>
-                <input className="search-input"
-                    placeholder="Search Artworks..."
-                    type="search" name="search" id="search"
-                    autoFocus={true} />
-                <input onClick={toggleSearch} className="search search-submit" type="submit" value="" />
-                <div onClick={toggleSearch} className="search-div search">
-                    <img onClick={toggleSearch} id="search-icon" src="assets/images/icons/search.svg" />
+export default class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        console.log("-----SearchBar");
+    }
+
+    render() {
+
+        return (
+            <div>
+                <div id="search-bar">
+                    <form>
+                        <input
+                            ref="searchTerm"
+                            className="search-input"
+                            placeholder="Search by artist, title, tag ..."
+                            type="search" name="search" id="search"
+                            autoFocus={true}
+                          //  onBlur = {this.finishEdit}
+                            onKeyPress = {this.checkEnter} />
+                    </form>
                 </div>
-            </form>
-        </div>
-    );
+            </div>
+        );
+    }
+
+    componentDidMount() {
+        console.log("+++++SearchBar");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //Pass
+    }
+
+    // ------------ METHODS -------------
+    search = () => {
+        let searchTerm = this.refs.searchTerm.value;
+        this.props.setSearchTerm(searchTerm);
+    }
+
+    checkEnter = (e) => {
+         // The user hit *enter*, let's finish up.
+         let searchTerm = this.refs.searchTerm.value;
+         if(e.key === 'Enter') {
+             e.preventDefault();
+             this.props.searchArtistUID(searchTerm);
+         }
+     };
 }

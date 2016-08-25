@@ -63,6 +63,8 @@ export default class PostAuthHeader extends React.Component {
 
                 	</div>
                 	<div className="header-icons">
+                        <SearchBar
+                            searchArtistUID = {this.props.searchArtistUID} />
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
                 	    	<div
                                 className="header-icon"
@@ -72,6 +74,7 @@ export default class PostAuthHeader extends React.Component {
                                 <img src='assets/images/icons/plus-pink.svg' />
                 	    	</div>
                         </OverlayTrigger>
+
                         <OverlayTrigger placement="bottom" overlay={organizeTooltip}>
                 	    	<div
                                 className="header-icon"
