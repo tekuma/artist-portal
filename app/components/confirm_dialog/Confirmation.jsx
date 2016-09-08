@@ -11,7 +11,7 @@ import ConfirmButton    from './ConfirmButton';
 /**
  * TODO
  */
-export default class Confirmation extends React.Component {
+class Confirmation extends React.Component {
     constructor(props) {
         super(props);
     }

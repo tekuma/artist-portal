@@ -324,6 +324,22 @@ export default class PostAuth extends React.Component {
 
     //  # Uploading Methods
 
+    submitJob = (path, artworkUID) => {
+        let url      = firebase.database().ref('jobs').push();
+        let jobID    = url.path.o[1];
+        console.log(jobID);
+        let job = {
+            uid: firebase.auth().currentUser.uid,
+            file_path: path,
+            job_id: jobID,
+            complete: false,
+            bucket: "art-uploads",
+            name: artworkUID
+        }
+        let jobPath = `jobs/${jobID}`;
+        firebase.database().ref(jobPath).set(job);
+    }
+
     /**
      * This method takes in a blob object that a user has uploaded, then
      * -uploads the original file to gs:"portal/{user uid}/uploads"
@@ -349,6 +365,11 @@ export default class PostAuth extends React.Component {
         //*Store the original upload, un-changed.
         let uploadPath = `portal/${thisUID}/uploads/${artworkUID}`;
         const fullRef  = firebase.storage().ref(uploadPath);
+
+        // Add node to 'uploads' stack for back-end processing
+
+        this.submitJob(uploadPath, artworkUID);
+
         fullRef.put(blob).on(
             firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot)=>{ //on-event change

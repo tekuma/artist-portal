@@ -7,7 +7,7 @@ import Confirmation           from './Confirmation';
 /**
  * TODO
  */
-export default function(confirmation, options = {}) {
+export default (confirmation, options = {})=> {
     // Create Confirm Function
     const confirm = createConfirmation(Confirmation);
 
