@@ -1,12 +1,15 @@
-![TEKUMA](https://artist.tekuma.io/logos/logo.png)
-
 Tekuma Artist Portal
 =====================
 ### **NOTE** This app is still in *closed* BETA
-
 ##  v0.2  (beta 2)
 
-[logo]:https://artist.tekuma.io/logos/logo.png
+## App Structure and Terms
+The "user" of artist.tekuma.io is an _Artist_ .
+An _Artist_ has multiple _Roles_, which can be viewed in the left-side _HiddenNav_ Menu. 
+Currently, the _Artist's_ only _Roles_ are: 
+- _Artworks_ a place to onboard artworks. (should be re-named)
+- _Profile_  a place to manage an _Artist's_ information
+
 
 NOTE: This README assumes you have authenticated with Google Firebase,
 and have the Firebase Command Line Interface (CLI) installed.
@@ -60,11 +63,10 @@ To deploy to 'https://artist.tekuma.io' simply :
 `firebase deploy -m "Message here"`
 
  from the root of the project directory.
+ 
+ ####  Helpful Links
 
- #### Technical Stuff
-
- Nearly all of this app is managed through
- Google Firebase, which is a sub-branch of Google Cloud.
+This app is contained within a Google Cloud/Firebase Project.
 
  The cloud project can be managed through:
  'https://console.cloud.google.com/home/dashboard?project=artist-tekuma-4a697'
@@ -76,4 +78,4 @@ To deploy to 'https://artist.tekuma.io' simply :
 
  And, as uploaded artworks are rich and detailed files, all images rendered inside of the UX are rendered through an image processing and image CDN known as Cloudinary. Cloudinary can be managed via:
 
- 'https://cloudinary.com/console'
+'https://cloudinary.com/console'
