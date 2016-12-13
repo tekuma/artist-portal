@@ -37,7 +37,7 @@ var config = {
     storageBucket: "art-uploads"
 };
 
-// // ====== Staging ======
+// // ====== Staging ======  // "dev-artist-portal"
 // var config = {
 //     apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
 //     authDomain: "project-7614141605200030275.firebaseapp.com",
@@ -339,9 +339,6 @@ export default class App extends React.Component {
                 pinterest   : "",
                 behance     : ""
             };
-
-        //FIXME do this with a forloop and .hasOwnProperty()
-        //Check for info Submitted, if so override defaults
 
         if (this.state.reg.bio) {
            bio = this.state.reg.bio;
