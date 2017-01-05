@@ -6,9 +6,9 @@ import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 import update                       from 'react-addons-update';
 
 // Files
-import MiscAlbum   from './MiscAlbum';
-import Album          from './Album';
-import ItemTypes      from '../../constants/itemTypes';
+import MiscAlbum  from './MiscAlbum';
+import Album      from './Album';
+import ItemTypes  from '../../constants/itemTypes';
 
 /**
  * TODO
@@ -52,6 +52,7 @@ export default class Albums extends React.Component {
         return (
             <ul style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} className="album-locker right">
                 <MiscAlbum
+                    paths={this.props.paths}
                     user               ={this.props.user}
                     uploads            ={this.props.uploads}
                     thumbnail          ={this.props.thumbnail}
@@ -64,6 +65,7 @@ export default class Albums extends React.Component {
                 {albumArray.map(album => {
                     return (
                         <Album
+                            paths={this.props.paths}
                             key                 ={album.id}
                             album               ={album}
                             user                ={this.props.user}
@@ -87,16 +89,17 @@ export default class Albums extends React.Component {
 
 // ============= Methods ===============
 
+    /**
+     * Handles array operations of changing position of an album.
+     * @param  {Obj} source [description]
+     * @param  {Obj} target [description]
+     */
     moveAlbum = (source, target) => {
-        console.log("Entered move");
-        const thisUID = firebase.auth().currentUser.uid;
-        const albumPath = `public/onboarders/${thisUID}/albums`;
-        const albumRef = firebase.database().ref(albumPath);
-
-        albumRef.transaction((data) => {
+        const albumRef = firebase.database().ref(this.props.paths.albums);
+        albumRef.transaction( (data)=>{
             let sourceIndex = source['album']['id'];
             let targetIndex = target['id'];
-            let sourceData = data[sourceIndex];
+            let sourceData  = data[sourceIndex];
 
             let albums = update(data, {
                 $splice: [[sourceIndex, 1],[targetIndex, 0, sourceData]]

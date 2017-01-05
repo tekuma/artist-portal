@@ -24,12 +24,6 @@ import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
 
 
-// ====== Global Variables ======
-const colorCount            = 64;  // ->amount of possible color swatches to start with when
-                                   // determining dominant vibrant and muted colors (64 default)
-const paletteDownscaling    = 1 ;  // how much to downscale the image before processing.
-                                   //  1 means no downscaling, 5 is default.
-
 /**
  * TODO
  */
@@ -72,6 +66,7 @@ export default class PostAuth extends React.Component {
         return (
             <div className="app">
                 <HiddenNav
+                    paths={this.state.paths}
                     user           ={this.state.user}
                     thumbnail      ={this.props.thumbnail}
                     navIsOpen      ={this.state.navIsOpen}
@@ -81,6 +76,7 @@ export default class PostAuth extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
+                    paths={this.state.paths}
                     thumbnail                 ={this.props.thumbnail}
                     user                      ={this.state.user}
                     userPrivate               ={this.state.userPrivate}
@@ -107,6 +103,7 @@ export default class PostAuth extends React.Component {
                     toggleVerifyEmailDialog   ={this.toggleVerifyEmailDialog}
                     changeArtworkAlbum        ={this.changeArtworkAlbum} />
                 <EditArtworkDialog
+                    paths={this.state.paths}
                     user={this.state.user}
                     albums={this.state.albums}
                     albumNames={this.state.albumNames}
@@ -116,12 +113,14 @@ export default class PostAuth extends React.Component {
                     thumbnail={this.props.thumbnail}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <EditAlbumDialog
+                    paths={this.state.paths}
                     user={this.state.user}
                     editAlbumIsOpen={this.state.editAlbumIsOpen}
                     toggleEditAlbumDialog={this.toggleEditAlbumDialog}
                     updateAlbum={this.updateAlbum}
                     currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
                 <EditMiscAlbumDialog
+                    paths={this.state.paths}
                     user={this.state.user}
                     editMiscAlbumIsOpen={this.state.editMiscAlbumIsOpen}
                     toggleEditMiscAlbumDialog={this.toggleEditMiscAlbumDialog}
@@ -155,6 +154,8 @@ export default class PostAuth extends React.Component {
 
     componentDidMount() {
         console.log("++++++PostAuth");
+        //NOTE this path is explicit, as it is the root call.
+        
         const thisUID   = firebase.auth().currentUser.uid;
         const userPath  = `public/onboarders/${thisUID}`;
         const userPrivatePath = `_private/onboarders/${thisUID}`;
@@ -213,7 +214,6 @@ export default class PostAuth extends React.Component {
 
 // -------------- METHODS -------------- //
 
-
     setActingUser = (uid) => {
         if (firebase.auth().currentUser.uid != uid) {
             if (this.state.user.admin){ // Must be admin to impersonate other uid
@@ -243,7 +243,6 @@ export default class PostAuth extends React.Component {
         }
 
     }
-
 
     //  # Toggle Methods
 

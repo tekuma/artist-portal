@@ -1,23 +1,20 @@
 // Libs
 import React             from 'react';
 import firebase          from 'firebase';
-import TransitionGroup from 'react-addons-transition-group';
-
-
+import TransitionGroup   from 'react-addons-transition-group';
 //Files
 import PostAuthHeader    from '../headers/PostAuthHeader';
-import ArtworksAlbumManager      from '../album_manager/ArtworksAlbumManager';
-import ReviewAlbumManager      from '../album_manager/ReviewAlbumManager';
+import ArtworksAlbumManager from '../album_manager/ArtworksAlbumManager';
+import ReviewAlbumManager   from '../album_manager/ReviewAlbumManager';
 import ReviewArtworkInfo from '../review_albums/ReviewArtworkInfo';
-import ReviewArtworks from '../review_albums/ReviewArtworks';
+import ReviewArtworks    from '../review_albums/ReviewArtworks';
 import ArtworkManager    from '../artwork_manager/ArtworkManager';
 import EditProfile       from '../edit_profile/EditProfile';
 import Views             from '../../constants/Views';
 
 
 export default class PortalMain extends React.Component {
-    state = {
-    };
+    state = {};
 
     constructor(props) {
         super(props);
@@ -46,24 +43,25 @@ export default class PortalMain extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //TODO
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.rerender);
     }
 
-// ============= Flow Control ===============
+// ============= Render Control ===============
 
     goToArtworkManager = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    paths={this.props.paths}
                     user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <ArtworksAlbumManager
+                    paths={this.props.paths}
                     thumbnail              ={this.props.thumbnail}
                     user                   ={this.props.user}
                     userPrivate            ={this.props.userPrivate}
@@ -79,6 +77,7 @@ export default class PortalMain extends React.Component {
                     changeArtworkAlbum     ={this.props.changeArtworkAlbum}
                     />
                 <ArtworkManager
+                    paths={this.props.paths}
                     thumbnail                ={this.props.thumbnail}
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
@@ -102,11 +101,13 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    paths={this.props.paths}
                     setUploadedFiles={this.props.setUploadedFiles}
                     user={this.props.user}
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="edit-profile-layout">
                     <EditProfile
+                        paths={this.props.paths}
                         user                      ={this.props.user}
                         thumbnail                 ={this.props.thumbnail}
                         userPrivate               ={this.props.userPrivate}
@@ -128,14 +129,16 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    paths={this.props.paths}
                     user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <ReviewAlbumManager
-                    currentAlbum       ={this.props.currentAlbum}
-                    changeAlbum        ={this.props.changeAlbum}
-                    currentAppLayout   ={this.props.currentAppLayout}
+                    paths={this.props.paths}
+                    currentAlbum    ={this.props.currentAlbum}
+                    changeAlbum     ={this.props.changeAlbum}
+                    currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
                 <TransitionGroup>

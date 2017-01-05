@@ -184,6 +184,7 @@ export default class ArtworkManager extends React.Component {
                 {album.map(artwork => {
                     return (
                         <Artwork
+                            paths={this.props.paths}
                             thumbnail   ={this.props.thumbnail}
                             currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
@@ -328,13 +329,18 @@ export default class ArtworkManager extends React.Component {
         );
     }
 
+    /**
+     * [move description]
+     * @param  {[type]} albumName [description]
+     * @param  {[type]} sourceId  [description]
+     * @param  {[type]} targetId  [description]
+     */
     move = (albumName ,sourceId, targetId) => {
-        console.log("Entered move");
-        console.log("Source ID: ", sourceId);
-        console.log("Target ID: ", targetId);
-        const thisUID = firebase.auth().currentUser.uid;
-        const albumPath = `public/onboarders/${thisUID}/albums`;
-        const albumRef = firebase.database().ref(albumPath);
+        // console.log("Entered move");
+        // console.log("Source ID: ", sourceId);
+        // console.log("Target ID: ", targetId);
+
+        const albumRef  = firebase.database().ref(this.props.paths.albums);
 
         albumRef.transaction((data) => {
             let albumIndex;
@@ -386,6 +392,10 @@ export default class ArtworkManager extends React.Component {
         });
     }
 
+    /**
+     * [onDrop description]
+     * @param  {[type]} files [description]
+     */
     onDrop = (files) => {
         if (files.length == 0) {
             return;
