@@ -24,6 +24,24 @@ export default class PostAuthHeader extends React.Component {
     }
 
     render() {
+        if (this.props.user.isAdmin) {
+            return this.renderAdmin();
+        } else {
+            return this.renderNormal();
+        }
+    }
+
+    componentDidMount() {
+        console.log("+++++PostAuthHeader");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //Pass
+    }
+
+    // ------------ METHODS -------------
+
+    renderAdmin = () => {
         const addArtworkTooltip = (
             <Tooltip
                 id="add-artwork-tooltip"
@@ -31,7 +49,6 @@ export default class PostAuthHeader extends React.Component {
                 Upload artworks
             </Tooltip>
         );
-
         const organizeTooltip = (
             <Tooltip
                 id="organize-tooltip"
@@ -40,10 +57,10 @@ export default class PostAuthHeader extends React.Component {
             </Tooltip>
         );
 
-        return (
+        return(
             <div>
                 <header className="black">
-                	<div
+                    <div
                         className="tekuma-logo"
                         onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                         onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
@@ -61,28 +78,99 @@ export default class PostAuthHeader extends React.Component {
                         </g>
                       </svg>
 
-                	</div>
-                	<div className="header-icons">
+                    </div>
+                    <div className="header-icons">
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
-                	    	<div
+                            <div
                                 className="header-icon"
                                 onClick={this.onOpenClick}
                                 onTouchTap={this.onOpenClick}
                                 >
                                 <img src='assets/images/icons/plus-pink.svg' />
-                	    	</div>
+                            </div>
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={organizeTooltip}>
-                	    	<div
+                            <div
                                 className="header-icon"
                                 onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                                 onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                                 >
                                 <img src='assets/images/icons/organize.svg' />
-                	    	</div>
+                            </div>
                         </OverlayTrigger>
-            	    </div>
-            	</header>
+                    </div>
+                </header>
+                <Dropzone
+                    style={{display: "none"}}
+                    accept="image/png, image/jpeg"
+                    disableClick
+                    onDrop={this.onDrop}
+                    ref="dropzone">
+                </Dropzone>
+            </div>
+        );
+
+    }
+
+    renderNormal = () => {
+        const addArtworkTooltip = (
+            <Tooltip
+                id="add-artwork-tooltip"
+                className="tooltip">
+                Upload artworks
+            </Tooltip>
+        );
+        const organizeTooltip = (
+            <Tooltip
+                id="organize-tooltip"
+                className="tooltip">
+                Organize artworks
+            </Tooltip>
+        );
+
+        return(
+            <div>
+                <header className="black">
+                    <div
+                        className="tekuma-logo"
+                        onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                        onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                  >
+                      <svg version="1.0" id="tekuma-logo-image-small" x="0px" y="0px" viewBox="0 0 1000 1000">
+                        <g>
+                            <g>
+                                <rect x="56.8" y="57.4" width="886.3" height="886.3"/>
+                                <rect x="322.7" y="323.3" width="354.5" height="354.5"/>
+                                <line x1="677.3" y1="323.3" x2="943.2" y2="57.4"/>
+                                <line x1="322.7" y1="323.3" x2="56.8" y2="57.4"/>
+                                <line x1="322.7" y1="677.9" x2="56.8" y2="943.8"/>
+                                <line x1="677.3" y1="677.9" x2="943.2" y2="943.8"/>
+                            </g>
+                        </g>
+                      </svg>
+
+                    </div>
+                    <div className="header-icons">
+                        <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
+                            <div
+                                className="header-icon"
+                                onClick={this.onOpenClick}
+                                onTouchTap={this.onOpenClick}
+                                >
+                                <img src='assets/images/icons/plus-pink.svg' />
+                            </div>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="bottom" overlay={organizeTooltip}>
+                            <div
+                                className="header-icon"
+                                onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                                onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
+                                >
+                                <img src='assets/images/icons/organize.svg' />
+                            </div>
+                        </OverlayTrigger>
+                    </div>
+                </header>
                 <Dropzone
                     style={{display: "none"}}
                     accept="image/png, image/jpeg"
@@ -94,15 +182,6 @@ export default class PostAuthHeader extends React.Component {
         );
     }
 
-    componentDidMount() {
-        console.log("+++++PostAuthHeader");
-    }
-
-    componentWillReceiveProps(nextProps) {
-        //Pass
-    }
-
-    // ------------ METHODS -------------
 
     /**
      * TODO

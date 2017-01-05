@@ -56,8 +56,6 @@ cloudinary.config({
 });
 
 //  # Global Variables
-const userPath  = 'public/onboarders/';
-
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb auth
@@ -348,7 +346,8 @@ export default class App extends React.Component {
         }
         if (this.state.reg.portfolio) {
            portfolio = this.state.reg.portfolio;
-        }
+       }
+
         if (this.state.reg.display_name) {
            display_name = this.state.reg.display_name;
         }

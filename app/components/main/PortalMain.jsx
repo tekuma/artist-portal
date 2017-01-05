@@ -59,6 +59,7 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
@@ -102,6 +103,7 @@ export default class PortalMain extends React.Component {
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
                     setUploadedFiles={this.props.setUploadedFiles}
+                    user={this.props.user}
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="edit-profile-layout">
                     <EditProfile
@@ -126,6 +128,7 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
