@@ -69,6 +69,8 @@ export default class PostAuthHeader extends React.Component {
 
                     <div className="admin-selector">
                         <AdminSelector
+                            setActingUID={this.props.setActingUID}
+                            setActingUser={this.props.setActingUser}
                             artists={this.state.artists}
                             actingUID={this.props.actingUID}
                             />

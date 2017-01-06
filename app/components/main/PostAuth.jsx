@@ -76,6 +76,7 @@ export default class PostAuth extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
+                    setActingUID={this.setActingUID}
                     setActingUser={this.setActingUser}
                     actingUID={this.state.actingUID}
                     paths={this.state.paths}
@@ -157,52 +158,9 @@ export default class PostAuth extends React.Component {
     componentDidMount() {
         console.log("++++++PostAuth");
         //NOTE this path is explicit, as it is the root call.
-
-        const thisUID   = firebase.auth().currentUser.uid;
-        const userPath  = `public/onboarders/${thisUID}`;
-        const userPrivatePath = `_private/onboarders/${thisUID}`;
-
-        //NOTE: MAIN LISTENER FOR CONNECTION TO firebase
-        // these 2 on-methods listen for any change to the database and
-        // trigger a re-render on 'value'
-        firebase.database().ref(userPath).on('value', (snapshot)=>{
-            this.setState({
-                user:snapshot.val()
-            });
-            console.log("FIREBASE: user info updated");
-            // At this point, the user object is loaded.
-            this.setActingUser(thisUID);
-        }, (error)=>{
-            console.error(error);
-            this.setState({
-                currentError: error.message
-            });
-
-            setTimeout(() => {
-                this.setState({
-                    currentError: ""
-                });
-            }, 4500);   // Clear error once it has been shown
-        }, this);
-
-        firebase.database().ref(userPrivatePath).on('value', (snapshot)=>{
-            this.setState({
-                userPrivate:snapshot.val()
-            });
-            this.forceUpdate(); //FIXME in theory this line is un-needed.
-        }, (error)=>{
-            console.error(error);
-            this.setState({
-                currentError: error.message
-            });
-
-            setTimeout(() => {
-                this.setState({
-                    currentError: ""
-                });
-            }, 4500);   // Clear error once it has been shown
-        }, this);
-
+        let realUID = firebase.auth().currentUser.uid;
+        this.setState({actingUID:realUID});
+        this.fetchUser(realUID);
         this.props.clearVerifyEmailMessage(); // Closes verify email snackbar message if manual registration
     }
 
@@ -223,8 +181,10 @@ export default class PostAuth extends React.Component {
     setActingUser = (uid) => {
         if (firebase.auth().currentUser.uid != uid) {
             if (this.state.user.isAdmin){ // Must be admin to impersonate other uid
+                console.log("setting user...");
                 let paths = {
                     user   :`public/onboarders/${uid}`,
+                    priv   :`_private/onboarders/${uid}`,
                     art    :`public/onboarders/${uid}/artworks/`,
                     uploads:`portal/${uid}/uploads/`,
                     avatars:`portal/${uid}/avatars/`,
@@ -239,6 +199,7 @@ export default class PostAuth extends React.Component {
         } else { // Acting as themselve
             let paths = {
                 user   :`public/onboarders/${uid}`,
+                priv   :`_private/onboarders/${uid}`,
                 art    :`public/onboarders/${uid}/artworks/`,
                 uploads:`portal/${uid}/uploads/`,
                 avatars:`portal/${uid}/avatars/`,
@@ -247,9 +208,73 @@ export default class PostAuth extends React.Component {
             }
             this.setState({paths:paths});
         }
-
+        this.fetchUser(uid);
     }
 
+    /**
+     * [setActingUID description]
+     * @param {Array} artist []
+     */
+    setActingUID = (artist)=>{
+        console.log("Selected Artist => ", artist);
+        let uid;
+        if (artist === null) { // when selector is cleared
+            uid = firebase.auth().currentUser.uid;
+        } else {
+            uid = artist.id;
+        }
+
+        this.setState({actingUID:uid}); //update state
+        this.setActingUser(uid); //update paths
+    }
+
+    fetchUser = (uid) =>{
+        //NOTE: MAIN LISTENER FOR CONNECTION TO firebase
+        // these 2 on-methods listen for any change to the database and
+        // trigger a re-render on 'value'
+        if (uid) {
+            let userPath = `public/onboarders/${uid}`;
+            let privPath = `_private/onboarders/${uid}`;
+
+            firebase.database().ref(userPath).on('value', (snapshot)=>{
+                this.setState({
+                    user:snapshot.val()
+                });
+                console.log("FIREBASE: user info updated");
+                // At this point, the user object is loaded.
+            }, (error)=>{
+                console.error(error);
+                this.setState({
+                    currentError: error.message
+                });
+                setTimeout(() => {
+                    this.setState({
+                        currentError: ""
+                    });
+                }, 4500);   // Clear error once it has been shown
+            }, this);
+
+            firebase.database().ref(privPath).on('value', (snapshot)=>{
+                this.setState({
+                    userPrivate:snapshot.val()
+                });
+                this.forceUpdate(); //FIXME in theory this line is un-needed.
+            }, (error)=>{
+                console.error(error);
+                this.setState({
+                    currentError: error.message
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        currentError: ""
+                    });
+                }, 4500);   // Clear error once it has been shown
+            }, this);
+        }
+        console.log("Fetching => ", uid);
+
+    }
     //  # Toggle Methods
 
     /**

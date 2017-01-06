@@ -51,10 +51,12 @@ export default class PortalMain extends React.Component {
 
 // ============= Render Control ===============
 
+    //NOTE: PostAuthHeader has 3 declarations
     goToArtworkManager = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID={this.props.setActingUID}
                     setActingUser={this.props.setActingUser}
                     actingUID={this.props.actingUID}
                     paths={this.props.paths}
@@ -103,6 +105,7 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID={this.props.setActingUID}
                     setActingUser={this.props.setActingUser}
                     actingUID={this.props.actingUID}
                     paths={this.props.paths}
@@ -133,6 +136,7 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID={this.props.setActingUID}
                     actingUID={this.props.actingUID}
                     setActingUser={this.props.setActingUser}
                     paths={this.props.paths}

@@ -8,9 +8,10 @@
         ".read" : "auth.uid != null",
         "onboarders" :{
             "$thisUID" :{
-                ".write" :"auth.uid === $thisUID",
+                ".write" :"auth.uid === $thisUID || auth.uid === 'cacxZwqfArVzrUXD5tn1t24OlJJ2' ",
+
             }
-        },
+        }
     },
 
     // Set rules for Private branch
@@ -19,10 +20,12 @@
         "onboarders": {
             "$thisUID" : {
                 ".write" :"auth.uid === $thisUID",
-                ".read"  :"auth.uid === $thisUID"
+                ".read"  :"auth.uid != null"
             }
-        },
+        }
     },
+
+    // Not protected
     "jobs": {
       ".read" : "auth.uid != null",
       ".write" : "auth.uid != null"

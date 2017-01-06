@@ -25,7 +25,7 @@ export default class AdminSelector extends React.Component {
         let options = this.props.artists.map( (artist)=>{
                 return {label: artist[1], value: artist[1], id:artist[0]};
             });
-            
+
         const selectorContainerWidth = {
             width: window.innerWidth * 0.2 + 36
         }
@@ -43,11 +43,10 @@ export default class AdminSelector extends React.Component {
                         className="admin-select"
                         style={selectorWidth}
                         options={options}
-                        autosize="false"
                         name="admin-select"
                         placeholder="Select an artist..."
                         value={this.props.actingUID}
-                        onChange={this.props.handleChange}
+                        onChange={this.props.setActingUID}
                         clearable="true"
                     />
                 </div>
