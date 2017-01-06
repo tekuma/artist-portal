@@ -6,13 +6,15 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 // Files
 import Views from '../../constants/Views';
+import AdminSelector from './AdminSelector';
 
 /**
  * TODO
  */
 export default class PostAuthHeader extends React.Component {
     state = {
-        searchOpen: false //
+        searchOpen: false,
+        artists   : [],
     };
 
     constructor(props) {
@@ -24,7 +26,8 @@ export default class PostAuthHeader extends React.Component {
     }
 
     render() {
-        if (this.props.user.isAdmin) {
+        // if (this.props.user.isAdmin) {
+        if (true) {
             return this.renderAdmin();
         } else {
             return this.renderNormal();
@@ -33,6 +36,9 @@ export default class PostAuthHeader extends React.Component {
 
     componentDidMount() {
         console.log("+++++PostAuthHeader");
+        this.gatherAllArtists().then( (artists)=>{
+            this.setState({artists:artists});
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -60,11 +66,19 @@ export default class PostAuthHeader extends React.Component {
         return(
             <div>
                 <header className="black">
+
+                    <div className="admin-selector">
+                        <AdminSelector
+                            artists={this.state.artists}
+                            actingUID={this.props.actingUID}
+                            />
+                    </div>
+
                     <div
                         className="tekuma-logo"
                         onClick={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
                         onTouchTap={this.props.changeAppLayout.bind({}, Views.ARTWORKS)}
-                  >
+                        >
                       <svg version="1.0" id="tekuma-logo-image-small" x="0px" y="0px" viewBox="0 0 1000 1000">
                         <g>
                             <g>
@@ -77,9 +91,11 @@ export default class PostAuthHeader extends React.Component {
                             </g>
                         </g>
                       </svg>
-
                     </div>
+
+
                     <div className="header-icons">
+
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
                             <div
                                 className="header-icon"
@@ -215,6 +231,26 @@ export default class PostAuthHeader extends React.Component {
         this.props.setUploadedFiles(files);
         this.props.changeAppLayout(Views.ARTWORKS);
         console.log('Set uploaded files: ', files);
+    }
+
+    /**
+     * Gathers a list of all artists. Note: this method requests a lot of data
+     * as it is hierarchical and gathers all users and their data.
+     * @return {Promise} - returns array of [[uid,name],[uid,name],...]]
+     */
+    gatherAllArtists = () => {
+        return new Promise( (resolve, reject)=>{
+            let retlst = [];
+            firebase.database().ref('public/onboarders').once("value").then( (snapshot)=>{
+                let node = snapshot.val();
+                for (var uid in node) {
+                    if (node.hasOwnProperty(uid)) {
+                        retlst.push([uid, node[uid].display_name]);
+                    }
+                }
+                resolve(retlst);
+            });
+        });
     }
 
 }

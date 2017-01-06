@@ -76,6 +76,8 @@ export default class PostAuth extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
+                    setActingUser={this.setActingUser}
+                    actingUID={this.state.actingUID}
                     paths={this.state.paths}
                     thumbnail                 ={this.props.thumbnail}
                     user                      ={this.state.user}
@@ -155,7 +157,7 @@ export default class PostAuth extends React.Component {
     componentDidMount() {
         console.log("++++++PostAuth");
         //NOTE this path is explicit, as it is the root call.
-        
+
         const thisUID   = firebase.auth().currentUser.uid;
         const userPath  = `public/onboarders/${thisUID}`;
         const userPrivatePath = `_private/onboarders/${thisUID}`;
@@ -214,9 +216,13 @@ export default class PostAuth extends React.Component {
 
 // -------------- METHODS -------------- //
 
+    /**
+     * [TODO description]
+     * @param {[type]} uid [description]
+     */
     setActingUser = (uid) => {
         if (firebase.auth().currentUser.uid != uid) {
-            if (this.state.user.admin){ // Must be admin to impersonate other uid
+            if (this.state.user.isAdmin){ // Must be admin to impersonate other uid
                 let paths = {
                     user   :`public/onboarders/${uid}`,
                     art    :`public/onboarders/${uid}/artworks/`,

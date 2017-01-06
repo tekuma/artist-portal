@@ -55,6 +55,8 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUser={this.props.setActingUser}
+                    actingUID={this.props.actingUID}
                     paths={this.props.paths}
                     user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
@@ -101,6 +103,8 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUser={this.props.setActingUser}
+                    actingUID={this.props.actingUID}
                     paths={this.props.paths}
                     setUploadedFiles={this.props.setUploadedFiles}
                     user={this.props.user}
@@ -129,6 +133,8 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    actingUID={this.props.actingUID}
+                    setActingUser={this.props.setActingUser}
                     paths={this.props.paths}
                     user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}

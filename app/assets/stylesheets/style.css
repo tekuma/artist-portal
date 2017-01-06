@@ -76,6 +76,44 @@ button {
     background-repeat: no-repeat;
 }
 
+.admin-selector {
+	position: absolute;
+	top     : 12px;
+	right   : 60%;
+	width   : 20%;
+	height  : 60px;
+	z-index : 100;
+	overflow           : visible;
+	transition         : width 0.5s;
+	-webkit-transition : width 0.5s;
+	-moz-transition    : width 0.5s;
+	-ms-transition     : width 0.5s;
+	-webkit-backface-visibility: hidden;
+}
+
+.admin-selector .Select-control {
+  background-color: #fff;
+  border: none;
+  color: #000;
+}
+
+.admin-selector .Select-placeholder {
+  	font-size: 0.9em;
+  	color: #666666;
+}
+
+.admin-selector .is-focused > .Select-control,
+.admin-selector .is-focused:not(.is-open) > .Select-control {
+	border: none;
+}
+
+.admin-selector .Select-menu-outer {
+  background-color: #fff;
+  border: none;
+	border-top: solid 1px #dddddd;
+}
+
+
 .nav-username {
 	position: fixed;
 	height: 40px;
