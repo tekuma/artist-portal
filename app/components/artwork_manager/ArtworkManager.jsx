@@ -83,6 +83,7 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        
         if (nextProps.user && nextProps.user.albums) {
             let albumIndex;
             let album         = [];
@@ -94,6 +95,7 @@ export default class ArtworkManager extends React.Component {
             // Look through the albums branch to find which album we are in
             // we have the album name, we need the index of it.
             for (let i = 0; i < albumsLength; i++) {
+                console.log(thisAlbumName,albums[i]['name'],thisAlbumName == albums[i]['name']);
                 if (thisAlbumName == albums[i]['name']) {
                     albumIndex = i;
                     break;

@@ -158,14 +158,16 @@ export default class PostAuth extends React.Component {
     componentDidMount() {
         console.log("++++++PostAuth");
         //NOTE this path is explicit, as it is the root call.
+
         let realUID = firebase.auth().currentUser.uid;
+        console.log("**SETTING UID => ",realUID);
         this.setState({actingUID:realUID});
         this.fetchUser(realUID);
         this.props.clearVerifyEmailMessage(); // Closes verify email snackbar message if manual registration
     }
 
     componentWillReceiveProps(nextProps) {
-        //TODO
+        console.log("PostAuthProps=>", nextProps);
     }
 
     componentWillUnmount() {
@@ -181,7 +183,6 @@ export default class PostAuth extends React.Component {
     setActingUser = (uid) => {
         if (firebase.auth().currentUser.uid != uid) {
             if (this.state.user.isAdmin){ // Must be admin to impersonate other uid
-                console.log("setting user...");
                 let paths = {
                     user   :`public/onboarders/${uid}`,
                     priv   :`_private/onboarders/${uid}`,
@@ -192,6 +193,7 @@ export default class PostAuth extends React.Component {
                     jobs   :`jobs/`,
 
                 }
+                console.log("Declaring Paths: ",uid);
                 this.setState({paths:paths});
             } else {
                 console.log("Admin auth error");
@@ -206,6 +208,7 @@ export default class PostAuth extends React.Component {
                 albums :`public/onboarders/${uid}/albums/`,
                 jobs   :`jobs/`,
             }
+            console.log("Declaring Paths: ",uid);
             this.setState({paths:paths});
         }
         this.fetchUser(uid);
@@ -223,11 +226,15 @@ export default class PostAuth extends React.Component {
         } else {
             uid = artist.id;
         }
-
-        this.setState({actingUID:uid}); //update state
+        this.setState({actingUID:artist.value}); //update state
         this.setActingUser(uid); //update paths
     }
 
+    /**
+     *  Establishes connection and listener to the firebase DB.
+     *  FIXME detach from any past listener with an .off call.
+     * @param  {String} uid [The UID of the user's info to retrieve]
+     */
     fetchUser = (uid) =>{
         //NOTE: MAIN LISTENER FOR CONNECTION TO firebase
         // these 2 on-methods listen for any change to the database and
@@ -430,6 +437,7 @@ export default class PostAuth extends React.Component {
         this.submitJob(uploadPath, artworkUID);
 
         //Store the original upload, un-changed.
+        console.log("Upload Path =>", uploadPath);
         const bucketRefrence  = firebase.storage().ref(uploadPath);
         bucketRefrence.put(blob).on(
             firebase.storage.TaskEvent.STATE_CHANGED,
@@ -473,6 +481,7 @@ export default class PostAuth extends React.Component {
                         }
                     }
                     let albumPath  = this.state.paths.albums + albumIndex + `/artworks`;
+                    console.log("album path ->", albumPath);
                     const albumRef = firebase.database().ref(albumPath);
 
                     // Build the artwork object
