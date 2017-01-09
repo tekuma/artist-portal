@@ -27,7 +27,7 @@ const albumTarget = {
             }
         }
     },
-    drop(targetProps, monitor) {
+    drop(targetProps, monitor, context) {
         const target = targetProps.album;
         const source = monitor.getItem();
         if(source.type == ItemTypes.ARTWORK) {
@@ -36,7 +36,8 @@ const albumTarget = {
                 targetProps.changeArtworkAlbum(source.id, source.album, target.name);
 
                 // Change album within artwork JSON
-                let path = this.props.paths.art + source.id;
+                // console.log(context.props);
+                let path = context.props.paths.art + source.id;
                 let thisArtworkRef = firebase.database().ref(path);
                 thisArtworkRef.transaction((data) => {
                     data['album'] = target.name;

@@ -182,7 +182,7 @@ export default class PostAuth extends React.Component {
      * @param {Array} artist [object coming from options of AdminSelector]
      */
     setActingUID = (artist)=>{
-        console.log("Selected Artist => ", artist);
+        // console.log("Selected Artist => ", artist);
         let uid;
         if (artist === null) { // when selector is cleared
             uid = firebase.auth().currentUser.uid;
@@ -193,7 +193,7 @@ export default class PostAuth extends React.Component {
         if (this.state.paths.user) { // first time called, will be null.
             let oldRef = firebase.database().ref(this.state.paths.user);
             oldRef.off();
-            console.log(this.state.paths.user, "Listener Detached");
+            // console.log(this.state.paths.user, "Listener Detached");
         }
         this.setState({actingUID:artist.value}); //update state.actingUID
         this.setActingUser(uid); //update state.paths
@@ -216,10 +216,10 @@ export default class PostAuth extends React.Component {
                     jobs   :`jobs/`,
 
                 }
-                console.log("Declaring Paths: ",uid);
+                // console.log("Declaring Paths: ",uid);
                 this.setState({paths:paths});
             } else {
-                console.log("Admin auth error");
+                // console.log("Admin auth error");
             }
         } else { // Acting as themselve
             let paths = {
@@ -231,7 +231,7 @@ export default class PostAuth extends React.Component {
                 albums :`public/onboarders/${uid}/albums/`,
                 jobs   :`jobs/`,
             }
-            console.log("Declaring Paths: ",uid);
+            // console.log("Declaring Paths: ",uid);
             this.setState({paths:paths});
         }
         this.fetchUser(uid);

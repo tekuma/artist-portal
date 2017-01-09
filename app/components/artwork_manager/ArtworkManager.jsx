@@ -83,12 +83,11 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("A.M. received props:", nextProps);
+        // console.log("A.M. received props:", nextProps);
         if (nextProps.user && nextProps.user.albums &&
             nextProps.actingUID == nextProps.user.uid) {
-
-            console.log(nextProps.user.uid);
-            console.log(nextProps.actingUID == nextProps.user.uid);
+            // last check guards against having a .on() from a previous acting
+            // user still be attached, and feed updates about a previous user.
 
             let albumIndex;
             let album         = [];
@@ -100,7 +99,6 @@ export default class ArtworkManager extends React.Component {
             // Look through the albums branch to find which album we are in
             // we have the album name, we need the index of it.
             for (let i = 0; i < albumsLength; i++) {
-                console.log(thisAlbumName,albums[i]['name'],thisAlbumName == albums[i]['name']);
                 if (thisAlbumName == albums[i]['name']) {
                     albumIndex = i;
                     break;
@@ -114,13 +112,14 @@ export default class ArtworkManager extends React.Component {
                 let artworksLength = Object.keys(artworks).length;
 
                 // Load relevant artworks to state album
-                for (let i = 0; i < artworksLength; i++) {
+                for (var i = 0; i < artworksLength; i++) {
                     let artworkUID = artworks[i];
                     let artwork    = user['artworks'][artworkUID];
+                    // console.log(artwork);
                     album.push(artwork);
                 }
             }
-
+            // console.log("ALBUM=>",album);
             this.setState({
                 album: album
             });
