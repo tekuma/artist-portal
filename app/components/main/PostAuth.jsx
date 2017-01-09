@@ -44,14 +44,13 @@ export default class PostAuth extends React.Component {
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
         currentEditAlbumInfo: {},                   // Used to store information of album being edit momentarily
         uploadPreviews: [],                         // Used to store files uploaded momentarily, to be previewed once uploaded
-        albumNames: ["Miscellaneous"],              // Used to store the JSON objects to be used by  Edit Artwork Form
-        albums : {},                                //
-        isUploading: false,                         //
-        user  : {},                                 // public/onboarders/{UID} node
-        userPrivate : {},                            // _private/onboarders/{UID} node
-        currentError: "",
-        paths: {},
-        actingUID: ""
+        albumNames    : ["Miscellaneous"],          // Used to store the JSON objects to be used by Edit Artwork Form
+        isUploading   : false,                      //
+        user          : {},                         // public/onboarders/{UID} node
+        userPrivate   : {},                         // _private/onboarders/{UID} node
+        currentError  : "",
+        paths         : {},                         // object containing all data and storage paths
+        actingUID     : ""                          // the UID of the acting user (relevant to admin-mode)
     };
 
     constructor(props) {
@@ -83,16 +82,19 @@ export default class PostAuth extends React.Component {
                     thumbnail                 ={this.props.thumbnail}
                     user                      ={this.state.user}
                     userPrivate               ={this.state.userPrivate}
-                    albums                    ={this.state.albums}
-                    toggleNav                 ={this.toggleNav}
-                    navIsOpen                 ={this.state.navIsOpen}
                     deleteArtwork             ={this.deleteArtwork}
+                    editPublicUserInfo        ={this.editPublicUserInfo}
+                    editPrivateUserInfo       ={this.editPrivateUserInfo}
+                    toggleNav                 ={this.toggleNav}
+                    toggleManager             ={this.toggleManager}
                     toggleEditArtworkDialog   ={this.toggleEditArtworkDialog}
                     toggleEditAlbumDialog     ={this.toggleEditAlbumDialog}
                     toggleEditMiscAlbumDialog ={this.toggleEditMiscAlbumDialog}
+                    toggleDeleteAccountDialog ={this.toggleDeleteAccountDialog}
+                    toggleVerifyEmailDialog   ={this.toggleVerifyEmailDialog}
                     changeCurrentEditArtwork  ={this.changeCurrentEditArtwork}
                     changeCurrentEditAlbum    ={this.changeCurrentEditAlbum}
-                    toggleManager             ={this.toggleManager}
+                    navIsOpen                 ={this.state.navIsOpen}
                     managerIsOpen             ={this.state.managerIsOpen}
                     currentAppLayout          ={this.state.currentAppLayout}
                     changeAppLayout           ={this.changeAppLayout}
@@ -100,10 +102,6 @@ export default class PostAuth extends React.Component {
                     changeAlbum               ={this.changeAlbum}
                     setUploadedFiles          ={this.setUploadedFiles}
                     setAlbumNames             ={this.setAlbumNames}
-                    editPublicUserInfo        ={this.editPublicUserInfo}
-                    editPrivateUserInfo       ={this.editPrivateUserInfo}
-                    toggleDeleteAccountDialog ={this.toggleDeleteAccountDialog}
-                    toggleVerifyEmailDialog   ={this.toggleVerifyEmailDialog}
                     changeArtworkAlbum        ={this.changeArtworkAlbum} />
                 <EditArtworkDialog
                     paths={this.state.paths}
@@ -158,7 +156,6 @@ export default class PostAuth extends React.Component {
     componentDidMount() {
         console.log("++++++PostAuth");
         //NOTE this path is explicit, as it is the root call.
-
         let realUID = firebase.auth().currentUser.uid;
         console.log("**SETTING UID Initially => ",realUID);
         this.setState({actingUID:realUID});
@@ -196,6 +193,7 @@ export default class PostAuth extends React.Component {
             // console.log(this.state.paths.user, "Listener Detached");
         }
         this.setState({actingUID:artist.value}); //update state.actingUID
+        this.setState({currentAlbum:"Miscellaneous"}); // ensure clean transition
         this.setActingUser(uid); //update state.paths
     }
 
@@ -437,6 +435,7 @@ export default class PostAuth extends React.Component {
     uploadArtToTekuma = (blob) => {
         const fileName = blob.name;
         const fileSize = blob.size;
+        console.log("UPLOAD SIZE->",fileSize);
         let artRef     = firebase.database().ref(this.state.paths.art);
         let artworkUID = artRef.push().key;
         let uploadPath = this.state.paths.uploads + artworkUID;
@@ -669,7 +668,6 @@ export default class PostAuth extends React.Component {
      * - avatar (blob)
      */
     editPublicUserInfo = (data) => {
-        const thisUser    = firebase.auth().currentUser;
         if (data.hasOwnProperty('avatar')) { // image + text update
             let avatarPath = this.state.paths.avatars + data.avatar.name ;
             let avatarRef  = firebase.storage().ref(avatarPath);
@@ -692,6 +690,8 @@ export default class PostAuth extends React.Component {
             );
         }
         else { // just text update
+            // console.log("data...", data);
+            // console.log(this.state.paths.user);
             firebase.database().ref(this.state.paths.user).update(data)
             .then(()=>{
                 this.setState({

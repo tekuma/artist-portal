@@ -16,7 +16,6 @@ import Views      from '../../constants/Views';
  * TODO
  */
 export default class ArtworkManager extends React.Component {
-
     state = {
         album :[] // list of Artwork objects in the current album
     };
