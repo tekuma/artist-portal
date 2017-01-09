@@ -125,7 +125,6 @@ export default class App extends React.Component {
         return(
             <div>
                 <PostAuth
-                  thisUID                 ={this.state.thisUID}
                   signOutUser             ={this.signOutUser}
                   clearVerifyEmailMessage ={this.clearVerifyEmailMessage}
                   thumbnail               ={this.thumbnail}

@@ -83,14 +83,19 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        
-        if (nextProps.user && nextProps.user.albums) {
+        console.log("A.M. received props:", nextProps);
+        if (nextProps.user && nextProps.user.albums &&
+            nextProps.actingUID == nextProps.user.uid) {
+
+            console.log(nextProps.user.uid);
+            console.log(nextProps.actingUID == nextProps.user.uid);
+
             let albumIndex;
             let album         = [];
             let thisAlbumName = nextProps.currentAlbum; //passed from PostAuth
             let user          = nextProps.user;
             let albums        = user['albums'];
-            let albumsLength    = Object.keys(albums).length;
+            let albumsLength  = Object.keys(albums).length;
 
             // Look through the albums branch to find which album we are in
             // we have the album name, we need the index of it.

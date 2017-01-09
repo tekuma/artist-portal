@@ -160,9 +160,9 @@ export default class PostAuth extends React.Component {
         //NOTE this path is explicit, as it is the root call.
 
         let realUID = firebase.auth().currentUser.uid;
-        console.log("**SETTING UID => ",realUID);
+        console.log("**SETTING UID Initially => ",realUID);
         this.setState({actingUID:realUID});
-        this.fetchUser(realUID);
+        this.setActingUser(realUID);
         this.props.clearVerifyEmailMessage(); // Closes verify email snackbar message if manual registration
     }
 
@@ -175,6 +175,29 @@ export default class PostAuth extends React.Component {
     }
 
 // -------------- METHODS -------------- //
+
+    /**
+     * (1) Initial method for changing acting user. First, sets the
+     * UID of the acting user, and detaches listener to previous user.
+     * @param {Array} artist [object coming from options of AdminSelector]
+     */
+    setActingUID = (artist)=>{
+        console.log("Selected Artist => ", artist);
+        let uid;
+        if (artist === null) { // when selector is cleared
+            uid = firebase.auth().currentUser.uid;
+        } else {
+            uid = artist.id;
+        }
+        // Detach listener to previous acting user.
+        if (this.state.paths.user) { // first time called, will be null.
+            let oldRef = firebase.database().ref(this.state.paths.user);
+            oldRef.off();
+            console.log(this.state.paths.user, "Listener Detached");
+        }
+        this.setState({actingUID:artist.value}); //update state.actingUID
+        this.setActingUser(uid); //update state.paths
+    }
 
     /**
      * [TODO description]
@@ -215,22 +238,6 @@ export default class PostAuth extends React.Component {
     }
 
     /**
-     * [setActingUID description]
-     * @param {Array} artist []
-     */
-    setActingUID = (artist)=>{
-        console.log("Selected Artist => ", artist);
-        let uid;
-        if (artist === null) { // when selector is cleared
-            uid = firebase.auth().currentUser.uid;
-        } else {
-            uid = artist.id;
-        }
-        this.setState({actingUID:artist.value}); //update state
-        this.setActingUser(uid); //update paths
-    }
-
-    /**
      *  Establishes connection and listener to the firebase DB.
      *  FIXME detach from any past listener with an .off call.
      * @param  {String} uid [The UID of the user's info to retrieve]
@@ -244,10 +251,12 @@ export default class PostAuth extends React.Component {
             let privPath = `_private/onboarders/${uid}`;
 
             firebase.database().ref(userPath).on('value', (snapshot)=>{
+                let userObject = snapshot.val();
+                userObject.uid = uid;
                 this.setState({
-                    user:snapshot.val()
+                    user:userObject
                 });
-                console.log("FIREBASE: user info updated");
+                console.log("~~FIREBASE.on: ", uid, " updated.");
                 // At this point, the user object is loaded.
             }, (error)=>{
                 console.error(error);
@@ -259,9 +268,9 @@ export default class PostAuth extends React.Component {
                         currentError: ""
                     });
                 }, 4500);   // Clear error once it has been shown
-            }, this);
+            });
 
-            firebase.database().ref(privPath).on('value', (snapshot)=>{
+            firebase.database().ref(privPath).once('value', (snapshot)=>{
                 this.setState({
                     userPrivate:snapshot.val()
                 });
@@ -277,11 +286,10 @@ export default class PostAuth extends React.Component {
                         currentError: ""
                     });
                 }, 4500);   // Clear error once it has been shown
-            }, this);
+            });
         }
-        console.log("Fetching => ", uid);
-
     }
+
     //  # Toggle Methods
 
     /**
@@ -441,7 +449,7 @@ export default class PostAuth extends React.Component {
         const bucketRefrence  = firebase.storage().ref(uploadPath);
         bucketRefrence.put(blob).on(
             firebase.storage.TaskEvent.STATE_CHANGED,
-            (snapshot)=>{ //on-event change
+            (snapshot)=>{ // on-event change
                 let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
                 console.log(percent + "% done w/ fullsize upload");
             },
@@ -512,15 +520,16 @@ export default class PostAuth extends React.Component {
                         console.log(">>>>Artwork info set into DB");
                     }).catch((error)=>{
                         console.error(error);
-                        this.setState({
-                            currentError: error.message
-                        });
 
-                        setTimeout(() => {
-                            this.setState({
-                                currentError: ""
-                            });
-                        }, 4500);   // Clear error once it has been shown
+                        // this.setState({
+                        //     currentError: error.message
+                        // });
+
+                        // setTimeout(() => {
+                        //     this.setState({
+                        //         currentError: ""
+                        //     });
+                        // }, 4500);   // Clear error once it has been shown
                     });
 
                     //Now, add a pointer to the artwork object to the current album
@@ -533,7 +542,7 @@ export default class PostAuth extends React.Component {
                         }
                         return node; //finish transaction
                     }, (error,bool,snap)=>{
-                            console.log(">>>Img set into album");
+                            console.log(">>>Img set into album", albumRef);
                     });
                 });//END upload promise and thenable
         });
@@ -1062,7 +1071,6 @@ export default class PostAuth extends React.Component {
                     }
                 }
             }
-
             return node;
         });
     }

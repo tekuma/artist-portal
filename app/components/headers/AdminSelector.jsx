@@ -29,12 +29,14 @@ export default class AdminSelector extends React.Component {
             });
 
         const selectorContainerWidth = {
-            // width: window.innerWidth * 0.2 + 36
+            width: window.innerWidth * 0.2 + 36
         }
         const selectorWidth = {
-            // width: window.innerWidth * 0.2 + 25 ,
-            // display: "inline-block"
+            width: window.innerWidth * 0.2 + 25 ,
+            display: "inline-block"
         }
+
+        const resetValue = firebase.auth().currentUser.uid;
 
         return (
             <div>
@@ -49,7 +51,8 @@ export default class AdminSelector extends React.Component {
                         placeholder="Select an artist..."
                         value={this.props.actingUID}
                         onChange={this.props.setActingUID}
-                        clearable="true"
+                        clearable={false}
+                        resetValue={resetValue}
                     />
                 </div>
             </div>
@@ -66,9 +69,5 @@ export default class AdminSelector extends React.Component {
 
     // ------------ METHODS -------------
 
-    handleChange = (e) => {
-        console.log("****************");
-        console.log(e);
-        // this.props.setActingUser();
-    }
+
 }
