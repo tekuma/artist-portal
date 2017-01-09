@@ -434,117 +434,132 @@ export default class PostAuth extends React.Component {
      */
     uploadArtToTekuma = (blob) => {
         const fileName = blob.name;
-        const fileSize = blob.size;
-        console.log("UPLOAD SIZE->",fileSize);
-        let artRef     = firebase.database().ref(this.state.paths.art);
-        let artworkUID = artRef.push().key;
-        let uploadPath = this.state.paths.uploads + artworkUID;
+        const fileSize = blob.size; // in bytes
+        const TwentyMB = 20000000;  // 20,000,000 bytes = 20Mb
+        if (fileSize < TwentyMB ) {
+            console.log("UPLOAD SIZE->",fileSize);
+            let artRef     = firebase.database().ref(this.state.paths.art);
+            let artworkUID = artRef.push().key;
+            let uploadPath = this.state.paths.uploads + artworkUID;
 
-        // Add node to job-stack for thumbnails / backend processing
-        this.submitJob(uploadPath, artworkUID);
+            // Add node to job-stack for thumbnails / backend processing
+            this.submitJob(uploadPath, artworkUID);
 
-        //Store the original upload, un-changed.
-        console.log("Upload Path =>", uploadPath);
-        const bucketRefrence  = firebase.storage().ref(uploadPath);
-        bucketRefrence.put(blob).on(
-            firebase.storage.TaskEvent.STATE_CHANGED,
-            (snapshot)=>{ // on-event change
-                let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-                console.log(percent + "% done w/ fullsize upload");
-            },
-            (error)=>{
-                console.error(error);
+            //Store the original upload, un-changed.
+            console.log("Upload Path =>", uploadPath);
+            const bucketRefrence  = firebase.storage().ref(uploadPath);
+            bucketRefrence.put(blob).on(
+                firebase.storage.TaskEvent.STATE_CHANGED,
+                (snapshot)=>{ // on-event change
+                    let percent = Math.ceil(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+                    console.log(percent + "% done w/ fullsize upload");
+                },
+                (error)=>{
+                    console.error(error);
+                    this.setState({
+                        currentError: error.message
+                    });
+                    setTimeout(() => {
+                        this.setState({
+                            currentError: ""
+                        });
+                    }, 4500);   // Clear error once it has been shown
+                },
+                ()=>{ //on-complete fullsize upload
+                    console.log(">>Full size upload complete");
+                    bucketRefrence.getDownloadURL().then( (fullSizeURL)=>{
+                        let uploadInfo = {
+                            url :fullSizeURL,
+                            size:fileSize,
+                            name:fileName
+                        };
+                        this.setState({
+                            uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
+                        });
+                        console.log(">>URL:",fullSizeURL);
+
+                        // Find Current Album index
+                        // FIXME handle in separate method
+                        let albums = this.state.user.albums;
+                        let albumIndex = 0;
+                        for (var i = 0; i < Object.keys(albums).length; i++) {
+                            let album = albums[i];
+                            if (album.name == this.state.currentAlbum) {
+                                console.log("AlbumIndex: ", i);
+                                albumIndex = i;
+                            }
+                        }
+                        let albumPath  = this.state.paths.albums + albumIndex + `/artworks`;
+                        console.log("album path ->", albumPath);
+                        const albumRef = firebase.database().ref(albumPath);
+
+                        // Build the artwork object
+                        // FIXME handle in separate method
+                        let title  = fileName.split(".")[0];
+                        let artist = "Self";
+                        if (this.state.user && this.state.user.display_name != "Untitled Artist") {
+                            artist = this.state.user.display_name;
+                        }
+
+                        let artObject = {
+                            id          : artworkUID,
+                            filename    : fileName,
+                            title       : title,
+                            artist      : artist,
+                            album       : this.state.currentAlbum,
+                            upload_date : new Date().toISOString(),
+                            year        : new Date().getFullYear(),
+                            description : "",
+                            tags        : [], // handled in cloud
+                            size        : fileSize,
+                            fullsize_url: fullSizeURL,
+                            colors      : {} // handled in cloud
+                        };
+
+                        // set the art object to the artworks node
+                        artRef.child(artworkUID).set(artObject).then(()=>{
+                            console.log(">>>>Artwork info set into DB");
+                        }).catch((error)=>{
+                            console.error(error);
+
+                            // this.setState({
+                            //     currentError: error.message
+                            // });
+
+                            // setTimeout(() => {
+                            //     this.setState({
+                            //         currentError: ""
+                            //     });
+                            // }, 4500);   // Clear error once it has been shown
+                        });
+
+                        //Now, add a pointer to the artwork object to the current album
+                        albumRef.transaction( (node)=>{
+                            if (node == null) {
+                                node = {0:artworkUID};
+                            } else {
+                                let currentLength   = Object.keys(node).length;
+                                node[currentLength] = artworkUID;
+                            }
+                            return node; //finish transaction
+                        }, (error,bool,snap)=>{
+                                console.log(">>>Img set into album", albumRef);
+                        });
+                    });//END upload promise and thenable
+            });
+        } else {
+            this.setState({
+                currentError: "Upload was too large. Max 20Mb",
+                uploadDialogIsOpen: false,
+            });
+
+            setTimeout(() => {
                 this.setState({
-                    currentError: error.message
+                    currentError: ""
                 });
-                setTimeout(() => {
-                    this.setState({
-                        currentError: ""
-                    });
-                }, 4500);   // Clear error once it has been shown
-            },
-            ()=>{ //on-complete fullsize upload
-                console.log(">>Full size upload complete");
-                bucketRefrence.getDownloadURL().then( (fullSizeURL)=>{
-                    let uploadInfo = {
-                        url :fullSizeURL,
-                        size:fileSize,
-                        name:fileName
-                    };
-                    this.setState({
-                        uploadPreviews: this.state.uploadPreviews.concat(uploadInfo)
-                    });
-                    console.log(">>URL:",fullSizeURL);
+            }, 4500);   // Clear error once it has been shown
+        }
 
-                    // Find Current Album index
-                    // FIXME handle in separate method
-                    let albums = this.state.user.albums;
-                    let albumIndex = 0;
-                    for (var i = 0; i < Object.keys(albums).length; i++) {
-                        let album = albums[i];
-                        if (album.name == this.state.currentAlbum) {
-                            console.log("AlbumIndex: ", i);
-                            albumIndex = i;
-                        }
-                    }
-                    let albumPath  = this.state.paths.albums + albumIndex + `/artworks`;
-                    console.log("album path ->", albumPath);
-                    const albumRef = firebase.database().ref(albumPath);
-
-                    // Build the artwork object
-                    // FIXME handle in separate method
-                    let title  = fileName.split(".")[0];
-                    let artist = "Self";
-                    if (this.state.user && this.state.user.display_name != "Untitled Artist") {
-                        artist = this.state.user.display_name;
-                    }
-
-                    let artObject = {
-                        id          : artworkUID,
-                        filename    : fileName,
-                        title       : title,
-                        artist      : artist,
-                        album       : this.state.currentAlbum,
-                        upload_date : new Date().toISOString(),
-                        year        : new Date().getFullYear(),
-                        description : "",
-                        tags        : [], // handled in cloud
-                        size        : fileSize,
-                        fullsize_url: fullSizeURL,
-                        colors      : {} // handled in cloud
-                    };
-
-                    // set the art object to the artworks node
-                    artRef.child(artworkUID).set(artObject).then(()=>{
-                        console.log(">>>>Artwork info set into DB");
-                    }).catch((error)=>{
-                        console.error(error);
-
-                        // this.setState({
-                        //     currentError: error.message
-                        // });
-
-                        // setTimeout(() => {
-                        //     this.setState({
-                        //         currentError: ""
-                        //     });
-                        // }, 4500);   // Clear error once it has been shown
-                    });
-
-                    //Now, add a pointer to the artwork object to the current album
-                    albumRef.transaction( (node)=>{
-                        if (node == null) {
-                            node = {0:artworkUID};
-                        } else {
-                            let currentLength   = Object.keys(node).length;
-                            node[currentLength] = artworkUID;
-                        }
-                        return node; //finish transaction
-                    }, (error,bool,snap)=>{
-                            console.log(">>>Img set into album", albumRef);
-                    });
-                });//END upload promise and thenable
-        });
     }
 
     /**
