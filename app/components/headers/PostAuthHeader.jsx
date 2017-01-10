@@ -26,8 +26,11 @@ export default class PostAuthHeader extends React.Component {
     }
 
     render() {
-        // if (this.props.user.isAdmin) {
-        if (true) {
+        //NOTE: This is a hard check to see if a user is one of our admin users. 
+        let isAdmin = firebase.auth().currentUser.uid == "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
+                      firebase.auth().currentUser.uid == "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
+                      firebase.auth().currentUser.uid == "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2"
+        if (isAdmin) {
             return this.renderAdmin();
         } else {
             return this.renderNormal();

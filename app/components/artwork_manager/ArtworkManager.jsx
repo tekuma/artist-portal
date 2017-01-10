@@ -82,7 +82,6 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log("A.M. received props:", nextProps);
         if (nextProps.user && nextProps.user.albums &&
             nextProps.actingUID == nextProps.user.uid) {
             // last check guards against having a .on() from a previous acting

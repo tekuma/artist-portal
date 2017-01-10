@@ -422,14 +422,18 @@ export default class PostAuth extends React.Component {
     }
 
     /**
-     * FIXME remaster this method to have other helper methods.
+     * FIXME remaster this method to have other helper methods for readability.
+     *
      * This method takes in a blob object that a user has uploaded, then
      * - uploads the original file to gs:"portal/{user uid}/uploads"
      * - sets DB entry /public/onboarders/{uid}/artworks/{artworkUID}/fullsize_url
      * - sets DB entry /public/onboarders/artworks/{uid}/thumbnail_url
      * - creates a job to make thumbnails / autotagging,
-     * - Asynchronously, we need to wait for:
-     *   -full url, thumb url, colors.
+     *
+     *  Asynchronously, we need to wait for the fullsize_url
+     *  FIXME after cloudinary is removed this will not be needed, and writing
+     *  to the DB can be done outside of a callback.
+     *  
      * @param  {Blob} blob - an uploaded blob
      */
     uploadArtToTekuma = (blob) => {
