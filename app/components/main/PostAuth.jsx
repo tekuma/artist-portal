@@ -1,7 +1,6 @@
 // Libs
 import React               from 'react';
 import firebase            from 'firebase';
-import cloudinary          from 'cloudinary';
 import HTML5Backend        from 'react-dnd-html5-backend';
 import {DragDropContext}   from 'react-dnd';
 import getPalette          from 'node-vibrant';
@@ -67,7 +66,6 @@ export default class PostAuth extends React.Component {
                 <HiddenNav
                     paths={this.state.paths}
                     user           ={this.state.user}
-                    thumbnail      ={this.props.thumbnail}
                     navIsOpen      ={this.state.navIsOpen}
                     changeAppLayout={this.changeAppLayout}
                     signOutUser    ={this.props.signOutUser} />
@@ -79,7 +77,6 @@ export default class PostAuth extends React.Component {
                     setActingUser={this.setActingUser}
                     actingUID={this.state.actingUID}
                     paths={this.state.paths}
-                    thumbnail                 ={this.props.thumbnail}
                     user                      ={this.state.user}
                     userPrivate               ={this.state.userPrivate}
                     deleteArtwork             ={this.deleteArtwork}
@@ -111,7 +108,6 @@ export default class PostAuth extends React.Component {
                     editArtworkIsOpen={this.state.editArtworkIsOpen}
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
-                    thumbnail={this.props.thumbnail}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
                 <EditAlbumDialog
                     paths={this.state.paths}
@@ -128,7 +124,6 @@ export default class PostAuth extends React.Component {
                     updateAlbum={this.updateAlbum}
                     currentEditAlbumInfo={this.state.currentEditAlbumInfo} />
                 <UploadDialog
-                    thumbnail        ={this.props.thumbnail}
                     closeUploadDialog={this.closeUploadDialog}
                     uploadedPreviews={this.state.uploadPreviews}
                     uploadDialogIsOpen={this.state.uploadDialogIsOpen} />
@@ -433,7 +428,7 @@ export default class PostAuth extends React.Component {
      *  Asynchronously, we need to wait for the fullsize_url
      *  FIXME after cloudinary is removed this will not be needed, and writing
      *  to the DB can be done outside of a callback.
-     *  
+     *
      * @param  {Blob} blob - an uploaded blob
      */
     uploadArtToTekuma = (blob) => {

@@ -1,16 +1,16 @@
 // Libs
-import React             from 'react';
-import firebase          from 'firebase';
-import TransitionGroup   from 'react-addons-transition-group';
+import React                from 'react';
+import firebase             from 'firebase';
+import TransitionGroup      from 'react-addons-transition-group';
 //Files
-import PostAuthHeader    from '../headers/PostAuthHeader';
+import PostAuthHeader       from '../headers/PostAuthHeader';
 import ArtworksAlbumManager from '../album_manager/ArtworksAlbumManager';
 import ReviewAlbumManager   from '../album_manager/ReviewAlbumManager';
-import ReviewArtworkInfo from '../review_albums/ReviewArtworkInfo';
-import ReviewArtworks    from '../review_albums/ReviewArtworks';
-import ArtworkManager    from '../artwork_manager/ArtworkManager';
-import EditProfile       from '../edit_profile/EditProfile';
-import Views             from '../../constants/Views';
+import ReviewArtworkInfo    from '../review_albums/ReviewArtworkInfo';
+import ReviewArtworks       from '../review_albums/ReviewArtworks';
+import ArtworkManager       from '../artwork_manager/ArtworkManager';
+import EditProfile          from '../edit_profile/EditProfile';
+import Views                from '../../constants/Views';
 
 
 export default class PortalMain extends React.Component {
@@ -66,7 +66,6 @@ export default class PortalMain extends React.Component {
                     />
                 <ArtworksAlbumManager
                     paths={this.props.paths}
-                    thumbnail              ={this.props.thumbnail}
                     user                   ={this.props.user}
                     userPrivate            ={this.props.userPrivate}
                     managerIsOpen          ={this.props.managerIsOpen}
@@ -83,7 +82,6 @@ export default class PortalMain extends React.Component {
                 <ArtworkManager
                     actingUID={this.props.actingUID}
                     paths={this.props.paths}
-                    thumbnail                ={this.props.thumbnail}
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
                     currentAlbum             ={this.props.currentAlbum}
@@ -117,7 +115,6 @@ export default class PortalMain extends React.Component {
                     <EditProfile
                         paths={this.props.paths}
                         user                      ={this.props.user}
-                        thumbnail                 ={this.props.thumbnail}
                         userPrivate               ={this.props.userPrivate}
                         editPublicUserInfo        ={this.props.editPublicUserInfo}
                         editPrivateUserInfo       ={this.props.editPrivateUserInfo}
