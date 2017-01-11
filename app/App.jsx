@@ -487,26 +487,6 @@ export default class App extends React.Component {
     }
 
     /**
-     * Cloudinary Method. This method takes in a fullsize_url or any image url,
-     * sends the image to be used by cloudinary, and returns a dynamic link
-     * that can be used in the UX.
-     * @param  {String} url [a raw or fullsize url directing to an image file]
-     * @return {String}     [a dynamic URL safe for use inside of the UI/UX]
-     */
-    // thumbnail = (url,width) => {
-    //     let args = {
-    //         width       :width,
-    //         fetch_format: "auto",
-    //         type        : "fetch"
-    //     };
-    //     let theImage = cloudinary.image(url, args);
-    //     let regex    = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
-    //     let theURL   = theImage.match(regex)[0];
-    //     theURL       = theURL.replace("http:", "https:"); //FIXME hacky
-    //     return theURL;
-    // }
-
-    /**
      * When logging in via a social button, there is no way to know if a user
      * is clicking that button for the first time. First, we check a snapshot
      * of the database to see if the user already exists. If not, then we

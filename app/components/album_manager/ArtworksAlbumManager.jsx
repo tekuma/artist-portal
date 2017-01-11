@@ -120,7 +120,6 @@ export default class ArtworksAlbumManager extends React.Component {
                 <Albums
                     paths={this.props.paths}
                     albums             ={this.state.albums}
-                    thumbnail          ={this.props.thumbnail}
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
                     emptyMisc          ={this.emptyMisc}

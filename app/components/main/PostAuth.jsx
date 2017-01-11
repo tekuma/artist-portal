@@ -197,25 +197,16 @@ export default class PostAuth extends React.Component {
      * @param {[type]} uid [description]
      */
     setActingUser = (uid) => {
-        if (firebase.auth().currentUser.uid != uid) {
-            if (this.state.user.isAdmin){ // Must be admin to impersonate other uid
-                let paths = {
-                    user   :`public/onboarders/${uid}`,
-                    priv   :`_private/onboarders/${uid}`,
-                    art    :`public/onboarders/${uid}/artworks/`,
-                    uploads:`portal/${uid}/uploads/`,
-                    avatars:`portal/${uid}/avatars/`,
-                    albums :`public/onboarders/${uid}/albums/`,
-                    jobs   :`jobs/`,
+        //NOTE: This is a hard check to see if a user is one of our admin users.
+        let isAdmin = firebase.auth().currentUser.uid == "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
+                      firebase.auth().currentUser.uid == "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
+                      firebase.auth().currentUser.uid == "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ;
+        let actingAsSelf = firebase.auth().currentUser.uid != uid;
 
-                }
-                // console.log("Declaring Paths: ",uid);
-                this.setState({paths:paths});
-            } else {
-                // console.log("Admin auth error");
-            }
-        } else { // Acting as themselve
+        if (actingAsSelf || isAdmin) {
             let paths = {
+                uid    : uid,
+                images :`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb128/`,
                 user   :`public/onboarders/${uid}`,
                 priv   :`_private/onboarders/${uid}`,
                 art    :`public/onboarders/${uid}/artworks/`,
@@ -223,10 +214,14 @@ export default class PostAuth extends React.Component {
                 avatars:`portal/${uid}/avatars/`,
                 albums :`public/onboarders/${uid}/albums/`,
                 jobs   :`jobs/`,
+
             }
-            // console.log("Declaring Paths: ",uid);
             this.setState({paths:paths});
+        } else {
+            console.log("-> Error declaring paths. User not admin.");
+            console.log(uid);
         }
+
         this.fetchUser(uid);
     }
 

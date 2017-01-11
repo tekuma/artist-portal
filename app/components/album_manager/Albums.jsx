@@ -55,7 +55,6 @@ export default class Albums extends React.Component {
                     paths={this.props.paths}
                     user               ={this.props.user}
                     uploads            ={this.props.uploads}
-                    thumbnail          ={this.props.thumbnail}
                     changeAlbum        ={this.props.changeAlbum.bind(null, "Miscellaneous")}
                     currentAlbum       ={this.props.currentAlbum}
                     changeArtworkAlbum ={this.props.changeArtworkAlbum}
@@ -69,7 +68,6 @@ export default class Albums extends React.Component {
                             key                 ={album.id}
                             album               ={album}
                             user                ={this.props.user}
-                            thumbnail           ={this.props.thumbnail}
                             onEdit              ={this.props.onEdit.bind(null, album.id)}
                             onDelete            ={this.props.onDelete.bind(null, album.id)}
                             onMove              ={this.moveAlbum}

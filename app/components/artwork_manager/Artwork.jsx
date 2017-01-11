@@ -85,7 +85,7 @@ export default class Artwork extends React.Component {
                     onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     >
-                    <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)} />
+                    <img src={this.props.paths.images + this.props.artwork.id} />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>

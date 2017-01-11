@@ -113,7 +113,7 @@ export default class PortalMain extends React.Component {
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="edit-profile-layout">
                     <EditProfile
-                        paths={this.props.paths}
+                        paths                     ={this.props.paths}
                         user                      ={this.props.user}
                         userPrivate               ={this.props.userPrivate}
                         editPublicUserInfo        ={this.props.editPublicUserInfo}
@@ -134,11 +134,11 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
-                    setActingUID={this.props.setActingUID}
-                    actingUID={this.props.actingUID}
-                    setActingUser={this.props.setActingUser}
-                    paths={this.props.paths}
-                    user={this.props.user}
+                    setActingUID     ={this.props.setActingUID}
+                    actingUID        ={this.props.actingUID}
+                    setActingUser    ={this.props.setActingUser}
+                    paths            ={this.props.paths}
+                    user             ={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
@@ -152,16 +152,16 @@ export default class PortalMain extends React.Component {
                 <TransitionGroup>
                     <ReviewArtworks
                         managerIsOpen   ={this.props.managerIsOpen}
-                        currentAppLayout   ={this.props.currentAppLayout} />
+                        currentAppLayout={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <TransitionGroup>
                     <ReviewArtworkInfo
-                            currentAppLayout   ={this.props.currentAppLayout} />
+                        currentAppLayout={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <div
-                    onClick     ={this.props.toggleNav}
-                    onTouchTap  ={this.props.toggleNav}
-                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
+                    onClick    ={this.props.toggleNav}
+                    onTouchTap ={this.props.toggleNav}
+                    className  ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
             </div>
         );
     }
@@ -176,12 +176,12 @@ export default class PortalMain extends React.Component {
 // ============= PropTypes ==============
 
 PortalMain.propTypes = {
-    navIsOpen: React.PropTypes.bool.isRequired,
-    managerIsOpen: React.PropTypes.bool.isRequired,
-    toggleManager: React.PropTypes.func.isRequired,
-    currentAlbum: React.PropTypes.string.isRequired,
-    changeAlbum: React.PropTypes.func.isRequired,
-    changeAppLayout: React.PropTypes.func.isRequired,
-    toggleEditArtworkDialog: React.PropTypes.func.isRequired,
+    navIsOpen               : React.PropTypes.bool.isRequired,
+    managerIsOpen           : React.PropTypes.bool.isRequired,
+    toggleManager           : React.PropTypes.func.isRequired,
+    currentAlbum            : React.PropTypes.string.isRequired,
+    changeAlbum             : React.PropTypes.func.isRequired,
+    changeAppLayout         : React.PropTypes.func.isRequired,
+    toggleEditArtworkDialog : React.PropTypes.func.isRequired,
     changeCurrentEditArtwork: React.PropTypes.func.isRequired
 };

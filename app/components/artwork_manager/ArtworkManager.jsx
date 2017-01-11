@@ -188,8 +188,7 @@ export default class ArtworkManager extends React.Component {
                 {album.map(artwork => {
                     return (
                         <Artwork
-                            paths={this.props.paths}
-                            thumbnail   ={this.props.thumbnail}
+                            paths       ={this.props.paths}
                             currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}

@@ -72,7 +72,6 @@ export default class EditProfile extends React.Component {
         return (
             <PublicEdit
                 user                ={this.props.user}
-                thumbnail           ={this.props.thumbnail}
                 editingPublic       ={this.state.editingPublic}
                 editPublic          ={this.editPublic}
                 editPrivate         ={this.editPrivate}

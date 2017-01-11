@@ -64,7 +64,7 @@ export default class UploadDialog extends React.Component {
                                 <article
                                     key={uuid.v4()}
                                     className="dropzone-image-preview-container">
-                                    <img src={this.props.thumbnail(file.url, 300)} />
+                                    <img src={file.url} />
                                     <div className="overlay">
                                         <div>
                                             <h2 className="file-name">{file.name}</h2>
