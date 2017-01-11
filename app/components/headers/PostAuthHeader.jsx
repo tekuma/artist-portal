@@ -13,8 +13,7 @@ import AdminSelector from './AdminSelector';
  */
 export default class PostAuthHeader extends React.Component {
     state = {
-        searchOpen: false,
-        artists   : [],
+        searchOpen: false
     };
 
     constructor(props) {
@@ -26,7 +25,7 @@ export default class PostAuthHeader extends React.Component {
     }
 
     render() {
-        //NOTE: This is a hard check to see if a user is one of our admin users. 
+        //NOTE: This is a hard check to see if a user is one of our admin users.
         let isAdmin = firebase.auth().currentUser.uid == "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
                       firebase.auth().currentUser.uid == "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
                       firebase.auth().currentUser.uid == "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2"
@@ -39,9 +38,6 @@ export default class PostAuthHeader extends React.Component {
 
     componentDidMount() {
         console.log("+++++PostAuthHeader");
-        this.gatherAllArtists().then( (artists)=>{
-            this.setState({artists:artists});
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,9 +70,8 @@ export default class PostAuthHeader extends React.Component {
                         <AdminSelector
                             setActingUID={this.props.setActingUID}
                             setActingUser={this.props.setActingUser}
-                            artists={this.state.artists}
                             actingUID={this.props.actingUID}
-                            />
+                        />
                     </div>
 
                     <div
@@ -97,10 +92,7 @@ export default class PostAuthHeader extends React.Component {
                         </g>
                       </svg>
                     </div>
-
-
                     <div className="header-icons">
-
                         <OverlayTrigger placement="bottom" overlay={addArtworkTooltip}>
                             <div
                                 className="header-icon"
@@ -203,6 +195,7 @@ export default class PostAuthHeader extends React.Component {
         );
     }
 
+    // ============= Methods ================
 
     /**
      * TODO
@@ -238,24 +231,6 @@ export default class PostAuthHeader extends React.Component {
         console.log('Set uploaded files: ', files);
     }
 
-    /**
-     * Gathers a list of all artists. Note: this method requests a lot of data
-     * as it is hierarchical and gathers all users and their data.
-     * @return {Promise} - returns array of [[uid,name],[uid,name],...]]
-     */
-    gatherAllArtists = () => {
-        return new Promise( (resolve, reject)=>{
-            let retlst = [];
-            firebase.database().ref('public/onboarders').once("value").then( (snapshot)=>{
-                let node = snapshot.val();
-                for (var uid in node) {
-                    if (node.hasOwnProperty(uid)) {
-                        retlst.push([uid, node[uid].display_name]);
-                    }
-                }
-                resolve(retlst);
-            });
-        });
-    }
+
 
 }

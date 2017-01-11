@@ -10,7 +10,7 @@ import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
  */
 export default class AdminSelector extends React.Component {
     state = {
-
+        artists: [],
     }
 
     constructor(props) {
@@ -24,7 +24,7 @@ export default class AdminSelector extends React.Component {
     render() {
         //NOTE: the prop passed into Select as 'value' must match the
         // artist.value below to be rendered as selected.
-        let options = this.props.artists.map( (artist)=>{
+        let options = this.state.artists.map( (artist)=>{
                 return {label: artist[1] , value:artist[0] , id:artist[0]};
             });
 
@@ -61,6 +61,9 @@ export default class AdminSelector extends React.Component {
 
     componentDidMount() {
         console.log("+++++AdminSelector");
+        this.gatherAllArtists().then( (artists)=>{
+            this.setState({artists:artists});
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,5 +72,24 @@ export default class AdminSelector extends React.Component {
 
     // ------------ METHODS -------------
 
+    /**
+     * Gathers a list of all artists. Note: this method requests a lot of data
+     * as it is hierarchical and gathers all users and their data.
+     * @return {Promise} - returns array of [[uid,name],[uid,name],...]]
+     */
+    gatherAllArtists = () => {
+        return new Promise( (resolve, reject)=>{
+            let retlst = [];
+            firebase.database().ref('public/onboarders').once("value").then( (snapshot)=>{
+                let node = snapshot.val();
+                for (var uid in node) {
+                    if (node.hasOwnProperty(uid)) {
+                        retlst.push([uid, node[uid].display_name]);
+                    }
+                }
+                resolve(retlst);
+            });
+        });
+    }
 
 }

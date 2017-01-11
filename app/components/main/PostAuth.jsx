@@ -174,7 +174,6 @@ export default class PostAuth extends React.Component {
      * @param {Array} artist [object coming from options of AdminSelector]
      */
     setActingUID = (artist)=>{
-        // console.log("Selected Artist => ", artist);
         let uid;
         if (artist === null) { // when selector is cleared
             uid = firebase.auth().currentUser.uid;
@@ -185,7 +184,6 @@ export default class PostAuth extends React.Component {
         if (this.state.paths.user) { // first time called, will be null.
             let oldRef = firebase.database().ref(this.state.paths.user);
             oldRef.off();
-            // console.log(this.state.paths.user, "Listener Detached");
         }
         this.setState({actingUID:artist.value}); //update state.actingUID
         this.setState({currentAlbum:"Miscellaneous"}); // ensure clean transition
@@ -198,15 +196,15 @@ export default class PostAuth extends React.Component {
      */
     setActingUser = (uid) => {
         //NOTE: This is a hard check to see if a user is one of our admin users.
-        let isAdmin = firebase.auth().currentUser.uid == "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
-                      firebase.auth().currentUser.uid == "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
-                      firebase.auth().currentUser.uid == "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ;
-        let actingAsSelf = firebase.auth().currentUser.uid != uid;
+        let isAdmin = firebase.auth().currentUser.uid === "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
+                      firebase.auth().currentUser.uid === "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
+                      firebase.auth().currentUser.uid === "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ;
+        let actingAsSelf = firebase.auth().currentUser.uid === uid;
 
         if (actingAsSelf || isAdmin) {
             let paths = {
                 uid    : uid,
-                images :`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb128/`,
+                images :`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb512/`,
                 user   :`public/onboarders/${uid}`,
                 priv   :`_private/onboarders/${uid}`,
                 art    :`public/onboarders/${uid}/artworks/`,
@@ -450,6 +448,7 @@ export default class PostAuth extends React.Component {
                 },
                 (error)=>{
                     console.error(error);
+                    console.log(error);
                     this.setState({
                         currentError: error.message
                     });
@@ -1095,6 +1094,8 @@ export default class PostAuth extends React.Component {
         // Remove the artwork pointer from the album via transaction, then
         // shift indexes bc firebase uses de-abstracted arrays
         userRef.child('albums').transaction( (node)=>{
+            console.log(node);
+            console.log(this.state.paths);
             let albumCount = Object.keys(node).length;
             let albumIndex;
             let artworkIndex;
