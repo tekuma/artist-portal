@@ -396,16 +396,31 @@ export default class PostAuth extends React.Component {
     submitJob = (path, artworkUID) => {
         let url      = firebase.database().ref(this.state.paths.jobs).push();
         let jobID    = url.path.o[1];
-        console.log("New job created =>",jobID);
+        console.log("New job created =>",jobID, path);
         let job = {
-            uid      : firebase.auth().currentUser.uid, //FIXME change to artist_uid
+            uid      : firebase.auth().currentUser.uid,
             file_path: path,
+            task     : "resize",
             job_id   : jobID,
             complete : false,
             bucket   : "art-uploads",
-            name     : artworkUID //FIXME change field to artwork_id
+            name     : artworkUID, //FIXME change field to artwork_id
+            submitted: new Date().toISOString()
         }
-        let jobPath = this.state.paths.jobs + jobID
+
+        //FIXME: Change to:
+            //  let job = {
+            // artist_uid  : firebase.auth().currentUser.uid,
+            // file_path   : path,
+            // task        : "resize",
+            // job_id      : jobID,
+            // isComplete  : false,
+            // bucket      : "art-uploads",
+            // artwork_uid : artworkUID,
+            // submitted   : new Date().toISOString()
+            //     }
+
+        let jobPath = this.state.paths.jobs + jobID;
         firebase.database().ref(jobPath).set(job);
     }
 
@@ -435,9 +450,13 @@ export default class PostAuth extends React.Component {
             let uploadPath = this.state.paths.uploads + artworkUID;
 
             // Add node to job-stack for thumbnails / backend processing
-            this.submitJob(uploadPath, artworkUID);
+            // on a delay to allow for upload to begin
+            setTimeout( ()=>{
+                this.submitJob(uploadPath, artworkUID);
+            }, 1000);
 
-            //Store the original upload, un-changed.
+
+            //Store the original upload, un-changed, in /uploads
             console.log("Upload Path =>", uploadPath);
             const bucketRefrence  = firebase.storage().ref(uploadPath);
             bucketRefrence.put(blob).on(
@@ -447,7 +466,6 @@ export default class PostAuth extends React.Component {
                     console.log(percent + "% done w/ fullsize upload");
                 },
                 (error)=>{
-                    console.error(error);
                     console.log(error);
                     this.setState({
                         currentError: error.message
@@ -505,7 +523,7 @@ export default class PostAuth extends React.Component {
                             description : "",
                             tags        : [], // handled in cloud
                             size        : fileSize,
-                            fullsize_url: fullSizeURL,
+                            fullsize_url: fullSizeURL, //FIXME liability?
                             colors      : {} // handled in cloud
                         };
 
@@ -513,31 +531,35 @@ export default class PostAuth extends React.Component {
                         artRef.child(artworkUID).set(artObject).then(()=>{
                             console.log(">>>>Artwork info set into DB");
                         }).catch((error)=>{
-                            console.error(error);
+                            if(error){
+                                console.log(error);
+                                this.setState({
+                                    currentError: error.message
+                                });
 
-                            // this.setState({
-                            //     currentError: error.message
-                            // });
-
-                            // setTimeout(() => {
-                            //     this.setState({
-                            //         currentError: ""
-                            //     });
-                            // }, 4500);   // Clear error once it has been shown
-                        });
-
-                        //Now, add a pointer to the artwork object to the current album
-                        albumRef.transaction( (node)=>{
-                            if (node == null) {
-                                node = {0:artworkUID};
-                            } else {
-                                let currentLength   = Object.keys(node).length;
-                                node[currentLength] = artworkUID;
+                                setTimeout(() => {
+                                    this.setState({
+                                        currentError: ""
+                                    });
+                                }, 4500);   // Clear error once it has been shown
                             }
-                            return node; //finish transaction
-                        }, (error,bool,snap)=>{
-                                console.log(">>>Img set into album", albumRef);
                         });
+
+                        setTimeout( ()=>{
+                            //Now, add a pointer to the artwork object to the current album
+                            albumRef.transaction( (node)=>{
+                                if (node == null) {
+                                    node = {0:artworkUID};
+                                } else {
+                                    let currentLength   = Object.keys(node).length;
+                                    node[currentLength] = artworkUID;
+                                }
+                                return node; //finish transaction
+                            }, (error,bool,snap)=>{
+                                    console.log(">>>Img set into album", albumRef);
+                            });
+                        }, 4500);
+
                     });//END upload promise and thenable
             });
         } else {
