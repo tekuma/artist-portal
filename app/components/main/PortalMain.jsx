@@ -82,6 +82,7 @@ export default class PortalMain extends React.Component {
                 <ArtworkManager
                     actingUID={this.props.actingUID}
                     paths={this.props.paths}
+                    onSubmit={this.props.onSubmit}
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
                     currentAlbum             ={this.props.currentAlbum}

@@ -189,6 +189,7 @@ export default class ArtworkManager extends React.Component {
                     return (
                         <Artwork
                             paths       ={this.props.paths}
+                            onSubmit    ={this.props.onSubmit}
                             currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}

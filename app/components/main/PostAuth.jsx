@@ -73,6 +73,7 @@ export default class PostAuth extends React.Component {
                     toggleNav={this.toggleNav}
                     navIsOpen={this.state.navIsOpen} />
                 <PortalMain
+                    onSubmit={this.onSubmit}
                     setActingUID={this.setActingUID}
                     setActingUser={this.setActingUser}
                     actingUID={this.state.actingUID}
@@ -167,6 +168,55 @@ export default class PostAuth extends React.Component {
     }
 
 // -------------- METHODS -------------- //
+
+    /**
+     * Handles submitting an artwork.
+     *  - Appends the artwork to the curator-tekuma submissions branch
+     *  - Sets the artwork in the artist-tekuma database as
+     *    artwork.submitted = true
+     * @param  {String} artwork_uid [ID of the artwork]
+     * @param  {[Event]} e
+     */
+    onSubmit = (artwork_uid, e) => {
+        e.stopPropagation(); //NOTE:
+        console.log(this.state.paths.art + artwork_uid);
+        let artwork_ref = firebase.database().ref(this.state.paths.art + artwork_uid);
+        artwork_ref.transaction( (data)=>{
+            data.submitted = true;
+            return data
+        });
+
+
+        let submission = {
+            artwork_uid: artwork_uid,
+            artist_uid : this.state.actingUID,
+            submitted  : new Date().toISOString(),
+            status     : "Unseen",
+            memo       : "",
+            artist_name: this.state.user.display_name
+        }
+
+        let url      = firebase.database().ref(this.state.paths.jobs).push();
+        let jobID    = url.path.o[1];
+        console.log("New job created =>",jobID);
+        let job = {
+            uid      : firebase.auth().currentUser.uid,
+            task     : "submit",
+            job_id   : jobID,
+            complete : false,
+            artwork_uid: artwork_uid,
+            submission: submission,
+            submitted: new Date().toISOString()
+        }
+        let path = this.state.paths.jobs + jobID;
+        firebase.database().ref(path).set(job).then(()=>{
+            console.log("Submission Submitted!");
+        });
+
+
+
+    }
+
 
     /**
      * (1) Initial method for changing acting user. First, sets the
