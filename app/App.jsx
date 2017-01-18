@@ -37,14 +37,6 @@ var config = {
     storageBucket: "art-uploads"
 };
 
-// // ====== Staging ======
-// var config = {
-//     apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
-//     authDomain: "project-7614141605200030275.firebaseapp.com",
-//     databaseURL: "https://project-7614141605200030275.firebaseio.com",
-//     storageBucket: "project-7614141605200030275.appspot.com",
-// };
-
 firebase.initializeApp(config);
 
 //FIXME FIXME FIXME
