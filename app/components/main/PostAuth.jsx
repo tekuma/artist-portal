@@ -175,7 +175,7 @@ export default class PostAuth extends React.Component {
      *  - Sets the artwork in the artist-tekuma database as
      *    artwork.submitted = true
      * @param  {String} artwork_uid [ID of the artwork]
-     * @param  {[Event]} e
+     * @param  {Event} e
      */
     onSubmit = (artwork_uid, e) => {
         e.stopPropagation(); //NOTE:
@@ -185,20 +185,27 @@ export default class PostAuth extends React.Component {
             data.submitted = true;
             return data
         });
-
-
         let submission = {
-            artwork_uid: artwork_uid,
-            artist_uid : this.state.actingUID,
-            submitted  : new Date().toISOString(),
-            status     : "Unseen",
-            memo       : "",
-            artist_name: this.state.user.display_name
+            artwork_uid : artwork_uid,
+            artwork_name: this.state.user.artworks[artwork_uid].title,
+            artist_name : this.state.user.display_name,
+            artist_uid  : this.state.actingUID,
+            submitted   : new Date().toISOString(),
+            update_date : this.state.user.artworks[artwork_uid].upload_date,
+            size        : this.state.user.artworks[artwork_uid].size,
+            album       : this.state.user.artworks[artwork_uid].album,
+            colors      : this.state.user.artworks[artwork_uid].colors,
+            tags        : this.state.user.artworks[artwork_uid].tags,
+            year        : this.state.user.artworks[artwork_uid].year,
+            status      : "Unseen",
+            memo        : "",
         }
 
         let url      = firebase.database().ref(this.state.paths.jobs).push();
         let jobID    = url.path.o[1];
+
         console.log("New job created =>",jobID);
+
         let job = {
             uid      : firebase.auth().currentUser.uid,
             task     : "submit",
@@ -211,10 +218,16 @@ export default class PostAuth extends React.Component {
         let path = this.state.paths.jobs + jobID;
         firebase.database().ref(path).set(job).then(()=>{
             console.log("Submission Submitted!");
+            firebase.database().ref(this.state.paths.submits).transaction((data)=>{
+                if (!data) {
+                    data = [];
+                }
+                data.push(artwork_uid);
+                return data;
+            }).then(()=>{
+                console.log("submission recorded in artist");
+            });
         });
-
-
-
     }
 
 
@@ -255,12 +268,14 @@ export default class PostAuth extends React.Component {
             let paths = {
                 uid    : uid,
                 images :`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb512/`,
-                user   :`public/onboarders/${uid}`,
+                thmb128:`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb128/`,
+                user   :`public/onboarders/${uid}/`,
                 priv   :`_private/onboarders/${uid}`,
                 art    :`public/onboarders/${uid}/artworks/`,
                 uploads:`portal/${uid}/uploads/`,
                 avatars:`portal/${uid}/avatars/`,
                 albums :`public/onboarders/${uid}/albums/`,
+                submits:`public/onboarders/${uid}/submits/`,
                 jobs   :`jobs/`,
 
             }

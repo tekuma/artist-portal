@@ -5,16 +5,18 @@ import TransitionGroup      from 'react-addons-transition-group';
 //Files
 import PostAuthHeader       from '../headers/PostAuthHeader';
 import ArtworksAlbumManager from '../album_manager/ArtworksAlbumManager';
-import ReviewAlbumManager   from '../album_manager/ReviewAlbumManager';
-import ReviewArtworkInfo    from '../review_albums/ReviewArtworkInfo';
-import ReviewArtworks       from '../review_albums/ReviewArtworks';
+import ReviewArtworkManager from '../review/ReviewArtworkManager';
+import ReviewArtworkInfo    from '../review/ReviewArtworkInfo';
 import ArtworkManager       from '../artwork_manager/ArtworkManager';
 import EditProfile          from '../edit_profile/EditProfile';
 import Views                from '../../constants/Views';
 
 
 export default class PortalMain extends React.Component {
-    state = {};
+    state = {
+        submits: {},
+        reviewArtwork:{},
+    }
 
     constructor(props) {
         super(props);
@@ -39,6 +41,7 @@ export default class PortalMain extends React.Component {
 
     componentDidMount() {
         console.log("+++++PortalMain");
+        this.gatherSubmissions();
         window.addEventListener("resize", this.rerender);
     }
 
@@ -143,21 +146,20 @@ export default class PortalMain extends React.Component {
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
-                <ReviewAlbumManager
+                <ReviewArtworkManager
                     paths={this.props.paths}
-                    currentAlbum    ={this.props.currentAlbum}
-                    changeAlbum     ={this.props.changeAlbum}
+                    submits={this.state.submits}
+                    reviewArtwork={this.state.reviewArtwork}
+                    changeReviewArtwork={this.changeReviewArtwork}
                     currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
                 <TransitionGroup>
-                    <ReviewArtworks
-                        managerIsOpen   ={this.props.managerIsOpen}
-                        currentAppLayout={this.props.currentAppLayout} />
-                </TransitionGroup>
-                <TransitionGroup>
                     <ReviewArtworkInfo
-                        currentAppLayout={this.props.currentAppLayout} />
+                        paths={this.props.paths}
+                        currentAppLayout={this.props.currentAppLayout}
+                        submits={this.state.submits}
+                        reviewArtwork={this.state.reviewArtwork}/>
                 </TransitionGroup>
                 <div
                     onClick    ={this.props.toggleNav}
@@ -172,6 +174,56 @@ export default class PortalMain extends React.Component {
     rerender = () => {
         this.setState({});
     }
+
+    changeReviewArtwork = (artwork) => {
+        this.setState({reviewArtwork:artwork});
+    }
+
+    /**
+     * This method reads this.props.user.submits list, and gathers the information
+     * from the curator database for each of the submissions, then stores this
+     * in state.
+     *  -NOTE: This method logs into the curator app.
+     *  -NOTE: There is sometimes an error of reading user.submits before
+     * this info returns from firebase. To prevent this, a timeout is used. As it
+     * would take the user at least 1 second to navigate to the Gallery interface,
+     * this timeout would not interfere with the UX.
+     */
+    gatherSubmissions = () => {
+        let curator;
+        try {
+            let config = {
+                apiKey       : "AIzaSyDPLbeNTIctAEKu14VFeQuun8wz6ZbdTWU",
+                authDomain   : "curator-tekuma.firebaseapp.com",
+                databaseURL  : "https://curator-tekuma.firebaseio.com",
+                storageBucket: "curator-tekuma.appspot.com",
+            };
+            curator = firebase.initializeApp(config,"curator");
+        } catch (e) {
+
+        }
+
+
+        setTimeout(()=>{
+            let submits =  this.props.user.submits;
+            console.log(submits);
+            if (submits) {
+                for (let i = 0; i < submits.length; i++) { // use let not var
+                    let path = `submissions/${submits[i]}`;
+                    curator.database().ref(path).on("value",(snapshot)=>{
+                        console.log("-----------");
+                        console.log(snapshot.val());
+                        let statesubmits = this.state.submits;
+                        statesubmits[submits[i]] = snapshot.val();
+                        this.setState({
+                            submits: statesubmits
+                        });
+                    });
+                }
+            }
+        }, 2000);
+    }
+
 }
 
 // ============= PropTypes ==============

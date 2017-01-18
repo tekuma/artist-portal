@@ -13,25 +13,24 @@ export default class HiddenNav extends React.Component {
     navItems = [
         {
             id: uuid.v4(),
-            item: 'Artworks',
+            item: 'Studio',
             icon: '../../assets/images/icons/organize-outline.svg',
             href:  Views.ARTWORKS,
-            title: 'Manage Artworks'
-        }
-        ,
-        // {
-        //     id: uuid.v4(),
-        //     item: 'Gallery',
-        //     icon: '../../assets/images/logos/logo-white.svg',
-        //     href:  Views.REVIEW,
-        //     title: 'Manage Submitted Art'
-        // },
+            title: 'Manage and detail your Art'
+        },
+        {
+            id: uuid.v4(),
+            item: 'Gallery',
+            icon: '../../assets/images/logos/logo-white.svg',
+            href:  Views.REVIEW,
+            title: 'View Submitted Art'
+        },
         {
             id: uuid.v4(),
             item: 'Profile',
             icon: '../../assets/images/icons/person-outline.svg',
             href:  Views.PROFILE,
-            title: 'Edit Profile'
+            title: 'Edit Personal Information'
         }
     ];
 

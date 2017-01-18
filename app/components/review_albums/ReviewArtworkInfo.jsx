@@ -1,32 +1,36 @@
 // Libs
-import React                        from 'react';
-import ReactDOM                     from 'react-dom';
-import firebase                     from 'firebase';
-
+import React        from 'react';
+import ReactDOM     from 'react-dom';
+import firebase     from 'firebase';
 // Files
-import Views             from '../../constants/Views';
+import Views        from '../../constants/Views';
 
 /**
  * TODO
  */
-export default class ReviewAlbumBanner extends React.Component {
+export default class ReviewArtworkInfo extends React.Component {
+    state = {   
+    }
+
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        console.log("-----ReviewAlbumBanner");
+        console.log("-----ReviewArtworkInfo");
     }
 
     render() {
-
+        console.log(submit, "here");
+        let submit = this.props.submits[this.props.reviewArtwork]
+        let thumbnail_url = this.props.paths.images + submit.artwork_uid;
         let previewStyle = {
-            backgroundImage: 'url(assets/starry.jpg)'
+            backgroundImage: `url(${thumbnail_url})`
         }
 
         let infoStyle = {
             height: window.innerHeight - 60,
-            width: window.innerWidth * 0.75 - 236
+            width: window.innerWidth * 0.75
         }
 
         let artworkStatusStyleLarge = {
@@ -55,10 +59,10 @@ export default class ReviewAlbumBanner extends React.Component {
                         <div className="album-banner-details-wrapper">
                             <div className="album-banner-details">
                                 <div className="album-banner-title">
-                                    Impressions
+                                    {submit.artwork_name}
                                 </div>
                                 <div className="album-banner-artist">
-                                    Van Gogh
+                                    {submit.artist_name}
                                 </div>
                                 <div className="album-banner-date">
                                     1880
@@ -133,7 +137,7 @@ export default class ReviewAlbumBanner extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++ReviewAlbumBanner");
+        console.log("+++++ReviewArtworkInfo");
     }
 
     componentWillReceiveProps(nextProps) {
