@@ -12,6 +12,14 @@ import EditProfile          from '../edit_profile/EditProfile';
 import Views                from '../../constants/Views';
 
 
+let config = {
+    apiKey       : "AIzaSyDPLbeNTIctAEKu14VFeQuun8wz6ZbdTWU",
+    authDomain   : "curator-tekuma.firebaseapp.com",
+    databaseURL  : "https://curator-tekuma.firebaseio.com",
+    storageBucket: "curator-tekuma.appspot.com",
+};
+const curator = firebase.initializeApp(config,"curator");
+
 export default class PortalMain extends React.Component {
     state = {
         submits: {},
@@ -46,6 +54,10 @@ export default class PortalMain extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("NEXT->",nextProps);
+        if (nextProps.user.submits != this.props.user.submits) {
+            this.gatherSubmissions();
+        }
     }
 
     componentWillUnmount() {
@@ -190,19 +202,6 @@ export default class PortalMain extends React.Component {
      * this timeout would not interfere with the UX.
      */
     gatherSubmissions = () => {
-        let curator;
-        try {
-            let config = {
-                apiKey       : "AIzaSyDPLbeNTIctAEKu14VFeQuun8wz6ZbdTWU",
-                authDomain   : "curator-tekuma.firebaseapp.com",
-                databaseURL  : "https://curator-tekuma.firebaseio.com",
-                storageBucket: "curator-tekuma.appspot.com",
-            };
-            curator = firebase.initializeApp(config,"curator");
-        } catch (e) {
-
-        }
-
 
         setTimeout(()=>{
             let submits =  this.props.user.submits;

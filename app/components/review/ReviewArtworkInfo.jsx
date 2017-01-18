@@ -8,9 +8,8 @@ import Views        from '../../constants/Views';
 /**
  * TODO
  */
-export default class ReviewAlbumBanner extends React.Component {
+export default class ReviewArtworkInfo extends React.Component {
     state = {
-
     }
 
     constructor(props) {
@@ -18,18 +17,25 @@ export default class ReviewAlbumBanner extends React.Component {
     }
 
     componentWillMount() {
-        console.log("-----ReviewAlbumBanner");
+        console.log("-----ReviewArtworkInfo");
     }
 
     render() {
+        let submit = this.props.submits[this.props.reviewArtwork];
+        if (!submit) {
+            return (
+                <div></div>
+            )
+        }
 
+        let thumbnail_url = this.props.paths.images + submit.artwork_uid;
         let previewStyle = {
-            backgroundImage: 'url(assets/starry.jpg)'
+            backgroundImage: `url(${thumbnail_url})`
         }
 
         let infoStyle = {
             height: window.innerHeight - 60,
-            width: window.innerWidth * 0.75 
+            width: window.innerWidth * 0.75
         }
 
         let artworkStatusStyleLarge = {
@@ -58,10 +64,10 @@ export default class ReviewAlbumBanner extends React.Component {
                         <div className="album-banner-details-wrapper">
                             <div className="album-banner-details">
                                 <div className="album-banner-title">
-                                    Impressions
+                                    {submit.artwork_name}
                                 </div>
                                 <div className="album-banner-artist">
-                                    Van Gogh
+                                    {submit.artist_name}
                                 </div>
                                 <div className="album-banner-date">
                                     1880
@@ -95,7 +101,7 @@ export default class ReviewAlbumBanner extends React.Component {
                                 Date Submitted
                             </h3>
                             <div className="status-info-wrapper center">
-                                <p>12:34 June 15 2016</p>
+                                <p>{submit.submitted}</p>
                             </div>
                         </div>
                         <div className="status-wrapper">
@@ -105,7 +111,7 @@ export default class ReviewAlbumBanner extends React.Component {
                             <div className="status-info-wrapper center">
                                 <div className="review-status">
                                     <h4>
-                                        In Review
+                                        {submit.status}
                                     </h4>
                                 </div>
                             </div>
@@ -115,10 +121,7 @@ export default class ReviewAlbumBanner extends React.Component {
                                 Message
                             </h3>
                             <div className="status-info-wrapper">
-                                <p>Your artwork will be displayed on our social
-                                    media and in our curation serices. Publish
-                                    this artwork if you would like to feature it on
-                                    our Discover page too.</p>
+                                <p>{submit.memo}</p>
                             </div>
                         </div>
                         <div className="status-wrapper">
@@ -136,7 +139,7 @@ export default class ReviewAlbumBanner extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++ReviewAlbumBanner");
+        console.log("+++++ReviewArtworkInfo");
     }
 
     componentWillReceiveProps(nextProps) {
