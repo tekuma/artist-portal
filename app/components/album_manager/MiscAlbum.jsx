@@ -18,8 +18,7 @@ const albumTarget = {
         targetProps.changeArtworkAlbum(source.id, source.album, "Miscellaneous");
 
         // Change album within artwork JSON
-        const thisUID  = firebase.auth().currentUser.uid;
-        let path = `public/onboarders/${thisUID}/artworks/${source.id}`;
+        let path = this.props.paths.art + source.id;
         let thisArtworkRef = firebase.database().ref(path);
         thisArtworkRef.transaction((data) => {
             data['album'] = "Miscellaneous";
@@ -63,8 +62,8 @@ export default class MiscAlbum extends React.Component {
                     if (this.props.user.artworks.hasOwnProperty(artworkID)) {
                         if (artworkID == id) {
                             let artwork = this.props.user.artworks[artworkID];
-                            if (artwork.album && this.props.thumbnail) {
-                                let image = this.props.thumbnail(artwork.fullsize_url, 150);
+                            if (artwork.album) {
+                                let image = this.props.paths.images + artworkID;
                                 thumbnail = image;
                                 break;
                             }

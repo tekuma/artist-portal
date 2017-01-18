@@ -7,12 +7,11 @@
  */
 
 // Libs
-import React              from 'react';
-import Firebase           from 'firebase';
-import cloudinary         from 'cloudinary';
-import Snackbar           from 'material-ui/Snackbar';
-import getMuiTheme        from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+import React                from 'react';
+import Firebase             from 'firebase';
+import Snackbar             from 'material-ui/Snackbar';
+import getMuiTheme          from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider     from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from "react-tap-event-plugin";
 
 injectTapEventPlugin({
@@ -37,19 +36,21 @@ var config = {
     storageBucket: "art-uploads"
 };
 
+<<<<<<< HEAD
+=======
+// // ====== Staging ======  // "dev-artist-portal"
+// var config = {
+//     apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
+//     authDomain: "project-7614141605200030275.firebaseapp.com",
+//     databaseURL: "https://project-7614141605200030275.firebaseio.com",
+//     storageBucket: "project-7614141605200030275.appspot.com",
+// };
+
+>>>>>>> 5463204fecc53437506b409e55c51d727921fdf4
 firebase.initializeApp(config);
 
-//FIXME FIXME FIXME
-//FIXME move api secret to env var
-cloudinary.config({
-  cloud_name: 'tekuma-io',
-  api_key   : '815625669726765',
-  api_secret: 'vciXc0S5BmQcft0ev7eBgJQJAIc'
-});
 
 //  # Global Variables
-const userPath  = 'public/onboarders/';
-
 const providerG = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
 //TODO  Add 'scopes'? to google/fb auth
@@ -119,10 +120,8 @@ export default class App extends React.Component {
         return(
             <div>
                 <PostAuth
-                  thisUID                 ={this.state.thisUID}
                   signOutUser             ={this.signOutUser}
                   clearVerifyEmailMessage ={this.clearVerifyEmailMessage}
-                  thumbnail               ={this.thumbnail}
                 />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
@@ -138,7 +137,7 @@ export default class App extends React.Component {
     /**
      * Flow Control Function: If no user is detected when accessing '/', then
      * they the UX will render the login page, "PreAuth".
-     * @return {JSX} Renders the PreAuth screen
+     * @return {JSX} - Renders the PreAuth screen
      */
     goToPreAuth = () => {
         console.log("|>Rendering Login Page");
@@ -175,8 +174,7 @@ export default class App extends React.Component {
     }
 
     /**
-     * TODO
-     * @return {[type]} [description]
+     * Shows a folding cube, loading animation.
      */
     goToLoadingScreen = () => {
         return (
@@ -332,9 +330,6 @@ export default class App extends React.Component {
                 behance     : ""
             };
 
-        //FIXME do this with a forloop and .hasOwnProperty()
-        //Check for info Submitted, if so override defaults
-
         if (this.state.reg.bio) {
            bio = this.state.reg.bio;
         }
@@ -343,7 +338,8 @@ export default class App extends React.Component {
         }
         if (this.state.reg.portfolio) {
            portfolio = this.state.reg.portfolio;
-        }
+       }
+
         if (this.state.reg.display_name) {
            display_name = this.state.reg.display_name;
         }
@@ -491,26 +487,6 @@ export default class App extends React.Component {
                 errors: this.state.errors.concat(error.message)
             })
         });
-    }
-
-    /**
-     * Cloudinary Method. This method takes in a fullsize_url or any image url,
-     * sends the image to be used by cloudinary, and returns a dynamic link
-     * that can be used in the UX.
-     * @param  {String} url [a raw or fullsize url directing to an image file]
-     * @return {String}     [a dynamic URL safe for use inside of the UI/UX]
-     */
-    thumbnail = (url,width) => {
-        let args = {
-            width       :width,
-            fetch_format: "auto",
-            type        : "fetch"
-        };
-        let theImage = cloudinary.image(url, args);
-        let regex    = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
-        let theURL   = theImage.match(regex)[0];
-        theURL       = theURL.replace("http:", "https:"); //FIXME hacky
-        return theURL;
     }
 
     /**

@@ -16,7 +16,6 @@ import Views      from '../../constants/Views';
  * TODO
  */
 export default class ArtworkManager extends React.Component {
-
     state = {
         album :[] // list of Artwork objects in the current album
     };
@@ -83,13 +82,17 @@ export default class ArtworkManager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user && nextProps.user.albums) {
+        if (nextProps.user && nextProps.user.albums &&
+            nextProps.actingUID == nextProps.user.uid) {
+            // last check guards against having a .on() from a previous acting
+            // user still be attached, and feed updates about a previous user.
+
             let albumIndex;
             let album         = [];
             let thisAlbumName = nextProps.currentAlbum; //passed from PostAuth
             let user          = nextProps.user;
             let albums        = user['albums'];
-            let albumsLength    = Object.keys(albums).length;
+            let albumsLength  = Object.keys(albums).length;
 
             // Look through the albums branch to find which album we are in
             // we have the album name, we need the index of it.
@@ -107,13 +110,14 @@ export default class ArtworkManager extends React.Component {
                 let artworksLength = Object.keys(artworks).length;
 
                 // Load relevant artworks to state album
-                for (let i = 0; i < artworksLength; i++) {
+                for (var i = 0; i < artworksLength; i++) {
                     let artworkUID = artworks[i];
                     let artwork    = user['artworks'][artworkUID];
+                    // console.log(artwork);
                     album.push(artwork);
                 }
             }
-
+            // console.log("ALBUM=>",album);
             this.setState({
                 album: album
             });
@@ -184,7 +188,8 @@ export default class ArtworkManager extends React.Component {
                 {album.map(artwork => {
                     return (
                         <Artwork
-                            thumbnail   ={this.props.thumbnail}
+                            paths       ={this.props.paths}
+                            onSubmit    ={this.props.onSubmit}
                             currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
                             onEdit      ={this.editArtwork}
@@ -328,13 +333,18 @@ export default class ArtworkManager extends React.Component {
         );
     }
 
+    /**
+     * [move description]
+     * @param  {[type]} albumName [description]
+     * @param  {[type]} sourceId  [description]
+     * @param  {[type]} targetId  [description]
+     */
     move = (albumName ,sourceId, targetId) => {
-        console.log("Entered move");
-        console.log("Source ID: ", sourceId);
-        console.log("Target ID: ", targetId);
-        const thisUID = firebase.auth().currentUser.uid;
-        const albumPath = `public/onboarders/${thisUID}/albums`;
-        const albumRef = firebase.database().ref(albumPath);
+        // console.log("Entered move");
+        // console.log("Source ID: ", sourceId);
+        // console.log("Target ID: ", targetId);
+
+        const albumRef  = firebase.database().ref(this.props.paths.albums);
 
         albumRef.transaction((data) => {
             let albumIndex;
@@ -386,6 +396,10 @@ export default class ArtworkManager extends React.Component {
         });
     }
 
+    /**
+     * [onDrop description]
+     * @param  {[type]} files [description]
+     */
     onDrop = (files) => {
         if (files.length == 0) {
             return;

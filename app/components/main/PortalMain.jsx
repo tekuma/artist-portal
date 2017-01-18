@@ -1,23 +1,20 @@
 // Libs
-import React             from 'react';
-import firebase          from 'firebase';
-import TransitionGroup from 'react-addons-transition-group';
-
-
+import React                from 'react';
+import firebase             from 'firebase';
+import TransitionGroup      from 'react-addons-transition-group';
 //Files
-import PostAuthHeader    from '../headers/PostAuthHeader';
-import ArtworksAlbumManager      from '../album_manager/ArtworksAlbumManager';
-import ReviewAlbumManager      from '../album_manager/ReviewAlbumManager';
-import ReviewArtworkInfo from '../review_albums/ReviewArtworkInfo';
-import ReviewArtworks from '../review_albums/ReviewArtworks';
-import ArtworkManager    from '../artwork_manager/ArtworkManager';
-import EditProfile       from '../edit_profile/EditProfile';
-import Views             from '../../constants/Views';
+import PostAuthHeader       from '../headers/PostAuthHeader';
+import ArtworksAlbumManager from '../album_manager/ArtworksAlbumManager';
+import ReviewAlbumManager   from '../album_manager/ReviewAlbumManager';
+import ReviewArtworkInfo    from '../review_albums/ReviewArtworkInfo';
+import ReviewArtworks       from '../review_albums/ReviewArtworks';
+import ArtworkManager       from '../artwork_manager/ArtworkManager';
+import EditProfile          from '../edit_profile/EditProfile';
+import Views                from '../../constants/Views';
 
 
 export default class PortalMain extends React.Component {
-    state = {
-    };
+    state = {};
 
     constructor(props) {
         super(props);
@@ -46,24 +43,29 @@ export default class PortalMain extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //TODO
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.rerender);
     }
 
-// ============= Flow Control ===============
+// ============= Render Control ===============
 
+    //NOTE: PostAuthHeader has 3 declarations
     goToArtworkManager = () => {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID={this.props.setActingUID}
+                    setActingUser={this.props.setActingUser}
+                    actingUID={this.props.actingUID}
+                    paths={this.props.paths}
+                    user={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <ArtworksAlbumManager
-                    thumbnail              ={this.props.thumbnail}
+                    paths={this.props.paths}
                     user                   ={this.props.user}
                     userPrivate            ={this.props.userPrivate}
                     managerIsOpen          ={this.props.managerIsOpen}
@@ -78,7 +80,9 @@ export default class PortalMain extends React.Component {
                     changeArtworkAlbum     ={this.props.changeArtworkAlbum}
                     />
                 <ArtworkManager
-                    thumbnail                ={this.props.thumbnail}
+                    actingUID={this.props.actingUID}
+                    paths={this.props.paths}
+                    onSubmit={this.props.onSubmit}
                     deleteArtwork            ={this.props.deleteArtwork}
                     user                     ={this.props.user}
                     currentAlbum             ={this.props.currentAlbum}
@@ -101,12 +105,17 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID={this.props.setActingUID}
+                    setActingUser={this.props.setActingUser}
+                    actingUID={this.props.actingUID}
+                    paths={this.props.paths}
                     setUploadedFiles={this.props.setUploadedFiles}
+                    user={this.props.user}
                     changeAppLayout={this.props.changeAppLayout} />
                 <div className="edit-profile-layout">
                     <EditProfile
+                        paths                     ={this.props.paths}
                         user                      ={this.props.user}
-                        thumbnail                 ={this.props.thumbnail}
                         userPrivate               ={this.props.userPrivate}
                         editPublicUserInfo        ={this.props.editPublicUserInfo}
                         editPrivateUserInfo       ={this.props.editPrivateUserInfo}
@@ -126,28 +135,34 @@ export default class PortalMain extends React.Component {
         return (
             <div className={this.props.navIsOpen ? "main-wrapper open" : "main-wrapper"}>
                 <PostAuthHeader
+                    setActingUID     ={this.props.setActingUID}
+                    actingUID        ={this.props.actingUID}
+                    setActingUser    ={this.props.setActingUser}
+                    paths            ={this.props.paths}
+                    user             ={this.props.user}
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <ReviewAlbumManager
-                    currentAlbum       ={this.props.currentAlbum}
-                    changeAlbum        ={this.props.changeAlbum}
-                    currentAppLayout   ={this.props.currentAppLayout}
+                    paths={this.props.paths}
+                    currentAlbum    ={this.props.currentAlbum}
+                    changeAlbum     ={this.props.changeAlbum}
+                    currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
                 <TransitionGroup>
                     <ReviewArtworks
                         managerIsOpen   ={this.props.managerIsOpen}
-                        currentAppLayout   ={this.props.currentAppLayout} />
+                        currentAppLayout={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <TransitionGroup>
                     <ReviewArtworkInfo
-                            currentAppLayout   ={this.props.currentAppLayout} />
+                        currentAppLayout={this.props.currentAppLayout} />
                 </TransitionGroup>
                 <div
-                    onClick     ={this.props.toggleNav}
-                    onTouchTap  ={this.props.toggleNav}
-                    className   ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
+                    onClick    ={this.props.toggleNav}
+                    onTouchTap ={this.props.toggleNav}
+                    className  ={this.props.navIsOpen ? "site-overlay open" : "site-overlay"} />
             </div>
         );
     }
@@ -162,12 +177,12 @@ export default class PortalMain extends React.Component {
 // ============= PropTypes ==============
 
 PortalMain.propTypes = {
-    navIsOpen: React.PropTypes.bool.isRequired,
-    managerIsOpen: React.PropTypes.bool.isRequired,
-    toggleManager: React.PropTypes.func.isRequired,
-    currentAlbum: React.PropTypes.string.isRequired,
-    changeAlbum: React.PropTypes.func.isRequired,
-    changeAppLayout: React.PropTypes.func.isRequired,
-    toggleEditArtworkDialog: React.PropTypes.func.isRequired,
+    navIsOpen               : React.PropTypes.bool.isRequired,
+    managerIsOpen           : React.PropTypes.bool.isRequired,
+    toggleManager           : React.PropTypes.func.isRequired,
+    currentAlbum            : React.PropTypes.string.isRequired,
+    changeAlbum             : React.PropTypes.func.isRequired,
+    changeAppLayout         : React.PropTypes.func.isRequired,
+    toggleEditArtworkDialog : React.PropTypes.func.isRequired,
     changeCurrentEditArtwork: React.PropTypes.func.isRequired
 };

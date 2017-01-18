@@ -118,8 +118,8 @@ export default class ArtworksAlbumManager extends React.Component {
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
+                    paths={this.props.paths}
                     albums             ={this.state.albums}
-                    thumbnail          ={this.props.thumbnail}
                     uploads            ={this.state.uploads}
                     onEditName         ={this.editAlbumName}
                     emptyMisc          ={this.emptyMisc}
@@ -161,6 +161,7 @@ export default class ArtworksAlbumManager extends React.Component {
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager}/>
                 <Albums
+                    paths={this.props.paths}
                     albums          ={this.state.albums}
                     uploads         ={this.state.uploads}
                     onEdit          ={this.editAlbum}
@@ -183,48 +184,40 @@ export default class ArtworksAlbumManager extends React.Component {
 // ============= Methods ===============
 
     /**
-     * [description]
-     * @return {[type]} [description]
+     * Creates a new, empty album.
+     * @return {String} [the name of the album created.]
      */
     addAlbum = () => {
-        const thisUID    = firebase.auth().currentUser.uid;
         let newAlbumName = this.getUniqueNewAlbumName();
-        let albums       = this.state.albums;
-
-
-        console.log(this.state.albums, "thisstatealbums");
-        let albumPath = `public/onboarders/${thisUID}/albums`;
-        let albumRef  = firebase.database().ref(albumPath);
+        let albumRef     = firebase.database().ref(this.props.paths.albums);
 
         albumRef.transaction( (data) => {
             let albumLength = Object.keys(data).length;
             data[albumLength] = {
-                name: newAlbumName,
-                artist: "",
-                year: "",
-                tags: [],
+                name       : newAlbumName,
+                artist     : "",
+                year       : "",
+                tags       : [],
                 description: ""
             };
-            console.log(albumLength, "albumLength");
-            console.log("data:" ,data);
             return data;
         }, ()=>{
-            console.log(">>addAlbum successful");
+            console.log(">> Album Created.");
         });
 
         if(!this.props.managerIsOpen) {
             this.props.toggleManager();
         }
-
+        return newAlbumName;
     };
 
     /**
-     * TODO
-     * @param  {String}  id [description]
+     * Capusle used to call album editing methods from props.
+     * @param  {String}  id [?]
      */
     editAlbum = (id, e) => {
         e.stopPropagation();
-        e.preventDefault();
+        e.preventDefault(); // ??
 
         this.props.changeCurrentEditAlbum(id);  // Attach Album ID to View
         this.props.toggleEditAlbumDialog();    // Open Edit Dialog
@@ -235,9 +228,8 @@ export default class ArtworksAlbumManager extends React.Component {
      * @param  {String}  id [description]
      */
     editMisc = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        console.log("Entered editMisc");
+        e.stopPropagation(); // ?
+        e.preventDefault();  // ?
         this.props.changeCurrentEditAlbum(0);  // Attach Album ID to View
         this.props.toggleEditMiscAlbumDialog();    // Open Edit Dialog
     }
@@ -255,9 +247,8 @@ export default class ArtworksAlbumManager extends React.Component {
             console.log(">>>ERROR: attempting to delete 'Miscellaneous' album");
             return;
         }
-        const thisUID = firebase.auth().currentUser.uid;
-        confirm('Are you sure you want to delete this album?').then( () => {
 
+        confirm('Are you sure you want to delete this album?').then( () => {
                 // # they clicked "yes", so
                 // First, Delete all attributed artworks
                 // check if album is empty, if so bi-pass first step.
@@ -267,21 +258,19 @@ export default class ArtworksAlbumManager extends React.Component {
                     let artLength = Object.keys(this.props.user.albums[index]['artworks']).length;
                     for (let i = 0; i < artLength; i++) {
                         let thisArtKey = this.props.user.albums[index]['artworks'][i];
-                        let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                        artworkRef.set(null).then(()=>{
+                        let thisArtPath= this.props.paths.art + thisArtKey;
+                        firebase.database().ref(thisArtPath).set(null).then(()=>{
                             console.log(">> Artwork deleted successfully");
                         });
                     }
                 }
 
                 // then Delete this album branch, and manually update indexes.
-                let path = `public/onboarders/${thisUID}/albums`;
-                let albumRef = firebase.database().ref(path);
+                let albumRef = firebase.database().ref(this.props.paths.albums);
                 albumRef.transaction((data) => {
                     let albums = update(data, {
                         $splice: [[index, 1]]
                     });
-
                     return albums;
                 });
             }, () => {
@@ -301,13 +290,11 @@ export default class ArtworksAlbumManager extends React.Component {
     emptyMisc = (e) => {
         e.stopPropagation();
         confirm('Are you sure you want to empty the Miscellaneous album?').then( () => {
-            const Misc  =  this.props.user.albums[0];
-            const thisUID  = firebase.auth().currentUser.uid;
-            const userPath = `public/onboarders/${thisUID}`;
-            const userRef  = firebase.database().ref(userPath);
+            const Misc      =  this.props.user.albums[0];
+            const albumsRef = firebase.database().ref(this.props.paths.albums);
 
             // Set Miscellaneous artwork branch to null
-            userRef.child("albums/0/artworks").set(null).then(()=>{
+            albumsRef.child("0/artworks").set(null).then(()=>{
                 console.log("Miscellaneous set to null");
             });
 
@@ -317,8 +304,8 @@ export default class ArtworksAlbumManager extends React.Component {
                 let artLength = Object.keys(Misc['artworks']).length;
                 for (let i = 0; i < artLength; i++) {
                     let thisArtKey = Misc['artworks'][i];
-                    let artworkRef =firebase.database().ref(`public/onboarders/${thisUID}/artworks/${thisArtKey}`);
-                    artworkRef.set(null).then(()=>{
+                    let thisArtPath= this.props.paths.art + thisArtKey;
+                    firebase.database().ref(thisArtPath).set(null).then(()=>{
                         console.log(">> Artwork deleted successfully");
                     });
                 }

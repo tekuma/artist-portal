@@ -45,8 +45,7 @@ export default class EditArtworkForm extends React.Component {
             }
         }
 
-        let image = this.props.thumbnail(this.props.value.fullsize_url, 500);
-
+        let image = this.props.paths.images + this.props.value.id;
         let previewImage = {
             backgroundImage: 'url(' + image + ')'
         }

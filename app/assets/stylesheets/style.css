@@ -26,13 +26,13 @@
 
 
 body {
-	font-size: 16px;	/* All font sizes are relative to this font size using 'em' */
-	color: #000000;
+	font-size  : 16px;	/* All font sizes are relative to this font size using 'em' */
+	color      : #000000;
 	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	margin: 0;
-	background: #000000;
-	overflow-x: hidden; /* hides overflow from hidden navigation */
-	height: 100vh;
+	margin     : 0;
+	background : #000000;
+	overflow-x : hidden; /* hides overflow from hidden navigation */
+	height     : 100vh;
 }
 
 a, a:visited, a:hover {
@@ -64,17 +64,55 @@ button {
 /* Hidden Navigation Style */
 
 .avatar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 250px;
-	height: 250px;
-	z-index: 3;
-	box-shadow: 0px 2px 7px rgba(0,0,0, 0.4);
+	position           : fixed;
+	top                : 0;
+	left               : 0;
+	width              : 250px;
+	height             : 250px;
+	z-index            : 3;
+	box-shadow         : 0px 2px 7px rgba(0,0,0, 0.4);
 	background-position: center center;	/* These background styles make sure avatar fills whole square */
-	background-size: cover;
-    background-repeat: no-repeat;
+	background-size    : cover;
+    background-repeat  : no-repeat;
 }
+
+.admin-selector {
+	position: absolute;
+	top     : 12px;
+	right   : 60%;
+	width   : 25%;
+	height  : 80px;
+	z-index : 100;
+	overflow           : visible;
+	transition         : width 0.5s;
+	-webkit-transition : width 0.5s;
+	-moz-transition    : width 0.5s;
+	-ms-transition     : width 0.5s;
+	-webkit-backface-visibility: hidden;
+}
+
+.admin-selector .Select-control {
+  background-color: #fff;
+  border: none;
+  color: #000;
+}
+
+.admin-selector .Select-placeholder {
+  	font-size: 0.9em;
+  	color: #666666;
+}
+
+.admin-selector .is-focused > .Select-control,
+.admin-selector .is-focused:not(.is-open) > .Select-control {
+	border: none;
+}
+
+.admin-selector .Select-menu-outer {
+  background-color: #fff;
+  border: none;
+	border-top: solid 1px #dddddd;
+}
+
 
 .nav-username {
 	position: fixed;

@@ -48,6 +48,8 @@ export default class Artwork extends React.Component {
         console.log("------Artwork");
     }
 
+    // FIXME  Only render the "submit" button if the artwork.submitted
+    // FIXME  is false or undefined. 
     render() {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
@@ -76,6 +78,14 @@ export default class Artwork extends React.Component {
             </Tooltip>
         );
 
+        const submitTooltip = (
+            <Tooltip
+                id="download-artwork-tooltip"
+                className="tooltip">
+                Submit
+            </Tooltip>
+        );
+
         return connectDragSource(connectDropTarget(
             <article
                 style={{opacity: isDragging ? 0 : 1}}
@@ -85,7 +95,7 @@ export default class Artwork extends React.Component {
                     onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
                     >
-                    <img src={this.props.thumbnail(this.props.artwork.fullsize_url,550)} />
+                    <img src={this.props.paths.images + this.props.artwork.id} />
                 </div>
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
@@ -99,6 +109,14 @@ export default class Artwork extends React.Component {
                                     src='assets/images/icons/download-black.svg' />
                             </OverlayTrigger>
                         </a>
+                        <OverlayTrigger placement="bottom" overlay={submitTooltip}>
+                            <img
+                                className="artwork-tool submit"
+                                src='assets/images/icons/submit-black.svg'
+                                onClick={this.props.onSubmit.bind(null, this.props.artwork.id)}
+                                onTouchTap={this.props.onSubmit.bind(null, this.props.artwork.id)}
+                                 />
+                        </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={editTooltip}>
                             <img
                                 className="artwork-tool"
