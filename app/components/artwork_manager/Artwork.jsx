@@ -101,7 +101,9 @@ export default class Artwork extends React.Component {
             <article
                 style={{opacity: isDragging ? 0 : 1}}
                 className="artwork">
-                
+
+
+
                 <div
                     className="artwork-image"
                     onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
@@ -109,38 +111,37 @@ export default class Artwork extends React.Component {
                     >
                     <img src={this.props.paths.images + this.props.artwork.id} />
                 </div>
+
+                <OverlayTrigger placement="bottom" overlay={submittedTooltip}>
                 <div className="artwork-info-submitted">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
                     <div className="artwork-tools">
 
+                        <img
+                            className="artwork-tool"
+                            src='assets/images/icons/edit-black.svg'
+                            onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                            onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                             />
+                        <img
+                            className="artwork-tool"
+                            src='assets/images/icons/delete-black.svg'
+                            onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
+                            onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}
+                            />
 
-                        <OverlayTrigger placement="bottom" overlay={editTooltip}>
-                            <img
-                                className="artwork-tool"
-                                src='assets/images/icons/edit-black.svg'
-                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
-                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
-                                 />
-                        </OverlayTrigger>
-                        <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
-                            <img
-                                className="artwork-tool"
-                                src='assets/images/icons/delete-black.svg'
-                                onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
-                                onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}
-                                />
-                        </OverlayTrigger>
                         <a
                             href={this.props.artwork.fullsize_url}
                             download={this.props.artwork.filename} >
-                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                                <img
-                                    className="artwork-tool"
-                                    src='assets/images/icons/download-black.svg' />
-                            </OverlayTrigger>
+
+                            <img
+                                className="artwork-tool"
+                                src='assets/images/icons/download-black.svg' />
                         </a>
                     </div>
+
                 </div>
+            </OverlayTrigger>
             </article>
         ));
     }
