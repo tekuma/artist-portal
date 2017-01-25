@@ -1337,6 +1337,15 @@ main, .artworks {
 	text-align: left;
 }
 
+.artwork-info-submitted {
+	position: relative;
+	display: block;
+	width: 100%;
+	min-height: 70px;
+	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%);
+	padding: 12px 15px;
+	text-align: left;
+}
 .artwork-status {
 	display: inline-block;
 	vertical-align: top;
@@ -1442,12 +1451,12 @@ main, .artworks {
 }
 
 .artwork-tools {
-	position: absolute;;
-	bottom: 2px;
-	left: 50%;
+	position : absolute;
+	bottom   : 2px;
+	left     : 50%;
 	transform: translate(-50%);
-	z-index: 3;
-	width: 99px;
+	z-index  : 3;
+	width    : 140px;
 }
 
 .artwork-tool {

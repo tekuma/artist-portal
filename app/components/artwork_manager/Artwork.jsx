@@ -48,9 +48,104 @@ export default class Artwork extends React.Component {
         console.log("------Artwork");
     }
 
-    // FIXME  Only render the "submit" button if the artwork.submitted
-    // FIXME  is false or undefined. 
+
     render() {
+        if (this.props.artwork.submitted) {
+            return this.renderSubmitted();
+        } else {
+            return this.renderNew();
+        }
+    }
+
+    componentDidMount() {
+        console.log("+++++++Artwork");
+    }
+
+    // ====== Render Conrtol =======
+
+    renderSubmitted = () => {
+        const {connectDragSource, connectDropTarget, isDragging,
+            id, onMove, ...props} = this.props;
+
+        const downloadTooltip = (
+            <Tooltip
+                id="download-artwork-tooltip"
+                className="tooltip">
+                Download
+            </Tooltip>
+        );
+
+        const editTooltip = (
+            <Tooltip
+                id="edit-artwork-tooltip"
+                className="tooltip">
+                Edit
+            </Tooltip>
+        );
+
+        const deleteTooltip = (
+            <Tooltip
+                id="delete-artwork-tooltip"
+                className="tooltip">
+                Delete
+            </Tooltip>
+        );
+        const submittedTooltip = (
+            <Tooltip
+                className="tooltip">
+                Artwork already submitted!
+            </Tooltip>
+        );
+
+        return connectDragSource(connectDropTarget(
+            <article
+                style={{opacity: isDragging ? 0 : 1}}
+                className="artwork">
+                
+                <div
+                    className="artwork-image"
+                    onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                    onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                    >
+                    <img src={this.props.paths.images + this.props.artwork.id} />
+                </div>
+                <div className="artwork-info-submitted">
+                    <h3 className="artwork-name">{this.props.artwork.title}</h3>
+                    <div className="artwork-tools">
+
+
+                        <OverlayTrigger placement="bottom" overlay={editTooltip}>
+                            <img
+                                className="artwork-tool"
+                                src='assets/images/icons/edit-black.svg'
+                                onClick={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                                onTouchTap={this.props.onEdit.bind(null, this.props.artwork.id, this.props.artwork.album)}
+                                 />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="bottom" overlay={deleteTooltip}>
+                            <img
+                                className="artwork-tool"
+                                src='assets/images/icons/delete-black.svg'
+                                onClick={this.props.onDelete.bind(null, this.props.artwork.id)}
+                                onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}
+                                />
+                        </OverlayTrigger>
+                        <a
+                            href={this.props.artwork.fullsize_url}
+                            download={this.props.artwork.filename} >
+                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                                <img
+                                    className="artwork-tool"
+                                    src='assets/images/icons/download-black.svg' />
+                            </OverlayTrigger>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        ));
+    }
+
+    renderNew = () => {
         const {connectDragSource, connectDropTarget, isDragging,
             id, onMove, ...props} = this.props;
 
@@ -82,7 +177,7 @@ export default class Artwork extends React.Component {
             <Tooltip
                 id="download-artwork-tooltip"
                 className="tooltip">
-                Submit
+                Submit to Tekuma!
             </Tooltip>
         );
 
@@ -100,15 +195,7 @@ export default class Artwork extends React.Component {
                 <div className="artwork-info">
                     <h3 className="artwork-name">{this.props.artwork.title}</h3>
                     <div className="artwork-tools">
-                        <a
-                            href={this.props.artwork.fullsize_url}
-                            download={this.props.artwork.filename} >
-                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                                <img
-                                    className="artwork-tool"
-                                    src='assets/images/icons/download-black.svg' />
-                            </OverlayTrigger>
-                        </a>
+
                         <OverlayTrigger placement="bottom" overlay={submitTooltip}>
                             <img
                                 className="artwork-tool submit"
@@ -133,13 +220,18 @@ export default class Artwork extends React.Component {
                                 onTouchTap={this.props.onDelete.bind(null, this.props.artwork.id)}
                                 />
                         </OverlayTrigger>
+                        <a
+                            href={this.props.artwork.fullsize_url}
+                            download={this.props.artwork.filename} >
+                            <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+                                <img
+                                    className="artwork-tool"
+                                    src='assets/images/icons/download-black.svg' />
+                            </OverlayTrigger>
+                        </a>
                     </div>
                 </div>
             </article>
         ));
-    }
-
-    componentDidMount() {
-        console.log("+++++++Artwork");
     }
 }
