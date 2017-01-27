@@ -81,12 +81,22 @@ export default class AdminSelector extends React.Component {
         return new Promise( (resolve, reject)=>{
             let retlst = [];
             firebase.database().ref('public/onboarders').once("value").then( (snapshot)=>{
-                let node = snapshot.val();
-                for (var uid in node) {
-                    if (node.hasOwnProperty(uid)) {
-                        retlst.push([uid, node[uid].display_name]);
-                    }
-                }
+                // NOTE: nearly equivalent pieces of code. Not sure which has
+                // better performance.  The first uses less data.
+
+                snapshot.forEach((childSnap)=>{
+                    let uid = childSnap.key;
+                    let name = childSnap.child("display_name").val();
+                    retlst.push([uid,name]);
+                });
+
+                // let node = snapshot.val();
+                // for (var uid in node) {
+                //     if (node.hasOwnProperty(uid)) {
+                //         retlst.push([uid, node[uid].display_name]);
+                //     }
+                // }
+
                 resolve(retlst);
             });
         });
