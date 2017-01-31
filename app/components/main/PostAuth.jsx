@@ -174,17 +174,20 @@ export default class PostAuth extends React.Component {
      *  - Appends the artwork to the curator-tekuma submissions branch
      *  - Sets the artwork in the artist-tekuma database as
      *    artwork.submitted = true
+     *  - Adds artwork_uid to list at public/onboarders/{uid}/submits
      * @param  {String} artwork_uid [ID of the artwork]
      * @param  {Event} e
      */
     onSubmit = (artwork_uid, e) => {
         e.stopPropagation(); //NOTE:
-        console.log(this.state.paths.art + artwork_uid);
+
+
         let artwork_ref = firebase.database().ref(this.state.paths.art + artwork_uid);
         artwork_ref.transaction( (data)=>{
             data.submitted = true;
             return data
         });
+
         let submission = {
             artwork_uid : artwork_uid,
             artwork_name: this.state.user.artworks[artwork_uid].title,
@@ -464,7 +467,7 @@ export default class PostAuth extends React.Component {
         let jobID    = url.path.o[1];
         console.log("New job created =>",jobID, path);
         let job = {
-            uid      : firebase.auth().currentUser.uid,
+            uid      : this.state.paths.uid,
             file_path: path,
             task     : "resize",
             job_id   : jobID,
@@ -515,13 +518,6 @@ export default class PostAuth extends React.Component {
             let artworkUID = artRef.push().key;
             let uploadPath = this.state.paths.uploads + artworkUID;
 
-            // Add node to job-stack for thumbnails / backend processing
-            // on a delay to allow for upload to begin
-            setTimeout( ()=>{
-                this.submitJob(uploadPath, artworkUID);
-            }, 1000);
-
-
             //Store the original upload, un-changed, in /uploads
             console.log("Upload Path =>", uploadPath);
             const bucketRefrence  = firebase.storage().ref(uploadPath);
@@ -544,6 +540,7 @@ export default class PostAuth extends React.Component {
                 },
                 ()=>{ //on-complete fullsize upload
                     console.log(">>Full size upload complete");
+                    this.submitJob(uploadPath, artworkUID);
                     bucketRefrence.getDownloadURL().then( (fullSizeURL)=>{
                         let uploadInfo = {
                             url :fullSizeURL,
