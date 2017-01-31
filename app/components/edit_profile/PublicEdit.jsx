@@ -122,7 +122,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.display_name ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"display_name")}>
                             <h2 className="accordion-item-heading">Display Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.display_name != "" ? this.props.user.display_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.display_name ? this.props.user.display_name : "Unset"}</h3>
                         </div>
                         <div
                             id="display-name-content"
@@ -193,7 +193,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"location")}>
                             <h2 className="accordion-item-heading">Location</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.location != "" ? this.props.user.location : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.location ? this.props.user.location : "Unset"}</h3>
                         </div>
                         <div
                             id="location-content"
@@ -211,7 +211,7 @@ export default class PublicEdit extends React.Component {
                             className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.portfolio != "" ? this.props.user.portfolio : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.portfolio ? this.props.user.portfolio : "Unset"}</h3>
                         </div>
                         <div
                             id="portfolio-content"

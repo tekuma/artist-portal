@@ -1447,7 +1447,7 @@ main, .artworks {
 	left: 50%;
 	transform: translate(-50%);
 	z-index: 3;
-	width: 99px;
+	width: 132px;
 }
 
 .artwork-tool {

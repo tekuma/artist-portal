@@ -2,7 +2,7 @@
 import React                        from 'react';
 import ReactDOM                     from 'react-dom';
 import firebase                     from 'firebase';
-import uuid                         from 'node-uuid';
+import uuid                         from 'uuid';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 import update                       from 'react-addons-update';
 

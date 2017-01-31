@@ -261,7 +261,8 @@ export default class PostAuth extends React.Component {
         //NOTE: This is a hard check to see if a user is one of our admin users.
         let isAdmin = firebase.auth().currentUser.uid === "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
                       firebase.auth().currentUser.uid === "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
-                      firebase.auth().currentUser.uid === "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ;
+                      firebase.auth().currentUser.uid === "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ||
+                      firebase.auth().currentUser.uid === "ZHZOQFJCkXQ8rv2nBiSFlfetRiJ3";
         let actingAsSelf = firebase.auth().currentUser.uid === uid;
 
         if (actingAsSelf || isAdmin) {

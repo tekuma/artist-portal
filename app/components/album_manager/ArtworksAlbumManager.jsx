@@ -1,7 +1,7 @@
 // Libs
 import React                        from 'react';
 import firebase                     from 'firebase';
-import uuid                         from 'node-uuid';
+import uuid                         from 'uuid';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 import update                       from 'react-addons-update';
 
@@ -29,11 +29,7 @@ export default class ArtworksAlbumManager extends React.Component {
     }
 
     render() {
-        if(this.props.managerIsOpen) {
-            return this.openedManager();
-        } else {
-            return this.closedManager();
-        }
+        return this.manager();
     }
 
     componentDidMount() {
@@ -95,7 +91,7 @@ export default class ArtworksAlbumManager extends React.Component {
 
 // ============= Flow Control ===============
 
-    openedManager = () => {
+    manager = () => {
         const addAlbumTooltip = (
             <Tooltip
                 id="add-album-tooltip"
@@ -104,12 +100,25 @@ export default class ArtworksAlbumManager extends React.Component {
             </Tooltip>
         );
 
+        const openManager = {
+            height: window.innerHeight - 60,
+            right: 0
+        }
+
+        let managerWidth = 200; // Magic Number to Instantiate
+
+        if (document.getElementsByClassName('album-manager')[0]) {
+            managerWidth = document.getElementsByClassName('album-manager')[0].offsetWidth;
+        }
+
+        const closedManager = {
+            height: window.innerHeight - 60,
+            right: -1 * managerWidth + 40
+        }
+
         return (
             <section
-                style={{
-                    height: window.innerHeight - 60,
-                    right: 0
-                }}
+                style={this.props.managerIsOpen ? openManager: closedManager}
                 className="album-manager artworks-manager">
                 <AlbumToggler
                     height          ={window.innerHeight - 60}
@@ -144,42 +153,6 @@ export default class ArtworksAlbumManager extends React.Component {
             </section>
         );
     };
-
-    closedManager = () => {
-
-        return (
-            <section
-                style={{
-                height: window.innerHeight - 60,
-                right: -1 * document.getElementsByClassName('album-manager')[0].clientWidth + 40
-                }}
-                className="album-manager artworks-manager">
-                <AlbumToggler
-                    height          ={window.innerHeight - 60}
-                    float           ={"left"}
-                    background      ={"#222222"}
-                    managerIsOpen   ={this.props.managerIsOpen}
-                    toggleManager   ={this.props.toggleManager}/>
-                <Albums
-                    paths={this.props.paths}
-                    albums          ={this.state.albums}
-                    uploads         ={this.state.uploads}
-                    onEdit          ={this.editAlbum}
-                    editMisc        ={this.editMisc}
-                    onDelete        ={this.deleteAlbum}
-                    emptyMisc       ={this.emptyMisc}
-                    currentAlbum    ={this.props.currentAlbum}
-                    changeAlbum     ={this.props.changeAlbum}
-                    user            ={this.props.user} />
-                <div
-                    onClick     ={this.addAlbum}
-                    onTouchTap  ={this.addAlbum}
-                    className   ="add-album" >
-                    <img src='assets/images/icons/plus-white.svg' />
-                </div>
-            </section>
-        );
-    }
 
 // ============= Methods ===============
 

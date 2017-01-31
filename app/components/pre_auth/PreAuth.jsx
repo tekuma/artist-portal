@@ -1,6 +1,6 @@
 // Libs
 import React         from 'react';
-import uuid          from 'node-uuid';
+import uuid          from 'uuid';
 
 // Files
 import LandingPage   from './LandingPage';

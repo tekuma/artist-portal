@@ -1,5 +1,6 @@
 //Libs
 import React       from 'react';
+import firebase from 'firebase';
 import Select      from 'react-select';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 //Files
