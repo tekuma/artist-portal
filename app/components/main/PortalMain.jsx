@@ -107,6 +107,7 @@ export default class PortalMain extends React.Component {
                     changeAppLayout          ={this.props.changeAppLayout}
                     managerIsOpen            ={this.props.managerIsOpen}
                     setUploadedFiles         ={this.props.setUploadedFiles}
+                    toggleArtworkDetailDialog={this.props.toggleArtworkDetailDialog}
                     />
                 <div
                     onClick     ={this.props.toggleNav}

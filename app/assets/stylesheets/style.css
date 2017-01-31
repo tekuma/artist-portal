@@ -1337,15 +1337,10 @@ main, .artworks {
 	text-align: left;
 }
 
-.artwork-info-submitted {
-	position: relative;
-	display: block;
-	width: 100%;
-	min-height: 70px;
-	background: linear-gradient(to bottom, #e73827 0%, #ec167e 100%);
-	padding: 12px 15px;
-	text-align: left;
+.artwork-info.submitted {
+	background: #000000;
 }
+
 .artwork-status {
 	display: inline-block;
 	vertical-align: top;
@@ -1445,6 +1440,10 @@ main, .artworks {
 	text-align: center;
 	line-height: 1.5em;
 }
+.artwork-name.submitted {
+	color: #ffffff;
+	opacity: 1;
+}
 
 .artwork-name.review {
 	margin-bottom: 0;
@@ -1459,8 +1458,12 @@ main, .artworks {
 	width    : 140px;
 }
 
+.artwork-tools.submitted {
+	width    : 99px;
+}
+
 .artwork-tool {
-	opacity: 0.7;
+	opacity: 0.54;
 	width: 13px;
 	cursor: pointer;
 	margin: 10px;
@@ -1468,6 +1471,10 @@ main, .artworks {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.artwork-tool.submitted {
+	opacity: 0.7;
 }
 
 .artwork-tool:hover {
@@ -2785,6 +2792,12 @@ login-button.left {
 	height: 450px;
 }
 
+.edit-artwork-body.detail {
+	width: 848px !important;
+	height: 450px;
+	padding: 0px !important;
+}
+
 .edit-artwork-actions,
 .edit-album-actions {
 	padding: 0 !important;
@@ -2923,7 +2936,7 @@ login-button.left {
 .confirm-edit-profile {
 	width: 100%;
 	height: 100%;
-	background: #292e3a;
+	background: #ffffff;
 	display: inline-flex;
 	-webkit-align-items: center;
 	-ms-align-items: center;
@@ -3786,6 +3799,166 @@ label.age-confirm-label {
 }
 
 /*========================================== */
+
+/* Artwork Detail Box */
+
+.artwork-detail-dialog {
+	position: relative;
+	height: 100%;
+	background: #aaaaaa;
+}
+
+.artwork-preview {
+	width: 456px;
+	height: 100%;
+	display: inline-block;
+	overflow: scroll;
+	padding: 30px;
+	background: #ffffff;
+}
+
+.artwork-image-wrapper {
+	display: flex;
+	border: 15px solid #000000;
+	box-shadow: 13px 10px 13px rgba(0,0,0,0.19),
+	0px 10px 10px rgba(0,0,0,0.19);
+	border-style: inset;
+	width: 396px;
+	height: 100%;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+}
+
+.artwork-image {
+	background-position: center center;
+	background-size: contain;
+    background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+}
+
+.artwork-info-wrapper {
+	display: inline-block;
+	overflow: scroll;
+	width: 392px;
+	height: 100%;
+	background: #aaaaaa;
+}
+
+.artwork-details {
+	padding: 40px;
+}
+
+.artwork-title {
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 2.2em;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: #ffffff;
+}
+
+.artwork-artist {
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
+	margin-bottom: 10px;
+}
+
+.artwork-date {
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: rgba(0,0,0,0.54);
+	font-size: 0.9em;
+}
+
+.other-artwork-details {
+	padding: 40px;
+	background: #dddddc;
+}
+
+.artwork-album-heading,
+.artwork-tags-heading,
+.artwork-description-heading,
+.artwork-colors-heading,
+.artwork-review-heading  {
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1.2em;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
+}
+
+.artwork-album,
+.artwork-tags,
+.artwork-description,
+.artwork-colors.detail,
+.artwork-review  {
+	position: relative;
+	background: #ffffff;
+	padding: 15px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	transition: all 0.3s 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+
+}
+
+.artwork-colors.detail {
+	text-align: center;
+}
+
+.artwork-reviewer {
+	text-align: right;
+	color: #e9217e;
+}
+
+.artwork-tags-heading {
+	margin-top: 20px;
+	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1.2em;
+	font-weight: 500;
+	color: rgba(0,0,0,0.87);
+}
+
+.artwork-info-wrapper div.ReactTags__selected {
+	border: none;
+    border-radius: 0px;
+}
+
+.artwork-info-wrapper div.ReactTags__selected span.ReactTags__tag {
+	border: none;
+    background: #eeeeee;
+    font-size: 12px;
+    font-family: "Nexa" , "Helvetica Neue", Helvetica, "Gill Sans", Arial, sans-serif;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    cursor: default;
+    border-radius: 2px;
+	box-shadow: 0 0px 2px rgba(0,0,0,0.12), 0 1px 0px rgba(0,0,0,0.24);
+}
+
+.artwork-info-wrapper div.ReactTags__selected span.ReactTags__tag:hover {
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.artwork-info-wrapper div.ReactTags__selected span.ReactTags__tag:first-child {
+    margin-left: 0px;
+}
+
+/*========================================== */
+
 
 /* Media Queries */
 /*

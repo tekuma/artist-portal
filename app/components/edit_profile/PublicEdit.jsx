@@ -221,7 +221,7 @@ export default class PublicEdit extends React.Component {
                             id="edit-portfolio"
                             ref="portfolio"
                             placeholder="Portfolio/Website"
-                            defaultValue={this.props.user.portfolio}
+                            defaultValue={this.props.user.portfolio ? this.props.user.portfolio : "http://"}
                             maxLength="200"
                             onChange={this.setUnsaved} />
                         </div>

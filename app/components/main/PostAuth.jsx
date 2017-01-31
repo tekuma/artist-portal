@@ -21,6 +21,7 @@ import EditMiscAlbumDialog from '../edit_misc/EditMiscAlbumDialog';
 import EditProfileDialog   from '../edit_profile/EditProfileDialog';
 import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
+import ArtworkDetailBoxDialog from '../artwork_manager/ArtworkDetailBoxDialog';
 
 
 /**
@@ -38,6 +39,7 @@ export default class PostAuth extends React.Component {
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
         editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
+        artworkDetailDialogIsOpen: false,           // Used to track whether artwork detail dialog is open or not
         currentAlbum: "Miscellaneous",              // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
@@ -100,7 +102,8 @@ export default class PostAuth extends React.Component {
                     changeAlbum               ={this.changeAlbum}
                     setUploadedFiles          ={this.setUploadedFiles}
                     setAlbumNames             ={this.setAlbumNames}
-                    changeArtworkAlbum        ={this.changeArtworkAlbum} />
+                    changeArtworkAlbum        ={this.changeArtworkAlbum}
+                    toggleArtworkDetailDialog ={this.toggleArtworkDetailDialog} />
                 <EditArtworkDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -110,6 +113,12 @@ export default class PostAuth extends React.Component {
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
+                <ArtworkDetailBoxDialog
+                    paths={this.state.paths}
+                    toggleArtworkDetailDialog={this.toggleArtworkDetailDialog}
+                    artworkDetailDialogIsOpen={this.state.artworkDetailDialogIsOpen}
+                    artworkInfo={this.state.currentEditArtworkInfo}
+                    />
                 <EditAlbumDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -431,6 +440,17 @@ export default class PostAuth extends React.Component {
         this.setState({
             verifyEmailDialogIsOpen: !this.state.verifyEmailDialogIsOpen
         });
+    }
+
+    /**
+    *
+    *
+    */
+
+    toggleArtworkDetailDialog = () => {
+        this.setState({
+            artworkDetailDialogIsOpen: !this.state.artworkDetailDialogIsOpen
+        })
     }
 
     /**

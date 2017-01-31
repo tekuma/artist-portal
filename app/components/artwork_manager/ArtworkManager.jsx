@@ -307,9 +307,15 @@ export default class ArtworkManager extends React.Component {
      * @param  {String}  id [description]
      * @param  {Array}  oldAlbumName - name of the albums the artwork is currently in
      */
-    editArtwork = (id, oldAlbumName) => {
+    editArtwork = (id, submitted, oldAlbumName) => {
         this.props.changeCurrentEditArtwork(id, oldAlbumName);  // Attach Artwork ID to View
-        this.props.toggleEditArtworkDialog();    // Open Edit Dialog
+
+        if(submitted) {
+            this.props.toggleArtworkDetailDialog();    // Open Artwork Detai Dialog
+
+        } else {
+            this.props.toggleEditArtworkDialog();    // Open Edit Dialog
+        }
     }
 
     /**
@@ -317,20 +323,33 @@ export default class ArtworkManager extends React.Component {
      * @param  {[string]} id [description]
      * @param  {[type]} e  [description]
      */
-    deleteArtwork = (id, e) => {
+    deleteArtwork = (id, submitted, e) => {
         // Avoid bubbling to edit
         e.stopPropagation();
 
-        confirm('Are you sure you want to delete this artwork?').then(
-            () => {
-                // Proceed Callback
-                this.props.deleteArtwork(id);
-            },
-            () => {
-                // Cancel Callback
-                return;
-            }
-        );
+        if (submitted) {
+            confirm("Are you sure you want to delete this artwork? <p style='font-size: 0.7em;' >(Please note that deleting this artwork will not delete your artwork from Tekuma's database. Please directly contact us if you would like it to be completely removed from our service)</p>").then(
+                () => {
+                    // Proceed Callback
+                    this.props.deleteArtwork(id);
+                },
+                () => {
+                    // Cancel Callback
+                    return;
+                }
+            );
+        } else {
+            confirm('Are you sure you want to delete this artwork?').then(
+                () => {
+                    // Proceed Callback
+                    this.props.deleteArtwork(id);
+                },
+                () => {
+                    // Cancel Callback
+                    return;
+                }
+            );
+        }
     }
 
     /**
