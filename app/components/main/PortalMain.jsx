@@ -207,29 +207,40 @@ export default class PortalMain extends React.Component {
             let submits =  this.props.user.submits;
             if (submits) {
                 for (let i = 0; i < submits.length; i++) { // use let not var
-                    let path = `submissions/${submits[i]}`;
-                    curator.database().ref(path).on("value",(snapshot)=>{
-                        //NOTE do not mutate state. Use a copy.
-                        let data = snapshot.val();
-                        if (data) {
-                            let statesubmits = Object.assign({},this.state.submits); //deepcopy
-                            statesubmits[submits[i]] = snapshot.val();
-                            this.setState({
-                                submits: statesubmits
-                            });
-                        } else {
-                            let artwork_uid = submits[i];
-                            console.log("Submission:",artwork_uid, "does not exist");
-                            //FIXME  remove this artwork uid from user.submits, and
-                            //TODO  update the firebase database afterward.
-                        }
+                    let sub_path = `submissions/${submits[i]}`;
+                    let apr_path = `approved/${submits[i]}`;
 
+                    curator.database().ref(sub_path).on("value",(sub_snapshot)=>{
+                        curator.database().ref(apr_path).on("value",(apr_snapshot)=>{
+                            //NOTE do not mutate state. Use a copy.
+                            let sub_data = sub_snapshot.val();
+                            let apr_data = apr_snapshot.val();
+                            if (sub_data) {
+                                let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                statesubmits[submits[i]] = sub_data;
+                                this.setState({
+                                    submits: statesubmits
+                                });
+                            }  else if (apr_data) {
+                                let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                statesubmits[submits[i]] = apr_data;
+                                this.setState({
+                                    submits: statesubmits
+                                });
+                            } else {
+                                //TODO If we reach here, the submit is not in the submissions
+                                //FIXME or the approved branch. Therefore, it must have been
+                                // deleted by a curator. Therefore, remove it from this artist's
+                                // list of submits, AND change the status of this artwork in the
+                                // studio interface so that can re-upload.
+                                console.log(submits[i], "Does not exist");
+                            }
+                        });
                     });
                 }
             }
-        }, 2000);
+        }, 1000);
     }
-
 }
 
 // ============= PropTypes ==============

@@ -202,7 +202,7 @@ export default class PostAuth extends React.Component {
             artist_name : this.state.user.display_name,
             artist_uid  : this.state.actingUID,
             submitted   : new Date().toISOString(),
-            update_date : this.state.user.artworks[artwork_uid].upload_date,
+            upload_date : this.state.user.artworks[artwork_uid].upload_date,
             size        : this.state.user.artworks[artwork_uid].size,
             album       : this.state.user.artworks[artwork_uid].album,
             colors      : this.state.user.artworks[artwork_uid].colors,
