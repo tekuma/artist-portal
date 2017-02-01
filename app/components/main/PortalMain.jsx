@@ -205,18 +205,25 @@ export default class PortalMain extends React.Component {
 
         setTimeout(()=>{
             let submits =  this.props.user.submits;
-            console.log(submits);
             if (submits) {
                 for (let i = 0; i < submits.length; i++) { // use let not var
                     let path = `submissions/${submits[i]}`;
                     curator.database().ref(path).on("value",(snapshot)=>{
-                        console.log("-----------");
-                        console.log(snapshot.val());
-                        let statesubmits = this.state.submits;
-                        statesubmits[submits[i]] = snapshot.val();
-                        this.setState({
-                            submits: statesubmits
-                        });
+                        //NOTE do not mutate state. Use a copy.
+                        let data = snapshot.val();
+                        if (data) {
+                            let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                            statesubmits[submits[i]] = snapshot.val();
+                            this.setState({
+                                submits: statesubmits
+                            });
+                        } else {
+                            let artwork_uid = submits[i];
+                            console.log("Submission:",artwork_uid, "does not exist");
+                            //FIXME  remove this artwork uid from user.submits, and
+                            //TODO  update the firebase database afterward.
+                        }
+
                     });
                 }
             }
