@@ -24,7 +24,8 @@ class Confirmation extends React.Component {
         const {
             okLabel = 'Yes',
             cancelLabel = 'Cancel',
-            confirmation,
+            confirmationMain,
+            confirmationSecondary,
             show,
             proceed,
             dismiss,
@@ -53,7 +54,8 @@ class Confirmation extends React.Component {
                         onRequestClose              ={dismiss}
                         actionsContainerClassName   ="confirm-actions"
                         bodyClassName               ="confirm-body" >
-                            {confirmation}
+                            <h2 className="confirm-main">{confirmationMain}</h2>
+                            <p className="confirm-secondary">{confirmationSecondary}</p>
                     </Dialog>
                 </MuiThemeProvider>
             </div>

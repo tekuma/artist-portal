@@ -14,7 +14,7 @@ export default class HiddenNav extends React.Component {
         {
             id: uuid.v4(),
             item: 'Studio',
-            icon: 'assets/images/icons/organize-outline.svg',
+            icon: 'assets/images/icons/organize.svg',
             href:  Views.ARTWORKS,
             title: 'Manage and detail your Art'
         },

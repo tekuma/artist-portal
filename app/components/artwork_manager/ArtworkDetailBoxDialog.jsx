@@ -56,10 +56,10 @@ export default class ArtworkDetailBoxDialog extends React.Component {
                         bodyClassName               ="edit-artwork-body detail"
                         contentClassName            ="edit-artwork-content" >
                         <div className="artwork-detail-dialog">
-                            <div className="artwork-preview">
+                            <div className="artwork-preview submitted">
                                 <div className="artwork-image-wrapper">
                                     <div
-                                        className="artwork-image"
+                                        className="artwork-image submitted"
                                         style={previewImage}>
                                     </div>
                                 </div>

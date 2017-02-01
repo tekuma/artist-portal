@@ -15,7 +15,7 @@ export default class ReviewArtwork extends React.Component {
     }
 
     componentWillMount() {
-        console.log("-----ReviewArtwork");
+        console.log("-----SubmitArtwork");
     }
 
     render() {
@@ -62,20 +62,7 @@ export default class ReviewArtwork extends React.Component {
                         <div>
                             <img
                                 className   ="album-tool review"
-                                src         ='assets/images/icons/mail-white.svg'
-                            />
-                            <h5 className="album-tool message-count">1</h5>
-                        </div>
-                    </OverlayTrigger>
-                </div>
-                <div className="album-tools top">
-                    <OverlayTrigger
-                        placement   ="right"
-                        overlay     ={removeTooltip}>
-                        <div>
-                            <img
-                                className   ="album-tool"
-                                src         ='assets/images/icons/delete-white.svg'
+                                src         ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
                             />
                         </div>
                     </OverlayTrigger>
@@ -85,7 +72,7 @@ export default class ReviewArtwork extends React.Component {
     }
 
     componentDidMount() {
-        console.log("+++++ReviewArtwork");
+        console.log("+++++SubmitArtwork");
 
     }
 

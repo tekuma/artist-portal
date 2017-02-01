@@ -79,7 +79,7 @@ button {
 .admin-selector {
 	position: absolute;
 	top     : 12px;
-	right   : 60%;
+	right   : 100px;
 	width   : 25%;
 	height  : 80px;
 	z-index : 100;
@@ -91,10 +91,31 @@ button {
 	-webkit-backface-visibility: hidden;
 }
 
+.admin-selector .Select-placeholder,
+.admin-selector .Select--single > .Select-control .Select-value {
+    bottom: 0;
+    font-size: 0.9em;
+    color: #aaaaaa;
+    left: 0;
+    line-height: 34px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: context-menu;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.42);
+}
+
 .admin-selector .Select-control {
   background-color: #fff;
   border: none;
   color: #000;
+  border-radius: 0px;
 }
 
 .admin-selector .Select-placeholder {
@@ -108,9 +129,25 @@ button {
 }
 
 .admin-selector .Select-menu-outer {
-  background-color: #fff;
-  border: none;
+  	background-color: #fff;
+  	border: none;
 	border-top: solid 1px #dddddd;
+	width: 96%;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.42);
+
+}
+
+.Select-clear-zone:hover {
+  color: #e73827;
+}
+
+.Select-option.is-selected {
+  background-color: #e73827;
+  color: #fff;
+}
+.Select-option.is-focused {
+  background-color: #ec167e;
+  color: #fff;
 }
 
 
@@ -1005,7 +1042,7 @@ header.black {
 
 
 .album-tools.bottom {
-	bottom: 2px;
+	bottom: 0px;
 }
 
 .album-tool {
@@ -1131,6 +1168,10 @@ header.black {
 	0 5px 1px -2px rgba(0,0,0,.4),
 	0 3px 5px 0 rgba(0,0,0,.3);
 	z-index: 3;
+	transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
 }
 
 .review-artwork-info {
@@ -1246,6 +1287,28 @@ header.black {
 .status-info-wrapper p {
 	margin: 0;
 	color: rgba(0,0,0,0.54);
+}
+
+#no-submit-info-icon {
+	animation: moveLeft 2s linear infinite;
+}
+
+.no-submits {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  	display: -ms-flexbox;  /* TWEENER - IE 10 */
+  	display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  	display: flex;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	justify-content: center;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 /*========================================== */
@@ -2445,6 +2508,12 @@ login-button.left {
 	overflow: hidden;
 }
 
+.artwork-upload-box.right {
+	position: absolute;
+	right: 0px;
+	cursor: default;
+}
+
 .left-form .image-upload-box {
 	border: 2px dashed #cccccc;
 	border-radius: 0px;
@@ -2495,20 +2564,43 @@ login-button.left {
 }
 
 .artwork-upload-box .upload-writing {
-	font-size: 2.0em;
+	color: #999999;
+	font-weight: 500;
+	text-align: center;
+	display: block;
+	margin-top: 30px;
+}
+
+.artwork-upload-box .upload-writing {
+	font-size: 1.8em;
 }
 
 .artwork-upload-box .upload-writing.small {
-	font-size: 1.5em;
+	font-size: 1.3em;
+	margin-top: 5px;
 }
 
 .artwork-upload-box .upload-writing.tiny {
-	font-size: 1em;
+	font-size: 0.8em;
+	font-weight: 400;
+	margin-top: 10px;
 }
+
+#empty-album-icon {
+	animation: drop 2s linear infinite;
+}
+
+/*========================================== */
 
 .registration-error {
 	text-align: center !important;
 	background: #000000;
+}
+
+.registration-error > div {
+	margin: 20px !important;
+	height: auto !important;
+	line-height: 1.5em !important;
 }
 
 .registration-error span {
@@ -3808,7 +3900,7 @@ label.age-confirm-label {
 	background: #aaaaaa;
 }
 
-.artwork-preview {
+.artwork-preview.submitted {
 	width: 456px;
 	height: 100%;
 	display: inline-block;
@@ -3839,7 +3931,7 @@ label.age-confirm-label {
 	-ms-transition: all 0.3s;
 }
 
-.artwork-image {
+.artwork-image.submitted {
 	background-position: center center;
 	background-size: contain;
     background-repeat: no-repeat;
@@ -3959,6 +4051,58 @@ label.age-confirm-label {
 
 /*========================================== */
 
+/* Confirmation Styles */
+
+.confirm-main {
+	font-size: 1.2em;
+}
+
+.confirm-secondary {
+	margin-top: 20px;
+	color: #ec167e;
+	font-size: 0.8em;
+	font-weight: 300;
+}
+
+/*========================================== */
+
+/* Animations */
+
+/* Standard syntax */
+@keyframes drop {
+	25%   {
+		transform: translateY(-10px) rotate(-10deg) scale(1.05, 1.05);
+	}
+
+	100%   {
+		transform: translateY(0px) rotate(0deg) scale(1, 1);
+	}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes drop {
+	25%   {
+		transform: translateY(-10px) rotate(-10deg) scale(1.05, 1.05);
+	}
+
+	100%   {
+		transform: translateY(0px) rotate(0deg) scale(1, 1);
+	}
+}
+
+/* Standard syntax */
+@keyframes moveLeft {
+	25%   {transform: translateX(-30px);}
+	100%   {transform: translateX(0px);}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes moveLeft {
+	25%   {transform: translateX(-30px);}
+	100%   {transform: translateX(0px);}
+}
+
+/*========================================== */
 
 /* Media Queries */
 /*

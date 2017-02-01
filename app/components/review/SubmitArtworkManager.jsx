@@ -9,31 +9,26 @@ import update                       from 'react-addons-update';
 // Files
 import Views             from '../../constants/Views';
 import AlbumToggler      from '../album_manager/AlbumToggler';
-import ReviewArtwork     from './ReviewArtwork';
+import SubmitArtwork     from './SubmitArtwork';
 
 /**
  * TODO
  */
-export default class ReviewArtworkManager extends React.Component {
+export default class SubmitArtworkManager extends React.Component {
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        console.log("-----ReviewArtworkManager");
+        console.log("-----SubmitArtworkManager");
     }
 
     render() {
-        if(this.props.managerIsOpen) {
-            return this.openedManager();
-        } else {
-            return this.closedManager();
-        }
+        return this.manager();
     }
 
     componentDidMount() {
-        console.log("+++++ReviewArtworkManager");
-
+        console.log("+++++SubmitArtworkManager");
     }
 
     componentWillReceiveProps(nextProps) {
@@ -46,21 +41,61 @@ export default class ReviewArtworkManager extends React.Component {
 
 // ============= Flow Control ===============
 
-    openedManager = () => {
+    manager = () => {
         let submitList = [];
+        let lastSubmit = "";
         for (var submit in this.props.submits) {
+            lastSubmit = submit;
             if (this.props.submits.hasOwnProperty(submit)) {
                 submitList.push(this.props.submits[submit]);
             }
         }
 
+        const openManager = {
+            height: window.innerHeight - 60,
+            left: 0
+        }
+
+        let managerWidth = 200; // Magic Number to Instantiate
+
+        if (document.getElementsByClassName('album-manager')[0]) {
+            managerWidth = document.getElementsByClassName('album-manager')[0].offsetWidth;
+        }
+
+        const closedManager = {
+            height: window.innerHeight - 60,
+            left: -1 * managerWidth + 40
+        }
+
+        if (submitList.length == 0) {
+            return (
+                <section
+                    className="album-manager review"
+                    style={this.props.managerIsOpen ? openManager: closedManager}>
+                    <AlbumToggler
+                        height          ={window.innerHeight - 60}
+                        float           ={"right"}
+                        background      ={"#111111"}
+                        managerIsOpen   ={this.props.managerIsOpen}
+                        toggleManager   ={this.props.toggleManager} />
+                    <div
+                        className="no-submits"
+                        style={{
+                            height:  window.innerHeight - 60
+                        }}
+                        >
+                        <h3 className="upload-writing medium">No Submits</h3>
+                    </div>
+                </section>
+
+
+            );
+        }
+
         return (
             <section
                 className="album-manager review"
-                style={{
-                    height: window.innerHeight - 60,
-                    left :  0
-                }}>
+                style={this.props.managerIsOpen ? openManager: closedManager}>
                 <AlbumToggler
                     height          ={window.innerHeight - 60}
                     float           ={"right"}
@@ -74,48 +109,7 @@ export default class ReviewArtworkManager extends React.Component {
                     className="album-locker">
                     {submitList.map(submit => {
                         return(
-                            <ReviewArtwork
-                                submit={submit}
-                                paths={this.props.paths}
-                                reviewArtwork={this.props.reviewArtwork}
-                                changeReviewArtwork={this.props.changeReviewArtwork}
-                                />
-                        );
-                    })}
-                </ul>
-            </section>
-        );
-    }
-
-    closedManager = () => {
-        let submitList = [];
-        for (var submit in this.props.submits) {
-            if (this.props.submits.hasOwnProperty(submit)) {
-                submitList.push(this.props.submits[submit]);
-            }
-        }
-
-        return (
-            <section
-                className="album-manager review"
-                style={{
-                    height: window.innerHeight - 60,
-                    left :  0
-                }}>
-                <AlbumToggler
-                    height          ={window.innerHeight - 60}
-                    float           ={"right"}
-                    background      ={"#111111"}
-                    managerIsOpen   ={this.props.managerIsOpen}
-                    toggleManager   ={this.props.toggleManager} />
-                <ul
-                    style={{
-                        height: window.innerHeight - 60
-                    }}
-                    className="album-locker">
-                    {submitList.map(submit => {
-                        return(
-                            <ReviewArtwork
+                            <SubmitArtwork
                                 submit={submit}
                                 paths={this.props.paths}
                                 reviewArtwork={this.props.reviewArtwork}

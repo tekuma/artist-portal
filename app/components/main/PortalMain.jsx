@@ -1,12 +1,11 @@
 // Libs
 import React                from 'react';
 import firebase             from 'firebase';
-import TransitionGroup      from 'react-addons-transition-group';
 //Files
 import PostAuthHeader       from '../headers/PostAuthHeader';
 import ArtworksAlbumManager from '../album_manager/ArtworksAlbumManager';
-import ReviewArtworkManager from '../review/ReviewArtworkManager';
-import ReviewArtworkInfo    from '../review/ReviewArtworkInfo';
+import SubmitArtworkManager from '../review/SubmitArtworkManager';
+import SubmitArtworkInfo    from '../review/SubmitArtworkInfo';
 import ArtworkManager       from '../artwork_manager/ArtworkManager';
 import EditProfile          from '../edit_profile/EditProfile';
 import Views                from '../../constants/Views';
@@ -108,6 +107,7 @@ export default class PortalMain extends React.Component {
                     managerIsOpen            ={this.props.managerIsOpen}
                     setUploadedFiles         ={this.props.setUploadedFiles}
                     toggleArtworkDetailDialog={this.props.toggleArtworkDetailDialog}
+                    submitError              ={this.props.submitError}
                     />
                 <div
                     onClick     ={this.props.toggleNav}
@@ -159,7 +159,7 @@ export default class PortalMain extends React.Component {
                     setUploadedFiles ={this.props.setUploadedFiles}
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
-                <ReviewArtworkManager
+                <SubmitArtworkManager
                     paths={this.props.paths}
                     submits={this.state.submits}
                     reviewArtwork={this.state.reviewArtwork}
@@ -167,13 +167,12 @@ export default class PortalMain extends React.Component {
                     currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
-                <TransitionGroup>
-                    <ReviewArtworkInfo
-                        paths={this.props.paths}
-                        currentAppLayout={this.props.currentAppLayout}
-                        submits={this.state.submits}
-                        reviewArtwork={this.state.reviewArtwork}/>
-                </TransitionGroup>
+                <SubmitArtworkInfo
+                    paths={this.props.paths}
+                    currentAppLayout={this.props.currentAppLayout}
+                    submits={this.state.submits}
+                    managerIsOpen   ={this.props.managerIsOpen}
+                    reviewArtwork={this.state.reviewArtwork}/>
                 <div
                     onClick    ={this.props.toggleNav}
                     onTouchTap ={this.props.toggleNav}

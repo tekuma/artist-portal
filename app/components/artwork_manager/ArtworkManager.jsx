@@ -189,9 +189,9 @@ export default class ArtworkManager extends React.Component {
                     return (
                         <Artwork
                             paths       ={this.props.paths}
-                            onSubmit    ={this.props.onSubmit}
                             currentAlbum={this.props.currentAlbum}
                             key         ={artwork.id}
+                            onSubmit    ={this.submitArtwork}
                             onEdit      ={this.editArtwork}
                             onDelete    ={this.deleteArtwork}
                             onDownload  ={this.downloadArtwork}
@@ -245,9 +245,10 @@ export default class ArtworkManager extends React.Component {
                 className   ="artwork-upload-box"
                 accept      ="image/png, image/jpeg"
                 onDrop      ={this.onDrop}>
+                <img id="empty-album-icon" src="assets/images/icons/drop-gradient.svg"/>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
-                <h3 className="upload-writing tiny">Max File Size: 20Mb</h3>
+                <h3 className="upload-writing tiny">(Max File Size: 20Mb)</h3>
             </Dropzone>
         );
     }
@@ -293,9 +294,10 @@ export default class ArtworkManager extends React.Component {
                 className   ="artwork-upload-box"
                 accept      ="image/png, image/jpeg"
                 onDrop      ={this.onDrop}>
+                <img id="empty-album-icon" src="assets/images/icons/drop-gradient.svg"/>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
-                <h3 className="upload-writing tiny">Max File Size: 20Mb</h3>
+                <h3 className="upload-writing tiny">(Max File Size: 20Mb)</h3>
             </Dropzone>
         );
     }
@@ -328,7 +330,7 @@ export default class ArtworkManager extends React.Component {
         e.stopPropagation();
 
         if (submitted) {
-            confirm("Are you sure you want to delete this artwork? <p style='font-size: 0.7em;' >(Please note that deleting this artwork will not delete your artwork from Tekuma's database. Please directly contact us if you would like it to be completely removed from our service)</p>").then(
+            confirm("Are you sure you want to delete this artwork?", "Please contact Tekuma directly if you would like this artwork to be completely removed from Tekuma's service").then(
                 () => {
                     // Proceed Callback
                     this.props.deleteArtwork(id);
@@ -352,6 +354,40 @@ export default class ArtworkManager extends React.Component {
         }
     }
 
+    submitArtwork = (artwork, e) => {
+        e.stopPropagation();
+
+        if (artwork.title == "" || artwork.album == "" || artwork.artist == "" || artwork.year == "" || artwork.description == "") {
+            let errors = {
+                title: false,
+                album: false,
+                artist: false,
+                year: false,
+                description: false
+            }
+
+            for (let type in errors) {
+                console.log(type);
+                if (artwork[type] == "") {
+                    errors[type] = true
+                }
+            }
+
+            this.props.submitError(errors);
+        } else {
+            confirm("Are you sure you want to submit this artwork?", "Submitting this artwork means you have read Tekuma's T&Cs and give Tekuma permission to use your artwork in it's curation service. In addition, you will no longer be able to edit this artwork after this action.").then(
+                () => {
+                    // Proceed Callback
+                    this.props.onSubmit(artwork.id);
+                },
+                () => {
+                    // Cancel Callback
+                    return;
+                }
+            );
+        }
+    }
+
     /**
      * [move description]
      * @param  {[type]} albumName [description]
@@ -359,9 +395,9 @@ export default class ArtworkManager extends React.Component {
      * @param  {[type]} targetId  [description]
      */
     move = (albumName ,sourceId, targetId) => {
-        // console.log("Entered move");
-        // console.log("Source ID: ", sourceId);
-        // console.log("Target ID: ", targetId);
+        console.log("Entered move");
+        console.log("Source ID: ", sourceId);
+        console.log("Target ID: ", targetId);
 
         const albumRef  = firebase.database().ref(this.props.paths.albums);
 

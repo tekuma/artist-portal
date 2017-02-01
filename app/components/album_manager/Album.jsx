@@ -1,5 +1,6 @@
 // Libs
 import React                        from 'react';
+import firebase                     from 'firebase';
 import ReactDOM                     from "react-dom";
 import {DragSource, DropTarget}     from 'react-dnd';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
@@ -36,10 +37,14 @@ const albumTarget = {
                 targetProps.changeArtworkAlbum(source.id, source.album, target.name);
 
                 // Change album within artwork JSON
-                // console.log(context.props);
+                console.log("SWITCHING ALBUMS FOR ARTWORK ___>>>>>");
+                console.log(context.props);
+                console.log(this.props);
                 let path = context.props.paths.art + source.id;
+                console.log(path);
                 let thisArtworkRef = firebase.database().ref(path);
                 thisArtworkRef.transaction((data) => {
+                    console.log(data);
                     data['album'] = target.name;
                     return data;
                 });

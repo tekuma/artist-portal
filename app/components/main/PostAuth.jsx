@@ -103,7 +103,8 @@ export default class PostAuth extends React.Component {
                     setUploadedFiles          ={this.setUploadedFiles}
                     setAlbumNames             ={this.setAlbumNames}
                     changeArtworkAlbum        ={this.changeArtworkAlbum}
-                    toggleArtworkDetailDialog ={this.toggleArtworkDetailDialog} />
+                    toggleArtworkDetailDialog ={this.toggleArtworkDetailDialog}
+                    submitError               ={this.submitError} />
                 <EditArtworkDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -187,9 +188,7 @@ export default class PostAuth extends React.Component {
      * @param  {String} artwork_uid [ID of the artwork]
      * @param  {Event} e
      */
-    onSubmit = (artwork_uid, e) => {
-        e.stopPropagation(); //NOTE:
-
+    onSubmit = (artwork_uid) => {
 
         let artwork_ref = firebase.database().ref(this.state.paths.art + artwork_uid);
         artwork_ref.transaction( (data)=>{
@@ -210,7 +209,7 @@ export default class PostAuth extends React.Component {
             tags        : this.state.user.artworks[artwork_uid].tags,
             year        : this.state.user.artworks[artwork_uid].year,
             description : this.state.user.artworks[artwork_uid].description,
-            status      : "Unseen",
+            status      : "In Review",
             memo        : "",
         }
 
@@ -1150,9 +1149,10 @@ export default class PostAuth extends React.Component {
      * @param  {String} newName [Name of album destinatino]
      */
     changeArtworkAlbum = (artworkUID, oldName, newName) => {
+        console.log(artworkUID, oldName, newName);
         let path = this.state.paths.albums;
         const albumsRef  = firebase.database().ref(path);
-            console.log(this.state.paths);
+        console.log(this.state.paths);
         albumsRef.transaction((node) => {
 
             let albumsCount = Object.keys(node).length;
@@ -1247,6 +1247,30 @@ export default class PostAuth extends React.Component {
                 console.log(">> Artwork deleted successfully");
             });
         });
+    }
+
+    submitError = (empty_fields) => {
+        let message = "Submit failed. You have not filled in the following artwork fields: ";
+
+        for (let error in empty_fields) {
+            if (empty_fields[error]) {
+                let capitalized = error.charAt(0).toUpperCase() + error.slice(1);
+                message += capitalized + ", ";
+            }
+        }
+
+        message = message.substring(0, message.length - 2);
+        console.log(message);
+
+        this.setState({
+            currentError: message
+        });
+
+        setTimeout(() => {
+            this.setState({
+                currentError: ""
+            });
+        }, 4500);   // Clear error once it has been shown
     }
 }
 

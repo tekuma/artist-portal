@@ -125,8 +125,8 @@ export default class Artwork extends React.Component {
                                 className={this.props.artwork.submitted ? "artwork-tool submitted": "artwork-tool"}
                                 style={this.props.artwork.submitted ? hideStyle: null}
                                 src='assets/images/icons/submit-black.svg'
-                                onClick={this.props.onSubmit.bind(null, this.props.artwork.id)}
-                                onTouchTap={this.props.onSubmit.bind(null, this.props.artwork.id)}
+                                onClick={this.props.onSubmit.bind(null, this.props.artwork)}
+                                onTouchTap={this.props.onSubmit.bind(null, this.props.artwork)}
                                  />
                         </OverlayTrigger>
                         <OverlayTrigger placement="bottom" overlay={this.props.artwork.submitted ? infoTooltip : editTooltip}>
