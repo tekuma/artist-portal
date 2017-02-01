@@ -2575,6 +2575,10 @@ login-button.left {
 	font-size: 1.8em;
 }
 
+.artwork-upload-box .upload-writing.medium {
+	font-size: 1.5em;
+}
+
 .artwork-upload-box .upload-writing.small {
 	font-size: 1.3em;
 	margin-top: 5px;
@@ -2705,7 +2709,6 @@ login-button.left {
 }
 
 .artwork-colors {
-	height: 76px;
 	width: 100%;
 }
 
@@ -3967,7 +3970,7 @@ label.age-confirm-label {
 	margin-bottom: 10px;
 }
 
-.artwork-date {
+.artwork-year {
 	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: rgba(0,0,0,0.54);
 	font-size: 0.9em;
@@ -4235,7 +4238,8 @@ label.age-confirm-label {
 		width: 592px !important;
 	}
 
-	.edit-artwork-body {
+	.edit-artwork-body,
+	.edit-artwork-body.detail {
 		width: 592px !important;
 	}
 
@@ -4246,6 +4250,28 @@ label.age-confirm-label {
 	.artwork-preview-wrapper {
 		width: 200px;
 		height: 200px;
+	}
+
+	.artwork-preview.submitted {
+		display: none;
+	}
+
+	.artwork-info-wrapper {
+		width: 592px;
+	}
+
+	.artwork-title,
+	.artwork-artist,
+	.artwork-year,
+	.artwork-album {
+		text-align: center;
+	}
+
+	.artwork-album-heading,
+	.artwork-tags-heading,
+	.artwork-description-heading,
+	.artwork-colors-heading {
+		text-align: center;
 	}
 }
 
@@ -4278,6 +4304,12 @@ label.age-confirm-label {
 		width: 30px;
 		height: 30px;
 	}
+}
+
+@media (max-width: 681px) {
+  .tekuma-logo {
+	  display: none;
+  }
 }
 
 @media (max-height: 670px) {
@@ -4341,8 +4373,13 @@ label.age-confirm-label {
 		width: 542px !important;
 	}
 
-	.edit-artwork-body {
+	.edit-artwork-body,
+	.edit-artwork-body.detail {
 		width: 542px !important;
+	}
+
+	.artwork-info-wrapper {
+		width: 542px;
 	}
 
 	.artwork-preview-colors {
@@ -4467,8 +4504,13 @@ label.age-confirm-label {
 		width: 368px !important;
 	}
 
-	.edit-artwork-body {
+	.edit-artwork-body,
+	.edit-artwork-body.detail {
 		width: 368px !important;
+	}
+
+	.artwork-info-wrapper {
+		width: 368px;
 	}
 
 	.artwork-preview-colors {
@@ -4576,11 +4618,6 @@ label.age-confirm-label {
 		display: none;
 	}
 
-	.edit-artwork-body {
-		width: 270px;
-		margin: 0 auto;
-	}
-
 	.edit-album-hint {
 		margin-top: 20px;
 	}
@@ -4611,12 +4648,6 @@ label.age-confirm-label {
   }
 }
 
-@media (max-width: 420px) {
-  .tekuma-logo {
-	  display: none;
-  }
-}
-
 @media (max-width: 410px) {
   main {
 	  width: 100vw;
@@ -4632,9 +4663,26 @@ label.age-confirm-label {
 		width: 310px !important;
 	}
 
-	.edit-artwork-body {
-		width: 250px;
+	.edit-artwork-body,
+	.edit-artwork-body.detail {
+		width: 310px !important;
 		padding: 0 !important;
+	}
+
+	.artwork-info-wrapper {
+		width: 310px;
+	}
+}
+
+@media (max-width: 380px) {
+	.admin-selector {
+		width: 150px;
+	}
+}
+
+@media (max-width: 350px) {
+	.admin-selector {
+		width: 130px;
 	}
 }
 

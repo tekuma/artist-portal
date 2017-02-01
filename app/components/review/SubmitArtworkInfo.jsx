@@ -64,7 +64,7 @@ export default class SubmitArtworkInfo extends React.Component {
                                     : styleManagerClosed}
                     >
                     <img id="no-submit-info-icon" src="assets/images/icons/arrow-left-gradient.svg"/>
-                    <h3 className="upload-writing big">Select a Submitted Artwork</h3>
+                    <h3 className="upload-writing medium">Select a Submitted Artwork</h3>
                 </section>
             )
         }

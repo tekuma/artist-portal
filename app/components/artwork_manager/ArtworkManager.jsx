@@ -375,7 +375,7 @@ export default class ArtworkManager extends React.Component {
 
             this.props.submitError(errors);
         } else {
-            confirm("Are you sure you want to submit this artwork?", "Submitting this artwork means you have read Tekuma's T&Cs and give Tekuma permission to use your artwork in it's curation service. In addition, you will no longer be able to edit this artwork after this action.").then(
+            confirm("Are you sure you want to submit this artwork?", "Submitting this artwork means you agree to Tekuma's Terms of Use and give Tekuma permission to use your artwork in it's curation service. In addition, you will no longer be able to edit this artwork after this action.").then(
                 () => {
                     // Proceed Callback
                     this.props.onSubmit(artwork.id);

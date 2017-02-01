@@ -30,11 +30,11 @@ export default class ReviewArtwork extends React.Component {
         let styleFixed = {
             width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
         };
-        const messagesTooltip = (
+        const messageTooltip = (
             <Tooltip
-                id="notifications-tooltip"
+                id="notification-tooltip"
                 className="tooltip">
-                Notifications
+                You have a notification!
             </Tooltip>
         );
 
@@ -62,7 +62,7 @@ export default class ReviewArtwork extends React.Component {
                 <div className="album-tools bottom">
                     <OverlayTrigger
                         placement   ="right"
-                        overlay     ={messagesTooltip}>
+                        overlay     ={messageTooltip}>
                         <div>
                             <img
                                 className   ="album-tool review"
