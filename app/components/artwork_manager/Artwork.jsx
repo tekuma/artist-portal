@@ -96,7 +96,7 @@ export default class Artwork extends React.Component {
         const submittedTooltip = (
             <Tooltip
                 className="tooltip">
-                Artwork already submitted!
+                Artwork submitted!
             </Tooltip>
         );
 
