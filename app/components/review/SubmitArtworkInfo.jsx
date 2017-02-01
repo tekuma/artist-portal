@@ -86,14 +86,22 @@ export default class SubmitArtworkInfo extends React.Component {
             height: window.innerHeight - 60 - 147
         }
 
+        // String for tags representation
         let tagString = "";
-
         for (let tag in this.state.tags) {
             console.log(tag);
             tagString += this.state.tags[tag].text + ", ";
         }
-
         tagString = tagString.substring(0, tagString.length - 2)
+
+        // String for submitted representation
+        let submitted = new Date(submit.submitted).toDateString();
+
+        // String for approved representation
+        let approved = "";
+        if (submit.approved) {
+            approved = new Date(submit.approved).toDateString();
+        }
 
         return (
                 <section
@@ -150,17 +158,21 @@ export default class SubmitArtworkInfo extends React.Component {
                                 Date Submitted
                             </h3>
                             <div className="status-info-wrapper center">
-                                <p>{submit.submitted}</p>
+                                <p>{submitted}</p>
                             </div>
                         </div>
-                        <div className="status-wrapper">
-                            <h3 className="status-heading">
-                                Date Approved
-                            </h3>
-                            <div className="status-info-wrapper center">
-                                <p>{submit.submitted}</p>
+                        {submit.approved ?
+                            <div className="status-wrapper">
+                                <h3 className="status-heading">
+                                    Date Approved
+                                </h3>
+                                <div className="status-info-wrapper center">
+                                    <p>{approved}</p>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            null
+                        }
                         <div className="status-wrapper">
                             <h3 className="status-heading">
                                 Status

@@ -29,24 +29,14 @@ export default class AdminSelector extends React.Component {
                 return {label: artist[1] , value:artist[0] , id:artist[0]};
             });
 
-        const selectorContainerWidth = {
-            width: window.innerWidth * 0.2 + 36
-        }
-        const selectorWidth = {
-            width: window.innerWidth * 0.2 + 25 ,
-            display: "inline-block"
-        }
-
         const resetValue = firebase.auth().currentUser.uid;
 
         return (
             <div>
                 <div
-                    id="admin-selector"
-                    style={selectorContainerWidth}>
+                    id="admin-selector">
                     <Select
                         className="admin-select"
-                        style={selectorWidth}
                         options={options}
                         name="admin-select"
                         placeholder="Select an artist..."
