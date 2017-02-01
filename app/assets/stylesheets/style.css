@@ -79,8 +79,8 @@ button {
 .admin-selector {
 	position: absolute;
 	top     : 12px;
-	right   : 100px;
-	width   : 25%;
+	right   : 110px;
+	width   : 200px;
 	height  : 80px;
 	z-index : 100;
 	overflow           : visible;
@@ -132,7 +132,7 @@ button {
   	background-color: #fff;
   	border: none;
 	border-top: solid 1px #dddddd;
-	width: 96%;
+	width: 100%;
 	box-shadow: 0 2px 10px rgba(0,0,0,0.42);
 
 }
@@ -4110,6 +4110,43 @@ label.age-confirm-label {
 	As screen width decreases, the styles change
 	to suit new screen width and size
 */
+
+@media (min-width: 1467px) {
+	.album-avatar {
+  	display: flex;
+	float: none;
+	width: 100%;
+	position: static;
+	margin-top: 10px;
+	}
+
+	.album {
+		display: inline-block;
+		margin: 1.5%;
+		width: 47%;
+		vertical-align: middle;
+	}
+
+	.album-name,
+	.album-edit {
+		position: static;
+		left: 0px;
+		margin: 10px 0px 0px;
+		text-align: center;
+		padding: 0px 12px 0px 12px;
+	}
+
+	.album-name.review {
+		padding: 0px;
+	}
+
+	.album-tools {
+		text-align: center;
+		position: static;
+		right: 0px;
+		z-index: 3;
+	}
+}
 
 @media (max-width: 1410px) {
 	.album-banner-title {

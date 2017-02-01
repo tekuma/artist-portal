@@ -19,6 +19,10 @@ export default class ReviewArtwork extends React.Component {
     }
 
     render() {
+        let styleBlock = {
+            width   : "100%"
+        }
+
         let styleResponsive = {
             width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70
         };
@@ -52,7 +56,7 @@ export default class ReviewArtwork extends React.Component {
                 </div>
                 <h3
                     className   ="album-name review"
-                    style={(window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
+                    style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
                 <div className="album-tools bottom">

@@ -111,6 +111,10 @@ export default class Album extends React.Component {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
+        let styleBlock = {
+            width   : "100%"
+        }
+
         let styleResponsive = {
             width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
         };
@@ -152,7 +156,7 @@ export default class Album extends React.Component {
                         className="avatar-container" />
                 </div>
                 <h3
-                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
+                    style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
                     className   ="album-name" >
                     {this.props.album.name}
                 </h3>
