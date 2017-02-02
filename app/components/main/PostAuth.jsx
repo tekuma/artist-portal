@@ -241,8 +241,7 @@ export default class PostAuth extends React.Component {
             });
         });
     }
-
-
+    
     /**
      * (1) Initial method for changing acting user. First, sets the
      * UID of the acting user, and detaches listener to previous user.

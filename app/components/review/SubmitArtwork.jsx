@@ -59,18 +59,22 @@ export default class ReviewArtwork extends React.Component {
                     style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
-                <div className="album-tools bottom">
-                    <OverlayTrigger
-                        placement   ="right"
-                        overlay     ={messageTooltip}>
-                        <div>
-                            <img
-                                className   ="album-tool review"
-                                src         ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
-                            />
-                        </div>
-                    </OverlayTrigger>
-                </div>
+                {this.props.submit.new_message ?
+                    <div className="album-tools bottom">
+                        <OverlayTrigger
+                            placement   ="right"
+                            overlay     ={messageTooltip}>
+                            <div>
+                                <img
+                                    className   ="album-tool review"
+                                    src         ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
+                                />
+                            </div>
+                        </OverlayTrigger>
+                    </div>
+                    :
+                    null
+                }
             </li>
         );
     }
