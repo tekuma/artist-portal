@@ -107,7 +107,7 @@ export default class PortalMain extends React.Component {
                     managerIsOpen            ={this.props.managerIsOpen}
                     setUploadedFiles         ={this.props.setUploadedFiles}
                     toggleArtworkDetailDialog={this.props.toggleArtworkDetailDialog}
-                    submitError              ={this.props.submitError}
+                    sendToSnackbar           ={this.props.sendToSnackbar}
                     />
                 <div
                     onClick     ={this.props.toggleNav}

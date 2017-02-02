@@ -373,7 +373,18 @@ export default class ArtworkManager extends React.Component {
                 }
             }
 
-            this.props.submitError(errors);
+            let message = "Submit failed. You have not filled in the following artwork fields: ";
+
+            for (let error in errors) {
+                if (errors[error]) {
+                    let capitalized = error.charAt(0).toUpperCase() + error.slice(1);
+                    message += capitalized + ", ";
+                }
+            }
+
+            message = message.substring(0, message.length - 2);
+
+            this.props.sendToSnackbar(message);
         } else {
             confirm("Are you sure you want to submit this artwork?", "Submitting this artwork means you agree to Tekuma's Terms of Use and give Tekuma permission to use your artwork in it's curation service. In addition, you will no longer be able to edit this artwork after this action.").then(
                 () => {

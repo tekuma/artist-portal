@@ -89,7 +89,6 @@ export default class SubmitArtworkInfo extends React.Component {
         // String for tags representation
         let tagString = "";
         for (let tag in this.state.tags) {
-            console.log(tag);
             tagString += this.state.tags[tag].text + ", ";
         }
         tagString = tagString.substring(0, tagString.length - 2)

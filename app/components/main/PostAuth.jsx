@@ -104,7 +104,7 @@ export default class PostAuth extends React.Component {
                     setAlbumNames             ={this.setAlbumNames}
                     changeArtworkAlbum        ={this.changeArtworkAlbum}
                     toggleArtworkDetailDialog ={this.toggleArtworkDetailDialog}
-                    submitError               ={this.submitError} />
+                    sendToSnackbar            ={this.sendToSnackbar} />
                 <EditArtworkDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -1250,18 +1250,7 @@ export default class PostAuth extends React.Component {
         });
     }
 
-    submitError = (empty_fields) => {
-        let message = "Submit failed. You have not filled in the following artwork fields: ";
-
-        for (let error in empty_fields) {
-            if (empty_fields[error]) {
-                let capitalized = error.charAt(0).toUpperCase() + error.slice(1);
-                message += capitalized + ", ";
-            }
-        }
-
-        message = message.substring(0, message.length - 2);
-        console.log(message);
+    sendToSnackbar = (message) => {
 
         this.setState({
             currentError: message
