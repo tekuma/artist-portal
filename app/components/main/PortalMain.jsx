@@ -192,36 +192,44 @@ export default class PortalMain extends React.Component {
     }
 
     /**
+     * FIXME
      * This method reads this.props.user.submits list, and gathers the information
      * from the curator database for each of the submissions, then stores this
      * in state.
-     *  -NOTE: This method logs into the curator app.
+     *  -NOTE: This method uses the curator app.
      *  -NOTE: There is sometimes an error of reading user.submits before
      * this info returns from firebase. To prevent this, a timeout is used. As it
      * would take the user at least 1 second to navigate to the Gallery interface,
      * this timeout would not interfere with the UX.
      */
     gatherSubmissions = () => {
-
         setTimeout(()=>{
             let submits =  this.props.user.submits;
             if (submits) {
+                console.log("@@@@@@@@@@@@@@@@@@@");
                 for (let i = 0; i < submits.length; i++) { // use let not var
+                    console.log("->",submits[i]);
                     let sub_path = `submissions/${submits[i]}`;
                     let apr_path = `approved/${submits[i]}`;
-
+                    console.log(".");
                     curator.database().ref(sub_path).on("value",(sub_snapshot)=>{
+                    // curator.database().ref(sub_path).on("value").then((sub_snapshot)=>{
+                        console.log("(1)");
                         curator.database().ref(apr_path).on("value",(apr_snapshot)=>{
+                            console.log("(2)");
+                            console.log("snapped");
                             //NOTE do not mutate state. Use a copy.
                             let sub_data = sub_snapshot.val();
                             let apr_data = apr_snapshot.val();
                             if (sub_data) {
+                                console.log(">> Submission");
                                 let statesubmits = Object.assign({},this.state.submits); //deepcopy
                                 statesubmits[submits[i]] = sub_data;
                                 this.setState({
                                     submits: statesubmits
                                 });
                             }  else if (apr_data) {
+                                console.log(">> Approved");
                                 let statesubmits = Object.assign({},this.state.submits); //deepcopy
                                 statesubmits[submits[i]] = apr_data;
                                 this.setState({
@@ -235,7 +243,10 @@ export default class PortalMain extends React.Component {
                                 // studio interface so that can re-upload.
                                 console.log(submits[i], "Does not exist");
                             }
+                        },(err)=>{
+                            console.log(err);
                         });
+                        console.log(" :()");
                     });
                 }
             }
