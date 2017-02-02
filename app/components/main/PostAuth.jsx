@@ -241,7 +241,7 @@ export default class PostAuth extends React.Component {
             });
         });
     }
-    
+
     /**
      * (1) Initial method for changing acting user. First, sets the
      * UID of the acting user, and detaches listener to previous user.
@@ -1173,6 +1173,7 @@ export default class PostAuth extends React.Component {
                     });
 
                     node[i]['artworks'] = artworks;
+                    console.log(oldName, artworksNode);
                 } else if (node[i]['name'] == newName) {// found where to move to
                     // just add the ID at the end of the 'array'
                     if (node[i]['artworks']) {
@@ -1182,6 +1183,7 @@ export default class PostAuth extends React.Component {
                     } else {
                         node[i]['artworks'] = {0: artworkUID};
                     }
+                    console.log(newName, node[i]['artworks']);
                 }
             }
             return node;
