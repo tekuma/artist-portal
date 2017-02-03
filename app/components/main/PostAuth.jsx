@@ -1260,7 +1260,7 @@ export default class PostAuth extends React.Component {
             this.setState({
                 currentError: ""
             });
-        }, 4500);   // Clear error once it has been shown
+        }, 5000);   // Clear error once it has been shown
     }
 }
 

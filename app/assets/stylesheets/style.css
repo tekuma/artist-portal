@@ -3918,6 +3918,7 @@ label.age-confirm-label {
 	box-shadow: 13px 10px 13px rgba(0,0,0,0.19),
 	0px 10px 10px rgba(0,0,0,0.19);
 	border-style: inset;
+	padding: 8%;
 	width: 396px;
 	height: 100%;
 	-webkit-align-items: center;
