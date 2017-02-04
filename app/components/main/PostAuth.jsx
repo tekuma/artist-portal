@@ -195,18 +195,27 @@ export default class PostAuth extends React.Component {
             data.submitted = true;
             return data
         });
+        //NOTE colors and tags can be null.
+        let colors = {};
+        if (this.state.user.artworks[artwork_uid].colors){
+            colors = this.state.user.artworks[artwork_uid].colors;
+        }
+        let tags = {};
+        if (this.state.user.artworks[artwork_uid].tags) {
+            tags = this.state.user.artworks[artwork_uid].tags;
+        }
 
         let submission = {
             artwork_uid : artwork_uid,
             artwork_name: this.state.user.artworks[artwork_uid].title,
             artist_name : this.state.user.display_name,
             artist_uid  : this.state.actingUID,
-            submitted   : new Date().toISOString(),
+            submitted   : new Date().getTime(),
+            colors      : colors,
             upload_date : this.state.user.artworks[artwork_uid].upload_date,
             size        : this.state.user.artworks[artwork_uid].size,
             album       : this.state.user.artworks[artwork_uid].album,
-            colors      : this.state.user.artworks[artwork_uid].colors,
-            tags        : this.state.user.artworks[artwork_uid].tags,
+            tags        : tags,
             year        : this.state.user.artworks[artwork_uid].year,
             description : this.state.user.artworks[artwork_uid].description,
             status      : "In Review",
