@@ -22,7 +22,7 @@ export default class SubmitArtworkInfo extends React.Component {
     }
 
     render() {
-        let submit = this.props.submits[this.props.reviewArtwork];
+        let submit = this.props.submits[this.props.submitArtwork];
 
         let styleManagerClosed = {
             width: window.innerWidth - 40,
@@ -210,8 +210,8 @@ export default class SubmitArtworkInfo extends React.Component {
         let tags = [];
 
         // Get Tags
-        if (nextProps.submits[nextProps.reviewArtwork]) {
-            let allTags  = nextProps.submits[nextProps.reviewArtwork].tags;
+        if (nextProps.submits[nextProps.submitArtwork]) {
+            let allTags  = nextProps.submits[nextProps.submitArtwork].tags;
             let tagKeys  = Object.keys(allTags);
 
             for (let i = 0; i < tagKeys.length; i++) {

@@ -22,7 +22,7 @@ const curator = firebase.initializeApp(config,"curator");
 export default class PortalMain extends React.Component {
     state = {
         submits: {},
-        reviewArtwork:{},
+        submitArtwork:{},
     }
 
     constructor(props) {
@@ -162,8 +162,8 @@ export default class PortalMain extends React.Component {
                 <SubmitArtworkManager
                     paths={this.props.paths}
                     submits={this.state.submits}
-                    reviewArtwork={this.state.reviewArtwork}
-                    changeReviewArtwork={this.changeReviewArtwork}
+                    submitArtwork={this.state.submitArtwork}
+                    changeSubitArtwork={this.changeSubmitArtwork}
                     currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />
@@ -172,7 +172,7 @@ export default class PortalMain extends React.Component {
                     currentAppLayout={this.props.currentAppLayout}
                     submits={this.state.submits}
                     managerIsOpen   ={this.props.managerIsOpen}
-                    reviewArtwork={this.state.reviewArtwork}/>
+                    submitArtwork={this.state.submitArtwork}/>
                 <div
                     onClick    ={this.props.toggleNav}
                     onTouchTap ={this.props.toggleNav}
@@ -187,8 +187,8 @@ export default class PortalMain extends React.Component {
         this.setState({});
     }
 
-    changeReviewArtwork = (artwork) => {
-        this.setState({reviewArtwork:artwork});
+    changeSubmitArtwork = (artwork) => {
+        this.setState({submitArtwork:artwork});
     }
 
     /**

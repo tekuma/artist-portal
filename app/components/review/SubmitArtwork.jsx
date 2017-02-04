@@ -47,8 +47,8 @@ export default class SubmitArtwork extends React.Component {
         );
         let thumbnail_url = this.props.paths.thmb128 + this.props.submit.artwork_uid;
         return (
-            <li onClick     ={this.props.changeReviewArtwork.bind({}, this.props.submit.artwork_uid)}
-                className   ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? "album review selected" : "album review"}>
+            <li onClick     ={this.props.changeSubmitArtwork.bind({}, this.props.submit.artwork_uid)}
+                className   ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "album review selected" : "album review"}>
                 <div className="album-avatar">
                     <div
                         style={{backgroundImage : `url(${thumbnail_url})`}}
@@ -67,7 +67,7 @@ export default class SubmitArtwork extends React.Component {
                             <div>
                                 <img
                                     className   ="album-tool review"
-                                    src         ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
+                                    src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
                                 />
                             </div>
                         </OverlayTrigger>
