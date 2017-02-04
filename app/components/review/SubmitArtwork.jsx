@@ -9,7 +9,7 @@ import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 /**
  * TODO
  */
-export default class ReviewArtwork extends React.Component {
+export default class SubmitArtwork extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -24,17 +24,17 @@ export default class ReviewArtwork extends React.Component {
         }
 
         let styleResponsive = {
-            width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70
+            width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70 //
         };
 
         let styleFixed = {
             width   : 210 * 0.96 - 70   // Album locker width caps at 210px. An album is 96% of the locker. The avatar is 70px
         };
-        const messagesTooltip = (
+        const messageTooltip = (
             <Tooltip
-                id="notifications-tooltip"
+                id="notification-tooltip"
                 className="tooltip">
-                Notifications
+                You have a notification!
             </Tooltip>
         );
 
@@ -47,8 +47,8 @@ export default class ReviewArtwork extends React.Component {
         );
         let thumbnail_url = this.props.paths.thmb128 + this.props.submit.artwork_uid;
         return (
-            <li onClick     ={this.props.changeReviewArtwork.bind({}, this.props.submit.artwork_uid)}
-                className   ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? "album review selected" : "album review"}>
+            <li onClick     ={this.props.changeSubmitArtwork.bind({}, this.props.submit.artwork_uid)}
+                className   ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "album review selected" : "album review"}>
                 <div className="album-avatar">
                     <div
                         style={{backgroundImage : `url(${thumbnail_url})`}}
@@ -56,18 +56,30 @@ export default class ReviewArtwork extends React.Component {
                 </div>
                 <h3
                     className   ="album-name review"
-                    style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
+                    style={(window.innerWidth * 0.25 > 440) ? styleBlock: (window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
                 <div className="album-tools bottom">
                     <OverlayTrigger
                         placement   ="right"
-                        overlay     ={messagesTooltip}>
+                        overlay     ={messageTooltip}>
                         <div>
-                            <img
-                                className   ="album-tool review"
-                                src         ={(this.props.reviewArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
-                            />
+                            {!this.props.submit.new_message ?
+                                null
+                                :
+                                <img
+                                    className   ="album-tool review"
+                                    src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
+                                />
+                            }
+                            {!this.props.submit.approved ?
+                                null
+                                :
+                                <img
+                                    className   ="album-tool review"
+                                    src         ="assets/images/icons/approved.svg"
+                                />
+                            }
                         </div>
                     </OverlayTrigger>
                 </div>

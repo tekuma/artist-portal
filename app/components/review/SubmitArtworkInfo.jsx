@@ -22,7 +22,7 @@ export default class SubmitArtworkInfo extends React.Component {
     }
 
     render() {
-        let submit = this.props.submits[this.props.reviewArtwork];
+        let submit = this.props.submits[this.props.submitArtwork];
 
         let styleManagerClosed = {
             width: window.innerWidth - 40,
@@ -64,7 +64,7 @@ export default class SubmitArtworkInfo extends React.Component {
                                     : styleManagerClosed}
                     >
                     <img id="no-submit-info-icon" src="assets/images/icons/arrow-left-gradient.svg"/>
-                    <h3 className="upload-writing big">Select a Submitted Artwork</h3>
+                    <h3 className="upload-writing medium">Select a Submitted Artwork</h3>
                 </section>
             )
         }
@@ -89,7 +89,6 @@ export default class SubmitArtworkInfo extends React.Component {
         // String for tags representation
         let tagString = "";
         for (let tag in this.state.tags) {
-            console.log(tag);
             tagString += this.state.tags[tag].text + ", ";
         }
         tagString = tagString.substring(0, tagString.length - 2)
@@ -211,8 +210,8 @@ export default class SubmitArtworkInfo extends React.Component {
         let tags = [];
 
         // Get Tags
-        if (nextProps.submits[nextProps.reviewArtwork]) {
-            let allTags  = nextProps.submits[nextProps.reviewArtwork].tags;
+        if (nextProps.submits[nextProps.submitArtwork]) {
+            let allTags  = nextProps.submits[nextProps.submitArtwork].tags;
             let tagKeys  = Object.keys(allTags);
 
             for (let i = 0; i < tagKeys.length; i++) {

@@ -70,7 +70,7 @@ export default class SubmitArtworkManager extends React.Component {
         if (submitList.length == 0) {
             return (
                 <section
-                    className="album-manager review"
+                    className="album-manager submit"
                     style={this.props.managerIsOpen ? openManager: closedManager}>
                     <AlbumToggler
                         height          ={window.innerHeight - 60}
@@ -94,7 +94,7 @@ export default class SubmitArtworkManager extends React.Component {
 
         return (
             <section
-                className="album-manager review"
+                className="album-manager submit"
                 style={this.props.managerIsOpen ? openManager: closedManager}>
                 <AlbumToggler
                     height          ={window.innerHeight - 60}
@@ -112,8 +112,8 @@ export default class SubmitArtworkManager extends React.Component {
                             <SubmitArtwork
                                 submit={submit}
                                 paths={this.props.paths}
-                                reviewArtwork={this.props.reviewArtwork}
-                                changeReviewArtwork={this.props.changeReviewArtwork}
+                                submitArtwork={this.props.submitArtwork}
+                                changeSubmitArtwork={this.props.changeSubmitArtwork}
                                 />
                         );
                     })}

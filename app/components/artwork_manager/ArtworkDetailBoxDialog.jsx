@@ -75,7 +75,7 @@ export default class ArtworkDetailBoxDialog extends React.Component {
                                         {this.state.artworkInfo.artist == "" ? "None" : this.state.artworkInfo.artist}
                                     </div>
                                     <div
-                                        className="artwork-date">
+                                        className="artwork-year">
                                         {this.state.artworkInfo.year == "" ? "None" : this.state.artworkInfo.year}
                                     </div>
                                 </div>
