@@ -24,7 +24,7 @@ export default class SubmitArtwork extends React.Component {
         }
 
         let styleResponsive = {
-            width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70
+            width   : 0.96 * (window.innerWidth * 0.25 - 40) - 70 //
         };
 
         let styleFixed = {
@@ -56,7 +56,7 @@ export default class SubmitArtwork extends React.Component {
                 </div>
                 <h3
                     className   ="album-name review"
-                    style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed} >
+                    style={(window.innerWidth * 0.25 > 440) ? styleBlock: (window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
                 {this.props.submit.new_message ?
