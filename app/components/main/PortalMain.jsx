@@ -163,7 +163,7 @@ export default class PortalMain extends React.Component {
                     paths={this.props.paths}
                     submits={this.state.submits}
                     submitArtwork={this.state.submitArtwork}
-                    changeSubitArtwork={this.changeSubmitArtwork}
+                    changeSubmitArtwork={this.changeSubmitArtwork}
                     currentAppLayout={this.props.currentAppLayout}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />

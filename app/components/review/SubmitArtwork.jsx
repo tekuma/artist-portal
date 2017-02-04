@@ -59,22 +59,30 @@ export default class SubmitArtwork extends React.Component {
                     style={(window.innerWidth * 0.25 > 440) ? styleBlock: (window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
-                {this.props.submit.new_message ?
-                    <div className="album-tools bottom">
-                        <OverlayTrigger
-                            placement   ="right"
-                            overlay     ={messageTooltip}>
-                            <div>
+                <div className="album-tools bottom">
+                    <OverlayTrigger
+                        placement   ="right"
+                        overlay     ={messageTooltip}>
+                        <div>
+                            {!this.props.submit.new_message ?
+                                null
+                                :
                                 <img
                                     className   ="album-tool review"
                                     src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
                                 />
-                            </div>
-                        </OverlayTrigger>
-                    </div>
-                    :
-                    <div className="submit-artwork-padding" />
-                }
+                            }
+                            {!this.props.submit.approved ?
+                                null
+                                :
+                                <img
+                                    className   ="album-tool review"
+                                    src         ="assets/images/icons/approved.svg"
+                                />
+                            }
+                        </div>
+                    </OverlayTrigger>
+                </div>
             </li>
         );
     }

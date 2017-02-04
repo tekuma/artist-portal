@@ -986,7 +986,7 @@ header.black {
 	position: relative;
 	left: 70px;
 	display: inline-block;
-	margin: 10px 0px 27px;
+	margin: 10px 0px 30px;
 	padding: 0px 12px 0px 5px;
 	font-weight: 600;
 	font-size: 1em;
@@ -1032,7 +1032,7 @@ header.black {
 
 .album-tools {
 	position: absolute;
-	right: 5px;
+	right: 0px;
 	z-index: 3;
 }
 
