@@ -1207,6 +1207,7 @@ header.black {
 .album-banner-details {
 	position: absolute;
 	left: 50%;
+	width: 100%;
 	transform: translateX(-50%);
 	transition: all 0.3s linear 0.6s;
 	-webkit-transition: all 0.3s linear 0.6s;
@@ -4149,6 +4150,10 @@ label.age-confirm-label {
 		position: static;
 		right: 0px;
 		z-index: 3;
+	}
+
+	.submit-artwork-padding {
+		height: 10px;
 	}
 }
 

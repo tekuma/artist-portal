@@ -9,7 +9,7 @@ import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 /**
  * TODO
  */
-export default class ReviewArtwork extends React.Component {
+export default class SubmitArtwork extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -73,7 +73,7 @@ export default class ReviewArtwork extends React.Component {
                         </OverlayTrigger>
                     </div>
                     :
-                    null
+                    <div className="submit-artwork-padding" />
                 }
             </li>
         );
