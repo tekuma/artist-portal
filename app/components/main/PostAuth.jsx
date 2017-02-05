@@ -199,7 +199,7 @@ export default class PostAuth extends React.Component {
         let submission = {
             artwork_uid : artwork_uid,
             artwork_name: this.state.user.artworks[artwork_uid].title,
-            artist_name : this.state.user.display_name,
+            artist_name : this.state.user.artworks[artwork_uid].artist,
             artist_uid  : this.state.actingUID,
             submitted   : new Date().toISOString(),
             upload_date : this.state.user.artworks[artwork_uid].upload_date,
