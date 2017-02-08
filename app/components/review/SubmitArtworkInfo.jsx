@@ -190,7 +190,7 @@ export default class SubmitArtworkInfo extends React.Component {
                             </h3>
                             <div className="status-info-wrapper center">
                                 <p>
-                                    {submit.memo == "" && submit.status == "In Review" ?
+                                    {submit.memo == "" && submit.status == "Pending" ?
                                     "Your artwork has not been reviewed yet. One of our curators will tend to your artwork at their soonest convenience!"
                                     :
                                     submit.memo}

@@ -209,7 +209,7 @@ export default class PostAuth extends React.Component {
             tags        : this.state.user.artworks[artwork_uid].tags,
             year        : this.state.user.artworks[artwork_uid].year,
             description : this.state.user.artworks[artwork_uid].description,
-            status      : "In Review",
+            status      : "Pending",
             memo        : "",
         }
 
