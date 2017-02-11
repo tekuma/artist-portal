@@ -27,7 +27,8 @@
     "MIT"
   ],
   "author": "Stephen White, Afika Nyati",
-  "license": "ISC",
+  "license": "UNLICENSED",
+  "private": true,
   "bugs": {
     "url": "https://github.com/tekuma/art-onboarding/issues"
   },
