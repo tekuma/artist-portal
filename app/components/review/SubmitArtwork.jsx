@@ -38,6 +38,14 @@ export default class SubmitArtwork extends React.Component {
             </Tooltip>
         );
 
+        const approvedTooltip = (
+            <Tooltip
+                id="approved-tooltip"
+                className="tooltip">
+                Artwork Approved!
+            </Tooltip>
+        );
+
         const removeTooltip = (
             <Tooltip
                 id="remove-tooltip"
@@ -60,28 +68,32 @@ export default class SubmitArtwork extends React.Component {
                     {this.props.submit.artwork_name}
                 </h3>
                 <div className="album-tools bottom">
-                    <OverlayTrigger
-                        placement   ="right"
-                        overlay     ={messageTooltip}>
                         <div>
                             {!this.props.submit.new_message ?
                                 null
                                 :
-                                <img
-                                    className   ="album-tool review"
-                                    src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
-                                />
+                                <OverlayTrigger
+                                    placement   ="right"
+                                    overlay     ={messageTooltip}>
+                                    <img
+                                        className   ="album-tool review"
+                                        src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? 'assets/images/icons/mail-white.svg' : 'assets/images/icons/mail-pink.svg'}
+                                    />
+                                </OverlayTrigger>
                             }
                             {!this.props.submit.approved ?
                                 null
                                 :
-                                <img
-                                    className   ="album-tool review"
-                                    src         ="assets/images/icons/approved.svg"
-                                />
+                                <OverlayTrigger
+                                    placement   ="right"
+                                    overlay     ={approvedTooltip}>
+                                    <img
+                                        className   ="album-tool review"
+                                        src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "assets/images/icons/approved-white.svg" : "assets/images/icons/approved-pink.svg"}
+                                    />
+                            </OverlayTrigger>
                             }
                         </div>
-                    </OverlayTrigger>
                 </div>
             </li>
         );

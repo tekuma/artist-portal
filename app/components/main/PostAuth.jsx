@@ -208,7 +208,7 @@ export default class PostAuth extends React.Component {
         let submission = {
             artwork_uid : artwork_uid,
             artwork_name: this.state.user.artworks[artwork_uid].title,
-            artist_name : this.state.user.display_name,
+            artist_name : this.state.user.artworks[artwork_uid].artist,
             artist_uid  : this.state.actingUID,
             submitted   : new Date().getTime(),
             colors      : colors,
@@ -218,7 +218,7 @@ export default class PostAuth extends React.Component {
             tags        : tags,
             year        : this.state.user.artworks[artwork_uid].year,
             description : this.state.user.artworks[artwork_uid].description,
-            status      : "In Review",
+            status      : "Pending",
             memo        : "",
         }
 
