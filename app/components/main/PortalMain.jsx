@@ -204,47 +204,66 @@ export default class PortalMain extends React.Component {
      */
     gatherSubmissions = () => {
         setTimeout(()=>{
-            let submits =  this.props.user.submits;
+            let submits =  this.props.user.submits; // list of submitted UIDs
             if (submits) {
-                console.log("@@@@@@@@@@@@@@@@@@@");
                 for (let i = 0; i < submits.length; i++) { // use let not var
                     console.log("->",submits[i]);
                     let sub_path = `submissions/${submits[i]}`;
                     let apr_path = `approved/${submits[i]}`;
+                    let dec_path = `declined/${submits[i]}`;
+                    let hld_path = `held/${submits[i]}`;
                     console.log(".");
                     curator.database().ref(sub_path).on("value",(sub_snapshot)=>{
-                    // curator.database().ref(sub_path).on("value").then((sub_snapshot)=>{
-                        console.log("(1)");
                         curator.database().ref(apr_path).on("value",(apr_snapshot)=>{
-                            console.log("(2)");
-                            console.log("snapped");
-                            //NOTE do not mutate state. Use a copy.
-                            let sub_data = sub_snapshot.val();
-                            let apr_data = apr_snapshot.val();
-                            if (sub_data) {
-                                console.log(">> Submission");
-                                let statesubmits = Object.assign({},this.state.submits); //deepcopy
-                                statesubmits[submits[i]] = sub_data;
-                                this.setState({
-                                    submits: statesubmits
+                            curator.database().ref(dec_path).on("value", (dec_snapshot)=>{
+                                curator.database().ref(hld_path).on("value", (hld_snapshot)=>{
+
+                                    let sub_data = sub_snapshot.val();
+                                    let apr_data = apr_snapshot.val();
+                                    let dec_data = dec_snapshot.val();
+                                    let hld_data = hld_snapshot.val();
+                                    console.log(sub_data);
+
+                                    if (sub_data) {
+                                        console.log(">> Submission");
+                                        let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                        statesubmits[submits[i]] = sub_data;
+                                        this.setState({
+                                            submits: statesubmits
+                                        });
+                                    }  else if (apr_data) {
+                                        console.log(">> Approved");
+                                        let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                        statesubmits[submits[i]] = apr_data;
+                                        this.setState({
+                                            submits: statesubmits
+                                        });
+                                    } else if (dec_data) {
+                                        console.log(">>> Declined.");
+                                        let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                        statesubmits[submits[i]] = dec_data;
+                                        this.setState({
+                                            submits: statesubmits
+                                        });
+                                    } else if (hld_data) {
+                                        console.log(">> Held");
+                                        let statesubmits = Object.assign({},this.state.submits); //deepcopy
+                                        statesubmits[submits[i]] = hld_data;
+                                        this.setState({
+                                            submits: statesubmits
+                                        });
+                                    } else {
+                                        //TODO If we reach here, the submit is not in the submissions
+                                        //FIXME or the approved branch. Therefore, it must have been
+                                        // deleted by a curator. Therefore, remove it from this artist's
+                                        // list of submits, AND change the status of this artwork in the
+                                        // studio interface so that can re-upload.
+                                        console.log(submits[i], "Does not exist");
+                                    }
+                                },(err)=>{
+                                    console.log(err);
                                 });
-                            }  else if (apr_data) {
-                                console.log(">> Approved");
-                                let statesubmits = Object.assign({},this.state.submits); //deepcopy
-                                statesubmits[submits[i]] = apr_data;
-                                this.setState({
-                                    submits: statesubmits
-                                });
-                            } else {
-                                //TODO If we reach here, the submit is not in the submissions
-                                //FIXME or the approved branch. Therefore, it must have been
-                                // deleted by a curator. Therefore, remove it from this artist's
-                                // list of submits, AND change the status of this artwork in the
-                                // studio interface so that can re-upload.
-                                console.log(submits[i], "Does not exist");
-                            }
-                        },(err)=>{
-                            console.log(err);
+                            });
                         });
                         console.log(" :()");
                     });

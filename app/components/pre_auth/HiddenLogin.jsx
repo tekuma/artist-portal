@@ -48,7 +48,7 @@ export default class HiddenLogin extends React.Component {
                                 required    ="true"
                                 maxLength   ="100"
                                 autoComplete="off"
-                                onKeyPress  ={this.checkEnter} />
+                                onClick={this.checkEnter} />
                         </li>
                         <li
                             className="solo-links center"
