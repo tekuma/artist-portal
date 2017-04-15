@@ -248,7 +248,7 @@ export default class ArtworkManager extends React.Component {
                 <img id="empty-album-icon" src="assets/images/icons/drop-gradient.svg"/>
                 <h3 className="upload-writing big">Drop Files Here</h3>
                 <h3 className="upload-writing small">or Click to Upload</h3>
-                <h3 className="upload-writing tiny">(Max File Size: 20Mb)</h3>
+                <h3 className="upload-writing tiny">(Max File Size: 60Mb)</h3>
             </Dropzone>
         );
     }
