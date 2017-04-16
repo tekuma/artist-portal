@@ -36,8 +36,6 @@ var config = {
     storageBucket: "art-uploads"
 };
 
-<<<<<<< HEAD
-=======
 // // ====== Staging ======  // "dev-artist-portal"
 // var config = {
 //     apiKey: "AIzaSyCbhMwmZJCt_enKPajoKeeJe9YyRK6lYO8",
@@ -45,8 +43,6 @@ var config = {
 //     databaseURL: "https://project-7614141605200030275.firebaseio.com",
 //     storageBucket: "project-7614141605200030275.appspot.com",
 // };
-
->>>>>>> 5463204fecc53437506b409e55c51d727921fdf4
 firebase.initializeApp(config);
 
 
