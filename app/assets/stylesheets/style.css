@@ -3858,7 +3858,9 @@ login-button.left {
 }
 
 .accordion-content > input:not([type='radio']),
-div#social-media-content input {
+div#social-media-content input,
+.accordion-content > ul > li > input,
+.accordion-content input[type=number] {
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
