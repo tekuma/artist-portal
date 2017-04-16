@@ -474,35 +474,22 @@ export default class PostAuth extends React.Component {
     /**
      * Submits a job into the job stack with a unique ID
      * @param  {String} path       [Path in bucket to stored file]
-     * @param  {[type]} artworkUID [the UID of the stored file]
+     * @param  {String} artworkUID [the UID of the stored file]
      */
     submitJob = (path, artworkUID) => {
         let url      = firebase.database().ref(this.state.paths.jobs).push();
         let jobID    = url.path.o[1];
         console.log("New job created =>",jobID, path);
         let job = {
-            uid      : this.state.paths.uid,
-            file_path: path,
-            task     : "resize",
-            job_id   : jobID,
-            complete : false,
-            bucket   : "art-uploads",
-            name     : artworkUID, //FIXME change field to artwork_id
-            submitted: new Date().toISOString()
+            artist_uid  : firebase.auth().currentUser.uid,
+            file_path   : path,
+            task        : "resize",
+            job_id      : jobID,
+            isComplete  : false,
+            bucket      : "art-uploads",
+            artwork_uid : artworkUID,
+            submitted   : new Date().getTime()
         }
-
-        //FIXME: Change to:
-            //  let job = {
-            // artist_uid  : firebase.auth().currentUser.uid,
-            // file_path   : path,
-            // task        : "resize",
-            // job_id      : jobID,
-            // isComplete  : false,
-            // bucket      : "art-uploads",
-            // artwork_uid : artworkUID,
-            // submitted   : new Date().toISOString()
-            //     }
-
         let jobPath = this.state.paths.jobs + jobID;
         firebase.database().ref(jobPath).set(job);
     }
@@ -525,8 +512,8 @@ export default class PostAuth extends React.Component {
     uploadArtToTekuma = (blob) => {
         const fileName = blob.name;
         const fileSize = blob.size; // in bytes
-        const TwentyMB = 20000000;  // 20,000,000 bytes = 20Mb
-        if (fileSize < TwentyMB ) {
+        const SixtyMB = 60000000;  // 60,000,000 bytes = 60Mb
+        if (fileSize < SixtyMB) {
             console.log("UPLOAD SIZE->",fileSize);
             let artRef     = firebase.database().ref(this.state.paths.art);
             let artworkUID = artRef.push().key;
@@ -595,7 +582,7 @@ export default class PostAuth extends React.Component {
                             title       : title,
                             artist      : artist,
                             album       : this.state.currentAlbum,
-                            upload_date : new Date().toISOString(),
+                            upload_date : new Date().getTime(), //easy ordering
                             year        : new Date().getFullYear(),
                             description : "",
                             tags        : [], // handled in cloud
@@ -641,7 +628,7 @@ export default class PostAuth extends React.Component {
             });
         } else {
             this.setState({
-                currentError: "Upload was too large. Max 20Mb",
+                currentError: "Upload was too large. Max 60Mb",
                 uploadDialogIsOpen: false,
             });
 

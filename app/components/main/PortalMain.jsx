@@ -215,17 +215,14 @@ export default class PortalMain extends React.Component {
                     let apr_path = `approved/${submits[i]}`;
                     let dec_path = `declined/${submits[i]}`;
                     let hld_path = `held/${submits[i]}`;
-                    console.log(".");
                     curator.database().ref(sub_path).on("value",(sub_snapshot)=>{
                         curator.database().ref(apr_path).on("value",(apr_snapshot)=>{
                             curator.database().ref(dec_path).on("value", (dec_snapshot)=>{
                                 curator.database().ref(hld_path).on("value", (hld_snapshot)=>{
-
                                     let sub_data = sub_snapshot.val();
                                     let apr_data = apr_snapshot.val();
                                     let dec_data = dec_snapshot.val();
                                     let hld_data = hld_snapshot.val();
-                                    console.log(sub_data);
 
                                     if (sub_data) {
                                         console.log(">> Submission");
