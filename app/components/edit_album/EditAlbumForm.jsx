@@ -1,6 +1,6 @@
 // Libs
 import React from 'react';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import { WithOutContext as ReactTags } from 'react-tag-input';
 
 /**

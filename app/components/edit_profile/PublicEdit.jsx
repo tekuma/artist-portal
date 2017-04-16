@@ -1,9 +1,11 @@
 // Libs
 import React            from 'react';
+import firebase         from 'firebase';
 import Dropzone         from 'react-dropzone';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar         from 'material-ui/Snackbar';
+import Select      from 'react-select';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 
 
@@ -23,7 +25,253 @@ export default class PublicEdit extends React.Component {
         allAccordion    : false,
         errorType       : {},
         errors          : [],
-        currentError    : ""
+        currentError    : "",
+        selectedCountry   : "",
+        countryList     : [
+            {name: 'Afghanistan', code: 'AF'},
+            {name: 'Åland Islands', code: 'AX'},
+            {name: 'Albania', code: 'AL'},
+            {name: 'Algeria', code: 'DZ'},
+            {name: 'American Samoa', code: 'AS'},
+            {name: 'Andorra', code: 'AD'},
+            {name: 'Angola', code: 'AO'},
+            {name: 'Anguilla', code: 'AI'},
+            {name: 'Antarctica', code: 'AQ'},
+            {name: 'Antigua and Barbuda', code: 'AG'},
+            {name: 'Argentina', code: 'AR'},
+            {name: 'Armenia', code: 'AM'},
+            {name: 'Aruba', code: 'AW'},
+            {name: 'Australia', code: 'AU'},
+            {name: 'Austria', code: 'AT'},
+            {name: 'Azerbaijan', code: 'AZ'},
+            {name: 'Bahamas', code: 'BS'},
+            {name: 'Bahrain', code: 'BH'},
+            {name: 'Bangladesh', code: 'BD'},
+            {name: 'Barbados', code: 'BB'},
+            {name: 'Belarus', code: 'BY'},
+            {name: 'Belgium', code: 'BE'},
+            {name: 'Belize', code: 'BZ'},
+            {name: 'Benin', code: 'BJ'},
+            {name: 'Bermuda', code: 'BM'},
+            {name: 'Bhutan', code: 'BT'},
+            {name: 'Bolivia', code: 'BO'},
+            {name: 'Bosnia and Herzegovina', code: 'BA'},
+            {name: 'Botswana', code: 'BW'},
+            {name: 'Bouvet Island', code: 'BV'},
+            {name: 'Brazil', code: 'BR'},
+            {name: 'British Indian Ocean Territory', code: 'IO'},
+            {name: 'Brunei Darussalam', code: 'BN'},
+            {name: 'Bulgaria', code: 'BG'},
+            {name: 'Burkina Faso', code: 'BF'},
+            {name: 'Burundi', code: 'BI'},
+            {name: 'Cambodia', code: 'KH'},
+            {name: 'Cameroon', code: 'CM'},
+            {name: 'Canada', code: 'CA'},
+            {name: 'Cape Verde', code: 'CV'},
+            {name: 'Cayman Islands', code: 'KY'},
+            {name: 'Central African Republic', code: 'CF'},
+            {name: 'Chad', code: 'TD'},
+            {name: 'Chile', code: 'CL'},
+            {name: 'China', code: 'CN'},
+            {name: 'Christmas Island', code: 'CX'},
+            {name: 'Cocos (Keeling) Islands', code: 'CC'},
+            {name: 'Colombia', code: 'CO'},
+            {name: 'Comoros', code: 'KM'},
+            {name: 'Congo', code: 'CG'},
+            {name: 'Congo, The Democratic Republic of the', code: 'CD'},
+            {name: 'Cook Islands', code: 'CK'},
+            {name: 'Costa Rica', code: 'CR'},
+            {name: 'Cote D\'Ivoire', code: 'CI'},
+            {name: 'Croatia', code: 'HR'},
+            {name: 'Cuba', code: 'CU'},
+            {name: 'Cyprus', code: 'CY'},
+            {name: 'Czech Republic', code: 'CZ'},
+            {name: 'Denmark', code: 'DK'},
+            {name: 'Djibouti', code: 'DJ'},
+            {name: 'Dominica', code: 'DM'},
+            {name: 'Dominican Republic', code: 'DO'},
+            {name: 'Ecuador', code: 'EC'},
+            {name: 'Egypt', code: 'EG'},
+            {name: 'El Salvador', code: 'SV'},
+            {name: 'Equatorial Guinea', code: 'GQ'},
+            {name: 'Eritrea', code: 'ER'},
+            {name: 'Estonia', code: 'EE'},
+            {name: 'Ethiopia', code: 'ET'},
+            {name: 'Falkland Islands (Malvinas)', code: 'FK'},
+            {name: 'Faroe Islands', code: 'FO'},
+            {name: 'Fiji', code: 'FJ'},
+            {name: 'Finland', code: 'FI'},
+            {name: 'France', code: 'FR'},
+            {name: 'French Guiana', code: 'GF'},
+            {name: 'French Polynesia', code: 'PF'},
+            {name: 'French Southern Territories', code: 'TF'},
+            {name: 'Gabon', code: 'GA'},
+            {name: 'Gambia', code: 'GM'},
+            {name: 'Georgia', code: 'GE'},
+            {name: 'Germany', code: 'DE'},
+            {name: 'Ghana', code: 'GH'},
+            {name: 'Gibraltar', code: 'GI'},
+            {name: 'Greece', code: 'GR'},
+            {name: 'Greenland', code: 'GL'},
+            {name: 'Grenada', code: 'GD'},
+            {name: 'Guadeloupe', code: 'GP'},
+            {name: 'Guam', code: 'GU'},
+            {name: 'Guatemala', code: 'GT'},
+            {name: 'Guernsey', code: 'GG'},
+            {name: 'Guinea', code: 'GN'},
+            {name: 'Guinea-Bissau', code: 'GW'},
+            {name: 'Guyana', code: 'GY'},
+            {name: 'Haiti', code: 'HT'},
+            {name: 'Heard Island and Mcdonald Islands', code: 'HM'},
+            {name: 'Holy See (Vatican City State)', code: 'VA'},
+            {name: 'Honduras', code: 'HN'},
+            {name: 'Hong Kong', code: 'HK'},
+            {name: 'Hungary', code: 'HU'},
+            {name: 'Iceland', code: 'IS'},
+            {name: 'India', code: 'IN'},
+            {name: 'Indonesia', code: 'ID'},
+            {name: 'Iran, Islamic Republic Of', code: 'IR'},
+            {name: 'Iraq', code: 'IQ'},
+            {name: 'Ireland', code: 'IE'},
+            {name: 'Isle of Man', code: 'IM'},
+            {name: 'Israel', code: 'IL'},
+            {name: 'Italy', code: 'IT'},
+            {name: 'Jamaica', code: 'JM'},
+            {name: 'Japan', code: 'JP'},
+            {name: 'Jersey', code: 'JE'},
+            {name: 'Jordan', code: 'JO'},
+            {name: 'Kazakhstan', code: 'KZ'},
+            {name: 'Kenya', code: 'KE'},
+            {name: 'Kiribati', code: 'KI'},
+            {name: 'Korea, Democratic People\'S Republic of', code: 'KP'},
+            {name: 'Korea, Republic of', code: 'KR'},
+            {name: 'Kuwait', code: 'KW'},
+            {name: 'Kyrgyzstan', code: 'KG'},
+            {name: 'Lao People\'S Democratic Republic', code: 'LA'},
+            {name: 'Latvia', code: 'LV'},
+            {name: 'Lebanon', code: 'LB'},
+            {name: 'Lesotho', code: 'LS'},
+            {name: 'Liberia', code: 'LR'},
+            {name: 'Libyan Arab Jamahiriya', code: 'LY'},
+            {name: 'Liechtenstein', code: 'LI'},
+            {name: 'Lithuania', code: 'LT'},
+            {name: 'Luxembourg', code: 'LU'},
+            {name: 'Macao', code: 'MO'},
+            {name: 'Macedonia, The Former Yugoslav Republic of', code: 'MK'},
+            {name: 'Madagascar', code: 'MG'},
+            {name: 'Malawi', code: 'MW'},
+            {name: 'Malaysia', code: 'MY'},
+            {name: 'Maldives', code: 'MV'},
+            {name: 'Mali', code: 'ML'},
+            {name: 'Malta', code: 'MT'},
+            {name: 'Marshall Islands', code: 'MH'},
+            {name: 'Martinique', code: 'MQ'},
+            {name: 'Mauritania', code: 'MR'},
+            {name: 'Mauritius', code: 'MU'},
+            {name: 'Mayotte', code: 'YT'},
+            {name: 'Mexico', code: 'MX'},
+            {name: 'Micronesia, Federated States of', code: 'FM'},
+            {name: 'Moldova, Republic of', code: 'MD'},
+            {name: 'Monaco', code: 'MC'},
+            {name: 'Mongolia', code: 'MN'},
+            {name: 'Montserrat', code: 'MS'},
+            {name: 'Morocco', code: 'MA'},
+            {name: 'Mozambique', code: 'MZ'},
+            {name: 'Myanmar', code: 'MM'},
+            {name: 'Namibia', code: 'NA'},
+            {name: 'Nauru', code: 'NR'},
+            {name: 'Nepal', code: 'NP'},
+            {name: 'Netherlands', code: 'NL'},
+            {name: 'Netherlands Antilles', code: 'AN'},
+            {name: 'New Caledonia', code: 'NC'},
+            {name: 'New Zealand', code: 'NZ'},
+            {name: 'Nicaragua', code: 'NI'},
+            {name: 'Niger', code: 'NE'},
+            {name: 'Nigeria', code: 'NG'},
+            {name: 'Niue', code: 'NU'},
+            {name: 'Norfolk Island', code: 'NF'},
+            {name: 'Northern Mariana Islands', code: 'MP'},
+            {name: 'Norway', code: 'NO'},
+            {name: 'Oman', code: 'OM'},
+            {name: 'Pakistan', code: 'PK'},
+            {name: 'Palau', code: 'PW'},
+            {name: 'Palestinian Territory, Occupied', code: 'PS'},
+            {name: 'Panama', code: 'PA'},
+            {name: 'Papua New Guinea', code: 'PG'},
+            {name: 'Paraguay', code: 'PY'},
+            {name: 'Peru', code: 'PE'},
+            {name: 'Philippines', code: 'PH'},
+            {name: 'Pitcairn', code: 'PN'},
+            {name: 'Poland', code: 'PL'},
+            {name: 'Portugal', code: 'PT'},
+            {name: 'Puerto Rico', code: 'PR'},
+            {name: 'Qatar', code: 'QA'},
+            {name: 'Reunion', code: 'RE'},
+            {name: 'Romania', code: 'RO'},
+            {name: 'Russian Federation', code: 'RU'},
+            {name: 'RWANDA', code: 'RW'},
+            {name: 'Saint Helena', code: 'SH'},
+            {name: 'Saint Kitts and Nevis', code: 'KN'},
+            {name: 'Saint Lucia', code: 'LC'},
+            {name: 'Saint Pierre and Miquelon', code: 'PM'},
+            {name: 'Saint Vincent and the Grenadines', code: 'VC'},
+            {name: 'Samoa', code: 'WS'},
+            {name: 'San Marino', code: 'SM'},
+            {name: 'Sao Tome and Principe', code: 'ST'},
+            {name: 'Saudi Arabia', code: 'SA'},
+            {name: 'Senegal', code: 'SN'},
+            {name: 'Serbia and Montenegro', code: 'CS'},
+            {name: 'Seychelles', code: 'SC'},
+            {name: 'Sierra Leone', code: 'SL'},
+            {name: 'Singapore', code: 'SG'},
+            {name: 'Slovakia', code: 'SK'},
+            {name: 'Slovenia', code: 'SI'},
+            {name: 'Solomon Islands', code: 'SB'},
+            {name: 'Somalia', code: 'SO'},
+            {name: 'South Africa', code: 'ZA'},
+            {name: 'South Georgia and the South Sandwich Islands', code: 'GS'},
+            {name: 'Spain', code: 'ES'},
+            {name: 'Sri Lanka', code: 'LK'},
+            {name: 'Sudan', code: 'SD'},
+            {name: 'Suriname', code: 'SR'},
+            {name: 'Svalbard and Jan Mayen', code: 'SJ'},
+            {name: 'Swaziland', code: 'SZ'},
+            {name: 'Sweden', code: 'SE'},
+            {name: 'Switzerland', code: 'CH'},
+            {name: 'Syrian Arab Republic', code: 'SY'},
+            {name: 'Taiwan, Province of China', code: 'TW'},
+            {name: 'Tajikistan', code: 'TJ'},
+            {name: 'Tanzania, United Republic of', code: 'TZ'},
+            {name: 'Thailand', code: 'TH'},
+            {name: 'Timor-Leste', code: 'TL'},
+            {name: 'Togo', code: 'TG'},
+            {name: 'Tokelau', code: 'TK'},
+            {name: 'Tonga', code: 'TO'},
+            {name: 'Trinidad and Tobago', code: 'TT'},
+            {name: 'Tunisia', code: 'TN'},
+            {name: 'Turkey', code: 'TR'},
+            {name: 'Turkmenistan', code: 'TM'},
+            {name: 'Turks and Caicos Islands', code: 'TC'},
+            {name: 'Tuvalu', code: 'TV'},
+            {name: 'Uganda', code: 'UG'},
+            {name: 'Ukraine', code: 'UA'},
+            {name: 'United Arab Emirates', code: 'AE'},
+            {name: 'United Kingdom', code: 'GB'},
+            {name: 'United States', code: 'US'},
+            {name: 'United States Minor Outlying Islands', code: 'UM'},
+            {name: 'Uruguay', code: 'UY'},
+            {name: 'Uzbekistan', code: 'UZ'},
+            {name: 'Vanuatu', code: 'VU'},
+            {name: 'Venezuela', code: 'VE'},
+            {name: 'Viet Nam', code: 'VN'},
+            {name: 'Virgin Islands, British', code: 'VG'},
+            {name: 'Virgin Islands, U.S.', code: 'VI'},
+            {name: 'Wallis and Futuna', code: 'WF'},
+            {name: 'Western Sahara', code: 'EH'},
+            {name: 'Yemen', code: 'YE'},
+            {name: 'Zambia', code: 'ZM'},
+            {name: 'Zimbabwe', code: 'ZW'}
+        ]
     }
 
     constructor(props) {
@@ -86,6 +334,15 @@ export default class PublicEdit extends React.Component {
             backgroundImage: 'url(assets/images/icons/social-icons/behance-gray.svg)'
         }
 
+        let city;
+        if (this.props.user.location) {
+            let city = this.props.user.location.split(", ")[0]
+        }
+
+        let options = this.state.countryList.map( (country)=>{
+                return {label: country.name , value: country.code, id: country.code};
+            });
+
         const saveTooltip = (
             <Tooltip
                 id="delete-tooltip-regular"
@@ -119,10 +376,11 @@ export default class PublicEdit extends React.Component {
                 <div className ="scroll-edit-profile">
                     <article className="edit-accordion">
                         <div
+                            id="display-name-item"
                             className={this.state.accordion.display_name ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"display_name")}>
                             <h2 className="accordion-item-heading">Display Name</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.display_name != "" ? this.props.user.display_name : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.display_name ? this.props.user.display_name : "Unset"}</h3>
                         </div>
                         <div
                             id="display-name-content"
@@ -141,6 +399,7 @@ export default class PublicEdit extends React.Component {
                             autoCorrect="off" />
                         </div>
                         <div
+                            id="avatar-item"
                             className={this.state.accordion.avatar ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"avatar")}>
                             <h2 className="accordion-item-heading">Avatar</h2>
@@ -173,6 +432,7 @@ export default class PublicEdit extends React.Component {
                             </Dropzone>
                         </div>
                         <div
+                            id="bio-item"
                             className={this.state.accordion.bio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"bio")}>
                             <h2 className="accordion-item-heading">Bio</h2>
@@ -190,10 +450,11 @@ export default class PublicEdit extends React.Component {
                                 onChange={this.setUnsaved}></textarea>
                         </div>
                         <div
+                            id="location-item"
                             className={this.state.accordion.location ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"location")}>
                             <h2 className="accordion-item-heading">Location</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.location != "" ? this.props.user.location : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.location ? this.props.user.location : "Unset"}</h3>
                         </div>
                         <div
                             id="location-content"
@@ -201,17 +462,30 @@ export default class PublicEdit extends React.Component {
                             <input
                             type="text"
                             id="edit-location"
-                            ref="location"
-                            placeholder="Location"
-                            defaultValue={this.props.user.location}
+                            ref="city"
+                            placeholder="City"
+                            defaultValue={city}
                             maxLength="50"
                             onChange={this.setUnsaved} />
+                            <div className="country-selector">
+                                <Select
+                                    className="country-select"
+                                    options={options}
+                                    name="admin-select"
+                                    placeholder="Country"
+                                    value={this.state.selectedCountry}
+                                    onChange={this.setCountry}
+                                    clearable={false}
+                                    resetValue={this.state.selectedCountry}
+                                />
+                            </div>
                         </div>
                         <div
+                            id="portfolio-item"
                             className={this.state.accordion.portfolio ? "accordion-item open" : "accordion-item"}
                             onClick={this.toggleAccordion.bind({},"portfolio")}>
                             <h2 className="accordion-item-heading">Portfolio</h2>
-                            <h3 className="accordion-item-preview">{this.props.user.portfolio != "" ? this.props.user.portfolio : "Unset"}</h3>
+                            <h3 className="accordion-item-preview">{this.props.user.portfolio ? this.props.user.portfolio : "Unset"}</h3>
                         </div>
                         <div
                             id="portfolio-content"
@@ -221,11 +495,12 @@ export default class PublicEdit extends React.Component {
                             id="edit-portfolio"
                             ref="portfolio"
                             placeholder="Portfolio/Website"
-                            defaultValue={this.props.user.portfolio}
+                            defaultValue={this.props.user.portfolio ? this.props.user.portfolio : "http://"}
                             maxLength="200"
                             onChange={this.setUnsaved} />
                         </div>
                         <div
+                            id="social-media-item"
                             className={this.state.accordion.social_media ? "accordion-item open no-border-bottom" : "accordion-item no-border-bottom"}
                             onClick={this.toggleAccordion.bind({},"social_media")}>
                             <h2 className="accordion-item-heading">Social Media</h2>
@@ -407,11 +682,18 @@ export default class PublicEdit extends React.Component {
     }
 
     componentDidMount() {
-        //pass
+        let country = this.props.user.location.split(", ")[1]
+        this.setState({
+            selectedCountry: country
+        });
+        console.log("Selected Country: ", this.selectedCountry);
     }
 
     componentWillReceiveProps(nextProps) {
-        //pass
+        let country = nextProps.user.location.split(", ")[1]
+        this.setState({
+            selectedCountry: country
+        });
     }
 
     // -------- METHODS ------------
@@ -451,6 +733,14 @@ export default class PublicEdit extends React.Component {
         this.props.setUnsaved();
     }
 
+    setCountry = (country)=>{
+        if (country.value) {
+            this.setState({
+                selectedCountry: country.value
+            });
+        }
+    }
+
     /**
      * TODO
      * @param  {[type]} e [description]
@@ -473,7 +763,7 @@ export default class PublicEdit extends React.Component {
 
         // Public
         let bio          = this.refs.bio.value;
-        let location     = this.refs.location.value;
+        let location     = `${this.refs.city.value}, ${this.state.selectedCountry ? this.state.selectedCountry : this.props.user.location.split(", ")[1]}`;
         let portfolio    = this.refs.portfolio.value;
         let displayName  = this.refs.displayname.value;
         let facebook     = this.refs.facebook.value;

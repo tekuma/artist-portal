@@ -1,5 +1,6 @@
 // Libs
 import React                        from 'react';
+import firebase                     from 'firebase';
 import {DragSource, DropTarget}     from 'react-dnd';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 
@@ -11,17 +12,18 @@ import ItemTypes                    from '../../constants/itemTypes';
 // ============= Drag and Drop ===============
 
 const albumTarget = {
-    drop(targetProps, monitor) {
+    drop(targetProps, monitor, context) {
         const source = monitor.getItem();
-
+        console.log(source, targetProps);
         // Move artwork to new album
         targetProps.changeArtworkAlbum(source.id, source.album, "Miscellaneous");
 
         // Change album within artwork JSON
-        let path = this.props.paths.art + source.id;
+        let path = context.props.paths.art + source.id;
         let thisArtworkRef = firebase.database().ref(path);
         thisArtworkRef.transaction((data) => {
             data['album'] = "Miscellaneous";
+            console.log("Changed Album for Artwork !Lskdjkdnak");
             return data;
         });
     }
@@ -79,6 +81,10 @@ export default class MiscAlbum extends React.Component {
             backgroundImage: 'url(' + thumbnail + ')'
         }
 
+        let styleBlock = {
+            width   : "100%"
+        }
+
         let styleResponsive = {
             width   : 0.96 * (window.innerWidth * 0.3 - 40) - 70
         };
@@ -122,7 +128,7 @@ export default class MiscAlbum extends React.Component {
                         className="avatar-container" />
                 </div>
                 <h3
-                    style={(window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
+                    style={(window.innerWidth * 0.3 > 440) ? styleBlock: (window.innerWidth * 0.3 > 250) ? styleResponsive : styleFixed}
                     id="uploads-album-name"
                     className="album-name">
                     Miscellaneous

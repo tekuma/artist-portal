@@ -1,6 +1,6 @@
 // Libs
 import React            from 'react';
-import uuid             from 'node-uuid';
+import uuid             from 'uuid';
 import Dropzone         from 'react-dropzone';
 import Snackbar         from 'material-ui/Snackbar';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';

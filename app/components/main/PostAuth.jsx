@@ -21,6 +21,7 @@ import EditMiscAlbumDialog from '../edit_misc/EditMiscAlbumDialog';
 import EditProfileDialog   from '../edit_profile/EditProfileDialog';
 import VerifyEmailDialog   from '../edit_profile/VerifyEmailDialog';
 import UploadDialog        from './UploadDialog';
+import ArtworkDetailBoxDialog from '../artwork_manager/ArtworkDetailBoxDialog';
 
 
 /**
@@ -36,8 +37,8 @@ export default class PostAuth extends React.Component {
         editAlbumIsOpen: false,                     // Used to track whether Album Dialog is open
         deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
-        editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
+        artworkDetailDialogIsOpen: false,           // Used to track whether artwork detail dialog is open or not
         currentAlbum: "Miscellaneous",              // Used to track the current album open
         currentAppLayout: Views.ARTWORKS,           // Used to track the current layout being displayed in PortalMain
         currentEditArtworkInfo: {},                 // Used to store information of artwork being edit momentarily
@@ -100,7 +101,9 @@ export default class PostAuth extends React.Component {
                     changeAlbum               ={this.changeAlbum}
                     setUploadedFiles          ={this.setUploadedFiles}
                     setAlbumNames             ={this.setAlbumNames}
-                    changeArtworkAlbum        ={this.changeArtworkAlbum} />
+                    changeArtworkAlbum        ={this.changeArtworkAlbum}
+                    toggleArtworkDetailDialog ={this.toggleArtworkDetailDialog}
+                    sendToSnackbar            ={this.sendToSnackbar} />
                 <EditArtworkDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -110,6 +113,12 @@ export default class PostAuth extends React.Component {
                     toggleEditArtworkDialog={this.toggleEditArtworkDialog}
                     updateArtwork={this.updateArtwork}
                     currentEditArtworkInfo={this.state.currentEditArtworkInfo} />
+                <ArtworkDetailBoxDialog
+                    paths={this.state.paths}
+                    toggleArtworkDetailDialog={this.toggleArtworkDetailDialog}
+                    artworkDetailDialogIsOpen={this.state.artworkDetailDialogIsOpen}
+                    artworkInfo={this.state.currentEditArtworkInfo}
+                    />
                 <EditAlbumDialog
                     paths={this.state.paths}
                     user={this.state.user}
@@ -128,9 +137,6 @@ export default class PostAuth extends React.Component {
                     closeUploadDialog={this.closeUploadDialog}
                     uploadedPreviews={this.state.uploadPreviews}
                     uploadDialogIsOpen={this.state.uploadDialogIsOpen} />
-                <EditProfileDialog
-                    closeProfileDialog={this.closeProfileDialog}
-                    editProfileDialogIsOpen={this.state.editProfileDialogIsOpen} />
                 <DeleteAccountDialog
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
                     deleteAccountIsOpen={this.state.deleteAccountIsOpen}
@@ -174,31 +180,50 @@ export default class PostAuth extends React.Component {
      *  - Appends the artwork to the curator-tekuma submissions branch
      *  - Sets the artwork in the artist-tekuma database as
      *    artwork.submitted = true
+     *  - Adds artwork_uid to list at public/onboarders/{uid}/submits
      * @param  {String} artwork_uid [ID of the artwork]
-     * @param  {[Event]} e
+     * @param  {Event} e
      */
-    onSubmit = (artwork_uid, e) => {
-        e.stopPropagation(); //NOTE:
-        console.log(this.state.paths.art + artwork_uid);
+
+    onSubmit = (artwork_uid) => {
+
         let artwork_ref = firebase.database().ref(this.state.paths.art + artwork_uid);
         artwork_ref.transaction( (data)=>{
             data.submitted = true;
             return data
         });
-
+        //NOTE colors and tags can be null.
+        let colors = {};
+        if (this.state.user.artworks[artwork_uid].colors){
+            colors = this.state.user.artworks[artwork_uid].colors;
+        }
+        let tags = {};
+        if (this.state.user.artworks[artwork_uid].tags) {
+            tags = this.state.user.artworks[artwork_uid].tags;
+        }
 
         let submission = {
-            artwork_uid: artwork_uid,
-            artist_uid : this.state.actingUID,
-            submitted  : new Date().toISOString(),
-            status     : "Unseen",
-            memo       : "",
-            artist_name: this.state.user.display_name
+            artwork_uid : artwork_uid,
+            artwork_name: this.state.user.artworks[artwork_uid].title,
+            artist_name : this.state.user.artworks[artwork_uid].artist,
+            artist_uid  : this.state.actingUID,
+            submitted   : new Date().getTime(),
+            colors      : colors,
+            upload_date : this.state.user.artworks[artwork_uid].upload_date,
+            size        : this.state.user.artworks[artwork_uid].size,
+            album       : this.state.user.artworks[artwork_uid].album,
+            tags        : tags,
+            year        : this.state.user.artworks[artwork_uid].year,
+            description : this.state.user.artworks[artwork_uid].description,
+            status      : "Pending",
+            memo        : "",
         }
 
         let url      = firebase.database().ref(this.state.paths.jobs).push();
         let jobID    = url.path.o[1];
+
         console.log("New job created =>",jobID);
+
         let job = {
             uid      : firebase.auth().currentUser.uid,
             task     : "submit",
@@ -211,12 +236,17 @@ export default class PostAuth extends React.Component {
         let path = this.state.paths.jobs + jobID;
         firebase.database().ref(path).set(job).then(()=>{
             console.log("Submission Submitted!");
+            firebase.database().ref(this.state.paths.submits).transaction((data)=>{
+                if (!data) {
+                    data = [];
+                }
+                data.push(artwork_uid);
+                return data;
+            }).then(()=>{
+                console.log("submission recorded in artist");
+            });
         });
-
-
-
     }
-
 
     /**
      * (1) Initial method for changing acting user. First, sets the
@@ -248,19 +278,22 @@ export default class PostAuth extends React.Component {
         //NOTE: This is a hard check to see if a user is one of our admin users.
         let isAdmin = firebase.auth().currentUser.uid === "cacxZwqfArVzrUXD5tn1t24OlJJ2" ||
                       firebase.auth().currentUser.uid === "CdiKWlg8fKUaMxbP6XRBmSdIij62" ||
-                      firebase.auth().currentUser.uid === "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ;
+                      firebase.auth().currentUser.uid === "JZ2H4oD34vaTwHanNVPxKKHy3ZQ2" ||
+                      firebase.auth().currentUser.uid === "ZHZOQFJCkXQ8rv2nBiSFlfetRiJ3";
         let actingAsSelf = firebase.auth().currentUser.uid === uid;
 
         if (actingAsSelf || isAdmin) {
             let paths = {
                 uid    : uid,
                 images :`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb512/`,
-                user   :`public/onboarders/${uid}`,
+                thmb128:`https://storage.googleapis.com/art-uploads/portal/${uid}/thumb128/`,
+                user   :`public/onboarders/${uid}/`,
                 priv   :`_private/onboarders/${uid}`,
                 art    :`public/onboarders/${uid}/artworks/`,
                 uploads:`portal/${uid}/uploads/`,
                 avatars:`portal/${uid}/avatars/`,
                 albums :`public/onboarders/${uid}/albums/`,
+                submits:`public/onboarders/${uid}/submits/`,
                 jobs   :`jobs/`,
 
             }
@@ -414,6 +447,17 @@ export default class PostAuth extends React.Component {
     }
 
     /**
+    *
+    *
+    */
+
+    toggleArtworkDetailDialog = () => {
+        this.setState({
+            artworkDetailDialogIsOpen: !this.state.artworkDetailDialogIsOpen
+        })
+    }
+
+    /**
      * This method is used by the Upload Layout page component
      * to change the boolean value of this.state.uploadDialogIsOpen
      * to false to close the Upload Dialog component
@@ -425,51 +469,27 @@ export default class PostAuth extends React.Component {
         this.clearUploadedFiles();
     }
 
-    /**
-     * This method is used by the Edit Profile Layout page component
-     * to change the boolean value of this.state.editProfileDialogIsOpen
-     * to false to close the Edit Profile Dialog component
-     */
-    closeProfileDialog = () => {
-        this.setState({
-            editProfileDialogIsOpen: !this.state.editProfileDialogIsOpen
-        });
-    }
-
     //  # Uploading Methods
 
     /**
      * Submits a job into the job stack with a unique ID
      * @param  {String} path       [Path in bucket to stored file]
-     * @param  {[type]} artworkUID [the UID of the stored file]
+     * @param  {String} artworkUID [the UID of the stored file]
      */
     submitJob = (path, artworkUID) => {
         let url      = firebase.database().ref(this.state.paths.jobs).push();
         let jobID    = url.path.o[1];
         console.log("New job created =>",jobID, path);
         let job = {
-            uid      : firebase.auth().currentUser.uid,
-            file_path: path,
-            task     : "resize",
-            job_id   : jobID,
-            complete : false,
-            bucket   : "art-uploads",
-            name     : artworkUID, //FIXME change field to artwork_id
-            submitted: new Date().toISOString()
+            artist_uid  : firebase.auth().currentUser.uid,
+            file_path   : path,
+            task        : "resize",
+            job_id      : jobID,
+            isComplete  : false,
+            bucket      : "art-uploads",
+            artwork_uid : artworkUID,
+            submitted   : new Date().getTime()
         }
-
-        //FIXME: Change to:
-            //  let job = {
-            // artist_uid  : firebase.auth().currentUser.uid,
-            // file_path   : path,
-            // task        : "resize",
-            // job_id      : jobID,
-            // isComplete  : false,
-            // bucket      : "art-uploads",
-            // artwork_uid : artworkUID,
-            // submitted   : new Date().toISOString()
-            //     }
-
         let jobPath = this.state.paths.jobs + jobID;
         firebase.database().ref(jobPath).set(job);
     }
@@ -492,19 +512,12 @@ export default class PostAuth extends React.Component {
     uploadArtToTekuma = (blob) => {
         const fileName = blob.name;
         const fileSize = blob.size; // in bytes
-        const TwentyMB = 20000000;  // 20,000,000 bytes = 20Mb
-        if (fileSize < TwentyMB ) {
+        const SixtyMB = 60000000;  // 60,000,000 bytes = 60Mb
+        if (fileSize < SixtyMB) {
             console.log("UPLOAD SIZE->",fileSize);
             let artRef     = firebase.database().ref(this.state.paths.art);
             let artworkUID = artRef.push().key;
             let uploadPath = this.state.paths.uploads + artworkUID;
-
-            // Add node to job-stack for thumbnails / backend processing
-            // on a delay to allow for upload to begin
-            setTimeout( ()=>{
-                this.submitJob(uploadPath, artworkUID);
-            }, 1000);
-
 
             //Store the original upload, un-changed, in /uploads
             console.log("Upload Path =>", uploadPath);
@@ -528,6 +541,7 @@ export default class PostAuth extends React.Component {
                 },
                 ()=>{ //on-complete fullsize upload
                     console.log(">>Full size upload complete");
+                    this.submitJob(uploadPath, artworkUID);
                     bucketRefrence.getDownloadURL().then( (fullSizeURL)=>{
                         let uploadInfo = {
                             url :fullSizeURL,
@@ -568,7 +582,7 @@ export default class PostAuth extends React.Component {
                             title       : title,
                             artist      : artist,
                             album       : this.state.currentAlbum,
-                            upload_date : new Date().toISOString(),
+                            upload_date : new Date().getTime(), //easy ordering
                             year        : new Date().getFullYear(),
                             description : "",
                             tags        : [], // handled in cloud
@@ -614,7 +628,7 @@ export default class PostAuth extends React.Component {
             });
         } else {
             this.setState({
-                currentError: "Upload was too large. Max 20Mb",
+                currentError: "Upload was too large. Max 60Mb",
                 uploadDialogIsOpen: false,
             });
 
@@ -761,9 +775,9 @@ export default class PostAuth extends React.Component {
                         data.avatar = avatarURL;
                         firebase.database().ref(this.state.paths.user).update(data)
                         .then( ()=>{
-                            this.setState({
-                                editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                            });
+                            let message = "Your profile information has been updated";
+                            this.sendToSnackbar(message);
+                            console.log(message);
                         });
                     });
                 }
@@ -774,9 +788,9 @@ export default class PostAuth extends React.Component {
             // console.log(this.state.paths.user);
             firebase.database().ref(this.state.paths.user).update(data)
             .then(()=>{
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
     }
@@ -806,9 +820,9 @@ export default class PostAuth extends React.Component {
                             firebase.database().ref(userPrivatePath).update({
                                 email: data.email
                             }).then(()=>{
-                                this.setState({
-                                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                                });
+                                let message = "Your profile information has been updated";
+                                this.sendToSnackbar(message);
+                                console.log(message);
                             });
                         },
                         (error)=>{
@@ -853,9 +867,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.legal_name: ", data.legal_name);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -865,9 +879,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.dob: ", data.dob);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -877,9 +891,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.paypal: ", data.paypal);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -889,9 +903,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.gender_pronoun: ", data.gender_pronoun);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -900,9 +914,9 @@ export default class PostAuth extends React.Component {
                 over_eighteen: data.over_eighteen
             }).then(()=>{
                 console.log("This is data.over_eighteen: ", data.over_eighteen);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -1116,9 +1130,10 @@ export default class PostAuth extends React.Component {
      * @param  {String} newName [Name of album destinatino]
      */
     changeArtworkAlbum = (artworkUID, oldName, newName) => {
+        console.log(artworkUID, oldName, newName);
         let path = this.state.paths.albums;
         const albumsRef  = firebase.database().ref(path);
-            console.log(this.state.paths);
+        console.log(this.state.paths);
         albumsRef.transaction((node) => {
 
             let albumsCount = Object.keys(node).length;
@@ -1140,6 +1155,7 @@ export default class PostAuth extends React.Component {
                     });
 
                     node[i]['artworks'] = artworks;
+                    console.log(oldName, artworksNode);
                 } else if (node[i]['name'] == newName) {// found where to move to
                     // just add the ID at the end of the 'array'
                     if (node[i]['artworks']) {
@@ -1149,6 +1165,7 @@ export default class PostAuth extends React.Component {
                     } else {
                         node[i]['artworks'] = {0: artworkUID};
                     }
+                    console.log(newName, node[i]['artworks']);
                 }
             }
             return node;
@@ -1213,6 +1230,19 @@ export default class PostAuth extends React.Component {
                 console.log(">> Artwork deleted successfully");
             });
         });
+    }
+
+    sendToSnackbar = (message) => {
+
+        this.setState({
+            currentError: message
+        });
+
+        setTimeout(() => {
+            this.setState({
+                currentError: ""
+            });
+        }, 5000);   // Clear error once it has been shown
     }
 }
 

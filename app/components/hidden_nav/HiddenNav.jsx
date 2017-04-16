@@ -1,7 +1,7 @@
 // Libs
 import React          from 'react';
 import firebase       from 'firebase';
-import uuid           from 'node-uuid';
+import uuid           from 'uuid';
 // Files
 import DisplayNameTag from './DisplayNameTag';
 import LogoutButton   from './LogoutButton';
@@ -13,17 +13,24 @@ export default class HiddenNav extends React.Component {
     navItems = [
         {
             id: uuid.v4(),
-            item: 'Artworks',
-            icon: '../../assets/images/icons/organize-outline.svg',
+            item: 'Studio',
+            icon: 'assets/images/icons/organize.svg',
             href:  Views.ARTWORKS,
             title: 'Manage Artworks'
         },
         {
             id: uuid.v4(),
+            item: 'Gallery',
+            icon: 'assets/images/logos/logo-white.svg',
+            href:  Views.REVIEW,
+            title: 'View Submitted Art'
+        },
+        {
+            id: uuid.v4(),
             item: 'Profile',
-            icon: '../../assets/images/icons/person-outline.svg',
+            icon: 'assets/images/icons/profile.svg',
             href:  Views.PROFILE,
-            title: 'Edit Profile'
+            title: 'Edit Personal Information'
         }
     ];
 

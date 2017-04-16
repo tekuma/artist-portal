@@ -1,5 +1,6 @@
 //Libs
 import React       from 'react';
+import firebase from 'firebase';
 import Select      from 'react-select';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
 //Files
@@ -28,33 +29,21 @@ export default class AdminSelector extends React.Component {
                 return {label: artist[1] , value:artist[0] , id:artist[0]};
             });
 
-        const selectorContainerWidth = {
-            width: window.innerWidth * 0.2 + 36
-        }
-        const selectorWidth = {
-            width: window.innerWidth * 0.2 + 25 ,
-            display: "inline-block"
-        }
-
         const resetValue = firebase.auth().currentUser.uid;
 
         return (
-            <div>
-                <div
-                    id="admin-selector"
-                    style={selectorContainerWidth}>
-                    <Select
-                        className="admin-select"
-                        style={selectorWidth}
-                        options={options}
-                        name="admin-select"
-                        placeholder="Select an artist..."
-                        value={this.props.actingUID}
-                        onChange={this.props.setActingUID}
-                        clearable={false}
-                        resetValue={resetValue}
-                    />
-                </div>
+            <div
+                id="admin-selector">
+                <Select
+                    className="admin-select"
+                    options={options}
+                    name="admin-select"
+                    placeholder="Select an artist..."
+                    value={this.props.actingUID}
+                    onChange={this.props.setActingUID}
+                    clearable={false}
+                    resetValue={resetValue}
+                />
             </div>
         );
     }
@@ -81,12 +70,22 @@ export default class AdminSelector extends React.Component {
         return new Promise( (resolve, reject)=>{
             let retlst = [];
             firebase.database().ref('public/onboarders').once("value").then( (snapshot)=>{
-                let node = snapshot.val();
-                for (var uid in node) {
-                    if (node.hasOwnProperty(uid)) {
-                        retlst.push([uid, node[uid].display_name]);
-                    }
-                }
+                // NOTE: nearly equivalent pieces of code. Not sure which has
+                // better performance.  The first uses less data.
+
+                snapshot.forEach((childSnap)=>{
+                    let uid = childSnap.key;
+                    let name = childSnap.child("display_name").val();
+                    retlst.push([uid,name]);
+                });
+
+                // let node = snapshot.val();
+                // for (var uid in node) {
+                //     if (node.hasOwnProperty(uid)) {
+                //         retlst.push([uid, node[uid].display_name]);
+                //     }
+                // }
+
                 resolve(retlst);
             });
         });

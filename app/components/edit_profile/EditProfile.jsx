@@ -60,7 +60,8 @@ export default class EditProfile extends React.Component {
                 editPrivateUserInfo     ={this.props.editPrivateUserInfo}
                 toggleVerifyEmailDialog ={this.props.toggleVerifyEmailDialog}
                 setSaved                ={this.setSaved}
-                setUnsaved              ={this.setUnsaved} />
+                setUnsaved              ={this.setUnsaved}
+                paths                   ={this.props.paths} />
         );
     }
 
@@ -78,6 +79,7 @@ export default class EditProfile extends React.Component {
                 editPublicUserInfo  ={this.props.editPublicUserInfo}
                 setSaved            ={this.setSaved}
                 setUnsaved          ={this.setUnsaved}
+                paths               ={this.props.paths}
                  />
         );
     }

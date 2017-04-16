@@ -5,11 +5,10 @@
 	 width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
 <g>
 	<g>
-		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="24" y1="36.855" x2="24" y2="4.31"/>
-		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="37.594" y1="17.842" x2="22.067" y2="2.334"/>
-		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="10.628" y1="17.275" x2="26.155" y2="2.241"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="23.579" y1="4.241" x2="23.579" y2="36.785"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="25.512" y1="2.264" x2="8.176" y2="19.58"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="21.376" y1="2.125" x2="39.403" y2="19.58"/>
 	</g>
-	<polyline fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" points="11.159,28.174 3.109,28.174 3.109,44.934 
-		44.891,44.934 44.891,28.174 36.841,28.174 	"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-miterlimit="10" x1="3.109" y1="44.934" x2="44.891" y2="44.934"/>
 </g>
 </svg>

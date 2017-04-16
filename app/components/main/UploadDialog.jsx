@@ -4,7 +4,7 @@ import firebase         from 'firebase';
 import getMuiTheme      from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog           from 'material-ui/Dialog';
-import uuid             from 'node-uuid';
+import uuid             from 'uuid';
 import Masonry    from 'react-masonry-component';
 // Files
 import ConfirmButton    from '../confirm_dialog/ConfirmButton';
