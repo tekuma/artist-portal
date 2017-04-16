@@ -37,7 +37,6 @@ export default class PostAuth extends React.Component {
         editAlbumIsOpen: false,                     // Used to track whether Album Dialog is open
         deleteAccountIsOpen: false,                 // Used to track whether Delete Account Dialog is open
         uploadDialogIsOpen: false,                  // Used to track whether Upload Dialog is open
-        editProfileDialogIsOpen: false,             // Used to track whether Edit Profile Dialog is open
         verifyEmailDialogIsOpen: false,             // Used to track whether Verify Email Dialog is open
         artworkDetailDialogIsOpen: false,           // Used to track whether artwork detail dialog is open or not
         currentAlbum: "Miscellaneous",              // Used to track the current album open
@@ -138,9 +137,6 @@ export default class PostAuth extends React.Component {
                     closeUploadDialog={this.closeUploadDialog}
                     uploadedPreviews={this.state.uploadPreviews}
                     uploadDialogIsOpen={this.state.uploadDialogIsOpen} />
-                <EditProfileDialog
-                    closeProfileDialog={this.closeProfileDialog}
-                    editProfileDialogIsOpen={this.state.editProfileDialogIsOpen} />
                 <DeleteAccountDialog
                     toggleDeleteAccountDialog={this.toggleDeleteAccountDialog}
                     deleteAccountIsOpen={this.state.deleteAccountIsOpen}
@@ -188,6 +184,7 @@ export default class PostAuth extends React.Component {
      * @param  {String} artwork_uid [ID of the artwork]
      * @param  {Event} e
      */
+
     onSubmit = (artwork_uid) => {
 
         let artwork_ref = firebase.database().ref(this.state.paths.art + artwork_uid);
@@ -470,17 +467,6 @@ export default class PostAuth extends React.Component {
             uploadDialogIsOpen: false
         });
         this.clearUploadedFiles();
-    }
-
-    /**
-     * This method is used by the Edit Profile Layout page component
-     * to change the boolean value of this.state.editProfileDialogIsOpen
-     * to false to close the Edit Profile Dialog component
-     */
-    closeProfileDialog = () => {
-        this.setState({
-            editProfileDialogIsOpen: !this.state.editProfileDialogIsOpen
-        });
     }
 
     //  # Uploading Methods
@@ -802,9 +788,9 @@ export default class PostAuth extends React.Component {
                         data.avatar = avatarURL;
                         firebase.database().ref(this.state.paths.user).update(data)
                         .then( ()=>{
-                            this.setState({
-                                editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                            });
+                            let message = "Your profile information has been updated";
+                            this.sendToSnackbar(message);
+                            console.log(message);
                         });
                     });
                 }
@@ -815,9 +801,9 @@ export default class PostAuth extends React.Component {
             // console.log(this.state.paths.user);
             firebase.database().ref(this.state.paths.user).update(data)
             .then(()=>{
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
     }
@@ -847,9 +833,9 @@ export default class PostAuth extends React.Component {
                             firebase.database().ref(userPrivatePath).update({
                                 email: data.email
                             }).then(()=>{
-                                this.setState({
-                                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                                });
+                                let message = "Your profile information has been updated";
+                                this.sendToSnackbar(message);
+                                console.log(message);
                             });
                         },
                         (error)=>{
@@ -894,9 +880,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.legal_name: ", data.legal_name);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -906,9 +892,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.dob: ", data.dob);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -918,9 +904,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.paypal: ", data.paypal);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -930,9 +916,9 @@ export default class PostAuth extends React.Component {
             }).then(()=>{
                 //FIXME use a toggle method?
                 console.log("This is data.gender_pronoun: ", data.gender_pronoun);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 
@@ -941,9 +927,9 @@ export default class PostAuth extends React.Component {
                 over_eighteen: data.over_eighteen
             }).then(()=>{
                 console.log("This is data.over_eighteen: ", data.over_eighteen);
-                this.setState({
-                    editProfileDialogIsOpen: true   // When we save edited Profile Information, we want to Open the Dialog
-                });
+                let message = "Your profile information has been updated";
+                this.sendToSnackbar(message);
+                console.log(message);
             });
         }
 

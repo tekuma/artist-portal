@@ -52,8 +52,7 @@ export default class SubmitArtworkManager extends React.Component {
         }
 
         const openManager = {
-            height: window.innerHeight - 60,
-            left: 0
+            height: window.innerHeight - 60
         }
 
         let managerWidth = 200; // Magic Number to Instantiate
@@ -64,7 +63,7 @@ export default class SubmitArtworkManager extends React.Component {
 
         const closedManager = {
             height: window.innerHeight - 60,
-            left: -1 * managerWidth + 40
+            right: -1 * managerWidth + 40
         }
 
         if (submitList.length == 0) {
@@ -74,7 +73,7 @@ export default class SubmitArtworkManager extends React.Component {
                     style={this.props.managerIsOpen ? openManager: closedManager}>
                     <AlbumToggler
                         height          ={window.innerHeight - 60}
-                        float           ={"right"}
+                        float           ={"left"}
                         background      ={"#111111"}
                         managerIsOpen   ={this.props.managerIsOpen}
                         toggleManager   ={this.props.toggleManager} />
@@ -98,7 +97,7 @@ export default class SubmitArtworkManager extends React.Component {
                 style={this.props.managerIsOpen ? openManager: closedManager}>
                 <AlbumToggler
                     height          ={window.innerHeight - 60}
-                    float           ={"right"}
+                    float           ={"left"}
                     background      ={"#111111"}
                     managerIsOpen   ={this.props.managerIsOpen}
                     toggleManager   ={this.props.toggleManager} />

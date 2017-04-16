@@ -4,6 +4,7 @@ import ReactDOM     from 'react-dom';
 import firebase     from 'firebase';
 // Files
 import Views        from '../../constants/Views';
+import reviewStatus from '../../constants/reviewStatus';
 
 /**
  * TODO
@@ -52,7 +53,7 @@ export default class SubmitArtworkInfo extends React.Component {
         if (!submit) {
             return (
                 <section
-                    className="artwork-upload-box right"
+                    className="artwork-upload-box"
                     style={this.props.managerIsOpen ?
                                 (window.innerWidth * 0.25 > 440) ?
                                     styleLargeScreen :
@@ -63,7 +64,7 @@ export default class SubmitArtworkInfo extends React.Component {
                                             fixedWidth
                                     : styleManagerClosed}
                     >
-                    <img id="no-submit-info-icon" src="assets/images/icons/arrow-left-gradient.svg"/>
+                    <img id="no-submit-info-icon" src="assets/images/icons/arrow-right-gradient.svg"/>
                     <h3 className="upload-writing medium">Select a Submitted Artwork</h3>
                 </section>
             )
@@ -190,11 +191,21 @@ export default class SubmitArtworkInfo extends React.Component {
                             </h3>
                             <div className="status-info-wrapper center">
                                 <p>
-                                    {submit.memo == "" && submit.status == "Pending" ?
+                                    {
+                                    submit.memo == "" && submit.status == reviewStatus.PENDING ?
                                     "Your artwork has not been reviewed yet. One of our curators will tend to your artwork at their soonest convenience!"
                                     :
-                                    submit.memo}
+                                    submit.memo
+                                    }
                                 </p>
+                                {
+                                submit.status == reviewStatus.HELD ?
+                                <p className="held-default-message">
+                                    Please make suggested edits to your artwork before resubmitting it.
+                                </p>
+                                :
+                                null
+                                }
                             </div>
                         </div>
                     </div>

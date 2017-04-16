@@ -57,11 +57,9 @@ export default class ArtworkDetailBoxDialog extends React.Component {
                         contentClassName            ="edit-artwork-content" >
                         <div className="artwork-detail-dialog">
                             <div className="artwork-preview submitted">
-                                <div className="artwork-image-wrapper">
-                                    <div
-                                        className="artwork-image submitted"
-                                        style={previewImage}>
-                                    </div>
+                                <div
+                                    className="artwork-image submitted"
+                                    style={previewImage}>
                                 </div>
                             </div>
                             <div className="artwork-info-wrapper">

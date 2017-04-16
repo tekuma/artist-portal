@@ -79,7 +79,7 @@ export default class PortalMain extends React.Component {
                     changeAppLayout  ={this.props.changeAppLayout}
                     />
                 <ArtworksAlbumManager
-                    paths={this.props.paths}
+                    paths                  ={this.props.paths}
                     user                   ={this.props.user}
                     userPrivate            ={this.props.userPrivate}
                     managerIsOpen          ={this.props.managerIsOpen}
@@ -189,6 +189,9 @@ export default class PortalMain extends React.Component {
 
     changeSubmitArtwork = (artwork) => {
         this.setState({submitArtwork:artwork});
+
+        // TODO: Turn new_message attribute of submitted artwork off
+        console.log(`The opened submitted artwork is: ${artwork}. If this artwork had a new_message, it should be turned off.`);
     }
 
     /**

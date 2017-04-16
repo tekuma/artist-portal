@@ -32,20 +32,18 @@ export default class AdminSelector extends React.Component {
         const resetValue = firebase.auth().currentUser.uid;
 
         return (
-            <div>
-                <div
-                    id="admin-selector">
-                    <Select
-                        className="admin-select"
-                        options={options}
-                        name="admin-select"
-                        placeholder="Select an artist..."
-                        value={this.props.actingUID}
-                        onChange={this.props.setActingUID}
-                        clearable={false}
-                        resetValue={resetValue}
-                    />
-                </div>
+            <div
+                id="admin-selector">
+                <Select
+                    className="admin-select"
+                    options={options}
+                    name="admin-select"
+                    placeholder="Select an artist..."
+                    value={this.props.actingUID}
+                    onChange={this.props.setActingUID}
+                    clearable={false}
+                    resetValue={resetValue}
+                />
             </div>
         );
     }

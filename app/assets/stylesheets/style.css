@@ -91,6 +91,11 @@ button {
 	-webkit-backface-visibility: hidden;
 }
 
+.country-selector {
+	width   : 200px;
+	height  : 2.7em;
+}
+
 .admin-selector .Select-placeholder,
 .admin-selector .Select--single > .Select-control .Select-value {
     bottom: 0;
@@ -111,11 +116,39 @@ button {
     box-shadow: inset 0 2px 10px rgba(0,0,0,0.42);
 }
 
-.admin-selector .Select-control {
+.country-selector .Select-placeholder,
+.country-selector .Select--single > .Select-control .Select-value {
+    bottom: 0;
+    font-size: 0.9em;
+	background-color: #f4f6f7;
+    color: #aaaaaa;
+    left: 0;
+    line-height: 43.19px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: context-menu;
+}
+
+.admin-selector .Select-control
+ {
   background-color: #fff;
   border: none;
   color: #000;
   border-radius: 0px;
+}
+
+.country-selector .Select-control{
+  background-color: #f4f6f7;
+  color: #000;
+  outline: none;
+  height: 43.19px;
 }
 
 .admin-selector .Select-placeholder {
@@ -123,18 +156,29 @@ button {
   	color: #666666;
 }
 
+.country-selector .Select-placeholder {
+  	font-size: 0.9em;
+  	color: #aaaaaa;
+}
+
 .admin-selector .is-focused > .Select-control,
 .admin-selector .is-focused:not(.is-open) > .Select-control {
 	border: none;
 }
 
-.admin-selector .Select-menu-outer {
+.country-selector .is-focused > .Select-control,
+.country-selector .is-focused:not(.is-open) > .Select-control {
+	border: 1px solid #ccc;
+}
+
+.admin-selector .Select-menu-outer,
+.country-selector .Select-menu-outer {
+	position: absolute;
   	background-color: #fff;
   	border: none;
 	border-top: solid 1px #dddddd;
 	width: 100%;
 	box-shadow: 0 2px 10px rgba(0,0,0,0.42);
-
 }
 
 .Select-clear-zone:hover {
@@ -142,14 +186,14 @@ button {
 }
 
 .Select-option.is-selected {
-  background-color: #ec167e;
+  background-color: #e73827;
   color: #fff;
 }
+
 .Select-option.is-focused {
   background-color: #aaaaaa;
   color: #fff;
 }
-
 
 .nav-username {
 	position: fixed;
@@ -716,6 +760,7 @@ header.black {
 .album-manager {
 	position: absolute;
 	top:60px;
+	right: 0;
 	z-index: 5;
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
@@ -724,7 +769,6 @@ header.black {
 }
 
 .album-manager.artworks-manager {
-	right: 0;
 	background: #e0e0df;
 	width:	30vw;
 	box-shadow: -4px 0 2px -2px rgba(0,0,0,0.4);
@@ -735,13 +779,9 @@ header.black {
 .album-manager.submit {
 	background: #323232;
 	width:	25vw;
+	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
 	max-width: 400px;
 	min-width: 250px;
-	box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
-	transition: left 0.3s 0.3s;
-	-webkit-transition: left 0.3s;
-	-moz-transition: left 0.3s;
-	-ms-transition: left 0.3s;
 }
 
 .manager-opener {
@@ -1001,6 +1041,13 @@ header.black {
 	padding: 0px 5px 0px 10px;
 }
 
+.album-name.review.no-notification {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0;
+}
+
 .album.uploads .album-name {
 	cursor: default;
 }
@@ -1160,7 +1207,6 @@ header.black {
 .review-artwork-banner {
 	position: absolute;
 	top: 60px;
-	right: 0;
 	width: 60vw;
 	min-width: 250px;
 	background: #dddddc;
@@ -1293,7 +1339,7 @@ header.black {
 }
 
 #no-submit-info-icon {
-	animation: moveLeft 2s linear infinite;
+	animation: moveRight 2s linear infinite;
 }
 
 .no-submits {
@@ -1312,6 +1358,12 @@ header.black {
 	justify-content: center;
 	flex-direction: column;
 	overflow: hidden;
+}
+
+.status-info-wrapper .held-default-message {
+	margin-top: 15px;
+	color: #ec167e;
+	font-size: 0.8em;
 }
 
 /*========================================== */
@@ -3329,7 +3381,6 @@ login-button.left {
 	margin: 0;
 	padding: 0;
 	background: #ffffff;
-	overflow: hidden;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12),
 	0 1px 2px rgba(0,0,0,0.24);
 }
@@ -3341,7 +3392,6 @@ login-button.left {
     display: block;
     height: 50px;
 	width: 100%;
-    z-index: 8;
     cursor: pointer;
     background: #ffffff;
 	border-bottom: 1px solid rgba(0,0,0,0.12);
@@ -3361,6 +3411,30 @@ login-button.left {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
+}
+
+.edit-accordion .accordion-item#display-name-item {
+	z-index: 8;
+}
+
+.edit-accordion .accordion-item#avatar-item {
+	z-index: 7;
+}
+
+.edit-accordion .accordion-item#bio-item {
+	z-index: 6;
+}
+
+.edit-accordion .accordion-item#location-item {
+	z-index: 5;
+}
+
+.edit-accordion .accordion-item#portfolio-item {
+	z-index: 3;
+}
+
+.edit-accordion .accordion-item#social-media-item {
+	z-index: 2
 }
 
 .accordion-item.no-border-bottom {
@@ -3445,45 +3519,45 @@ login-button.left {
     transition: all 0.3s ease-in-out;
 }
 
-.edit-accordion #display-name-content,
-.edit-accordion #legal-name-content{
+.edit-accordion .accordion-content#display-name-content,
+.edit-accordion .accordion-content#legal-name-content {
 	z-index: 7;
 }
 
-.edit-accordion #avatar-content,
-.edit-accordion #email-content {
+.edit-accordion .accordion-content#avatar-content,
+.edit-accordion .accordion-content#email-content {
 	z-index: 6;
 }
-.edit-accordion #avatar-content .edit-avatar-no-avatar-icon {
+
+.edit-accordion .accordion-content#avatar-content .edit-avatar-no-avatar-icon {
 	width: 90px;
 }
 
-
-.edit-accordion #bio-content,
-.edit-accordion #email-verified-content {
+.edit-accordion .accordion-content#bio-content,
+.edit-accordion .accordion-content#email-verified-content {
 	z-index: 5;
 }
 
-.edit-accordion #location-content,
-.edit-accordion #password-content {
+.edit-accordion .accordion-content#location-content,
+.edit-accordion .accordion-content#password-content {
 	z-index: 4;
 }
 
-.edit-accordion #portfolio-content,
-.edit-accordion #paypal-content {
+.edit-accordion .accordion-content#paypal-content {
 	z-index: 3;
 }
 
-.edit-accordion #social-media-content,
-.edit-accordion #age-content {
+.edit-accordion .accordion-content#portfolio-content,
+.edit-accordion .accordion-content#age-content {
 	z-index: 2;
 }
 
-.edit-accordion #age-content {
+.edit-accordion .accordion-content#age-content {
 	text-align: center;
 }
 
-.edit-accordion #pronoun-content {
+.edit-accordion .accordion-content#social-media-content,
+.edit-accordion .accordion-content#pronoun-content {
 	z-index: 1;
 }
 
@@ -3783,7 +3857,8 @@ login-button.left {
 	height: 2.7em;
 }
 
-.accordion-content input:not([type='radio']) {
+.accordion-content > input:not([type='radio']),
+div#social-media-content input {
     background-color: #f4f6f7;
     border: 1.5px solid #d6d3ce;
     color: #000000;
@@ -3896,6 +3971,11 @@ label.age-confirm-label {
 	font-family: "Nexa" , "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.accordion-content > input#edit-location {
+	width: 200px;
+	margin-right: 10px;
+}
+
 /*========================================== */
 
 /* Artwork Detail Box */
@@ -3907,36 +3987,12 @@ label.age-confirm-label {
 }
 
 .artwork-preview.submitted {
-	width: 456px;
+	width: 65%;
 	height: 100%;
 	display: inline-block;
 	overflow: scroll;
-	padding: 30px;
-	background: #ffffff;
+	background: #111111;
 	vertical-align: top;
-}
-
-.artwork-image-wrapper {
-	display: flex;
-	border: 15px solid #000000;
-	box-shadow: 13px 10px 13px rgba(0,0,0,0.19),
-	0px 10px 10px rgba(0,0,0,0.19);
-	border-style: inset;
-	padding: 8%;
-	width: 396px;
-	height: 100%;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	-moz-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	-moz-justify-content: center;
-	justify-content: center;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
 }
 
 .artwork-image.submitted {
@@ -3950,12 +4006,13 @@ label.age-confirm-label {
 .artwork-info-wrapper {
 	display: inline-block;
 	overflow: scroll;
-	width: 392px;
+	width: 35%;
 	height: 100%;
-	background: #aaaaaa;
+	background: #dddddc;
 }
 
 .artwork-details {
+	background: #aaaaaa;
 	padding: 40px;
 }
 
@@ -4099,14 +4156,14 @@ label.age-confirm-label {
 }
 
 /* Standard syntax */
-@keyframes moveLeft {
-	25%   {transform: translateX(-30px);}
+@keyframes moveRight {
+	25%   {transform: translateX(30px);}
 	100%   {transform: translateX(0px);}
 }
 
 /* Chrome, Safari, Opera */
-@-webkit-keyframes moveLeft {
-	25%   {transform: translateX(-30px);}
+@-webkit-keyframes moveRight {
+	25%   {transform: translateX(30px);}
 	100%   {transform: translateX(0px);}
 }
 

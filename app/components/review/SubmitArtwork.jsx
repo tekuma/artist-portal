@@ -4,6 +4,8 @@ import ReactDOM                     from 'react-dom';
 import firebase                     from 'firebase';
 import uuid                         from 'uuid';
 import {Tooltip, OverlayTrigger}    from 'react-bootstrap';
+// Files
+import reviewStatus from '../../constants/reviewStatus';
 
 
 /**
@@ -63,7 +65,7 @@ export default class SubmitArtwork extends React.Component {
                         className="avatar-container" />
                 </div>
                 <h3
-                    className   ="album-name review"
+                    className   ={!this.props.submit.new_message && !this.props.submit.approved ? "album-name review no-notification": "album-name review"}
                     style={(window.innerWidth * 0.25 > 440) ? styleBlock: (window.innerWidth * 0.25 > 250) ? styleResponsive : styleFixed} >
                     {this.props.submit.artwork_name}
                 </h3>
@@ -73,7 +75,7 @@ export default class SubmitArtwork extends React.Component {
                                 null
                                 :
                                 <OverlayTrigger
-                                    placement   ="right"
+                                    placement   ="bottom"
                                     overlay     ={messageTooltip}>
                                     <img
                                         className   ="album-tool review"
@@ -85,7 +87,7 @@ export default class SubmitArtwork extends React.Component {
                                 null
                                 :
                                 <OverlayTrigger
-                                    placement   ="right"
+                                    placement   ="bottom"
                                     overlay     ={approvedTooltip}>
                                     <img
                                         className   ="album-tool review"
