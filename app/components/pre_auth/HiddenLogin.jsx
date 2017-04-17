@@ -65,7 +65,7 @@ export default class HiddenLogin extends React.Component {
                 </div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
+                        className="snackbar-error"
                         open={this.state.currentError.length > 0}
                         message={this.state.currentError}
                         autoHideDuration={4000} />

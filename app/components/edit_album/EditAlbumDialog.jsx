@@ -67,7 +67,7 @@ export default class EditAlbumDialog extends React.Component {
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className           ="registration-error"
+                        className           ="snackbar-error"
                         open                ={Object.keys(this.state.errorType).length > 0}
                         message             ={this.state.currentError}
                         autoHideDuration    ={4000} />

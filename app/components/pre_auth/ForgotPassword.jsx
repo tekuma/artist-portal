@@ -76,7 +76,7 @@ export default class ForgotPassword extends React.Component {
                     toggleForgotPassword   ={this.toggleLogin} />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
+                        className="snackbar-error"
                         open={this.state.errors.length > 0}
                         message={this.state.currentError}
                         autoHideDuration={4000} />

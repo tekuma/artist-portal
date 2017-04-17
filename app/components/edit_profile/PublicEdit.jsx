@@ -672,7 +672,7 @@ export default class PublicEdit extends React.Component {
                 </div>
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
+                        className="snackbar-error"
                         open={this.state.errors.length > 0}
                         message={this.state.currentError}
                         autoHideDuration={4000} />

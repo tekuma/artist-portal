@@ -121,7 +121,7 @@ export default class App extends React.Component {
                 />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className        ="registration-error"
+                        className        ="snackbar-error"
                         open             ={this.state.verifyEmailMessage.length > 0}
                         message          ={this.state.verifyEmailMessage}
                         autoHideDuration ={4000} />

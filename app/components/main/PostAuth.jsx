@@ -146,7 +146,7 @@ export default class PostAuth extends React.Component {
                     verifyEmailDialogIsOpen={this.state.verifyEmailDialogIsOpen} />
                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                     <Snackbar
-                        className="registration-error"
+                        className="snackbar-error"
                         open={this.state.currentError.length > 0}
                         message={this.state.currentError}
                         autoHideDuration={4000} />
