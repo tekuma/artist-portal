@@ -336,7 +336,7 @@ export default class PublicEdit extends React.Component {
 
         let city;
         if (this.props.user.location) {
-            let city = this.props.user.location.split(", ")[0]
+            city = this.props.user.location.split(", ")[0];
         }
 
         let options = this.state.countryList.map( (country)=>{
