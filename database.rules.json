@@ -8,7 +8,7 @@
         ".read" : "auth.uid != null",
         "onboarders" :{
             "$thisUID" :{
-                ".write" : " auth.uid === $thisUID || 
+                ".write" : " auth.uid === $thisUID ||
               	auth.uid === 'cacxZwqfArVzrUXD5tn1t24OlJJ2' ||
                 auth.uid === 'CdiKWlg8fKUaMxbP6XRBmSdIij62' ||
                 auth.uid === 'JZ2H4oD34vaTwHanNVPxKKHy3ZQ2' ",

@@ -48,6 +48,22 @@ export default class SubmitArtwork extends React.Component {
             </Tooltip>
         );
 
+        const heldTooltip = (
+            <Tooltip
+                id="held-tooltip"
+                className="tooltip">
+                Artwork Held
+            </Tooltip>
+        );
+
+        const declinedTooltip = (
+            <Tooltip
+                id="declined-tooltip"
+                className="tooltip">
+                Artwork Declined
+            </Tooltip>
+        );
+
         const removeTooltip = (
             <Tooltip
                 id="remove-tooltip"
@@ -100,7 +116,7 @@ export default class SubmitArtwork extends React.Component {
                                 :
                                 <OverlayTrigger
                                     placement   ="bottom"
-                                    overlay     ={approvedTooltip}>
+                                    overlay     ={declinedTooltip}>
                                     <img
                                         className   ="album-tool review"
                                         src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "assets/images/icons/declined-white.svg" : "assets/images/icons/declined-pink.svg"}
@@ -112,7 +128,7 @@ export default class SubmitArtwork extends React.Component {
                                 :
                                 <OverlayTrigger
                                     placement   ="bottom"
-                                    overlay     ={approvedTooltip}>
+                                    overlay     ={heldTooltip}>
                                     <img
                                         className   ="album-tool review"
                                         src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "assets/images/icons/held-white.svg" : "assets/images/icons/held-pink.svg"}

@@ -1361,7 +1361,8 @@ header.black {
 }
 
 .status-info-wrapper .held-default-message {
-	margin-top: 15px;
+	margin-top: 10px;
+	padding-top: 10px;
 	color: #ec167e;
 	font-size: 0.8em;
 }
