@@ -103,6 +103,18 @@ export default class SubmitArtworkInfo extends React.Component {
             approved = new Date(submit.approved).toDateString();
         }
 
+        // String for held representation
+        let held = "";
+        if (submit.held) {
+            held = new Date(submit.held).toDateString();
+        }
+
+        // String for declined representation
+        let declined = "";
+        if (submit.declined) {
+            declined = new Date(submit.declined).toDateString();
+        }
+
         return (
                 <section
                     className="review-artwork-banner"
@@ -168,6 +180,30 @@ export default class SubmitArtworkInfo extends React.Component {
                                 </h3>
                                 <div className="status-info-wrapper center">
                                     <p>{approved}</p>
+                                </div>
+                            </div>
+                            :
+                            null
+                        }
+                        {submit.declined ?
+                            <div className="status-wrapper">
+                                <h3 className="status-heading">
+                                    Date Declined
+                                </h3>
+                                <div className="status-info-wrapper center">
+                                    <p>{declined}</p>
+                                </div>
+                            </div>
+                            :
+                            null
+                        }
+                        {submit.held ?
+                            <div className="status-wrapper">
+                                <h3 className="status-heading">
+                                    Date Held
+                                </h3>
+                                <div className="status-info-wrapper center">
+                                    <p>{held}</p>
                                 </div>
                             </div>
                             :

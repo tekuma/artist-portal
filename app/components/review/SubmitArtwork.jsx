@@ -95,6 +95,30 @@ export default class SubmitArtwork extends React.Component {
                                     />
                             </OverlayTrigger>
                             }
+                            {!this.props.submit.declined ?
+                                null
+                                :
+                                <OverlayTrigger
+                                    placement   ="bottom"
+                                    overlay     ={approvedTooltip}>
+                                    <img
+                                        className   ="album-tool review"
+                                        src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "assets/images/icons/declined-white.svg" : "assets/images/icons/declined-pink.svg"}
+                                    />
+                            </OverlayTrigger>
+                            }
+                            {!this.props.submit.held ?
+                                null
+                                :
+                                <OverlayTrigger
+                                    placement   ="bottom"
+                                    overlay     ={approvedTooltip}>
+                                    <img
+                                        className   ="album-tool review"
+                                        src         ={(this.props.submitArtwork === this.props.submit.artwork_uid) ? "assets/images/icons/held-white.svg" : "assets/images/icons/held-pink.svg"}
+                                    />
+                            </OverlayTrigger>
+                            }
                         </div>
                 </div>
             </li>
